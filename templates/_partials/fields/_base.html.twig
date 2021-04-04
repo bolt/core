@@ -28,8 +28,10 @@
     {% set required = (field.definition.required|default) ? true : false %}
 {% endif %}
 
-{# Set readonly #}
-{% set readonly = (field.definition.readonly|default) ? true : false %}
+{# Set readonly based on field definition if not set already #}
+{% if readonly is not defined %}
+    {% set readonly = (field.definition.readonly|default) ? true : false %}
+{% endif %}
 
 {# Set error validation message #}
 {% set errormessage = field.definition.get('error')|default(false) %}
@@ -37,11 +39,16 @@
 {# Set pattern #}
 {% set pattern = field.definition.get('pattern')|default(false) %}
 
+{# Set maxlength #}
+{% set maxlength = field.definition.get('maxlength')|default('') %}
+
 {% set type_collection = (type in ['collection']) %}
-{% set type_set = (type in ['imagelist', 'filelist', 'set']) %}
+{% set type_card = (type in ['imagelist', 'filelist', 'set']) %}
 
 {# Set variant #}
-{% set variant = field.definition.variant|default('normal') %}
+{% if not variant|default %}
+    {% set variant = field.definition.variant|default('normal') %}
+{% endif %}
 
 {# Set the name #}
 {% if not name|default %}
@@ -65,6 +72,11 @@
 {# Set the form #}
 {% if not form|default %}
     {% set form = 'editcontent' %}
+{% endif %}
+
+{# Do not fallback to a default value in the Editor. #}
+{% if field is defined %}
+    {% do field.setUseDefaultLocale(false)%}
 {% endif %}
 
 {# Set the value #}
@@ -123,7 +135,7 @@
 
 <!-- field "{{ label }}" (type: {{ type }}{% if variant != 'normal' %}, variant: {{ variant }}{% endif %}) -->
 <div
-    class="form-group {{ type_set ? 'form-set' }} {{ type_collection ? 'form-collection' }} is-{{ variant }}"
+    class="form-group {{ type_card ? 'form-card' }} {{ type_collection ? 'form-collection' }} {{ in_compound|default ? 'in-compound'}} is-{{ variant }}"
     id="field-{{ type }}-{{ field.name|default('unnamed') }}"
 >
 

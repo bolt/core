@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Entity;
 
-trait ListFieldTrait
+trait IterableFieldTrait
 {
     private $iteratorCursor = 0;
 
@@ -29,7 +29,10 @@ trait ListFieldTrait
         return $this->count();
     }
 
-    public function current(): Field
+    /**
+     * @return Field|string
+     */
+    public function current()
     {
         return $this->fields[$this->iteratorCursor];
     }

@@ -67,7 +67,7 @@ class GeneralParser extends BaseParser
             'sitename' => 'Default Bolt site',
             'records_per_page' => 10,
             'records_on_dashboard' => 5,
-            'theme' => 'base-2019',
+            'theme' => 'base-2020',
             'listing_template' => 'listing.html.twig',
             'listing_records' => '5',
             'listing_sort' => 'datepublish DESC',
@@ -98,7 +98,18 @@ class GeneralParser extends BaseParser
             'maintenance' => 'helpers/page_503.html.twig',
             'forbidden' => 'helpers/page_403.html.twig',
             'internal_server_error' => 'helpers/page_500.html.twig',
+            'localization' => [
+                'fallback_when_missing' => true,
+                'remove_default_locale_on_canonical' => true,
+            ],
             'omit_backgrounds' => false,
+            'omit_powered_by_header' => false,
+            'omit_meta_generator_tag' => false,
+            'user_avatar' => [
+                'upload_path' => 'avatars',
+                'extensions_allowed' => ['png', 'jpeg', 'jpg', 'gif'],
+                'default_avatar' => '',
+            ],
         ];
     }
 }

@@ -24,6 +24,11 @@
             <i class="fas fa-w fa-external-link-square-alt"></i>
             {{ 'files_cards.action_view_original'|trans }}
         </a>
+
+        <span class="dropdown-item" style="cursor: pointer;" data-copy-to-clipboard="{{ url('homepage') ~ original|replace({'/files': 'files'}) }}">
+            <i class="fas fa-clipboard-check"></i> {{ 'files_cards.copy_to_clipboard'|trans }}
+        </span>
+
         <a class="dropdown-item"
            href="{{ path('bolt_file_duplicate',
                {'location': location.key|default('files'), 'path': path ~ file.getRelativePathname, '_csrf_token': csrf_token('file-duplicate')}) }}">

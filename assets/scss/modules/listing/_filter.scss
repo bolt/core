@@ -8,6 +8,7 @@
   padding: 0.5rem 0 0.5rem 0;
   border-radius: $border-radius;
   overflow: hidden;
+  margin-right: -0.15rem;
 
   &:last-of-type {
     margin-bottom: $spacer;
@@ -26,7 +27,7 @@
       margin-right: $spacer / 3;
 
       &:last-child {
-        margin-right: 0;
+        margin-right: 0.15rem;
       }
 
       &.control--left {
@@ -70,7 +71,7 @@
       }
 
       &:focus {
-        outline: none;
+        outline: solid 0.15rem;
         box-shadow: $input-btn-focus-box-shadow;
       }
 

@@ -178,12 +178,16 @@ class SelectQuery implements QueryInterface
     {
         // Change all params to lowercase, filter out empty ones
         $this->params = array_filter(
-            Arr::mapRecursive($params, function ($a) {
-                return mb_strtolower((string) $a, 'utf-8');
+            Arr::mapRecursive($params, function ($param) {
+                if (is_bool($param)) {
+                    return $param;
+                }
+
+                return mb_strtolower((string) $param, 'utf-8');
             }
-        ), function ($a) {
+        ), function ($param) {
             // ignore parameter if like statement is empty
-            return $a !== '%%';
+            return $param !== '%%';
         });
 
         $this->processFilters();
@@ -529,7 +533,11 @@ class SelectQuery implements QueryInterface
     {
         $this->taxonomyJoins[$filter->getKey()] = $filter;
 
-        return sprintf('taxonomies_%s.slug = :%s', $filter->getKey(), key($filter->getParameters()));
+        $originalExpression = $filter->getExpression();
+        $originalLeftExpression = '/content\.([^\s])*/';
+        $newLeftExpression = sprintf('taxonomies_%s.slug', $filter->getKey());
+
+        return preg_replace($originalLeftExpression, $newLeftExpression, $originalExpression);
     }
 
     private function getRegularFieldExpression(Filter $filter, EntityManagerInterface $em): string

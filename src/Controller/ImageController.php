@@ -62,7 +62,7 @@ class ImageController
 
     private function getLocation(): string
     {
-        return isset($this->parameters['location']) ? $this->parameters['location'] : $this->request->query->get('location', 'files');
+        return $this->parameters['location'] ?? $this->request->query->get('location', 'files');
     }
 
     private function getPath(?string $path = null, bool $absolute = true, $additional = null): string

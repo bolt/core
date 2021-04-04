@@ -42,10 +42,14 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
 
     public function __construct(Config $config, FileLocations $fileLocations, string $defaultLocale)
     {
+        $this->config = $config;
         $this->faker = Factory::create();
+        $seed = $this->config->get('general/fixtures_seed');
+        if (! empty($seed)) {
+            $this->faker->seed($seed);
+        }
 
         $this->presetRecords = $this->getPresetRecords();
-        $this->config = $config;
         $this->fileLocations = $fileLocations;
         $this->defaultLocale = $defaultLocale;
     }
@@ -181,6 +185,9 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
 
         $field = FieldRepository::factory($fieldType, $name);
 
+        // Make sure to create the fixture in the correct default locale.
+        $field->setLocale($this->defaultLocale);
+
         if (isset($preset[$name])) {
             $field->setValue($preset[$name]);
         } else {
@@ -275,7 +282,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
             case 'image':
                 $randomImage = $this->imagesIndex->random();
                 $data = [
-                    'filename' => $randomImage->getRelativePathname(),
+                    'filename' => str_replace('\\', '/', $randomImage->getRelativePathname()),
                     'alt' => $this->faker->sentence(4, true),
                     'media' => '',
                 ];
@@ -284,7 +291,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
             case 'file':
                 $randomImage = $this->imagesIndex->random();
                 $data = [
-                    'filename' => $randomImage->getRelativePathname(),
+                    'filename' => str_replace('\\', '/', $randomImage->getRelativePathname()),
                     'title' => $this->faker->sentence(4, true),
                     'media' => '',
                 ];
@@ -392,8 +399,12 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
             'slug' => 'call-to-action',
         ];
         $records['blocks'][] = [
-            'title' => 'Hero Section',
+            'title' => 'Welcome to your new site',
             'slug' => 'hero-section',
+            'teaser' => 'Take a look around, this is Bolt\'s default 2021 theme. To edit your site\'s content,'
+                . ' go to /bolt and login with your username and password.'
+                . ' Documentation, examples and support are available on the official Bolt website (boltcms.io).'
+                . ' Happy building 👩🏾‍💻 🧑‍🎨',
         ];
         $records['blocks'][] = [
             'title' => 'Introduction',

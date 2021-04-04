@@ -1,0 +1,13 @@
+.form-card:not(.in-compound) {
+  @extend .card;
+
+  background: var(--background);
+
+  & > label {
+    @extend .card-header;
+  }
+
+  & > label + div {
+    @extend .card-body;
+  }
+}

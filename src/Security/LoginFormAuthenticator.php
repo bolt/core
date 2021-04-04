@@ -15,7 +15,9 @@ use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
+use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
@@ -43,36 +45,42 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     /** @var EntityManagerInterface */
     private $em;
 
+    /** @var Security */
+    private $security;
+
     public function __construct(
         UserRepository $userRepository,
         RouterInterface $router,
         CsrfTokenManagerInterface $csrfTokenManager,
         UserPasswordEncoderInterface $passwordEncoder,
-        EntityManagerInterface $em
+        EntityManagerInterface $em,
+        Security $security
     ) {
         $this->userRepository = $userRepository;
         $this->router = $router;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->passwordEncoder = $passwordEncoder;
         $this->em = $em;
+        $this->security = $security;
     }
 
-    protected function getLoginUrl()
+    protected function getLoginUrl(): string
     {
         return $this->router->generate('bolt_login');
     }
 
-    public function supports(Request $request)
+    public function supports(Request $request): bool
     {
         return $request->attributes->get('_route') === 'bolt_login' && $request->isMethod('POST');
     }
 
-    public function getCredentials(Request $request)
+    public function getCredentials(Request $request): array
     {
+        $login_form = $request->request->get('login');
         $credentials = [
-            'username' => $request->request->get('username'),
-            'password' => $request->request->get('password'),
-            'csrf_token' => $request->request->get('_csrf_token'),
+            'username' => $login_form['username'],
+            'password' => $login_form['password'],
+            'csrf_token' => $login_form['_token'],
         ];
 
         $request->getSession()->set(
@@ -85,7 +93,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
     public function getUser($credentials, UserProviderInterface $userProvider): ?UserInterface
     {
-        $token = new CsrfToken('authenticate', $credentials['csrf_token']);
+        $token = new CsrfToken('login_csrf_token', $credentials['csrf_token']);
 
         if (! $this->csrfTokenManager->isTokenValid($token)) {
             throw new InvalidCsrfTokenException();
@@ -94,12 +102,12 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         return $this->userRepository->findOneByCredentials($credentials['username']);
     }
 
-    public function checkCredentials($credentials, UserInterface $user)
+    public function checkCredentials($credentials, UserInterface $user): bool
     {
         return empty($credentials['password']) ? false : $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
     }
 
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey): ?RedirectResponse
     {
         $user = $token->getUser();
 
@@ -131,7 +139,14 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         ];
         $this->logger->notice('User \'{username}\' logged in (manually)', $userArr);
 
-        $fallback = $request->get('_target_path', $this->router->generate('bolt_dashboard'));
+        // @todo: Allow different roles to redirect to different pages on success.
+        if ($request->get('_target_path', false)) {
+            $fallback = $request->get('_target_path');
+        } elseif ($this->security->isGranted('dashboard')) {
+            $fallback = $this->router->generate('bolt_dashboard');
+        } else {
+            $fallback = $this->router->generate('homepage');
+        }
 
         return new RedirectResponse($request->getSession()->get(
             '_security.' . $providerKey . '.target_path',
@@ -139,8 +154,13 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         ));
     }
 
-    public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
+    public function onAuthenticationFailure(Request $request, AuthenticationException $exception): RedirectResponse
     {
+        // Don't reveal a UsernameNotFound exception.
+        if ($exception instanceof UsernameNotFoundException) {
+            $exception = new BadCredentialsException();
+        }
+
         parent::onAuthenticationFailure($request, $exception);
 
         // Redirect back to where we came from

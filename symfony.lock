@@ -70,6 +70,12 @@
     "bobdenotter/weatherwidget": {
         "version": "1.1.1"
     },
+    "bobdenotter/yaml-migrations": {
+        "version": "dev-main"
+    },
+    "bolt/binary-chromedriver": {
+        "version": "dev-master"
+    },
     "bolt/common": {
         "version": "2.1.5"
     },
@@ -96,6 +102,9 @@
     },
     "composer/composer": {
         "version": "1.9.3"
+    },
+    "composer/package-versions-deprecated": {
+        "version": "1.11.99"
     },
     "composer/semver": {
         "version": "1.5.1"
@@ -176,16 +185,16 @@
         ]
     },
     "doctrine/doctrine-migrations-bundle": {
-        "version": "1.2",
+        "version": "2.2",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "master",
-            "version": "1.2",
-            "ref": "c1431086fec31f17fbcfe6d6d7e92059458facc1"
+            "version": "2.2",
+            "ref": "baaa439e3e3179e69e3da84b671f0a3e4a2f56ad"
         },
         "files": [
             "config/packages/doctrine_migrations.yaml",
-            "src/Migrations/.gitignore"
+            "migrations/.gitignore"
         ]
     },
     "doctrine/event-manager": {
@@ -201,7 +210,7 @@
         "version": "1.2.0"
     },
     "doctrine/migrations": {
-        "version": "2.2.1"
+        "version": "3.0.1"
     },
     "doctrine/orm": {
         "version": "v2.7.1"
@@ -232,6 +241,9 @@
     },
     "fabpot/goutte": {
         "version": "v3.3.0"
+    },
+    "fakerphp/faker": {
+        "version": "v1.10.1"
     },
     "fig/link-util": {
         "version": "1.1.0"
@@ -275,8 +287,8 @@
             ".php_cs.dist"
         ]
     },
-    "fzaninotto/faker": {
-        "version": "v1.9.1"
+    "friendsofphp/proxy-manager-lts": {
+        "version": "v1.0.3"
     },
     "guzzlehttp/guzzle": {
         "version": "6.5.2"
@@ -302,6 +314,9 @@
     "justinrainbow/json-schema": {
         "version": "5.2.9"
     },
+    "kevinlebrun/colors.php": {
+        "version": "0.4.1"
+    },
     "knplabs/doctrine-behaviors": {
         "version": "v2.0.1"
     },
@@ -314,6 +329,21 @@
     "lakion/mink-debug-extension": {
         "version": "v1.2.3"
     },
+    "laminas/laminas-code": {
+        "version": "3.4.1"
+    },
+    "laminas/laminas-eventmanager": {
+        "version": "3.2.1"
+    },
+    "laminas/laminas-zendframework-bridge": {
+        "version": "1.1.1"
+    },
+    "lanfest/binary-chromedriver": {
+        "version": "6.0.2"
+    },
+    "lanfest/webdriver-binary-downloader": {
+        "version": "3.0.1"
+    },
     "league/flysystem": {
         "version": "1.0.64"
     },
@@ -323,6 +353,9 @@
     "league/glide-symfony": {
         "version": "1.0.3"
     },
+    "league/mime-type-detection": {
+        "version": "1.5.0"
+    },
     "miljar/php-exif": {
         "version": "v0.6.5"
     },
@@ -331,6 +364,12 @@
     },
     "myclabs/deep-copy": {
         "version": "1.9.5"
+    },
+    "nategood/commando": {
+        "version": "0.4.0"
+    },
+    "nelexa/zip": {
+        "version": "3.3.3"
     },
     "nelmio/cors-bundle": {
         "version": "1.5",
@@ -392,14 +431,11 @@
     "ondram/ci-detector": {
         "version": "3.5.1"
     },
-    "openlss/lib-array2xml": {
-        "version": "1.0.0"
-    },
     "pagerfanta/pagerfanta": {
         "version": "v2.3.0"
     },
     "paragonie/random_compat": {
-        "version": "v9.99.99"
+        "version": "v9.99.100"
     },
     "peterkahl/country-code-to-emoji-flag": {
         "version": "v1.2"
@@ -411,7 +447,7 @@
         "version": "2.0.1"
     },
     "php": {
-        "version": "7.4"
+        "version": "7.2"
     },
     "php-cs-fixer/diff": {
         "version": "v1.3.0"
@@ -592,6 +628,9 @@
     "ramsey/uuid": {
         "version": "3.9.3"
     },
+    "react/promise": {
+        "version": "v2.8.0"
+    },
     "roave/security-advisories": {
         "version": "dev-master"
     },
@@ -630,6 +669,9 @@
     },
     "sebastian/resource-operations": {
         "version": "2.0.1"
+    },
+    "sebastian/type": {
+        "version": "1.1.4"
     },
     "sebastian/version": {
         "version": "2.0.1"
@@ -1053,6 +1095,18 @@
     "symfony/yaml": {
         "version": "v4.4.4"
     },
+    "symfonycasts/reset-password-bundle": {
+        "version": "1.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "1.0",
+            "ref": "97c1627c0384534997ae1047b93be517ca16de43"
+        },
+        "files": [
+            "config/packages/reset_password.yaml"
+        ]
+    },
     "symplify/auto-bind-parameter": {
         "version": "v7.2.2"
     },
@@ -1077,6 +1131,9 @@
     "symplify/smart-file-system": {
         "version": "v7.2.2"
     },
+    "symplify/symplify-kernel": {
+        "version": "8.3.28"
+    },
     "theseer/tokenizer": {
         "version": "1.1.3"
     },
@@ -1088,12 +1145,6 @@
     },
     "ua-parser/uap-php": {
         "version": "v3.9.7"
-    },
-    "vaimo/binary-chromedriver": {
-        "version": "5.0.3"
-    },
-    "vaimo/webdriver-binary-downloader": {
-        "version": "2.2.4"
     },
     "webimpress/safe-writer": {
         "version": "2.0.0"
@@ -1112,11 +1163,5 @@
     },
     "xemlock/htmlpurifier-html5": {
         "version": "v0.1.11"
-    },
-    "zendframework/zend-code": {
-        "version": "3.4.1"
-    },
-    "zendframework/zend-eventmanager": {
-        "version": "3.2.1"
     }
 }

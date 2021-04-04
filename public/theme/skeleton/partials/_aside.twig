@@ -1,21 +1,19 @@
 <!-- Sidebar -->
 <aside>
 
-    <hr>
-
+    {# Show if there are widgets in the 'aside_top' widgets slot. #}
     {{ widgets('aside_top') }}
 
-    {# This part is only shown if there are no widgets in the 'aside_top' widgets slot. #}
-    <div>
+    <hr>
         {# The next section attempts to fill the panel in the sidebar with the contents of the
             'about'-block, if it exists. First, attempt to fetch the block by its slug #}
         {% setcontent block = "block/about" %}
 
-        {# check if we have a title. If so, we know we have content to display. Otherwise, we will
+        {# check if we have a block. If so, we know we have content to display. Otherwise, we will
             output a default text, telling the user to create the 'blocks' in the backend. #}
         {% if block %}
 
-            <h5>{{ block.title }}</h5>
+            <h5>{{ block|title }}</h5>
             <p>{{ block.content|default(block|excerpt) }}</p>
 
             {% set edit_link = block|edit_link %}

@@ -1,0 +1,28 @@
+name: Unit Tests Checks
+
+on:
+    pull_request:
+
+jobs:
+    unittests:
+        strategy:
+            matrix:
+                php-version: [ '7.2', '8.0' ]
+        name: PHPUnit 
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - uses: shivammathur/setup-php@v2
+              with:
+                # test the lowest version, to make sure checks pass on it
+                php-version: ${{ matrix.php-version }}
+                extensions: json, mbstring, pdo, curl, pdo_sqlite
+                coverage: none
+            - name: Initialise
+              run: |
+                  sudo composer self-update -q	
+            - name: Install dependencies
+              run: |
+                  sudo COMPOSER_MEMORY_LIMIT=-1 COMPOSER_PROCESS_TIMEOUT=60 composer update --prefer-dist --no-progress	
+            - name: run PHP Unit
+              run: ./vendor/bin/phpunit

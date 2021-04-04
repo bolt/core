@@ -33,6 +33,13 @@ h2 code {
 
 code {
   background-color: rgba(0, 0, 0, 0.075);
+  padding: 2px;
+  border-radius: 3px;
+
+  &,
+  & a {
+    color: $code;
+  }
 }
 
 small {
@@ -57,7 +64,7 @@ small {
     margin-bottom: 1rem;
   }
 
-  a:not(.btn) {
+  a:not(.btn):not(.dropdown-item):not(.badge) {
     text-decoration: underline;
   }
 }
@@ -79,4 +86,10 @@ input.flatpickr-input[disabled] {
 
 input::placeholder {
   font-style: italic;
+}
+
+.field-error {
+  color: $danger;
+  margin-top: -1.5rem;
+  margin-bottom: 2rem;
 }

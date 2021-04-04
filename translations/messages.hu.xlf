@@ -769,7 +769,7 @@
       </trans-unit>
       <trans-unit id="pcq1NGk" resname="listing_filter.button_compact">
         <source>listing_filter.button_compact</source>
-        <target>Összezár</target>
+        <target>Becsuk</target>
       </trans-unit>
       <trans-unit id="xIztVmp" resname="listing_filter.button_expanded">
         <source>listing_filter.button_expanded</source>
@@ -1095,14 +1095,6 @@
         <source>controller.user.subtitle</source>
         <target>Felhasználók és engedélyeik szerkesztése</target>
       </trans-unit>
-      <trans-unit id="rkVeKe_" resname="controller.authentication.reset_title">
-        <source>controller.authentication.reset_title</source>
-        <target>Jelszó visszaállítása</target>
-      </trans-unit>
-      <trans-unit id="lN_rF8O" resname="controller.authentication.reset_subtitle">
-        <source>controller.authentication.reset_subtitle</source>
-        <target>Jelszó visszaállítása amennyiben elfelejtetted</target>
-      </trans-unit>
       <trans-unit id="0Gyf5xr" resname="controller.database.check_title">
         <source>controller.database.check_title</source>
         <target>Adatbázis ellenőrzése</target>
@@ -1162,6 +1154,230 @@
       <trans-unit id="HjWW.NS" resname="user.not_valid_password">
         <source>user.not_valid_password</source>
         <target>Érvénytelen jelszó</target>
+      </trans-unit>
+      <trans-unit id="rCKtTo5" resname="caption.redirection_page">
+        <source>caption.redirection_page</source>
+        <target>Átirányítási oldal</target>
+      </trans-unit>
+      <trans-unit id="QVRwwK4" resname="about.system_info">
+        <source>about.system_info</source>
+        <target>Rendszer információ</target>
+      </trans-unit>
+      <trans-unit id="munFS0n" resname="title.filtered_by">
+        <source>title.filtered_by</source>
+        <target><![CDATA[A <em>'%szűrő%'-vel szűrt tartalom</em>.]]></target>
+      </trans-unit>
+      <trans-unit id="hgNZLwW" resname="extensions.title_configuration">
+        <source>extensions.title_configuration</source>
+        <target>Konfigurációs fájl</target>
+      </trans-unit>
+      <trans-unit id="LfwezhR" resname="extensions.title_dependencies">
+        <source>extensions.title_dependencies</source>
+        <target>Függőségek</target>
+      </trans-unit>
+      <trans-unit id="60xy4WG" resname="extensions.no_dependencies">
+        <source>extensions.no_dependencies</source>
+        <target>Nincsenek ismert függőségek</target>
+      </trans-unit>
+      <trans-unit id="2MtT_h0" resname="caption.logviewer">
+        <source>caption.logviewer</source>
+        <target>Napló</target>
+      </trans-unit>
+      <trans-unit id="BFARQEU" resname="extensions.button_detailed_view">
+        <source>extensions.button_detailed_view</source>
+        <target>Részletek</target>
+      </trans-unit>
+      <trans-unit id="YZJO3Ul" resname="upload.allow_file_types">
+        <source>upload.allow_file_types</source>
+        <target>Feltöltéshez engedélyezett fájlok</target>
+      </trans-unit>
+      <trans-unit id="noOf4ML" resname="upload.max_size">
+        <source>upload.max_size</source>
+        <target>Feltölthető méret</target>
+      </trans-unit>
+      <trans-unit id="FqVh1Hv" resname="image.button_remove">
+        <source>image.button_remove</source>
+        <target>Eltávolítás</target>
+      </trans-unit>
+      <trans-unit id="eHV6ZJB" resname="image.button_edit_attributes">
+        <source>image.button_edit_attributes</source>
+        <target>Attributumok szerkesztése</target>
+      </trans-unit>
+      <trans-unit id="ApPu4P_" resname="collection.move_item_up">
+        <source>collection.move_item_up</source>
+        <target>Mozgatás felfelé</target>
+      </trans-unit>
+      <trans-unit id="KzBtfHi" resname="collection.move_item_down">
+        <source>collection.move_item_down</source>
+        <target>Mozgatás lefelé</target>
+      </trans-unit>
+      <trans-unit id="JpJFIFq" resname="collection.confirm_delete">
+        <source>collection.confirm_delete</source>
+        <target>Biztos hogy törölni kívánod ezt az tételt?</target>
+      </trans-unit>
+      <trans-unit id=".t1ICS7" resname="collection.remove_item">
+        <source>collection.remove_item</source>
+        <target>Tétel eltávolítása</target>
+      </trans-unit>
+      <trans-unit id="0C9.Vmh" resname="collection.add_item">
+        <source>collection.add_item</source>
+        <target>Tétel hozzáadása</target>
+      </trans-unit>
+      <trans-unit id="H9knE.O" resname="collection.expand_all">
+        <source>collection.expand_all</source>
+        <target>Összes kibontása</target>
+      </trans-unit>
+      <trans-unit id="JjvI6hp" resname="collection.collapse_all">
+        <source>collection.collapse_all</source>
+        <target>Összes becsukása</target>
+      </trans-unit>
+      <trans-unit id="RBJ0NMl" resname="collection.select">
+        <source>collection.select</source>
+        <target>Kijelölés…</target>
+      </trans-unit>
+      <trans-unit id="7aSD0Qr" resname="image.button_up">
+        <source>image.button_up</source>
+        <target>Fel</target>
+      </trans-unit>
+      <trans-unit id="WihD8Y5" resname="image.button_down">
+        <source>image.button_down</source>
+        <target>Le</target>
+      </trans-unit>
+      <trans-unit id="8Q4FxVw" resname="file.add_new_file">
+        <source>file.add_new_file</source>
+        <target>Új fájl hozzáadás</target>
+      </trans-unit>
+      <trans-unit id="XQ2U6fN" resname="slug.button_unlocked">
+        <source>slug.button_unlocked</source>
+        <target>Feloldva</target>
+      </trans-unit>
+      <trans-unit id="Oj2UZ5J" resname="image.add_new_image">
+        <source>image.add_new_image</source>
+        <target>Új kép hozzáadása</target>
+      </trans-unit>
+      <trans-unit id="283aB_E" resname="caption.file_upload.upload_text">
+        <source>caption.file_upload.upload_text</source>
+        <target>Húzd ide a feltölteni kívánt fájlt</target>
+      </trans-unit>
+      <trans-unit id="wHPoBzP" resname="file.delete_confirm">
+        <source>file.delete_confirm</source>
+        <target>Biztos törölni szeretnéd ezt a fájlt?</target>
+      </trans-unit>
+      <trans-unit id="z_tOHwq" resname="placeholder.username_or_email">
+        <source>placeholder.username_or_email</source>
+        <target>felhasználónév vagy email</target>
+      </trans-unit>
+      <trans-unit id="xgYhRkc" resname="placeholder.password">
+        <source>placeholder.password</source>
+        <target>jelszó</target>
+      </trans-unit>
+      <trans-unit id="SGlj7K2" resname="view_locales.badge_empty">
+        <source>view_locales.badge_empty</source>
+        <target>Üres</target>
+      </trans-unit>
+      <trans-unit id="pXtciRI" resname="content.edit_missing_definition">
+        <source>content.edit_missing_definition</source>
+        <target>A Tartalom Típus definíciója hiányzik! A rekordot nem lehet majd megfelelően szerkeszteni. Kérlek ellenőrizd a contenttypes.yaml fájlt, hogy az tartalmazza-e a %contenttype%-t!</target>
+      </trans-unit>
+      <trans-unit id="JEnqOi." resname="title.primary_actions">
+        <source>title.primary_actions</source>
+        <target>Elsődleges műveletek</target>
+      </trans-unit>
+      <trans-unit id="7616Os4" resname="title.options">
+        <source>title.options</source>
+        <target>Opciók</target>
+      </trans-unit>
+      <trans-unit id="6Gw1lsE" resname="action.confirm_delete">
+        <source>action.confirm_delete</source>
+        <target>Biztos törölni kívánod ezt a tartalmat?</target>
+      </trans-unit>
+      <trans-unit id="hTKWQ6g" resname="action.delete">
+        <source>action.delete</source>
+        <target>Törlés</target>
+      </trans-unit>
+      <trans-unit id="WeJxw6Z" resname="action.update_all">
+        <source>action.update_all</source>
+        <target>Alkalmazás mindre</target>
+      </trans-unit>
+      <trans-unit id="hp554Ds" resname="listing.option_select_sortby">
+        <source>listing.option_select_sortby</source>
+        <target>Rendezés mezőre…</target>
+      </trans-unit>
+      <trans-unit id="IWbf2by" resname="listing.title_filterby">
+        <source>listing.title_filterby</source>
+        <target>Keresés / szűrés</target>
+      </trans-unit>
+      <trans-unit id="n.3JZvX" resname="title.contentType">
+        <source>title.contentType</source>
+        <target>Tartalomtípus</target>
+      </trans-unit>
+      <trans-unit id="Dgtkgju" resname="title.edit_user_profile">
+        <source>title.edit_user_profile</source>
+        <target>Profil szerkesztés</target>
+      </trans-unit>
+      <trans-unit id="Npkio79" resname="listing.title_session_expires">
+        <source>listing.title_session_expires</source>
+        <target>A munkafolyamat lejár</target>
+      </trans-unit>
+      <trans-unit id="mmUDcto" resname="listing.title_ip_address">
+        <source>listing.title_ip_address</source>
+        <target>IP cím</target>
+      </trans-unit>
+      <trans-unit id="x9qAwrz" resname="listing.title_browser">
+        <source>listing.title_browser</source>
+        <target>Böngésző / platform</target>
+      </trans-unit>
+      <trans-unit id="AMxTho9" resname="pager.previous">
+        <source>pager.previous</source>
+        <target>Előző</target>
+      </trans-unit>
+      <trans-unit id="L_YQKUn" resname="pager.next">
+        <source>pager.next</source>
+        <target>Következő</target>
+      </trans-unit>
+      <trans-unit id="O_m7mx1" resname="listing.placeholder_search">
+        <source>listing.placeholder_search</source>
+        <target>Kulcsszó keresése…</target>
+      </trans-unit>
+      <trans-unit id="f.rvF6y" resname="action.new">
+        <source>action.new</source>
+        <target>Új</target>
+      </trans-unit>
+      <trans-unit id="TtIlBDd" resname="caption.edit_image">
+        <source>caption.edit_image</source>
+        <target>Kép szerkesztése</target>
+      </trans-unit>
+      <trans-unit id="fLOd6Zd" resname="field.cropX">
+        <source>field.cropX</source>
+        <target>Kivágás (X)</target>
+      </trans-unit>
+      <trans-unit id="Sd_AbmV" resname="field.cropXPostfix">
+        <source>field.cropXPostfix</source>
+        <target>A kivágás pozíciója X tengelyen (0-100)</target>
+      </trans-unit>
+      <trans-unit id="hi98HIj" resname="field.cropY">
+        <source>field.cropY</source>
+        <target>Kivágás (Y)</target>
+      </trans-unit>
+      <trans-unit id="BQBmQHT" resname="field.cropYPostfix">
+        <source>field.cropYPostfix</source>
+        <target>A kivágás pozíciója Y tengelyen (0-100)</target>
+      </trans-unit>
+      <trans-unit id="PHOpD5y" resname="field.cropZoom">
+        <source>field.cropZoom</source>
+        <target>Kivágás nagyítás</target>
+      </trans-unit>
+      <trans-unit id="tn6Z8wY" resname="field.cropZoomPostfix">
+        <source>field.cropZoomPostfix</source>
+        <target>A kivágás nagyításának mértéke (1-10)</target>
+      </trans-unit>
+      <trans-unit id="EaqUUfe" resname="label.predominant_colors__in_image">
+        <source>label.predominant_colors__in_image</source>
+        <target>A kép meghatározó színei</target>
+      </trans-unit>
+      <trans-unit id="KshyLfh" resname="caption.other_content">
+        <source>caption.other_content</source>
+        <target>Egyéb tartalom</target>
       </trans-unit>
     </body>
   </file>

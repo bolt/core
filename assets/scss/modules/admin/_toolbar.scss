@@ -34,6 +34,13 @@
     }
   }
 
+  .toolbar-impersonation {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+
   .toolbar-item {
     position: relative;
     height: inherit;
@@ -100,6 +107,15 @@
       }
     }
 
+    &.toolbar-item__filter {
+      .toolbar-item__filter--button {
+        padding-top: calc(0.375rem + 1px); // add 1px for the input border.
+        i {
+          margin: 0;
+        }
+      }
+    }
+
     .dropdown-toggle {
       color: var(--foreground);
       height: 100%;
@@ -137,13 +153,19 @@
       }
     }
 
+    .profile__dropdown {
+      hr {
+        margin: 0.5rem 0;
+      }
+    }
+
     &__profile {
       padding-right: 1rem;
     }
 
     &__filter {
       margin-left: auto;
-      max-width: 200px;
+      max-width: 210px;
       margin-right: 1rem;
     }
 

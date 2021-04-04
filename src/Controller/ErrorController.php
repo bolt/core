@@ -7,12 +7,19 @@ namespace Bolt\Controller;
 use Bolt\Configuration\Config;
 use Bolt\Controller\Frontend\DetailControllerInterface;
 use Bolt\Controller\Frontend\TemplateController;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Bolt\Widget\Injector\RequestZone;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\ErrorHandler\ErrorRenderer\ErrorRendererInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Controller\ErrorController as SymfonyErrorController;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Core\Security;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 
@@ -27,10 +34,28 @@ class ErrorController extends SymfonyErrorController
     /** @var DetailControllerInterface */
     private $detailController;
 
-    /** @var ContainerInterface */
-    private $container;
+    /** @var Request */
+    private $request;
 
-    public function __construct(HttpKernelInterface $httpKernel, Config $config, DetailControllerInterface $detailController, TemplateController $templateController, ErrorRendererInterface $errorRenderer, ContainerInterface $container)
+    /** @var UrlGeneratorInterface */
+    private $urlGenerator;
+
+    /** @var ParameterBagInterface */
+    private $parameterBag;
+
+    /** @var Security */
+    private $security;
+
+    public function __construct(
+        HttpKernelInterface $httpKernel,
+        Config $config,
+        DetailControllerInterface $detailController,
+        TemplateController $templateController,
+        ErrorRendererInterface $errorRenderer,
+        ParameterBagInterface $parameterBag,
+        RequestStack $requestStack,
+        UrlGeneratorInterface $urlGenerator,
+        Security $security)
     {
         $this->config = $config;
         $this->templateController = $templateController;
@@ -38,7 +63,10 @@ class ErrorController extends SymfonyErrorController
         parent::__construct($httpKernel, $templateController, $errorRenderer);
 
         $this->detailController = $detailController;
-        $this->container = $container;
+        $this->request = $requestStack->getParentRequest();
+        $this->urlGenerator = $urlGenerator;
+        $this->parameterBag = $parameterBag;
+        $this->security = $security;
     }
 
     /**
@@ -73,7 +101,7 @@ class ErrorController extends SymfonyErrorController
             return $this->showForbidden();
         }
 
-        $prod = ($this->container->getParameter('kernel.environment') === 'prod');
+        $prod = mb_strtolower($this->parameterBag->get('kernel.environment')) === 'prod';
 
         if ($code === Response::HTTP_INTERNAL_SERVER_ERROR && $prod && $this->config->get('general/internal_server_error')) {
             return $this->showInternalServerError();
@@ -98,6 +126,14 @@ class ErrorController extends SymfonyErrorController
 
     private function showForbidden(): Response
     {
+        if (RequestZone::isForBackend($this->request) && $this->security->isGranted('dashboard')) {
+            /** @var Session $session */
+            $session = $this->request->getSession();
+            $session->getFlashBag()->set('danger', 'You do not have permission to access this page.');
+
+            return new RedirectResponse($this->urlGenerator->generate('bolt_dashboard'));
+        }
+
         foreach ($this->config->get('general/forbidden') as $item) {
             $output = $this->attemptToRender($item);
 
@@ -154,7 +190,7 @@ class ErrorController extends SymfonyErrorController
             // We wrap it in a try/catch, because we wouldn't want to
             // trigger a 404 within a 404 now, would we?
             try {
-                return $this->detailController->record($slug, $contentType, false);
+                return $this->detailController->record($slug, $contentType, false, null);
             } catch (NotFoundHttpException $e) {
                 // Just continue to the next one.
             }

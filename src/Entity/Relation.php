@@ -32,7 +32,7 @@ class Relation
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Content", fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity="Content", inversedBy="relationsFromThisContent", fetch="EAGER")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      *
      * @var Content
@@ -41,7 +41,7 @@ class Relation
     private $fromContent;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Content", fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity="Content", inversedBy="relationsToThisContent", fetch="EAGER")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      *
      * @var Content
@@ -71,6 +71,10 @@ class Relation
         $this->fromContent = $fromContent;
         $this->toContent = $toContent;
         $this->setDefinitionFromContentDefinition();
+        // link other side of relation - needed for code using relations
+        // from the content side later (e.g. validation)
+        $fromContent->addRelationsFromThisContent($this);
+        $toContent->addRelationsToThisContent($this);
     }
 
     public function getId(): int
@@ -95,9 +99,19 @@ class Relation
         return $this->fromContent;
     }
 
+    public function setFromContent($content): void
+    {
+        $this->fromContent = $content;
+    }
+
     public function getToContent(): Content
     {
         return $this->toContent;
+    }
+
+    public function setToContent($content): void
+    {
+        $this->toContent = $content;
     }
 
     public function getDefinition(): array

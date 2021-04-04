@@ -8,7 +8,9 @@
 
 {% block title %}
     {{ macro.icon(contentType.icon_one) }}
-    {{ contentType.name }}
+    {{ contentType.name|raw }}
+    {% if filterValue %}<small>({{ __('label.filtered_by') }}: <em>'{{ filterValue }}'</em>)</small>{% endif %}
+    {% if taxonomyValue %}<small>({{ __('label.filtered_by') }}: <em>'{{ taxonomyValue }}'</em>)</small>{% endif %}
 {% endblock %}
 
 {% block vue_id 'listing' %}
@@ -26,6 +28,8 @@
 
 {% block aside %}
 
+    {{ widgets('overview_aside_top') }}
+
     <listing-select-box
       plural="{{ contentType.name }}"
       singular="{{ contentType.singular_name }}"
@@ -39,6 +43,7 @@
             'update_all': 'action.update_all'|trans,
         }|json_encode }}"
       :csrftoken="{{ csrf_token('batch')|json_encode }}"
+      :backend-prefix="{{ path('bolt_dashboard') }}"
     ></listing-select-box>
 
     {% set filterOptions = {
@@ -60,7 +65,7 @@
                 <div class="form-group">
                     <p>
                         <strong>{{ 'listing.title_sortby'|trans }}</strong>:
-                        <select class="form-control" name="sortBy">
+                        <select class="form-control" name="sortBy" title="{{ 'listing.title_sortby'|trans }}">
                                 <option value="" {% if sortBy is empty %}selected{% endif %}>
                                     {{ 'listing.option_select_sortby'|trans }}
                                 </option>
@@ -74,45 +79,55 @@
                             {% endfor %}
                         </select>
                     </p>
-                    {#
+
                     {% if contentType.get('taxonomy') %}
-                        <p>
-                            <strong>{{ 'listing.title_taxonomy'|trans }}</strong>:
-                            <select class="form-control" name="taxonomy">
-                                <option value="" {% if sortBy is empty %}selected{% endif %}>
-                                    {{ 'listing.option_select_item'|trans }}
-                                </option>
-                                {% for taxonomy in contentType.get('taxonomy') %}
-                                    {% set taxonomyDefinition = config.get('taxonomies/' ~ taxonomy) %}
-                                    {% if taxonomyDefinition.behaves_like != 'tags' %}
-                                        <optgroup label="{{ taxonomyDefinition.singular_name }}">
-                                        {% for key, taxonomyValue in taxonomyDefinition.options %}
-                                            <option value="{{ taxonomyDefinition.slug }}={{ key }}" {% if taxonomy == key %}selected{% endif %}>
-                                                {{ taxonomyValue }}
-                                            </option>
-                                        {% endfor %}
-                                        </optgroup>
-                                    {% endif %}
-                                {% endfor %}
-                            </select>
+                            {% for taxonomy in contentType.get('taxonomy') %}
+                                {% set taxonomyDefinition = config.get('taxonomies/' ~ taxonomy) %}
+                                {% if taxonomyDefinition and taxonomyDefinition.behaves_like != 'tags' %}
+                                <p>
+                                    <strong>{{ taxonomyDefinition.singular_name }}:</strong>
+                                    {% for key, value in taxonomyDefinition.options %}
+                                        <a class="badge badge-tertiary {% if taxonomy == taxonomyName and taxonomyValue == key %}selected{% endif %}"
+                                           href="?taxonomy={{ (taxonomyDefinition.slug ~ '=' ~ key)|url_encode }}">
+                                            {{ value }}
+                                        </a>
+                                    {% endfor %}
+                                </p>
+                                {% endif %}
+                            {% endfor %}
                         </p>
                     {% endif %}
-                    #}
+
                     <p>
                         <strong>{{ 'listing.title_filterby'|trans }}</strong>:
                         <input class="form-control" type="text" name="filter" id="content-filter" value="{{ filterValue }}"
-                               placeholder="{{ 'listing.placeholder_filter'|trans }}"/>
+                               placeholder="{{ 'listing.placeholder_filter'|trans }}" title="{{ 'listing.placeholder_filter'|trans }}" />
                     </p>
+
+                    {# -- Commented this bit out for now.. It _does_ work, but does it add enough
+                          value to take up valuable screen estate? --
+                    <p>
+                        <label for="filterKey">{{ 'listing.title_filterby_field'|trans }}</label>:
+                        <select name="filterKey" class="form-control">
+                            <option value="anyField"></option>
+                            {% for name, field in contentType.fields %}
+                                <option value="{{ name }}" {% if name == filterKey|default %}selected {% endif %}>{{ field.label }}</option>
+                            {% endfor %}
+                        </select>
+                    </p>
+                    -- #}
                 </div>
 
-                    {{ macro.button('listing.button_filter', 'filter', 'tertiary mb-0', {'type': 'submit'}) }}
+                    {{ macro.button('listing.button_filter', 'filter', 'secondary mb-0', {'type': 'submit'}) }}
 
-                    {% if sortBy is not empty or filterValue is not empty %}
+                    {% if sortBy is not empty or filterValue is not empty or taxonomyValue is not empty %}
                         {{ macro.buttonlink('listing.button_clear', path('bolt_content_overview', {'contentType': contentType.slug}),  'times', 'tertiary mb-0') }}
                     {% endif %}
             </form>
         </div>
     </div>
+
+    {{ widgets('overview_aside_middle') }}
 
     <div class="card">
         <div class="card-header">
@@ -124,22 +139,59 @@
             <p>{{ contentType.description }}</p>
         {% endif %}
 
+        {% set showingRecords = ((records.currentPage -1) * records.maxPerPage + 1 ) ~ '-'
+            ~ ((records.currentPage -1) * records.maxPerPage + records|length) %}
         <ul class="px-2">
-            <li>Name: <code>{{ contentType.name }}</code> (singular: <code>{{ contentType.singular_name }}</code>)</li>
-            <li>Slug: <code>{{ contentType.slug }}</code> (singular: <code>{{ contentType.singular_slug }}</code>)</li>
-            <li>Record template: <code>{{ contentType.record_template }}</code></li>
-            <li>Listing template: <code>{{ contentType.listing_template }}</code> ({{ contentType.listing_records }} records)</li>
+            <li>
+                {{ 'listing_details_box.showing_records'
+                    |trans({'%current%': '<strong>'~showingRecords~'</strong>', '%total%': '<strong>'~records.nbResults~'</strong>'})
+                    |raw
+                }}
+            </li>
+            <li>
+                {{ 'listing_details_box.name'
+                    |trans({'%name%': '<code>'~contentType.name~'</code>', '%singularName%': '<code>'~contentType.singular_name~'</code>'})
+                    |raw
+                }}
+            </li>
+            <li>
+                {{ 'listing_details_box.slug'
+                    |trans({'%slug%': '<code>'~contentType.slug~'</code>', '%singularSlug%': '<code>'~contentType.singular_slug~'</code>'})
+                    |raw
+                }}
+            </li>
+            <li>
+                {{ 'listing_details_box.record_template'
+                    |trans({'%template%': '<code>'~contentType.record_template~'</code>'})
+                    |raw
+                }}
+            </li>
+            <li>
+                {{ 'listing_details_box.listing_template'
+                    |trans({'%template%': '<code>'~contentType.listing_template~'</code>', '%listingRecords%': contentType.listing_records})
+                    |raw
+                }}
+            </li>
+
+            {% set locales %}
+                {% for locale in contentType.locales %}
+                    {{ flag(locale) }}
+                    {%- if not loop.last %}, {% endif %}
+                {% endfor %}
+            {% endset  %}
             {% if contentType.locales is not empty %}
-                <li>Locales:
-                    {% for locale in contentType.locales %}
-                        {{ flag(locale) }}
-                        {%- if not loop.last %}, {% endif %}
-                    {% endfor %}
+                <li>
+                    {{ 'listing_details_box.locales'
+                        |trans({'%locales%': locales})
+                        |raw
+                    }}
                 </li>
             {% endif %}
         </ul>
 
         </div>
     </div>
+
+    {{ widgets('overview_aside_bottom') }}
 
 {% endblock %}

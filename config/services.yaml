@@ -28,12 +28,15 @@ services:
             $projectDir: '%kernel.project_dir%'
             $publicFolder: '%bolt.public_folder%'
             $tablePrefix: '%bolt.table_prefix%'
+    _instanceof:
+        Bolt\Menu\ExtensionBackendMenuInterface:
+            tags: [ 'bolt.extension_backend_menu' ]
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     Bolt\:
         resource: '../src/*'
-        exclude: '../src/{Entity,Exception,Migrations,Kernel.php}'
+        exclude: '../src/{Entity,Exception,Kernel.php}'
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
@@ -60,12 +63,22 @@ services:
         tags:
             - { name: doctrine.event_listener, event: loadClassMetadata }
 
+    Bolt\Event\Listener\TaxonomyFillListener:
+        tags:
+            - { name: doctrine.event_listener, event: postLoad }
+
+    Bolt\Event\Listener\UserAvatarLoadListener:
+        tags:
+            - { name: doctrine.event_listener, event: postLoad }
+            
     Bolt\Extension\RoutesLoader:
         tags: [routing.loader]
 
     # menus
     Bolt\Menu\BackendMenuBuilder:
-        arguments: ["@knp_menu.factory"]
+        arguments: 
+            - "@knp_menu.factory"
+            - !tagged_iterator bolt.extension_backend_menu
         tags:
             - { name: knp_menu.menu_builder, method: createAdminMenu, alias: admin_menu } # The alias is what is used to retrieve the menu
 
@@ -108,3 +121,6 @@ services:
     Symfony\Component\ErrorHandler\ErrorRenderer\ErrorRendererInterface: '@error_handler.error_renderer.html'
 
     Squirrel\TwigPhpSyntax\PhpSyntaxExtension: ~
+
+    # Validation: specify Bolt\Validator\ContentValidator as validator
+    Bolt\Validator\ContentValidatorInterface: '@Bolt\Validator\ContentValidator'

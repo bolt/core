@@ -7,9 +7,11 @@
 {% endset %}
 
 {% block field %}
-
-    {% set setPath = field.definition.get('upload')|placeholders({'contenttype': record.contenttype}) %} 
+    {% if setPath is not defined %}
+        {% set setPath = field.definition.get('upload')|placeholders({'contenttype': record.contenttype}) %} 
+    {% endif %}
     {% set directory = path('bolt_async_upload', {'location': location|default('files'), 'path': setPath}) %}
+    {% set directoryurl = path('bolt_async_upload_url', {'location': location|default('files'), 'path': setPath}) %}
     {% set filelist = path('bolt_async_filelisting', {'location': location|default('files'), 'type': 'images' }) %}
     {% set labels = {
         'button_upload': 'image.button_upload'|trans,
@@ -18,6 +20,7 @@
         'placeholder_filename': 'image.placeholder_filename'|trans,
         'placeholder_alt_text': 'image.placeholder_alt_text'|trans,
         'button_edit_attributes': 'image.button_edit_attributes'|trans,
+        'button_from_url': 'image.button_from_url'|trans,
     }|json_encode %}
 
     <editor-image
@@ -25,6 +28,7 @@
         :filename='{{ field.get('filename')|json_encode }}'
         :media='{{ field.get('media')|json_encode }}'
         :directory='{{ directory|json_encode }}'
+        :directoryurl='{{ directoryurl|json_encode }}'
         :filelist='{{ filelist|json_encode }}'
         :csrf-token='{{ csrf_token('upload')|json_encode }}'
         :labels='{{ labels }}'

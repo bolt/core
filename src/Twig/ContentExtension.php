@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Twig;
 
 use Bolt\Canonical;
+use Bolt\Common\Str;
 use Bolt\Configuration\Config;
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Entity\Content;
@@ -18,6 +19,7 @@ use Bolt\Enum\Statuses;
 use Bolt\Log\LoggerTrait;
 use Bolt\Repository\ContentRepository;
 use Bolt\Repository\TaxonomyRepository;
+use Bolt\Security\ContentVoter;
 use Bolt\Storage\Query;
 use Bolt\Utils\ContentHelper;
 use Bolt\Utils\Excerpt;
@@ -25,6 +27,7 @@ use Bolt\Utils\Html;
 use Bolt\Utils\Sanitiser;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Exception\InvalidParameterException;
@@ -33,7 +36,6 @@ use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Tightenco\Collect\Support\Collection;
-use Tightenco\Collect\Support\Collection as LaravelCollection;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\Markup;
@@ -138,6 +140,7 @@ class ContentExtension extends AbstractExtension
             new TwigFilter('status_options', [$this, 'statusOptions']),
             new TwigFilter('feature', [$this, 'getSpecialFeature']),
             new TwigFilter('sanitise', [$this, 'sanitise']),
+            new TwigFilter('record', [$this, 'record']),
         ];
     }
 
@@ -254,7 +257,7 @@ class ContentExtension extends AbstractExtension
         }
 
         if (ContentHelper::isSuitable($content, 'excerpt_format')) {
-            $excerpt = $this->contentHelper->get($content, $content->getDefinition()->get('excerpt_format'));
+            $excerpt = $this->contentHelper->get($content, $content->getDefinition()->get('excerpt_format'), $this->request->getLocale());
         } else {
             $excerpt = $this->getFieldBasedExcerpt($content, $length, $includeTitle);
         }
@@ -267,7 +270,7 @@ class ContentExtension extends AbstractExtension
             $post = '';
         }
 
-        return $pre . Excerpt::getExcerpt(rtrim($excerpt, '. '), $length, $focus) . $post;
+        return $pre . Excerpt::getExcerpt($excerpt, $length, $focus) . $post;
     }
 
     private function getFieldBasedExcerpt(Content $content, int $length, bool $includeTitle = false): string
@@ -364,9 +367,11 @@ class ContentExtension extends AbstractExtension
             $recordParams['contentTypeSlug'] === $routeParams['contentTypeSlug'];
     }
 
+    /**
+     * @deprecated since Bolt 4.1.11, you no longer need to use `record|allow_twig` *
+     */
     public function allowTwig(Environment $env, Content $content): void
     {
-        $content->setTwig($env);
     }
 
     /**
@@ -375,7 +380,11 @@ class ContentExtension extends AbstractExtension
     public function getLink($contentOrTaxonomy, bool $canonical = false, ?string $locale = null): ?string
     {
         if ($contentOrTaxonomy instanceof Content) {
-            if ($contentOrTaxonomy->getId() === null || $contentOrTaxonomy->getDefinition()->get('viewless')) {
+            if ($contentOrTaxonomy->getId() === null) {
+                return null;
+            }
+
+            if ($contentOrTaxonomy->getDefinition()->get('viewless') && $this->getSpecialFeature($contentOrTaxonomy) !== 'homepage') {
                 return null;
             }
 
@@ -384,7 +393,7 @@ class ContentExtension extends AbstractExtension
 
         if ($contentOrTaxonomy instanceof Taxonomy) {
             return $this->urlGenerator->generate('taxonomy', [
-                'taxonomyslug' => $contentOrTaxonomy->getType(),
+                'taxonomyslug' => $contentOrTaxonomy->getTaxonomyTypeSingularSlug(),
                 'slug' => $contentOrTaxonomy->getSlug(),
             ]);
         }
@@ -397,7 +406,7 @@ class ContentExtension extends AbstractExtension
 
     public function getEditLink(?Content $content): ?string
     {
-        if (! $content instanceof Content || $content->getId() === null || ! $this->security->getUser() || ! $this->security->isGranted('ROLE_ADMIN')) {
+        if (! $content instanceof Content || $content->getId() === null || ! $this->security->getUser() || ! $this->security->isGranted(ContentVoter::CONTENT_EDIT, $content)) {
             return null;
         }
 
@@ -406,7 +415,7 @@ class ContentExtension extends AbstractExtension
 
     public function getDeleteLink(?Content $content, bool $absolute = false): ?string
     {
-        if (! $content instanceof Content || $content->getId() === null || ! $this->security->getUser() || ! $this->security->isGranted('ROLE_ADMIN')) {
+        if (! $content instanceof Content || $content->getId() === null || ! $this->security->getUser() || ! $this->security->isGranted(ContentVoter::CONTENT_DELETE, $content)) {
             return null;
         }
 
@@ -420,16 +429,17 @@ class ContentExtension extends AbstractExtension
 
     public function getDuplicateLink(?Content $content, bool $absolute = false): ?string
     {
-        if (! $content instanceof Content || $content->getId() === null || ! $this->security->getUser() || ! $this->security->isGranted('ROLE_ADMIN')) {
+        if (! $content instanceof Content || $content->getId() === null || ! $this->security->getUser() || ! $this->security->isGranted(ContentVoter::CONTENT_CREATE, $content)) {
             return null;
         }
 
         return $this->generateLink('bolt_content_duplicate', ['id' => $content->getId()], $absolute);
     }
 
+    // TODO decide on voter - what _is_ a statuslink? Right now checking for 'view' permission
     public function getStatusLink(?Content $content, bool $absolute = false): ?string
     {
-        if (! $content instanceof Content || $content->getId() === null || ! $this->security->getUser() || ! $this->security->isGranted('ROLE_ADMIN')) {
+        if (! $content instanceof Content || $content->getId() === null || ! $this->security->getUser() || ! $this->security->isGranted(ContentVoter::CONTENT_VIEW, $content)) {
             return null;
         }
 
@@ -458,6 +468,8 @@ class ContentExtension extends AbstractExtension
         if (! $content instanceof Content) {
             $body = sprintf("You have called the <code>|taxonomies</code> filter with a parameter of type '%s', but <code>|taxonomies</code> accepts record (Content).", gettype($content));
             $this->notifications->warning('Incorrect use of <code>|taxonomies</code> filter', $body);
+
+            return new Collection();
         }
 
         $taxonomies = [];
@@ -477,17 +489,29 @@ class ContentExtension extends AbstractExtension
         return new Collection($taxonomies);
     }
 
-    public function getListTemplates(TemplateselectField $field): LaravelCollection
+    public function getListTemplates(TemplateselectField $field): Collection
     {
         $definition = $field->getDefinition();
         $current = current($field->getValue());
 
         $finder = new Finder();
+        $templatesDir = $this->config->get('theme/template_directory');
+        $templatesPath = $this->config->getPath('theme', true, $templatesDir);
+
+        $filter = $definition->get('filter', '/^[^_].*\.twig$/');
+
+        if (! Str::isValidRegex($filter)) {
+            $filter = Str::isValidRegex('/' . $filter . '/') ? '/' . $filter . '/' : '/^[^_].*\.twig$/';
+        }
+
         $finder
             ->files()
-            ->in($this->config->getPath('theme'))
-            ->name($definition->get('filter', '/^[^_].*\.twig$/'))
-            ->path($definition->get('path'));
+            ->in($templatesPath)
+            ->path($definition->get('path'))
+            ->sortByName()
+            ->filter(function (SplFileInfo $file) use ($filter) {
+                return preg_match($filter, $file->getRelativePathname()) === 1;
+            });
 
         $options = [];
 
@@ -517,7 +541,7 @@ class ContentExtension extends AbstractExtension
             ];
         }
 
-        return new LaravelCollection($options);
+        return new Collection($options);
     }
 
     public function pager(Environment $twig, ?Pagerfanta $records = null, string $template = '@bolt/helpers/_pager_basic.html.twig', string $class = 'pagination', int $surround = 3)
@@ -542,7 +566,7 @@ class ContentExtension extends AbstractExtension
         return $twig->render($template, $context);
     }
 
-    public function selectOptions(Field $field): LaravelCollection
+    public function selectOptions(Field $field): Collection
     {
         $values = $field->getDefinition()->get('values');
 
@@ -553,7 +577,7 @@ class ContentExtension extends AbstractExtension
         return $this->selectOptionsContentType($field);
     }
 
-    private function selectOptionsArray(Field $field): LaravelCollection
+    private function selectOptionsArray(Field $field): Collection
     {
         $values = $field->getDefinition()->get('values');
         $currentValues = $field->getValue();
@@ -572,7 +596,7 @@ class ContentExtension extends AbstractExtension
         }
 
         if (! is_iterable($values)) {
-            return new LaravelCollection($options);
+            return new Collection($options);
         }
 
         foreach ($values as $key => $value) {
@@ -583,10 +607,10 @@ class ContentExtension extends AbstractExtension
             ];
         }
 
-        return new LaravelCollection($options);
+        return new Collection($options);
     }
 
-    private function selectOptionsContentType(Field $field): LaravelCollection
+    private function selectOptionsContentType(Field $field): Collection
     {
         [ $contentTypeSlug, $format ] = explode('/', $field->getDefinition()->get('values'));
 
@@ -615,16 +639,19 @@ class ContentExtension extends AbstractExtension
         $records = iterator_to_array($this->query->getContent($contentTypeSlug, $params)->getCurrentPageResults());
 
         foreach ($records as $record) {
+            if ($field->getDefinition()->get('mode') === 'format') {
+                $formattedKey = $this->contentHelper->get($record, $field->getDefinition()->get('format'));
+            }
             $options[] = [
-                'key' => $record->getId(),
+                'key' => $formattedKey ?? $record->getId(),
                 'value' => $this->contentHelper->get($record, $format),
             ];
         }
 
-        return new LaravelCollection($options);
+        return new Collection($options);
     }
 
-    public function taxonomyOptions(LaravelCollection $taxonomy): LaravelCollection
+    public function taxonomyOptions(Collection $taxonomy): Collection
     {
         $options = [];
 
@@ -647,15 +674,15 @@ class ContentExtension extends AbstractExtension
 
         foreach ($taxonomy['options'] as $key => $value) {
             $options[] = [
-                'key' => $key,
+                'key' => (string) $key,
                 'value' => $value,
             ];
         }
 
-        return new LaravelCollection($options);
+        return new Collection($options);
     }
 
-    public function taxonomyValues(\Doctrine\Common\Collections\Collection $current, LaravelCollection $taxonomy): LaravelCollection
+    public function taxonomyValues(\Doctrine\Common\Collections\Collection $current, Collection $taxonomy): Collection
     {
         $values = [];
 
@@ -671,7 +698,7 @@ class ContentExtension extends AbstractExtension
             $values[] = key($taxonomy['options']);
         }
 
-        return new LaravelCollection($values);
+        return new Collection($values);
     }
 
     public function icon(?Content $record = null, string $icon = 'question-circle'): string
@@ -777,5 +804,10 @@ class ContentExtension extends AbstractExtension
     public function sanitise(string $html)
     {
         return $this->sanitiser->clean($html);
+    }
+
+    public function record(int $id)
+    {
+        return $this->contentRepository->findOneBy(['id' => $id]);
     }
 }

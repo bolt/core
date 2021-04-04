@@ -120,12 +120,12 @@ class TemplateChooser
         return $templates->unique()->filter()->toArray();
     }
 
-    public function forTaxonomy(string $taxonomyslug): array
+    public function forTaxonomy(Collection $taxonomy): array
     {
         $templates = new Collection();
 
         // First candidate: defined specifically in the taxonomy
-        $templates->push($this->config->get('taxonomy/' . $taxonomyslug . '/listing_template'));
+        $templates->push($taxonomy->get('listing_template', null));
 
         // Second candidate: Theme-specific config.yml file.
         $templates->push($this->config->get('theme/listing_template'));

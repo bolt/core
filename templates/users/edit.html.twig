@@ -8,133 +8,14 @@
 
 {% block title %}
     {{ macro.icon('user') }}
-    {{ display_name|default(__('user.new_user')) }}
+    {{ userForm.displayName.vars.value|default(__('user.new_user')) }}
 {% endblock %}
 
 {% block vue_id 'editor' %}
 
 {% block main %}
-
     <div>
-        <form method="post" id="editcontent" >
-            <input type="hidden" name="_csrf_token" value="{{ csrf_token('useredit') }}">
-
-            {% include '@bolt/_partials/fields/text.html.twig' with {
-                'id' : 'username',
-                'label' : 'label.username'|trans,
-                'name' : 'username',
-                'value' : userEdit.username,
-                'disabled' : userEdit.username is empty ? false : true,
-                'required': true,
-            } %}
-
-            {% include '@bolt/_partials/fields/text.html.twig' with {
-                'id' : 'display_name',
-                'label' : 'label.display_name'|trans,
-                'name' : 'displayName',
-                'value' : userEdit.displayName,
-                'disabled' : false,
-                'required': true,
-            } %}
-
-            {% include '@bolt/_partials/fields/password.html.twig' with {
-                'id' : 'password',
-                'label': 'label.password'|trans,
-                'name': 'password',
-                'value': suggestedPassword,
-                'hidden': 'true',
-                'strength': true,
-                'postfix': suggestedPassword ? __('password.suggested', {'%password%': suggestedPassword }),
-                'required': userEdit.username is empty ? true : false,
-            } %}
-
-            {% include '@bolt/_partials/fields/email.html.twig' with {
-                'id' : 'email',
-                'label': 'label.email'|trans,
-                'label_class': 'required',
-                'value': userEdit.email,
-                'name': 'email',
-                'class': 'form-control',
-                'required': true,
-            } %}
-
-            {% set localeOptions = [] %}
-
-            {% for locale in locales(all = true) %}
-                {% set localeOptions = localeOptions|merge([
-                    {
-                        'key': locale.code,
-                        'value': locale.emoji ~ ' ' ~ locale.name ~ ' (' ~ locale.localizedname ~ ', ' ~ locale.code ~ ')'
-                    }
-                ]) %}
-            {% endfor %}
-
-            {% include '@bolt/_partials/fields/select.html.twig' with {
-                'id' : 'locale',
-                'label' : 'label.locale'|trans,
-                'name' : 'locale',
-                'value' : userEdit.locale,
-                'options' : localeOptions,
-                'required': 'true',
-            } %}
-
-            {% set roleOptions = [] %}
-
-            {% for roleName, roleHierarchy in roles ?? [] %}
-                {% set roleOptions = roleOptions|merge([
-                    {
-                        'key': roleName,
-                        'value': roleName ~ ' (' ~ roleHierarchy|join(', ')|lower ~ ')'
-                    }
-                ]) %}
-            {% endfor %}
-
-            {% include '@bolt/_partials/fields/select.html.twig' with {
-                'id' : 'roles',
-                'label' : 'label.roles'|trans,
-                'name' : 'roles',
-                'value' : userEdit.roles,
-                'options' : roleOptions,
-                'required': 'true',
-                'multiple': 'true',
-            } %}
-
-            {% set statusOptions = [] %}
-            {% for option in statuses ?? [] %}
-                {% set statusOptions = statusOptions|merge([
-                    {
-                        'key': option,
-                        'value': option|capitalize
-                    }
-                ]) %}
-            {% endfor %}
-
-            {% include '@bolt/_partials/fields/select.html.twig' with {
-                'id': 'ustatus',
-                'label': 'field.status'|trans,
-                'name': 'ustatus',
-                'value': userEdit.status,
-                'options': statusOptions,
-                'required': true,
-            } %}
-
-            {# TODO: include form field with '@bolt/_partials/fields/select.html.twig' #}
-            {# Comment out for a while, until we work on this again
-            <div class="form-group">
-                <label for="backendTheme" class="required">Backend theme</label>
-                <select id="backendTheme" name="backendTheme" class="form-control">
-                    <option value="default" selected="selected">The Default theme</option>
-                    <option value="dark">The Default Dark theme</option>
-                    <option value="light">A pretty Light theme</option>
-                    <option value="woordpers">WoordPers: Kinda looks like that other CMS</option>
-                </select>
-            </div>
-            <theme-select></theme-select>
-            #}
-
-            {{ macro.button('action.save', 'fa-save', 'primary', {'type': 'submit', 'form': 'editcontent', 'name': 'save'}) }}
-
-        </form>
+        {% include('@bolt/users/_form.html.twig') with {'form_type': 'edit'} %}
     </div>
 {% endblock %}
 

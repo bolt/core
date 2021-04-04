@@ -14,196 +14,199 @@
 
 {% block main %}
 
-    <section id="one">
-        <h1>One</h1>
-        {% setcontent entries = "entries" latest limit 4 page 2 printquery  %}
-        Results: <span id="results-one">{{ entries|length == 4 and entries.currentPage == 2 ? 'yes' }}</span><br>
-        <ul>
-        {% for entry in entries %}
-            <li>
-                {{ entry.contenttype }} {{ entry.id }} . {{ entry|title }}
-                <span class="s{{ loop.index }}">{{ _self.issmaller(entry.id, last|default()) }}</span>
-            </li>
-            {% set last = entry.id %}
-        {% endfor %}
-        </ul>
-    </section>
-
-     If there are more records than will fit on one page, the pager is shown.
-    {{ pager(entries, template = 'helpers/_pager_basic.html.twig') }}
-
-    <section id="two">
-        <h1>Two</h1>
-        {% setcontent pages = "pages, entries" limit 4 order '-publishedAt' %}
-        Results: <span id="results-two">{{ entries|length == 4 ? 'yes' }}</span>
-        <ul>
-        {% for page in pages %}
-            <li>
-                {{ page.contenttype }} {{ page.id }} . {{ page|title }}
-                <span class="s{{ loop.index }}">{{ _self.issmaller(page.publishedAt, last|default()) }}</span>
-            </li>
-            {% set last = page.publishedAt %}
-        {% endfor %}
-        </ul>
-    </section>
-
-
-     If there are more records than will fit on one page, the pager is shown.
-    {{ pager(pages, template = 'helpers/_pager_basic.html.twig') }}
-
-    <section id="three">
-        <h1>Three</h1>
-        {% setcontent pagetwo = "pages" where {'id': 2 } returnsingle %}
-            <span class="s1">{{ pagetwo.id }}</span>
-            <span class="s2">{{ pagetwo.status }}</span>
-        {{ dump(pagetwo) }}
-    </section>
-
-    <section id="four">
-        <h1>Four</h1>
-        {% setcontent pages = "pages" orderby 'heading' %}
-        Results: <span id="results-four">{{ pages|length > 5 ? 'yes' }}</span>
-        <ul>
-        {% for page in pages %}
-            <li>
-                {{ page.contenttype }} {{ page.id }} . {{ page.heading }}
-                <span class="s{{ loop.index }}">{{ _self.isbigger(page.heading, last|default()) }}</span>
-            </li>
-            {% set last = page.heading %}
-        {% endfor %}
-        </ul>
-    </section>
-
-    <section id="five">
-        <h1>Five</h1>
-        {% setcontent entries = "entries" limit "3"  %}
-        Results: <span id="results-five">{{ entries|length == 3 ? 'yes' }}</span>
-        <ul>
-        {% for entry in entries %}
-            <li>
-                {{ entry.contenttype }} {{ entry.id }} . {{ entry|title }} ( {{ entry.publishedAt|date('Y-m-d') }} )
-                <span class="s{{ loop.index }}">{{ _self.issmaller(entry.publishedAt, last|default()) }}</span>
-            </li>
-            {% set last = entry.publishedAt %}
-        {% endfor %}
-        </ul>
-    <section>
-
-    <section id="six">
-        <h1>Six</h1>
-        {% setcontent entries = "entries,blocks,showcases" where {'title': '%voluptat%' } printquery  %}
-        Results: <span id="results-six">{{ entries|length > 0 ? 'yes' }}</span>
-        <ul>
-        {% for entry in entries %}
-            <li>
-                {{ entry.contenttype }} {{ entry.id }} . {{ entry|title }} {{ _self.contains('voluptat', entry|title) }}
-            </li>
-            {% set last = entry.id %}
-        {% endfor %}
-        </ul>
-    <section>
-
-    <section id="seven">
-        <h1>Seven</h1>
-        {% setcontent blocks = "blocks" order "title" printquery  %}
-        Results: <span id="results-seven">{{ blocks|length > 0 ? 'yes' }}</span>
-        <ul>
-            {% for block in blocks %}
-                <li>
-                    {{ block.contenttype }} {{ block.id }} . {{ block|title }}
-                </li>
-            {% endfor %}
-        </ul>
-    <section>
-
-    <section id="eight">
-        <h1>Eight</h1>
-        {% setcontent entries = "entries,blocks,showcases" where {'title': '%voluptat% || %porro%' } printquery  %}
-        Results: <span id="results-eight">{{ entries|length > 0 ? 'yes' }}</span>
-        <ul>
+    <main>
+        <section id="one">
+            <h1>One</h1>
+            {% setcontent entries = "entries" latest limit 4 page 2 printquery  %}
+            Results: <span id="results-one">{{ entries|length == 4 and entries.currentPage == 2 ? 'yes' }}</span><br>
+            <ul>
             {% for entry in entries %}
                 <li>
                     {{ entry.contenttype }} {{ entry.id }} . {{ entry|title }}
-                    {% if 'voluptat' in entry|title|lower or 'porro' in entry|title|lower %}[yes]{% else %}[no]{% endif %}
+                    <span class="s{{ loop.index }}">{{ _self.issmaller(entry.id, last|default()) }}</span>
                 </li>
                 {% set last = entry.id %}
             {% endfor %}
-        </ul>
-    </section>
+            </ul>
+        </section>
 
-    <section id="nine">
-        <h1>Nine</h1>
-        {% setcontent showcases = 'showcases' orderby '-floatfield' printquery %}
+         If there are more records than will fit on one page, the pager is shown.
+        {{ pager(entries, template = 'helpers/_pager_basic.html.twig') }}
 
-        Results: <span id="results-nine">{{ showcases|length > 0 ? 'yes' }}</span>
-        <ul>
-        {% for showcase in showcases %}
-            <li>showcase {{ showcase.id }}: {{ showcase.floatfield }}
-                <span class="s{{ loop.index }}">{{ _self.issmaller(showcase.floatfield, last|default()) }}</span>
-            </li>
-            {% set last = showcase.floatfield %}
-        {% endfor %}
-        </ul>
-    </section>
+        <section id="two">
+            <h1>Two</h1>
+            {% setcontent pages = "pages, entries" limit 4 order '-publishedAt' %}
+            Results: <span id="results-two">{{ entries|length == 4 ? 'yes' }}</span>
+            <ul>
+            {% for page in pages %}
+                <li>
+                    {{ page.contenttype }} {{ page.id }} . {{ page|title }}
+                    <span class="s{{ loop.index }}">{{ _self.issmaller(page.publishedAt, last|default()) }}</span>
+                </li>
+                {% set last = page.publishedAt %}
+            {% endfor %}
+            </ul>
+        </section>
 
-    <section id="ten">
-        <h1>Ten</h1>
-        {% setcontent first_random = 'showcases' random limit 4 printquery %}
-        {% set first_ids = '' %}
-        {% for first in first_random %}
-            {% set first_ids = first_ids ~ first.id  %}
-        {% endfor %}
 
-        {% setcontent second_random = 'showcases' random limit 4 printquery %}
-        {% set second_ids = '' %}
-        {% for second in second_random %}
-            {% set second_ids = second_ids ~ second.id  %}
-        {% endfor %}
+         If there are more records than will fit on one page, the pager is shown.
+        {{ pager(pages, template = 'helpers/_pager_basic.html.twig') }}
 
-        <ul>
-            <li>Two different random results: {{ first_ids === second_ids ? "[no]" : "[yes]" }}</li>
-        </ul>
-    </section>
+        <section id="three">
+            <h1>Three</h1>
+            {% setcontent pagetwo = "pages" where {'id': 2 } returnsingle %}
+                <span class="s1">{{ pagetwo.id }}</span>
+                <span class="s2">{{ pagetwo.status }}</span>
+        </section>
 
-    <section id="eleven">
-        <h1>Eleven</h1>
-        {% setcontent entries = 'entries' order 'categories' printquery %}
-        Results: <span id="results-eleven">{{ entries|length > 0 ? 'yes' }}</span>
-        <ul>
+        <section id="four">
+            <h1>Four</h1>
+            {% setcontent pages = "pages" orderby 'heading' %}
+            Results: <span id="results-four">{{ pages|length > 5 ? 'yes' }}</span>
+            <ul>
+            {% for page in pages %}
+                <li>
+                    {{ page.contenttype }} {{ page.id }} . {{ page.heading }}
+                    <span class="s{{ loop.index }}">{{ _self.isbigger(page.heading, last|default()) }}</span>
+                </li>
+                {% set last = page.heading %}
+            {% endfor %}
+            </ul>
+        </section>
+
+        <section id="five">
+            <h1>Five</h1>
+            {% setcontent entries = "entries" limit "3"  %}
+            Results: <span id="results-five">{{ entries|length == 3 ? 'yes' }}</span>
+            <ul>
             {% for entry in entries %}
                 <li>
-                    {{ entry.contenttype }} {{ entry.id }}: {{ entry.taxonomyvalues.categories|sort|first }}
-                    <span class="s{{ loop.index }}">{{ _self.isbigger(entry.taxonomyvalues.categories|first, last|default()) }}</span>
+                    {{ entry.contenttype }} {{ entry.id }} . {{ entry|title }} ( {{ entry.publishedAt|date('Y-m-d') }} )
+                    <span class="s{{ loop.index }}">{{ _self.issmaller(entry.publishedAt, last|default()) }}</span>
                 </li>
-                {% set last = entry.taxonomyvalues.categories|sort|first %}
+                {% set last = entry.publishedAt %}
             {% endfor %}
-        </ul>
-    </section>
+            </ul>
+        </section>
 
-    <section id="twelve">
-        <h1>Twelve</h1>
-        {% setcontent about = 'blocks/about' %}
-        <ul>
-            {% if about.title == 'About This Site' %}
-                <li>{{ about.title }} [yes]</li>
-            {% else %}
-                <li>[no]</li>
-            {% endif %}
-        </ul>
-    </section>
+        <section id="six">
+            <h1>Six</h1>
+            {% setcontent entries = "entries,blocks,showcases" where {'title': '%voluptat%' } printquery  %}
+            Results: <span id="results-six">{{ entries|length > 0 ? 'yes' }}</span>
+            <ul>
+            {% for entry in entries %}
+                <li>
+                    {{ entry.contenttype }} {{ entry.id }} . {{ entry|title }} {{ _self.contains('voluptat', entry|title) }}
+                </li>
+                {% set last = entry.id %}
+            {% endfor %}
+            </ul>
+        </section>
 
-    <section id="thirteen">
-        <h1>Thirteen</h1>
-        {% setcontent showcases = 'showcases' printquery %}
-        {% set showcases = showcases|order('-floatfield') %}
+        <section id="seven">
+            <h1>Seven</h1>
+            {% setcontent blocks = "blocks" order "title" printquery  %}
+            Results: <span id="results-seven">{{ blocks|length > 0 ? 'yes' }}</span>
+            <ul>
+                {% for block in blocks %}
+                    <li>
+                        {{ block.contenttype }} {{ block.id }} . {{ block|title }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
 
-        Results: <span id="results-nine">{{ showcases|length > 0 ? 'yes' }}</span>
-        <ul>
+        <section id="eight">
+            <h1>Eight</h1>
+            {% setcontent entries = "entries,blocks,showcases" where {'title': '%voluptat% || %porro%' } printquery  %}
+            Results: <span id="results-eight">{{ entries|length > 0 ? 'yes' }}</span>
+            <ul>
+                {% for entry in entries %}
+                    <li>
+                        {{ entry.contenttype }} {{ entry.id }} . {{ entry|title }}
+                        {% if 'voluptat' in entry|title|lower or 'porro' in entry|title|lower %}[yes]{% else %}[no]{% endif %}
+                    </li>
+                    {% set last = entry.id %}
+                {% endfor %}
+            </ul>
+        </section>
+
+        <section id="nine">
+            <h1>Nine</h1>
+            {% setcontent showcases = 'showcases' orderby '-floatfield' printquery %}
+
+            Results: <span id="results-nine">{{ showcases|length > 0 ? 'yes' }}</span>
+            <ul>
             {% for showcase in showcases %}
                 <li>showcase {{ showcase.id }}: {{ showcase.floatfield }}
                     <span class="s{{ loop.index }}">{{ _self.issmaller(showcase.floatfield, last|default()) }}</span>
                 </li>
                 {% set last = showcase.floatfield %}
             {% endfor %}
-    </section>
+            </ul>
+        </section>
+
+        <section id="ten">
+            <h1>Ten</h1>
+            {% setcontent first_random = 'showcases' random limit 4 printquery %}
+            {% set first_ids = '' %}
+            {% for first in first_random %}
+                {% set first_ids = first_ids ~ first.id  %}
+            {% endfor %}
+
+            {% setcontent second_random = 'showcases' random limit 4 printquery %}
+            {% set second_ids = '' %}
+            {% for second in second_random %}
+                {% set second_ids = second_ids ~ second.id  %}
+            {% endfor %}
+
+            <ul>
+                <li>Two different random results: {{ first_ids === second_ids ? "[no]" : "[yes]" }}</li>
+            </ul>
+        </section>
+
+        <section id="eleven">
+            <h1>Eleven</h1>
+            {% setcontent entries = 'entries' order 'categories' printquery %}
+            Results: <span id="results-eleven">{{ entries|length > 0 ? 'yes' }}</span>
+            <ul>
+                {% for entry in entries %}
+                    <li>
+                        {{ entry.contenttype }} {{ entry.id }}: {{ entry.taxonomyvalues.categories|sort|first }}
+                        <span class="s{{ loop.index }}">{{ _self.isbigger(entry.taxonomyvalues.categories|first, last|default()) }}</span>
+                    </li>
+                    {% set last = entry.taxonomyvalues.categories|sort|first %}
+                {% endfor %}
+            </ul>
+        </section>
+
+        <section id="twelve">
+            <h1>Twelve</h1>
+            {% setcontent about = 'blocks/about' %}
+            <ul>
+                {% if about.title == 'About This Site' %}
+                    <li>{{ about.title }} [yes]</li>
+                {% else %}
+                    <li>[no]</li>
+                {% endif %}
+            </ul>
+        </section>
+
+        <section id="thirteen">
+            <h1>Thirteen</h1>
+            {% setcontent showcases = 'showcases' printquery %}
+            {% set showcases = showcases|order('-floatfield') %}
+
+            Results: <span id="results-nine">{{ showcases|length > 0 ? 'yes' }}</span>
+            <ul>
+                {% for showcase in showcases %}
+                    <li>showcase {{ showcase.id }}: {{ showcase.floatfield }}
+                        <span class="s{{ loop.index }}">{{ _self.issmaller(showcase.floatfield, last|default()) }}</span>
+                    </li>
+                    {% set last = showcase.floatfield %}
+                {% endfor %}
+            </ul>
+        </section>
+
+    </main>
 {% endblock main %}

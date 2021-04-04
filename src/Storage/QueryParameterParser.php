@@ -20,9 +20,6 @@ class QueryParameterParser
     /** @var string */
     protected $key;
 
-    /** @var mixed */
-    protected $value;
-
     /** @var Expr */
     protected $expr;
 
@@ -43,7 +40,7 @@ class QueryParameterParser
 
     public function setupDefaults(): void
     {
-        $word = "[\p{L}\p{N}_]+";
+        $word = "[\p{L}\p{N}_\/]+";
 
         // @codingStandardsIgnoreStart
         $this->addValueMatcher("<\s?(${word})", [
@@ -87,6 +84,10 @@ class QueryParameterParser
             'operator' => 'like',
         ]);
         $this->addValueMatcher("(${word})", [
+            'value' => '$1',
+            'operator' => 'eq',
+        ]);
+        $this->addValueMatcher('()', [
             'value' => '$1',
             'operator' => 'eq',
         ]);
@@ -245,7 +246,7 @@ class QueryParameterParser
     /**
      * The default handler is the last to be run and handles simple value parsing.
      *
-     * @param string|array $value
+     * @param string|array|bool $value
      */
     public function defaultFilterHandler(string $key, $value, Expr $expr): Filter
     {
@@ -272,6 +273,12 @@ class QueryParameterParser
         }
 
         $val = $this->parseValue((string) $value);
+
+        // @todo: Can this be refactored to avoid ugly override when $value is bool?
+        if (is_bool($value)) {
+            $val['value'] = $value;
+        }
+
         $placeholder = $key . '_1';
         $exprMethod = $val['operator'];
 

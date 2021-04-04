@@ -20,7 +20,7 @@ class JsonHelper
      *
      * @return string|array
      */
-    public static function wrapJsonFunction(?string $where = null, ?string $slug = null, Connection $connection)
+    public static function wrapJsonFunction(?string $where, ?string $slug, Connection $connection)
     {
         $version = new Version($connection);
 

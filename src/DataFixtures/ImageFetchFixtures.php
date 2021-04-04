@@ -8,20 +8,18 @@ use Bolt\Configuration\Config;
 use Bolt\Configuration\FileLocations;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
-use Illuminate\Support\Collection;
+use PhpZip\ZipFile;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\HttpClient\HttpClient;
 
 class ImageFetchFixtures extends BaseFixture implements FixtureGroupInterface
 {
-    /** @var Collection */
-    private $urls;
+    private const URL = 'https://placeholder.boltcms.io/getfiles';
 
     /** @var FileLocations */
     private $fileLocations;
 
-    private const AMOUNT = 20;
     private const MAX_AMOUNT = 50;
 
     /** @var array */
@@ -29,15 +27,6 @@ class ImageFetchFixtures extends BaseFixture implements FixtureGroupInterface
 
     public function __construct(FileLocations $fileLocations, Config $config)
     {
-        $this->urls = new Collection([
-            ['stock', 'https://source.unsplash.com/1280x1024/?business,workspace,interior/'],
-            ['stock', 'https://source.unsplash.com/1280x1024/?cityscape,landscape,nature/'],
-            ['stock', 'https://source.unsplash.com/1280x1024/?technology,product/'],
-            ['animal', 'https://source.unsplash.com/1280x1024/?animal,kitten,puppy,cute/'],
-            ['people', 'https://source.unsplash.com/1280x1024/?portrait,face,headshot/'],
-            ['people', 'https://source.unsplash.com/1280x1024/?portrait,face,headshot/'],
-        ]);
-
         $this->curlOptions = $config->get('general/curl_options')->all();
 
         $this->fileLocations = $fileLocations;
@@ -61,38 +50,45 @@ class ImageFetchFixtures extends BaseFixture implements FixtureGroupInterface
     private function fetchImages(): void
     {
         $output = new ConsoleOutput();
-        $progressBar = new ProgressBar($output, self::AMOUNT);
+        $resource = fopen($this->getOutputFile(), 'w');
 
-        $progressBar->start();
+        $progress = new ProgressBar($output, 100);
+        $progress->setRedrawFrequency(5);
 
-        for ($i = 1; $i <= self::AMOUNT; $i++) {
-            $random = $this->urls->random();
-            $url = $random[1] . random_int(10000, 99999);
-            $filename = 'image_' . random_int(10000, 99999) . '.jpg';
+        $this->curlOptions['on_progress'] = function (int $downloaded) use ($progress): void {
+            if ($downloaded > 0) {
+                // The file is about 9 mb, we count to 80%, so 9000000 / 80 = 112500
+                $progress->setProgress((int) round($downloaded / 112500));
+            }
+        };
 
-            $client = HttpClient::create();
-            $resource = fopen($this->getOutputPath($random[0]) . $filename, 'w');
+        $client = HttpClient::create();
+        $file = $client->request('GET', self::URL, $this->curlOptions)->getContent();
 
-            $image = $client->request('GET', $url, $this->curlOptions)->getContent();
+        fwrite($resource, $file);
+        fclose($resource);
 
-            fwrite($resource, $image);
-            fclose($resource);
+        $progress->finish();
 
-            $progressBar->advance();
-        }
+        $zipFile = new ZipFile();
+        $zipFile->openFile($this->getOutputFile())->extractTo($this->getOutputPath());
 
-        $progressBar->finish();
         $output->writeln('');
     }
 
-    private function getOutputPath(string $sub): string
+    private function getOutputPath(): string
     {
-        $outputPath = $this->fileLocations->get('files')->getBasepath() . '/' . $sub . '/';
+        $outputPath = $this->fileLocations->get('files')->getBasepath() . '/stock/';
 
         if (! is_dir($outputPath)) {
             mkdir($outputPath);
         }
 
         return $outputPath;
+    }
+
+    private function getOutputFile(): string
+    {
+        return $this->getOutputPath() . 'placeholders.zip';
     }
 }

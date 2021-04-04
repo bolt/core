@@ -6,10 +6,19 @@ namespace Bolt\Configuration;
 
 class FileLocation
 {
+    /** @var string */
     private $key;
+
+    /** @var string */
     private $name;
+
+    /** @var string */
     private $basepath;
+
+    /** @var bool */
     private $showAll = false;
+
+    /** @var string */
     private $icon;
 
     public function __construct(string $key, string $name, string $basepath, bool $showAll, string $icon)

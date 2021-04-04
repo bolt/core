@@ -6,11 +6,13 @@ namespace Bolt\Controller;
 
 use Bolt\Canonical;
 use Bolt\Configuration\Config;
+use Bolt\Configuration\Content\ContentType;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field\TemplateselectField;
 use Bolt\Enum\Statuses;
 use Bolt\Storage\Query;
 use Bolt\TemplateChooser;
+use Bolt\Twig\CommonExtension;
 use Bolt\Utils\Sanitiser;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Asset\Packages;
@@ -47,10 +49,16 @@ class TwigAwareController extends AbstractController
     /** @var TemplateChooser */
     protected $templateChooser;
 
+    /** @var string */
+    protected $defaultLocale;
+
+    /** @var CommonExtension */
+    private $commonExtension;
+
     /**
      * @required
      */
-    public function setAutowire(Config $config, Environment $twig, Packages $packages, Canonical $canonical, Sanitiser $sanitiser, RequestStack $requestStack, TemplateChooser $templateChooser): void
+    public function setAutowire(Config $config, Environment $twig, Packages $packages, Canonical $canonical, Sanitiser $sanitiser, RequestStack $requestStack, TemplateChooser $templateChooser, string $defaultLocale, CommonExtension $commonExtension): void
     {
         $this->config = $config;
         $this->twig = $twig;
@@ -59,6 +67,8 @@ class TwigAwareController extends AbstractController
         $this->sanitiser = $sanitiser;
         $this->request = $requestStack->getCurrentRequest();
         $this->templateChooser = $templateChooser;
+        $this->defaultLocale = $defaultLocale;
+        $this->commonExtension = $commonExtension;
     }
 
     /**
@@ -133,6 +143,11 @@ class TwigAwareController extends AbstractController
             throw new NotFoundHttpException('Content is not viewable');
         }
 
+        // If the locale is the wrong locale
+        if (! $this->validLocaleForContentType($record->getDefinition())) {
+            return $this->redirectToDefaultLocale();
+        }
+
         $singularSlug = $record->getContentTypeSingularSlug();
 
         $context = [
@@ -149,6 +164,28 @@ class TwigAwareController extends AbstractController
         }
 
         return $this->render($templates, $context);
+    }
+
+    protected function validLocaleForContentType(ContentType $contentType): bool
+    {
+        if ($contentType->isKeyNotEmpty('locales')) {
+            return $contentType->get('locales')->contains($this->request->getLocale());
+        }
+
+        return $this->request->getLocale() === $this->defaultLocale;
+    }
+
+    protected function redirectToDefaultLocale(): ?Response
+    {
+        $this->request->getSession()->set('_locale', $this->defaultLocale);
+
+        $params = $this->request->attributes->get('_route_params');
+
+        if (isset($params['_locale'])) {
+            $params['_locale'] = $this->defaultLocale;
+        }
+
+        return $this->redirectToRoute($this->request->get('_route'), $params);
     }
 
     private function setTwigLoader(): void
@@ -202,7 +239,8 @@ class TwigAwareController extends AbstractController
         }
 
         if ($this->request->get('filter')) {
-            $params['anyField'] = '%' . $this->getFromRequest('filter') . '%';
+            $key = $this->request->get('filterKey', 'anyField');
+            $params[$key] = '%' . $this->getFromRequest('filter') . '%';
         }
 
         if ($this->request->get('taxonomy')) {
@@ -238,5 +276,10 @@ class TwigAwareController extends AbstractController
         }
 
         return $default;
+    }
+
+    public function validateSecret(string $secret, string $slug): bool
+    {
+        return $secret === $this->commonExtension->generateSecret($slug);
     }
 }

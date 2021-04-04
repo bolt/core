@@ -6,14 +6,17 @@ namespace Bolt\Entity\Field;
 
 use Bolt\Entity\Field;
 use Bolt\Entity\FieldInterface;
+use Bolt\Entity\IterableFieldTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Tightenco\Collect\Support\Collection;
 
 /**
  * @ORM\Entity
  */
-class SelectField extends Field implements FieldInterface, RawPersistable
+class SelectField extends Field implements FieldInterface, RawPersistable, \Iterator
 {
+    use IterableFieldTrait;
+
     public const TYPE = 'select';
 
     public function setValue($value): Field
@@ -46,6 +49,18 @@ class SelectField extends Field implements FieldInterface, RawPersistable
         }
 
         return array_filter((array) $value);
+    }
+
+    public function getParsedValue()
+    {
+        $parsedValue = parent::getParsedValue();
+
+        if ($this->getDefinition()->get('multiple') && ! is_array($parsedValue)) {
+            // Make sure that multiselects always return an array, even if there's only one item.
+            $parsedValue = [$parsedValue];
+        }
+
+        return $parsedValue;
     }
 
     public function getOptions()
@@ -89,5 +104,10 @@ class SelectField extends Field implements FieldInterface, RawPersistable
         }
 
         return false;
+    }
+
+    public function getDefaultValue()
+    {
+        return [parent::getDefaultValue()];
     }
 }

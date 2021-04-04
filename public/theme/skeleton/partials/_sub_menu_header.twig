@@ -26,7 +26,6 @@
     {% if item.label is defined %}
         {{ display_menu_item(item, loop, withsubmenus) }}
     {% endif %}
-    |
 {% endfor %}
 {% include 'helpers/_languageselect.html.twig' with {'type': 'select'} %}
 </nav>

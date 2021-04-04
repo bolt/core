@@ -1,20 +1,20 @@
-Bolt 4 - stable
-=============
+Bolt 5 - stable
+===============
 
-Bolt CMS is an open source, adaptable platform for building and running modern 
-websites. Built on PHP, Symfony and more. [Read the site](https://boltcms.io) 
-for more info. 
+Bolt CMS is an open source, adaptable platform for building and running modern
+websites. Built on PHP, Symfony and more. [Read the site](https://boltcms.io)
+for more info.
 
-To check out Bolt and set up your first Bolt installation, read 
-[Installing Bolt 4][installation]. 
+To check out Bolt and set up your first Bolt installation, read
+[Installing Bolt 5][installation].
 
 
 ---
 
 
-**This repository should be used to work _<ins>on</ins>_ Bolt. Not 
-_<ins>with</ins>_ Bolt. If you want to check out Bolt, the 
-`composer create-project` method is recommended. See here: 
+**This repository should be used to work _<ins>on</ins>_ Bolt. Not
+_<ins>with</ins>_ Bolt. If you want to check out Bolt, the
+`composer create-project` method is recommended. See here:
 https://github.com/bolt/project/ .**
 
 
@@ -26,21 +26,21 @@ https://github.com/bolt/project/ .**
 
 -- Hatebreed - [Destroy Everything][hatebreed]
 
-Progress towards beta / stable
+Progress
 ------------------------------
 
-Follow the progress on the development of Bolt 4, at these locations
+Follow the progress on the development of Bolt 5, at these locations
 
  - Github Repository: https://github.com/bolt/core
- - Bolt 4 roadmap: https://roadmap.boltcms.io
+ - Bolt roadmap: https://roadmap.boltcms.io
  - Slack: https://slack.bolt.cm (open for all, requires Slack account)
 
-To set up a running **development** environment of Bolt 4 please perform the following steps 1 to 4:
+To set up a running **development** environment of Bolt 5 please perform the following steps 1 to 4:
 
-1 Install
----------
+1. Install
+----------
 
-To install a _**development**_ version of Bolt 4: 
+To install a _**development**_ version of Bolt 5:
 
   - Check out this git repository
   - Then run:
@@ -60,14 +60,15 @@ npm install && npm run build
 
 Alternatively, run `make install`, on a UNIX-like system.
 
-If you already have Bolt 4 installed and need to update dependencies run:
+If you already have Bolt 5 installed and need to update dependencies run:
+
 ```bash
 composer update
 ```
 
 ### Or install with Docker
 
-To install a _**development**_ version of Bolt 4 with Docker:
+To install a _**development**_ version of Bolt 5 with Docker:
 
   - Check out the git repo
   - Then run:
@@ -83,8 +84,8 @@ Actually, just add `docker-` prefix to any Make command and that's it!
 When installed with Docker, in your browser go to `http://0.0.0.0:8088/` for the frontend, and to
 `http://0.0.0.0:8088/bolt` for the Admin Panel.
 
-2 Set up Database
------------------
+2. Set up Database
+------------------
 
   - Configure the database connection in `.env` or stick with the default
     SQLite, which should work out of the box.
@@ -98,12 +99,12 @@ bin/console doctrine:fixtures:load -n
 
 Alternatively, run `make db-create`, on a UNIX-like system.
 
-Note: if you're using SQLite, ensure that `var/db/` is readable and writable to 
-you, as well as to the webserver users. The same applies to the file 
+Note: if you're using SQLite, ensure that `var/db/` is readable and writable to
+you, as well as to the webserver users. The same applies to the file
 `var/data/bolt.sqlite` if it already exists.
 
-3 Re-set the Database
----------------------
+3. Re-set the Database
+----------------------
 
 This is a Bolt prototype in flux, so stuff can break, and you might want to reset the database to
 the "factory settings". To re-set a database to the latest, with fresh
@@ -118,7 +119,7 @@ bin/console doctrine:fixtures:load -n
 Alternatively, run `make db-reset`, on a UNIX-like system.
 
 4 How to build assets
--------------------
+---------------------
 
 To set up initially, run `npm install` to get the required dependencies /
 `node_modules`. Alternatively give the path to the python executable (`npm install --python="/usr/local/bin/python3.7"`) Then:
@@ -127,10 +128,10 @@ To set up initially, run `npm install` to get the required dependencies /
   - Run `npm run start` (alternatively `npm run start --python="/usr/local/bin/python3.7"`)
 
 See the other options by running `npm run`.
-(Note: as I'm testing this as well remotely, I copied all assets from the released composer installation by `cp -r ../www_backup/public/assets/* public/assets/`)
+(Note: on testing remotely, assets can be compiled into public/assets by simply `npm run-script build`)
 
-5 Run the prototype
--------------------
+5. Run the prototype
+--------------------
 
   - Using the Symfony CLI tool, just run `symfony server:start`.
 
@@ -147,7 +148,7 @@ You can log on, using the default user & pass:
 
 
 Code Style checking / Static Analysis
-----------------------------
+-------------------------------------
 
 Run the following commands with `make`, to perform Code Style checking and
 automatic fixing:
@@ -213,7 +214,7 @@ Several translation-related Console commands are available:
  - `bin/console translation:sync bolt up` - Send updated translations to Loco
 
 Development
---------
+-----------
 
 The ongoing Bolt development takes place under the care of:
 
@@ -230,5 +231,3 @@ Sponsors:
 [installation]: https://docs.bolt.cm/installation
 
 --------
-
-[![Build Status](https://travis-ci.com/bolt/core.svg?branch=master)](https://travis-ci.com/bolt/core) [![SymfonyInsight](https://insight.symfony.com/projects/4d1713e3-be44-4c2e-ad92-35f65eee6bd5/mini.svg)](https://insight.symfony.com/projects/4d1713e3-be44-4c2e-ad92-35f65eee6bd5) [![Total Downloads](https://poser.pugx.org/bolt/core/downloads)](https://packagist.org/packages/bolt/core) ![PHP from Packagist](https://img.shields.io/packagist/php-v/bolt/core)

@@ -9,11 +9,10 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Bolt\Common\Arr;
 use Bolt\Configuration\Content\FieldType;
-use Bolt\Widget\Injector\RequestZone;
+use Bolt\Event\Listener\FieldFillListener;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 use Tightenco\Collect\Support\Collection as LaravelCollection;
@@ -76,6 +75,9 @@ class Field implements FieldInterface, TranslatableInterface
 
     /** @var ?FieldType */
     private $fieldTypeDefinition;
+
+    /** @var bool */
+    private $useDefaultLocale = true;
 
     public function __toString(): string
     {
@@ -159,7 +161,7 @@ class Field implements FieldInterface, TranslatableInterface
             return $this->getDefaultValue()->get($key);
         }
 
-        return $this->translate($this->getCurrentLocale(), ! $this->isTranslatable())->get($key);
+        return $this->translate($this->getCurrentLocale(), $this->useDefaultLocale())->get($key);
     }
 
     /**
@@ -187,7 +189,7 @@ class Field implements FieldInterface, TranslatableInterface
     public function getValue(): ?array
     {
         if ($this->isTranslatable()) {
-            return $this->translate($this->getCurrentLocale(), false)->getValue();
+            return $this->translate($this->getCurrentLocale(), $this->useDefaultLocale())->getValue();
         }
 
         return $this->translate($this->getDefaultLocale(), false)->getValue();
@@ -237,6 +239,10 @@ class Field implements FieldInterface, TranslatableInterface
             $value = $this->getContent()->sanitise($value);
         }
 
+        // Trim the zero spaces even before saving in FieldFillListener.
+        // Otherwise, the preview contains zero width whitespace.
+        $value = is_string($value) ? FieldFillListener::trimZeroWidthWhitespace($value) : $value;
+
         if ($this->shouldBeRenderedAsTwig($value)) {
             $twig = $this->getContent()->getTwig();
 
@@ -260,7 +266,7 @@ class Field implements FieldInterface, TranslatableInterface
 
     private function shouldBeRenderedAsTwig($value): bool
     {
-        return RequestZone::isForFrontend(Request::createFromGlobals()) && is_string($value) && $this->getDefinition()->get('allow_twig') && preg_match('/{[{%#]/', $value);
+        return is_string($value) && $this->getDefinition()->get('allow_twig') && preg_match('/{[{%#]/', $value);
     }
 
     public function set(string $key, $value): self
@@ -381,5 +387,15 @@ class Field implements FieldInterface, TranslatableInterface
     public function isTranslatable(): bool
     {
         return $this->getDefinition()->get('localize') === true;
+    }
+
+    public function useDefaultLocale(): bool
+    {
+        return $this->useDefaultLocale;
+    }
+
+    public function setUseDefaultLocale(bool $useDefaultLocale): void
+    {
+        $this->useDefaultLocale = $useDefaultLocale;
     }
 }

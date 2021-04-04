@@ -1,7 +1,10 @@
 security:
     role_hierarchy:
-        ROLE_ADMIN: [ROLE_EDITOR, ROLE_USER]
+        ROLE_DEVELOPER: [ROLE_ADMIN, ROLE_CAN_SWITCH_USER]
+        ROLE_ADMIN: [ROLE_CHIEF_EDITOR]
+        ROLE_CHIEF_EDITOR: [ROLE_EDITOR]
         ROLE_EDITOR: [ROLE_USER]
+        # ROLE_USER is assigned to Bolt Entity Users if no roles have been set
         ROLE_USER: []
 
     encoders:
@@ -22,6 +25,7 @@ security:
             pattern: ^/
             anonymous: true
             user_checker: Bolt\Security\UserChecker
+            switch_user: { role: CAN_SWITCH_USER }
 
             guard:
                 authenticators:
@@ -35,10 +39,18 @@ security:
             remember_me:
                 secret: '%kernel.secret%'
                 lifetime: 2592000
+                remember_me_parameter: login[remember_me]
 
     access_control:
         # this is a catch-all for the admin area
         # additional security lives in the controllers
-        - { path: '^%bolt.backend_url%/(login|resetpassword)$', roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: '^%bolt.backend_url%', roles: ROLE_ADMIN }
-        - { path: '^/(%app_locales%)%bolt.backend_url%', roles: ROLE_ADMIN }
+        - { path: '^%bolt.backend_url%/login$', roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: '^%bolt.backend_url%/reset-password', roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        # backend_url: require users to actually be logged in (not remember-me) - detailed permissions are
+        # handled by Voters
+        - { path: '^%bolt.backend_url%/api', roles: ADMIN_API_ACCESS } # handled by voter
+        - { path: '^/(%app_locales%)%bolt.backend_url%/api', roles: ADMIN_API_ACCESS } # handled by voter
+        - { path: '^%bolt.backend_url%/_trans', roles: ADMIN_TRANSLATE_ACCESS } # handled by voter
+        - { path: '^/(%app_locales%)%bolt.backend_url%/_trans', roles: ADMIN_TRANSLATE_ACCESS } # handled by voter
+        - { path: '^%bolt.backend_url%', roles: IS_AUTHENTICATED_REMEMBERED }
+        - { path: '^/(%app_locales%)%bolt.backend_url%', roles: IS_AUTHENTICATED_REMEMBERED }

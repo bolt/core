@@ -12,6 +12,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 class ExtensionsListCommand extends Command
 {
+    /** @var string */
     protected static $defaultName = 'extensions:list';
 
     /** @var ExtensionRegistry */
@@ -37,7 +38,8 @@ class ExtensionsListCommand extends Command
         $rows = [];
 
         foreach ($extensions as $extension) {
-            $rows[] = [$extension->getComposerPackage()->getName(), $extension->getClass(), $extension->getName()];
+            $packageName = $extension->getComposerPackage() ? $extension->getComposerPackage()->getName() : 'No Package';
+            $rows[] = [$packageName, $extension->getClass(), $extension->getName()];
         }
 
         $io = new SymfonyStyle($input, $output);

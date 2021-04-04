@@ -20,6 +20,7 @@ final class ContentExtension implements QueryCollectionExtensionInterface, Query
     /** @var Config */
     private $config;
 
+    /** @var Collection */
     private $viewlessContentTypes;
 
     public function __construct(Config $config)
@@ -35,6 +36,12 @@ final class ContentExtension implements QueryCollectionExtensionInterface, Query
 
     public function applyToCollection(QueryBuilder $queryBuilder, QueryNameGeneratorInterface $queryNameGenerator, string $resourceClass, ?string $operationName = null): void
     {
+        /*
+         * Note: We're not distinguishing between `viewless` and `viewless_listing` here. In the
+         * context of the API it makes no sense to say "You can get a list, but not the details"
+         * or vice versa.
+         */
+
         if ($resourceClass === Content::class) {
             $this->filterUnpublishedViewlessContent($queryBuilder);
         }

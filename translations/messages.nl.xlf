@@ -363,7 +363,7 @@
     <unit id="kXNBV9S" name="caption.main_configuration">
       <segment>
         <source>caption.main_configuration</source>
-        <target>hoofdconfiguratie</target>
+        <target>Hoofdconfiguratie</target>
       </segment>
     </unit>
     <unit id="ipmA6Ah" name="caption.users_permissions">
@@ -1296,18 +1296,6 @@
         <target>To edit users and their permissions</target>
       </segment>
     </unit>
-    <unit id="rkVeKe_" name="controller.authentication.reset_title">
-      <segment>
-        <source>controller.authentication.reset_title</source>
-        <target>Reset Password</target>
-      </segment>
-    </unit>
-    <unit id="lN_rF8O" name="controller.authentication.reset_subtitle">
-      <segment>
-        <source>controller.authentication.reset_subtitle</source>
-        <target>To reset your password, if you've misplaced it</target>
-      </segment>
-    </unit>
     <unit id="0Gyf5xr" name="controller.database.check_title">
       <segment>
         <source>controller.database.check_title</source>
@@ -1566,7 +1554,7 @@
         <target>%contenttype% zonder titel</target>
       </segment>
     </unit>
-    <unit id="SDVQEir" name="title.primary_actions">
+    <unit id="JEnqOi." name="title.primary_actions">
       <segment>
         <source>title.primary_actions</source>
         <target>Voornaamste handelingen</target>
@@ -1786,6 +1774,24 @@
       <segment>
         <source>action.confirm_delete</source>
         <target>Weet je zeker dat je deze content wilt verwijderen?</target>
+      </segment>
+    </unit>
+    <unit id="RMPnq6o" name="label.username_or_email">
+      <segment>
+        <source>label.username_or_email</source>
+        <target>Gebruikersnaam of e-mail</target>
+      </segment>
+    </unit>
+    <unit id="z_tOHwq" name="placeholder.username_or_email">
+      <segment>
+        <source>placeholder.username_or_email</source>
+        <target>je gebruikersnaam of e-mailadres</target>
+      </segment>
+    </unit>
+    <unit id="xgYhRkc" name="placeholder.password">
+      <segment>
+        <source>placeholder.password</source>
+        <target>je wachtwoord</target>
       </segment>
     </unit>
   </file>

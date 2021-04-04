@@ -5,22 +5,22 @@ declare(strict_types=1);
 namespace Bolt\Doctrine\Query;
 
 use Doctrine\ORM\Query\AST\Functions\FunctionNode;
+use Doctrine\ORM\Query\AST\Node;
 use Doctrine\ORM\Query\Lexer;
 use Doctrine\ORM\Query\Parser;
 use Doctrine\ORM\Query\SqlWalker;
 
 class Cast extends FunctionNode
 {
-    /** @var \Doctrine\ORM\Query\AST\PathExpression */
+    /** @var Node|string */
     protected $first;
+
     /** @var string */
     protected $second;
-    /** @var string */
-    protected $backend_driver;
 
     public function getSql(SqlWalker $sqlWalker): string
     {
-        $backend_driver = $sqlWalker->getConnection()->getDriver()->getName();
+        $backend_driver = $sqlWalker->getConnection()->getDatabasePlatform()->getName();
 
         // test if we are using MySQL
         if (mb_strpos($backend_driver, 'mysql') !== false) {
@@ -33,6 +33,10 @@ class Cast extends FunctionNode
                  $this->first->dispatch($sqlWalker) === 'b4_.value') {
                 return $this->first->dispatch($sqlWalker);
             }
+        }
+
+        if (! mb_strpos($backend_driver, 'sqlite') && $this->second === 'TEXT') {
+            $this->second = 'CHAR';
         }
 
         return sprintf('CAST(%s AS %s)',

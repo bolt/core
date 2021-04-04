@@ -10,9 +10,9 @@ import selecting from './modules/selecting/';
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  modules: {
-    general,
-    listing,
-    selecting,
-  },
+    modules: {
+        general,
+        listing,
+        selecting,
+    },
 });

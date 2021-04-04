@@ -16,6 +16,7 @@ class LogoutListener implements LogoutHandlerInterface
 {
     use LoggerTrait;
 
+    /** @var EntityManagerInterface */
     private $em;
 
     public function __construct(EntityManagerInterface $em)
