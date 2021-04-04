@@ -12,7 +12,6 @@ use Composer\Package\PackageInterface;
 use ComposerPackages\Packages;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Twig\Environment;
-use Twig\Extension\ExtensionInterface as TwigExtensionInterface;
 use Twig\Loader\FilesystemLoader;
 
 /**
@@ -70,13 +69,6 @@ abstract class BaseExtension implements ExtensionInterface
     }
 
     /**
-     * @deprecated
-     */
-    public function addTwigExtension(TwigExtensionInterface $extension): void
-    {
-    }
-
-    /**
      * Shortcut method to add a namespace to the current Twig Environment.
      */
     public function addTwigNamespace(string $namespace = '', string $foldername = ''): void
@@ -124,29 +116,6 @@ abstract class BaseExtension implements ExtensionInterface
         $dp = $this->getEventDispatcher();
 
         $dp->addListener($event, $callback);
-    }
-
-    /**
-     * @deprecated
-     */
-    public function registerWidget(WidgetInterface $widget): void
-    {
-        $this->addWidget($widget);
-    }
-
-    /**
-     * @deprecated
-     */
-    public function registerTwigExtension(TwigExtensionInterface $extension): void
-    {
-    }
-
-    /**
-     * @deprecated
-     */
-    public function registerListener($event, $callback): void
-    {
-        $this->addListener($event, $callback);
     }
 
     /**

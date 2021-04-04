@@ -77,8 +77,8 @@
     {# Date / Datetime fields #}
     {% if type == "date" %}
         <p>
-            <strong>{{ field|label }}</strong>: {{ field|localedatetime("%A %B %e, %Y") }}
-            {%- if field.definition.mode == 'datetime' %}, {{ field|localedatetime("%H:%M:%S") }}{% endif %}
+            <strong>{{ field|label }}</strong>: {{ field|localdate }}
+            {%- if field.definition.mode == 'datetime' %}, {{ field|localdate("H:i:s") }}{% endif %}
         </p>
     {% endif %}
 
