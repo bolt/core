@@ -5,16 +5,19 @@ declare(strict_types=1);
 namespace Bolt\Doctrine\Query;
 
 use Doctrine\ORM\Query\AST\Functions\FunctionNode;
+use Doctrine\ORM\Query\AST\Node;
 use Doctrine\ORM\Query\Lexer;
 use Doctrine\ORM\Query\Parser;
 use Doctrine\ORM\Query\SqlWalker;
 
 class Cast extends FunctionNode
 {
-    /** @var \Doctrine\ORM\Query\AST\PathExpression */
+    /** @var Node|string */
     protected $first;
+    
     /** @var string */
     protected $second;
+    
     /** @var string */
     protected $backend_driver;
 
