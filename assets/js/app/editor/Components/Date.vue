@@ -20,6 +20,7 @@
                     :disabled="readonly"
                     data-toggle
                     aria-label="Date picker"
+                    onclick="this.blur()"
                 >
                     <i class="fa fa-calendar">
                         <span class="sr-only" aria-hidden="true">{{ labels.toggle }}</span>
@@ -32,6 +33,7 @@
                     :disabled="readonly"
                     data-clear
                     aria-label="Reset date"
+                    onclick="this.blur()"
                 >
                     <i class="fa fa-times">
                         <span class="sr-only" aria-hidden="true">{{ labels.clear }}</span>
