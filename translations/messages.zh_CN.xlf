@@ -383,7 +383,7 @@
       </trans-unit>
       <trans-unit id="7aLIA3c" resname="caption.dashboard">
         <source>caption.dashboard</source>
-        <target>首页</target>
+        <target>控制台</target>
       </trans-unit>
       <trans-unit id="munFS0n" resname="title.filtered_by">
         <source>title.filtered_by</source>
