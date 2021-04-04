@@ -14,10 +14,10 @@ class Cast extends FunctionNode
 {
     /** @var Node|string */
     protected $first;
-    
+
     /** @var string */
     protected $second;
-    
+
     /** @var string */
     protected $backend_driver;
 
