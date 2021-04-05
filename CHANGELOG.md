@@ -1,6 +1,26 @@
 Changelog
 =========
 
+## 4.1.17
+
+Released: 2021-04-05 (Happy Easter 🐣)
+
+### 🐛 Bug fixes
+
+- Use `CompletePackageInterface` in BaseExtension (bobdenotter, [#2507](https://github.com/bolt/core/pull/2507))
+- Don't keep the date field buttons focused after clicking (I-Valchev, [#2505](https://github.com/bolt/core/pull/2505))
+
+### 🛠️ Miscellaneous
+
+- Prepare release 4.1.16 (bobdenotter, [#2487](https://github.com/bolt/core/pull/2487))
+
+### ⚙️ Code Quality / Developer Experience
+
+- Fix typehinting `PathExpression` -> `Node` for property (bobdenotter, [#2509](https://github.com/bolt/core/pull/2509))
+- Create SECURITY.md (I-Valchev, [#2506](https://github.com/bolt/core/pull/2506))
+- Fixes a PHPStan check error, introduced in Symfony 5.2.6 (bobdenotter, [#2497](https://github.com/bolt/core/pull/2497))
+
+
 ## 4.1.16
 
 Released: 2021-03-23
