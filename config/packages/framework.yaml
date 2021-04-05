@@ -1,8 +1,12 @@
+# see https://symfony.com/doc/current/reference/configuration/framework.html
 framework:
     secret: '%env(APP_SECRET)%'
     csrf_protection: { enabled: true }
     http_method_override: true
     trusted_hosts: ~
+
+    # Enables session support. Note that the session will ONLY be started if you read or write from it.
+    # Remove or comment this section to explicitly disable session support.
     session:
         # With this config, PHP's native session handling is used
         handler_id: ~
