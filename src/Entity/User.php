@@ -44,7 +44,7 @@ class User implements UserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(type="string", unique=true, length=191)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(normalizer="trim")
      * @Assert\Length(min=2, max=50)
      * @Assert\Regex(pattern="/^[a-z0-9_]+$/", message="user.username_invalid_characters")
      * @Groups("get_user")
@@ -55,6 +55,7 @@ class User implements UserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(type="string", unique=true, length=191)
+     * @Assert\NotBlank(normalizer="trim")
      * @Assert\Email(message="user.not_valid_email")
      * @Groups("get_user")
      */
