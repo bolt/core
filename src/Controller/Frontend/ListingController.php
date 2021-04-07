@@ -91,7 +91,7 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
         $allowedParams = array_merge(
             $contentType['fields']->keys()->all(),
             $contentType['taxonomy']->all(),
-            ['order', 'earliest', 'latest', 'offset', 'page', 'random', 'author']
+            ['order', 'earliest', 'latest', 'offset', 'page', 'random', 'author', 'anyField']
         );
 
         $params = $queryParams->mapWithKeys(function ($value, $key) use ($allowedParams) {
