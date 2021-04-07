@@ -131,7 +131,7 @@ class LocaleExtension extends AbstractExtension
         } elseif (empty($dateTime)) {
             $dateTime = Carbon::now();
         } else {
-            $dateTime = Carbon::createFromTimeString($dateTime);
+            $dateTime = Carbon::parse($dateTime);
         }
 
         if ($format === null) {
