@@ -23,7 +23,8 @@ class SelectField extends Field implements FieldInterface, RawPersistable, \Iter
     {
         try {
             if (is_string($value)) {
-                $value = json_decode($value, false);
+                // Try to decode JSON, or wrap it as an array (used in conimex).
+                $value = json_decode($value, false) ?? [$value];
             }
         } finally {
             // Array_filter filters out empty elements, but has the side effect
