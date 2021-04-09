@@ -8,6 +8,7 @@ use Bolt\Version;
 use ComposerPackages\Packages;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
@@ -45,7 +46,8 @@ class InfoCommand extends Command
                 <<<'HELP'
 The <info>%command.name%</info> command shows some information about this installation of Bolt.
 HELP
-            );
+            )
+            ->addOption('tablesInitialised', null, InputOption::VALUE_NONE, 'If set, outputs whether the Database tables are initialised or not');
     }
 
     /**
@@ -54,6 +56,11 @@ HELP
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        // If we just need to see if tables exist, exit quickly.
+        if ($input->getOption('tablesInitialised')) {
+            return (int) ! $this->doctrineVersion->tableContentExists();
+        }
+
         $this->io = new SymfonyStyle($input, $output);
 
         $this->outputImage($this->io);
