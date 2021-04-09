@@ -20,7 +20,9 @@ class ProjectEventHandler
         CreateProjectScript::execute($event);
     }
 
-    /** @placeholder */
+    /**
+     * @placeholder
+     */
     public static function preInstall(Event $event): void
     {
     }
@@ -30,7 +32,9 @@ class ProjectEventHandler
         PostInstallScript::execute();
     }
 
-    /** @placeholder */
+    /**
+     * @placeholder
+     */
     public static function preUpdate(Event $event): void
     {
     }
@@ -44,5 +48,4 @@ class ProjectEventHandler
     {
         PrePackageUninstallScript::execute();
     }
-
 }

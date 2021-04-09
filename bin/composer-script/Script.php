@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bolt\ComposerScripts;
 
 use Composer\Script\Event;
@@ -11,7 +13,7 @@ class Script
     /** @var SymfonyStyle */
     protected static $console;
 
-    protected static function init(string $message = '')
+    protected static function init(string $message = ''): void
     {
         $consoleFactory = new SymfonyStyleFactory();
         self::$console = $consoleFactory->create();
