@@ -10,9 +10,10 @@ class PostInstallScript extends Script
     {
         parent::init('Running composer "post-install-cmd" scripts');
 
-        self::run('php bin/console bolt:copy-assets --ansi');
         self::run('php bin/console cache:clear --no-warmup --ansi');
-        self::run('php bin/console assets:install --ansi');
+        self::run('php bin/console assets:install --symlink --relative public --ansi');
+        self::run('php bin/console bolt:copy-assets --ansi');
+        self::run('php bin/console extensions:configure --with-config --ansi');
 
         // Only run, if the tables are initialised already, _and_ Doctrine thinks we need to
         $migrationError = ! self::run('php bin/console bolt:info --tablesInitialised') &&
@@ -21,7 +22,5 @@ class PostInstallScript extends Script
         if ($migrationError) {
             self::$console->warning('Please run `php bin/console doctrine:migrations:migrate` to execute the database migrations.');
         }
-
-        self::run('php bin/console extensions:configure --ansi');
     }
 }
