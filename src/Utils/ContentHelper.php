@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Utils;
 
 use Bolt\Canonical;
+use Bolt\Common\Str;
 use Bolt\Configuration\Config;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field\Excerptable;
@@ -132,7 +133,7 @@ class ContentHelper
 
         $dateFormat = $this->config->get('general/date_format');
 
-        return preg_replace_callback(
+        return Str::decode(preg_replace_callback(
             '/{([\w]+)}/i',
             function ($match) use ($record, $locale, $dateFormat) {
                 if ($match[1] === 'id') {
@@ -205,7 +206,7 @@ class ContentHelper
                 return '(unknown)';
             },
             $format
-        );
+        ));
     }
 
     public static function getFieldNames(string $format): array
