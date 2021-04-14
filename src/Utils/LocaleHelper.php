@@ -139,25 +139,7 @@ class LocaleHelper
 
     private function getLink(string $route, array $routeParams, Collection $locale): string
     {
-        switch ($route) {
-            case 'record':
-            case 'homepage':
-            case 'listing':
-            case 'search':
-            case 'taxonomy':
-                $route = $route .= '_locale';
-                // no break
-            case 'record_locale':
-            case 'homepage_locale':
-            case 'listing_locale':
-            case 'search_locale':
-            case 'taxonomy_locale':
-                $routeParams['_locale'] = $locale->get('code');
-
-                break;
-            default:
-                $routeParams['edit_locale'] = $locale->get('code');
-        }
+        $routeParams['_locale'] = $locale->get('code');
 
         return $this->urlGenerator->generate($route, $routeParams);
     }
