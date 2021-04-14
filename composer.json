@@ -12,7 +12,7 @@
         "babdev/pagerfanta-bundle": "^2.5",
         "beberlei/doctrineextensions": "^1.2",
         "bobdenotter/yaml-migrations": "^1.0",
-        "bolt/common": "^2.1.11",
+        "bolt/common": "^2.1.12",
         "cocur/slugify": "^4.0",
         "composer/composer": "^2.0",
         "composer/package-versions-deprecated": "^1.11",
