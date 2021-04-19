@@ -141,6 +141,11 @@ class LocaleHelper
     {
         $routeParams['_locale'] = $locale->get('code');
 
+        if ($route === 'bolt_content_edit') {
+            unset($routeParams['_locale']);
+            $routeParams['edit_locale'] = $locale->get('code');
+        }
+
         return $this->urlGenerator->generate($route, $routeParams);
     }
 
