@@ -73,7 +73,7 @@ class SelectField extends Field implements FieldInterface, RawPersistable, \Iter
         $values = $this->getDefinition()->get('values');
 
         // Check if it is a service
-        if (self::$container && self::$container->has($values)) {
+        if (self::$container && is_string($values) && self::$container->has($values)) {
             $class = self::$container->get($values);
             // the name of the function
             $func = 'getOptions';
