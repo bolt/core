@@ -41,7 +41,7 @@
 
     {% set suggested_pw_postfix %}{% apply spaceless %}
         <div>
-            {{ 'password.suggested'|trans({'%password%': suggested_pw })|raw }}
+            {{ 'password.suggested'|trans({'%password%': suggested_pw|e })|raw }}
             <i style="cursor: pointer;" class="fas fa-clipboard-check ml-2" data-copy-to-clipboard="{{ suggested_pw }}"></i>
         </div>
     {% endapply %}{% endset %}
