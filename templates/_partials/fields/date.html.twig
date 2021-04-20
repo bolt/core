@@ -24,13 +24,18 @@
   {% endif %}
 
   {% if not valueonly %}
+      {# Ensure we use only locales bundled with Flatflicker, otherwise default to 'en' #}
+      {% set locale = app.user.locale|split('_')|first %}
+      {% if not locale in 'ar|at|az|be|bg|bn|bs|cs|cy|da|de|eo|es|et|fa|fi|fo|fr|ga|gr|he|hi|hr|hu|id|is|it|ja|ka|km|ko|kz|lt|lv|mk|mn|ms|my|nl|no|pa|pl|pt|ro|ru|si|sk|sl|sq|sr|sv|th|tr|uk|uz|vn|zh'|split('|') %}
+          {% set locale = 'en' %}
+      {% endif %}
   <editor-date
     :value='{{ value|json_encode }}'
     name='{{ name }}'
     :readonly='{{ readonly|json_encode }}'
     form='{{ form }}'
     mode='{{ mode }}'
-    locale='{{app.user.locale}}'
+    locale='{{locale}}'
     labels='{{ { 'toggle': 'editor_date.toggle'|trans }|json_encode }}'
     :required='{{ required|json_encode }}'
     :errormessage='{{ errormessage|json_encode }}'
@@ -39,6 +44,6 @@
     {{ value|localdate(format|default(null), locale|default(null)) }}
       <small>({{ macro.relative_datetime(value) }})</small>
   {% endif %}
-  
+
 {% endblock %}
 
