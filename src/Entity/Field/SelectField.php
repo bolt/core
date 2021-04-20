@@ -8,6 +8,7 @@ use Bolt\Entity\Field;
 use Bolt\Entity\FieldInterface;
 use Bolt\Entity\IterableFieldTrait;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Tightenco\Collect\Support\Collection;
 
 /**
@@ -18,6 +19,9 @@ class SelectField extends Field implements FieldInterface, RawPersistable, \Iter
     use IterableFieldTrait;
 
     public const TYPE = 'select';
+
+    /** @var ContainerInterface|null */
+    private static $container = null;
 
     public function setValue($value): Field
     {
@@ -66,7 +70,24 @@ class SelectField extends Field implements FieldInterface, RawPersistable, \Iter
 
     public function getOptions()
     {
-        return $this->getDefinition()->get('values');
+        $values = $this->getDefinition()->get('values');
+
+        // Check if it is a service
+        if (self::$container && self::$container->has($values)) {
+            $class = self::$container->get($values);
+            // the name of the function
+            $func = 'getOptions';
+
+            return $class->{$func}($this);
+        }
+
+        // Check if it is a callable
+        if (is_callable($values)) {
+            return call_user_func_array($values, [$this]);
+        }
+
+        // Assume it's an array of values
+        return $values;
     }
 
     public function getSelected()
@@ -87,7 +108,7 @@ class SelectField extends Field implements FieldInterface, RawPersistable, \Iter
 
     public function getContentType()
     {
-        $values = $this->getDefinition()->get('values');
+        $values = $this->getOptions();
 
         if (is_string($values) && mb_strpos($values, '/') !== false) {
             return current(explode('/', $values));
@@ -110,5 +131,10 @@ class SelectField extends Field implements FieldInterface, RawPersistable, \Iter
     public function getDefaultValue()
     {
         return [parent::getDefaultValue()];
+    }
+
+    public static function setContainer(ContainerInterface $container): void
+    {
+        self::$container = $container;
     }
 }
