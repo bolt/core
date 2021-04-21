@@ -7,6 +7,8 @@ Released: 2021-04-21
 
 ### 🐛 Bug fixes
 
+- Fix edgecase where Excerpt could start with `. `. (bobdenotter, [#2542](https://github.com/bolt/core/pull/2542))
+- The `latest` directive uses `-publishedAt` instead of `-id` (I-Valchev, [#2541](https://github.com/bolt/core/pull/2541))
 - Fix datepicker to only attempt to use existing locales, ensuring Time Picking still works (bobdenotter, [#2539](https://github.com/bolt/core/pull/2539))
 - Locale get link always `_locale` parameter (I-Valchev, [#2532](https://github.com/bolt/core/pull/2532))
 - Corrected the filepath for `getsvg()` function (mcdennem, [#2531](https://github.com/bolt/core/pull/2531))
