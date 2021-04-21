@@ -17,6 +17,6 @@ class LatestDirectiveHandler
 
     public function __invoke(QueryInterface $query, $value, &$directives): void
     {
-        $directives[OrderDirective::NAME] = '-id';
+        $directives[OrderDirective::NAME] = '-publishedAt';
     }
 }
