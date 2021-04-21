@@ -6,6 +6,7 @@ namespace Bolt;
 
 use Bolt\Configuration\Parser\ContentTypesParser;
 use Bolt\Configuration\Parser\TaxonomyParser;
+use Bolt\Entity\Field\SelectField;
 use Bolt\Extension\ExtensionCompilerPass;
 use Bolt\Extension\ExtensionInterface;
 use Bolt\Repository\FieldRepository;
@@ -42,6 +43,7 @@ class Kernel extends BaseKernel
         // Add the entity manager as a static class property used in FieldRepository::factory()
         $manager = $this->getContainer()->get('doctrine')->getManager();
         FieldRepository::setEntityManager($manager);
+        SelectField::setContainer(self::getContainer());
     }
 
     public function build(ContainerBuilder $container): void
