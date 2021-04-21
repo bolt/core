@@ -17,10 +17,10 @@ Released: 2021-04-21
 - Assert User's email is not blank (bobdenotter, [#2517](https://github.com/bolt/core/pull/2517))
 - Fix bug where `anyField` search no longer works on listing (I-Valchev, [#2515](https://github.com/bolt/core/pull/2515))
 - Make sure a select field can accept a string value (I-Valchev, [#2511](https://github.com/bolt/core/pull/2511))
+- Do not remove reverse relation when save (napley, [#2535](https://github.com/bolt/core/pull/2535))
 
 ### 🛠️ Miscellaneous
 
-- Do not remove reverse relation when save (napley, [#2535](https://github.com/bolt/core/pull/2535))
 - Suppress unneeded notices in ECS (bobdenotter, [#2520](https://github.com/bolt/core/pull/2520))
 
 
