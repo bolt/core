@@ -5,7 +5,7 @@
             <li v-if="type !== 'dashboard'">
                 <div v-if="!sorting" class="custom-control custom-checkbox">
                     <input id="selectAll" :value="selectAll" class="custom-control-input" type="checkbox" />
-                    <label class="custom-control-label" for="selectAll" @click="enableSelectAll(!selectAll)"></label>
+                    <label class="custom-control-label" for="selectAll" @click="enableSelectAll(!selectAll)"><span class="sr-only">{{ labels.select_all }}</span></label>
                 </div>
             </li>
 
