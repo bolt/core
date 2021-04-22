@@ -297,7 +297,7 @@ class ContentExtension extends AbstractExtension
             }
         }
 
-        $specialChars = ['.', ',', '!', '?'];
+        $specialChars = ['.', ',', '!', '?', '>'];
         $excerpt = array_reduce($excerptParts, function (string $excerpt, string $part) use ($specialChars): string {
             if (in_array(mb_substr($part, -1), $specialChars, true) === false) {
                 // add period at end of string if it doesn't have sentence end
