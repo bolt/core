@@ -23,9 +23,9 @@
             {% for entry in entries %}
                 <li>
                     {{ entry.contenttype }} {{ entry.id }} . {{ entry|title }}
-                    <span class="s{{ loop.index }}">{{ _self.issmaller(entry.id, last|default()) }}</span>
+                    <span class="s{{ loop.index }}">{{ _self.issmaller(entry.publishedAt, last|default()) }}</span>
                 </li>
-                {% set last = entry.id %}
+                {% set last = entry.publishedAt %}
             {% endfor %}
             </ul>
         </section>
