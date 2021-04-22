@@ -2655,5 +2655,11 @@
         <target>Edit Permissions</target>
       </segment>
     </unit>
+    <unit id="OEqzPDO" name="listing_table.actions.select_all">
+      <segment>
+        <source>listing_table.actions.select_all</source>
+        <target>Select all</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
