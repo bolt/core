@@ -21,10 +21,10 @@ class SnippetWidget extends BaseWidget
         string $target = Target::NOWHERE,
         string $zone = RequestZone::NOWHERE
     ) {
-        $this->template = $snippet;
-        $this->name = $name;
-        $this->target = $target;
-        $this->zone = $zone;
+        $this->setTemplate($snippet);
+        $this->setName($name);
+        $this->setTargets([$target]);
+        $this->setZone($zone);
     }
 
     protected function run(array $params = []): ?string
