@@ -11,19 +11,19 @@ class SnippetWidget extends BaseWidget
 {
     protected $name;
     protected $type;
-    protected $target;
+    protected $targets;
     protected $zone;
     protected $priority;
 
     public function __construct(
         string $snippet = '<!-- snippet -->',
         string $name = 'Nameless Snippet',
-        string $target = Target::NOWHERE,
+        array $targets = [Target::NOWHERE],
         string $zone = RequestZone::NOWHERE
     ) {
         $this->setTemplate($snippet);
         $this->setName($name);
-        $this->setTargets([$target]);
+        $this->setTargets($targets);
         $this->setZone($zone);
     }
 
