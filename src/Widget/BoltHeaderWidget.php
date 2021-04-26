@@ -27,9 +27,9 @@ class BoltHeaderWidget extends BaseWidget implements WidgetInterface, ResponseAw
         return 'Bolt Header Widget';
     }
 
-    public function getTarget(): string
+    public function getTargets(): array
     {
-        return Target::NOWHERE;
+        return [Target::NOWHERE];
     }
 
     public function getPriority(): int
