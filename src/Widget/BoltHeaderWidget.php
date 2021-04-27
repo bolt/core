@@ -8,7 +8,7 @@ use Bolt\Extension\ExtensionInterface;
 use Bolt\Widget\Injector\RequestZone;
 use Bolt\Widget\Injector\Target;
 
-class BoltHeaderWidget implements WidgetInterface, ResponseAwareInterface
+class BoltHeaderWidget extends BaseWidget implements WidgetInterface, ResponseAwareInterface
 {
     use ResponseTrait;
 
@@ -27,9 +27,9 @@ class BoltHeaderWidget implements WidgetInterface, ResponseAwareInterface
         return 'Bolt Header Widget';
     }
 
-    public function getTarget(): string
+    public function getTargets(): array
     {
-        return Target::NOWHERE;
+        return [Target::NOWHERE];
     }
 
     public function getPriority(): int

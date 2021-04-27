@@ -12,7 +12,7 @@ trait ResponseTrait
     /** @var Response */
     private $response;
 
-    public function setResponse(Response $response): self
+    public function setResponse(Response $response): WidgetInterface
     {
         $this->response = $response;
 
