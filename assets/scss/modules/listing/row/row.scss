@@ -170,7 +170,7 @@ $checkbox-row-width: 32px;
     }
 
     &.is-meta {
-      flex: 1 0 65%;
+      flex: 1 0 68%;
       display: flex;
       flex-wrap: wrap;
       padding-top: 0;
@@ -185,8 +185,8 @@ $checkbox-row-width: 32px;
       }
 
       @include media-breakpoint-up(md) {
-        flex: 0 0 130px;
-        max-width: 130px;
+        flex: 0 0 140px;
+        max-width: 140px;
         order: 3;
         padding: $spacer*0.5;
       }
@@ -216,12 +216,9 @@ $checkbox-row-width: 32px;
   }
 
   &--list {
-    display: flex;
-    flex-wrap: wrap;
     padding: 0;
     list-style: none;
     font-size: 0.8rem;
-    line-height: 1.6;
     letter-spacing: $letter-spacing;
     margin-bottom: 0;
 
