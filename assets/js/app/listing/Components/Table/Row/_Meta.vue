@@ -11,7 +11,7 @@
                 <template v-if="type === 'dashboard'"
                     ><a :href="`/bolt/content/${record.contentType}`"> {{ record.extras.singular_name }}</a>
                 </template>
-                <template v-else>{{ record.extras.singular_name | trim(14) }}</template
+                <template v-else>{{ record.extras.singular_name }}</template
                 >&nbsp;№ {{ record.id }}
             </li>
         </ul>

@@ -171,7 +171,7 @@ $checkbox-row-width: 32px;
 
     &.is-meta {
       flex: 1 0 68%;
-      display: flex;
+      display: block;
       flex-wrap: wrap;
       padding-top: 0;
       margin-bottom: 0;
@@ -185,10 +185,11 @@ $checkbox-row-width: 32px;
       }
 
       @include media-breakpoint-up(md) {
-        flex: 0 0 140px;
-        max-width: 140px;
+        flex: 0 0 155px;
+        max-width: 155px;
         order: 3;
-        padding: $spacer*0.5;
+        padding: $spacer*0.5 0 $spacer*0.3 $spacer*0.5;
+        margin-right: -2rem;
       }
     }
 
@@ -228,12 +229,12 @@ $checkbox-row-width: 32px;
     }
 
     li {
-      //display: flex;
       padding-right: 1rem;
-      //align-items: center;
       margin-bottom: $spacer / 4;
       color: var(--shade);
       text-transform: capitalize;
+      text-overflow: ellipsis;
+      overflow: hidden;
 
       > :first-child,
       .status,
