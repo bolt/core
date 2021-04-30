@@ -7,6 +7,7 @@ namespace Bolt\Event\Subscriber;
 use Bolt\Canonical;
 use Bolt\Configuration\Config;
 use Bolt\Widget\BoltHeaderWidget;
+use Bolt\Widget\FlocOptOutHeader;
 use Bolt\Widget\CanonicalLinkWidget;
 use Bolt\Widget\Injector\RequestZone;
 use Bolt\Widget\Injector\Target;
@@ -55,7 +56,11 @@ class WidgetSubscriber implements EventSubscriberInterface
 
         $this->widgets->registerWidget($canonicalLinkWidget);
 
-        if (! $this->config->get('general/omit_powered_by_header')) {
+        if (! $this->config->get('general/headers/allow_floc')) {
+            $this->widgets->registerWidget(new FlocOptOutHeader());
+        }
+
+        if ($this->config->get('general/headers/powered_by')) {
             $this->widgets->registerWidget(new BoltHeaderWidget());
         }
 

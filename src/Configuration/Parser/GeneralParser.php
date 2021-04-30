@@ -87,7 +87,8 @@ class GeneralParser extends BaseParser
             'upload_location' => '{contenttype}/{year}/{month}/',
             'maintenance_mode' => false,
             'headers' => [
-                'x_frame_options' => true,
+                'block_floc' => true,
+                'powered_by' => true,
             ],
             'htmlcleaner' => [
                 'allowed_tags' => explode(',', 'div,span,p,br,hr,s,u,strong,em,i,b,li,ul,ol,mark,blockquote,pre,code,tt,h1,h2,h3,h4,h5,h6,dd,dl,dh,table,tbody,thead,tfoot,th,td,tr,a,img,address,abbr,iframe'),
@@ -99,7 +100,6 @@ class GeneralParser extends BaseParser
             'forbidden' => 'helpers/page_403.html.twig',
             'internal_server_error' => 'helpers/page_500.html.twig',
             'omit_backgrounds' => false,
-            'omit_powered_by_header' => false,
             'omit_meta_generator_tag' => false,
             'user_avatar' => [
                 'upload_path' => 'avatars',
