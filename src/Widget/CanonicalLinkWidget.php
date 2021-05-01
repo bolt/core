@@ -37,10 +37,11 @@ class CanonicalLinkWidget extends BaseWidget
     protected function run(array $params = []): ?string
     {
         $template = $this->config->get('general/canonical_template', $this->defaultTemplate);
+        $absolute = !$this->config->get('general/relative_canonical_url', false);
         $output   = $this->getTwig()->render(
             $template,
             [
-                'canonical' => $this->canonical->get(),
+                'canonical' => $this->canonical->get(null, [], $absolute),
             ]
         );
 
