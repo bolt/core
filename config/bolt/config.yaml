@@ -37,6 +37,9 @@ omit_powered_by_header: false
 # If you include `https://`, it will be included in the canonical urls.
 #canonical: example.org
 
+# If you want to override the canonical template, from the theme:
+#canonical_template: 'partials/_canonical.html.twig'
+
 # Bolt can insert a <link rel="shortcut icon"> for all pages on the site.
 
 # Note: The location given is relative to the currently selected theme. If
