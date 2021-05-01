@@ -16,6 +16,7 @@ use Bolt\Widgets;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
+use Twig\Environment;
 
 class WidgetSubscriber implements EventSubscriberInterface
 {
@@ -30,11 +31,15 @@ class WidgetSubscriber implements EventSubscriberInterface
     /** @var Config */
     private $config;
 
-    public function __construct(Widgets $widgets, Canonical $canonical, Config $config)
+    /** @var Environment */
+    private $twig;
+
+    public function __construct(Widgets $widgets, Canonical $canonical, Config $config, Environment $twig)
     {
         $this->widgets = $widgets;
         $this->canonical = $canonical;
         $this->config = $config;
+        $this->twig = $twig;
     }
 
     /**
@@ -42,7 +47,13 @@ class WidgetSubscriber implements EventSubscriberInterface
      */
     public function onKernelRequest(RequestEvent $event): void
     {
-        $this->widgets->registerWidget(new CanonicalLinkWidget($this->canonical));
+        $canonicalLinkWidget = new CanonicalLinkWidget(
+            $this->canonical,
+            $this->config,
+            $this->twig
+        );
+
+        $this->widgets->registerWidget($canonicalLinkWidget);
 
         if (! $this->config->get('general/omit_powered_by_header')) {
             $this->widgets->registerWidget(new BoltHeaderWidget());
