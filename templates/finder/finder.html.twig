@@ -12,6 +12,7 @@
 {% endblock %}
 
 {% block main %}
+    {{ widgets('files_below_header') }}
     <div id="filemanager">
         {% include '@bolt/finder/_quickselect.html.twig' %}
 
@@ -28,6 +29,7 @@
         {{ pager(finder, template = '@bolt/helpers/_pager_bootstrap.html.twig', class="justify-content-center") }}
 
     </div>
+    {{ widgets('files_bottom') }}
 {% endblock %}
 
 {% block aside %}
