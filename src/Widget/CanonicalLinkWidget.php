@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Bolt\Widget;
 
 use Bolt\Canonical;
+use Bolt\Configuration\Config;
 use Bolt\Widget\Injector\RequestZone;
 use Bolt\Widget\Injector\Target;
+use Twig\Environment;
 
 class CanonicalLinkWidget extends BaseWidget
 {
@@ -18,13 +20,30 @@ class CanonicalLinkWidget extends BaseWidget
     /** @var Canonical */
     private $canonical;
 
-    public function __construct(Canonical $canonical)
+    /** @var Config */
+    private $config;
+
+    /** @var string */
+    private $defaultTemplate = '@bolt/widget/canonical.html.twig';
+
+    public function __construct(Canonical $canonical, Config $config, Environment $twig)
     {
         $this->canonical = $canonical;
+        $this->config = $config;
+
+        $this->setTwig($twig);
     }
 
     protected function run(array $params = []): ?string
     {
-        return sprintf('<link rel="canonical" href="%s">', $this->canonical->get());
+        $template = $this->config->get('general/canonical_template', $this->defaultTemplate);
+        $absolute = ! $this->config->get('general/relative_canonical_url', false);
+
+        return $this->getTwig()->render(
+            $template,
+            [
+                'canonical' => $this->canonical->get(null, [], $absolute),
+            ]
+        );
     }
 }
