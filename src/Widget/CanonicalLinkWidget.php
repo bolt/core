@@ -29,7 +29,7 @@ class CanonicalLinkWidget extends BaseWidget
     public function __construct(Canonical $canonical, Config $config, Environment $twig)
     {
         $this->canonical = $canonical;
-        $this->config    = $config;
+        $this->config = $config;
 
         $this->setTwig($twig);
     }
@@ -37,14 +37,13 @@ class CanonicalLinkWidget extends BaseWidget
     protected function run(array $params = []): ?string
     {
         $template = $this->config->get('general/canonical_template', $this->defaultTemplate);
-        $absolute = !$this->config->get('general/relative_canonical_url', false);
-        $output   = $this->getTwig()->render(
+        $absolute = ! $this->config->get('general/relative_canonical_url', false);
+
+        return $this->getTwig()->render(
             $template,
             [
                 'canonical' => $this->canonical->get(null, [], $absolute),
             ]
         );
-
-        return $output;
     }
 }
