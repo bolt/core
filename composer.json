@@ -35,7 +35,7 @@
         "psr/event-dispatcher": "^1.0",
         "psr/simple-cache": "^1.0",
         "scienta/doctrine-json-functions": "^4.1",
-        "sensio/framework-extra-bundle": "^5.6",
+        "sensio/framework-extra-bundle": "^6.1",
         "sensiolabs/security-checker": "^6.0",
         "siriusphp/upload": "^3.0.1",
         "squirrelphp/twig-php-syntax": "^1.5",
