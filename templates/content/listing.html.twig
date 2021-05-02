@@ -22,7 +22,9 @@
 
 {% block main %}
     <div>
+        {{ widgets('overview_below_header') }}
         {% include '@bolt/_partials/_content_listing.html.twig' with {'records': records, 'type': contentType.slug } %}
+        {{ widgets('overview_bottom') }}
     </div>
 {% endblock %}
 
