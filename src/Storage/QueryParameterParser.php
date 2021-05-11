@@ -94,6 +94,8 @@ class QueryParameterParser
         // @codingStandardsIgnoreEnd
 
         $this->addFilterHandler([$this, 'defaultFilterHandler']);
+        $this->addFilterHandler([$this, 'booleanValueHandler']);
+        $this->addFilterHandler([$this, 'numericValueHandler']);
         $this->addFilterHandler([$this, 'multipleValueHandler']);
         $this->addFilterHandler([$this, 'multipleKeyAndValueHandler']);
         $this->addFilterHandler([$this, 'incorrectQueryHandler']);
@@ -244,9 +246,53 @@ class QueryParameterParser
     }
 
     /**
+     * The boolean handler handles single boolean values.
+     * For example, checkbox field values.
+     */
+    public function booleanValueHandler(string $key, $value, Expr $expr): ?Filter
+    {
+        if (! is_bool($value)) {
+            return null;
+        }
+
+        $filter = $this->defaultFilterHandler($key, $value, $expr);
+
+        // Ineffective way to set the value, if it is a string.
+        foreach ($filter->getParameters() as $key => $val) {
+            if ($val === (string) $value) {
+                $filter->setParameter($key, $value); // Put it back as a boolean.
+            }
+        }
+
+        return $filter;
+    }
+
+    /**
+     * The numeric handler handles single numeric values.
+     * For example, content select field values.
+     */
+    public function numericValueHandler(string $key, $value, Expr $expr): ?Filter
+    {
+        if (! is_numeric($value)) {
+            return null;
+        }
+
+        $filter = $this->defaultFilterHandler($key, $value, $expr);
+
+        // Ineffective way to set the value, if it is a string.
+        foreach ($filter->getParameters() as $key => $val) {
+            if ($val === (string) $value) {
+                $filter->setParameter($key, $value); // Put it back as a boolean.
+            }
+        }
+
+        return $filter;
+    }
+
+    /**
      * The default handler is the last to be run and handles simple value parsing.
      *
-     * @param string|array|bool $value
+     * @param string|array $value
      */
     public function defaultFilterHandler(string $key, $value, Expr $expr): Filter
     {
@@ -273,11 +319,6 @@ class QueryParameterParser
         }
 
         $val = $this->parseValue((string) $value);
-
-        // @todo: Can this be refactored to avoid ugly override when $value is bool?
-        if (is_bool($value)) {
-            $val['value'] = $value;
-        }
 
         $placeholder = $key . '_1';
         $exprMethod = $val['operator'];
