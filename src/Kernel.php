@@ -6,8 +6,8 @@ namespace Bolt;
 
 use Bolt\Configuration\Parser\ContentTypesParser;
 use Bolt\Configuration\Parser\TaxonomyParser;
-use Bolt\Entity\Field\SelectField;
 use Bolt\Entity\Field;
+use Bolt\Entity\Field\SelectField;
 use Bolt\Extension\ExtensionCompilerPass;
 use Bolt\Extension\ExtensionInterface;
 use Bolt\Repository\FieldRepository;
