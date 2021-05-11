@@ -10,6 +10,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Bolt\Common\Arr;
 use Bolt\Configuration\Content\FieldType;
 use Bolt\Event\Listener\FieldFillListener;
+use Bolt\Utils\Sanitiser;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
@@ -78,6 +79,9 @@ class Field implements FieldInterface, TranslatableInterface
 
     /** @var bool */
     private $useDefaultLocale = true;
+
+    /** @var Sanitiser */
+    private static $sanitiser;
 
     public function __toString(): string
     {
@@ -235,8 +239,8 @@ class Field implements FieldInterface, TranslatableInterface
     {
         $value = $this->getParsedValue();
 
-        if (is_string($value) && $this->getContent() && $this->getDefinition()->get('sanitise')) {
-            $value = $this->getContent()->sanitise($value);
+        if (is_string($value) && $this->getDefinition()->get('sanitise')) {
+            $value = self::getSanitiser()->clean($value);
         }
 
         // Trim the zero spaces even before saving in FieldFillListener.
@@ -397,5 +401,15 @@ class Field implements FieldInterface, TranslatableInterface
     public function setUseDefaultLocale(bool $useDefaultLocale): void
     {
         $this->useDefaultLocale = $useDefaultLocale;
+    }
+
+    public static function getSanitiser(): Sanitiser
+    {
+        return self::$sanitiser;
+    }
+
+    public static function setSanitiser(Sanitiser $sanitiser): void
+    {
+        self::$sanitiser = $sanitiser;
     }
 }
