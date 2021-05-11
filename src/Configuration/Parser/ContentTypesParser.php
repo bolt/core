@@ -201,7 +201,6 @@ class ContentTypesParser extends BaseParser
 
         if (! empty($contentType['relations']) && is_array($contentType['relations'])) {
             foreach (array_keys($contentType['relations']) as $relkey) {
-
                 // Default `required` to `false` for Relations
                 $contentType['relations'][$relkey]['required'] = $contentType['relations'][$relkey]['required'] ?? false;
 
