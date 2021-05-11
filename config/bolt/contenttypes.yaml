@@ -97,6 +97,12 @@ pages:
         template:
             type: templateselect
             filter: '/^[^_].*\.twig$/'
+    relations:
+        entries:
+            multiple: false
+            order: title
+            label: Select an Entry
+            required: false
     taxonomy: [ groups ]
     listing_records: 6
     order: id
@@ -139,7 +145,7 @@ entries:
             type: embed
     relations:
         pages:
-            multiple: false
+            multiple: true
             order: heading
             label: Select a page
     taxonomy: [ categories, tags, groups ]

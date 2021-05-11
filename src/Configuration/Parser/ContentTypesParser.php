@@ -199,9 +199,12 @@ class ContentTypesParser extends BaseParser
             $contentType['taxonomy'] = [];
         }
 
-        // when adding relations, make sure they're added by their slug. Not their 'name' or 'singular name'.
         if (! empty($contentType['relations']) && is_array($contentType['relations'])) {
             foreach (array_keys($contentType['relations']) as $relkey) {
+                // Default `required` to `false` for Relations
+                $contentType['relations'][$relkey]['required'] = $contentType['relations'][$relkey]['required'] ?? false;
+
+                // Make sure Relations are added by their slug. Not their 'name' or 'singular name'.
                 if ($relkey !== Str::slug($relkey)) {
                     $contentType['relations'][Str::slug($relkey)] = $contentType['relations'][$relkey];
                     unset($contentType['relations'][$relkey]);
