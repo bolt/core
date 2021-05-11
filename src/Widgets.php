@@ -103,7 +103,7 @@ class Widgets
     private function filteredWidgets(string $target): Collection
     {
         return $this->queue->filter(function (WidgetInterface $widget) use ($target) {
-            return $widget->getTarget() === $target;
+            return in_array($target, $widget->getTargets(), true);
         })->sortBy(function (WidgetInterface $widget) {
             return $widget->getPriority();
         });

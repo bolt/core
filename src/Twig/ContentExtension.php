@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Twig;
 
 use Bolt\Canonical;
+use Bolt\Common\Str;
 use Bolt\Configuration\Config;
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Entity\Content;
@@ -12,12 +13,14 @@ use Bolt\Entity\Field;
 use Bolt\Entity\Field\Excerptable;
 use Bolt\Entity\Field\ImageField;
 use Bolt\Entity\Field\ImagelistField;
+use Bolt\Entity\Field\SelectField;
 use Bolt\Entity\Field\TemplateselectField;
 use Bolt\Entity\Taxonomy;
 use Bolt\Enum\Statuses;
 use Bolt\Log\LoggerTrait;
 use Bolt\Repository\ContentRepository;
 use Bolt\Repository\TaxonomyRepository;
+use Bolt\Security\ContentVoter;
 use Bolt\Storage\Query;
 use Bolt\Utils\ContentHelper;
 use Bolt\Utils\Excerpt;
@@ -25,6 +28,7 @@ use Bolt\Utils\Html;
 use Bolt\Utils\Sanitiser;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Exception\InvalidParameterException;
@@ -254,7 +258,7 @@ class ContentExtension extends AbstractExtension
         }
 
         if (ContentHelper::isSuitable($content, 'excerpt_format')) {
-            $excerpt = $this->contentHelper->get($content, $content->getDefinition()->get('excerpt_format'));
+            $excerpt = $this->contentHelper->get($content, $content->getDefinition()->get('excerpt_format'), $this->request->getLocale());
         } else {
             $excerpt = $this->getFieldBasedExcerpt($content, $length, $includeTitle);
         }
@@ -293,7 +297,7 @@ class ContentExtension extends AbstractExtension
             }
         }
 
-        $specialChars = ['.', ',', '!', '?'];
+        $specialChars = ['.', ',', '!', '?', '>'];
         $excerpt = array_reduce($excerptParts, function (string $excerpt, string $part) use ($specialChars): string {
             if (in_array(mb_substr($part, -1), $specialChars, true) === false) {
                 // add period at end of string if it doesn't have sentence end
@@ -364,11 +368,6 @@ class ContentExtension extends AbstractExtension
             $recordParams['contentTypeSlug'] === $routeParams['contentTypeSlug'];
     }
 
-    public function allowTwig(Environment $env, Content $content): void
-    {
-        $content->setTwig($env);
-    }
-
     /**
      * @param Content|Taxonomy $contentOrTaxonomy
      */
@@ -401,7 +400,7 @@ class ContentExtension extends AbstractExtension
 
     public function getEditLink(?Content $content): ?string
     {
-        if (! $content instanceof Content || $content->getId() === null || ! $this->security->getUser() || ! $this->security->isGranted('ROLE_ADMIN')) {
+        if (! $content instanceof Content || $content->getId() === null || ! $this->security->getUser() || ! $this->security->isGranted(ContentVoter::CONTENT_EDIT, $content)) {
             return null;
         }
 
@@ -410,7 +409,7 @@ class ContentExtension extends AbstractExtension
 
     public function getDeleteLink(?Content $content, bool $absolute = false): ?string
     {
-        if (! $content instanceof Content || $content->getId() === null || ! $this->security->getUser() || ! $this->security->isGranted('ROLE_ADMIN')) {
+        if (! $content instanceof Content || $content->getId() === null || ! $this->security->getUser() || ! $this->security->isGranted(ContentVoter::CONTENT_DELETE, $content)) {
             return null;
         }
 
@@ -424,16 +423,17 @@ class ContentExtension extends AbstractExtension
 
     public function getDuplicateLink(?Content $content, bool $absolute = false): ?string
     {
-        if (! $content instanceof Content || $content->getId() === null || ! $this->security->getUser() || ! $this->security->isGranted('ROLE_ADMIN')) {
+        if (! $content instanceof Content || $content->getId() === null || ! $this->security->getUser() || ! $this->security->isGranted(ContentVoter::CONTENT_CREATE, $content)) {
             return null;
         }
 
         return $this->generateLink('bolt_content_duplicate', ['id' => $content->getId()], $absolute);
     }
 
+    // TODO decide on voter - what _is_ a statuslink? Right now checking for 'view' permission
     public function getStatusLink(?Content $content, bool $absolute = false): ?string
     {
-        if (! $content instanceof Content || $content->getId() === null || ! $this->security->getUser() || ! $this->security->isGranted('ROLE_ADMIN')) {
+        if (! $content instanceof Content || $content->getId() === null || ! $this->security->getUser() || ! $this->security->isGranted(ContentVoter::CONTENT_VIEW, $content)) {
             return null;
         }
 
@@ -492,11 +492,20 @@ class ContentExtension extends AbstractExtension
         $templatesDir = $this->config->get('theme/template_directory');
         $templatesPath = $this->config->getPath('theme', true, $templatesDir);
 
+        $filter = $definition->get('filter', '/^[^_].*\.twig$/');
+
+        if (! Str::isValidRegex($filter)) {
+            $filter = Str::isValidRegex('/' . $filter . '/') ? '/' . $filter . '/' : '/^[^_].*\.twig$/';
+        }
+
         $finder
             ->files()
             ->in($templatesPath)
-            ->name($definition->get('filter', '/^[^_].*\.twig$/'))
-            ->path($definition->get('path'));
+            ->path($definition->get('path'))
+            ->sortByName()
+            ->filter(function (SplFileInfo $file) use ($filter) {
+                return preg_match($filter, $file->getRelativePathname()) === 1;
+            });
 
         $options = [];
 
@@ -553,7 +562,11 @@ class ContentExtension extends AbstractExtension
 
     public function selectOptions(Field $field): Collection
     {
-        $values = $field->getDefinition()->get('values');
+        if (! $field instanceof SelectField) {
+            return collect([]);
+        }
+
+        $values = $field->getOptions();
 
         if (is_iterable($values)) {
             return $this->selectOptionsArray($field);
@@ -564,7 +577,11 @@ class ContentExtension extends AbstractExtension
 
     private function selectOptionsArray(Field $field): Collection
     {
-        $values = $field->getDefinition()->get('values');
+        if (! $field instanceof SelectField) {
+            return collect([]);
+        }
+
+        $values = $field->getOptions();
         $currentValues = $field->getValue();
 
         $options = [];
@@ -659,7 +676,7 @@ class ContentExtension extends AbstractExtension
 
         foreach ($taxonomy['options'] as $key => $value) {
             $options[] = [
-                'key' => $key,
+                'key' => (string) $key,
                 'value' => $value,
             ];
         }

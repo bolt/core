@@ -18,6 +18,7 @@ class JsonExtension extends AbstractExtension
 
     private const SERIALIZE_GROUP_DEFINITION = 'get_definition';
 
+    /** @var bool */
     private $includeDefinition = true;
 
     /** @var NormalizerInterface */

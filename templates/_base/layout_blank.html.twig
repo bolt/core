@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html {% if block('html_id') %}id="{% block html_id %}{% endblock %}"{% endif %}
-{% if block('html_class') %}class="{% block html_class %}{% endblock %}"{% endif %}>
+<html lang="{{ htmllang() }}"
+    {% if block('html_id') %}id="{% block html_id %}{% endblock %}"{% endif %}
+    {% if block('html_class') %}class="{% block html_class %}{% endblock %}"{% endif %}>
 
 <head>
     <meta charset="utf-8">

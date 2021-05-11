@@ -1,0 +1,11 @@
+# Adding the new services for Bolt 4.2.0
+file: packages/doctrine.yaml
+since: 4.2.0
+
+add:
+    doctrine:
+        orm:
+            dql:
+                string_functions:
+                    JSON_GET_TEXT: Scienta\DoctrineJsonFunctions\Query\AST\Functions\Postgresql\JsonGetText
+                    CAST: Bolt\Doctrine\Query\Cast

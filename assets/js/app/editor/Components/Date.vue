@@ -9,7 +9,6 @@
                 :form="form"
                 :name="name"
                 placeholder="Select date"
-                :required="required"
                 :data-errormessage="errormessage"
             >
             </flat-pickr>
@@ -20,6 +19,8 @@
                     type="button"
                     :disabled="readonly"
                     data-toggle
+                    aria-label="Date picker"
+                    onclick="this.blur()"
                 >
                     <i class="fa fa-calendar">
                         <span class="sr-only" aria-hidden="true">{{ labels.toggle }}</span>
@@ -31,6 +32,8 @@
                     type="button"
                     :disabled="readonly"
                     data-clear
+                    aria-label="Reset date"
+                    onclick="this.blur()"
                 >
                     <i class="fa fa-times">
                         <span class="sr-only" aria-hidden="true">{{ labels.clear }}</span>
@@ -42,6 +45,7 @@
 </template>
 
 <script>
+import $ from 'jquery';
 import value from '../mixins/value';
 import flatPickr from 'vue-flatpickr-component';
 
@@ -116,6 +120,32 @@ export default {
             this.config.enableTime = true;
             this.config.altFormat = `F j, Y - h:i K`;
         }
+    },
+
+    updated() {
+        this.fixRequired();
+    },
+
+    methods: {
+        fixRequired() {
+            if (!this.required) {
+                return;
+            }
+
+            const input = $(this.$el).find('.editor--date.input');
+
+            if (this.val === '') {
+                input.attr('required', true);
+            } else {
+                input.removeAttr('required');
+            }
+
+            // This is needed to make sure validation
+            // popup shows "please fill in this field"
+            // rather than undefined.
+            input[0].reportValidity();
+            input[0].setCustomValidity('');
+        },
     },
 };
 </script>

@@ -10,6 +10,7 @@ use Bolt\Configuration\Parser\BaseParser;
 use Bolt\Configuration\Parser\ContentTypesParser;
 use Bolt\Configuration\Parser\GeneralParser;
 use Bolt\Configuration\Parser\MenuParser;
+use Bolt\Configuration\Parser\PermissionsParser;
 use Bolt\Configuration\Parser\TaxonomyParser;
 use Bolt\Configuration\Parser\ThemeParser;
 use Bolt\Controller\Backend\ClearCacheController;
@@ -20,6 +21,8 @@ use Tightenco\Collect\Support\Collection;
 
 class Config
 {
+    public const CACHE_KEY = 'config_cache';
+
     /** @var Collection */
     protected $data;
 
@@ -76,7 +79,7 @@ class Config
         // Verify if timestamps are unchanged. If not, invalidate cache.
         foreach ($timestamps as $filename => $timestamp) {
             if (file_exists($filename) === false || filemtime($filename) > $timestamp) {
-                $this->cache->delete('config_cache');
+                $this->cache->delete(self::CACHE_KEY);
                 [$data] = $this->getCache();
 
                 // Clear the entire cache in order to re-generate %bolt.requirement.contenttypes%
@@ -91,7 +94,7 @@ class Config
 
     private function getCache(): array
     {
-        return $this->cache->get('config_cache', function () {
+        return $this->cache->get(self::CACHE_KEY, function () {
             return $this->parseConfig();
         });
     }
@@ -123,11 +126,14 @@ class Config
         $theme = new ThemeParser($this->projectDir, $this->getPath('theme'));
         $config['theme'] = $theme->parse();
 
+        $permissions = new PermissionsParser($this->projectDir);
+        $config['permissions'] = $permissions->parse();
+
         // @todo Add these config files if needed, or refactor them out otherwise
         //'permissions' => $this->parseConfigYaml('permissions.yml'),
         //'extensions' => $this->parseConfigYaml('extensions.yml'),
 
-        $timestamps = $this->getConfigFilesTimestamps($general, $taxonomy, $contentTypes, $menu, $theme);
+        $timestamps = $this->getConfigFilesTimestamps($general, $taxonomy, $contentTypes, $menu, $theme, $permissions);
 
         return [
             DeepCollection::deepMake($config),
@@ -145,12 +151,30 @@ class Config
             }
         }
 
-        $envFilename = $this->projectDir . '/.env';
-        if (file_exists($envFilename)) {
-            $timestamps[$envFilename] = filemtime($envFilename);
+        return array_merge($timestamps, $this->getEnvFilesTimestamps());
+    }
+
+    private function getEnvFilesTimestamps(): array
+    {
+        // For filenames see:
+        // https://symfony.com/doc/current/configuration.html#configuring-environment-variables-in-env-files
+        $envFilenames = [
+            '.env',
+            '.env.local',
+            '.env.' . $this->kernel->getEnvironment(),
+            '.env.' . $this->kernel->getEnvironment() . '.local',
+        ];
+
+        $envTimestamps = [];
+
+        foreach ($envFilenames as $envFilename) {
+            $envFilenamePath = $this->projectDir . '/' . $envFilename;
+            if (file_exists($envFilenamePath)) {
+                $envTimestamps[$envFilenamePath] = filemtime($envFilenamePath);
+            }
         }
 
-        return $timestamps;
+        return $envTimestamps;
     }
 
     /**

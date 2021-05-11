@@ -39,6 +39,13 @@
     {% set use_suggested_pw = userForm.plainPassword.vars.required %}
     {% set suggested_pw = userForm.plainPassword.vars.attr.suggested_password %}
 
+    {% set suggested_pw_postfix %}{% apply spaceless %}
+        <div>
+            {{ 'password.suggested'|trans({'%password%': suggested_pw|e })|raw }}
+            <i style="cursor: pointer;" class="fas fa-clipboard-check ml-2" data-copy-to-clipboard="{{ suggested_pw }}"></i>
+        </div>
+    {% endapply %}{% endset %}
+
     {% include '@bolt/_partials/fields/password.html.twig' with {
         'id' : userForm.plainPassword.vars.id,
         'label': 'label.password'|trans,
@@ -46,7 +53,7 @@
         'value': use_suggested_pw ? suggested_pw : '',
         'hidden': 'true',
         'strength': true,
-        'postfix': __('password.suggested', {'%password%': suggested_pw }),
+        'postfix': ''~suggested_pw_postfix,
         'required': userForm.plainPassword.vars.required,
     } %}
     {% if form_errors(userForm.plainPassword) is not empty %}

@@ -31,10 +31,16 @@ use Symfony\Component\Mime\Email;
  */
 class ListUsersCommand extends Command
 {
+    /** @var string */
     protected static $defaultName = 'bolt:list-users';
 
+    /** @var MailerInterface */
     private $mailer;
+
+    /** @var string */
     private $emailSender;
+
+    /** @var UserRepository */
     private $users;
 
     public function __construct(MailerInterface $mailer, $emailSender, UserRepository $users)
@@ -73,7 +79,7 @@ HELP
             )
             // commands can optionally define arguments and/or options (mandatory and optional)
             // see https://symfony.com/doc/current/components/console/console_arguments.html
-            ->addOption('max-results', null, InputOption::VALUE_OPTIONAL, 'Limits the number of users listed', 50)
+            ->addOption('max-results', null, InputOption::VALUE_OPTIONAL, 'Limits the number of users listed', '50')
             ->addOption('send-to', null, InputOption::VALUE_OPTIONAL, 'If set, the result is sent to the given email address');
     }
 
@@ -83,7 +89,7 @@ HELP
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $maxResults = $input->getOption('max-results');
+        $maxResults = (int) $input->getOption('max-results');
         // Use ->findBy() instead of ->findAll() to allow result sorting and limiting
         $allUsers = $this->users->findBy([], ['username' => 'ASC'], $maxResults);
 

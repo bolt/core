@@ -19,7 +19,12 @@
 
             <!-- column thumbnail -->
             <div v-if="size === 'normal' && record.extras.image" class="listing__row--item is-thumbnail">
-                <img :src="record.extras.image.thumbnail" style="width: 108px;" loading="lazy" />
+                <img
+                    :src="record.extras.image.thumbnail"
+                    style="width: 108px;"
+                    loading="lazy"
+                    :alt="record.extras.image.alt"
+                />
             </div>
             <!-- end column -->
 

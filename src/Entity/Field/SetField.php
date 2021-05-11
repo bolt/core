@@ -9,8 +9,8 @@ use Bolt\Entity\Field;
 use Bolt\Entity\FieldInterface;
 use Bolt\Entity\FieldParentInterface;
 use Bolt\Entity\FieldParentTrait;
+use Bolt\Entity\IterableFieldTrait;
 use Bolt\Entity\ListFieldInterface;
-use Bolt\Entity\ListFieldTrait;
 use Bolt\Repository\FieldRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Tightenco\Collect\Support\Collection;
@@ -21,7 +21,7 @@ use Tightenco\Collect\Support\Collection;
 class SetField extends Field implements FieldInterface, FieldParentInterface, ListFieldInterface, \Iterator, RawPersistable
 {
     use FieldParentTrait;
-    use ListFieldTrait;
+    use IterableFieldTrait;
 
     public const TYPE = 'set';
 
@@ -83,7 +83,10 @@ class SetField extends Field implements FieldInterface, FieldParentInterface, Li
     {
         $fieldsFromDefinition = $this->getFieldsFromDefinition();
 
-        return array_merge($fieldsFromDefinition, $this->getDefaultValue(), $this->getValue());
+        // Values from the database, but not of fields that are no longer in the definition.
+        $value = array_intersect_key($this->getValue(), $fieldsFromDefinition);
+
+        return array_merge($fieldsFromDefinition, $this->getDefaultValue(), $value);
     }
 
     private function getFieldsFromDefinition(): array

@@ -36,13 +36,16 @@ services:
     # this creates a service per class whose id is the fully-qualified class name
     Bolt\:
         resource: '../src/*'
-        exclude: '../src/{Entity,Exception,Migrations,Kernel.php}'
+        exclude: '../src/{Entity,Exception,Kernel.php}'
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
     Bolt\Controller\:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
+
+    Bolt\Utils\Sanitiser:
+        public: true
 
     Bolt\Doctrine\TablePrefix:
         tags:

@@ -25,13 +25,13 @@ Predefined variables:
 
         {# Previous Button #}
         {% set p = routeParams|merge({page: records.hasPreviousPage ? records.previousPage : 1 }) %}
-        {% with {'path': path(route, p), 'label': 'Previous', 'enabled': records.hasPreviousPage, 'class': 'pagination-previous' } %}
+        {% with {'path': path(route, p), 'label': 'pager.previous'|trans, 'enabled': records.hasPreviousPage, 'class': 'pagination-previous' } %}
             {{ block('item') }}
         {% endwith %}
 
         {# Next Button #}
         {% set p = routeParams|merge({page: records.hasNextPage ? records.nextPage : records.nbPages }) %}
-        {% with {'path': path(route, p), 'label': 'Next', 'enabled': records.hasNextPage, 'class': 'pagination-next' } %}
+        {% with {'path': path(route, p), 'label': 'pager.next'|trans, 'enabled': records.hasNextPage, 'class': 'pagination-next' } %}
             {{ block('item') }}
         {% endwith %}
 

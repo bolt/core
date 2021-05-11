@@ -14,9 +14,12 @@ use Doctrine\ORM\Query\Expr\Composite;
  */
 class Filter
 {
+    /** @var string|array */
     protected $key;
+
     /** @var Composite */
     protected $expression;
+
     /** @var array */
     protected $parameters = [];
 

@@ -6,11 +6,14 @@ namespace Bolt\Menu;
 
 use Bolt\Collection\DeepCollection;
 use Bolt\Configuration\Config;
+use Bolt\Configuration\Content\ContentType;
 use Bolt\Entity\Content;
 use Bolt\Repository\ContentRepository;
 use Bolt\Twig\ContentExtension;
+use Bolt\Twig\LocaleExtension;
 use Bolt\Utils\Html;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Twig\Environment;
 
 final class FrontendMenuBuilder implements FrontendMenuBuilderInterface
 {
@@ -26,19 +29,29 @@ final class FrontendMenuBuilder implements FrontendMenuBuilderInterface
     /** @var ContentExtension */
     private $contentExtension;
 
+    /** @var LocaleExtension */
+    private $localeExtension;
+
+    /** @var string */
+    private $defaultLocale;
+
     public function __construct(
         Config $config,
         UrlGeneratorInterface $urlGenerator,
         ContentRepository $contentRepository,
-        ContentExtension $contentExtension
+        ContentExtension $contentExtension,
+        LocaleExtension $localeExtension,
+        string $defaultLocale
     ) {
         $this->config = $config;
         $this->urlGenerator = $urlGenerator;
         $this->contentRepository = $contentRepository;
         $this->contentExtension = $contentExtension;
+        $this->localeExtension = $localeExtension;
+        $this->defaultLocale = $defaultLocale;
     }
 
-    public function buildMenu(?string $name = null): array
+    public function buildMenu(Environment $twig, ?string $name = null): array
     {
         /** @var DeepCollection $menuConfig */
         $menuConfig = $this->config->get('menu');
@@ -51,12 +64,12 @@ final class FrontendMenuBuilder implements FrontendMenuBuilderInterface
             throw new \RuntimeException("Tried to build non-existing menu: {$name}");
         }
 
-        return array_map(function ($item): array {
-            return $this->setUris($item);
+        return array_map(function ($item) use ($twig): array {
+            return $this->setUris($twig, $item);
         }, $menu);
     }
 
-    private function setUris(array $item): array
+    private function setUris(Environment $twig, array $item): array
     {
         [$title, $item['uri']] = $this->generateUri($item['link']);
 
@@ -64,9 +77,22 @@ final class FrontendMenuBuilder implements FrontendMenuBuilderInterface
             $item['title'] = $title;
         }
 
+        $currentLocale = $this->localeExtension->getHtmlLang($twig);
+        if (is_iterable($item['label'])) {
+            if (array_key_exists($currentLocale, $item['label'])) {
+                $label = $item['label'][$currentLocale];
+            } elseif (array_key_exists($this->defaultLocale, $item['label'])) {
+                $label = $item['label'][$this->defaultLocale];
+            } else {
+                $label = $item['title'] ?? '';
+            }
+
+            $item['label'] = $label;
+        }
+
         if (is_iterable($item['submenu'])) {
-            $item['submenu'] = array_map(function ($sub): array {
-                return $this->setUris($sub);
+            $item['submenu'] = array_map(function ($sub) use ($twig): array {
+                return $this->setUris($twig, $sub);
             }, $item['submenu']);
         }
 
@@ -96,15 +122,16 @@ final class FrontendMenuBuilder implements FrontendMenuBuilderInterface
 
     private function getContent(string $link): ?Content
     {
-        $parts = explode('/', $link);
+        [$contentTypeSlug, $slug] = explode('/', $link);
 
         // First, try to get it if the id is numeric.
-        if (is_numeric($parts[1])) {
-            return $this->contentRepository->findOneById((int) $parts[1]);
+        if (is_numeric($slug)) {
+            return $this->contentRepository->findOneById((int) $slug);
         }
 
-        // Otherwise fetch it by getting it from the slug
-        // @todo it should check content type slug too
-        return $this->contentRepository->findOneBySlug($parts[1]);
+        /** @var ContentType $contentType */
+        $contentType = $this->config->getContentType($contentTypeSlug);
+
+        return $this->contentRepository->findOneBySlug($slug, $contentType);
     }
 }

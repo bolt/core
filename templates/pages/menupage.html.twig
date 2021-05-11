@@ -20,11 +20,15 @@
 
 {% block main %}
 
-    <p>
-    {% for sub in menu.submenu %}
-        {{ macro.buttonlink(sub.name, sub.editLink, sub.icon, 'light', {'style': 'width: 20em; text-align: left;'}, false) }} <br>
-    {% endfor %}
-    </p>
+    <div class="menupage">
+        <ul>
+        {% for sub in menu.submenu %}
+            <li>
+                {{ macro.buttonlink(sub.name, sub.editLink, sub.icon, 'light menupage__button', [],false) }}
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
 
 {% endblock main %}
 

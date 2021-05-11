@@ -23,6 +23,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 class ResetPasswordCommand extends Command
 {
+    /** @var string */
     protected static $defaultName = 'bolt:reset-password';
 
     /** @var EntityManagerInterface */

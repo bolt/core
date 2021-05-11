@@ -12,6 +12,7 @@ use Bolt\Entity\Field\TemplateselectField;
 use Bolt\Enum\Statuses;
 use Bolt\Storage\Query;
 use Bolt\TemplateChooser;
+use Bolt\Twig\CommonExtension;
 use Bolt\Utils\Sanitiser;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Asset\Packages;
@@ -51,10 +52,13 @@ class TwigAwareController extends AbstractController
     /** @var string */
     protected $defaultLocale;
 
+    /** @var CommonExtension */
+    private $commonExtension;
+
     /**
      * @required
      */
-    public function setAutowire(Config $config, Environment $twig, Packages $packages, Canonical $canonical, Sanitiser $sanitiser, RequestStack $requestStack, TemplateChooser $templateChooser, string $defaultLocale): void
+    public function setAutowire(Config $config, Environment $twig, Packages $packages, Canonical $canonical, Sanitiser $sanitiser, RequestStack $requestStack, TemplateChooser $templateChooser, string $defaultLocale, CommonExtension $commonExtension): void
     {
         $this->config = $config;
         $this->twig = $twig;
@@ -64,14 +68,7 @@ class TwigAwareController extends AbstractController
         $this->request = $requestStack->getCurrentRequest();
         $this->templateChooser = $templateChooser;
         $this->defaultLocale = $defaultLocale;
-    }
-
-    /**
-     * @deprecated since Bolt 4.0, use "render()" instead
-     */
-    public function renderTemplate($template, array $parameters = [], ?Response $response = null): Response
-    {
-        return $this->render($template, $parameters, $response);
+        $this->commonExtension = $commonExtension;
     }
 
     /**
@@ -271,5 +268,10 @@ class TwigAwareController extends AbstractController
         }
 
         return $default;
+    }
+
+    public function validateSecret(string $secret, string $slug): bool
+    {
+        return $secret === $this->commonExtension->generateSecret($slug);
     }
 }

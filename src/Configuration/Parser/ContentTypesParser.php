@@ -112,6 +112,11 @@ class ContentTypesParser extends BaseParser
         if (! isset($contentType['viewless'])) {
             $contentType['viewless'] = false;
         }
+
+        if (! isset($contentType['viewless_listing'])) {
+            $contentType['viewless_listing'] = $contentType['viewless'];
+        }
+
         if (! isset($contentType['searchable'])) {
             $contentType['searchable'] = ! $contentType['viewless'];
         }
@@ -187,11 +192,9 @@ class ContentTypesParser extends BaseParser
         // Make sure title_format is set
         if (isset($contentType['title_format'])) {
             $contentType['title_format'] = $contentType['title_format'];
-        } elseif (isset($contentType['fields']['slug']['uses'])) {
-            $fields = (array) $contentType['fields']['slug']['uses'];
-            $contentType['title_format'] = '{' . implode('} {', $fields) . '}';
         } else {
-            $contentType['title_format'] = null;
+            $fields = $contentType['fields']['slug']['uses'];
+            $contentType['title_format'] = '{' . implode('} {', $fields) . '}';
         }
 
         // Make sure taxonomy is an array.
@@ -201,9 +204,12 @@ class ContentTypesParser extends BaseParser
             $contentType['taxonomy'] = [];
         }
 
-        // when adding relations, make sure they're added by their slug. Not their 'name' or 'singular name'.
         if (! empty($contentType['relations']) && is_array($contentType['relations'])) {
             foreach (array_keys($contentType['relations']) as $relkey) {
+                // Default `required` to `false` for Relations
+                $contentType['relations'][$relkey]['required'] = $contentType['relations'][$relkey]['required'] ?? false;
+
+                // Make sure Relations are added by their slug. Not their 'name' or 'singular name'.
                 if ($relkey !== Str::slug($relkey)) {
                     $contentType['relations'][Str::slug($relkey)] = $contentType['relations'][$relkey];
                     unset($contentType['relations'][$relkey]);
@@ -257,10 +263,14 @@ class ContentTypesParser extends BaseParser
             }
         }
 
-        // Make sure the 'uses' of the slug is an array.
-        if (isset($fields['slug']) && isset($fields['slug']['uses'])) {
-            $fields['slug']['uses'] = (array) $fields['slug']['uses'];
+        // Make sure the slug's `uses` is set
+        if (! isset($fields['slug']['uses'])) {
+            $fields['slug']['uses'] = key($fields);
         }
+
+        // Make sure the `uses` of the slug is an array.
+        $fields['slug']['uses'] = (array) $fields['slug']['uses'];
+        $fields['slug']['type'] = 'slug';
 
         return [$fields, $groups];
     }
@@ -304,6 +314,10 @@ class ContentTypesParser extends BaseParser
             $field['values'] = array_combine($field['values'], $field['values']);
         }
 
+        if ($field['type'] === 'select' && ! isset($field['multiple'])) {
+            $field['multiple'] = false;
+        }
+
         if (empty($field['label'])) {
             $field['label'] = ucwords($key);
         }
@@ -331,10 +345,10 @@ class ContentTypesParser extends BaseParser
             $field['default_locale'] = $this->defaultLocale;
         }
 
-        if (isset($field['pattern']) === true and $field['pattern'] === 'email') {
+        if (isset($field['pattern']) === true && $field['pattern'] === 'email') {
             // HTML5 form validation regex equivalent
             $field['pattern'] = "[A-Za-z0-9]+@[A-Za-z0-9-]+\.[A-Za-z0-9-]+";
-        } elseif (isset($field['pattern']) === true and $field['pattern'] === 'url') {
+        } elseif (isset($field['pattern']) === true && $field['pattern'] === 'url') {
             // HTML5 form validation regex equivalent
             $field['pattern'] = "^(https?://)?([a-zA-Z0-9]([a-zA-ZäöüÄÖÜ0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}?((.*))?$";
         }

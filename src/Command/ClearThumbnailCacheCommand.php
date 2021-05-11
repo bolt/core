@@ -12,6 +12,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 class ClearThumbnailCacheCommand extends Command
 {
+    /** @var string */
     protected static $defaultName = 'cache:thumbs';
 
     /** @var ThumbnailCacheClearer */

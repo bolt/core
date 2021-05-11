@@ -185,6 +185,9 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
 
         $field = FieldRepository::factory($fieldType, $name);
 
+        // Make sure to create the fixture in the correct default locale.
+        $field->setLocale($this->defaultLocale);
+
         if (isset($preset[$name])) {
             $field->setValue($preset[$name]);
         } else {
@@ -396,8 +399,12 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
             'slug' => 'call-to-action',
         ];
         $records['blocks'][] = [
-            'title' => 'Hero Section',
+            'title' => 'Welcome to your new site',
             'slug' => 'hero-section',
+            'teaser' => 'Take a look around, this is Bolt\'s default 2021 theme. To edit your site\'s content,'
+                . ' go to /bolt and login with your username and password.'
+                . ' Documentation, examples and support are available on the official Bolt website (boltcms.io).'
+                . ' Happy building 👩🏾‍💻 🧑‍🎨',
         ];
         $records['blocks'][] = [
             'title' => 'Introduction',

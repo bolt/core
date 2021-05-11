@@ -12,6 +12,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ExtensionsServicesCommand extends Command
 {
+    /** @var string */
     protected static $defaultName = 'extensions:services';
 
     /** @var ContainerInterface */
