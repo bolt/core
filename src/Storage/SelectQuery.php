@@ -179,7 +179,13 @@ class SelectQuery implements QueryInterface
         // Change all params to lowercase, filter out empty ones
         $this->params = array_filter(
             Arr::mapRecursive($params, function ($param) {
+                // Do NOT cast checkboxes to a string.
                 if (is_bool($param)) {
+                    return $param;
+                }
+
+                // Do NOT cast numbers to a string. Fix for content selects.
+                if (is_numeric($param)) {
                     return $param;
                 }
 
