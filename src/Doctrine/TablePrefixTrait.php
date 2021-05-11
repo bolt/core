@@ -50,14 +50,14 @@ trait TablePrefixTrait
         return $this;
     }
 
-    /**
-     * Since we introduced `symfony/proxy-manager-bridge`, the keys in the tableprefix
-     * no longer match what the manager tells us it should be. For example, the
-     * given key was `0000000005ee10ad0000000043b453e3`, but in our reference
-     * table we had `0000000005ee10e90000000043b453e3`. We just return the first one, now
-     */
-    protected function getTablePrefix(): string
+    protected function getTablePrefix(ObjectManager $manager)
     {
-        return current($this->tablePrefixes) ?? '';
+        // Force initializing the ObjectManager by calling a method in case it is a proxy for
+        // a lazily initialized service using symfony/proxy-manager-bridge.
+        // Doing this before calling spl_object_hash() makes sure we are getting the 'correct' hash
+        $manager->getMetadataFactory();
+        $key = spl_object_hash($manager);
+
+        return $this->tablePrefixes[$key] ?? '';
     }
 }
