@@ -108,6 +108,9 @@
         "symfony/css-selector": "^5.1",
         "symplify/easy-coding-standard": "^8.2.3"
     },
+    "conflict": {
+        "friendsofphp/php-cs-fixer": ">=2.19.0"
+    },
     "config": {
         "preferred-install": {
             "*": "dist"
