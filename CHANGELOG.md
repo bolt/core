@@ -1,6 +1,25 @@
 Changelog
 =========
 
+## 4.1.19
+
+Released: 2021-05-11
+
+### 🐛 Bug fixes
+
+- Several fixes for handling Relations (bobdenotter, [#2576](https://github.com/bolt/core/pull/2576))
+- Copy packaged themes in `bolt:copy-themes` command (I-Valchev, [#2563](https://github.com/bolt/core/pull/2563))
+- Fix a CSS quirk in listing overview pages (bobdenotter, [#2554](https://github.com/bolt/core/pull/2554))
+
+### 🛠️ Miscellaneous
+
+- Replace `node-sass` with `sass` 🗑🔥 (bobdenotter, [#2562](https://github.com/bolt/core/pull/2562))
+- Allow `sensio/framework-extra-bundle` version 6 (bobvandevijver, [#2551](https://github.com/bolt/core/pull/2551))
+
+### ⚙️ Code Quality / Developer Experience
+
+- Fix ecs breakage with `friendsofphp/php-cs-fixer` (I-Valchev, [#2566](https://github.com/bolt/core/pull/2566))
+
 ## 4.1.18
 
 Released: 2021-04-21
