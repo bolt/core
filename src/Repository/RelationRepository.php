@@ -31,22 +31,18 @@ class RelationRepository extends ServiceEntityRepository
             return [];
         }
 
-        $result = $this->buildRelationQuery($from, $name, $publishedOnly)
+        return $this->buildRelationQuery($from, $name, $publishedOnly)
             ->setMaxResults($limit)
             ->getQuery()
             ->getResult();
-
-        return $result;
     }
 
     public function findFirstRelation(Content $from, ?string $name, bool $publishedOnly = true): ?Relation
     {
-        $result = $this->buildRelationQuery($from, $name, $publishedOnly)
+        return $this->buildRelationQuery($from, $name, $publishedOnly)
             ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();
-
-        return $result;
     }
 
     private function buildRelationQuery(Content $from, ?string $name, bool $publishedOnly = true): QueryBuilder
