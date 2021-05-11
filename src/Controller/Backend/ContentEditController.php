@@ -484,7 +484,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
     private function updateRelation(Content $content, $newRelations): void
     {
         $newRelations = (new Collection(Json::findArray($newRelations)))->filter();
-        $currentRelations = $this->relationRepository->findRelations($content, null, false, null, false);
+        $currentRelations = $this->relationRepository->findRelations($content, null, true, null, false);
 
         // Remove old ones
         foreach ($currentRelations as $currentRelation) {
