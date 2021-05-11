@@ -292,7 +292,7 @@ class QueryParameterParser
     /**
      * The default handler is the last to be run and handles simple value parsing.
      *
-     * @param string|array $value
+     * @param string|array|bool $value
      */
     public function defaultFilterHandler(string $key, $value, Expr $expr): Filter
     {
