@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Extension;
 
-use Composer\Package\CompletePackage;
+use Composer\Package\CompletePackageInterface;
 
 interface ExtensionInterface
 {
@@ -18,5 +18,5 @@ interface ExtensionInterface
 
     public function initialize(): void;
 
-    public function getComposerPackage(): ?CompletePackage;
+    public function getComposerPackage(): ?CompletePackageInterface;
 }

@@ -18,12 +18,16 @@
 
 <body>
 <div class="admin">
-
     {% set admin_menu_json = admin_menu_array()|json_encode %}
 
     <!-- Admin Toolbar -->
     <nav class="admin__toolbar" id="toolbar">
         {% set user_display_name = app.user.displayName|default('Unknown user') %}
+        {% set user_avatar = app.user.avatar|thumbnail(25, 25, 'crop')|default(null) %}
+
+        {% if user_avatar ends with 'placeholder.png' %}
+            {% set user_avatar = null %}
+        {% endif %}
 
         {# Setting the labels and their localisations that are used in the sidebar-menu. #}
         {% set labels = {
@@ -31,10 +35,12 @@
             'action.view_site': config.get('general/sitename'),
             'general.greeting': 'general.greeting'|trans({'%name%': user_display_name}),
             'action.logout': 'action.logout'|trans,
+            'action.stop_impersonating': 'action.stop_impersonating'|trans,
             'action.edit_profile': 'action.edit_profile'|trans,
             'about.visit_bolt': 'about.visit_bolt'|trans,
             'listing.button_search': 'general.phrase.search'|trans,
             'listing.placeholder_search': 'listing.placeholder_search'|trans,
+            'general.label.search': 'general.label.search'|trans,
         }|json_encode %}
 
         <admin-toolbar
@@ -42,6 +48,8 @@
             :menu="{{ admin_menu_json }}"
             :labels="{{ labels }}"
             :backend-prefix="{{ path('bolt_dashboard') }}"
+            :avatar="{{ user_avatar|json_encode }}"
+            :is-impersonator="{{ is_granted('IS_IMPERSONATOR')|json_encode }}"
             filter-value="{{ filter_value|default('') }}"
         ></admin-toolbar>
     </nav>

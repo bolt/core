@@ -6,21 +6,29 @@ namespace Bolt\Entity\Field;
 
 use Bolt\Entity\Field;
 use Bolt\Entity\FieldInterface;
+use Bolt\Entity\IterableFieldTrait;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Tightenco\Collect\Support\Collection;
 
 /**
  * @ORM\Entity
  */
-class SelectField extends Field implements FieldInterface, RawPersistable
+class SelectField extends Field implements FieldInterface, RawPersistable, \Iterator
 {
+    use IterableFieldTrait;
+
     public const TYPE = 'select';
+
+    /** @var ContainerInterface|null */
+    private static $container = null;
 
     public function setValue($value): Field
     {
         try {
             if (is_string($value)) {
-                $value = json_decode($value, false);
+                // Try to decode JSON, or wrap it as an array (used in conimex).
+                $value = json_decode($value, false) ?? [$value];
             }
         } finally {
             // Array_filter filters out empty elements, but has the side effect
@@ -48,9 +56,38 @@ class SelectField extends Field implements FieldInterface, RawPersistable
         return array_filter((array) $value);
     }
 
+    public function getParsedValue()
+    {
+        $parsedValue = parent::getParsedValue();
+
+        if ($this->getDefinition()->get('multiple') && ! is_array($parsedValue)) {
+            // Make sure that multiselects always return an array, even if there's only one item.
+            $parsedValue = [$parsedValue];
+        }
+
+        return $parsedValue;
+    }
+
     public function getOptions()
     {
-        return $this->getDefinition()->get('values');
+        $values = $this->getDefinition()->get('values');
+
+        // Check if it is a service
+        if (self::$container && is_string($values) && self::$container->has($values)) {
+            $class = self::$container->get($values);
+            // the name of the function
+            $func = 'getOptions';
+
+            return $class->{$func}($this);
+        }
+
+        // Check if it is a callable
+        if (is_callable($values)) {
+            return call_user_func_array($values, [$this]);
+        }
+
+        // Assume it's an array of values
+        return $values;
     }
 
     public function getSelected()
@@ -71,7 +108,7 @@ class SelectField extends Field implements FieldInterface, RawPersistable
 
     public function getContentType()
     {
-        $values = $this->getDefinition()->get('values');
+        $values = $this->getOptions();
 
         if (is_string($values) && mb_strpos($values, '/') !== false) {
             return current(explode('/', $values));
@@ -89,5 +126,15 @@ class SelectField extends Field implements FieldInterface, RawPersistable
         }
 
         return false;
+    }
+
+    public function getDefaultValue()
+    {
+        return [parent::getDefaultValue()];
+    }
+
+    public static function setContainer(ContainerInterface $container): void
+    {
+        self::$container = $container;
     }
 }

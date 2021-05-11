@@ -15,12 +15,14 @@
                 {{- ' | ' ~ config.get('general/payoff') -}}
             {%- endif -%}
         </title>
-        <link rel="stylesheet" href="{{ asset('css/new.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/simple.css') }}">
     </head>
     <body>
-        {% block body %}
+    {{ include('partials/_header.twig') }}
 
-            {{ include('partials/_header.twig') }}
+    <main>
+    {% block body %}
+
 
             {{ widgets('main_top') }}
 
@@ -29,11 +31,13 @@
 
             {{ widgets('main_bottom') }}
 
-            {{ include('partials/_aside.twig') }}
-
         {% endblock body %}
+    </main>
 
-        {{ include('partials/_footer.twig') }}
+    {% block aside %}
+    {% endblock aside %}
+
+    {{ include('partials/_footer.twig') }}
 
     </body>
 </html>

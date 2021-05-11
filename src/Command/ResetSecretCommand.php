@@ -13,6 +13,7 @@ use Webimpress\SafeWriter\FileWriter;
 
 class ResetSecretCommand extends Command
 {
+    /** @var string */
     protected static $defaultName = 'bolt:reset-secret';
 
     /** @var string */

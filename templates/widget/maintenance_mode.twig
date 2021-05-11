@@ -1,0 +1,28 @@
+{% apply spaceless %}
+<style>
+    #bolt-maintenance-notice {
+        border: 1px solid #F00;
+        position: absolute;
+        background-color: white;
+        color: #F00;
+        top: 100px;
+        left: -100px;
+        width: 450px;
+        transform: rotateY(0deg) rotate(-45deg);
+        box-shadow: 2px 0 15px rgba(0, 0, 0, 0.5);
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-size: 16px;
+        font-weight: bold;
+        line-height: 1rem;
+        padding: 8px;
+    }
+</style>
+
+<div id='bolt-maintenance-notice'>
+    <marquee>
+        {% for i in 1..4 %}
+            🚨 {{ 'maintenance.activated_warning'|trans }}
+        {% endfor %}
+    </marquee>
+</div>
+{% endapply %}

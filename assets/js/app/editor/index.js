@@ -24,7 +24,10 @@ import Language from './Components/Language';
 import File from './Components/File';
 import Filelist from './Components/Filelist';
 import Collection from './Components/Collection';
+import Checkbox from './Components/Checkbox';
+import UnsavedChangesWarning from './unsavedchanges';
 
+Vue.component('editor-checkbox', Checkbox);
 Vue.component('editor-date', Date);
 Vue.component('editor-embed', Embed);
 Vue.component('editor-email', Email);
@@ -46,11 +49,18 @@ Vue.component('general-language', Language);
 Vue.component('theme-select', ThemeSelect);
 
 const id = 'editor';
+const editorSelector = '#' + id;
 
 if (document.getElementById(id)) {
     new Vue({
         store,
-        el: '#' + id,
+        el: editorSelector,
         name: 'BoltEditor',
+        mounted: function() {
+            // Wait 2 seconds, so that Vue is initialised properly without triggering change events.
+            setTimeout(function() {
+                UnsavedChangesWarning.warnFor(editorSelector + ' form');
+            }, 2000);
+        },
     });
 }

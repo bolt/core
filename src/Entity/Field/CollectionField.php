@@ -9,8 +9,8 @@ use Bolt\Entity\Field;
 use Bolt\Entity\FieldInterface;
 use Bolt\Entity\FieldParentInterface;
 use Bolt\Entity\FieldParentTrait;
+use Bolt\Entity\IterableFieldTrait;
 use Bolt\Entity\ListFieldInterface;
-use Bolt\Entity\ListFieldTrait;
 use Bolt\Repository\FieldRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -20,7 +20,7 @@ use Doctrine\ORM\Mapping as ORM;
 class CollectionField extends Field implements FieldInterface, FieldParentInterface, ListFieldInterface, \Iterator, RawPersistable
 {
     use FieldParentTrait;
-    use ListFieldTrait;
+    use IterableFieldTrait;
 
     public const TYPE = 'collection';
 
@@ -55,16 +55,14 @@ class CollectionField extends Field implements FieldInterface, FieldParentInterf
         return $result;
     }
 
+    /**
+     * @var FieldInterface[]
+     */
     public function setValue($fields): Field
     {
-        if (is_iterable($fields)) {
-            $order = 1;
-            /** @var Field $field */
-            foreach ($fields as $field) {
-                $field->setParent($this);
-                $field->setSortorder($order);
-                $order += 5;
-            }
+        /** @var Field $field */
+        foreach ($fields as $field) {
+            $field->setParent($this);
         }
 
         $this->fields = $fields;

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Utils;
 
 use Bolt\Canonical;
+use Bolt\Common\Str;
 use Bolt\Configuration\Config;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field\Excerptable;
@@ -63,6 +64,10 @@ class ContentHelper
 
     private function getCanonicalRouteAndParams(Content $record, ?string $locale = null): array
     {
+        if (! $locale) {
+            $locale = $this->request->getLocale();
+        }
+
         if ($this->isHomepage($record)) {
             return [
                 'route' => 'homepage_locale',
@@ -70,10 +75,6 @@ class ContentHelper
                     '_locale' => $locale,
                 ],
             ];
-        }
-
-        if (! $locale) {
-            $locale = $this->request->getLocale();
         }
 
         return [
@@ -130,9 +131,11 @@ class ContentHelper
             $locale = $record->getContentTypeDefaultLocale();
         }
 
-        return preg_replace_callback(
+        $dateFormat = $this->config->get('general/date_format');
+
+        return Str::decode(preg_replace_callback(
             '/{([\w]+)}/i',
-            function ($match) use ($record, $locale) {
+            function ($match) use ($record, $locale, $dateFormat) {
                 if ($match[1] === 'id') {
                     return $record->getId();
                 }
@@ -146,19 +149,19 @@ class ContentHelper
                 }
 
                 if ($match[1] === 'publishedAt') {
-                    return $this->localeExtension->localdate($record->getPublishedAt(), null, $locale);
+                    return $this->localeExtension->localdate($record->getPublishedAt(), $dateFormat, $locale);
                 }
 
                 if ($match[1] === 'modifiedAt') {
-                    return $this->localeExtension->localdate($record->getModifiedAt(), null, $locale);
+                    return $this->localeExtension->localdate($record->getModifiedAt(), $dateFormat, $locale);
                 }
 
                 if ($match[1] === 'createdAt') {
-                    return $this->localeExtension->localdate($record->getCreatedAt(), null, $locale);
+                    return $this->localeExtension->localdate($record->getCreatedAt(), $dateFormat, $locale);
                 }
 
                 if ($match[1] === 'depublishedAt') {
-                    return $this->localeExtension->localdate($record->getDepublishedAt(), null, $locale);
+                    return $this->localeExtension->localdate($record->getDepublishedAt(), $dateFormat, $locale);
                 }
 
                 if ($match[1] === 'contenttype') {
@@ -203,7 +206,7 @@ class ContentHelper
                 return '(unknown)';
             },
             $format
-        );
+        ));
     }
 
     public static function getFieldNames(string $format): array

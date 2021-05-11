@@ -39,6 +39,11 @@
 
 {% block javascripts %}
     {{ parent() }}
+    {% if currentLocale is defined %}
+        <script type="text/javascript">
+            var editUrl = "{{ path('translation_edit', {configName: configName, locale:currentLocale,domain:currentDomain}) }}";
+        </script>
+    {% endif %}
     <script type="text/javascript" src="{{ asset("bundles/translation/js/webui.js") }}"></script>
 {% endblock %}
 

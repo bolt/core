@@ -1,0 +1,8 @@
+# Adding the new public Sanitiser service
+file: services.yaml
+since: 4.2.0
+
+add:
+    services:
+        Bolt\Utils\Sanitiser:
+            public: true

@@ -1,12 +1,12 @@
-Bolt 4 - stable
-=============
+Bolt 5 - stable
+===============
 
 Bolt CMS is an open source, adaptable platform for building and running modern
 websites. Built on PHP, Symfony and more. [Read the site](https://boltcms.io)
 for more info.
 
 To check out Bolt and set up your first Bolt installation, read
-[Installing Bolt 4][installation].
+[Installing Bolt 5][installation].
 
 
 ---
@@ -29,18 +29,18 @@ https://github.com/bolt/project/ .**
 Progress
 ------------------------------
 
-Follow the progress on the development of Bolt 4, at these locations
+Follow the progress on the development of Bolt 5, at these locations
 
  - Github Repository: https://github.com/bolt/core
- - Bolt 4 roadmap: https://roadmap.boltcms.io
+ - Bolt roadmap: https://roadmap.boltcms.io
  - Slack: https://slack.bolt.cm (open for all, requires Slack account)
 
-To set up a running **development** environment of Bolt 4 please perform the following steps 1 to 4:
+To set up a running **development** environment of Bolt 5 please perform the following steps 1 to 4:
 
 1. Install
 ----------
 
-To install a _**development**_ version of Bolt 4:
+To install a _**development**_ version of Bolt 5:
 
   - Check out this git repository
   - Then run:
@@ -60,14 +60,15 @@ npm install && npm run build
 
 Alternatively, run `make install`, on a UNIX-like system.
 
-If you already have Bolt 4 installed and need to update dependencies run:
+If you already have Bolt 5 installed and need to update dependencies run:
+
 ```bash
 composer update
 ```
 
 ### Or install with Docker
 
-To install a _**development**_ version of Bolt 4 with Docker:
+To install a _**development**_ version of Bolt 5 with Docker:
 
   - Check out the git repo
   - Then run:
@@ -230,5 +231,3 @@ Sponsors:
 [installation]: https://docs.bolt.cm/installation
 
 --------
-
-[![Build Status](https://travis-ci.com/bolt/core.svg?branch=master)](https://travis-ci.com/bolt/core) [![SymfonyInsight](https://insight.symfony.com/projects/4d1713e3-be44-4c2e-ad92-35f65eee6bd5/mini.svg)](https://insight.symfony.com/projects/4d1713e3-be44-4c2e-ad92-35f65eee6bd5) [![Total Downloads](https://poser.pugx.org/bolt/core/downloads)](https://packagist.org/packages/bolt/core) ![PHP from Packagist](https://img.shields.io/packagist/php-v/bolt/core)

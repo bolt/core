@@ -25,12 +25,28 @@ date_format: 'F j, Y H:i'
 # You can set a preference to omit background images on the login screen.
 omit_backgrounds: true
 
+# If you're a party-pooper and dislike the `generator` meta tag, set to `true`
+omit_meta_generator_tag: false
+
+headers:
+    # Allow of Google's FLoC by setting this to `true` (defaults to `false` for opt-out)
+    # https://github.com/symfony/symfony/pull/40989
+    allow-floc: false
+    # Add Bolt's "Powered By" (defaults to `true`)
+    powered_by: true
+
 # If your site is reachable under different urls (say, both blog.example.org/
 # as well as example.org/), its a good idea to set one of these as the
 # canonical, so its clear which is the primary address of the site.
 #
 # If you include `https://`, it will be included in the canonical urls.
 #canonical: example.org
+
+# If you want to override the canonical template, from the theme:
+#canonical_template: 'partials/_canonical.html.twig'
+
+# By setting this to true, you will get a relative canonical path passed to the template.
+#relative_canonical_url: true
 
 # Bolt can insert a <link rel="shortcut icon"> for all pages on the site.
 
@@ -186,6 +202,7 @@ curl_options:
 # Various settings about Bolt's built-in localization features.
 localization:
     fallback_when_missing: true # When set to true, fields with empty values will fallback to the default locale's value.
+    remove_default_locale_on_canonical: true # When set to true removes locale prefix on default locale canonical URLs
 
 # Define the seed used to generated the test data
 # Used in <bolt-core>/src/DataFixtures/ContentFixtures.php

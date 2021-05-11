@@ -21,6 +21,7 @@ class QueueProcessor
     /** @var array */
     private $matchedComments = [];
 
+    /** @var int */
     private $matchedCommentsCount = 0;
 
     public function __construct(HtmlInjector $injector)

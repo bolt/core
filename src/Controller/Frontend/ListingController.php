@@ -47,8 +47,8 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
 
         $contentType = ContentType::factory($contentTypeSlug, $this->config->get('contenttypes'));
 
-        // If the ContentType is 'viewless' we throw a 404.
-        if ($contentType->get('viewless') === true) {
+        // If the ContentType has 'viewless_listing' set to `true`, we throw a 404.
+        if ($contentType->get('viewless_listing') === true) {
             throw new NotFoundHttpException('Content is not viewable');
         }
 
@@ -59,13 +59,7 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
 
         $page = (int) $this->getFromRequest('page', '1');
         $amountPerPage = $contentType->get('listing_records');
-        $order = $this->getFromRequest('order', $contentType->get('order'));
-        $queryParams = $this->parseQueryParams($this->request);
-
-        $params = array_merge($queryParams, [
-            'status' => 'published',
-            'order' => $order,
-        ]);
+        $params = $this->parseQueryParams($this->request, $contentType);
 
         /** @var Content|Pagerfanta $content */
         $content = $this->query->getContent($contentTypeSlug, $params);
@@ -80,6 +74,16 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
 
         $records = $this->setRecords($content, $amountPerPage, $page);
 
+        // Set canonical URL
+        $this->canonical->setPath(
+            'listing_locale',
+            array_merge([
+                'contentTypeSlug' => $contentType->get('slug'),
+                '_locale' => $this->request->getLocale(),
+            ], $params)
+        );
+
+        // Render
         $templates = $this->templateChooser->forListing($contentType);
         $this->twig->addGlobal('records', $records);
 
@@ -92,15 +96,25 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
         return $this->render($templates, $twigVars);
     }
 
-    private function parseQueryParams(Request $request): array
+    private function parseQueryParams(Request $request, ContentType $contentType): array
     {
         if ($this->config->get('general/query_search') === false) {
-            return [];
+            return [
+                'order' => $contentType->get('order'),
+                'status' => 'published',
+            ];
         }
 
         $queryParams = collect($request->query->all());
 
-        return $queryParams->mapWithKeys(function ($value, $key) {
+        // Note, we're not including 'limit', 'printquery', 'returnsingle' or 'returnmultiple' on purpose
+        $allowedParams = array_merge(
+            $contentType['fields']->keys()->all(),
+            $contentType['taxonomy']->all(),
+            ['order', 'earliest', 'latest', 'offset', 'page', 'random', 'author', 'anyField', 'anything']
+        );
+
+        $params = $queryParams->mapWithKeys(function ($value, $key) use ($allowedParams) {
             // Ensure we don't have arrays, if we get something like `title[]=…` passed in.
             if (is_array($value)) {
                 $value = current($value);
@@ -111,8 +125,17 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
                 $value = '%' . $value . '%';
             }
 
-            return [$key => $value];
+            return in_array($key, $allowedParams, true) ? [$key => $value] : [];
         })->toArray();
+
+        if (! array_key_exists('order', $params)) {
+            $params['order'] = $contentType->get('order');
+        }
+
+        // Ensure we only list things that are 'published'
+        $params['status'] = 'published';
+
+        return $params;
     }
 
     private function setRecords($content, int $amountPerPage, int $page): Pagerfanta

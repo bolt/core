@@ -1,0 +1,24 @@
+.badge-tertiary {
+  @include badge-variant($tertiary);
+}
+
+.badge {
+  font-weight: normal;
+  vertical-align: middle;
+  margin-top: -0.4em;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+.badge.selected {
+  font-weight: bold;
+}
+
+.badge.inline {
+  margin-top: inherit;
+  padding: 0.3rem;
+  margin-right: 0.4rem;
+
+  i {
+    margin-right: 0;
+  }
+}

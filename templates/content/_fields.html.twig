@@ -7,10 +7,10 @@
                 {% set field = record.getField(key) %}
                 {% if field.isTranslatable %}
                     {# If the field is translatable, we want the translated value in the current locale #}
-                    {% set field = field|translated(currentlocale) %}
+                    {% set field = field|translate(currentlocale) %}
                 {% else %}
                     {# Otherwise, we want the value in the default locale, explicitly in case it is something else #}
-                    {% set field = field|translated(field.defaultLocale) %}
+                    {% set field = field|translate(field.defaultLocale) %}
                 {% endif %}
             {% else %}
                 {% set field = field_factory(key, fielddefinition) %}

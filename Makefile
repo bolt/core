@@ -111,20 +111,28 @@ full-test: ## to run full tests
 
 db-create: ## to create database and load fixtures
 	bin/console doctrine:database:create
-	bin/console doctrine:schema:create
-	bin/console doctrine:fixtures:load -n
+	bin/console doctrine:schema:create -q
+	bin/console doctrine:migrations:sync-metadata-storage -q
+	bin/console doctrine:migrations:version --add --all -n -q
+	bin/console doctrine:fixtures:load -n -q
 
 db-update: ## to update schema database
 	bin/console doctrine:schema:update -v --dump-sql --force --complete
+	bin/console doctrine:migrations:sync-metadata-storage -q
+	bin/console doctrine:migrations:version --add --all -n -q
 
 db-reset: ## to delete database and load fixtures
 	bin/console doctrine:schema:drop --force --full-database
-	bin/console doctrine:schema:create
+	bin/console doctrine:schema:create -q
+	bin/console doctrine:migrations:sync-metadata-storage -q
+	bin/console doctrine:migrations:version --add --all -n -q
 	bin/console doctrine:fixtures:load -n
 
 db-reset-without-images:
 	bin/console doctrine:schema:drop --force --full-database
-	bin/console doctrine:schema:create
+	bin/console doctrine:schema:create -q
+	bin/console doctrine:migrations:sync-metadata-storage -q
+	bin/console doctrine:migrations:version --add --all -n -q
 	bin/console doctrine:fixtures:load --group=without-images -n
 
 # Dockerized commands:

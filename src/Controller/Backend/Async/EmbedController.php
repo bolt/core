@@ -17,7 +17,7 @@ use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 /**
- * @Security("is_granted('ROLE_ADMIN')")
+ * @Security("is_granted('fetch_embed_data')")
  */
 class EmbedController implements AsyncZoneInterface
 {
@@ -52,9 +52,17 @@ class EmbedController implements AsyncZoneInterface
             $info = EmbedFactory::create($url);
             $oembed = $info->getProviders()['oembed'];
 
-            return new JsonResponse(
-                $oembed->getBag()->getAll()
-            );
+            $response = $oembed->getBag()->getAll();
+
+            if ($oembed->getProviderName() === 'YouTube') {
+                $html = $oembed->getCode();
+
+                if (! preg_match('/title=([^\s]+)/', $html)) {
+                    $response['html'] = preg_replace('/>/', sprintf(' title="%s">', $oembed->getTitle()), $html, 1);
+                }
+            }
+
+            return new JsonResponse($response);
         } catch (InvalidUrlException $e) {
             return new JsonResponse([
                 'error' => [

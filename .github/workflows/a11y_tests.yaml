@@ -1,0 +1,58 @@
+name: Accessibility (a11y) Tests
+
+on:
+    pull_request:
+
+jobs:
+    a11y_tests:
+        strategy:
+            fail-fast: false
+            matrix:
+                php-version: ['7.2']
+                node-version: ['12.5']
+                actions:
+                    -
+                        name: Run pa11yci
+                        run: npm run a11y:ci
+
+        name: ${{ matrix.actions.name }}
+        runs-on: ubuntu-latest
+
+        steps:
+            -   uses: actions/checkout@v2
+
+            # see https://github.com/actions/starter-workflows/blob/main/ci/node.js.yml
+            -
+                name: Use Node.js 12.5
+                uses: actions/setup-node@v1
+                with:
+                    node-version: ${{ matrix.node-version }}
+                    coverage: none
+            -   uses: shivammathur/setup-php@v2
+                with:
+                    # test the lowest version, to make sure checks pass on it
+                    php-version: ${{ matrix.php-version }}
+                    extensions: json, mbstring, pdo, curl, pdo_sqlite
+                    coverage: none
+            -   name: Install dependencies
+                run: |
+                    sudo composer self-update -q
+                    sudo COMPOSER_MEMORY_LIMIT=-1 COMPOSER_PROCESS_TIMEOUT=60 composer update --prefer-dist --no-progress	
+                    ./bin/console bolt:info	--ansi
+                    npm set progress=false	
+                    npm ci	
+            -   name: Prepare environment
+                run: |
+                    # build assets	
+                    npm run build
+                    sudo chmod -R 777 config/ public/files/ public/theme/ public/thumbs/ var/	
+                    # prepare web server for e2e tests	
+                    ./bin/console doctrine:database:create	
+                    ./bin/console doctrine:schema:create	
+                    ./bin/console doctrine:fixtures:load --group=without-images -n	
+                    ./bin/console server:start 127.0.0.1:8088	
+                    # test if web server works	
+                    sleep 3	
+                    wget "http://127.0.0.1:8088/bolt/login"
+
+            -   run: ${{ matrix.actions.run }}

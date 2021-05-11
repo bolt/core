@@ -15,6 +15,7 @@
                 :required="required"
                 :data-errormessage="errormessage"
                 :pattern="pattern"
+                :title="name"
             />
             <div class="input-group-append">
                 <button
@@ -87,6 +88,7 @@ export default {
                 this.icon = 'unlock';
                 this.buttonText = this.$props.labels.button_unlocked;
                 this.$root.$emit('generate-from-title', true);
+                this.generateSlug();
             }
         }, 0);
         this.$root.$on('slugify-from-title', () => this.generateSlug());

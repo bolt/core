@@ -54,6 +54,7 @@
     {% endif %}
 
     <form method="post" id="editcontent">
+        {{ widgets('editcontent_below_header') }}
 
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('editrecord') }}">
         <input type="hidden" name="_edit_locale" value="{{ currentlocale }}">
@@ -67,7 +68,7 @@
 
         <div class="tab-content" id="nav-tabContent">
 
-        {% include '@bolt/content/_fields.html.twig' %}
+            {% include '@bolt/content/_fields.html.twig' %}
 
             <div class="tab-pane" id="relations" role="tabpanel" aria-labelledby="relations-tab">
 
@@ -77,6 +78,7 @@
             </div>
 
         </div>
+        {{ widgets('editcontent_bottom') }}
 
         <hr>
         {% include '@bolt/content/_buttons.html.twig' with {'hide_on_mobile': true} %}
@@ -86,20 +88,21 @@
 {% endblock %}
 
 {% block aside %}
-
     <div id="metadata">
         <form class="ui form">
+            {{ widgets('editcontent_aside_top') }}
 
             <div class="card mb-3">
                 <div class="card-header">
                     {{ macro.icon('star') }} {{ 'title.primary_actions'|trans }}
                 </div>
                 <div class="card-body">
-                  {% include '@bolt/content/_buttons.html.twig' with {'status': true} %}
+                    {% include '@bolt/content/_buttons.html.twig' with {'status': true} %}
                 </div>
             </div>
 
             {% include '@bolt/content/_localeswitcher.html.twig' %}
+            {{ widgets('editcontent_aside_middle') }}
 
             <div class="card">
                 <div class="card-header">
@@ -111,7 +114,7 @@
                 </div>
             </div>
 
+            {{ widgets('editcontent_aside_bottom') }}
         </form>
     </div>
-
 {% endblock aside %}

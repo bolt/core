@@ -1,0 +1,11 @@
+# location of the files used for the migrations
+migrations: vendor/bolt/core/yaml-migrations
+
+# location of the checkpoint
+checkpoint: config/checkpoint.txt
+
+# Folder of the source files
+source: config
+
+# Target folder of the processed files. Set this to the same as 'source' to overwrite
+target: config

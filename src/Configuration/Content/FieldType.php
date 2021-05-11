@@ -52,6 +52,7 @@ class FieldType extends Collection
             // 10 rows by default
             'height' => '10',
             'icon' => '',
+            'maxlength' => '',
         ]);
     }
 
@@ -65,11 +66,13 @@ class FieldType extends Collection
             $definition = $contentType;
 
             foreach ($parents as $parent) {
-                // @todo Fields that are added by an extension have "services" as parent,
-                // which they shouldn't have. Skip them, but we need to fix this properly.
+                // This was here before due to extensions adding "services" as parent.
+                // But also, it prevents breakage when there's inconsistencies between
+                // the database and the definition. ¯\_(ツ)_/¯
                 if (! $definition->get('fields')) {
                     continue;
                 }
+
                 $definition = $definition->get('fields')->get($parent, collect([]));
             }
 

@@ -1,0 +1,51 @@
+# Adding the new services for Bolt 4.2.0
+file: bolt/permissions.yaml
+since: 5.0.0    
+
+add:
+    assignable_roles: [ROLE_DEVELOPER, ROLE_ADMIN, ROLE_CHIEF_EDITOR, ROLE_EDITOR, ROLE_USER]
+    
+    global:
+        about: [ ROLE_EDITOR ] 
+        clearcache: [ ROLE_CHIEF_EDITOR ]
+        dashboard: [ IS_AUTHENTICATED_REMEMBERED ]
+        extensions: [ ROLE_ADMIN ]
+        managefiles:config: [ ROLE_ADMIN ] 
+        managefiles:files: [ ROLE_EDITOR ]
+        managefiles:themes: [ ROLE_ADMIN ]
+        editprofile: [ IS_AUTHENTICATED_FULLY ]
+        translation: [ ROLE_ADMIN ]
+        user:list: [ ROLE_ADMIN ]
+        user:add: [ ROLE_ADMIN ]
+        user:status: [ ROLE_ADMIN ]
+        user:delete: [ ROLE_ADMIN ]
+        user:edit: [ ROLE_ADMIN ]
+        maintenance-mode: [ ROLE_EDITOR ]
+        systemlog: [ ROLE_ADMIN ]
+        api_admin: [ ROLE_ADMIN ]
+        bulk_operations: [ ROLE_CHIEF_EDITOR ]
+        kitchensink: [ ROLE_ADMIN ]
+        upload: [ ROLE_EDITOR ]
+        extensionmenus: [ IS_AUTHENTICATED_REMEMBERED ]
+        media_edit: [ ROLE_EDITOR ]
+        fetch_embed_data: [ ROLE_EDITOR ]
+        list_files:config: [ ROLE_ADMIN ]
+        list_files:files: [ ROLE_EDITOR ]
+        list_files:themes: [ ROLE_ADMIN ]
+
+    contenttype-base:
+        edit: [ ROLE_CHIEF_EDITOR ]
+        create: [ ROLE_CHIEF_EDITOR ]
+        change-status: [ ROLE_CHIEF_EDITOR ]
+        delete: [ ROLE_CHIEF_EDITOR ]
+        change-ownership: [ ROLE_CHIEF_EDITOR ]
+        view: [ ROLE_CHIEF_EDITOR ]
+    
+    contenttype-default:
+        edit: [ ROLE_EDITOR, CONTENT_OWNER ]
+        create: [ ROLE_EDITOR ]
+        change-ownership: [ CONTENT_OWNER ]
+        view: [ ROLE_EDITOR ]
+    
+    contenttypes: ~
+    

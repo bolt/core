@@ -1,6 +1,5 @@
 <!-- Footer -->
 <footer>
-    <hr>
 
     <h4>{{ __('Menu') }}</h4>
     {{ menu(template = 'partials/_sub_menu.twig') }}
@@ -13,14 +12,6 @@
         <input type="search" value="{{ searchTerm|default() }}" placeholder="{{ __('general.phrase.search-ellipsis') }}" name="searchTerm" >
         <button type="submit">{{ __('action.search') }}</button>
     </form>
-
-    <hr>
-
-    <h4>{{ __('general.phrase.select_language') }}</h4>
-
-    {% include 'helpers/_languageselect.html.twig' with {'type': 'select'} %}
-
-    <hr>
 
     <p>
         {{ __('general.phrase.built-with-bolt') }}
