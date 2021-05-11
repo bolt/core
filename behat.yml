@@ -22,7 +22,7 @@ default:
     FriendsOfBehat\SymfonyExtension:
       kernel:
         class: Bolt\Kernel
-    Lakion\Behat\MinkDebugExtension:
+    FriendsOfBehat\MinkDebugExtension\ServiceContainer\MinkDebugExtension:
       directory: var/log/behat-reports
       screenshot: true
 

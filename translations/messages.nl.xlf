@@ -1554,7 +1554,7 @@
         <target>%contenttype% zonder titel</target>
       </segment>
     </unit>
-    <unit id="SDVQEir" name="title.primary_actions">
+    <unit id="JEnqOi." name="title.primary_actions">
       <segment>
         <source>title.primary_actions</source>
         <target>Voornaamste handelingen</target>
@@ -1774,6 +1774,24 @@
       <segment>
         <source>action.confirm_delete</source>
         <target>Weet je zeker dat je deze content wilt verwijderen?</target>
+      </segment>
+    </unit>
+    <unit id="RMPnq6o" name="label.username_or_email">
+      <segment>
+        <source>label.username_or_email</source>
+        <target>Gebruikersnaam of e-mail</target>
+      </segment>
+    </unit>
+    <unit id="z_tOHwq" name="placeholder.username_or_email">
+      <segment>
+        <source>placeholder.username_or_email</source>
+        <target>je gebruikersnaam of e-mailadres</target>
+      </segment>
+    </unit>
+    <unit id="xgYhRkc" name="placeholder.password">
+      <segment>
+        <source>placeholder.password</source>
+        <target>je wachtwoord</target>
       </segment>
     </unit>
   </file>

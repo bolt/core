@@ -19,7 +19,9 @@ class AuthenticationController extends TwigAwareController implements BackendZon
     public function login(Request $request, AuthenticationUtils $authenticationUtils): Response
     {
         // Always redirect to dashboard if a users is still logged in
-        if ($this->getUser()) {
+        // If only IS_AUTHENTICATED_REMEMBERED is granted, still show the login
+        // allowing the user to fully authenticate.
+        if ($this->getUser() && $this->isGranted('IS_AUTHENTICATED_FULLY')) {
             return $this->redirectToRoute('bolt_dashboard');
         }
 
@@ -50,17 +52,5 @@ class AuthenticationController extends TwigAwareController implements BackendZon
     public function logout(): void
     {
         throw new \Exception('This should never be reached!');
-    }
-
-    /**
-     * @Route("/resetpassword", name="bolt_resetpassword")
-     *
-     * @deprecated 4.2
-     */
-    public function resetPassword(): Response
-    {
-        @trigger_error(sprintf('The method "resetPassword" of the class "%s" is deprecated since 4.2 and will be removed in 5.0.', self::class), E_USER_DEPRECATED);
-
-        return $this->redirectToRoute('bolt_forgot_password_request');
     }
 }

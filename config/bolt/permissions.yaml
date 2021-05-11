@@ -1,0 +1,148 @@
+# This file defines role-based access control for your Bolt site.
+# Before making any modifications to this file, make sure you've thoroughly
+# read the documentation at https://docs.bolt.cm/configuration/permissions
+# and understand the consequences of making uninformed changes to the roles and
+# permissions.
+
+# List of roles that are presented in the list of options when editing a user.
+# Roles that are not in this list are left 'as is' when editing users.
+# Note: ROLE_USER is assigned to Bolt Entity Users if no roles have been set.
+assignable_roles: [ROLE_DEVELOPER, ROLE_ADMIN, ROLE_CHIEF_EDITOR, ROLE_EDITOR, ROLE_USER]
+
+# These permissions are the 'global' permissions; these are not tied
+# to any content types, but rather apply to global, non-content activity in
+# Bolt's backend. Most of these permissions map directly to backend routes;
+# keep in mind, however, that routes do not always correspond to URL paths 1:1.
+# The default set defined here is appropriate for most sites, so most likely,
+# you will not have to change it.
+# Also note that the 'editcontent' and 'overview' routes are special-cased
+# inside the code, so they don't appear here.
+global:
+    about: [ ROLE_EDITOR ] # view the 'About Bolt' page
+    clearcache: [ ROLE_CHIEF_EDITOR ]
+    dashboard: [ IS_AUTHENTICATED_REMEMBERED ]
+    extensions: [ ROLE_ADMIN ]
+    # these control /bolt/file-edit and /bolt/filemanager -> combined create/read/update/delete permission
+    # the part after the files: is the 'location' where the files are part of
+    managefiles:config: [ ROLE_ADMIN ] # all configuration yml files /bolt/filemanager/config and /bolt/file-edit/config?file=/bolt/menu.yaml
+    managefiles:files: [ ROLE_EDITOR ]
+    managefiles:themes: [ ROLE_ADMIN ]
+    editprofile: [ IS_AUTHENTICATED_FULLY ] # edit own profile
+    translation: [ ROLE_ADMIN ]
+    user:list: [ ROLE_ADMIN ] # overview listing of users and a list of active sessions
+    user:add: [ ROLE_ADMIN ] # add user - allows editing user _before_ saving, can set roles, status on create, after saving 'useredit' is needed.
+    user:status: [ ROLE_ADMIN ] # user enable/disable - only used for changing status outside of add/edit context
+    user:delete: [ ROLE_ADMIN ] # user delete
+    user:edit: [ ROLE_ADMIN ] # user edit all fields, includes user:status permissions
+    maintenance-mode: [ ROLE_EDITOR ] # view the frontend when in maintenance mode
+    systemlog: [ ROLE_ADMIN ]
+    api_admin: [ ROLE_ADMIN ] # WARNING: this only shows/hides api in the bolt admin, it doesn't protect the /api route(s)
+    bulk_operations: [ ROLE_CHIEF_EDITOR ]
+    kitchensink: [ ROLE_ADMIN ]
+    upload: [ ROLE_EDITOR ] # TODO PERMISSIONS upload media/files ? Or should this be handled by managefiles:files
+    extensionmenus: [ IS_AUTHENTICATED_REMEMBERED ] # allows you to see menu items added by extensions
+    media_edit: [ ROLE_EDITOR ] # edit metadata for images etc.
+    fetch_embed_data: [ ROLE_EDITOR ] # get embed (meta)data for urls via the back-end (needed to embed youtube etc.)
+    list_files:config: [ ROLE_ADMIN ] # should probably not be used?
+    list_files:files: [ ROLE_EDITOR ] # get list of files (images?) available for use as site-content
+    list_files:themes: [ ROLE_ADMIN ] # should probably not be used?
+
+
+# For content type related actions, permissions can be set individually for
+# each content type. For this, we define three groups of permission sets.
+# The 'contenttype-base' permission sets *overrides*; any roles specified here
+# will grant a permission for all content types, regardless of the rest of this
+# section.
+# The 'contenttype-default' contains rules that are used when the desired
+# content type does not define a rule for this permission itself.
+# The 'contenttypes' section specifies permissions for individual content
+# types.
+#
+# To understand how this works, it may be best to follow the permission checker
+# through its decision-making process.
+#
+# First it checks whether any of the current user's roles match any of the
+# roles in contenttype-base/{permission}. If so, the search is over, and the
+# permission can be granted.
+#
+# The next step is to find contenttypes/{contenttype}/{permission}. If it is
+# found, then the permission can be granted if and only if any of the user's
+# roles match any role in contenttypes/{contenttype}/{permission}.
+#
+# If either contenttypes/{contenttype} or
+# contenttypes/{contenttype}/{permission} is absent, the permission checker
+# uses contenttype-default/{permission} instead. If any role exists in both the
+# user's roles and contenttype-default/{permission}, the permission can be
+# granted.
+#
+# Note especially that an *empty* set of roles in the contenttype section means
+# something else than the *absence* of the permission. If the permission is
+# defined with an empty role list, it overrides the role list in
+# contenttype-default; but if the permission is not mentioned, the
+# corresponding entry in contenttype-default applies.
+#
+# The following permissions are available on a per-contenttype basis:
+#
+# - edit: allows updating existing records
+# - create: allows creating new records
+# - change-status: allows changing the published status of a record
+# - delete: allows (hard) deletion of records
+# - change-ownership: allows changing a record's owner. Note that ownership may
+#                     grant additional permissions on a record, so this
+#                     permission can indirectly enable users more permissions
+#                     in ways that may not be immediately obvious.
+# - view: allows viewing records in the backend (listings, content/fields)
+#
+# Note that all permissions imply 'view' permission, so you don't have to give 'view' along with 'edit'
+# Note change-ownership is available as a setting but is not implemented in the bolt admin at the moment
+
+# these permissions will be set for all contenttypes, config below can add additional roles to these, but they can not be overridden
+contenttype-base:
+    edit: [ ROLE_CHIEF_EDITOR ]
+    create: [ ROLE_CHIEF_EDITOR ]
+    change-status: [ ROLE_CHIEF_EDITOR ] # Note: You can have 'change-status' permission without 'edit' but you cannot use that at the moment as there is no screen that only handles status changes
+    delete: [ ROLE_CHIEF_EDITOR ]
+    change-ownership: [ ROLE_CHIEF_EDITOR ]
+    view: [ ROLE_CHIEF_EDITOR ] # = show in menu, show listings, open 'edit' view without actually being able to edit, any of the other permissions always imply 'view'
+
+# these permissions are used as a default for contenttypes, they are added to the base permissions 
+# you can override these settings per contenttype by adding it to the `contenttypes:` array
+contenttype-default:
+    edit: [ ROLE_EDITOR, CONTENT_OWNER ]
+    create: [ ROLE_EDITOR ]
+    change-ownership: [ CONTENT_OWNER ] # <-- NOT IMPLEMENTED YET (and: how to handle chance-ownership permission without 'edit'?)
+    view: [ ROLE_EDITOR ]
+
+
+contenttypes:
+
+# This is an example of how to define Contenttype specific permissions
+#
+# contenttypes:
+#    # Keys in this dictionary map to keys in the contenttypes.yml specification.
+#    showcases:
+#        # Rules defined here *override* rules defined in contenttype-default,
+#        # but *add* to rules in contenttype-base. This means that permissions
+#        # granted through contenttype-base cannot be revoked here, merely
+#        # amended.
+#
+#        # Only the Admin and Chief Editor are allowed to edit records
+#        edit: [ ROLE_CHIEF_EDITOR ]
+#        create: [ ROLE_CHIEF_EDITOR ]
+#        change-status: [ ROLE_CHIEF_EDITOR ]
+#        delete: [ ROLE_CHIEF_EDITOR ]
+#    pages:
+#        edit: [ ROLE_EDITOR, CONTENT_OWNER ]
+#        create: [ ROLE_EDITOR ]
+#        change-ownership: [ CONTENT_OWNER ]
+#        view: [ ROLE_USER ]
+#    entries:
+#        edit: [ ROLE_EDITOR ]
+#        edit: [ ROLE_EDITOR, CONTENT_OWNER ]
+#        create: [ ROLE_EDITOR ]
+#        change-ownership: [ CONTENT_OWNER ]
+#        view: [ ROLE_EDITOR ] 
+#    homepage: # singleton
+#        view: [ ROLE_EDITOR ]
+#        edit: [ ROLE_EDITOR ]
+#        create: [ ROLE_EDITOR ]

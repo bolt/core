@@ -20,7 +20,7 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Webmozart\PathUtil\Path;
 
 /**
- * @Security("is_granted('ROLE_ADMIN')")
+ * @Security("is_granted('media_edit')")
  */
 class MediaEditController extends TwigAwareController implements BackendZoneInterface
 {

@@ -1,5 +1,0 @@
-maker:
-  # tell MakerBundle that all of your classes lives in an
-  # Bolt namespace, instead of the default App
-  # (e.g. Bolt\Entity\Article, Bolt\Command\MyCommand, etc)
-  root_namespace: 'Bolt'

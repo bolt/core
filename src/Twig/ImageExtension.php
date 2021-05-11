@@ -9,6 +9,7 @@ use Bolt\Entity\Field\ImageField;
 use Bolt\Entity\Media;
 use Bolt\Repository\MediaRepository;
 use Bolt\Utils\ThumbnailHelper;
+use Symfony\Component\Asset\Packages;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
@@ -24,19 +25,30 @@ class ImageExtension extends AbstractExtension
     /** @var ThumbnailHelper */
     private $thumbnailHelper;
 
+    /** @var ContentExtension */
+    private $contentExtension;
+
+    /** @var Packages */
+    private $assets;
+
     /** @var string */
     private $publicFolder;
 
-    /** @var string */
-    private $projectDir;
-
-    public function __construct(MediaRepository $mediaRepository, Notifications $notifications, ThumbnailHelper $thumbnailHelper, string $projectDir, string $publicFolder)
+    public function __construct(
+        MediaRepository $mediaRepository,
+        Notifications $notifications,
+        ThumbnailHelper $thumbnailHelper,
+        ContentExtension $contentExtension,
+        Packages $assets,
+        string $publicFolder,
+        string $projectDir)
     {
         $this->mediaRepository = $mediaRepository;
         $this->notifications = $notifications;
         $this->thumbnailHelper = $thumbnailHelper;
-        $this->publicFolder = $publicFolder;
-        $this->projectDir = $projectDir;
+        $this->contentExtension = $contentExtension;
+        $this->assets = $assets;
+        $this->publicFolder = $projectDir . DIRECTORY_SEPARATOR . $publicFolder;
     }
 
     /**
@@ -88,8 +100,10 @@ class ImageExtension extends AbstractExtension
      */
     public function showImage($image, ?int $width = null, ?int $height = null): string
     {
-        $link = $this->getFilename($image);
+        $filename = $this->getFilename($image, true);
         $alt = $this->getAlt($image);
+
+        $path = $this->assets->getUrl($filename, 'files');
 
         if ($width) {
             $width = sprintf('width="%s"', $width);
@@ -98,7 +112,7 @@ class ImageExtension extends AbstractExtension
             $height = sprintf('height="%s"', $height);
         }
 
-        return sprintf('<img src="%s" alt="%s" %s %s>', $link, $alt, (string) $width, (string) $height);
+        return sprintf('<img src="%s" alt="%s" %s %s>', $path, $alt, (string) $width, (string) $height);
     }
 
     /**
@@ -135,8 +149,7 @@ class ImageExtension extends AbstractExtension
      */
     public function getSvg($image): ?string
     {
-        $image = sprintf('%s/%s%s', $this->projectDir, $this->publicFolder, $this->getFilename($image));
-
+        $image = $this->publicFolder . $this->assets->getUrl($this->getFilename($image, true), 'files');
         $extension = pathinfo($image, PATHINFO_EXTENSION);
 
         if ($extension !== 'svg') {
@@ -158,7 +171,7 @@ class ImageExtension extends AbstractExtension
         $filename = null;
 
         if ($image instanceof Content) {
-            $image = $this->getImageFromContent($image);
+            $image = $this->contentExtension->getImage($image);
         }
 
         if (is_array($image)) {
@@ -180,7 +193,7 @@ class ImageExtension extends AbstractExtension
         $alt = '';
 
         if ($image instanceof Content) {
-            $image = $this->getImageFromContent($image);
+            $image = $this->contentExtension->getImage($image);
         }
 
         if ($image instanceof ImageField) {
@@ -192,16 +205,5 @@ class ImageExtension extends AbstractExtension
         }
 
         return htmlentities((string) $alt, ENT_QUOTES);
-    }
-
-    private function getImageFromContent(Content $content): ?ImageField
-    {
-        foreach ($content->getFields() as $field) {
-            if ($field instanceof ImageField) {
-                return $field;
-            }
-        }
-
-        return null;
     }
 }

@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  */
-class MarkdownField extends Field implements Excerptable, FieldInterface
+class MarkdownField extends Field implements Excerptable, FieldInterface, RawPersistable
 {
     public const TYPE = 'markdown';
 

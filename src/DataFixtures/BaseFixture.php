@@ -11,7 +11,10 @@ use Webmozart\PathUtil\Path;
 
 abstract class BaseFixture extends Fixture
 {
+    /** @var array */
     private $referencesIndex = [];
+
+    /** @var array */
     private $taxonomyIndex = [];
 
     /**
@@ -86,7 +89,7 @@ abstract class BaseFixture extends Fixture
         $glob = '*.{jpg,png,gif,jpeg,webp,avif}';
 
         $finder = new Finder();
-        $finder->in($fullpath)->depth('< 2')->sortByName()->name($glob)->files();
+        $finder->in($fullpath)->depth('< 3')->sortByName()->name($glob)->files();
 
         return $finder;
     }

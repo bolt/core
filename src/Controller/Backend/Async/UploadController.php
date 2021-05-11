@@ -30,7 +30,7 @@ use Throwable;
 use Webmozart\PathUtil\Path;
 
 /**
- * @Security("is_granted('ROLE_ADMIN')")
+ * @Security("is_granted('upload')")
  */
 class UploadController extends AbstractController implements AsyncZoneInterface
 {
@@ -66,7 +66,7 @@ class UploadController extends AbstractController implements AsyncZoneInterface
     }
 
     /**
-     * @Route("/upload-url", name="bolt_async_upload_url", methods={"GET"})
+     * @Route("/upload-url", name="bolt_async_upload_url", methods={"POST"})
      */
     public function handleURLUpload(Request $request): Response
     {
@@ -85,9 +85,12 @@ class UploadController extends AbstractController implements AsyncZoneInterface
 
         $locationName = $request->get('location', '');
         $path = $request->get('path') . $filename;
+        $folderpath = $this->config->getPath($locationName, true, 'tmp/');
         $target = $this->config->getPath($locationName, true, 'tmp/' . $path);
 
         try {
+            // Make sure temporary folder exists
+            $this->filesystem->mkdir($folderpath);
             // Create temporary file
             $this->filesystem->copy($url, $target);
         } catch (Throwable $e) {

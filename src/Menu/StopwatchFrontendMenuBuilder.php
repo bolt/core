@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Menu;
 
 use Symfony\Component\Stopwatch\Stopwatch;
+use Twig\Environment;
 
 final class StopwatchFrontendMenuBuilder implements FrontendMenuBuilderInterface
 {
@@ -20,10 +21,10 @@ final class StopwatchFrontendMenuBuilder implements FrontendMenuBuilderInterface
         $this->stopwatch = $stopwatch;
     }
 
-    public function buildMenu(?string $name = null): array
+    public function buildMenu(Environment $twig, ?string $name = null): array
     {
         $this->stopwatch->start('bolt.frontendMenu');
-        $menu = $this->menuBuilder->buildMenu($name);
+        $menu = $this->menuBuilder->buildMenu($twig, $name);
         $this->stopwatch->stop('bolt.frontendMenu');
 
         return $menu;

@@ -14,6 +14,7 @@ use Webmozart\PathUtil\Path;
 
 class ExtensionsConfigureCommand extends Command
 {
+    /** @var string */
     protected static $defaultName = 'extensions:configure';
 
     /** @var ExtensionRegistry */

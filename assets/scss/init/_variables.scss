@@ -49,7 +49,7 @@ $custom-range-thumb-active-bg:          var(--primary-400);
 $form-group-margin-bottom:              2rem;
 
 $input-disabled-bg:                     #f0f3f6;
-$input-disabled-color:                  #777;
+$input-disabled-color:                  #6f6f6f;
 $input-placeholder-color:               #aaa;
 
 $input-btn-focus-width:                 0.15rem;
@@ -73,17 +73,21 @@ $btn-font-size-sm: 13px;
 $btn-padding-x: 0.6rem;
 
 $primary: #1863af;
-$secondary: #5da1ac;
-$tertiary: #81969b;
-$success: #61a31f;
+$secondary: #1f8389;
+$tertiary: #667a81;
+$success: #4f8419;
 $info: #17a2b8;
 $warning: #ffc107;
 $danger: #db2427;
 $light: #e0e0e0;
 $dark: #333;
 $disabled: #c8c8c8;
+$code: #4c6e91;
 
 $spacer: 1rem;
+
+// Pagination
+$pagination-focus-outline: solid 0.15rem;
 
 // Grid
 $grid-breakpoints: (

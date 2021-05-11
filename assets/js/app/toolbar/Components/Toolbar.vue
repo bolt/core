@@ -4,36 +4,53 @@
             <img src="/assets/images/bolt_logo_dashboard.svg" alt="⚙️ Bolt" height="26" />
         </div>
 
+        <div v-if="isImpersonator" class="toolbar-impersonation">
+            <a :href="backendPrefix + '?_switch_user=_exit'" class="btn btn-warning">
+                <i class="fas fa-sign-out-alt fa-fw"></i>
+                {{ labels['action.stop_impersonating'] }}
+            </a>
+        </div>
+
         <div class="toolbar-item toolbar-item__site">
             <a href="/" target="_blank"> <i class="fas fa-sign-out-alt"></i>{{ labels['action.view_site'] }} </a>
         </div>
 
         <form :action="backendPrefix" class="toolbar-item toolbar-item__filter input-group">
+            <label for="global-search" class="sr-only">{{ labels['general.label.search'] }}</label>
             <input
                 id="global-search"
                 type="text"
                 class="form-control"
                 :placeholder="labels['listing.placeholder_search']"
+                :title="labels['listing.placeholder_search']"
                 name="filter"
                 :value="filterValue"
             />
             <div class="input-group-append">
-                <button class="btn btn-tertiary" type="submit" :title="labels['listing.button_search']">
-                    <i class="fas fa-search" style="margin: 0;"></i>
+                <button
+                    class="btn btn-tertiary toolbar-item__filter--button"
+                    type="submit"
+                    :title="labels['listing.button_search']"
+                >
+                    <i class="fas fa-search"></i>
                 </button>
             </div>
         </form>
 
         <div class="toolbar-item btn-group toolbar-item__profile">
             <button
-                class="btn user profile__dropdown-toggler dropdown-toggle"
+                class="btn user profile__dropdown-toggler dropdown-toggle d-flex align-items-center"
                 type="button"
                 data-toggle="dropdown"
                 data-display="static"
                 aria-haspopup="true"
                 aria-expanded="false"
             >
-                <i class="fas fa-user"></i>{{ labels['general.greeting'] }}
+                <img v-if="avatar" :src="avatar" class="rounded-circle mr-2" alt="User avatar" />
+                <i v-else class="fas fa-user"></i>{{ labels['general.greeting'] }}
+                <template v-if="isImpersonator">
+                    &nbsp;<span style="font-style: italic;">({{ labels['general.is_impersonator'] }})</span>
+                </template>
             </button>
             <div class="profile__dropdown dropdown-menu dropdown-menu-right">
                 <ul>
@@ -78,7 +95,9 @@ export default {
         menu: Array,
         labels: Object,
         backendPrefix: RegExp,
+        isImpersonator: Boolean,
         filterValue: String,
+        avatar: String,
     },
     computed: {
         contrast() {

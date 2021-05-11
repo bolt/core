@@ -1,7 +1,7 @@
 <template>
     <ul class="link--menu">
-        <li v-if="item.link_new !== null" class="link--actions">
-            <a :href="item.link_new" data-patience="virtue">
+        <li class="link--actions">
+            <a v-if="item.link_new !== null" :href="item.link_new" data-patience="virtue">
                 <i class="fas fa-fw fa-magic mr-2"></i><span>{{ labels['action.new'] }}</span>
             </a>
             <a :href="item.link_listing" data-patience="virtue">

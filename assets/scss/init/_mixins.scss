@@ -82,14 +82,14 @@
 }
 
 @mixin generate-color($color, $h, $s, $l) {
-  --#{$color}-h: #{$h};
-  --#{$color}-s: #{$s};
-  --#{$color}-l: #{$l};
-  --#{$color}-100: hsl(var(--#{$color}-h), var(--#{$color}-s), calc(var(--#{$color}-l) * 2.3));
-  --#{$color}-200: hsl(var(--#{$color}-h), calc(var(--#{$color}-s) / 1.75), calc(var(--#{$color}-l) * 2.2));
-  --#{$color}-300: hsl(var(--#{$color}-h), var(--#{$color}-s), calc(var(--#{$color}-l) * 1.75));
-  --#{$color}-400: hsl(var(--#{$color}-h), var(--#{$color}-s), calc(var(--#{$color}-l) * 1.25));
-  --#{$color}: hsl(var(--#{$color}-h), var(--#{$color}-s), var(--#{$color}-l));
-  --#{$color}-600: hsl(var(--#{$color}-h), var(--#{$color}-s), calc(var(--#{$color}-l) * 0.85));
-  --#{$color}-700: hsl(var(--#{$color}-h), var(--#{$color}-s), calc(var(--#{$color}-l) * 0.5));
+  --#{"" + $color}-h: #{$h};
+  --#{"" + $color}-s: #{$s};
+  --#{"" + $color}-l: #{$l};
+  --#{"" + $color}-100: hsl(var(--#{"" + $color}-h), var(--#{"" + $color}-s), calc(var(--#{"" + $color}-l) * 2.3));
+  --#{"" + $color}-200: hsl(var(--#{"" + $color}-h), calc(var(--#{"" + $color}-s) / 1.75), calc(var(--#{"" + $color}-l) * 2.2));
+  --#{"" + $color}-300: hsl(var(--#{"" + $color}-h), var(--#{"" + $color}-s), calc(var(--#{"" + $color}-l) * 1.75));
+  --#{"" + $color}-400: hsl(var(--#{"" + $color}-h), var(--#{"" + $color}-s), calc(var(--#{"" + $color}-l) * 1.25));
+  --#{"" + $color}: hsl(var(--#{"" + $color}-h), var(--#{"" + $color}-s), var(--#{"" + $color}-l));
+  --#{"" + $color}-600: hsl(var(--#{"" + $color}-h), var(--#{"" + $color}-s), calc(var(--#{"" + $color}-l) * 0.85));
+  --#{"" + $color}-700: hsl(var(--#{"" + $color}-h), var(--#{"" + $color}-s), calc(var(--#{"" + $color}-l) * 0.5));
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Command;
 
 use Bolt\Configuration\Config;
+use Bolt\Extension\ExtensionRegistry;
 use Bolt\Version;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -27,13 +28,21 @@ class CopyThemesCommand extends Command
     /** @var Config */
     private $config;
 
-    public function __construct(Filesystem $filesystem, string $publicFolder, string $projectDir, Config $config)
+    /** @var ExtensionRegistry */
+    private $extensionRegistry;
+
+    /** @var string */
+    private $projectDir;
+
+    public function __construct(Filesystem $filesystem, string $publicFolder, string $projectDir, Config $config, ExtensionRegistry $extensionRegistry)
     {
         parent::__construct();
 
         $this->filesystem = $filesystem;
+        $this->projectDir = $projectDir;
         $this->publicDirectory = $projectDir . '/' . $publicFolder;
         $this->config = $config;
+        $this->extensionRegistry = $extensionRegistry;
     }
 
     protected function configure(): void
@@ -59,6 +68,19 @@ class CopyThemesCommand extends Command
                 $baseDir . '/base-2018' => $publicDir . '/theme/base-2018',
                 $baseDir . '/skeleton' => $publicDir . '/theme/skeleton',
             ];
+
+            $themes = $this->extensionRegistry->getThemes();
+
+            foreach ($themes as $theme) {
+                if ($theme->getName() === 'bolt/themes') {
+                    // Ignore the special case of bolt/themes, which is handled above.
+                    continue;
+                }
+
+                $source = $this->projectDir . '/vendor/' . $theme->getName();
+                $target = $publicDir . '/theme/' . $theme->getName();
+                $dirs[$source] = $target;
+            }
         } else {
             if (Version::installType() === 'Git clone') {
                 $io->error('This command only works with the \'Composer install\' install type.');

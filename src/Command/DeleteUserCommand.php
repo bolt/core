@@ -35,12 +35,19 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 class DeleteUserCommand extends Command
 {
+    /** @var string */
     protected static $defaultName = 'bolt:delete-user';
 
     /** @var SymfonyStyle */
     private $io;
+
+    /** @var EntityManagerInterface */
     private $entityManager;
+
+    /** @var ValidatorInterface */
     private $validator;
+
+    /** @var UserRepository */
     private $users;
 
     public function __construct(EntityManagerInterface $em, ValidatorInterface $validator, UserRepository $users)

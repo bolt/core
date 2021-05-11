@@ -1,5 +1,5 @@
 <template>
-    <button class="admin__sidebar--slim" @click="slimSidebar(!slim)">
+    <button class="admin__sidebar--slim focus-visible" @click="slimSidebar(!slim)">
         <i class="fas fa-exchange-alt"></i>
         <span class="sr-only">{{ labels.toggler }}</span>
     </button>

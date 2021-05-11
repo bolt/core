@@ -4,12 +4,14 @@
 
     {% if record|default %}
 
-        <h1><a href="{{ record|link }}">{{ record|title }}</a></h1>
+        <h1>{{ record|title }}</h1>
 
         {# Remove this block if you don't need it anymore. #}
         {{ include('partials/_fresh_install.twig') }}
 
-        {{ record|excerpt }}
+        {# Output the `introduction` field. If it doesn't exist, 'default' to
+           the full excerpt of the current Record #}
+        {{ record.introduction|default(record|excerpt) }}
 
         {% include 'partials/_image.twig' with ({'image': record|image}) %}
 
@@ -20,3 +22,9 @@
     {% endif %}
 
 {% endblock main %}
+
+{% block aside %}
+
+    {{ include('partials/_aside.twig') }}
+    
+{% endblock aside %}

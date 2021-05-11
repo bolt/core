@@ -22,7 +22,6 @@ class TranslatableExtension extends AbstractExtension
     public function getFilters(): array
     {
         return [
-            new TwigFilter('translated', [$this, 'findTranslated']),
             new TwigFilter('translate', [$this, 'translate']),
         ];
     }
@@ -36,14 +35,6 @@ class TranslatableExtension extends AbstractExtension
         }
 
         return $translations;
-    }
-
-    /**
-     * @deprecated
-     */
-    public function findtranslated(Field $entity, string $locale): Field
-    {
-        return $this->translate($entity, $locale);
     }
 
     public function translate(Field $entity, string $locale): Field

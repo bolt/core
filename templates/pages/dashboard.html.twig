@@ -23,13 +23,17 @@
 
 {# The 'main' section is the main contents of the page. Usually this is Vue-ified. #}
 {% block main %}
+    {{ widgets('dashboard_below_header') }}
     <div id="listing">
         {% include '@bolt/_partials/_content_listing.html.twig' with {'records': records, 'type': 'dashboard' } %}
     </div>
+    {{ widgets('dashboard_bottom') }}
 {% endblock %}
 
 {# The 'aside' section is the right sidebar of the page. If omitted, 'main' will take up the full width. #}
 {% block aside %}
     {{ widgets('dashboard_aside_top') }}
+    {{ widgets('dashboard_aside_middle') }}
+    {{ widgets('dashboard_aside_bottom') }}
 {% endblock %}
 

@@ -11,6 +11,7 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
+                php-version: ['7.2', '8.0']
                 actions:
                     -
                         name: Coding Standard
@@ -38,10 +39,6 @@ jobs:
                         run: bin/console lint:xliff translations --ansi
 
                     -
-                        name: Check dependencies for security vulnerabilities
-                        run: bin/console security:check --ansi
-
-                    -
                         name: Check Doctrine Mapping
                         run: bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction --ansi
 
@@ -51,10 +48,11 @@ jobs:
         steps:
             -   uses: actions/checkout@v2
             # see https://github.com/shivammathur/setup-php
-            -   uses: shivammathur/setup-php@v1
+            -   uses: shivammathur/setup-php@v2
                 with:
                     # test the lowest version, to make sure checks pass on it
-                    php-version: 7.2
+                    php-version: ${{ matrix.php-version }}
+                    extensions: json, mbstring, pdo, curl, pdo_sqlite
                     coverage: none
 
             -   run: composer install --no-progress --ansi

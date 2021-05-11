@@ -41,6 +41,7 @@
                         <div v-if="!taggable" class="multiselect__tag__drag">
                             <i class="fas fa-arrows-alt"></i>
                         </div>
+                        <!-- eslint-disable-next-line vue/no-v-html -->
                         <span v-html="props.option.value"></span>
                         <i
                             tabindex="1"
@@ -88,7 +89,7 @@ export default {
 
             if (this.selected === null) {
                 return JSON.stringify([]);
-            } else if (this.selected.length > 0) {
+            } else if (this.selected.map) {
                 filtered = this.selected.map(item => item.key);
                 return JSON.stringify(filtered);
             } else {

@@ -17,6 +17,7 @@ use Twig\TwigFunction;
  */
 class DumpExtension extends AbstractExtension
 {
+    /** @var string */
     protected $env;
 
     public function __construct(?string $env = null)

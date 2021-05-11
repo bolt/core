@@ -9,11 +9,13 @@ use Tightenco\Collect\Support\Collection;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
+use Twig\TwigFunction;
 
 class CommonExtension extends AbstractExtension
 {
     /** @var ContentExtension */
     private $contentExtension;
+
     /** @var FrontendMenuExtension */
     private $frontendMenuExtension;
 
@@ -39,6 +41,16 @@ class CommonExtension extends AbstractExtension
         ];
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function getFunctions(): array
+    {
+        return [
+            new TwigFunction('secret', [$this, 'generateSecret']),
+        ];
+    }
+
     public function isCurrent(Environment $env, $item): bool
     {
         if ($item instanceof Content) {
@@ -50,6 +62,11 @@ class CommonExtension extends AbstractExtension
         }
 
         return false;
+    }
+
+    public function generateSecret(string $slug): string
+    {
+        return md5(getenv('APP_SECRET') . $slug);
     }
 
     private function getLocale($item): ?string

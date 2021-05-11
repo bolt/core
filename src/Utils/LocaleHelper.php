@@ -6,7 +6,6 @@ namespace Bolt\Utils;
 
 use Bolt\Configuration\Config;
 use Bolt\Repository\ContentRepository;
-use peterkahl\flagMaster\flagMaster;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Intl\Exception\MissingResourceException;
 use Symfony\Component\Intl\Locales;
@@ -140,24 +139,11 @@ class LocaleHelper
 
     private function getLink(string $route, array $routeParams, Collection $locale): string
     {
-        switch ($route) {
-            case 'record':
-            case 'homepage':
-            case 'listing':
-            case 'search':
-            case 'taxonomy':
-                $route = $route .= '_locale';
-                // no break
-            case 'record_locale':
-            case 'homepage_locale':
-            case 'listing_locale':
-            case 'search_locale':
-            case 'taxonomy_locale':
-                $routeParams['_locale'] = $locale->get('code');
+        $routeParams['_locale'] = $locale->get('code');
 
-                break;
-            default:
-                $routeParams['edit_locale'] = $locale->get('code');
+        if ($route === 'bolt_content_edit') {
+            unset($routeParams['_locale']);
+            $routeParams['edit_locale'] = $locale->get('code');
         }
 
         return $this->urlGenerator->generate($route, $routeParams);
@@ -185,7 +171,7 @@ class LocaleHelper
         $locale = [
             'code' => $localeCode,
             'flag' => $flag,
-            'emoji' => flagMaster::emojiFlag($flag),
+            'emoji' => FlagMaster::emojiFlag($flag),
         ];
 
         try {

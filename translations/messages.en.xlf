@@ -2373,7 +2373,7 @@
         <target>Please enter your password</target>
       </segment>
     </unit>
-    <unit id="o2f3RiO" name="form.empty_email">
+    <unit id="f8zXapF" name="form.empty_email">
       <segment>
         <source>form.empty_email</source>
         <target>Please enter your email</target>
@@ -2511,70 +2511,154 @@
         <target>Reset Password</target>
       </segment>
     </unit>
-    <unit id="3prMgfK" name="reset_password.email_title">
+    <unit id="dp42qbF" name="reset_password.email_title">
       <segment>
         <source>reset_password.email_title</source>
         <target>Hi!</target>
       </segment>
     </unit>
-    <unit id="oaRkfvE" name="reset_password.email_description">
+    <unit id="xS2vvXw" name="reset_password.email_description">
       <segment>
         <source>reset_password.email_description</source>
         <target>To reset your password, please visit the following link</target>
       </segment>
     </unit>
-    <unit id="Afb4dal" name="reset_password.email_expire">
+    <unit id="apkSD11" name="reset_password.email_expire">
       <segment>
         <source>reset_password.email_expire</source>
         <target>This link will expire in %hours% hour(s).</target>
       </segment>
     </unit>
-    <unit id="9ga3FlV" name="reset_password.email_thanks">
+    <unit id="_gg3hPE" name="reset_password.email_thanks">
       <segment>
         <source>reset_password.email_thanks</source>
         <target>Cheers!</target>
       </segment>
     </unit>
-    <unit id="7d24Grt" name="reset_password.enter_pwd">
+    <unit id="harDiJR" name="reset_password.enter_pwd">
       <segment>
         <source>reset_password.enter_pwd</source>
         <target>Please enter a password</target>
       </segment>
     </unit>
-    <unit id="a2f1pra" name="label.repeat_password">
+    <unit id="rU9cSfq" name="label.repeat_password">
       <segment>
         <source>label.repeat_password</source>
         <target>Repeat Password</target>
       </segment>
     </unit>
-    <unit id="2f19Gat" name="reset_password.not_matching_pwds">
+    <unit id="Tg5zdeo" name="reset_password.not_matching_pwds">
       <segment>
         <source>reset_password.not_matching_pwds</source>
         <target>The password fields must match.</target>
       </segment>
     </unit>
-    <unit id="2ahb7da" name="reset_password.minimum_length">
+    <unit id="1JZeWxG" name="reset_password.minimum_length">
       <segment>
         <source>reset_password.minimum_length</source>
         <target>Your password should be at least %s characters</target>
       </segment>
     </unit>
-    <unit id="a3frsl4" name="reset_password.no_token">
+    <unit id="GUQYLn2" name="reset_password.no_token">
       <segment>
         <source>reset_password.no_token</source>
         <target>No reset password token found in the URL or in the session.</target>
       </segment>
     </unit>
-    <unit id="hsg341k" name="reset_password.reset_successful">
+    <unit id="SjuOnue" name="reset_password.reset_successful">
       <segment>
         <source>reset_password.reset_successful</source>
         <target>Your password has been reset successfully.</target>
       </segment>
     </unit>
-    <unit id="7f2x41k" name="reset_password.problem_with_request">
+    <unit id="5Xr92sQ" name="reset_password.problem_with_request">
       <segment>
         <source>reset_password.problem_with_request</source>
         <target>There was a problem handling your password reset request - %s</target>
+      </segment>
+    </unit>
+    <unit id="u3DMmBH" name="label.filtered_by">
+      <segment>
+        <source>label.filtered_by</source>
+        <target>filtered by</target>
+      </segment>
+    </unit>
+    <unit id="qoZwSEY" name="action.preview_secure_share">
+      <segment>
+        <source>action.preview_secure_share</source>
+        <target>Share secure preview link</target>
+      </segment>
+    </unit>
+    <unit id="zYeSeNJ" name="action.stop_impersonating">
+      <segment>
+        <source>action.stop_impersonating</source>
+        <target>stop impersonating</target>
+      </segment>
+    </unit>
+    <unit id="W7z__Yi" name="action.impersonate">
+      <segment>
+        <source>action.impersonate</source>
+        <target>impersonate</target>
+      </segment>
+    </unit>
+    <unit id="qlucRr7" name="maintenance.activated_warning">
+      <segment>
+        <source>maintenance.activated_warning</source>
+        <target>Maintenance mode is activated</target>
+      </segment>
+    </unit>
+    <unit id="CvNi3GD" name="action.refresh">
+      <segment>
+        <source>action.refresh</source>
+        <target>Refresh</target>
+      </segment>
+    </unit>
+    <unit id="9UKAP.V" name="listing_details_box.showing_records">
+      <segment>
+        <source>listing_details_box.showing_records</source>
+        <target>Showing records %current% of %total%</target>
+      </segment>
+    </unit>
+    <unit id="UrywY0R" name="listing_details_box.name">
+      <segment>
+        <source>listing_details_box.name</source>
+        <target>Name: %name% (singular: %singularName%)</target>
+      </segment>
+    </unit>
+    <unit id=".l3zbrq" name="listing_details_box.slug">
+      <segment>
+        <source>listing_details_box.slug</source>
+        <target>Slug: %slug% (singular: %singularSlug%)</target>
+      </segment>
+    </unit>
+    <unit id="eJ9YbdG" name="listing_details_box.record_template">
+      <segment>
+        <source>listing_details_box.record_template</source>
+        <target>Record template: %template%</target>
+      </segment>
+    </unit>
+    <unit id="tsc7_G3" name="listing_details_box.listing_template">
+      <segment>
+        <source>listing_details_box.listing_template</source>
+        <target>Listing template: %template% (%listingRecords% records)</target>
+      </segment>
+    </unit>
+    <unit id="pPz9Ocx" name="listing_details_box.locales">
+      <segment>
+        <source>listing_details_box.locales</source>
+        <target>Locales: %locales%</target>
+      </segment>
+    </unit>
+    <unit id="z8r0TY6" name="action.edit_permissions">
+      <segment>
+        <source>action.edit_permissions</source>
+        <target>Edit Permissions</target>
+      </segment>
+    </unit>
+    <unit id="OEqzPDO" name="listing_table.actions.select_all">
+      <segment>
+        <source>listing_table.actions.select_all</source>
+        <target>Select all</target>
       </segment>
     </unit>
   </file>

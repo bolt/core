@@ -13,6 +13,7 @@ use Bolt\Repository\FieldRepository;
 use Bolt\Repository\UserRepository;
 use Bolt\Twig\ContentExtension;
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Twig\Environment;
 
 class ContentFillListener
 {
@@ -28,12 +29,16 @@ class ContentFillListener
     /** @var FieldRepository */
     private $fieldRepository;
 
-    public function __construct(Config $config, ContentExtension $contentExtension, UserRepository $users, FieldRepository $fieldRepository)
+    /** @var Environment */
+    private $env;
+
+    public function __construct(Environment $env, Config $config, ContentExtension $contentExtension, UserRepository $users, FieldRepository $fieldRepository)
     {
         $this->config = $config;
         $this->contentExtension = $contentExtension;
         $this->users = $users;
         $this->fieldRepository = $fieldRepository;
+        $this->env = $env;
     }
 
     public function preUpdate(LifeCycleEventArgs $args): void
@@ -75,6 +80,7 @@ class ContentFillListener
     {
         $entity->setDefinitionFromContentTypesConfig($this->config->get('contenttypes'));
         $entity->setContentExtension($this->contentExtension);
+        $entity->setTwig($this->env);
     }
 
     private function guesstimateAuthor(): User
@@ -92,7 +98,7 @@ class ContentFillListener
             $slugField = null;
         }
 
-        $fields = $this->fieldRepository->findAllBySlug($slug);
+        $fields = $slug ? $this->fieldRepository->findAllBySlug($slug) : null;
 
         if (! $fields) {
             // No slug field with that slug exists. We're done here.

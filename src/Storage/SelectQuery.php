@@ -178,12 +178,22 @@ class SelectQuery implements QueryInterface
     {
         // Change all params to lowercase, filter out empty ones
         $this->params = array_filter(
-            Arr::mapRecursive($params, function ($a) {
-                return mb_strtolower((string) $a, 'utf-8');
+            Arr::mapRecursive($params, function ($param) {
+                // Do NOT cast checkboxes to a string.
+                if (is_bool($param)) {
+                    return $param;
+                }
+
+                // Do NOT cast numbers to a string. Fix for content selects.
+                if (is_numeric($param)) {
+                    return $param;
+                }
+
+                return mb_strtolower((string) $param, 'utf-8');
             }
-        ), function ($a) {
+        ), function ($param) {
             // ignore parameter if like statement is empty
-            return $a !== '%%';
+            return $param !== '%%';
         });
 
         $this->processFilters();
