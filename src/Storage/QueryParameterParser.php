@@ -260,7 +260,8 @@ class QueryParameterParser
         // Ineffective way to set the value, if it is a string.
         foreach ($filter->getParameters() as $key => $val) {
             if ($val === (string) $value) {
-                $filter->setParameter($key, $value); // Put it back as a boolean.
+                // Put it back as a boolean.
+                $filter->setParameter($key, $value);
             }
         }
 
@@ -282,7 +283,8 @@ class QueryParameterParser
         // Ineffective way to set the value, if it is a string.
         foreach ($filter->getParameters() as $key => $val) {
             if ($val === (string) $value) {
-                $filter->setParameter($key, $value); // Put it back as a boolean.
+                // Put it back as a boolean.
+                $filter->setParameter($key, $value);
             }
         }
 
