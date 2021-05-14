@@ -21,6 +21,7 @@ use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 use Symfony\Component\Yaml\Yaml;
 use Tightenco\Collect\Support\Collection;
+use Twig\Environment;
 
 class Kernel extends BaseKernel
 {
@@ -53,6 +54,11 @@ class Kernel extends BaseKernel
         /** @var Sanitiser $sanitiser */
         $sanitiser = $this->getContainer()->get('Bolt\Utils\Sanitiser');
         Field::setSanitiser($sanitiser);
+
+        // Add the Twig Environment as a static class property used in Field::__toString()
+        /** @var Environment $twig */
+        $twig = $this->getContainer()->get('twig');
+        Field::setTwig($twig);
     }
 
     public function build(ContainerBuilder $container): void
