@@ -64,7 +64,10 @@ class ExtensionRegistry
         return $this->extensions;
     }
 
-    public function getThemes()
+    /**
+     * @return PackageInterface[]
+     */
+    public function getThemes(): array
     {
         if (! $this->themes) {
             $this->themes = iterator_to_array(Types::get('bolt-theme'));
