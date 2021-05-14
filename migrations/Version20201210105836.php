@@ -45,6 +45,7 @@ final class Version20201210105836 extends AbstractMigration
         if (!$schema->hasTable($this->tablePrefix . '_password_request')) {
             $resetPaswordTable = $schema->createTable($this->tablePrefix . '_password_request');
             $resetPaswordTable->addColumn('id', 'integer', ['autoincrement' => true]);
+            $resetPaswordTable->setPrimaryKey(["id"]); // MySQL / MariaDB needs autoincrement column to be the primary key
             $resetPaswordTable->addColumn('user_id', 'integer', ['notnull' => true, '', 'default' => 0]);
             $resetPaswordTable->addForeignKeyConstraint($this->tablePrefix . '_user', ['user_id'], ['id'], ['onUpdate' => 'CASCADE']);
         }
