@@ -8,6 +8,7 @@ use Bolt\Configuration\Config;
 use Bolt\Extension\ExtensionRegistry;
 use Bolt\Version;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -48,7 +49,8 @@ class CopyThemesCommand extends Command
     protected function configure(): void
     {
         $this
-            ->setDescription('Copy theme files into the public/themes folder');
+            ->setDescription('Copy theme files into the public/themes folder')
+            ->addArgument('theme', InputArgument::OPTIONAL, 'Specify the theme that needs to be copied.');
     }
 
     /**
@@ -56,41 +58,18 @@ class CopyThemesCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $publicDir = $this->getPublicDirectory();
-
         $io = new SymfonyStyle($input, $output);
 
-        // Determine if we can use ../themes or not.
-        if (file_exists(dirname(dirname(dirname(__DIR__))) . '/themes')) {
-            $baseDir = dirname(dirname(dirname(__DIR__))) . '/themes';
-            $dirs = [
-                $baseDir . '/base-2021' => $publicDir . '/theme/base-2021',
-                $baseDir . '/base-2018' => $publicDir . '/theme/base-2018',
-                $baseDir . '/skeleton' => $publicDir . '/theme/skeleton',
-            ];
-
-            $themes = $this->extensionRegistry->getThemes();
-
-            foreach ($themes as $theme) {
-                if ($theme->getName() === 'bolt/themes') {
-                    // Ignore the special case of bolt/themes, which is handled above.
-                    continue;
-                }
-
-                $source = $this->projectDir . '/vendor/' . $theme->getName();
-                $target = $publicDir . '/theme/' . $theme->getName();
-                $dirs[$source] = $target;
-            }
-        } else {
-            if (Version::installType() === 'Git clone') {
-                $io->error('This command only works with the \'Composer install\' install type.');
-
-                return 1;
-            }
-            $io->error('Run \'composer require bolt/themes\' before using this command.');
+        // Determine if we can use this command.
+        if (Version::installType() === 'Git clone') {
+            $io->error('This command only works with the \'Composer install\' install type.');
 
             return 1;
         }
+
+        $themes = $this->getThemes($input);
+
+        $dirs = $this->getDirs($themes);
 
         $io->newLine();
         $io->text('Installing Bolt themes as <info>hard copies</info>.');
@@ -126,6 +105,39 @@ class CopyThemesCommand extends Command
         return $exitCode;
     }
 
+    private function getThemes(InputInterface $input): array
+    {
+        $themes = collect($this->extensionRegistry->getThemes());
+
+        // Is there a theme from the input?
+        $theme = $input->hasArgument('theme') ? $input->getArgument('theme') : null;
+
+        if ($theme) {
+            $themes = $themes->filter(function ($package) use ($theme) {
+                return mb_split('/', $package->getName())[1] === $theme;
+            });
+        }
+
+        return $themes->toArray();
+    }
+
+    private function getBuiltinThemes(): array
+    {
+        // Determine if we can use ../themes or not.
+        if (! file_exists(dirname(dirname(dirname(__DIR__))) . '/themes')) {
+            return [];
+        }
+
+        $baseDir = dirname(dirname(dirname(__DIR__))) . '/themes';
+        $publicDir = $this->getPublicDirectory();
+
+        return [
+            $baseDir . '/base-2021' => $publicDir . '/theme/base-2021',
+            $baseDir . '/base-2018' => $publicDir . '/theme/base-2018',
+            $baseDir . '/skeleton' => $publicDir . '/theme/skeleton',
+        ];
+    }
+
     /**
      * Copies origin to target.
      */
@@ -141,5 +153,25 @@ class CopyThemesCommand extends Command
     private function getPublicDirectory(): string
     {
         return $this->publicDirectory;
+    }
+
+    private function getDirs(array $themes): array
+    {
+        $dirs = [];
+        $publicDir = $this->getPublicDirectory();
+
+        foreach ($themes as $theme) {
+            if ($theme->getName() === 'bolt/themes') {
+                // Ignore the special case of bolt/themes, which is handled above.
+                continue;
+            }
+
+            $source = $this->projectDir . '/vendor/' . $theme->getName();
+            $target = $publicDir . '/theme/' . mb_split('/', $theme->getName())[1];
+            $dirs[$source] = $target;
+        }
+
+        // Add the built-in theme dirs
+        return array_merge($this->getBuiltinThemes(), $dirs);
     }
 }
