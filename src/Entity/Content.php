@@ -20,7 +20,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Tightenco\Collect\Support\Collection as LaravelCollection;
-use Twig\Environment;
 
 /**
  * @ApiResource(
@@ -137,9 +136,6 @@ class Content
     /** @var ContentType|null */
     private $contentTypeDefinition = null;
 
-    /** @var Environment */
-    private $twig = null;
-
     /**
      * One content has many relations, to and from, these are relations pointing from this content.
      *
@@ -214,16 +210,6 @@ class Content
                 }
             }
         });
-    }
-
-    public function setTwig(Environment $twig): void
-    {
-        $this->twig = $twig;
-    }
-
-    public function getTwig(): ?Environment
-    {
-        return $this->twig;
     }
 
     public function setDefinition(ContentType $contentType): void
