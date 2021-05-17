@@ -6,6 +6,7 @@ namespace Bolt;
 
 use Bolt\Configuration\Parser\ContentTypesParser;
 use Bolt\Configuration\Parser\TaxonomyParser;
+use Bolt\Event\Subscriber\EntityServiceProvider;
 use Bolt\Extension\ExtensionCompilerPass;
 use Bolt\Extension\ExtensionInterface;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
@@ -37,6 +38,10 @@ class Kernel extends BaseKernel
     public function boot(): void
     {
         parent::boot();
+
+        /** @var EntityServiceProvider $provider */
+        $provider = $this->getContainer()->get(EntityServiceProvider::class);
+        $provider->run();
     }
 
     public function build(ContainerBuilder $container): void
