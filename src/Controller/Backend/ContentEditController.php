@@ -434,7 +434,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         }
     }
 
-    private function updateCollections(Content $content, array $formData, ?string $locale): void
+    public function updateCollections(Content $content, array $formData, ?string $locale): void
     {
         $collections = $content->getFields()->filter(function (Field $field) {
             return $field->getType() === CollectionField::TYPE;
@@ -479,7 +479,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         }
     }
 
-    private function getFieldToUpdate(Content $content, string $fieldName, $fieldDefinition = ''): Field
+    public function getFieldToUpdate(Content $content, string $fieldName, $fieldDefinition = ''): Field
     {
         /** @var Field $field */
         $field = null;
@@ -513,7 +513,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         return $field;
     }
 
-    private function updateField(Field $field, $value, ?string $locale): void
+    public function updateField(Field $field, $value, ?string $locale): void
     {
         // If the Field is translatable, set the locale
         if ($field->getDefinition()->get('localize')) {
@@ -557,7 +557,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         }
     }
 
-    private function updateTaxonomy(Content $content, string $key, $taxonomy): void
+    public function updateTaxonomy(Content $content, string $key, $taxonomy): void
     {
         $taxonomy = (new Collection(Json::findArray($taxonomy)))->filter();
 
