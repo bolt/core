@@ -6,12 +6,8 @@ namespace Bolt;
 
 use Bolt\Configuration\Parser\ContentTypesParser;
 use Bolt\Configuration\Parser\TaxonomyParser;
-use Bolt\Entity\Field;
-use Bolt\Entity\Field\SelectField;
 use Bolt\Extension\ExtensionCompilerPass;
 use Bolt\Extension\ExtensionInterface;
-use Bolt\Repository\FieldRepository;
-use Bolt\Utils\Sanitiser;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Loader\LoaderInterface;
@@ -21,7 +17,6 @@ use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 use Symfony\Component\Yaml\Yaml;
 use Tightenco\Collect\Support\Collection;
-use Twig\Environment;
 
 class Kernel extends BaseKernel
 {
@@ -42,23 +37,6 @@ class Kernel extends BaseKernel
     public function boot(): void
     {
         parent::boot();
-
-        // Add the entity manager as a static class property used in FieldRepository::factory()
-        $manager = $this->getContainer()->get('doctrine')->getManager();
-        FieldRepository::setEntityManager($manager);
-
-        // Allow the SelectField to call services for dynamically populated values from services
-        SelectField::setContainer(self::getContainer());
-
-        // Add the value sanitiser as a static class property used in Field::__toString()
-        /** @var Sanitiser $sanitiser */
-        $sanitiser = $this->getContainer()->get('Bolt\Utils\Sanitiser');
-        Field::setSanitiser($sanitiser);
-
-        // Add the Twig Environment as a static class property used in Field::__toString()
-        /** @var Environment $twig */
-        $twig = $this->getContainer()->get('twig');
-        Field::setTwig($twig);
     }
 
     public function build(ContainerBuilder $container): void
