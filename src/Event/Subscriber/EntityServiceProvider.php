@@ -9,14 +9,17 @@ use Bolt\Entity\Field\SelectField;
 use Bolt\Repository\FieldRepository;
 use Bolt\Utils\Sanitiser;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Console\ConsoleEvents;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpKernel\KernelEvents;
 use Twig\Environment;
 
 /**
  * This class is executed in the Kernel::boot()
  * It provides services in classes that cannot be autowired.
  */
-class EntityServiceProvider
+class EntityServiceProvider implements EventSubscriberInterface
 {
     /** @var EntityManagerInterface */
     private $em;
@@ -55,5 +58,13 @@ class EntityServiceProvider
 
         // Add the Twig Environment as a static class property used in Field::__toString()
         Field::setTwig($this->twig);
+    }
+
+    public static function getSubscribedEvents()
+    {
+        return [
+            KernelEvents::REQUEST => ['run'],
+            ConsoleEvents::COMMAND => ['run'],
+        ];
     }
 }
