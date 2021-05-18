@@ -16,7 +16,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 use Twig\Environment;
 
 /**
- * This class is executed in the Kernel::boot()
+ * This class is after booting the Kernel, on KernelEvents::REQUEST and ConsoleEvents::COMMAND.
  * It provides services in classes that cannot be autowired.
  */
 class EntityServiceProvider implements EventSubscriberInterface
