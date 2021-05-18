@@ -59,9 +59,6 @@ class ContentExtension extends AbstractExtension
     /** @var Security */
     private $security;
 
-    /** @var Request */
-    private $request;
-
     /** @var Config */
     private $config;
 
@@ -86,6 +83,9 @@ class ContentExtension extends AbstractExtension
     /** @var Sanitiser */
     private $sanitiser;
 
+    /** @var RequestStack */
+    private $requestStack;
+
     public function __construct(
         UrlGeneratorInterface $urlGenerator,
         ContentRepository $contentRepository,
@@ -105,7 +105,6 @@ class ContentExtension extends AbstractExtension
         $this->contentRepository = $contentRepository;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->security = $security;
-        $this->request = $requestStack->getCurrentRequest() ?? Request::createFromGlobals();
         $this->config = $config;
         $this->query = $query;
         $this->taxonomyRepository = $taxonomyRepository;
@@ -114,6 +113,7 @@ class ContentExtension extends AbstractExtension
         $this->contentHelper = $contentHelper;
         $this->notifications = $notifications;
         $this->sanitiser = $sanitiser;
+        $this->requestStack = $requestStack;
     }
 
     /**
@@ -198,7 +198,7 @@ class ContentExtension extends AbstractExtension
         }
 
         if (empty($locale)) {
-            $locale = $this->request->getLocale();
+            $locale = $this->requestStack->getCurrentRequest()->getLocale();
         }
 
         if (ContentHelper::isSuitable($content)) {
@@ -258,7 +258,7 @@ class ContentExtension extends AbstractExtension
         }
 
         if (ContentHelper::isSuitable($content, 'excerpt_format')) {
-            $excerpt = $this->contentHelper->get($content, $content->getDefinition()->get('excerpt_format'), $this->request->getLocale());
+            $excerpt = $this->contentHelper->get($content, $content->getDefinition()->get('excerpt_format'), $this->requestStack->getCurrentRequest()->getLocale());
         } else {
             $excerpt = $this->getFieldBasedExcerpt($content, $length, $includeTitle);
         }
@@ -360,7 +360,7 @@ class ContentExtension extends AbstractExtension
             'contentTypeSlug' => $content->getContentTypeSingularSlug(),
         ];
 
-        $routeParams = $this->request->get('_route_params');
+        $routeParams = $this->requestStack->getCurrentRequest()->get('_route_params');
 
         return isset($routeParams['slugOrId']) &&
             isset($routeParams['contentTypeSlug']) &&
@@ -541,8 +541,8 @@ class ContentExtension extends AbstractExtension
     public function pager(Environment $twig, ?Pagerfanta $records = null, string $template = '@bolt/helpers/_pager_basic.html.twig', string $class = 'pagination', int $surround = 3)
     {
         $params = array_merge(
-            $this->request->get('_route_params'),
-            $this->request->query->all()
+            $this->requestStack->getCurrentRequest()->get('_route_params'),
+            $this->requestStack->getCurrentRequest()->query->all()
         );
 
         if (! $records && array_key_exists('records', $twig->getGlobals())) {
@@ -553,7 +553,7 @@ class ContentExtension extends AbstractExtension
             'records' => $records,
             'surround' => $surround,
             'class' => $class,
-            'route' => $this->request->get('_route'),
+            'route' => $this->requestStack->getCurrentRequest()->get('_route'),
             'routeParams' => $params,
         ];
 
