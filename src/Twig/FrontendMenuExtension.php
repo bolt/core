@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Bolt\Twig;
 
 use Bolt\Menu\FrontendMenuBuilderInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
@@ -16,13 +15,13 @@ class FrontendMenuExtension extends AbstractExtension
     /** @var FrontendMenuBuilderInterface */
     private $menuBuilder;
 
-    /** @var Request */
-    private $request;
+    /** @var RequestStack */
+    private $requestStack;
 
     public function __construct(FrontendMenuBuilderInterface $menuBuilder, RequestStack $requestStack)
     {
         $this->menuBuilder = $menuBuilder;
-        $this->request = $requestStack->getCurrentRequest();
+        $this->requestStack = $requestStack;
     }
 
     /**
@@ -61,6 +60,6 @@ class FrontendMenuExtension extends AbstractExtension
     {
         $uri = $item['uri'] ?? '';
 
-        return $uri === $this->request->getRequestUri();
+        return $uri === $this->requestStack->getCurrentRequest()->getRequestUri();
     }
 }

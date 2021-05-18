@@ -44,9 +44,6 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
-    Bolt\Utils\Sanitiser:
-        public: true
-
     Bolt\Doctrine\TablePrefix:
         tags:
             - { name: doctrine.event_listener, event: loadClassMetadata, lazy: true }
