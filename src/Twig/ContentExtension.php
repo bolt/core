@@ -197,7 +197,7 @@ class ContentExtension extends AbstractExtension
             return '<mark>No content given</mark>';
         }
 
-        if (empty($locale)) {
+        if (empty($locale) && $this->requestStack->getCurrentRequest()) {
             $locale = $this->requestStack->getCurrentRequest()->getLocale();
         }
 
