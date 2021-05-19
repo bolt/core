@@ -1,6 +1,6 @@
 <template>
     <div>
-        <trumbowyg :id="name" v-model="val" :name="name" :config="config"></trumbowyg>
+        <trumbowyg :id="id" v-model="val" :name="name" :config="config"></trumbowyg>
     </div>
 </template>
 
@@ -17,6 +17,7 @@ export default {
         value: String,
         label: String,
         name: String,
+        id: String
     },
     data: () => {
         return {
