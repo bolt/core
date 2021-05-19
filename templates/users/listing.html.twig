@@ -102,7 +102,7 @@
         {% endif %}
         {% if is_granted('user:add') %}
             {{ macro.buttonlink('action.edit_permissions', path('bolt_file_edit', {'location': 'config',
-                'file': '/bolt/config.yaml'}), 'user-cog', 'tertiary') }}
+                'file': '/bolt/permissions.yaml'}), 'user-cog', 'tertiary') }}
         {% endif %}
     </p>
 
