@@ -51,7 +51,7 @@ class WidgetsTest extends StringTestCase
         $snippet = (new SnippetWidget())
             ->setTemplate('*foo*')
             ->setZone(RequestZone::EVERYWHERE)
-            ->setTarget(Target::END_OF_BODY);
+            ->addTarget(Target::END_OF_BODY);
 
         $widgets->registerWidget($snippet);
         $widgets->processQueue($response);
@@ -112,7 +112,7 @@ class WidgetsTest extends StringTestCase
         $referenceWidget = new ReferenceWidget();
 
         // overwrite things just to simplify test
-        $referenceWidget->setTarget(Target::END_OF_BODY);
+        $referenceWidget->addTarget(Target::END_OF_BODY);
         $referenceWidget->setTemplate('reference.twig');
 
         $widgets->registerWidget($referenceWidget);
@@ -133,7 +133,7 @@ class WidgetsTest extends StringTestCase
         $reference = new ReferenceWidget();
 
         // overwrite things just to simplify test
-        $reference->setTarget(Target::START_OF_BODY);
+        $reference->addTarget(Target::START_OF_BODY);
         $reference->setTemplate('reference.twig');
 
         $widgets->registerWidget($reference);

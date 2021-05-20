@@ -2678,6 +2678,11 @@
         <source>image.image_preview</source>
         <target>Preview the image</target>
       </segment>
+    <unit id="OEqzPDO" name="listing_table.actions.select_all">
+      <segment>
+        <source>listing_table.actions.select_all</source>
+        <target>Select all</target>
+      </segment>
     </unit>
   </file>
 </xliff>

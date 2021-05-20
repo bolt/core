@@ -66,14 +66,17 @@ class HtmlInjector
 
     public function inject(WidgetInterface $widget, Response $response): void
     {
+        $targets = $widget->getTargets();
         $functionMap = $this->getMap();
-        $target = $widget->getTarget();
 
-        if (! isset($functionMap[$target])) {
+        // Targets that this class knows how to handle.
+        $targets = array_intersect($targets, array_keys($functionMap));
+
+        if (empty($targets)) {
             return;
         }
 
-        // Invoke the (snippet)Widget
+        // We have at least one target to process. Invoke the (snippet)Widget
         $snippet = $widget() . "\n";
 
         // If the widget doesn't produce output, there's no need to inject it.
@@ -81,6 +84,13 @@ class HtmlInjector
             return;
         }
 
+        foreach ($targets as $target) {
+            $this->injectSnippet($snippet, $target, $functionMap, $response);
+        }
+    }
+
+    private function injectSnippet(string $snippet, string $target, array $functionMap, Response $response): void
+    {
         $html = $this->{$functionMap[$target]}($snippet, $response->getContent());
         $response->setContent($html);
     }

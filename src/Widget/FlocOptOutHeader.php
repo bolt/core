@@ -8,7 +8,7 @@ use Bolt\Extension\ExtensionInterface;
 use Bolt\Widget\Injector\RequestZone;
 use Bolt\Widget\Injector\Target;
 
-class BoltHeaderWidget extends BaseWidget implements WidgetInterface, ResponseAwareInterface
+class FlocOptOutHeader extends BaseWidget implements WidgetInterface, ResponseAwareInterface
 {
     use ResponseTrait;
 
@@ -17,14 +17,14 @@ class BoltHeaderWidget extends BaseWidget implements WidgetInterface, ResponseAw
 
     public function __invoke(array $params = []): ?string
     {
-        $this->getResponse()->headers->set('X-Powered-By', 'Bolt', false);
+        $this->getResponse()->headers->set('permissions-policy', 'interest-cohort=()', false);
 
         return null;
     }
 
     public function getName(): string
     {
-        return 'Bolt Header Widget';
+        return 'FLoC Opt-Out Header';
     }
 
     public function getTargets(): array

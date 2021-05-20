@@ -1,6 +1,48 @@
 Changelog
 =========
 
+## 4.1.19
+
+Released: 2021-05-11
+
+### 🐛 Bug fixes
+
+- Several fixes for handling Relations (bobdenotter, [#2576](https://github.com/bolt/core/pull/2576))
+- Copy packaged themes in `bolt:copy-themes` command (I-Valchev, [#2563](https://github.com/bolt/core/pull/2563))
+- Fix a CSS quirk in listing overview pages (bobdenotter, [#2554](https://github.com/bolt/core/pull/2554))
+
+### 🛠️ Miscellaneous
+
+- Replace `node-sass` with `sass` 🗑🔥 (bobdenotter, [#2562](https://github.com/bolt/core/pull/2562))
+- Allow `sensio/framework-extra-bundle` version 6 (bobvandevijver, [#2551](https://github.com/bolt/core/pull/2551))
+
+### ⚙️ Code Quality / Developer Experience
+
+- Fix ecs breakage with `friendsofphp/php-cs-fixer` (I-Valchev, [#2566](https://github.com/bolt/core/pull/2566))
+
+## 4.1.18
+
+Released: 2021-04-21
+
+### 🐛 Bug fixes
+
+- Fix edgecase where Excerpt could start with `. `. (bobdenotter, [#2542](https://github.com/bolt/core/pull/2542))
+- The `latest` directive uses `-publishedAt` instead of `-id` (I-Valchev, [#2541](https://github.com/bolt/core/pull/2541))
+- Fix datepicker to only attempt to use existing locales, ensuring Time Picking still works (bobdenotter, [#2539](https://github.com/bolt/core/pull/2539))
+- Locale get link always `_locale` parameter (I-Valchev, [#2532](https://github.com/bolt/core/pull/2532))
+- Corrected the filepath for `getsvg()` function (mcdennem, [#2531](https://github.com/bolt/core/pull/2531))
+- Decode HTML entities in `title_format` and related (I-Valchev, [#2529](https://github.com/bolt/core/pull/2529))
+- Allow parsing of `localdate`s like `now` or `today + 1 week, 21:00` (bobdenotter, [#2518](https://github.com/bolt/core/pull/2518))
+- Assert User's email is not blank (bobdenotter, [#2517](https://github.com/bolt/core/pull/2517))
+- Fix bug where `anyField` search no longer works on listing (I-Valchev, [#2515](https://github.com/bolt/core/pull/2515))
+- Make sure a select field can accept a string value (I-Valchev, [#2511](https://github.com/bolt/core/pull/2511))
+- Do not remove reverse relation when save (napley, [#2535](https://github.com/bolt/core/pull/2535))
+
+### 🛠️ Miscellaneous
+
+- Suppress unneeded notices in ECS (bobdenotter, [#2520](https://github.com/bolt/core/pull/2520))
+
+
 ## 4.1.17
 
 Released: 2021-04-05 (Happy Easter 🐣)
@@ -9,10 +51,6 @@ Released: 2021-04-05 (Happy Easter 🐣)
 
 - Use `CompletePackageInterface` in BaseExtension (bobdenotter, [#2507](https://github.com/bolt/core/pull/2507))
 - Don't keep the date field buttons focused after clicking (I-Valchev, [#2505](https://github.com/bolt/core/pull/2505))
-
-### 🛠️ Miscellaneous
-
-- Prepare release 4.1.16 (bobdenotter, [#2487](https://github.com/bolt/core/pull/2487))
 
 ### ⚙️ Code Quality / Developer Experience
 

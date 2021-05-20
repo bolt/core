@@ -10,12 +10,14 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Bolt\Common\Arr;
 use Bolt\Configuration\Content\FieldType;
 use Bolt\Event\Listener\FieldFillListener;
+use Bolt\Utils\Sanitiser;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 use Tightenco\Collect\Support\Collection as LaravelCollection;
+use Twig\Environment;
 use Twig\Markup;
 
 /**
@@ -78,6 +80,12 @@ class Field implements FieldInterface, TranslatableInterface
 
     /** @var bool */
     private $useDefaultLocale = true;
+
+    /** @var Sanitiser */
+    private static $sanitiser;
+
+    /** @var Environment */
+    private static $twig;
 
     public function __toString(): string
     {
@@ -235,8 +243,8 @@ class Field implements FieldInterface, TranslatableInterface
     {
         $value = $this->getParsedValue();
 
-        if (is_string($value) && $this->getContent() && $this->getDefinition()->get('sanitise')) {
-            $value = $this->getContent()->sanitise($value);
+        if (is_string($value) && $this->getDefinition()->get('sanitise')) {
+            $value = self::getSanitiser()->clean($value);
         }
 
         // Trim the zero spaces even before saving in FieldFillListener.
@@ -244,17 +252,12 @@ class Field implements FieldInterface, TranslatableInterface
         $value = is_string($value) ? FieldFillListener::trimZeroWidthWhitespace($value) : $value;
 
         if ($this->shouldBeRenderedAsTwig($value)) {
-            $twig = $this->getContent()->getTwig();
-
-            if ($twig) {
-                $template = $twig->createTemplate($value);
-                $value = $template->render();
-            } else {
-                $value = sprintf(
-                    '<div style="background: #fff3d4 !important; border-left-color: #A46A1F !important; border-left-width: 5px !important; border-left-style: solid !important; font-size: 16px !important; padding: 1rem !important; margin: 1rem 0 !important; line-height: 2.4rem !important; font-weight: normal !important;">%s</div>',
-                    'Tried to render field <code>' . $this->getName() . '</code> as Twig, but the Twig Environment is not available. Add <code>{{ record|allow_twig }}</code> to your template, to allow Twig Rendering for this Record.'
-                );
-            }
+            $template = self::getTwig()->createTemplate($value);
+            $value = $template->render([
+                // Edge case, if we try to generate a title or excerpt for a field that allows Twig
+                // and references {{ record }}
+                'record' => $this->getContent(),
+            ]);
         }
 
         if (is_string($value) && $this->getDefinition()->get('allow_html')) {
@@ -397,5 +400,25 @@ class Field implements FieldInterface, TranslatableInterface
     public function setUseDefaultLocale(bool $useDefaultLocale): void
     {
         $this->useDefaultLocale = $useDefaultLocale;
+    }
+
+    protected static function getSanitiser(): Sanitiser
+    {
+        return self::$sanitiser;
+    }
+
+    public static function setSanitiser(Sanitiser $sanitiser): void
+    {
+        self::$sanitiser = $sanitiser;
+    }
+
+    protected static function getTwig(): Environment
+    {
+        return self::$twig;
+    }
+
+    public static function setTwig(Environment $twig): void
+    {
+        self::$twig = $twig;
     }
 }

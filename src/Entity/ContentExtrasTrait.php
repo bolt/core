@@ -45,9 +45,4 @@ trait ContentExtrasTrait
             'feature' => $this->contentExtension->getSpecialFeature($content),
         ]);
     }
-
-    public function sanitise(string $string): string
-    {
-        return $this->contentExtension->sanitise($string);
-    }
 }

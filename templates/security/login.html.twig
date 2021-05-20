@@ -50,8 +50,10 @@
                 {% endif %}
 
                 {{ form_start(loginForm, {'attr': {'id': 'login-form'}}) }}
+                    {{ widgets('login_top') }}
                     {{ form_row(loginForm.username) }}
                     {{ form_row(loginForm.password) }}
+                    {{ widgets('login_middle') }}
                     {{ form_row(loginForm.remember_me) }}
                     <button class="btn btn-primary" type="submit">
                         <i class="fas fa-sign-in-alt" aria-hidden="true"></i>
@@ -61,6 +63,7 @@
                       <i class="fas fa-question-circle"></i>
                       {{ 'login.forgotpassword'|trans }}
                     </a>
+                    {{ widgets('login_bottom') }}
                 {{ form_end(loginForm) }}
 
             </div>
