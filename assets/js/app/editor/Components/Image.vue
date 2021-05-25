@@ -14,6 +14,7 @@
                         :href="previewImage"
                         :style="`background-image: url('${thumbnailImage}')`"
                     >
+                        <span class="sr-only">{{ labels.image_preview }}</span>
                     </a>
                 </div>
             </div>
@@ -61,7 +62,9 @@
                             name="image-upload-dropdown"
                             type="button"
                             :disabled="readonly"
-                        ></button>
+                        >
+                            <span class="sr-only">{{ labels.button_upload_options }}</span>
+                        </button>
 
                         <div class="dropdown-menu">
                             <button
@@ -144,6 +147,7 @@
             </div>
         </div>
         <input
+            :id="fieldId"
             ref="selectFile"
             class="editor__image--upload"
             :name="fieldName"
@@ -168,6 +172,7 @@ export default {
     props: {
         filename: String,
         name: String,
+        id: String,
         required: Boolean,
         readonly: Boolean,
         thumbnail: String,
@@ -200,6 +205,9 @@ export default {
         };
     },
     computed: {
+        fieldId() {
+            return this.id;
+        },
         fieldName() {
             return this.name + '[]';
         },

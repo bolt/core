@@ -51,7 +51,9 @@
                             name="file-upload-dropdown"
                             type="button"
                             :disabled="readonly"
-                        ></button>
+                        >
+                            <span class="sr-only">{{ labels.button_upload_options }}</span>
+                        </button>
 
                         <div class="dropdown-menu">
                             <button
