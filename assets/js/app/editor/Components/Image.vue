@@ -13,7 +13,8 @@
                         class="editor__image--preview-image"
                         :href="previewImage"
                         :style="`background-image: url('${thumbnailImage}')`"
-                    ><span class="sr-only">{{ labels.image_preview }}</span>
+                    >
+                        <span class="sr-only">{{ labels.image_preview }}</span>
                     </a>
                 </div>
             </div>
@@ -61,7 +62,9 @@
                             name="image-upload-dropdown"
                             type="button"
                             :disabled="readonly"
-                        ><span class="sr-only">{{ labels.button_upload_options }}</span></button>
+                        >
+                            <span class="sr-only">{{ labels.button_upload_options }}</span>
+                        </button>
 
                         <div class="dropdown-menu">
                             <button

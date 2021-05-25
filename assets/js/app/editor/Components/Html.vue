@@ -17,7 +17,7 @@ export default {
         value: String,
         label: String,
         name: String,
-        id: String
+        id: String,
     },
     data: () => {
         return {
