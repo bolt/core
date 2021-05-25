@@ -2655,22 +2655,10 @@
         <target>Edit Permissions</target>
       </segment>
     </unit>
-    <unit id="a_COwtV" name="image.button_upload_options">
-      <segment>
-        <source>image.button_upload_options</source>
-        <target>Upload options</target>
-      </segment>
-    </unit>
     <unit id="OYUVA5." name="general.label.search">
       <segment>
         <source>general.label.search</source>
         <target>Search</target>
-      </segment>
-    </unit>
-    <unit id="hKmDb7q" name="Share secure preview link">
-      <segment>
-        <source>Share secure preview link</source>
-        <target>Share secure preview link</target>
       </segment>
     </unit>
     <unit id="wG04eAa" name="image.image_preview">
