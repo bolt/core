@@ -8,13 +8,11 @@
             <li v-if="size === 'normal'"><i class="fas fa-user"></i> {{ record.authorName }}</li>
             <li v-if="size === 'normal'">
                 <i class="fas" :class="record.extras.icon"></i>
-                <div>
                     <template v-if="type === 'dashboard'">
                         <a :href="`/bolt/content/${record.contentType}`">{{ record.extras.singular_name }}</a>
                     </template>
                     <template v-else>{{ record.extras.singular_name }}</template
-                    >&nbsp;№ {{ record.id }}
-                </div>
+                    > № {{ record.id }}
             </li>
         </ul>
     </div>

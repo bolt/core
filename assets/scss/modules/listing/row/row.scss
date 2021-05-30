@@ -186,11 +186,11 @@ $checkbox-row-width: 32px;
       }
 
       @include media-breakpoint-up(md) {
-        flex: 0 0 155px;
-        max-width: 155px;
+        flex: 0 0 175px;
+        max-width: 175px;
         order: 3;
         padding: $spacer*0.5 0 $spacer*0.3 $spacer*0.5;
-        margin-right: -2rem;
+        margin: 0 -2rem 0 0;
       }
     }
 
@@ -230,7 +230,6 @@ $checkbox-row-width: 32px;
     }
 
     li {
-      padding-right: 1rem;
       margin-bottom: $spacer / 4;
       color: var(--shade);
       text-transform: capitalize;
