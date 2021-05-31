@@ -1,6 +1,20 @@
 Changelog
 =========
 
+## 4.1.20
+
+Released: 2021-05-31
+
+### 🐛 Bug fixes
+
+- Performance boost: Keep in-memory copy of `currentLocale` (bobdenotter, [#2597](https://github.com/bolt/core/pull/2597))
+- Fix copy-themes with packages. Implement copying specific theme (I-Valchev, [#2584](https://github.com/bolt/core/pull/2584))
+
+### ⚙️ Code Quality / Developer Experience
+
+- Update LICENSE (I-Valchev, [#2567](https://github.com/bolt/core/pull/2567))
+
+
 ## 4.1.19
 
 Released: 2021-05-11
