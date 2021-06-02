@@ -72,6 +72,8 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
     public function add(Request $request): Response
     {
         $user = UserRepository::factory();
+
+        /** @var array $submitted_data */
         $submitted_data = $request->request->get('user');
 
         $event = new UserEvent($user);
