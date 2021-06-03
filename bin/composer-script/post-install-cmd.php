@@ -6,12 +6,12 @@ declare(strict_types=1);
 // @see https://github.com/bolt/core/pull/1918#issuecomment-701460769
 
 use OndraM\CiDetector\CiDetector;
+use Bolt\ComposerScripts\Script;
 
 require __DIR__ . '/../../vendor/autoload.php';
 require __DIR__ . '/Script.php';
-require __DIR__ . '/run.php';
 
-$symfonyStyle = Bolt\ComposerScripts\Script::createSymfonyStyle();
+$symfonyStyle = Script::createSymfonyStyle();
 
 $ciDetector = new CiDetector();
 if ($ciDetector->isCiDetected()) {
@@ -22,10 +22,10 @@ if ($ciDetector->isCiDetected()) {
 
 $symfonyStyle->note('Running composer "post-install-cmd" scripts');
 
-run('php bin/console extensions:configure --with-config --ansi', $symfonyStyle);
+Script::run('php bin/console extensions:configure --with-config --ansi');
 
 // @auto-scripts
-run('php bin/console cache:clear --no-warmup', $symfonyStyle);
-run('php bin/console assets:install --symlink --relative public', $symfonyStyle);
+Script::run('php bin/console cache:clear --no-warmup');
+Script::run('php bin/console assets:install --symlink --relative public');
 
-run('php bin/console bolt:info --ansi', $symfonyStyle, true);
+Script::run('php bin/console bolt:info --ansi');
