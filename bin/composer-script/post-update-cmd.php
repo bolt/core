@@ -5,8 +5,8 @@ declare(strict_types=1);
 // this script makes sure the install scripts are not required for composer update in CI
 // @see https://github.com/bolt/core/pull/1918#issuecomment-701460769
 
-use OndraM\CiDetector\CiDetector;
 use Bolt\ComposerScripts\Script;
+use OndraM\CiDetector\CiDetector;
 
 require __DIR__ . '/../../vendor/autoload.php';
 require __DIR__ . '/Script.php';
