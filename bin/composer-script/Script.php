@@ -5,12 +5,10 @@ declare(strict_types=1);
 namespace Bolt\ComposerScripts;
 
 use Composer\Script\Event;
-use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symplify\PackageBuilder\Reflection\PrivatesCaller;
 
 class Script
 {
@@ -55,9 +53,6 @@ class Script
 
         $argvInput = new ArgvInput();
         $consoleOutput = new ConsoleOutput();
-
-        // to configure all -v, -vv, -vvv options without memory-lock to Application run() arguments
-        (new PrivatesCaller())->callPrivateMethod(new Application(), 'configureIO', $argvInput, $consoleOutput);
 
         // --debug is called
         if ($argvInput->hasParameterOption('--debug')) {
