@@ -6,13 +6,12 @@ declare(strict_types=1);
 // @see https://github.com/bolt/core/pull/1918#issuecomment-701460769
 
 use OndraM\CiDetector\CiDetector;
-use Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
 
 require __DIR__ . '/../../vendor/autoload.php';
+require __DIR__ . '/Script.php';
 require __DIR__ . '/run.php';
 
-$symfonyStyleFactory = new SymfonyStyleFactory();
-$symfonyStyle = $symfonyStyleFactory->create();
+$symfonyStyle = Bolt\ComposerScripts\Script::createSymfonyStyle();
 
 $ciDetector = new CiDetector();
 if ($ciDetector->isCiDetected()) {

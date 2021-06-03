@@ -5,8 +5,12 @@ declare(strict_types=1);
 namespace Bolt\ComposerScripts;
 
 use Composer\Script\Event;
+use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
+use Symplify\PackageBuilder\Reflection\PrivatesCaller;
 
 class Script
 {
@@ -15,8 +19,7 @@ class Script
 
     protected static function init(string $message = ''): void
     {
-        $consoleFactory = new SymfonyStyleFactory();
-        self::$console = $consoleFactory->create();
+        self::$console = self::createSymfonyStyle();
 
         self::$console->note($message);
     }
@@ -31,11 +34,36 @@ class Script
     /**
      * Execute a command in the CLI, as a separate process.
      */
-    protected static function run(string $command): int
+    public static function run(string $command): int
     {
         // Execute the command and show the output.
         passthru($command, $result);
 
         return $result;
+    }
+
+    /**
+     * Create SymfonyStyle object. Taken from Symplify (which we might not
+     * have at our disposal inside a 'project' installation)
+     */
+    public static function createSymfonyStyle(): SymfonyStyle
+    {
+        // to prevent missing argv indexes
+        if (! isset($_SERVER['argv'])) {
+            $_SERVER['argv'] = [];
+        }
+
+        $argvInput = new ArgvInput();
+        $consoleOutput = new ConsoleOutput();
+
+        // to configure all -v, -vv, -vvv options without memory-lock to Application run() arguments
+        (new PrivatesCaller())->callPrivateMethod(new Application(), 'configureIO', $argvInput, $consoleOutput);
+
+        // --debug is called
+        if ($argvInput->hasParameterOption('--debug')) {
+            $consoleOutput->setVerbosity(OutputInterface::VERBOSITY_DEBUG);
+        }
+
+        return new SymfonyStyle($argvInput, $consoleOutput);
     }
 }
