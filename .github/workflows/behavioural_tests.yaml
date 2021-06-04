@@ -68,6 +68,8 @@ jobs:
                     extensions: json, mbstring, pdo, curl, pdo_sqlite
                     coverage: none
             -   uses: nanasess/setup-chromedriver@master
+                with:
+                    chromedriver-version: '90.0.4430.24'
             -   uses: actions/setup-node@v1
                 with:
                     node-version: ${{ matrix.node-version }}
