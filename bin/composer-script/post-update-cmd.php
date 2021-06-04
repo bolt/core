@@ -5,14 +5,13 @@ declare(strict_types=1);
 // this script makes sure the install scripts are not required for composer update in CI
 // @see https://github.com/bolt/core/pull/1918#issuecomment-701460769
 
+use Bolt\ComposerScripts\Script;
 use OndraM\CiDetector\CiDetector;
-use Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
 
 require __DIR__ . '/../../vendor/autoload.php';
-require __DIR__ . '/run.php';
+require __DIR__ . '/Script.php';
 
-$symfonyStyleFactory = new SymfonyStyleFactory();
-$symfonyStyle = $symfonyStyleFactory->create();
+$symfonyStyle = Script::createSymfonyStyle();
 
 $ciDetector = new CiDetector();
 if ($ciDetector->isCiDetected()) {
@@ -23,14 +22,19 @@ if ($ciDetector->isCiDetected()) {
 
 $symfonyStyle->note('Running composer "post-update-cmd" scripts');
 
-run('php bin/console extensions:configure --with-config --ansi', $symfonyStyle);
+Script::run('php bin/console extensions:configure --with-config --ansi');
 
 // @auto-scripts
-run('php bin/console cache:clear --no-warmup', $symfonyStyle);
-run('php bin/console assets:install --symlink --relative public', $symfonyStyle);
+Script::run('php bin/console cache:clear --no-warmup');
+Script::run('php bin/console assets:install --symlink --relative public');
 
-$migrate = 'Database is out-of-date. To update the database, run `php bin/console doctrine:migrations:migrate`.';
-$migrate .= ' You are strongly advised to backup your database before migrating.';
-run('php bin/console doctrine:migrations:up-to-date', $symfonyStyle, false, $migrate);
+$res = Script::run('php bin/console doctrine:migrations:up-to-date');
 
-run('php bin/console bolt:info --ansi', $symfonyStyle, true);
+if (! $res) {
+    $migrate = 'Database is out-of-date. To update the database, run `php bin/console doctrine:migrations:migrate`.';
+    $migrate .= ' You are strongly advised to backup your database before migrating.';
+
+    $symfonyStyle->warning($migrate);
+}
+
+Script::run('php bin/console bolt:info --ansi');

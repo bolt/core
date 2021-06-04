@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Bolt\ComposerScripts;
 
 use Composer\Script\Event;
+use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
 
 class Script
 {
@@ -15,8 +17,7 @@ class Script
 
     protected static function init(string $message = ''): void
     {
-        $consoleFactory = new SymfonyStyleFactory();
-        self::$console = $consoleFactory->create();
+        self::$console = self::createSymfonyStyle();
 
         self::$console->note($message);
     }
@@ -31,11 +32,33 @@ class Script
     /**
      * Execute a command in the CLI, as a separate process.
      */
-    protected static function run(string $command): int
+    public static function run(string $command): int
     {
         // Execute the command and show the output.
         passthru($command, $result);
 
         return $result;
+    }
+
+    /**
+     * Create SymfonyStyle object. Taken from Symplify (which we might not
+     * have at our disposal inside a 'project' installation)
+     */
+    public static function createSymfonyStyle(): SymfonyStyle
+    {
+        // to prevent missing argv indexes
+        if (! isset($_SERVER['argv'])) {
+            $_SERVER['argv'] = [];
+        }
+
+        $argvInput = new ArgvInput();
+        $consoleOutput = new ConsoleOutput();
+
+        // --debug is called
+        if ($argvInput->hasParameterOption('--debug')) {
+            $consoleOutput->setVerbosity(OutputInterface::VERBOSITY_DEBUG);
+        }
+
+        return new SymfonyStyle($argvInput, $consoleOutput);
     }
 }
