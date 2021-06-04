@@ -38,6 +38,11 @@ services:
         resource: '../src/*'
         exclude: '../src/{Entity,Exception,Kernel.php}'
 
+    Bolt\Api\Extensions\ContentExtension:
+        tags:
+            - { name: api_platform.doctrine.orm.query_extension.collection }
+            - { name: api_platform.doctrine.orm.query_extension.item }
+
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
     Bolt\Controller\:
@@ -104,10 +109,8 @@ services:
     Bolt\Twig\DumpExtension:
         arguments: ["%kernel.environment%"]
 
-    Bolt\Api\Extensions\ContentExtension:
-        tags:
-            - { name: api_platform.doctrine.orm.query_extension.collection }
-            - { name: api_platform.doctrine.orm.query_extension.item }
+    # Validation: specify Bolt\Validator\ContentValidator as validator
+    Bolt\Validator\ContentValidatorInterface: '@Bolt\Validator\ContentValidator'
 
     Doctrine\ORM\Query\Expr: ~
 
@@ -116,11 +119,28 @@ services:
         tags:
             - { name: monolog.processor, method: processRecord, handler: db }
 
-    Twig\Extension\StringLoaderExtension: ~
-
     Symfony\Component\ErrorHandler\ErrorRenderer\ErrorRendererInterface: '@error_handler.error_renderer.html'
 
     Squirrel\TwigPhpSyntax\PhpSyntaxExtension: ~
 
-    # Validation: specify Bolt\Validator\ContentValidator as validator
-    Bolt\Validator\ContentValidatorInterface: '@Bolt\Validator\ContentValidator'
+    Twig\Extension\StringLoaderExtension: ~
+
+    twig.extension.date:
+        class: Jasny\Twig\DateExtension
+        tags:
+            - { name: twig.extension }
+
+    twig.extension.pcre:
+        class: Jasny\Twig\PcreExtension
+        tags:
+            - { name: twig.extension }
+
+    twig.extension.text:
+        class: Jasny\Twig\TextExtension
+        tags:
+            - { name: twig.extension }
+
+    twig.extension.array:
+        class: Jasny\Twig\ArrayExtension
+        tags:
+            - { name: twig.extension }

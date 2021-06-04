@@ -305,6 +305,9 @@
     "intervention/image": {
         "version": "2.5.1"
     },
+    "jasny/twig-extensions": {
+        "version": "v1.3.0"
+    },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
