@@ -25,32 +25,32 @@ jobs:
             -   name: Install dependencies
                 run: |
                     sudo composer self-update -q
-                    sudo COMPOSER_MEMORY_LIMIT=-1 COMPOSER_PROCESS_TIMEOUT=60 composer update --prefer-dist --no-progress	
+                    sudo COMPOSER_MEMORY_LIMIT=-1 COMPOSER_PROCESS_TIMEOUT=60 composer update --prefer-dist --no-progress
                     ./bin/console bolt:info	--ansi
-                    npm set progress=false	
-                    npm ci	
-                    mkdir -p ./var/log/e2e-reports/report/features/	
-                    touch ./var/log/e2e-reports/report/features/.gitkeep	
-                    # Install latest stable Chrome for e2e tests	
-                    sudo apt-get install libxss1 libappindicator1 libindicator7	
-                    wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb	
+                    npm set progress=false
+                    npm ci
+                    mkdir -p ./var/log/e2e-reports/report/features/
+                    touch ./var/log/e2e-reports/report/features/.gitkeep
+                    # Install latest stable Chrome for e2e tests
+                    sudo apt-get install libxss1 libappindicator1 libindicator7
+                    wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
                     sudo apt install ./google-chrome*.deb
             -   name: Prepare environment
                 run: |
-                    # build assets	
+                    # build assets
                     npm run build
-                    sudo chmod -R 777 config/ public/files/ public/theme/ public/thumbs/ var/	
-                    # prepare web server for e2e tests	
-                    ./bin/console doctrine:database:create	
-                    ./bin/console doctrine:schema:create	
-                    ./bin/console doctrine:fixtures:load --group=without-images -n	
-                    ./bin/console server:start 127.0.0.1:8088	
-                    # test if web server works	
-                    sleep 3	
+                    sudo chmod -R 777 config/ public/files/ public/theme/ public/thumbs/ var/
+                    # prepare web server for e2e tests
+                    ./bin/console doctrine:database:create
+                    ./bin/console doctrine:schema:create
+                    ./bin/console doctrine:fixtures:load --group=without-images -n
+                    ./bin/console server:start 127.0.0.1:8088
+                    # test if web server works
+                    sleep 3
                     wget "http://127.0.0.1:8088/bolt/login"
 
             - name: run API tests
-              run: make behat-api-quiet 
+              run: make behat-api-quiet
     e2e:
         name: E2E Tests
         runs-on: ubuntu-latest
@@ -76,28 +76,28 @@ jobs:
             -   name: Install dependencies
                 run: |
                     sudo composer self-update -q
-                    sudo COMPOSER_MEMORY_LIMIT=-1 COMPOSER_PROCESS_TIMEOUT=60 composer update --prefer-dist --no-progress	
+                    sudo COMPOSER_MEMORY_LIMIT=-1 COMPOSER_PROCESS_TIMEOUT=60 composer update --prefer-dist --no-progress
                     ./bin/console bolt:info	--ansi
-                    npm set progress=false	
-                    npm ci	
-                    mkdir -p ./var/log/e2e-reports/report/features/	
-                    touch ./var/log/e2e-reports/report/features/.gitkeep	
-                    # Install latest stable Chrome for e2e tests	
-                    sudo apt-get install libxss1 libappindicator1 libindicator7	
-                    wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb	
+                    npm set progress=false
+                    npm ci
+                    mkdir -p ./var/log/e2e-reports/report/features/
+                    touch ./var/log/e2e-reports/report/features/.gitkeep
+                    # Install latest stable Chrome for e2e tests
+                    sudo apt-get install libxss1 libappindicator1 libindicator7
+                    wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
                     sudo apt install ./google-chrome*.deb
             -   name: Prepare environment
                 run: |
-                    # build assets	
+                    # build assets
                     npm run build
-                    sudo chmod -R 777 config/ public/files/ public/theme/ public/thumbs/ var/	
-                    # prepare web server for e2e tests	
-                    ./bin/console doctrine:database:create	
-                    ./bin/console doctrine:schema:create	
-                    ./bin/console doctrine:fixtures:load --group=without-images -n	
-                    ./bin/console server:start 127.0.0.1:8088	
-                    # test if web server works	
-                    sleep 3	
+                    sudo chmod -R 777 config/ public/files/ public/theme/ public/thumbs/ var/
+                    # prepare web server for e2e tests
+                    ./bin/console doctrine:database:create
+                    ./bin/console doctrine:schema:create
+                    ./bin/console doctrine:fixtures:load --group=without-images -n
+                    ./bin/console server:start 127.0.0.1:8088
+                    # test if web server works
+                    sleep 3
                     wget "http://127.0.0.1:8088/bolt/login"
             -   name: Install latest Google Chrome (for e2e tests)
                 run: wget -q https://script.install.devinsideyou.com/google-chrome && chmod +x google-chrome
@@ -106,5 +106,9 @@ jobs:
                 run: ./run_behat_tests.sh && make behat-js-quiet
 
             -   name: Upload Behat logs
-                run: ./bin/upload-textfiles "var/log/behat-reports/*.log"
+                run: ./bin/upload-textfiles "var/log/behat-reports/*.html"
+                if: always()
+
+            -   name: LL logs
+                run: ls -als var/log/behat-reports/
                 if: always()
