@@ -4,11 +4,6 @@ since: 5.0.0
 
 add:
     services:
-        twig.extension.date:
-            class: Jasny\Twig\DateExtension
-            tags:
-                - { name: twig.extension }
-    
         twig.extension.pcre:
             class: Jasny\Twig\PcreExtension
             tags:
