@@ -8,6 +8,7 @@
         "ext-json": "*",
         "ext-mbstring": "*",
         "ext-pdo": "*",
+        "composer-runtime-api": "^2",
         "api-platform/core": "2.5.3.*",
         "babdev/pagerfanta-bundle": "^2.5",
         "beberlei/doctrineextensions": "^1.2",
