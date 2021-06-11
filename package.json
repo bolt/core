@@ -74,6 +74,7 @@
         "babel-core": "^7.0.0-bridge.0",
         "babel-eslint": "^10.1.0",
         "babel-jest": "^25.5.1",
+        "cypress": "^7.5.0",
         "eslint": "^6.8.0",
         "eslint-config-prettier": "^6.15.0",
         "eslint-plugin-prettier": "^3.4.0",
@@ -110,7 +111,8 @@
         "stylelint-fix": "stylelint 'assets/scss' --fix",
         "csfix": "eslint --ext .js,.vue, assets --fix; stylelint 'assets/scss' --fix",
         "test": "jest",
-        "genversion": "genversion --es6 --semi assets/js/version.js"
+        "genversion": "genversion --es6 --semi assets/js/version.js",
+        "cypress:run": "cypress run --config 'video=false'"
     },
     "browserslist": [
         "> 1%"
