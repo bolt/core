@@ -69,6 +69,7 @@ jobs:
                     coverage: none
             -   uses: nanasess/setup-chromedriver@master
                 with:
+                    # Pin Chromedriver to 90.something, because 91 _appends_ text when using `.setValue()` instead of replacing it.
                     chromedriver-version: '90.0.4430.24'
             -   uses: actions/setup-node@v1
                 with:
@@ -109,8 +110,4 @@ jobs:
 
             -   name: Upload Behat logs
                 run: ./bin/upload-textfiles "var/log/behat-reports/*.html"
-                if: always()
-
-            -   name: LL logs
-                run: ls -als var/log/behat-reports/
                 if: always()

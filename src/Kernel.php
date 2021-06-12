@@ -9,6 +9,7 @@ use Bolt\Configuration\Parser\TaxonomyParser;
 use Bolt\Extension\ExtensionCompilerPass;
 use Bolt\Extension\ExtensionInterface;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
+use Symfony\Component\Config\Exception\LoaderLoadException;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Resource\FileResource;
@@ -59,9 +60,11 @@ class Kernel extends BaseKernel
         // Load auto-generated extension services first. Any overrides after take precedence.
         try {
             $loader->load($confDir . '/{services}_bolt' . self::CONFIG_EXTS, 'glob');
-        } catch (\Throwable $e) {
-            // Ignore errors. The file will be updated on next `cache:clear` or whenever
-            // the container gets refreshed
+        } catch (LoaderLoadException $e) {
+            // Ignore LoaderLoadExceptions. This is a race-condition that will occur when extensions
+            // get added or deleted, before Bolt has a chance to update `services_bolt.yaml`.
+            // The file will be updated on next `cache:clear` or when the container gets refreshed.
+            // @see https://github.com/bolt/core/issues/2622
         }
 
         $loader->load($confDir . '/{packages}/*' . self::CONFIG_EXTS, 'glob');

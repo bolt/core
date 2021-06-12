@@ -627,8 +627,9 @@ class ContentExtension extends AbstractExtension
         if (! empty($field->getDefinition()->get('limit'))) {
             $maxAmount = $field->getDefinition()->get('limit');
         } else {
-            $maxAmount = $this->config->get('maximum_listing_select', 200);
+            $maxAmount = $this->config->get('general/maximum_listing_select', 200);
         }
+
         $order = $field->getDefinition()->get('order', '');
 
         $params = [
