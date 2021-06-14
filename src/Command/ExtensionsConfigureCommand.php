@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Command;
 
 use Bolt\Common\Str;
+use Bolt\Extension\BaseExtension;
 use Bolt\Extension\ExtensionRegistry;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -66,8 +67,8 @@ class ExtensionsConfigureCommand extends Command
         foreach ($packages as $package) {
             $path = $this->getPackagePath($package);
 
-            $this->copyConfig($this->getRelativePath($path) . '/config/config.yaml', $path);
-            $this->copyConfig($this->getRelativePath($path) . '/config/config.yml', $path);
+            $this->copyConfig($this->getRelativePath($path) . '/config/config.yaml', $package);
+            $this->copyConfig($this->getRelativePath($path) . '/config/config.yml', $package);
         }
     }
 
@@ -110,7 +111,7 @@ class ExtensionsConfigureCommand extends Command
         array_map('unlink', $oldExtensionsServices);
     }
 
-    private function copyConfig(string $source, string $package): void
+    private function copyConfig(string $source, BaseExtension $package): void
     {
         [$namespace, $name] = explode('\\', mb_strtolower($this->getNamespace($package) . '\\'));
         $destination = $this->getExtensionConfigPath($namespace, $name);
@@ -179,14 +180,14 @@ class ExtensionsConfigureCommand extends Command
             $name);
     }
 
-    private function getPackagePath($package): string
+    private function getPackagePath(BaseExtension $package): string
     {
         $reflection = new \ReflectionClass($package);
 
         return dirname(dirname($reflection->getFilename()));
     }
 
-    private function getNamespace($package): string
+    private function getNamespace(BaseExtension $package): string
     {
         $reflection = new \ReflectionClass($package);
 
