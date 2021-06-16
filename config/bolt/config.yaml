@@ -115,7 +115,11 @@ listing_sort: datepublish DESC
 # Allow filtering on listing pages using query parameters, much like you would
 # with {% setcontent %}. E.g. /pages?order=id and /pages?title--like=voluptat
 # Useful for search.
-query_search: true
+query_search:
+    # Enables filtering.
+    enable: true
+    # If true, query params with empty values will be ignored.
+    ignore_empty: false
 
 # Maximum amount of items to show in a `<select>` for picking a record. For
 # example in `type: select`.

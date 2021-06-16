@@ -39,7 +39,16 @@ class GeneralParser extends BaseParser
         }
 
         if (! isset($general['query_search'])) {
-            $general['query_search'] = true;
+            $general['query_search'] = [
+                'enable' => true,
+                'ignore_empty' => false,
+            ];
+        } elseif (is_bool($general['query_search'])) {
+            // v4 backwards compatibility
+            $general['query_search'] = [
+                'enable' => $general['query_search'],
+                'ignore_empty' => false,
+            ];
         }
 
         if (! is_array($general['notfound'])) {
