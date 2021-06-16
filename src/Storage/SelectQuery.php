@@ -96,16 +96,29 @@ class SelectQuery implements QueryInterface
     /** @var Config */
     private $config;
 
+    /** @var FieldQueryUtils */
+    private $utils;
+
+    /** @var EntityManagerInterface */
+    private $em;
+
     /**
      * Constructor.
      */
-    public function __construct(?QueryBuilder $qb = null, QueryParameterParser $parser, Config $config)
-    {
+    public function __construct(
+        ?QueryBuilder $qb = null,
+        QueryParameterParser $parser,
+        Config $config,
+        EntityManagerInterface $em,
+        FieldQueryUtils $utils
+    ) {
         $this->qb = $qb;
         $this->parser = $parser;
         $this->config = $config;
 
         $this->setTaxonomyFields();
+        $this->utils = $utils;
+        $this->em = $em;
     }
 
     /**
@@ -230,7 +243,6 @@ class SelectQuery implements QueryInterface
             return null;
         }
         $expr = $this->qb->expr()->andX();
-        $em = $this->getQueryBuilder()->getEntityManager();
 
         $this->referenceJoins = [];
         $this->taxonomyJoins = [];
@@ -253,12 +265,12 @@ class SelectQuery implements QueryInterface
                 $core = $this->getCoreFieldExpression($filter);
                 $reference = $this->getReferenceFieldExpression($filter);
                 $taxonomy = $this->getTaxonomyFieldExpression($filter);
-                $regular = $this->getRegularFieldExpression($filter, $em);
+                $regular = $this->getRegularFieldExpression($filter);
                 $anythingExpr->addMultiple([$core, $reference, $taxonomy, $regular]);
                 $expr = $expr->add($anythingExpr);
             } else {
                 // This means the name / value in the `where` is stored in the `bolt_field` table
-                $expr = $expr->add($this->getRegularFieldExpression($filter, $em));
+                $expr = $expr->add($this->getRegularFieldExpression($filter));
             }
         }
 
@@ -546,7 +558,7 @@ class SelectQuery implements QueryInterface
         return preg_replace($originalLeftExpression, $newLeftExpression, $originalExpression);
     }
 
-    private function getRegularFieldExpression(Filter $filter, EntityManagerInterface $em): string
+    private function getRegularFieldExpression(Filter $filter): string
     {
         $this->fieldJoins[$filter->getKey()] = $filter;
         $expr = $this->qb->expr()->andX();
@@ -555,11 +567,10 @@ class SelectQuery implements QueryInterface
         $valueAlias = sprintf('translations_%s.value', $filter->getKey());
 
         $originalLeftExpression = 'content.' . $filter->getKey();
-        // LOWER() added to query to enable case insensitive search of JSON  values. Used in conjunction with converting $params of setParameter() to lowercase.
-        // BUG SQLSTATE[42883]: Undefined function: 7 ERROR: function lower(jsonb) does not exist
-        // We want to be able to search case-insensitive, database-agnostic, have to think of a good way..
-        $newLeftExpression = JsonHelper::wrapJsonFunction($valueAlias, null, $em->getConnection());
         $valueWhere = $filter->getExpression();
+
+        $newLeftExpression = $this->getRegularFieldLeftExpression($valueAlias, $filter->getKey());
+
         $valueWhere = str_replace($originalLeftExpression, $newLeftExpression, $valueWhere);
         $expr->add($valueWhere);
 
@@ -583,5 +594,17 @@ class SelectQuery implements QueryInterface
         }
 
         return $expr->__toString();
+    }
+
+    private function getRegularFieldLeftExpression(string $valueAlias, string $fieldName): string
+    {
+        if ($this->utils->isNumericField($this, $fieldName) && $this->utils->hasCast()) {
+            return $this->utils->getNumericCastExpression($valueAlias);
+        }
+
+        // LOWER() added to query to enable case insensitive search of JSON  values. Used in conjunction with converting $params of setParameter() to lowercase.
+        // BUG SQLSTATE[42883]: Undefined function: 7 ERROR: function lower(jsonb) does not exist
+        // We want to be able to search case-insensitive, database-agnostic, have to think of a good way..
+        return JsonHelper::wrapJsonFunction($valueAlias, null, $this->em->getConnection());
     }
 }

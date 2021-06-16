@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Storage\Directive;
 
-use Bolt\Doctrine\Version;
-use Bolt\Entity\Field\NumberField;
+use Bolt\Storage\FieldQueryUtils;
 use Bolt\Storage\QueryInterface;
 use Bolt\Twig\Notifications;
 use Bolt\Utils\ContentHelper;
@@ -30,11 +29,15 @@ class OrderDirective
     /** @var Notifications */
     private $notifications;
 
-    public function __construct(LocaleHelper $localeHelper, Environment $twig, Notifications $notifications)
+    /** @var FieldQueryUtils */
+    private $utils;
+
+    public function __construct(LocaleHelper $localeHelper, Environment $twig, Notifications $notifications, FieldQueryUtils $utils)
     {
         $this->localeHelper = $localeHelper;
         $this->twig = $twig;
         $this->notifications = $notifications;
+        $this->utils = $utils;
     }
 
     public function __invoke(QueryInterface $query, string $order): void
@@ -101,7 +104,7 @@ class OrderDirective
                 ->andWhere($fieldsAlias . '.name = :' . $fieldAlias)
                 ->setParameter($fieldAlias, $order);
 
-            if ($this->isLocalizedField($query, $order)) {
+            if ($this->utils->isLocalizedField($query, $order)) {
                 // If the field is localized, we limit the query to the
                 // value for the current locale only.
                 $query
@@ -110,7 +113,7 @@ class OrderDirective
                     ->setParameter($fieldAlias . '_locale', $locale);
             }
 
-            if ($this->isNumericField($query, $order)) {
+            if ($this->utils->isNumericField($query, $order)) {
                 $this->orderByNumericField($query, $translationsAlias, $direction);
             } else {
                 // Note the `lower()` in the `addOrderBy()`. It is essential to sorting the
@@ -182,39 +185,13 @@ class OrderDirective
     {
         $qb = $query->getQueryBuilder();
 
-        // For older bundled SQLite in PHP 7.2 that do not have `CAST` built in, we fall
-        // back to the "dumb" sorting instead. C'est la vie.
-        $doctrineVersion = new Version($query->getQueryBuilder()->getEntityManager()->getConnection());
-
-        if (! $doctrineVersion->hasCast()) {
+        if (! $this->utils->hasCast()) {
             $qb->addOrderBy($translationsAlias . '.value', $direction);
 
             return;
         }
 
-        // A numerical field value is stored as an json array containing a string, so the number 42
-        // would be in a field ["42"]. To extract the numerical value SUBSTRING(field, 3, field_length)
-        // is used, where 3 is the (1-based) start index. After taking the substring CAST(... as decimal)
-        // is used to enable number-based ordering, this cast will ignore the remaining "] that is left at
-        // the end of the field after the SUBSTRING operation.
-        $substring = $qb
-            ->expr()
-            ->substring($translationsAlias . '.value', 3, $query->getQueryBuilder()->expr()->length($translationsAlias . '.value'));
-        $qb->addOrderBy('CAST(' . $substring . ' as decimal) ', $direction);
-    }
-
-    private function isNumericField(QueryInterface $query, $fieldname): bool
-    {
-        $contentType = $query->getConfig()->get('contenttypes/' . $query->getContentType());
-        $type = $contentType->get('fields')->get($fieldname)->get('type', false);
-
-        return $type === NumberField::TYPE;
-    }
-
-    private function isLocalizedField(QueryInterface $query, $fieldname): bool
-    {
-        $contentType = $query->getConfig()->get('contenttypes/' . $query->getContentType());
-
-        return $contentType->get('fields')->get($fieldname)->get('localize', false);
+        $expression = $this->utils->getNumericCastExpression($translationsAlias);
+        $qb->addOrderBy($expression, $direction);
     }
 }

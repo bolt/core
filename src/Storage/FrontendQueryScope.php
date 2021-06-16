@@ -34,10 +34,13 @@ class FrontendQueryScope implements QueryScopeInterface
     /** @var Notifications */
     private $notifications;
 
+    /** @var FieldQueryUtils */
+    private $utils;
+
     /**
      * Constructor.
      */
-    public function __construct(Config $config, LocaleHelper $localeHelper, Environment $twig, Notifications $notifications)
+    public function __construct(Config $config, LocaleHelper $localeHelper, Environment $twig, Notifications $notifications, FieldQueryUtils $utils)
     {
         $this->config = $config;
 
@@ -45,6 +48,7 @@ class FrontendQueryScope implements QueryScopeInterface
         $this->localeHelper = $localeHelper;
         $this->twig = $twig;
         $this->notifications = $notifications;
+        $this->utils = $utils;
     }
 
     /**
@@ -80,7 +84,7 @@ class FrontendQueryScope implements QueryScopeInterface
     public function onQueryExecute(QueryInterface $query): void
     {
         if (empty($query->getQueryBuilder()->getParameter('orderBy'))) {
-            $handler = new OrderDirective($this->localeHelper, $this->twig, $this->notifications);
+            $handler = new OrderDirective($this->localeHelper, $this->twig, $this->notifications, $this->utils);
             $handler($query, $this->getOrder($query));
         }
 

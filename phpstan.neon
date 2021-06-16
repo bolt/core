@@ -24,7 +24,7 @@ parameters:
         # Parameters in Storage\Directive\OrderDirective::orderByNumericField() aren't seen as ints
         -
             message: '#of method Doctrine\\ORM\\Query\\Expr::substring\(\) expects int#'
-            path: %currentWorkingDirectory%/src/Storage/Directive/OrderDirective.php
+            path: %currentWorkingDirectory%/src/Storage/FieldQueryUtils.php
 
         # Call to undefined __get()
         -
