@@ -191,7 +191,7 @@ class OrderDirective
             return;
         }
 
-        $expression = $this->utils->getNumericCastExpression($translationsAlias);
+        $expression = $this->utils->getNumericCastExpression($translationsAlias.'.value');
         $qb->addOrderBy($expression, $direction);
     }
 }
