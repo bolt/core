@@ -21,6 +21,10 @@ class FieldQueryUtils
 
     public function isNumericField(QueryInterface $query, $fieldname): bool
     {
+        if (in_array($fieldname, ['anyField', 'anything'], true)) {
+            return false;
+        }
+
         $contentType = $query->getConfig()->get('contenttypes/' . $query->getContentType());
         $type = $contentType->get('fields')->get($fieldname)->get('type', false);
 
