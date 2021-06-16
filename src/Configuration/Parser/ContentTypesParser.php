@@ -92,7 +92,7 @@ class ContentTypesParser extends BaseParser
 
         if (! isset($contentType['slug'])) {
             $contentType['slug'] = Str::slug($contentType['name']);
-            if (Str::slug($contentType['name']) != $key) {
+            if (Str::slug($contentType['name']) !== $key) {
                 $contentType['inferred_slug'] = [Str::slug($contentType['name']), $key];
             }
         }
