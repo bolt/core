@@ -71,7 +71,7 @@ class FrontendQueryScope implements QueryScopeInterface
     {
         // todo: Is this ever used? or even needed!
         if (empty($query->getQueryBuilder()->getParameter('orderBy'))) {
-            $this->directiveHandler->handle(OrderDirective::NAME, $query, $this->getOrder($query));
+            $this->directiveHandler->handle(OrderDirective::NAME, [$query, $this->getOrder($query)]);
         }
 
         // Setup status to only published unless otherwise specified

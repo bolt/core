@@ -23,6 +23,7 @@ class DirectiveHandler
         PageDirective $pageDirective,
         PrintQueryDirective $printQueryDirective,
         ReturnSingleDirective $returnSingleDirective,
+        ReturnMultipleDirective $returnMultipleDirective,
         LatestDirectiveHandler $latestDirectiveHandler,
         EarliestDirectiveHandler $earliestDirectiveHandler,
         RandomDirectiveHandler $randomDirectiveHandler
@@ -35,6 +36,7 @@ class DirectiveHandler
         $this->directives->put(PageDirective::NAME, $pageDirective);
         $this->directives->put(PrintQueryDirective::NAME, $printQueryDirective);
         $this->directives->put(ReturnSingleDirective::NAME, $returnSingleDirective);
+        $this->directives->put(ReturnMultipleDirective::NAME, $returnMultipleDirective);
         $this->directives->put(LatestDirectiveHandler::NAME, $latestDirectiveHandler);
         $this->directives->put(EarliestDirectiveHandler::NAME, $earliestDirectiveHandler);
         $this->directives->put(RandomDirectiveHandler::NAME, $randomDirectiveHandler);
@@ -45,12 +47,12 @@ class DirectiveHandler
         return $this->directives->has($directive);
     }
 
-    public function handle(string $directive, ...$args): void
+    public function handle(string $directive, array $params): void
     {
         if (! $this->canHandle($directive)) {
             throw new InvalidArgumentException(sprintf('Unknown directive (%s).', $directive));
         }
 
-        call_user_func_array($this->directives->get($directive), ...$args);
+        call_user_func_array($this->directives->get($directive), $params);
     }
 }
