@@ -90,10 +90,22 @@ class ContentQueryParser
     /** @var Version */
     private $version;
 
+    /** @var FieldQueryUtils */
+    private $utils;
+
     /**
      * Constructor.
      */
-    public function __construct(RequestStack $requestStack, ContentRepository $repo, Config $config, LocaleHelper $localeHelper, Environment $twig, Notifications $notifications, Version $version, ?QueryInterface $queryHandler = null)
+    public function __construct(
+        RequestStack $requestStack,
+        ContentRepository $repo,
+        Config $config,
+        LocaleHelper $localeHelper,
+        Environment $twig,
+        Notifications $notifications,
+        Version $version,
+        FieldQueryUtils $utils,
+        ?QueryInterface $queryHandler = null)
     {
         $this->repo = $repo;
         $this->requestStack = $requestStack;
@@ -106,6 +118,7 @@ class ContentQueryParser
         $this->twig = $twig;
         $this->notifications = $notifications;
         $this->version = $version;
+        $this->utils = $utils;
 
         $this->setupDefaults();
         $this->config = $config;
@@ -121,7 +134,7 @@ class ContentQueryParser
 
         $this->addDirectiveHandler(GetQueryDirective::NAME, new GetQueryDirective());
         $this->addDirectiveHandler(LimitDirective::NAME, new LimitDirective());
-        $this->addDirectiveHandler(OrderDirective::NAME, new OrderDirective($this->localeHelper, $this->twig, $this->notifications));
+        $this->addDirectiveHandler(OrderDirective::NAME, new OrderDirective($this->localeHelper, $this->twig, $this->notifications, $this->utils));
         $this->addDirectiveHandler(PageDirective::NAME, new PageDirective());
         $this->addDirectiveHandler(PrintQueryDirective::NAME, new PrintQueryDirective());
         $this->addDirectiveHandler(ReturnSingleDirective::NAME, new ReturnSingleDirective());
