@@ -4,5 +4,5 @@
     "screenshotsFolder": "tests/cypress/screenshots",
     "videosFolder": "tests/cypress/videos",
     "supportFile": "tests/cypress/support/index.js",
-    "baseUrl": "https://127.0.0.1:8088"
+    "baseUrl": "127.0.0.1:8088"
 }
