@@ -1,6 +1,21 @@
 Changelog
 =========
 
+## 4.1.22
+
+Released: 2021-06-18
+
+### 🛠️ Miscellaneous
+
+- [security] Don't allow `symfony/security-http` 5.3.0 and 5.3.1 (bobdenotter, [#2640](https://github.com/bolt/core/pull/2640))
+- Add `inferred_slug` values to parsed ContentType, if applicable (bobdenotter, [#2636](https://github.com/bolt/core/pull/2636))
+- Pass around `BaseExtension` instead of string in `ExtensionsConfigureCommand` (bobdenotter, [#2628](https://github.com/bolt/core/pull/2628))
+
+### 🤖 Tests
+
+- Add cypress tests (I-Valchev, [#2625](https://github.com/bolt/core/pull/2625))
+
+
 ## 4.1.21
 
 Released: 2021-06-11
