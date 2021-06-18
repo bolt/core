@@ -15,7 +15,7 @@ class ContentTypesParserTest extends ParserTestBase
 {
     public const NUMBER_OF_CONTENT_TYPES_IN_MINIMAL_FILE = 2;
 
-    public const AMOUNT_OF_ATTRIBUTES_IN_CONTENT_TYPE = 26;
+    public const AMOUNT_OF_ATTRIBUTES_IN_CONTENT_TYPE = 27;
 
     public const AMOUNT_OF_ATTRIBUTES_IN_FIELD = 27;
 
