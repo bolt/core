@@ -5,27 +5,14 @@ declare(strict_types=1);
 namespace Bolt\Storage;
 
 use Bolt\Configuration\Config;
-use Bolt\Doctrine\Version;
 use Bolt\Entity\Content;
 use Bolt\Repository\ContentRepository;
-use Bolt\Storage\Directive\EarliestDirectiveHandler;
-use Bolt\Storage\Directive\GetQueryDirective;
-use Bolt\Storage\Directive\LatestDirectiveHandler;
-use Bolt\Storage\Directive\LimitDirective;
-use Bolt\Storage\Directive\OrderDirective;
-use Bolt\Storage\Directive\PageDirective;
-use Bolt\Storage\Directive\PrintQueryDirective;
-use Bolt\Storage\Directive\RandomDirectiveHandler;
-use Bolt\Storage\Directive\ReturnMultipleDirective;
-use Bolt\Storage\Directive\ReturnSingleDirective;
+use Bolt\Storage\Directive\DirectiveHandler;
 use Bolt\Storage\Handler\IdentifiedSelectHandler;
 use Bolt\Storage\Handler\SelectQueryHandler;
-use Bolt\Twig\Notifications;
-use Bolt\Utils\LocaleHelper;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Twig\Environment;
 
 /**
  *  Handler class to convert the DSL for content queries into an
@@ -61,9 +48,6 @@ class ContentQueryParser
     protected $directives = [];
 
     /** @var callable[] */
-    protected $directiveHandlers = [];
-
-    /** @var callable[] */
     protected $handlers = [];
 
     /** @var QueryInterface[] */
@@ -78,20 +62,8 @@ class ContentQueryParser
     /** @var Config */
     private $config;
 
-    /** @var LocaleHelper */
-    private $localeHelper;
-
-    /** @var Environment */
-    private $twig;
-
-    /** @var Notifications */
-    private $notifications;
-
-    /** @var Version */
-    private $version;
-
-    /** @var FieldQueryUtils */
-    private $utils;
+    /** @var DirectiveHandler */
+    private $directiveHandler;
 
     /**
      * Constructor.
@@ -100,11 +72,7 @@ class ContentQueryParser
         RequestStack $requestStack,
         ContentRepository $repo,
         Config $config,
-        LocaleHelper $localeHelper,
-        Environment $twig,
-        Notifications $notifications,
-        Version $version,
-        FieldQueryUtils $utils,
+        DirectiveHandler $directiveHandler,
         ?QueryInterface $queryHandler = null)
     {
         $this->repo = $repo;
@@ -114,14 +82,9 @@ class ContentQueryParser
             $this->addService('select', $queryHandler);
         }
 
-        $this->localeHelper = $localeHelper;
-        $this->twig = $twig;
-        $this->notifications = $notifications;
-        $this->version = $version;
-        $this->utils = $utils;
-
         $this->setupDefaults();
         $this->config = $config;
+        $this->directiveHandler = $directiveHandler;
     }
 
     /**
@@ -131,17 +94,6 @@ class ContentQueryParser
     {
         $this->addHandler('select', new SelectQueryHandler());
         $this->addHandler('namedselect', new IdentifiedSelectHandler());
-
-        $this->addDirectiveHandler(GetQueryDirective::NAME, new GetQueryDirective());
-        $this->addDirectiveHandler(LimitDirective::NAME, new LimitDirective());
-        $this->addDirectiveHandler(OrderDirective::NAME, new OrderDirective($this->localeHelper, $this->twig, $this->notifications, $this->utils));
-        $this->addDirectiveHandler(PageDirective::NAME, new PageDirective());
-        $this->addDirectiveHandler(PrintQueryDirective::NAME, new PrintQueryDirective());
-        $this->addDirectiveHandler(ReturnSingleDirective::NAME, new ReturnSingleDirective());
-        $this->addDirectiveHandler(ReturnMultipleDirective::NAME, new ReturnMultipleDirective());
-        $this->addDirectiveHandler(LatestDirectiveHandler::NAME, new LatestDirectiveHandler());
-        $this->addDirectiveHandler(EarliestDirectiveHandler::NAME, new EarliestDirectiveHandler());
-        $this->addDirectiveHandler(RandomDirectiveHandler::NAME, new RandomDirectiveHandler($this->version));
     }
 
     /**
@@ -256,7 +208,7 @@ class ContentQueryParser
         }
 
         foreach ($this->params as $key => $value) {
-            if ($this->hasDirectiveHandler($key)) {
+            if ($this->directiveHandler->canHandle($key)) {
                 $this->directives[$key] = $value;
                 unset($this->params[$key]);
             }
@@ -269,6 +221,7 @@ class ContentQueryParser
     public function runDirectives(QueryInterface $query, array $skipDirective = []): void
     {
         $directives = $this->directives;
+
         while (! empty($directives)) {
             $key = array_key_first($directives);
             $value = $directives[$key];
@@ -279,13 +232,11 @@ class ContentQueryParser
                 continue;
             }
 
-            if (! $this->hasDirectiveHandler($key)) {
+            if (! $this->directiveHandler->canHandle($key)) {
                 continue;
             }
 
-            if (is_callable($this->getDirectiveHandler($key))) {
-                call_user_func_array($this->getDirectiveHandler($key), [$query, $value, &$directives]);
-            }
+            $this->directiveHandler->handle($key, [$query, $value, &$directives]);
         }
     }
 
@@ -373,32 +324,6 @@ class ContentQueryParser
     public function setDirective(string $key, $value): void
     {
         $this->directives[$key] = $value;
-    }
-
-    /**
-     * Returns the handler for the named directive.
-     */
-    public function getDirectiveHandler(string $key): callable
-    {
-        return $this->directiveHandlers[$key];
-    }
-
-    /**
-     * Returns boolean for existence of handler.
-     */
-    public function hasDirectiveHandler(string $key): bool
-    {
-        return array_key_exists($key, $this->directiveHandlers);
-    }
-
-    /**
-     * Adds a handler for the named directive.
-     */
-    public function addDirectiveHandler(string $key, ?callable $callback = null): void
-    {
-        if (! array_key_exists($key, $this->directiveHandlers)) {
-            $this->directiveHandlers[$key] = $callback;
-        }
     }
 
     /**
