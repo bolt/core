@@ -29,8 +29,8 @@ Cypress.Commands.add('login', (username = 'admin', password = 'admin%1') => {
 
     cy.url().should('include', '/bolt/login');
 
-    cy.get('input[name=username]').type(username);
-    cy.get('input[name=password]').type(password + '{enter}');
+    cy.get('input[name="login[username]"]').type(username);
+    cy.get('input[name="login[password]"]').type(password + '{enter}');
 
     cy.url().should('eq', Cypress.config().baseUrl + '/bolt/');
 });
