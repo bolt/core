@@ -18,5 +18,9 @@ interface ExtensionInterface
 
     public function initialize(): void;
 
+    public function initializeCli(): void;
+
+    public function install(): void;
+
     public function getComposerPackage(): ?CompletePackageInterface;
 }

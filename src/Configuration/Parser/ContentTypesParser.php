@@ -88,8 +88,13 @@ class ContentTypesParser extends BaseParser
             throw new ConfigurationException($error);
         }
 
+        $contentType['inferred_slug'] = null;
+
         if (! isset($contentType['slug'])) {
             $contentType['slug'] = Str::slug($contentType['name']);
+            if (Str::slug($contentType['name']) !== $key) {
+                $contentType['inferred_slug'] = [Str::slug($contentType['name']), $key];
+            }
         }
         if (! isset($contentType['name'])) {
             $contentType['name'] = ucwords(preg_replace('/[^a-z0-9]/i', ' ', $contentType['slug']));
