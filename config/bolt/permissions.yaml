@@ -50,7 +50,6 @@ global:
     api:post: [ ROLE_WEBSERVICE ] # allow write access to Bolt's RESTful and GraphQL API
     api:delete: [ ROLE_WEBSERVICE ] # allow delete access to Bolt's RESTful and GraphQL API
 
-
 # For content type related actions, permissions can be set individually for
 # each content type. For this, we define three groups of permission sets.
 # The 'contenttype-base' permission sets *overrides*; any roles specified here
@@ -108,7 +107,7 @@ contenttype-base:
     change-ownership: [ ROLE_CHIEF_EDITOR ]
     view: [ ROLE_CHIEF_EDITOR ] # = show in menu, show listings, open 'edit' view without actually being able to edit, any of the other permissions always imply 'view'
 
-# these permissions are used as a default for contenttypes, they are added to the base permissions 
+# these permissions are used as a default for contenttypes, they are added to the base permissions
 # you can override these settings per contenttype by adding it to the `contenttypes:` array
 contenttype-default:
     edit: [ ROLE_EDITOR, CONTENT_OWNER ]
@@ -144,7 +143,7 @@ contenttypes:
 #        edit: [ ROLE_EDITOR, CONTENT_OWNER ]
 #        create: [ ROLE_EDITOR ]
 #        change-ownership: [ CONTENT_OWNER ]
-#        view: [ ROLE_EDITOR ] 
+#        view: [ ROLE_EDITOR ]
 #    homepage: # singleton
 #        view: [ ROLE_EDITOR ]
 #        edit: [ ROLE_EDITOR ]

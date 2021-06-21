@@ -32,7 +32,7 @@ use Twig\Markup;
  *     },
  *     collectionOperations={
  *          "get"={"security"="is_granted('api:get')"},
- *          "post"={"security"="is_granted('api:post')"}
+ *          "post"={"security"="is_granted(‘api:post’)"}
  *     },
  *     itemOperations={
  *          "get"={"security"="is_granted('api:get')"},
