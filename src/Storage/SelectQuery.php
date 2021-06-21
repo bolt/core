@@ -324,7 +324,7 @@ class SelectQuery implements QueryInterface
 
         $dateFields = $this->getDateFields();
 
-	$numberFields = $this->getNumberFields();
+	    $numberFields = $this->getNumberFields();
 
         // Set the regular fields. They are needed for setting the correct param if DB does not support json.
         $this->setRegularFields();
