@@ -88,7 +88,7 @@ class Version
         try {
             $query = $this->connection->createQueryBuilder();
             $query
-                ->select('CAST (1.1 AS int)');
+                ->select('CAST(1.1 AS int)');
             $query->execute();
         } catch (\Throwable $e) {
             return false;
