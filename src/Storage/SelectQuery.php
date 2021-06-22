@@ -498,10 +498,8 @@ class SelectQuery implements QueryInterface
         // Get all fields from the current contentType
         $ctFields = $this->getConfig()->get('contenttypes/' . $this->getContentType())->get('fields');
 
-        // And get the keys of those that are `type: number`)
-        $numberFields = $ctFields->where('type', 'number')->keys()->all();
-
-        return $numberFields;
+        // And return the keys of those that are `type: number`)
+        return $ctFields->where('type', 'number')->keys()->all();
     }
 
     public function getIndex(): int
