@@ -341,7 +341,7 @@ class SelectQuery implements QueryInterface
                 $param = date('c', strtotime($param));
             }
 
-            if (in_array($fieldName, $this->regularFields, true) && !in_array($fieldName, $numberFields, true)) {
+            if (in_array($fieldName, $this->regularFields, true) && ! in_array($fieldName, $numberFields, true)) {
                 $param = JsonHelper::wrapJsonFunction(null, $param, $query->getEntityManager()->getConnection());
             }
 
