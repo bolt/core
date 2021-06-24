@@ -324,6 +324,8 @@ class SelectQuery implements QueryInterface
 
         $dateFields = $this->getDateFields();
 
+        $numberFields = $this->getNumberFields();
+
         // Set the regular fields. They are needed for setting the correct param if DB does not support json.
         $this->setRegularFields();
 
@@ -339,7 +341,7 @@ class SelectQuery implements QueryInterface
                 $param = date('c', strtotime($param));
             }
 
-            if (in_array($fieldName, $this->regularFields, true)) {
+            if (in_array($fieldName, $this->regularFields, true) && ! in_array($fieldName, $numberFields, true)) {
                 $param = JsonHelper::wrapJsonFunction(null, $param, $query->getEntityManager()->getConnection());
             }
 
@@ -489,6 +491,15 @@ class SelectQuery implements QueryInterface
         $dateFields = $ctFields->where('type', 'date')->keys()->all();
 
         return array_merge($dateFields, $this->coreDateFields);
+    }
+
+    private function getNumberFields(): array
+    {
+        // Get all fields from the current contentType
+        $ctFields = $this->getConfig()->get('contenttypes/' . $this->getContentType())->get('fields');
+
+        // And return the keys of those that are `type: number`)
+        return $ctFields->where('type', 'number')->keys()->all();
     }
 
     public function getIndex(): int
