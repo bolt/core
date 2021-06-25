@@ -437,6 +437,9 @@
     "pagerfanta/pagerfanta": {
         "version": "v2.3.0"
     },
+    "paragonie/random_compat": {
+        "version": "v9.99.100"
+    },
     "peterkahl/country-code-to-emoji-flag": {
         "version": "v1.2"
     },
@@ -630,9 +633,6 @@
     },
     "react/promise": {
         "version": "v2.8.0"
-    },
-    "roave/security-advisories": {
-        "version": "dev-master"
     },
     "scienta/doctrine-json-functions": {
         "version": "4.1.2"
