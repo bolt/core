@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\DataFixtures;
 
+use Bolt\Enum\ImageTypes;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\Finder\Finder;
 use Tightenco\Collect\Support\Collection;
@@ -83,7 +84,7 @@ abstract class BaseFixture extends Fixture
     {
         $fullpath = Path::canonicalize($base);
 
-        $glob = '*.{jpg,png,gif,jpeg,webp,avif}';
+        $glob = sprintf('*.{%s}', implode(',', ImageTypes::all()));
 
         $finder = new Finder();
         $finder->in($fullpath)->depth('< 2')->sortByName()->name($glob)->files();

@@ -6,12 +6,20 @@ namespace Bolt\Enum;
 
 use Tightenco\Collect\Support\Collection;
 
-class Statuses
+/**
+ * Class ImageTypes, see https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Image_types
+ */
+class ImageTypes
 {
-    public const PUBLISHED = 'published';
-    public const HELD = 'held';
-    public const TIMED = 'timed';
-    public const DRAFT = 'draft';
+    public const APNG = 'apng';
+    public const AVIF = 'avif';
+    public const GIF = 'gif';
+    public const JPEG = 'jpeg';
+    public const JPG = 'jpg';
+    public const PNG = 'png';
+    public const SVG = 'svg';
+    public const TIFF = 'tiff';
+    public const WEBP = 'webp';
 
     /**
      * @return string[]

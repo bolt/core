@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Controller;
 
 use Bolt\Configuration\Config;
+use Bolt\Enum\ImageTypes;
 use League\Glide\Responses\SymfonyResponseFactory;
 use League\Glide\Server;
 use League\Glide\ServerFactory;
@@ -168,7 +169,7 @@ class ImageController
     {
         $pathinfo = pathinfo($filename);
 
-        $imageExtensions = ['gif', 'png', 'jpg', 'jpeg', 'svg', 'avif', 'webp'];
+        $imageExtensions = ImageTypes::all();
 
         return array_key_exists('extension', $pathinfo) && in_array($pathinfo['extension'], $imageExtensions, true);
     }

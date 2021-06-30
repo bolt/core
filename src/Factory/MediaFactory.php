@@ -8,6 +8,7 @@ use Bolt\Configuration\Config;
 use Bolt\Configuration\FileLocations;
 use Bolt\Controller\UserTrait;
 use Bolt\Entity\Media;
+use Bolt\Enum\ImageTypes;
 use Bolt\Repository\MediaRepository;
 use Carbon\Carbon;
 use PHPExif\Exif;
@@ -106,7 +107,7 @@ class MediaFactory
 
     public function isImage(Media $media): bool
     {
-        return in_array($media->getType(), ['gif', 'png', 'jpg', 'jpeg', 'svg', 'webp', 'avif'], true);
+        return in_array($media->getType(), ImageTypes::all(), true);
     }
 
     public function createFromFilename(string $locationName, string $path, string $filename): Media

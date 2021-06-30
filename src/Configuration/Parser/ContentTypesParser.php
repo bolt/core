@@ -8,6 +8,7 @@ use Bolt\Common\Arr;
 use Bolt\Common\Str;
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Configuration\Content\FieldType;
+use Bolt\Enum\ImageTypes;
 use Bolt\Enum\Statuses;
 use Bolt\Exception\ConfigurationException;
 use Tightenco\Collect\Support\Collection;
@@ -294,7 +295,7 @@ class ContentTypesParser extends BaseParser
         // If field is an "image" type, make sure the 'extensions' are set.
         if ($field['type'] === 'image' || $field['type'] === 'imagelist') {
             if (empty($field['extensions'])) {
-                $extensions = new Collection(['gif', 'jpg', 'jpeg', 'png', 'svg', 'avif', 'webp']);
+                $extensions = new Collection(ImageTypes::all());
                 $field['extensions'] = $extensions->intersect($acceptFileTypes)->toArray();
             }
         }

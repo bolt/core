@@ -16,10 +16,9 @@ class UserStatus
      */
     public static function all(): array
     {
-        return [
-            static::ENABLED,
-            static::DISABLED,
-        ];
+        $self = new \ReflectionClass(self::class);
+
+        return $self->getConstants();
     }
 
     public static function isValid(?string $status): bool
