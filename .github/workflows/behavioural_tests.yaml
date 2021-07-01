@@ -109,5 +109,5 @@ jobs:
                 run: ./run_behat_tests.sh && make behat-js-quiet
 
             -   name: Upload Behat logs
-                run: ./bin/upload-textfiles "var/log/behat-reports/*.html"
+                run: ./bin/upload-textfiles "var/log/behat-reports/*"
                 if: always()
