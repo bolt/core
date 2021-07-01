@@ -28,7 +28,7 @@ class ImageTypes
     {
         $self = new \ReflectionClass(self::class);
 
-        return $self->getConstants();
+        return array_values($self->getConstants());
     }
 
     public static function isValid(?string $status): bool
