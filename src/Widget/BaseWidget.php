@@ -8,6 +8,7 @@ use Bolt\Extension\ExtensionInterface;
 use Bolt\Widget\Exception\WidgetException;
 use Cocur\Slugify\Slugify;
 use Twig\Error\LoaderError;
+use Twig\Loader\ChainLoader;
 use Twig\Loader\FilesystemLoader;
 
 /**
@@ -189,11 +190,17 @@ abstract class BaseWidget implements WidgetInterface
 
     private function addTwigLoader(): void
     {
-        /** @var FilesystemLoader $twigLoaders */
+        /** @var FilesystemLoader|ChainLoader $twigLoaders */
         $twigLoaders = $this->getTwig()->getLoader();
 
-        if ($twigLoaders instanceof FilesystemLoader) {
-            $twigLoaders->addPath($this->getTemplateFolder(), $this->getSlug());
+        $twigLoaders = $twigLoaders instanceof ChainLoader ?
+            $twigLoaders->getLoaders() :
+            [$twigLoaders];
+
+        foreach ($twigLoaders as $twigLoader) {
+            if ($twigLoader instanceof FilesystemLoader) {
+                $twigLoader->addPath($this->getTemplateFolder(), $this->getSlug());
+            }
         }
     }
 
