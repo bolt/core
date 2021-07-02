@@ -438,7 +438,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
             'text_plain' => 'Text with <strong>no</strong> markup allowed.',
             'textarea_field' => 'Textarea field with <em>simple</em> HTML in it.',
             'html_field' => 'HTML field with <em>simple</em> HTML in it.',
-            'markdown_field' => 'Markdown field  with *simple* Markdown in it.',
+            'markdown_field' => 'Markdown field with *simple* Markdown in it.',
             'text_not_sanitised' => 'Text field with <strong>markup</strong>, including <script>console.log(\'hoi\')</script>. The end.',
             'text_sanitised' => 'Text field with <strong>markup</strong>, including <script>console.log(\'hoi\')</script>. The end.',
             'attachment' => [
