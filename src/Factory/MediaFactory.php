@@ -32,7 +32,7 @@ class MediaFactory
     private $exif;
 
     /** @var Collection */
-    private $mediaTypes;
+    private $allowedFileTypes;
 
     /** @var FileLocations */
     private $fileLocations;
@@ -44,7 +44,7 @@ class MediaFactory
         $this->tokenStorage = $tokenStorage;
 
         $this->exif = Reader::factory(Reader::TYPE_NATIVE);
-        $this->mediaTypes = $config->getMediaTypes();
+        $this->allowedFileTypes = $config->getMediaTypes()->merge($config->getFileTypes());
         $this->fileLocations = $fileLocations;
     }
 
@@ -65,7 +65,7 @@ class MediaFactory
                 ->setLocation($fileLocation);
         }
 
-        if ($this->mediaTypes->contains($file->getExtension()) === false) {
+        if ($this->allowedFileTypes->contains($file->getExtension()) === false) {
             throw new UnsupportedMediaTypeHttpException("{$file->getExtension()} files are not accepted");
         }
 
@@ -104,7 +104,7 @@ class MediaFactory
         }
     }
 
-    private function isImage(Media $media): bool
+    public function isImage(Media $media): bool
     {
         return in_array($media->getType(), ['gif', 'png', 'jpg', 'jpeg', 'svg', 'webp', 'avif'], true);
     }
