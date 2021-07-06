@@ -6,13 +6,10 @@
            we display an appropriate title. The 'records' array contains all of the
            records matching the current query. If there are no results, the
            code in the 'else' part of the for-loop is used. #}
-        <h1 class="search-results">
-            {% if searchTerm is not empty %}
-                {{ __('general.phrase.search-results-for', { '%search%': searchTerm }) }}
-            {% else %}
-                {{ __('general.phrase.search') }}
-            {% endif %}
-        </h1>
+        
+        {# The set is on a single row to avoid unnecessary formatting in the title. #}
+        {% set searchTitle %}{% if searchTerm is not empty %}{{ __('general.phrase.search-results-for', { '%search%': searchTerm }) }}{% else %}{{ __('general.phrase.search') }}{% endif %}{% endset %}
+        <h1 class="search-results">{{ searchTitle }}</h1>
 
         {# Perhaps we post a small teaser, stored in the 'block' named 'Search teaser' #}
         {% setcontent block = "block/search-teaser" %}
