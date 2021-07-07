@@ -12,7 +12,6 @@ use Composer\Package\PackageInterface;
 use ComposerPackages\Packages;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Twig\Environment;
-use Twig\Extension\ExtensionInterface as TwigExtensionInterface;
 use Twig\Loader\ChainLoader;
 use Twig\Loader\FilesystemLoader;
 
