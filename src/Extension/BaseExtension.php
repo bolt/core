@@ -12,6 +12,8 @@ use Composer\Package\PackageInterface;
 use ComposerPackages\Packages;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Twig\Environment;
+use Twig\Extension\ExtensionInterface as TwigExtensionInterface;
+use Twig\Loader\ChainLoader;
 use Twig\Loader\FilesystemLoader;
 
 /**
@@ -103,11 +105,17 @@ abstract class BaseExtension implements ExtensionInterface
             return;
         }
 
-        /** @var FilesystemLoader $twigLoaders */
+        /** @var FilesystemLoader|ChainLoader $twigLoaders */
         $twigLoaders = $this->getTwig()->getLoader();
 
-        if ($twigLoaders instanceof FilesystemLoader) {
-            $twigLoaders->prependPath($foldername, $namespace);
+        $twigLoaders = $twigLoaders instanceof ChainLoader ?
+            $twigLoaders->getLoaders() :
+            [$twigLoaders];
+
+        foreach ($twigLoaders as $twigLoader) {
+            if ($twigLoader instanceof FilesystemLoader) {
+                $twigLoader->prependPath($foldername, $namespace);
+            }
         }
     }
 
