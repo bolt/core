@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Bolt\Storage;
 
-use Bolt\Common\Arr;
 use Bolt\Configuration\Config;
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Doctrine\JsonHelper;
@@ -176,15 +175,13 @@ class SelectQuery implements QueryInterface
      */
     public function setParameters(array $params): void
     {
-        // Change all params to lowercase, filter out empty ones
+        // Filter out empty parameters, ignoring it if 'like' statement is empty
         $this->params = array_filter(
-            Arr::mapRecursive($params, function ($a) {
-                return mb_strtolower((string) $a, 'utf-8');
+            $params,
+            function ($a) {
+                return $a !== '%%';
             }
-        ), function ($a) {
-            // ignore parameter if like statement is empty
-            return $a !== '%%';
-        });
+        );
 
         $this->processFilters();
     }
