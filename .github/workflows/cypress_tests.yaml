@@ -49,6 +49,8 @@ jobs:
 
             -   name: Cypress run
                 uses: cypress-io/github-action@v2
+                with:
+                    quiet: true
             -   uses: actions/upload-artifact@v1
                     if: failure()
                     with:
