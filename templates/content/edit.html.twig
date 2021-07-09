@@ -19,8 +19,7 @@
 
 {# The 'title' and 'shoulder' blocks are the main heading of the page. #}
 {% block shoulder %}
-    {{ (app.request.get('_route') == 'bolt_content_duplicate') ? 'caption.duplicate'|trans : 'caption.edit'|trans }}
-    {{ record.definition.singular_name }}
+    {{- (app.request.get('_route') == 'bolt_content_duplicate') ? 'caption.duplicate'|trans : 'caption.edit'|trans }} {{ record.definition.singular_name -}}
 {% endblock shoulder %}
 
 {% block title %}
