@@ -60,7 +60,7 @@ jobs:
                 uses: cypress-io/github-action@v2
                 with:
                     quiet: true
-                    command: npm run cypress:ci
+                    command: "npm run cypress:ci"
                     env:
                         CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
                         GITHUB_TOKEN: ${{ secrets.CYPRESS_GITHUB_TOKEN }}
