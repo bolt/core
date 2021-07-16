@@ -62,11 +62,11 @@ jobs:
                     record: true
                     parallel: true
                     command: "npm run cypress:ci"
-                    env:
+#                    env:
 #                        CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-                        CYPRESS_RECORD_KEY: test123
+#                        CYPRESS_RECORD_KEY: test123
 #                        GITHUB_TOKEN: ${{ secrets.CYPRESS_GITHUB_TOKEN }}
-                        GITHUB_TOKEN: test12345
+#                        GITHUB_TOKEN: test12345
             -   uses: actions/upload-artifact@v1
                 if: failure()
                 with:
