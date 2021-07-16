@@ -14,7 +14,7 @@ describe('As an Admin I want to sort content', () => {
         cy.login();
         cy.visit('/bolt');
 
-        cy.get('a[href="/bolt/content/entries"]').click();
+        cy.findAllByText('Entries').click();
         cy.url().should('contain', '/bolt/content/entries');
         cy.get('.admin__header--title').should('contain', 'Entries');
         cy.get('div[class="card-header"]').should('contain', 'Contentlisting');

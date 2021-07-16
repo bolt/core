@@ -4,7 +4,7 @@ describe('No localization link for contenttype without locales', () => {
     it('checks that there\'s no localization link for contentype without locales', () => {
         cy.login();
 
-        cy.get('a[href="/bolt/content/entries"]').click();
+        cy.findAllByText('Entries').click();
         cy.get('a[href="/bolt/edit/23"]').eq(1).click();
 
         cy.url().should('contain', '/bolt/edit/23');
