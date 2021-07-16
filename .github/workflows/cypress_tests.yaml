@@ -58,9 +58,6 @@ jobs:
             -   name: Cypress run
                 uses: cypress-io/github-action@v2
                 with:
-                    quiet: true
-                    record: true
-                    parallel: true
                     command: "npm run cypress:ci"
                 env:
                     CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
