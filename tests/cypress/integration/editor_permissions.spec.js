@@ -66,17 +66,4 @@ describe('As an editor I should only be able to view uploaded files', () => {
     })
 });
 
-// describe('As an editor I should be able to edit image metadata', () => {
-//     it('checks if an editor edit image metadata', () => {
-//         cy.login('john_editor', 'john%1');
-
-//         cy.visit('/bolt/media/edit/2');
-//         cy.get('input[id="field-title"]').clear();
-//         cy.get('input[id="field-title"]').type('Test');
-//         cy.get('button[class="btn btn-success mb-3"]').eq(0).click();
-
-//         cy.get('input[id="field-title"]').should('have.value', 'Test');
-//     })
-// });
-
 //TODO: test editor permissions in maintenance mode
