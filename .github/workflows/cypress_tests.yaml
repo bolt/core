@@ -61,7 +61,7 @@ jobs:
                     quiet: true
                     record: true
                     parallel: true
-                    command: "npm run cypress:ci"
+                    command: "npm run cypress:ci --record"
                 env:
                     CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
                     GITHUB_TOKEN: ${{ secrets.CYPRESS_GITHUB_TOKEN }}
