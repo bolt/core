@@ -117,7 +117,7 @@
         "a11y:test": "pa11y-ci",
         "test": "jest",
         "genversion": "genversion --es6 --semi assets/js/version.js",
-        "cypress:ci": "cypress run --config-file=tests/cypress/cypress-ci.json",
+        "cypress:ci": "cypress run --config-file=tests/cypress/cypress-ci.json -- --record",
         "cypress:dev": "cypress run --config-file=tests/cypress/cypress-dev.json"
     },
     "browserslist": [
