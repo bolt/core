@@ -7,7 +7,6 @@ jobs:
     cypress-tests:
         name: Cypress Tests
         runs-on: ubuntu-latest
-        environment: testing
         strategy:
             # when one test fails, DO NOT cancel the other
             # containers, because this will kill Cypress processes
