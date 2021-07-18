@@ -1,6 +1,29 @@
 Changelog
 =========
 
+## 4.1.23
+
+Released: 2021-07-18
+
+### 🐛 Bug fixes
+
+- Don't lowercase values in queries, allow for booleans (bobdenotter, [#2686](https://github.com/bolt/core/pull/2686))
+- Fix incorrect error when uploading an allowed filetype, that isn't an image (bobdenotter, [#2663](https://github.com/bolt/core/pull/2663))
+- Allow whitespace in `orderby` in setcontent queries (bobdenotter, [#2712](https://github.com/bolt/core/pull/2712))
+
+### 🛠️ Miscellaneous
+
+- Replace `_` with space in Field labels (bobdenotter, [#2711](https://github.com/bolt/core/pull/2711))
+- Support Twig chain loaders if available (emodric, [#2660](https://github.com/bolt/core/pull/2660))
+- Use `localdate`, in preparation of this being the standard in 5.0 (bobdenotter, [#2656](https://github.com/bolt/core/pull/2656))
+- Remove unneeded line and fix rogue quote (bobdenotter, [#2650](https://github.com/bolt/core/pull/2650))
+
+### 🤖 Tests
+
+- Ignore two more PHPstan false positives (bobdenotter, [#2685](https://github.com/bolt/core/pull/2685))
+- Fix `If condition is always true` on new phpstan (I-Valchev, [#2675](https://github.com/bolt/core/pull/2675))
+
+
 ## 4.1.22
 
 Released: 2021-06-18
