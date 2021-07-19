@@ -117,7 +117,8 @@
         "a11y:test": "pa11y-ci",
         "test": "jest",
         "genversion": "genversion --es6 --semi assets/js/version.js",
-        "cypress:run": "cypress run --config 'video=false'"
+        "cypress:ci": "cypress run --config-file=tests/cypress/cypress-ci.json --record --parallel --quiet",
+        "cypress:dev": "cypress run --config-file=tests/cypress/cypress-dev.json"
     },
     "browserslist": [
         "> 1%"
