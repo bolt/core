@@ -18,7 +18,7 @@ class AuthenticationController extends TwigAwareController implements BackendZon
      */
     public function login(Request $request, AuthenticationUtils $authenticationUtils): Response
     {
-        // Always redirect to dashboard if a users is still logged in
+        // Always redirect to dashboard if a user is still logged in.
         // If only IS_AUTHENTICATED_REMEMBERED is granted, still show the login
         // allowing the user to fully authenticate.
         if ($this->getUser() && $this->isGranted('IS_AUTHENTICATED_FULLY')) {
