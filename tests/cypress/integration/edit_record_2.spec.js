@@ -43,3 +43,28 @@ describe('As an Admin I want to view saved changes of a record', () => {
         cy.get('h1').should('contain', 'This is the title in the right locale');
     })
 });
+
+describe('As an Admin I want to preview an edited record', () => {
+    it('checks if an admin can preview an edited record', () => {
+        cy.login();
+        cy.visit('/bolt/edit/30');
+        cy.get('input[id="field-title"]').clear();
+        cy.get('input[id="field-title"]').type('Check preview');
+
+        // Preview cannot be easily tested by pressing buttons.
+        // Instead, we need to serialize and submit manually.
+        // See https://github.com/cypress-io/cypress/issues/6251#issuecomment-882386283
+        cy.get('#editor :input').then(($el) => {
+            const jqueryForm = Cypress.dom.wrap($el);
+            const data = jqueryForm.serialize();
+            cy.request({method: 'POST', url: '/bolt/preview/30', body: data, form: true, failOnStatusCode: false})
+                .its('body')
+                .should('contain', 'Check preview');
+        });
+
+        // Now back to the "original" window...
+        cy.reload();
+        cy.wait(1000);
+        cy.get('input[id="field-title"]').should('not.have.value', 'Check preview');
+    });
+});
