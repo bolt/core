@@ -10,7 +10,7 @@ describe('As an user I should see nothing in the sidebar menu', () => {
 
 describe("As an user I should not be able to edit others' articles", () => {
     it("checks if an user can edit others' articles", () => {
-        cy.login('eddie', 'eddie%1');
+        cy.login('john_editor', 'john%1');
         cy.url().should('contain', '/bolt/');
         cy.get('a[class="btn btn-secondary btn-block btn-sm text-nowrap"]').eq(0).click();
         cy.wait(1000);
