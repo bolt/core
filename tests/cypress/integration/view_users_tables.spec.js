@@ -45,8 +45,6 @@ describe('View current sessions', () => {
         cy.get('table').eq(1).find('thead').find('tr').find('th').eq(4).should('contain', 'IP address');
         cy.get('table').eq(1).find('thead').find('tr').find('th').eq(5).should('contain', 'Browser / platform');
 
-        cy.get('table').eq(1).find('tbody').find('tr').its('length').should('eq', 1);
-        
         cy.get('table').eq(1).find('tbody').find('tr').find('td').eq(0).should('contain', '1');
         cy.get('table').eq(1).find('tbody').find('tr').find('td').eq(1).should('contain', 'admin');
         cy.get('table').eq(1).find('tbody').find('tr').find('td').eq(3).should('contain', 'in 13 days');

@@ -17,7 +17,7 @@ describe('See localization link for contenttype with locales', () => {
     it('checks that there\'s a localization link for contentype with locales', () => {
         cy.login();
 
-        cy.get('a[href="/bolt/content/pages"]').click();
+        cy.get('a[href="/bolt/content/pages"]').eq(1).click();
         cy.get('a[href="/bolt/edit/2"]').eq(1).click();
 
         cy.get('h1').find('span').should('contain', 'Edit Page');
