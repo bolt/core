@@ -1,12 +1,12 @@
 /// <reference types="cypress" />
 
-describe('As an user I should see nothing in the sidebar menu', () => {
-    it('checks if an user can see anything in the sidebar menu', () => {
-        cy.login('eddie', 'eddie%1');
-        cy.url().should('contain', '/bolt/');
-        cy.get('ul[class="admin__sidebar--menu"]').find('li').its('length').should('eq', 3);
-    })
-});
+// describe('As an user I should see nothing in the sidebar menu', () => {
+//     it('checks if an user can see anything in the sidebar menu', () => {
+//         cy.login('eddie', 'eddie%1');
+//         cy.url().should('contain', '/bolt/');
+//         cy.get('ul[class="admin__sidebar--menu"]').find('li').its('length').should('eq', 3);
+//     })
+// });
 
 describe("As an user I should not be able to edit others' articles", () => {
     it("checks if an user can edit others' articles", () => {
