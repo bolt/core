@@ -12,12 +12,12 @@ Usage
 ---
   To run all tests use:
   ```
-  npm run cypress:run
+  npm run cypress:dev
   ```
   
   To run a specific test use:
   ```
-  npm run cypress:run -- --spec "./tests/cypress/integration/your_test.spec.js"
+  npm run cypress:dev -- --spec "./tests/cypress/integration/your_test.spec.js"
   ```
   
   You can add additional options to the run command by typing `--` and the option you want after it. A list of all options is available [here](https://docs.cypress.io/guides/guides/command-line#Commands).
