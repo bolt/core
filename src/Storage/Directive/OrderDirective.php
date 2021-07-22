@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Storage\Directive;
 
+use Bolt\Entity\Field\NumberField;
 use Bolt\Storage\FieldQueryUtils;
 use Bolt\Storage\QueryInterface;
 use Bolt\Twig\Notifications;
@@ -113,7 +114,7 @@ class OrderDirective
                     ->setParameter($fieldAlias . '_locale', $locale);
             }
 
-            if ($this->utils->isNumericField($query, $order)) {
+            if ($this->utils->isFieldType($query, $order, NumberField::TYPE)) {
                 $this->orderByNumericField($query, $translationsAlias, $direction);
             } else {
                 // Note the `lower()` in the `addOrderBy()`. It is essential to sorting the

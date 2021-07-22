@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Bolt\Storage;
 
 use Bolt\Doctrine\Version;
-use Bolt\Entity\Field\NumberField;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query\Expr;
 
@@ -19,16 +18,16 @@ class FieldQueryUtils
         $this->em = $em;
     }
 
-    public function isNumericField(QueryInterface $query, $fieldname): bool
+    public function isFieldType(QueryInterface $query, string $fieldname, string $type): bool
     {
         if (in_array($fieldname, ['anyField', 'anything'], true)) {
             return false;
         }
 
         $contentType = $query->getConfig()->get('contenttypes/' . $query->getContentType());
-        $type = $contentType->get('fields')->get($fieldname)->get('type', false);
+        $definitionType = $contentType->get('fields')->get($fieldname)->get('type', false);
 
-        return $type === NumberField::TYPE;
+        return $definitionType === $type;
     }
 
     public function hasCast(): bool
