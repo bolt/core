@@ -1,6 +1,6 @@
 {
     "name": "bolt",
-    "version": "4.99.10",
+    "version": "4.99.11",
     "homepage": "https://boltcms.io",
     "author": "Bob den Otter <bob@twokings.nl> (https://boltcms.io)",
     "license": "MIT",
@@ -117,7 +117,8 @@
         "a11y:test": "pa11y-ci",
         "test": "jest",
         "genversion": "genversion --es6 --semi assets/js/version.js",
-        "cypress:run": "cypress run --config 'video=false'"
+        "cypress:ci": "cypress run --config-file=tests/cypress/cypress-ci.json --record --parallel --quiet",
+        "cypress:dev": "cypress run --config-file=tests/cypress/cypress-dev.json"
     },
     "browserslist": [
         "> 1%"

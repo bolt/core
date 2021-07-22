@@ -636,7 +636,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
 
     private function getPostedLocale(array $post): ?string
     {
-        return $post['_edit_locale'] ?: null;
+        return $post['_edit_locale'] ?? null;
     }
 
     private function renderEditor(Content $content, $errors = null): Response
