@@ -62,7 +62,6 @@ describe('As an Admin, I want to duplicate a page', () => {
     it('checks if an admin can duplicate a page', () => {
         cy.login();
         cy.visit('/bolt/content/pages');
-        cy.get('a[href="/bolt/edit/2"]').should('contain', 'This is a page');
 
         cy.get('.listing--container:nth-child(1) .btn:nth-child(2)').click();
         cy.get('.show > .dropdown-item:nth-child(4)').click();
