@@ -76,18 +76,16 @@ describe('As an Admin I want to fill in a Collection', () => {
         cy.get('.collection-item:nth-child(5) .collection-item-title').should('contain', 'Textarea');
 
         cy.get('.collection-item:nth-child(4) .action-remove-collection-item').scrollIntoView();
-        cy.get('.collection-item:nth-child(4) .action-remove-collection-item').click();
-        cy.get('.modal-dialog').should('have.length', 1);
+        cy.get('.collection-item:nth-child(4) .action-remove-collection-item').click({force: true});
         cy.get('.modal-dialog').should('contain', 'Are you sure you wish to delete this collection item?');
         cy.get('button[class="btn btn-primary bootbox-accept"]').click({force: true});
 
         cy.wait(1000);
 
         cy.get('.collection-item:nth-child(4) .action-remove-collection-item').scrollIntoView();
-        cy.get('.collection-item:nth-child(4) .action-remove-collection-item').click();
-        cy.get('.modal-dialog').should('have.length', 1);
+        cy.get('.collection-item:nth-child(4) .action-remove-collection-item').click({force: true});
         cy.get('.modal-dialog').should('contain', 'Are you sure you wish to delete this collection item?');
-        cy.get('button[class="btn btn-primary bootbox-accept"]').click({force: true});
+        cy.get('button[class="btn btn-primary bootbox-accept"]').click({force: true, multiple: true});
 
         cy.wait(1000);
 
