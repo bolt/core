@@ -11,6 +11,7 @@ use Bolt\Entity\User;
 use Bolt\Event\Listener\ContentFillListener;
 use Bolt\Security\ContentVoter;
 use Bolt\Storage\Query;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Security;
 
 class ContentFactory
@@ -27,16 +28,21 @@ class ContentFactory
     /** @var Config */
     private $config;
 
+    /** @var EntityManagerInterface */
+    private $em;
+
     public function __construct(
         ContentFillListener $contentFillListener,
         Security $security,
         Query $query,
-        Config $config)
+        Config $config,
+        EntityManagerInterface $em)
     {
         $this->contentFillListener = $contentFillListener;
         $this->security = $security;
         $this->query = $query;
         $this->config = $config;
+        $this->em = $em;
     }
 
     public static function createStatic(ContentType $contentType): Content
@@ -80,5 +86,21 @@ class ContentFactory
         }
 
         return $content;
+    }
+
+    /**
+     * @param Content|Content[] $content
+     */
+    public function save($content): void
+    {
+        if ($content instanceof Content) {
+            $this->em->persist($content);
+        } elseif (is_iterable($content)) {
+            foreach ($content as $c) {
+                $this->em->persist($c);
+            }
+        }
+
+        $this->em->flush();
     }
 }
