@@ -29,7 +29,7 @@ describe('Disable/enable users', () => {
         cy.visit('bolt/logout');
         cy.login();
         cy.visit('bolt/users');
-        cy.get('table').eq(0).scrollIntoView();
+        cy.get('table').eq(0).find('tbody').find('tr').eq(2).find('td').eq(5).scrollIntoView();
         cy.get('table').eq(0).find('tbody').find('tr').eq(2).find('td').eq(5).click();
         cy.wait(100);
 
