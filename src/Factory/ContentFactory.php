@@ -53,9 +53,12 @@ class ContentFactory
         return $content;
     }
 
-    public function create(ContentType $contentType): Content
+    public function create(string $contentType): Content
     {
-        $content = self::create($contentType);
+        /** @var ContentType $contentType */
+        $contentType = $this->config->getContentType($contentType);
+
+        $content = self::createStatic($contentType);
 
         $this->contentFillListener->fillContent($content);
 
@@ -82,7 +85,7 @@ class ContentFactory
         if (! $content instanceof Content) {
             /** @var ContentType $contentType */
             $contentType = $this->config->getContentType($query);
-            $content = $this->create($contentType);
+            $content = $this->create($contentType->getSlug());
         }
 
         return $content;
