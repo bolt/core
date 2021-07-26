@@ -21,7 +21,7 @@ describe('As an Admin, I want to see default values on new content', () => {
         cy.login();
         cy.visit('/bolt');
 
-        cy.get('a[href="/bolt/content/tests"]').trigger('mouseover');
+        cy.findAllByText('Tests').trigger('mouseover');
         cy.get('a[href="/bolt/new/tests"]').click({force: true});
         cy.url().should('contain', '/bolt/new/tests');
 
@@ -35,7 +35,7 @@ describe('As an Admin, I want to see default values on new content', () => {
         cy.get('input[name="collections[collection_field][photo][1][alt]"]').should('have.value', 'Cute kitten');
 
         cy.get('input[name="collections[collection_field][paragraph][2]"]').should('have.value', 'An image, followed by some content');
-        
+
         cy.get('input[name="collections[collection_field][photo][3][filename]"]').should('have.value', 'joey.jpg');
         cy.get('input[name="collections[collection_field][photo][3][alt]"]').should('have.value', 'Photo of a foal');
 
@@ -52,7 +52,7 @@ describe('As an Admin, I want to see default values on new content', () => {
         cy.get('input[name="collections[collection_field][photo][1][alt]"]').should('have.value', 'Cute kitten');
 
         cy.get('input[name="collections[collection_field][paragraph][2]"]').should('have.value', 'An image, followed by some content');
-        
+
         cy.get('input[name="collections[collection_field][photo][3][filename]"]').should('have.value', 'joey.jpg');
         cy.get('input[name="collections[collection_field][photo][3][alt]"]').should('have.value', 'Photo of a foal');
     })
