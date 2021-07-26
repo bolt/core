@@ -11,6 +11,7 @@ describe('Disable/enable users', () => {
         cy.login();
         cy.visit('bolt/users');
 
+        cy.get('table').eq(0).find('tbody').find('tr').eq(2).find('td').eq(5).scrollIntoView();
         cy.get('table').eq(0).find('tbody').find('tr').eq(2).find('td').eq(5).click();
         cy.wait(100);
         cy.get('table').eq(0).find('tbody').find('tr').eq(2).find('td').eq(5).find('a').eq(1).click();
