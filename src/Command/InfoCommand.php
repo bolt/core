@@ -120,7 +120,7 @@ HELP
             $warnings += $this->checkComposerScript('pre-package-uninstall', 'Bolt\\ComposerScripts\\ProjectEventHandler::prePackageUninstall');
 
             if ($warnings) {
-                $update = 'Check the update instructions at <href=https://github.com/bolt/core/discussions/2318>https://github.com/bolt/core/discussions/2318</>';
+                $update = 'Check the update instructions at <href=https://github.com/bolt/core/discussions/2731>https://github.com/bolt/core/discussions/2731</>';
                 $this->io->writeln($update);
             }
         }
