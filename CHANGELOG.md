@@ -1,6 +1,14 @@
 Changelog
 =========
 
+## 4.2.0
+
+Released: 2021-07-27
+
+- Preparations for upgrading to Bolt 5
+- Add Composer scripts for tasks, when running Composer
+
+
 ## 4.1.23
 
 Released: 2021-07-18
