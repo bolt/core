@@ -17,7 +17,7 @@ describe('See localization link for contenttype with locales', () => {
     it('checks that there\'s a localization link for contentype with locales', () => {
         cy.login();
 
-        cy.get('a[href="/bolt/content/pages"]').click();
+        cy.findAllByText('Pages').click();
         cy.get('a[href="/bolt/edit/2"]').eq(1).click();
 
         cy.get('h1').find('span').should('contain', 'Edit Page');
@@ -48,7 +48,7 @@ describe('See localization link for contenttype with locales', () => {
 
         cy.get('.table').children('tbody').children('tr').eq(9).children('td').children('a').its('length').should('eq', 4);
 
-        cy.get('.table').children('tbody').children('tr').eq(9).children('td').eq(2).click();
+        cy.findAllByText('Edit').eq(1).click();
         cy.url().should('contain', '/bolt/edit/2?edit_locale=nl');
     })
 });
