@@ -26,7 +26,9 @@ class FilelistField extends Field implements FieldInterface, ListFieldInterface,
      */
     public function getRawValue(): array
     {
-        return (array) parent::getValue() ?: [];
+        $value = parent::getValue();
+
+        return empty(current($value)) ? [] : (array) $value;
     }
 
     /**

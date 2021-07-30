@@ -22,6 +22,9 @@
                 @moveFileDown="onMoveFileDown"
             ></editor-file>
         </div>
+        <div v-if="containerFiles.length === 0">
+            <input :name="name" value="" type="hidden" />
+        </div>
 
         <button class="btn btn-tertiary" type="button" :disabled="!allowMore" @click="addFile">
             <i class="fas fa-fw fa-plus"></i>
@@ -104,9 +107,6 @@ export default {
         onRemoveFile(elem) {
             let fieldNumber = this.getFieldNumberFromElement(elem);
             this.containerFiles.splice(fieldNumber, 1);
-            if (this.containerFiles.length === 0) {
-                this.addFile();
-            }
         },
         fieldName(index) {
             return this.name + '[' + index + ']';
