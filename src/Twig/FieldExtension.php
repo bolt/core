@@ -35,7 +35,7 @@ class FieldExtension extends AbstractExtension
 
     /** @var ContentHelper */
     private $contentHelper;
-    
+
     /** @var Query */
     private $query;
 
