@@ -7,7 +7,8 @@
             :limit="1000"
             :multiple="multiple"
             :options="options"
-            :searchable="taggable"
+            :optionsLimit="optionslimit"
+            :searchable="autocomplete || taggable"
             :show-labels="false"
             :taggable="taggable"
             :disabled="readonly"
@@ -70,11 +71,13 @@ export default {
         id: String,
         form: String,
         options: Array,
+        optionslimit: Number,
         multiple: Boolean,
         allowempty: Boolean,
         taggable: Boolean,
         readonly: Boolean,
         classname: String,
+        autocomplete: Boolean,
         errormessage: String | Boolean, //string if errormessage is set, and false otherwise
     },
     data: () => {
