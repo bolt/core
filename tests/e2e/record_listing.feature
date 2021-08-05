@@ -82,8 +82,8 @@ Feature: Record listing
 
     When I hover over the "Tests" element
     Then I should see 6 "li" in the 4th ".admin__sidebar--menu ul"
-    And I should see "New" in the "#sidebar ul li:nth-child(8) ul > li:nth-child(1) > a" element
-    And I should see "Title of the test" in the "#sidebar ul li:nth-child(8) ul > li:nth-child(2) > a" element
+    And I should see "New" in the "#bolt--sidebar ul li:nth-child(8) ul > li:nth-child(1) > a" element
+    And I should see "Title of the test" in the "#bolt--sidebar ul li:nth-child(8) ul > li:nth-child(2) > a" element
 
   @javascript
   Scenario: As an admin I want to see the settings menu items
@@ -92,10 +92,10 @@ Feature: Record listing
     Then I should see "Configuration" in the ".admin__sidebar--menu" element
 
     When I hover over the "Configuration" element
-    Then I should see "Users & Permissions" in the "#sidebar ul > li:nth-child(10) li:nth-child(1)" element
-    Then I should see "Main Configuration" in the "#sidebar ul > li:nth-child(10) li:nth-child(2)" element
-    Then I should see "Content Types" in the "#sidebar ul > li:nth-child(10) li:nth-child(3)" element
-    Then I should see "Taxonomies" in the "#sidebar ul > li:nth-child(10) li:nth-child(4)" element
-    Then I should see "Menu set up" in the "#sidebar ul > li:nth-child(10) li:nth-child(5)" element
-    Then I should see "Routing Configuration" in the "#sidebar ul > li:nth-child(10) li:nth-child(6)" element
-    Then I should see "All Configuration Files" in the "#sidebar ul > li:nth-child(10) li:nth-child(7)" element
+    Then I should see "Users & Permissions" in the "#bolt--sidebar ul > li:nth-child(10) li:nth-child(1)" element
+    Then I should see "Main Configuration" in the "#bolt--sidebar ul > li:nth-child(10) li:nth-child(2)" element
+    Then I should see "Content Types" in the "#bolt--sidebar ul > li:nth-child(10) li:nth-child(3)" element
+    Then I should see "Taxonomies" in the "#bolt--sidebar ul > li:nth-child(10) li:nth-child(4)" element
+    Then I should see "Menu set up" in the "#bolt--sidebar ul > li:nth-child(10) li:nth-child(5)" element
+    Then I should see "Routing Configuration" in the "#bolt--sidebar ul > li:nth-child(10) li:nth-child(6)" element
+    Then I should see "All Configuration Files" in the "#bolt--sidebar ul > li:nth-child(10) li:nth-child(7)" element

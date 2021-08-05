@@ -2,7 +2,7 @@ import Vue from 'vue';
 import store from './store';
 import Sidebar from './Components/Sidebar.vue';
 
-const id = 'sidebar';
+const id = 'bolt--sidebar';
 
 if (document.getElementById(id)) {
     new Vue({
