@@ -101,8 +101,8 @@
         "vue-router": "^3.5.1",
         "vue-template-compiler": "^2.6.14",
         "webpack-notifier": "^1.6.0",
-        "webpackbar": "^4.0.0",
-        "workbox-webpack-plugin": "^4.3.1"
+        "webpackbar": "https://registry.npmjs.org/webpackbar/-/webpackbar-5.0.0-3.tgz",
+        "workbox-webpack-plugin": "^6.2.0"
     },
     "scripts": {
         "start": "encore dev-server --port=8234 --progress --disable-host-check --verbose",
