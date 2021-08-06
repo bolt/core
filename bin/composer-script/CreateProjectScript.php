@@ -18,6 +18,7 @@ class CreateProjectScript extends Script
 
         chdir(parent::getProjectFolder($event));
 
+        self::run('php bin/console bolt:reset-secret');
         self::run('php bin/console bolt:copy-themes --ansi');
         self::run('php bin/console bolt:welcome --ansi');
     }
