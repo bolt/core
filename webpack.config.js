@@ -1,3 +1,4 @@
+const WebpackBar = require('webpackbar');
 const Encore = require('@symfony/webpack-encore');
 
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
@@ -7,12 +8,12 @@ if (!Encore.isRuntimeEnvironmentConfigured()) {
 }
 
 Encore
-  // .addPlugin(
-  //   new WebpackBar({
-  //       profile: Encore.isProduction(),
-  //       minimal: false,
-  //   }),
-  // )
+  .addPlugin(
+    new WebpackBar({
+        profile: Encore.isProduction(),
+        minimal: false,
+    }),
+  )
 
   .setOutputPath('public/assets/')
   .setPublicPath('/assets')
