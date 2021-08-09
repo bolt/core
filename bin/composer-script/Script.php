@@ -4,6 +4,7 @@ namespace Bolt\ComposerScripts;
 
 use Composer\Script\Event;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Process\Process;
 use Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
 
 class Script
@@ -31,7 +32,7 @@ class Script
      */
     protected static function run(string $command): void
     {
-        // Execute the command and show the output.
-        passthru($command);
+        $process = new Process([$command]);
+        $process->run();
     }
 }
