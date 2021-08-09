@@ -12,5 +12,4 @@ use Behat\MinkExtension\Context\MinkContext;
 class CommonContext extends MinkContext
 {
     use ApiContext;
-    use WebContext;
 }
