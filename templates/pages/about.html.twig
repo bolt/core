@@ -26,6 +26,9 @@
         <li>Symfony version: <code>{{ symfony }}</code></li>
         <li>Operating System: <code>{{ os_name }} - <small>{{ os_version }}</small></code></li>
         <li>Assets version: <code id="assetsVersion">-</code></li>
+        <li>Upload filesize limit: <code>{{ config.maxUpload|format_bytes }}</code>
+            <i data-toggle="popover" data-trigger="hover" title="" data-html="true" data-content="{{ config.maxUploadDescription|raw }}" class="fa fa-info-circle"></i>
+        </li>
     </ul>
     <hr>
 
@@ -44,7 +47,7 @@
         <li><small>→ You and/or your company's name on this list? <a href="https://github.com/users/bobdenotter/sponsorship">Become a sponsor</a>.</small></li>
     </ul>
 
-{# Previous collaborators / sponsors: 
+{# Previous collaborators / sponsors:
         <li><a href="https://tsh.io/" target="_blank">The Software House</a> &ndash; Web and Mobile Development.</li>
         <li><a href="https://www.webfwd.co.uk/" target="_blank">Webforward, Richard Leishman</a> </li>
 #}
@@ -98,5 +101,5 @@
             document.querySelector('#assetsVersion').innerText =  window.assetsVersion;
         });
     </script>
-    
+
 {% endblock main %}
