@@ -273,6 +273,18 @@ class Config
         );
     }
 
+    public function getMaxUploadDescription(): string
+    {
+        return sprintf('This value is the minimum of these constraints:<br> <strong>Bolt\'s <code>config.yaml</code></strong>:<br>
+<code>accept_upload_size</code>: <code>%s</code><br><br>
+<strong>PHP\'s <code>php.ini</code></strong>:<br>
+<code>post_max_size</code>: <code>%s</code><br> <code>upload_max_filesize</code>: <code>%s</code>',
+            $this->get('general/accept_upload_size', '8M'),
+            ini_get('post_max_size'),
+            ini_get('upload_max_filesize')
+        );
+    }
+
     /**
      * This function transforms the php.ini notation for numbers (like '2M') to an integer (2*1024*1024 in this case)
      */
