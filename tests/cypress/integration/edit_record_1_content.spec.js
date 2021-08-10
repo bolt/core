@@ -4,7 +4,7 @@ describe('As an Admin I want to see separated content (separator)', () => {
     it('checks if an admin can see separated content (separator)', () => {
         cy.login();
         cy.visit('/bolt/edit/43');
-        cy.get('#field-html-html').find('hr').its('length').should('eq', 1);
+        cy.get('#field-html').find('hr').its('length').should('eq', 1);
     })
 });
 

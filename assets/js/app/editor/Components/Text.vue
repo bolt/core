@@ -1,9 +1,9 @@
 <template>
     <div>
         <input
-            :title="name"
             :id="id"
             v-model="rawVal"
+            :title="name"
             class="form-control"
             :class="getType"
             :name="name"

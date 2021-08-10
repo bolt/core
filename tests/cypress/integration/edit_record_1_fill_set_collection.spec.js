@@ -41,14 +41,14 @@ describe('As an Admin I want to fill in a Collection', () => {
 
         cy.get('button[id="collection-dropdownMenuButton"]').scrollIntoView();
         cy.get('button[id="collection-dropdownMenuButton"]').click();
-        cy.get("#field-collection-collection > div > div > div> div.dropdown.show > div > a:nth-child(2)").click();
+        cy.get("#field-collection > div > div > div> div.dropdown.show > div > a:nth-child(2)").click();
 
         cy.get('.action-move-up-collection-item').eq(0).should('be.disabled');
         cy.get('.action-move-down-collection-item').eq(2).should('be.disabled');
 
         cy.get('button[id="collection-dropdownMenuButton"]').scrollIntoView();
         cy.get('button[id="collection-dropdownMenuButton"]').click();
-        cy.get("#field-collection-collection > div > div > div> div.dropdown.show > div > a:nth-child(1)").click();
+        cy.get("#field-collection > div > div > div> div.dropdown.show > div > a:nth-child(1)").click();
 
         cy.get('.collection-item').its('length').should('eq', 4);
         cy.get('#collections textarea').eq(1).clear();
