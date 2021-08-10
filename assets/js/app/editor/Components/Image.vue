@@ -22,6 +22,7 @@
                 <div class="input-group mb-3">
                     <input :name="name + '[media]'" type="hidden" :value="media" />
                     <input
+                        :title="name + ' filename'"
                         class="form-control"
                         :name="name + '[filename]'"
                         type="text"
@@ -34,6 +35,7 @@
                 </div>
                 <div v-if="includeAlt" class="input-group mb-3">
                     <input
+                        :title="name + ' alt'"
                         v-model="altData"
                         class="form-control"
                         :name="name + '[alt]'"
@@ -147,6 +149,7 @@
             </div>
         </div>
         <input
+            :title="name + ' filename'"
             :id="fieldId"
             ref="selectFile"
             class="editor__image--upload"
