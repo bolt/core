@@ -37,6 +37,29 @@ class Script
     public static function run(string $command): int
     {
         $process = new Process([$command]);
-        $process->run();
+
+        return $process->run();
+    }
+
+    /**
+     * Create SymfonyStyle object. Taken from Symplify (which we might not
+     * have at our disposal inside a 'project' installation)
+     */
+    public static function createSymfonyStyle(): SymfonyStyle
+    {
+        // to prevent missing argv indexes
+        if (! isset($_SERVER['argv'])) {
+            $_SERVER['argv'] = [];
+        }
+
+        $argvInput = new ArgvInput();
+        $consoleOutput = new ConsoleOutput();
+
+        // --debug is called
+        if ($argvInput->hasParameterOption('--debug')) {
+            $consoleOutput->setVerbosity(OutputInterface::VERBOSITY_DEBUG);
+        }
+
+        return new SymfonyStyle($argvInput, $consoleOutput);
     }
 }
