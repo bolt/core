@@ -93,8 +93,8 @@ describe('As an admin I want to see the the last edited records in the sidebar',
 
         cy.get('a[href="/bolt/content/tests"]').trigger('mouseover');
         cy.get('ul[class="admin__sidebar--menu"]').find('li').eq(3).find('a').find('ul[class="link--menu"]').find('li').its('length').should('eq', 6);
-        cy.get('#sidebar ul li:nth-child(8) ul > li:nth-child(1) > a').find('span').should('contain', 'New');
-        cy.get('#sidebar ul li:nth-child(8) ul > li:nth-child(2) > a').find('span').should('contain', 'Title of the test');
+        cy.get('#bolt--sidebar ul li:nth-child(8) ul > li:nth-child(1) > a').find('span').should('contain', 'New');
+        cy.get('#bolt--sidebar ul li:nth-child(8) ul > li:nth-child(2) > a').find('span').should('contain', 'Title of the test');
     })
 });
 
@@ -104,14 +104,14 @@ describe('As an admin I want to see the settings menu items', () => {
 
         cy.get('.admin__sidebar--menu').should('contain', 'Configuration');
 
-        cy.get('#sidebar ul > li:nth-child(11) > a').trigger('mouseover');
-        cy.get('#sidebar ul > li:nth-child(11) li:nth-child(1)').find('span').should('contain', 'View Configuration');
-        cy.get('#sidebar ul li:nth-child(11) ul > li:nth-child(2) > a').find('span').should('contain', 'Users & Permissions');
-        cy.get('#sidebar ul li:nth-child(11) ul > li:nth-child(3) > a').find('span').should('contain', 'Main Configuration');
-        cy.get('#sidebar ul li:nth-child(11) ul > li:nth-child(4) > a').find('span').should('contain', 'Content Types');
-        cy.get('#sidebar ul li:nth-child(11) ul > li:nth-child(5) > a').find('span').should('contain', 'Taxonomies');
-        cy.get('#sidebar ul li:nth-child(11) ul > li:nth-child(6) > a').find('span').should('contain', 'Menu set up');
-        cy.get('#sidebar ul li:nth-child(11) ul > li:nth-child(7) > a').find('span').should('contain', 'Routing configuration');
-        cy.get('#sidebar ul li:nth-child(11) ul > li:nth-child(8) > a').find('span').should('contain', 'All configuration files');
+        cy.get('#bolt--sidebar ul > li:nth-child(11) > a').trigger('mouseover');
+        cy.get('#bolt--sidebar ul > li:nth-child(11) li:nth-child(1)').find('span').should('contain', 'View Configuration');
+        cy.get('#bolt--sidebar ul li:nth-child(11) ul > li:nth-child(2) > a').find('span').should('contain', 'Users & Permissions');
+        cy.get('#bolt--sidebar ul li:nth-child(11) ul > li:nth-child(3) > a').find('span').should('contain', 'Main Configuration');
+        cy.get('#bolt--sidebar ul li:nth-child(11) ul > li:nth-child(4) > a').find('span').should('contain', 'Content Types');
+        cy.get('#bolt--sidebar ul li:nth-child(11) ul > li:nth-child(5) > a').find('span').should('contain', 'Taxonomies');
+        cy.get('#bolt--sidebar ul li:nth-child(11) ul > li:nth-child(6) > a').find('span').should('contain', 'Menu set up');
+        cy.get('#bolt--sidebar ul li:nth-child(11) ul > li:nth-child(7) > a').find('span').should('contain', 'Routing configuration');
+        cy.get('#bolt--sidebar ul li:nth-child(11) ul > li:nth-child(8) > a').find('span').should('contain', 'All configuration files');
     })
 });

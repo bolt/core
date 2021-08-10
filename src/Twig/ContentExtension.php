@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Bolt\Twig;
 
 use Bolt\Canonical;
-use Bolt\Common\Str;
 use Bolt\Configuration\Config;
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Entity\Content;
@@ -13,8 +12,6 @@ use Bolt\Entity\Field;
 use Bolt\Entity\Field\Excerptable;
 use Bolt\Entity\Field\ImageField;
 use Bolt\Entity\Field\ImagelistField;
-use Bolt\Entity\Field\SelectField;
-use Bolt\Entity\Field\TemplateselectField;
 use Bolt\Entity\Taxonomy;
 use Bolt\Enum\Statuses;
 use Bolt\Log\LoggerTrait;
@@ -27,8 +24,6 @@ use Bolt\Utils\Excerpt;
 use Bolt\Utils\Html;
 use Bolt\Utils\Sanitiser;
 use Pagerfanta\Pagerfanta;
-use Symfony\Component\Finder\Finder;
-use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Exception\InvalidParameterException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -158,9 +153,7 @@ class ContentExtension extends AbstractExtension
             new TwigFunction('excerpt', [$this, 'getExcerpt'], $safe),
             new TwigFunction('previous_record', [$this, 'getPreviousContent']),
             new TwigFunction('next_record', [$this, 'getNextContent']),
-            new TwigFunction('list_templates', [$this, 'getListTemplates']),
             new TwigFunction('pager', [$this, 'pager'], $env + $safe),
-            new TwigFunction('select_options', [$this, 'selectOptions']),
             new TwigFunction('taxonomy_options', [$this, 'taxonomyOptions']),
             new TwigFunction('taxonomy_values', [$this, 'taxonomyValues']),
             new TwigFunction('icon', [$this, 'icon'], $safe),
@@ -482,61 +475,6 @@ class ContentExtension extends AbstractExtension
         return new Collection($taxonomies);
     }
 
-    public function getListTemplates(TemplateselectField $field): Collection
-    {
-        $definition = $field->getDefinition();
-        $current = current($field->getValue());
-
-        $finder = new Finder();
-        $templatesDir = $this->config->get('theme/template_directory');
-        $templatesPath = $this->config->getPath('theme', true, $templatesDir);
-
-        $filter = $definition->get('filter', '/^[^_].*\.twig$/');
-
-        if (! Str::isValidRegex($filter)) {
-            $filter = Str::isValidRegex('/' . $filter . '/') ? '/' . $filter . '/' : '/^[^_].*\.twig$/';
-        }
-
-        $finder
-            ->files()
-            ->in($templatesPath)
-            ->path($definition->get('path'))
-            ->sortByName()
-            ->filter(function (SplFileInfo $file) use ($filter) {
-                return preg_match($filter, $file->getRelativePathname()) === 1;
-            });
-
-        $options = [];
-
-        if ($definition->get('required') === false) {
-            $options = [[
-                'key' => '',
-                'value' => '(choose a template)',
-                'selected' => false,
-            ]];
-        }
-
-        foreach ($finder as $file) {
-            $options[] = [
-                'key' => $file->getRelativePathname(),
-                'value' => $file->getRelativePathname(),
-            ];
-
-            if ($current === $file->getRelativePathname()) {
-                $current = false;
-            }
-        }
-
-        if ($current !== false) {
-            $options[] = [
-                'key' => $current,
-                'value' => $current . ' (file seems to be missing)',
-            ];
-        }
-
-        return new Collection($options);
-    }
-
     public function pager(Environment $twig, ?Pagerfanta $records = null, string $template = '@bolt/helpers/_pager_basic.html.twig', string $class = 'pagination', int $surround = 3)
     {
         $params = array_merge(
@@ -557,100 +495,6 @@ class ContentExtension extends AbstractExtension
         ];
 
         return $twig->render($template, $context);
-    }
-
-    public function selectOptions(Field $field): Collection
-    {
-        if (! $field instanceof SelectField) {
-            return collect([]);
-        }
-
-        $values = $field->getOptions();
-
-        if (is_iterable($values)) {
-            return $this->selectOptionsArray($field);
-        }
-
-        return $this->selectOptionsContentType($field);
-    }
-
-    private function selectOptionsArray(Field $field): Collection
-    {
-        if (! $field instanceof SelectField) {
-            return collect([]);
-        }
-
-        $values = $field->getOptions();
-        $currentValues = $field->getValue();
-
-        $options = [];
-
-        // We need to add this as a 'dummy' option for when the user is allowed
-        // not to pick an option. This is needed, because otherwise the `select`
-        // would default to the one.
-        if (! $field->getDefinition()->get('required', true)) {
-            $options[] = [
-                'key' => '',
-                'value' => '',
-                'selected' => false,
-            ];
-        }
-
-        if (! is_iterable($values)) {
-            return new Collection($options);
-        }
-
-        foreach ($values as $key => $value) {
-            $options[] = [
-                'key' => $key,
-                'value' => $value,
-                'selected' => in_array($key, $currentValues, true),
-            ];
-        }
-
-        return new Collection($options);
-    }
-
-    private function selectOptionsContentType(Field $field): Collection
-    {
-        [ $contentTypeSlug, $format ] = explode('/', $field->getDefinition()->get('values'));
-
-        $options = [];
-
-        if (! $field->getDefinition()->get('required')) {
-            $options[] = [
-                'key' => '',
-                'value' => '',
-            ];
-        }
-
-        if (! empty($field->getDefinition()->get('limit'))) {
-            $maxAmount = $field->getDefinition()->get('limit');
-        } else {
-            $maxAmount = $this->config->get('general/maximum_listing_select', 200);
-        }
-
-        $order = $field->getDefinition()->get('order', '');
-
-        $params = [
-            'limit' => $maxAmount,
-            'order' => $order,
-        ];
-
-        /** @var Content[] $records */
-        $records = iterator_to_array($this->query->getContent($contentTypeSlug, $params)->getCurrentPageResults());
-
-        foreach ($records as $record) {
-            if ($field->getDefinition()->get('mode') === 'format') {
-                $formattedKey = $this->contentHelper->get($record, $field->getDefinition()->get('format'));
-            }
-            $options[] = [
-                'key' => $formattedKey ?? $record->getId(),
-                'value' => $this->contentHelper->get($record, $format),
-            ];
-        }
-
-        return new Collection($options);
     }
 
     public function taxonomyOptions(Collection $taxonomy): Collection
