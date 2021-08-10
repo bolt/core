@@ -4,6 +4,24 @@
     <meta charset="utf-8">
     <title>{{ exception.statusCode }} :: {{ exception.message }}</title>
     <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">
+    <style>
+        .warning {
+            color: #721314;
+            background-color: #f8d3d4;
+            border-color: #f5c2c3;
+            position: relative;
+            padding: .75rem 1.25rem;
+            margin-bottom: 1rem;
+            border-radius: .15rem;
+            max-width: 50rem;
+            line-height: 1.5rem;
+        }
+
+        pre {
+            border-left: 3px solid #666;
+            padding: 0.5rem 1rem;
+        }
+    </style>
 </head>
 
 <body id="home">
@@ -11,6 +29,27 @@
     <div style="padding: 2rem 4rem;">
 
         <h1>{{ exception.statusCode }} :: {{ exception.message }} </h1>
+
+        {# Sepecial case: If the user is setting up a new site, we show this extra helpful notice
+           to let them know that they're seeing this page because there's no content yet. #}
+        {% if app.request.requestUri == '/' %}
+        <div class="warning">
+            <p>
+            <strong>Note:</strong> There seems to be no content in the database, which is why you're seeing this page instead of something that resembles a Homepage.
+                To remedy this, please log in to the <a href="{{ path('bolt_dashboard') }}">Bolt backend</a>, and
+                <a class="btn btn-primary" href="{{ path('bolt_content_new', {
+                    'contentType': config.get('contenttypes')|keys|first,
+                    'field-title': 'Homepage'}) }}">
+                   create the Homepage</a>.
+            </p>
+
+            <p>
+            On the other hand, if you want to get started quickly, you can still add the fixtures (dummy content) now. To do so, run the following on the command line:
+            </p>
+
+            <pre><code>php bin/console doctrine:fixtures:load --append</code></pre>
+        </div>
+        {% endif %}
 
         <p>In <code>{{ exception.file|split('/')|slice(-2)|join('/') }}</code></p>
 
