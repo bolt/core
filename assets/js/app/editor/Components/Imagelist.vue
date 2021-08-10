@@ -25,6 +25,9 @@
                 @moveImageDown="onMoveImageDown"
             ></editor-image>
         </div>
+        <div v-if="getActiveImageFields().length === 0">
+            <input :name="name" value="" type="hidden" />
+        </div>
 
         <button class="btn btn-tertiary" type="button" :disabled="!allowMore" @click="addImage">
             <i class="fas fa-fw fa-plus"></i>
@@ -114,10 +117,6 @@ export default {
             let updatedImage = this.containerImages[fieldNumber];
             updatedImage.hidden = true;
             this.$set(this.containerImages, fieldNumber, updatedImage);
-
-            if (this.getActiveImageFields().length === 0) {
-                this.addImage();
-            }
         },
         fieldName(index) {
             return this.name + '[' + index + ']';

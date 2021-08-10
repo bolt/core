@@ -115,10 +115,14 @@ class ImageController
 
     private function buildResponse(string $filename): Response
     {
+        $filepath = $this->getPath(null, false, $filename);
+
+        if (! (new Filesystem())->exists($filepath)) {
+            throw new NotFoundHttpException(sprintf("The file '%s' does not exist.", $filepath));
+        }
+
         // In case we're trying to "thumbnail" an svg, just return the whole thing.
         if ($this->isSvg($filename)) {
-            $filepath = sprintf('%s%s%s', $this->getPath(), DIRECTORY_SEPARATOR, $filename);
-
             $response = new Response(file_get_contents($filepath));
             $response->headers->set('Content-Type', 'image/svg+xml');
 

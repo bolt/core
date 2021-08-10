@@ -83,7 +83,7 @@
         'action.view': 'action.view'|trans,
     }|json_encode %}
     <div class="admin__sidebar">
-        <div class="sidebar sidebar--sticky" id="sidebar">
+        <div class="sidebar sidebar--sticky" id="bolt--sidebar">
             <admin-sidebar
               :menu="{{ admin_menu_json }}"
               :version="'{{ constant('Bolt\\Version::VERSION')|replace({'alpha': 'α', 'beta': 'β'}) }}'"
