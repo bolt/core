@@ -1,6 +1,7 @@
 <template>
     <div>
         <input
+            :title="name"
             :id="id"
             v-model="rawVal"
             class="form-control"

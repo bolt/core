@@ -1,6 +1,6 @@
 {
     "defaults": {
-        "threshold": 83,
+        "threshold": 39,
         "concurrency": 1
     },
     "urls": [
