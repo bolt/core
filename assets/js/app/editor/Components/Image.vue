@@ -35,6 +35,7 @@
                 </div>
                 <div v-if="includeAlt" class="input-group mb-3">
                     <input
+                        :title="name + ' alt'"
                         v-model="altData"
                         :title="name + ' alt'"
                         class="form-control"
@@ -149,6 +150,7 @@
             </div>
         </div>
         <input
+            :title="name + ' filename'"
             :id="fieldId"
             ref="selectFile"
             :title="name + ' filename'"

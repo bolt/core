@@ -23,6 +23,7 @@
                 </div>
                 <div class="input-group mb-3">
                     <input
+                        :title="name + ' title'"
                         v-model="titleData"
                         :title="name + ' title'"
                         class="form-control"
@@ -127,6 +128,7 @@
             </div>
         </div>
         <input
+            :title="name + ' filename'"
             ref="selectFile"
             :title="name + ' filename'"
             class="editor__file--upload"
