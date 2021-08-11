@@ -32,7 +32,7 @@ class Script
      */
     protected static function run(string $command): void
     {
-        $process = new Process([$command]);
+        $process = new Process($command);
         $process->run();
     }
 }
