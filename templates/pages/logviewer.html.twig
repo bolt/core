@@ -35,7 +35,7 @@
         </td>
         <td>
             <div class="dropdown">
-                <button class="btn btn-tertiary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button class="btn btn-tertiary btn-sm dropdown-toggle" type="button" id="dropdownMenuButtonRequest-{{ loop.index0 }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {{ macro.icon('cog') }} {{ __('label.request') }}
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: 400px; font-size: 80%;">
@@ -49,7 +49,7 @@
         </td>
         <td>
             <div class="dropdown">
-                <button class="btn btn-tertiary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button class="btn btn-tertiary btn-sm dropdown-toggle" type="button" id="dropdownMenuButtonTrace-{{ loop.index0 }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {{ macro.icon('road') }} {{ __('label.trace') }}
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: 500px; font-size: 80%;">
@@ -67,7 +67,7 @@
         <td>
             {% if item.context is iterable %}
             <div class="dropdown">
-                <button class="btn btn-tertiary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button class="btn btn-tertiary btn-sm dropdown-toggle" type="button" id="dropdownMenuButtonContext-{{ loop.index0 }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {{ macro.icon('project-diagram') }} {{ __('label.context') }}
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: 500px; font-size: 80%;">

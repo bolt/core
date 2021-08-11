@@ -10,6 +10,7 @@
                 <div class="input-group mb-3">
                     <input :name="name + '[media]'" type="hidden" :value="media" />
                     <input
+                        :title="name + ' filename'"
                         class="form-control"
                         :name="name + '[filename]'"
                         type="text"
@@ -23,6 +24,7 @@
                 <div class="input-group mb-3">
                     <input
                         v-model="titleData"
+                        :title="name + ' title'"
                         class="form-control"
                         :name="name + '[title]'"
                         type="text"
@@ -126,6 +128,7 @@
         </div>
         <input
             ref="selectFile"
+            :title="name + ' filename'"
             class="editor__file--upload"
             :name="fieldName"
             tabindex="-1"
