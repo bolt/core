@@ -7,6 +7,7 @@
             :limit="1000"
             :multiple="multiple"
             :options="options"
+            :optionsLimit="optionslimit"
             :searchable="autocomplete || taggable"
             :show-labels="false"
             :taggable="taggable"
@@ -70,6 +71,7 @@ export default {
         id: String,
         form: String,
         options: Array,
+        optionslimit: Number,
         multiple: Boolean,
         allowempty: Boolean,
         taggable: Boolean,

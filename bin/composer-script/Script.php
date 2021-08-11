@@ -36,7 +36,7 @@ class Script
      */
     public static function run(string $command): int
     {
-        $process = new Process([$command]);
+        $process = new Process($command);
 
         return $process->run();
     }

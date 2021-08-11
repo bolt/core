@@ -1,6 +1,23 @@
 Changelog
 =========
 
+## 4.2.1
+
+Released: 2021-08-11
+
+### 🐛 Bug fixes
+
+- Use Symfony Process component instead of `passthru` (I-Valchev, [#2755](https://github.com/bolt/core/pull/2755))
+- `imagelist` and `filelist` fields can be emptied (I-Valchev, [#2743](https://github.com/bolt/core/pull/2743))
+- Throw 404 response when thumbnailing a missing image (I-Valchev, [#2742](https://github.com/bolt/core/pull/2742))
+- Fix `group: sidebar` conflicting with Bolt's sidebar (I-Valchev, [#2737](https://github.com/bolt/core/pull/2737))
+
+### 🛠️ Miscellaneous
+
+- Update webpack encore (nestordedios, [#2752](https://github.com/bolt/core/pull/2752))
+- Unlimited select field options (JTNMW, [#2750](https://github.com/bolt/core/pull/2750))
+
+
 ## 4.2.0
 
 Released: 2021-07-27

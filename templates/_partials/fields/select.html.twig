@@ -16,7 +16,11 @@
 {% endif %}
 
 {% if autocomplete is not defined %}
-    {% set autocomplete = field.definition.get('autocomplete')|default ? 'true' : 'false' %}
+	{% set autocomplete = field.definition.get('autocomplete')|default ? 'true' : 'false' %}
+{% endif %}
+
+{% if limit is not defined %}
+	{% set limit = field.definition.get('limit')|default(2000) %}
 {% endif %}
 
 {% block field %}
@@ -26,6 +30,7 @@
         :name='{{ name|json_encode }}'
         :id='{{ id|json_encode }}'
         :options="{{ options|json_encode }}"
+        :optionslimit="{{ limit }}"
         :form='{{ form|json_encode }}'
         :multiple="{{ multiple }}"
         :autocomplete="{{ autocomplete }}"
