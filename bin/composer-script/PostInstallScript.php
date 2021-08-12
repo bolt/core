@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bolt\ComposerScripts;
 
 class PostInstallScript extends Script
 {
-    public static function execute()
+    public static function execute(): void
     {
         parent::init('Running composer "post-install-cmd" scripts');
 
