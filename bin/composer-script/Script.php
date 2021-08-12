@@ -44,9 +44,9 @@ class Script
         // We'll have to attempt one, and otherwise fall back to the other.
 
         try {
-            $process = new Process([$command]);
-        } catch (\TypeError $e) {
             $process = new Process($command);
+        } catch (\TypeError $e) {
+            $process = new Process([$command]);
         }
 
         return $process->run();
