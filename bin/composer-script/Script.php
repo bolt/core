@@ -34,7 +34,7 @@ class Script
     /**
      * Execute a command in the CLI, as a separate process.
      */
-    protected static function run(string $command): int
+    public static function run(string $command): int
     {
         // Depending on the context, we're using either Symfony/Process 2.8.52 (bundled with composer 2.1.x)
         // or Symfony/Process 5.3.x (if we're using our own). The signature of the Constructor changed
