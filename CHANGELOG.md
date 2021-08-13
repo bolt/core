@@ -1,6 +1,16 @@
 Changelog
 =========
 
+## 4.2.2
+
+Released: 2021-08-13
+
+### 🐛 Bug fixes
+
+- Search now also finds words with special characters, like `büßen` (bobdenotter, [#2767](https://github.com/bolt/core/pull/2767))
+- Workaround for constructor signature change in Symfony/Process (bobdenotter, [#2766](https://github.com/bolt/core/pull/2766))
+
+
 ## 4.2.1
 
 Released: 2021-08-11
