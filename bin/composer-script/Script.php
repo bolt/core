@@ -34,9 +34,19 @@ class Script
     /**
      * Execute a command in the CLI, as a separate process.
      */
-    public static function run(string $command): int
+    protected static function run(string $command): int
     {
-        $process = new Process($command);
+        // Depending on the context, we're using either Symfony/Process 2.8.52 (bundled with composer 2.1.x)
+        // or Symfony/Process 5.3.x (if we're using our own). The signature of the Constructor changed
+        // from: `public function __construct(string $commandline, …)`
+        // to:   `public function __construct(array $command, …)`
+        // We'll have to attempt one, and otherwise fall back to the other.
+
+        try {
+            $process = new Process($command);
+        } catch (\TypeError $e) {
+            $process = new Process([$command]);
+        }
 
         return $process->run();
     }
