@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bolt\Command;
 
-use Bolt\Common\Str;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -11,11 +12,10 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Process\PhpExecutableFinder;
 use Symfony\Component\Process\Process;
 
-
 class ServerCommand extends Command
 {
-    const SYMFONY_SERVER = 'Symfony Server';
-    const PHP_SERVER = 'Built-in PHP Server';
+    public const SYMFONY_SERVER = 'Symfony Server';
+    public const PHP_SERVER = 'Built-in PHP Server';
 
     /** @var string */
     protected $ip;
@@ -33,9 +33,6 @@ class ServerCommand extends Command
         parent::__construct();
     }
 
-    /**
-     * @return void
-     */
     protected function configure(): void
     {
         $this
@@ -48,9 +45,6 @@ class ServerCommand extends Command
             ->setHelp("Runs built-in web-server, Symfony first, then tries PHP's");
     }
 
-    /**
-     * @return int
-     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
@@ -70,10 +64,10 @@ class ServerCommand extends Command
         $php = $executableFinder->find(false);
 
         $this->ip = '127.0.0.1';
-        $this->port = (int)($input->getOption('port') ?? 8000);
+        $this->port = (int) ($input->getOption('port') ?? 8000);
 
         // Get an open port
-        while (!$this->portAvailable($this->ip, $this->port)) {
+        while (! $this->portAvailable($this->ip, $this->port)) {
             $this->port++;
         }
 
@@ -88,7 +82,7 @@ class ServerCommand extends Command
 
         $commands = [
             self::SYMFONY_SERVER => $symfony_cmd,
-            self::PHP_SERVER => $php_cmd
+            self::PHP_SERVER => $php_cmd,
         ];
 
         if ($force_symfony) {
@@ -107,7 +101,6 @@ class ServerCommand extends Command
             }
         }
 
-
         if ($error) {
             $io->error('Could not start either Symfony or PHP\'s built-in webserver');
         }
@@ -116,8 +109,6 @@ class ServerCommand extends Command
     }
 
     /**
-     * @param string $name
-     * @param array $cmd
      * @return Process
      */
     protected function runProcess(string $name, array $cmd, SymfonyStyle $io): ?Process
@@ -126,13 +117,13 @@ class ServerCommand extends Command
         $process->setTimeout(0);
         $process->start();
 
-        $process->wait(function ($type, $buffer) use ($io) {
-            if (!mb_strpos($buffer, 'symfony: not found')) {
+        $process->wait(function ($type, $buffer) use ($io): void {
+            if (! mb_strpos($buffer, 'symfony: not found')) {
                 $io->write($buffer);
             }
         });
 
-        if ($name === self::PHP_SERVER && !mb_strpos($process->getErrorOutput(), 'already been started.')) {
+        if ($name === self::PHP_SERVER && ! mb_strpos($process->getErrorOutput(), 'already been started.')) {
             $io->success('Built-in PHP web server listening on http://' . $this->ip . ':' . $this->port . ' (PHP v' . PHP_VERSION . ')');
         }
 
@@ -145,15 +136,11 @@ class ServerCommand extends Command
 
     /**
      * Simple function test the port
-     *
-     * @param string $ip
-     * @param int $port
-     * @return bool
      */
     protected function portAvailable(string $ip, int $port): bool
     {
         $fp = @fsockopen($ip, $port, $errno, $errstr, 0.1);
-        if (!$fp) {
+        if (! $fp) {
             return true;
         }
 
