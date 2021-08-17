@@ -137,7 +137,7 @@ class TwigAwareController extends AbstractController
         }
 
         // If the locale is the wrong locale
-        if (! $this->validLocaleForContentType($record->getDefinition())) {
+        if (! $this->validLocaleForContentType($record->getDefinition()) && $this->request->getMethod() === 'GET') {
             return $this->redirectToDefaultLocale();
         }
 
