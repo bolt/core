@@ -64,6 +64,6 @@ HELP
 
         $io->success('Secret replaced successfully!');
 
-        return 0;
+        return Command::SUCCESS;
     }
 }

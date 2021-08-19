@@ -52,7 +52,7 @@ class ExtensionsShowCommand extends Command
         if (! $extension instanceof ExtensionInterface) {
             $io->caution('No such extension.');
 
-            return 0;
+            return Command::FAILURE;
         }
 
         $dependencyNames = iterator_to_array($this->dependenciesManager->get($extension->getComposerPackage()->getName()));
@@ -74,6 +74,6 @@ class ExtensionsShowCommand extends Command
             $io->text('No known dependencies');
         }
 
-        return 0;
+        return Command::SUCCESS;
     }
 }

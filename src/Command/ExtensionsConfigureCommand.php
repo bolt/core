@@ -47,7 +47,7 @@ class ExtensionsConfigureCommand extends Command
         if ($input->getOption('remove-services')) {
             $this->deleteExtensionRoutesAndServices($extensions);
 
-            return 0;
+            return Command::SUCCESS;
         }
 
         $this->copyExtensionRoutesAndServices($extensions);
@@ -58,7 +58,7 @@ class ExtensionsConfigureCommand extends Command
 
         $this->runExtensionInstall($extensions);
 
-        return 0;
+        return Command::SUCCESS;
     }
 
     private function copyExtensionConfig(array $packages): void

@@ -101,7 +101,7 @@ class SetupCommand extends Command
             $io->success('Bolt was set up successfully! Start a web server, and open your Bolt site in a browser.');
         }
 
-        return 0;
+        return Command::SUCCESS;
     }
 
     private function processExitCode(int $exitCode, string $message): void

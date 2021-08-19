@@ -101,7 +101,7 @@ HELP
 
         $this->io->text('');
 
-        return 0;
+        return Command::SUCCESS;
     }
 
     private function warnOutdatedComposerJson(): void
