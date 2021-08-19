@@ -13,6 +13,8 @@ class UserEvent
     public const ON_EDIT = 'bolt.users_pre_edit';
     public const ON_PRE_SAVE = 'bolt.users_post_save';
     public const ON_POST_SAVE = 'bolt.users_post_save';
+    public const ON_PRE_DELETE = 'bolt.users_pre_delete';
+    public const ON_POST_DELETE = 'bolt.users_post_delete';
 
     /** @var User */
     private $user;

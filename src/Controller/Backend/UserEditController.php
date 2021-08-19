@@ -8,6 +8,7 @@ use Bolt\Common\Str;
 use Bolt\Configuration\Config;
 use Bolt\Controller\CsrfTrait;
 use Bolt\Controller\TwigAwareController;
+use Bolt\Doctrine\Persister\UserDataManager;
 use Bolt\Entity\User;
 use Bolt\Enum\UserStatus;
 use Bolt\Event\UserEvent;
@@ -46,15 +47,20 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
 
     /** @var array */
     private $assignableRoles;
+    /**
+     * @var UserDataManager
+     */
+    private $userDataManager;
 
     public function __construct(
-        UrlGeneratorInterface $urlGenerator,
-        EntityManagerInterface $em,
+        UrlGeneratorInterface        $urlGenerator,
+        EntityManagerInterface       $em,
         UserPasswordEncoderInterface $passwordEncoder,
-        CsrfTokenManagerInterface $csrfTokenManager,
-        EventDispatcherInterface $dispatcher,
-        Config $config,
-        string $defaultLocale
+        CsrfTokenManagerInterface    $csrfTokenManager,
+        EventDispatcherInterface     $dispatcher,
+        Config                       $config,
+        UserDataManager              $persister,
+        string                       $defaultLocale
     ) {
         $this->urlGenerator = $urlGenerator;
         $this->em = $em;
@@ -63,6 +69,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
         $this->dispatcher = $dispatcher;
         $this->defaultLocale = $defaultLocale;
         $this->assignableRoles = $config->get('permissions/assignable_roles')->all();
+        $this->userDataManager = $persister;
     }
 
     /**
@@ -172,7 +179,6 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
     {
         $this->validateCsrf('useredit');
 
-        $this->em->remove($user);
         $contentArray = $this->getDoctrine()->getManager()->getRepository(\Bolt\Entity\Content::class)->findBy(['author' => $user]);
         foreach ($contentArray as $content) {
             $content->setAuthor(null);
@@ -185,7 +191,8 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
             $this->em->persist($media);
         }
 
-        $this->em->flush();
+        $this->userDataManager->delete($user);
+        $this->userDataManager->flush();
 
         $url = $this->urlGenerator->generate('bolt_users');
         $this->addFlash('success', 'user.updated_profile');
@@ -210,15 +217,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
             $user->eraseCredentials();
         }
 
-        $event = new UserEvent($user);
-        $this->dispatcher->dispatch($event, UserEvent::ON_PRE_SAVE);
-
-        // Save the new user data into the DB
-        $this->em->persist($user);
-        $this->em->flush();
-
-        $event = new UserEvent($user);
-        $this->dispatcher->dispatch($event, UserEvent::ON_POST_SAVE);
+        $this->userDataManager->persist($user);
 
         $this->addFlash('success', 'user.updated_profile');
     }

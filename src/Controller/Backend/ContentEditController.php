@@ -9,6 +9,8 @@ use Bolt\Common\Json;
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Controller\CsrfTrait;
 use Bolt\Controller\TwigAwareController;
+use Bolt\Doctrine\Persister\ContentDataManager;
+use Bolt\Doctrine\Persister\PersisterInterface;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Bolt\Entity\Field\CollectionField;
@@ -74,17 +76,21 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
     /** @var string */
     protected $defaultLocale;
 
+    /** @var ContentDataManager */
+    private $contentDataManager;
+
     public function __construct(
-        TaxonomyRepository $taxonomyRepository,
-        RelationRepository $relationRepository,
-        ContentRepository $contentRepository,
-        MediaRepository $mediaRepository,
-        EntityManagerInterface $em,
-        UrlGeneratorInterface $urlGenerator,
-        ContentFillListener $contentFillListener,
+        TaxonomyRepository        $taxonomyRepository,
+        RelationRepository        $relationRepository,
+        ContentRepository         $contentRepository,
+        MediaRepository           $mediaRepository,
+        EntityManagerInterface    $em,
+        UrlGeneratorInterface     $urlGenerator,
+        ContentFillListener       $contentFillListener,
         CsrfTokenManagerInterface $csrfTokenManager,
-        EventDispatcherInterface $dispatcher,
-        string $defaultLocale
+        EventDispatcherInterface  $dispatcher,
+        ContentDataManager        $persister,
+        string                    $defaultLocale
     ) {
         $this->taxonomyRepository = $taxonomyRepository;
         $this->relationRepository = $relationRepository;
@@ -96,6 +102,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         $this->csrfTokenManager = $csrfTokenManager;
         $this->dispatcher = $dispatcher;
         $this->defaultLocale = $defaultLocale;
+        $this->contentDataManager = $persister;
     }
 
     /**
@@ -229,12 +236,8 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
             }
         }
 
-        $event = new ContentEvent($content);
-        $this->dispatcher->dispatch($event, ContentEvent::PRE_SAVE);
-
-        /* Note: Doctrine also calls preUpdate() -> Event/Listener/FieldFillListener.php */
-        $this->em->persist($content);
-        $this->em->flush();
+        $this->contentDataManager->persist($content);
+        $this->contentDataManager->flush();
 
         $this->addFlash('success', 'content.updated_successfully');
 
@@ -243,9 +246,6 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
             'edit_locale' => $this->getEditLocale($content) ?: null,
         ];
         $url = $this->urlGenerator->generate('bolt_content_edit', $urlParams);
-
-        $event = new ContentEvent($content);
-        $this->dispatcher->dispatch($event, ContentEvent::POST_SAVE);
 
         return new RedirectResponse($url);
     }
@@ -342,20 +342,12 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         $this->validateCsrf('delete');
 
         $this->denyAccessUnlessGranted(ContentVoter::CONTENT_DELETE, $content);
-
-        $event = new ContentEvent($content);
-        $this->dispatcher->dispatch($event, ContentEvent::PRE_DELETE);
-
-        $this->em->remove($content);
-        $this->em->flush();
+        $this->contentDataManager->delete($content);
 
         $this->addFlash('success', 'content.deleted_successfully');
 
         $params = ['contentType' => $content->getContentTypeSlug()];
         $url = $this->urlGenerator->generate('bolt_content_overview', $params);
-
-        $event = new ContentEvent($content);
-        $this->dispatcher->dispatch($event, ContentEvent::POST_DELETE);
 
         return new RedirectResponse($url);
     }
