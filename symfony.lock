@@ -357,7 +357,7 @@
         "version": "1.0.3"
     },
     "league/mime-type-detection": {
-        "version": "1.5.0"
+        "version": "1.7.0"
     },
     "miljar/php-exif": {
         "version": "v0.6.5"
@@ -892,7 +892,7 @@
         "version": "v4.4.4"
     },
     "symfony/password-hasher": {
-        "version": "v5.3.0"
+        "version": "v5.3.4"
     },
     "symfony/polyfill-ctype": {
         "version": "v1.14.0"
