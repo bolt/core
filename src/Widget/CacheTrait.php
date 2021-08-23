@@ -37,6 +37,8 @@ trait CacheTrait
             }
         );
 
+        // @TODO This shouldn't be required, because it _should_ already be a string, but apparently
+        // it isn't. See the screenshot attached to https://github.com/bolt/core/pull/2786
         if (is_array($result)) {
             $result = implode('', $result);
         }
