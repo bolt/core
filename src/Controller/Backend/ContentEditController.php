@@ -41,7 +41,7 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Tightenco\Collect\Support\Collection;
 
 /**
- * CRUD + status, duplicate, preview, for content - note that listing is handled by ListingController.php
+ * CRUD + status, duplicate, for content - note that listing is handled by ListingController.php
  */
 class ContentEditController extends TwigAwareController implements BackendZoneInterface
 {
@@ -251,22 +251,6 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
     }
 
     /**
-     * @Route("/preview/{id}", name="bolt_content_edit_preview", methods={"POST"}, requirements={"id": "\d+"})
-     */
-    public function preview(?Content $content = null): Response
-    {
-        $this->validateCsrf('editrecord');
-
-        $content = $this->contentFromPost($content);
-        $this->denyAccessUnlessGranted(ContentVoter::CONTENT_VIEW, $content);
-
-        $event = new ContentEvent($content);
-        $this->dispatcher->dispatch($event, ContentEvent::ON_PREVIEW);
-
-        return $this->renderSingle($content, false);
-    }
-
-    /**
      * @Route("/duplicate/{id}", name="bolt_content_duplicate", methods={"GET"}, requirements={"id": "\d+"})
      */
     public function duplicate(Content $content): Response
@@ -360,7 +344,9 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         return new RedirectResponse($url);
     }
 
-    private function contentFromPost(?Content $content): Content
+    // todo: This function should not be public.
+    // It needs to be abstracted into its own class, alongside the other functions it uses.
+    public function contentFromPost(?Content $content): Content
     {
         $formData = $this->request->request->all();
         $locale = $this->getPostedLocale($formData) ?: $content->getDefaultLocale();
