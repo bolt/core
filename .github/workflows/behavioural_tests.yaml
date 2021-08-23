@@ -108,5 +108,5 @@ jobs:
             -   name: Upload Behat logs
                 run: |
                     ls -als "var/log/behat-reports/"
-                    ./bin/upload-textfiles "var/log/behat-reports/*.html"
+                    ./bin/upload-textfiles "var/log/behat-reports/*.log"
                 if: always()
