@@ -7,7 +7,7 @@
             :limit="1000"
             :multiple="multiple"
             :options="options"
-            :optionsLimit="optionslimit"
+            :options-limit="optionslimit"
             :searchable="autocomplete || taggable"
             :show-labels="false"
             :taggable="taggable"
