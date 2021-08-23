@@ -54,6 +54,6 @@ jobs:
                     extensions: json, mbstring, pdo, curl, pdo_sqlite
                     coverage: none
 
-            -   run: composer install --no-progress --ansi
+            -   run: composer update --no-progress --ansi
 
             -   run: ${{ matrix.actions.run }}
