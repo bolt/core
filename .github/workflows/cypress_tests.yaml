@@ -22,7 +22,7 @@ jobs:
             -   run: sudo apt update
             -   name: Install dependencies
                 run: |
-                    sudo composer self-update -q
+                    sudo composer self-update 2.1.5 -q
                     sudo COMPOSER_MEMORY_LIMIT=-1 COMPOSER_PROCESS_TIMEOUT=60 composer update --prefer-dist --no-progress
                     ./bin/console bolt:info	--ansi
                     npm set progress=false
