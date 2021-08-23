@@ -28,23 +28,20 @@ trait CacheTrait
             throw new WidgetException('Widget of class ' . self::class . ' is not initialised properly. Make sure the Widget `implements CacheAwareInterface`.');
         }
 
-        return $this->cache->get(
+        $result = $this->cache->get(
             $this->key,
             function (ItemInterface $item) use ($params) {
                 $item->expiresAfter($this->getCacheDuration());
 
-                $result = $this->run($params);
-
-                dump($result);
-
-                if (is_array($result)) {
-                    $result = implode('', $result);
-                }
-
-                return $result;
+                return $this->run($params);
             }
         );
 
+        if (is_array($result)) {
+            $result = implode('', $result);
+        }
+
+        return $result;
     }
 
     private function createKey()
