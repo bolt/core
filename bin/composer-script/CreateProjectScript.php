@@ -12,7 +12,6 @@ class CreateProjectScript extends Script
     {
         parent::init('Running composer "post-create-project-cmd" scripts');
 
-        self::copyEnv();
         self::deleteGitignore();
         self::createReadme();
 
@@ -21,13 +20,6 @@ class CreateProjectScript extends Script
         self::run('php bin/console bolt:reset-secret');
         self::run('php bin/console bolt:copy-themes --ansi');
         self::run('php bin/console bolt:welcome --ansi');
-    }
-
-    private static function copyEnv(): void
-    {
-        if (! file_exists('.env')) {
-            copy('.env.dist', '.env');
-        }
     }
 
     private static function deleteGitignore(): void
