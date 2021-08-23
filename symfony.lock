@@ -106,6 +106,9 @@
     "composer/composer": {
         "version": "1.9.3"
     },
+    "composer/metadata-minifier": {
+        "version": "1.0.0"
+    },
     "composer/package-versions-deprecated": {
         "version": "1.11.99"
     },
@@ -159,6 +162,9 @@
     },
     "doctrine/dbal": {
         "version": "v2.10.1"
+    },
+    "doctrine/deprecations": {
+        "version": "v0.5.3"
     },
     "doctrine/doctrine-bundle": {
         "version": "2.0",
@@ -349,6 +355,9 @@
     },
     "league/glide-symfony": {
         "version": "1.0.3"
+    },
+    "league/mime-type-detection": {
+        "version": "1.7.0"
     },
     "miljar/php-exif": {
         "version": "v0.6.5"
@@ -897,6 +906,9 @@
     "symfony/options-resolver": {
         "version": "v4.4.4"
     },
+    "symfony/password-hasher": {
+        "version": "v5.3.4"
+    },
     "symfony/polyfill-ctype": {
         "version": "v1.14.0"
     },
@@ -926,6 +938,9 @@
     },
     "symfony/polyfill-php80": {
         "version": "v1.17.0"
+    },
+    "symfony/polyfill-php81": {
+        "version": "v1.23.0"
     },
     "symfony/process": {
         "version": "v4.4.4"
