@@ -13,16 +13,6 @@ use Symfony\Component\Process\Process;
 
 class ServerCommand extends Command
 {
-    /** @var string */
-    private $publicFolder;
-
-    public function __construct(string $publicFolder)
-    {
-        $this->publicFolder = $publicFolder;
-
-        parent::__construct();
-    }
-
     protected function configure(): void
     {
         $this
@@ -37,11 +27,7 @@ class ServerCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        // Options
-        $force_symfony = $input->getOption('symfony');
-        $force_php = $input->getOption('php');
         $stop = $input->getOption('stop');
-
         $ip = '127.0.0.1';
         $port = (int) ($input->getOption('port') ?? 8000);
 
@@ -51,9 +37,9 @@ class ServerCommand extends Command
         }
 
         if ($stop) {
-            $command = $this->stopCommand($io);
+            $command = $this->stopCommand();
         } else {
-            $command = $this->startCommand($io);
+            $command = $this->startCommand();
         }
 
         $io->comment(sprintf('You can <options=bold>%s</> a webserver by running the following command:', ($stop ? 'stop' : 'start')));
