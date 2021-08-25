@@ -63,6 +63,6 @@ class ExtensionsServicesCommand extends Command
         $io->text('Private Services <info>(' . count($rows) . ')</info>:');
         $io->table(['Service ID', 'Class name / Alias'], $rows);
 
-        return 0;
+        return Command::SUCCESS;
     }
 }

@@ -64,7 +64,7 @@ class CopyThemesCommand extends Command
         if (Version::installType() === 'Git clone') {
             $io->error('This command only works with the \'Composer install\' install type.');
 
-            return 1;
+            return Command::FAILURE;
         }
 
         $themes = $this->getThemes($input);
@@ -76,7 +76,7 @@ class CopyThemesCommand extends Command
         $io->newLine();
 
         $rows = [];
-        $exitCode = 0;
+        $exitCode = Command::SUCCESS;
 
         foreach ($dirs as $originDir => $targetDir) {
             $message = basename($targetDir);
@@ -87,7 +87,7 @@ class CopyThemesCommand extends Command
 
                 $rows[] = [sprintf('<fg=green;options=bold>%s</>', "\xE2\x9C\x94"), $message, 'copied'];
             } catch (\Throwable $e) {
-                $exitCode = 1;
+                $exitCode = Command::FAILURE;
                 $rows[] = [sprintf('<fg=red;options=bold>%s</>', "\xE2\x9C\x98"), $message, $e->getMessage()];
             }
         }
@@ -96,7 +96,7 @@ class CopyThemesCommand extends Command
             $io->table(['', 'Theme', 'Method / Error'], $rows);
         }
 
-        if ($exitCode !== 0) {
+        if ($exitCode !== Command::SUCCESS) {
             $io->error('Some errors occurred while installing themes.');
         } else {
             $io->success($rows ? 'All themes were successfully installed.' : 'No themes were provided by any bundle.');
