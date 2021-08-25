@@ -23,8 +23,8 @@ final class Version
      *   Stable — 3.0.0
      *   Development — 3.1.0 alpha 1
      */
-    public const VERSION = '5.0.0 beta 13';
-    public const CODENAME = 'Nothing to see here!';
+    public const VERSION = '5.0.0 beta 14';
+    public const CODENAME = 'Getting closer…';
 
     /**
      * Whether this release is a stable one.
