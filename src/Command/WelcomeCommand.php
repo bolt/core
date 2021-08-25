@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Bolt\Command;
 
-use Bolt\ComposerScripts\Script;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
@@ -48,10 +47,10 @@ HELP
         $io->text('To ask questions and learn from our community, join our Slack channel: <href=https://slack.bolt.cm/>https://slack.bolt.cm/</>');
         $io->text('Additional resources and tips are available at <href=https://bolt.tips/>https://bolt.tips/</>');
 
-        $io->note('If you wish to continue with SQLite, you can answer \'Y\' to the next question. If you\'d like to use MySQL or PostgreSQL, answer \'N\', configure `.env.local`, and then continue the setup.');
+        $io->note('If you wish to continue with SQLite, you can answer \'Y\' to the next question. If you\'d like to use MySQL or PostgreSQL, answer \'n\', configure `.env.local`, and then continue the setup.');
 
         $helper = $this->getHelper('question');
-        $question = new ConfirmationQuestion('Do yo want to continue the setup now? (Y/n)', false);
+        $question = new ConfirmationQuestion('Do yo want to continue the setup now? (Y/n)', true);
 
         $returnCode = Command::SUCCESS;
 
