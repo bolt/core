@@ -97,9 +97,14 @@ class SetupCommand extends Command
             foreach ($this->errors as $error) {
                 $io->warning($error);
             }
-        } else {
-            $io->success('Bolt was set up successfully! Start a web server, and open your Bolt site in a browser.');
+
+            return Command::FAILURE;
         }
+
+        $io->success('Bolt was set up successfully! Start a web server, and open your Bolt site in a browser.');
+
+        $command = $this->getApplication()->find('bolt:server');
+        $command->run(new ArrayInput([]), $output);
 
         return Command::SUCCESS;
     }
