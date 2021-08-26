@@ -1,0 +1,23 @@
+# Add new keys (and underlying values)
+
+file: packages/security.yaml
+since: 4.2.0
+
+add:
+    security:
+        role_hierarchy:
+            ROLE_DEVELOPER: [ROLE_ADMIN, ROLE_CAN_SWITCH_USER]
+            ROLE_ADMIN: [ROLE_CHIEF_EDITOR]
+            ROLE_CHIEF_EDITOR: [ROLE_EDITOR]
+            ROLE_EDITOR: [ROLE_USER]
+            ROLE_USER: []
+
+        access_control:
+            - { path: '^%bolt.backend_url%/login$', roles: IS_AUTHENTICATED_ANONYMOUSLY }
+            - { path: '^%bolt.backend_url%/reset-password', roles: IS_AUTHENTICATED_ANONYMOUSLY }
+            - { path: '^%bolt.backend_url%/api', roles: ADMIN_API_ACCESS } # handled by voter
+            - { path: '^/(%app_locales%)%bolt.backend_url%/api', roles: ADMIN_API_ACCESS } # handled by voter
+            - { path: '^%bolt.backend_url%/_trans', roles: ADMIN_TRANSLATE_ACCESS } # handled by voter
+            - { path: '^/(%app_locales%)%bolt.backend_url%/_trans', roles: ADMIN_TRANSLATE_ACCESS } # handled by voter
+            - { path: '^%bolt.backend_url%', roles: IS_AUTHENTICATED_REMEMBERED }
+            - { path: '^/(%app_locales%)%bolt.backend_url%', roles: IS_AUTHENTICATED_REMEMBERED }
