@@ -328,7 +328,7 @@ class ContentTypesParser extends BaseParser
         }
 
         if (isset($field['allow_html']) === false) {
-            $field['allow_html'] = in_array($field['type'], ['html', 'markdown'], true);
+            $field['allow_html'] = in_array($field['type'], ['text', 'html', 'markdown'], true);
         }
 
         if (isset($field['sanitise']) === false) {
