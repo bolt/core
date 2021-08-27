@@ -49,7 +49,7 @@ class Script
         }
 
         $process->setTty(true);
-        $process->mustRun();
+        $process->run();
     }
 
     /**
