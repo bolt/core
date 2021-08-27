@@ -10,7 +10,6 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Process\Process;
-use Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
 
 class Script
 {
@@ -34,7 +33,7 @@ class Script
     /**
      * Execute a command in the CLI, as a separate process.
      */
-    public static function run(string $command): int
+    public static function run(string $command): void
     {
         // Depending on the context, we're using either Symfony/Process 2.8.52 (bundled with composer 2.1.x)
         // or Symfony/Process 5.3.x (if we're using our own). The signature of the Constructor changed
@@ -48,7 +47,8 @@ class Script
             $process = new Process([$command]);
         }
 
-        return $process->run();
+        $process->setTty(self::isTtySupported());
+        $process->run();
     }
 
     /**
@@ -71,5 +71,19 @@ class Script
         }
 
         return new SymfonyStyle($argvInput, $consoleOutput);
+    }
+
+    /**
+     * Returns whether TTY is supported on the current operating system.
+     */
+    public static function isTtySupported(): bool
+    {
+        static $isTtySupported;
+
+        if (null === $isTtySupported) {
+            $isTtySupported = (bool) @proc_open('echo 1 >/dev/null', [['file', '/dev/tty', 'r'], ['file', '/dev/tty', 'w'], ['file', '/dev/tty', 'w']], $pipes);
+        }
+
+        return $isTtySupported;
     }
 }
