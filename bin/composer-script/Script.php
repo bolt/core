@@ -10,7 +10,6 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Process\Process;
-use Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
 
 class Script
 {
@@ -48,6 +47,8 @@ class Script
             $process = new Process([$command]);
         }
 
+        $process->setTty(self::isTtySupported());
+
         return $process->run();
     }
 
@@ -72,7 +73,6 @@ class Script
 
         return new SymfonyStyle($argvInput, $consoleOutput);
     }
-
 
     /**
      * Returns whether TTY is supported on the current operating system.
