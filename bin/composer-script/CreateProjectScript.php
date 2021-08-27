@@ -19,7 +19,9 @@ class CreateProjectScript extends Script
 
         self::run('php bin/console bolt:reset-secret');
         self::run('php bin/console bolt:copy-themes --ansi');
-        self::run('php bin/console bolt:welcome --ansi');
+        if (self::isTtySupported()) {
+            self::run('php bin/console bolt:welcome --ansi');
+        }
     }
 
     private static function deleteGitignore(): void
