@@ -8,13 +8,13 @@
         "ext-json": "*",
         "ext-mbstring": "*",
         "ext-pdo": "*",
+        "composer-runtime-api": "^2",
         "api-platform/core": "^2.6",
         "babdev/pagerfanta-bundle": "^2.5",
         "beberlei/doctrineextensions": "^1.3",
         "bobdenotter/yaml-migrations": "^1.1",
         "bolt/common": "^3.0.4",
         "cocur/slugify": "^4.0",
-        "composer-runtime-api": "^2",
         "composer/composer": "^2.0",
         "composer/package-versions-deprecated": "^1.11",
         "doctrine/doctrine-bundle": "^2.1",
@@ -128,7 +128,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Bolt\\": "src/"
+            "Bolt\\": "src/",
+            "Bolt\\ComposerScripts\\": "bin/composer-script/"
         }
     },
     "autoload-dev": {
@@ -141,14 +142,14 @@
     "minimum-stability": "stable",
     "prefer-stable": true,
     "scripts": {
-        "post-install-cmd": "php bin/composer-script/post-install-cmd.php --ansi",
-        "post-update-cmd": "php bin/composer-script/post-update-cmd.php --ansi",
-        "pre-package-uninstall": [
-            "php bin/console extensions:configure --remove-services --ansi"
+        "post-install-cmd": [
+            "Bolt\\ComposerScripts\\ProjectEventHandler::corePostInstall"
         ],
-        "auto-scripts": [
-            "php bin/console cache:clear --no-warmup --ansi",
-            "php bin/console assets:install --symlink --relative public --ansi"
+        "post-update-cmd": [
+            "Bolt\\ComposerScripts\\ProjectEventHandler::corePostUpdate"
+        ],
+        "pre-package-uninstall": [
+            "Bolt\\ComposerScripts\\ProjectEventHandler::prePackageUninstall"
         ]
     }
 }
