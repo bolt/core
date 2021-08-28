@@ -73,9 +73,6 @@
     "bobdenotter/yaml-migrations": {
         "version": "dev-main"
     },
-    "bolt/binary-chromedriver": {
-        "version": "dev-master"
-    },
     "bolt/common": {
         "version": "2.1.5"
     },
@@ -223,9 +220,6 @@
     },
     "doctrine/persistence": {
         "version": "1.3.6"
-    },
-    "doctrine/reflection": {
-        "version": "v1.1.0"
     },
     "doctrine/sql-formatter": {
         "version": "1.0.1"
@@ -858,15 +852,6 @@
         "files": [
             "config/packages/mailer.yaml"
         ]
-    },
-    "symfony/maker-bundle": {
-        "version": "1.0",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "1.0",
-            "ref": "fadbfe33303a76e25cb63401050439aa9b1a9c7f"
-        }
     },
     "symfony/mime": {
         "version": "v4.4.4"

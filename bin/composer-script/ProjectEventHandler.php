@@ -48,4 +48,14 @@ class ProjectEventHandler
     {
         PrePackageUninstallScript::execute();
     }
+
+    public static function corePostUpdate(Event $event): void
+    {
+        CorePostUpdateScript::execute();
+    }
+
+    public static function corePostInstall(Event $event): void
+    {
+        CorePostInstallScript::execute();
+    }
 }
