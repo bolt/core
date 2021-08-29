@@ -10,9 +10,20 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Process\Process;
+use Webmozart\PathUtil\Path;
 
 class ServerCommand extends Command
 {
+    /** @var string */
+    private $projectDir;
+
+    public function __construct(string $projectDir)
+    {
+        $this->projectDir = $projectDir;
+
+        parent::__construct();
+    }
+
     protected function configure(): void
     {
         $this
@@ -43,6 +54,11 @@ class ServerCommand extends Command
         }
 
         $io->comment(sprintf('You can <options=bold>%s</> a webserver by running the following command:', ($stop ? 'stop' : 'start')));
+
+        // If we're not running in the 'projectDir', give the user the correct 'cd' command too.
+        if (getcwd() !== $this->projectDir) {
+            $command = 'cd ' . Path::makeRelative($this->projectDir, getcwd()) . "/\n " . $command;
+        }
 
         $io->text(sprintf($command, $port));
 
