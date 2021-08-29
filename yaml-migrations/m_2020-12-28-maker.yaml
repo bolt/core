@@ -1,4 +1,4 @@
-# Adding the new Twig config for Bolt 4.2.0
+# Removing deprecated file
 file: packages/dev/maker.yaml
 since: 4.2.0
 
