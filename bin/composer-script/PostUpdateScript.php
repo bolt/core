@@ -10,6 +10,7 @@ class PostUpdateScript extends Script
     {
         parent::init('Running composer "post-update-cmd" scripts');
 
+        self::run('php vendor/bolt/core/bin/fix-bundles.php');
         self::run('php vendor/bobdenotter/yaml-migrations/bin/yaml-migrate process -c vendor/bolt/core/yaml-migrations/config.yaml -v');
         self::run('php bin/console cache:clear --no-warmup --ansi');
         self::run('php bin/console assets:install --symlink --relative public --ansi');
