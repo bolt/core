@@ -57,7 +57,7 @@ class ServerCommand extends Command
 
         // If we're not running in the 'projectDir', give the user the correct 'cd' command too.
         if (getcwd() !== $this->projectDir) {
-            $command = "cd " . Path::makeRelative($this->projectDir, getcwd()) . "/\n " . $command;
+            $command = 'cd ' . Path::makeRelative($this->projectDir, getcwd()) . "/\n " . $command;
         }
 
         $io->text(sprintf($command, $port));
