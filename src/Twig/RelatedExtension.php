@@ -52,7 +52,6 @@ class RelatedExtension extends AbstractExtension
             new TwigFilter('related_first', [$this, 'getFirstRelatedContent']),
             new TwigFilter('related_options', [$this, 'getRelatedOptions']),
             new TwigFilter('related_values', [$this, 'getRelatedValues']),
-            new TwigFilter('related_values_from_content', [$this, 'getRelatedValuesFromContent']),
         ];
     }
 
@@ -67,7 +66,6 @@ class RelatedExtension extends AbstractExtension
             new TwigFunction('first_related_content', [$this, 'getFirstRelatedContent']),
             new TwigFunction('related_options', [$this, 'getRelatedOptions']),
             new TwigFunction('related_values', [$this, 'getRelatedValues']),
-            new TwigFunction('related_values_from_content', [$this, 'getRelatedValuesFromContent']),
         ];
     }
 
