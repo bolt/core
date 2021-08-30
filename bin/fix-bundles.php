@@ -4,7 +4,7 @@
 use Symfony\Component\VarExporter\VarExporter;
 use Webimpress\SafeWriter\FileWriter;
 
-require dirname(dirname(dirname(dirname(__DIR__)))).'/vendor/autoload.php';
+require dirname(dirname(dirname(dirname(__DIR__)))) . '/vendor/autoload.php';
 
 class BundleFixer
 {
@@ -33,12 +33,11 @@ class BundleFixer
         $changes = $this->addBundle('Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle', ['all' => true]) || $changes;
         $changes = $this->removeBundle('Symfony\Bundle\MakerBundle\MakerBundle') || $changes;
         $changes = $this->removeBundle('Symplify\ConsoleColorDiff\ConsoleColorDiffBundle') || $changes;
-        $changes = $this->removeBundle('Symfony\Bundle\FrameworkBundle\FrameworkBundle') || $changes;
 
         if ($changes) {
             echo "Writing updated 'bundles.php'.\n";
 
-            $output = "<?php\n\nreturn ".VarExporter::export($this->bundles).";\n";
+            $output = "<?php\n\nreturn " . VarExporter::export($this->bundles) . ";\n";
 
             $writer = new FileWriter();
             $writer->writeFile($path, $output);
@@ -61,7 +60,7 @@ class BundleFixer
 
     public function removeBundle(string $key): bool
     {
-        if (array_key_exists($key, $this->bundles) && !class_exists($key)) {
+        if (array_key_exists($key, $this->bundles) && ! class_exists($key)) {
             unset($this->bundles[$key]);
             echo " - Removing '${key}'.\n";
 
