@@ -80,7 +80,8 @@
     },
     "conflict": {
         "friendsofphp/php-cs-fixer": ">=2.19.0",
-        "symfony/security-http": "v5.3.0 v5.3.1"
+        "symfony/security-http": "v5.3.0 v5.3.1",
+        "symfony/dependency-injection": "5.3.7"
     },
     "require-dev": {
         "ext-curl": "*",
