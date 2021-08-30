@@ -104,7 +104,7 @@ class SetupCommand extends Command
         $io->success('Bolt was set up successfully! Start a web server, and open your Bolt site in a browser.');
 
         $command = $this->getApplication()->find('bolt:server');
-        $command->run(new ArrayInput([]), $output);
+        $command->run(new ArrayInput(['--full-path' => true]), $output);
 
         return Command::SUCCESS;
     }
