@@ -30,6 +30,7 @@ class ServerCommand extends Command
             ->setName('bolt:server')
             ->addOption('port', 'p', InputOption::VALUE_OPTIONAL, 'Preferred HTTP port rather than auto-find (default is 8000-9000')
             ->addOption('stop', null, InputOption::VALUE_NONE, 'Stop the running webserver')
+            ->addOption('full-path', null, InputOption::VALUE_NONE, 'Use the full path to start the server')
             ->setDescription("Suggest a command to run a webserver. Symfony first, then PHP's")
             ->setHelp("Suggest a command to run a webserver. Symfony first, then PHP's");
     }
@@ -50,15 +51,10 @@ class ServerCommand extends Command
         if ($stop) {
             $command = $this->stopCommand();
         } else {
-            $command = $this->startCommand();
+            $command = $this->startCommand($input->getOption('full-path'));
         }
 
         $io->comment(sprintf('You can <options=bold>%s</> a webserver by running the following command:', ($stop ? 'stop' : 'start')));
-
-        // If we're not running in the 'projectDir', give the user the correct 'cd' command too.
-        if (getcwd() !== $this->projectDir) {
-            $command = 'cd ' . Path::makeRelative($this->projectDir, getcwd()) . "/\n " . $command;
-        }
 
         $io->text(sprintf($command, $port));
 
@@ -80,13 +76,20 @@ class ServerCommand extends Command
         return false;
     }
 
-    protected function startCommand(): string
+    protected function startCommand(bool $fullPath): string
     {
-        if ($this->hasSymfonyCommand()) {
-            return 'symfony server:start -d --port=%s';
+        // If we're not running in the 'projectDir', or `--full-path` is passed, set the dir explicitly.
+        if ($fullPath || (getcwd() !== $this->projectDir)) {
+            $dir = sprintf(' --%s=%s', ($this->hasSymfonyCommand() ? 'dir' : 'docroot'), $this->projectDir);
+        } else {
+            $dir = '';
         }
 
-        return 'php bin/console server:start %s';
+        if ($this->hasSymfonyCommand()) {
+            return 'symfony server:start -d --port=%s' . $dir;
+        }
+
+        return 'php bin/console server:start %s' . $dir;
     }
 
     protected function stopCommand(): string
