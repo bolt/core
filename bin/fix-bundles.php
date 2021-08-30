@@ -33,7 +33,6 @@ class BundleFixer
         $changes = $this->addBundle('Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle', ['all' => true]) || $changes;
         $changes = $this->removeBundle('Symfony\Bundle\MakerBundle\MakerBundle') || $changes;
         $changes = $this->removeBundle('Symplify\ConsoleColorDiff\ConsoleColorDiffBundle') || $changes;
-        $changes = $this->removeBundle('Symfony\Bundle\FrameworkBundle\FrameworkBundle') || $changes;
 
         if ($changes) {
             echo "Writing updated 'bundles.php'.\n";
