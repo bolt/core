@@ -51,7 +51,7 @@ class RelatedExtension extends AbstractExtension
             new TwigFilter('related_by_type', [$this, 'getRelatedContentByType']),
             new TwigFilter('related_first', [$this, 'getFirstRelatedContent']),
             new TwigFilter('related_options', [$this, 'getRelatedOptions']),
-            new TwigFilter('related_values', [$this, 'getRelatedValues'],
+            new TwigFilter('related_values', [$this, 'getRelatedValues']),
         ];
     }
 
