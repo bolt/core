@@ -29,7 +29,7 @@ class PrintQueryDirective
         foreach ($parameters as $parameter) {
             $dql = str_replace(
                 ':' . $parameter->getName() . '',
-                '<b title="' . $parameter->getValue() . '">:' . $parameter->getName() . '</b>',
+                '<b title="' . self::stringifyValue($parameter->getValue()) . '">:' . $parameter->getName() . '</b>',
                 $dql
             );
         }
@@ -42,12 +42,17 @@ class PrintQueryDirective
             $output .= sprintf(
                 '<li><code>%s</code>: <code>%s</code></li>',
                 $parameter->getName(),
-                $parameter->getValue()
+                self::stringifyValue($parameter->getValue())
             );
         }
 
         $output .= '</ul>';
 
         echo $output;
+    }
+
+    private static function stringifyValue($value): string
+    {
+        return is_iterable($value) ? sprintf('[%s]', implode(',', $value)) : $value;
     }
 }
