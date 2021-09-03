@@ -23,6 +23,7 @@
   {% endif %}
 
   <editor-number
+    :id='{{ id|json_encode }}'
     name="{{ name }}"
     value="{{ value }}"
     :step="{{ step }}"
