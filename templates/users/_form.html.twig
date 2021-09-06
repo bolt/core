@@ -6,7 +6,7 @@
     {# ===== USERNAME ===== #}
 
     {% include '@bolt/_partials/fields/text.html.twig' with {
-        'id' : 'userForm.username.vars.id',
+        'id' : userForm.username.vars.id,
         'label' : 'label.username'|trans,
         'name' : userForm.vars.name ~ '[' ~ userForm.username.vars.name ~ ']',
         'value' : userForm.username.vars.value,
