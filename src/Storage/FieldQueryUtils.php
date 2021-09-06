@@ -24,8 +24,18 @@ class FieldQueryUtils
             return false;
         }
 
-        $contentType = $query->getConfig()->get('contenttypes/' . $query->getContentType());
-        $definitionType = $contentType->get('fields')->get($fieldname)->get('type', false);
+        $contentType = $query->getConfig()
+                             ->get('contenttypes/' . $query->getContentType());
+        if (is_null(
+            $contentType->get('fields')
+                        ->get($fieldname)
+        )) {
+            return false;
+        }
+        $definitionType = $contentType
+            ->get('fields')
+            ->get($fieldname)
+            ->get('type', false);
 
         return $definitionType === $type;
     }
@@ -39,14 +49,19 @@ class FieldQueryUtils
 
     public function isLocalizedField(QueryInterface $query, $fieldname): bool
     {
-        $contentType = $query->getConfig()->get('contenttypes/' . $query->getContentType());
+        $contentType = $query->getConfig()
+                             ->get('contenttypes/' . $query->getContentType());
 
-        return $contentType->get('fields')->get($fieldname)->get('localize', false);
+        return $contentType->get('fields')
+                           ->get($fieldname)
+                           ->get('localize', false)
+        ;
     }
 
     public function getNumericCastExpression(string $left): string
     {
-        $expression = (new Expr())->substring($left, 3, (new Expr())->length($left))->__toString();
+        $expression = (new Expr())->substring($left, 3, (new Expr())->length($left))
+                                  ->__toString();
 
         return 'CAST(' . $expression . ' as decimal)';
     }
