@@ -31,7 +31,7 @@ describe('As an Admin I want to preview an edited record', () => {
         cy.visit('/bolt/edit/30');
         cy.get('input[id="field-title"]').clear();
         cy.get('input[id="field-title"]').type('Check preview');
-        cy.get('button[class="btn btn-success mb-0"]').click();
+
 
         // Preview cannot be easily tested by pressing buttons.
         // Instead, we need to serialize and submit manually.
@@ -40,6 +40,8 @@ describe('As an Admin I want to preview an edited record', () => {
             const jqueryForm = Cypress.dom.wrap($el);
             const data = jqueryForm.serialize();
             cy.request({method: 'POST', url: '/bolt/preview/30', body: data, form: true, failOnStatusCode: false})
+                .type('{enter}')
+                .wait(100)
                 .its('body')
                 .should('contain', 'Check preview');
         });
