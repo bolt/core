@@ -51,7 +51,9 @@
             </div>
         {%endfor%}
     {% endif %}
-
+    <script>
+        window.alert = null;
+    </script>
     <form method="post" id="editcontent">
         {{ widgets('editcontent_below_header') }}
 

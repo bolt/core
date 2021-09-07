@@ -40,8 +40,6 @@ describe('As an Admin I want to preview an edited record', () => {
             const jqueryForm = Cypress.dom.wrap($el);
             const data = jqueryForm.serialize();
             cy.request({method: 'POST', url: '/bolt/preview/30', body: data, form: true, failOnStatusCode: false})
-                .type('{enter}')
-                .wait(100)
                 .its('body')
                 .should('contain', 'Check preview');
         });
