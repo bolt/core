@@ -46,6 +46,13 @@ describe('As an Admin I want to preview an edited record', () => {
 
         // Now back to the "original" window...
         cy.reload();
+        // Define
+        cy.on('window:confirm', (str) => {
+            expect(str).to.eq('The page that you\'re looking for used information that you entered. Returning to that page might cause any action that you took to be repeated. Do you want to continue?')
+            // return false to deny
+        });
+        // THEN click
+        cy.get('button').click();
         cy.wait(1000);
         cy.get('input[id="field-title"]').should('not.have.value', 'Check preview');
     });
