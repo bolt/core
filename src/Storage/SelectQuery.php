@@ -276,7 +276,6 @@ class SelectQuery implements QueryInterface
             if ($this->utils->isFieldType($this, $filter->getKey(), SelectField::TYPE)) {
                 $newParams = [];
                 foreach ($filter->getParameters() as $key => $value) {
-
                     $newParams[$key] = json_encode([$value]);
                 }
                 $params = array_merge($params, $newParams);
