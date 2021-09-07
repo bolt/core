@@ -36,11 +36,6 @@ parameters:
             message: "#Offset 'location' does not exist on array#"
             path: %currentWorkingDirectory%/src/Log/LogHandler.php
 
-        # false positive: Parameter #1 $description of method Bolt\Entity\Media::setDescription() expects string|null, array given.
-        -
-            message: '#of method Bolt\\Entity\\Media::setDescription#'
-            path: %currentWorkingDirectory%/src/DataFixtures/ImagesFixtures.php
-
 includes:
 	- vendor/phpstan/phpstan-symfony/extension.neon
 	- vendor/phpstan/phpstan-doctrine/extension.neon
