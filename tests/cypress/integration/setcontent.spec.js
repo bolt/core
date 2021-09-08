@@ -7,7 +7,7 @@ describe('As a user I want to see the results of Setcontent', () => {
         cy.get('#results-two').should('contain', 'yes');
         cy.get('#results-four').should('contain', 'yes');
         cy.get('#results-five').should('contain', 'yes');
-        cy.get('#results-six').should('contain', 'yes');
+        cy.get('span#results-six').should('contain', 'yes');
 
         cy.get('#three .s1').should('contain', 2);
         cy.get('#three .s2').should('contain', 'published');
@@ -23,7 +23,7 @@ describe('As a user I want to see the results of Setcontent on a translated page
         cy.get('#results-two').should('contain', 'yes');
         cy.get('#results-four').should('contain', 'yes');
         cy.get('#results-five').should('contain', 'yes');
-        cy.get('#results-six').should('have.text', 'yes');
+        cy.get('span#results-six').should('have.text', 'yes');
 
         cy.get('#three .s1').should('contain', 2);
         cy.get('#three .s2').should('contain', 'published');
