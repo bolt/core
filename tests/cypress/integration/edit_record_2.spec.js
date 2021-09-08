@@ -33,7 +33,7 @@ describe('As an Admin I want to preview an edited record', () => {
         cy.get('input[id="field-title"]').type('Check preview');
 
 
-        cy.get('#button-preview').invoke('removeAttr', 'formtarget').click();
+        cy.get('#button-preview').invoke('removeAttr', 'formtarget').click({force: true});
         cy.url().should('contain', '/preview/30');
         cy.its('body').should('contain', 'Check preview');
         cy.visit('/bolt/edit/30');
