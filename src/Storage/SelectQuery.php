@@ -273,7 +273,15 @@ class SelectQuery implements QueryInterface
     {
         $params = [];
         foreach ($this->filters as $filter) {
-            $params = array_merge($params, $filter->getParameters());
+            if ($this->utils->isFieldType($this, $filter->getKey(), SelectField::TYPE)) {
+                $newParams = [];
+                foreach ($filter->getParameters() as $key => $value) {
+                    $newParams[$key] = json_encode([$value]);
+                }
+                $params = array_merge($params, $newParams);
+            } else {
+                $params = array_merge($params, $filter->getParameters());
+            }
         }
 
         return $params;
@@ -396,6 +404,12 @@ class SelectQuery implements QueryInterface
         $this->filters = [];
 
         foreach ($this->params as $key => $value) {
+            // if it is select field with multiple conditioins, just json encode values so no AND conditions are created
+            if ($this->utils->isFieldType($this, $key, SelectField::TYPE)) {
+                if (is_array($value)) {
+                    $value = json_encode($value);
+                }
+            }
             $this->parser->setAlias('content');
             $filter = $this->parser->getFilter($key, $value);
             if ($filter) {
@@ -569,7 +583,7 @@ class SelectQuery implements QueryInterface
         $originalLeftExpression = 'content.' . $filter->getKey();
         $valueWhere = $filter->getExpression();
 
-        $newLeftExpression = $this->getRegularFieldLeftExpression($valueAlias, $filter->getKey());
+        $newLeftExpression = $this->getRegularFieldLeftExpression($valueAlias, $filter);
 
         $valueWhere = str_replace($originalLeftExpression, $newLeftExpression, $valueWhere);
         $expr->add($valueWhere);
@@ -596,8 +610,10 @@ class SelectQuery implements QueryInterface
         return $expr->__toString();
     }
 
-    private function getRegularFieldLeftExpression(string $valueAlias, string $fieldName): string
+    private function getRegularFieldLeftExpression(string $valueAlias, Filter $filter): string
     {
+        $fieldName = $filter->getKey();
+
         if ($this->utils->isFieldType($this, $fieldName, NumberField::TYPE) && $this->utils->hasCast()) {
             return $this->utils->getNumericCastExpression($valueAlias);
         }
@@ -605,6 +621,7 @@ class SelectQuery implements QueryInterface
         if ($this->utils->isFieldType($this, $fieldName, SelectField::TYPE)) {
             // Do not use JSON_EXTRACT for select fields, because then only the first
             // item of the array is checked.
+
             return $valueAlias;
         }
 
