@@ -37,6 +37,13 @@ class FieldQueryUtils
         return $doctrineVersion->hasCast();
     }
 
+    public function hasJsonSearch(): bool
+    {
+        $doctrineVersion = new Version($this->em->getConnection());
+
+        return $doctrineVersion->hasJsonSearch();
+    }
+
     public function isLocalizedField(QueryInterface $query, $fieldname): bool
     {
         $contentType = $query->getConfig()->get('contenttypes/' . $query->getContentType());

@@ -13,6 +13,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query\Expr\Andx;
 use Doctrine\ORM\Query\Expr\Base;
 use Doctrine\ORM\Query\Expr\Orx;
+use Doctrine\ORM\Query\Expr\Select;
 use Doctrine\ORM\Query\ParameterTypeInferer;
 use Doctrine\ORM\QueryBuilder;
 
@@ -566,12 +567,7 @@ class SelectQuery implements QueryInterface
         // where clause for the value of the field
         $valueAlias = sprintf('translations_%s.value', $filter->getKey());
 
-        $originalLeftExpression = 'content.' . $filter->getKey();
-        $valueWhere = $filter->getExpression();
-
-        $newLeftExpression = $this->getRegularFieldLeftExpression($valueAlias, $filter->getKey());
-
-        $valueWhere = str_replace($originalLeftExpression, $newLeftExpression, $valueWhere);
+        $valueWhere = $this->getRegularFieldWhereExpression($filter, $valueAlias);
         $expr->add($valueWhere);
 
         // @todo: Filter non-standalone fields (i.e. fields with parents)
@@ -596,16 +592,26 @@ class SelectQuery implements QueryInterface
         return $expr->__toString();
     }
 
-    private function getRegularFieldLeftExpression(string $valueAlias, string $fieldName): string
+    private function getRegularFieldWhereExpression(Filter $filter, string $valueAlias): string
+    {
+        if ($this->utils->isFieldType($this, $filter->getKey(), SelectField::TYPE) && $this->utils->hasJsonSearch()) {
+            // todo: Instead of using only the 1st param, make sure that the whole expression works.
+            // this is the case for things like multiselect: abc || def
+            return sprintf("JSON_SEARCH(%s, 'one', :%s) != ''", $valueAlias, current($filter->getParameters()));
+        }
+
+        $originalLeftExpression = 'content.' . $filter->getKey();
+        $valueWhere = $filter->getExpression();
+
+        $newLeftExpression = $this->getRegularFieldLeftExpression($valueAlias, $filter->getKey());
+
+        return str_replace($originalLeftExpression, $newLeftExpression, $valueWhere);
+    }
+
+    private function getRegularFieldLeftExpression(string $valueAlias, string $fieldName, $value = null): string
     {
         if ($this->utils->isFieldType($this, $fieldName, NumberField::TYPE) && $this->utils->hasCast()) {
             return $this->utils->getNumericCastExpression($valueAlias);
-        }
-
-        if ($this->utils->isFieldType($this, $fieldName, SelectField::TYPE)) {
-            // Do not use JSON_EXTRACT for select fields, because then only the first
-            // item of the array is checked.
-            return $valueAlias;
         }
 
         // LOWER() added to query to enable case insensitive search of JSON  values. Used in conjunction with converting $params of setParameter() to lowercase.
