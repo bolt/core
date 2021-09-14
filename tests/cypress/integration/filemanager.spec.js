@@ -31,7 +31,7 @@ describe('As an Admin I want to delete a file from the "Files" section', () => {
 });
 
 describe('As an Admin I want accidentally click delete file and want to cancel', () => {
-    it('checks if an admin can canel deleting files in the Files section', () => {
+    it('checks if an admin can cancel deleting files in the Files section', () => {
         cy.login();
         cy.visit('/bolt/filemanager/files');
         cy.get('#files-list tr td b').eq(0).contains('_a-sunrise.jpeg');
