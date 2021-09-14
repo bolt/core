@@ -24,10 +24,10 @@ describe('As a user I want to see how fields are escaped', () => {
 
         cy.get('.text_html').should('contain', 'HTML field with simple HTML in it.');
         cy.get('.text_markdown').should('have.text', 'Markdown field with simple Markdown in it.');
-        cy.get('.text_textarea').should('contain', 'Textarea field with <em>simple</em> HTML in it.');
+        cy.get('.text_textarea').should('have.text', 'Textarea field with simple HTML in it.');
 
-        cy.get('.text_sanitise_a').should('contain', "Text field with <strong>markup</strong>, including <script>console.log('hoi')</script>. The end.");
-        cy.get('.text_sanitise_b').should('contain', 'Text field with <strong>markup</strong>, including . The end.');
+        cy.get('div.box.text_sanitise_a').should('not.contain', 'Text field with <strong>markup</strong>, including . The end.');
+        cy.get('div.box.text_sanitise_b').should('not.contain', 'Text field with <strong>markup</strong>, including <script>console.log(\'hoi\')</script>. The end.');
     })
 });
 
