@@ -12,7 +12,8 @@
                     'action.preview',
                     'fa-external-link-square-alt',
                     'primary mb-0',
-                    {   'type': 'submit',
+                    {   'id': 'button-preview',
+                        'type': 'submit',
                         'form': 'editcontent',
                         'formtarget': '_blank',
                         'formaction': path('bolt_content_edit_preview', {'id': record.id|default(0) })

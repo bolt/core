@@ -14,10 +14,10 @@ describe('Disable/enable users', () => {
         cy.get('table').eq(0).find('tbody').find('tr').eq(2).find('td').eq(5).scrollIntoView();
         cy.get('table').eq(0).find('tbody').find('tr').eq(2).find('td').eq(5).click({force: true});
         cy.wait(100);
-        cy.get('table').eq(0).find('tbody').find('tr').eq(2).find('td').eq(5).find('a').eq(1).click();
+        cy.get('table').eq(0).find('tbody').find('tr').eq(2).find('td').eq(5).find('a').eq(1).click({force: true});
         cy.wait(1000);
 
-        cy.get('table').eq(0).find('tbody').find('tr').eq(2).find('td').eq(5).click();
+        cy.get('table').eq(0).find('tbody').find('tr').eq(2).find('td').eq(5).click({force: true});
         cy.wait(100);
         cy.get('table').eq(0).find('tbody').find('tr').eq(2).find('td').eq(5).find('a').eq(1).should('contain', 'Enable');
 
@@ -35,7 +35,7 @@ describe('Disable/enable users', () => {
         cy.wait(100);
 
         cy.get('table').eq(0).find('tbody').find('tr').eq(2).find('td').eq(5).find('a').eq(1).should('contain', 'Enable');
-        cy.get('table').eq(0).find('tbody').find('tr').eq(2).find('td').eq(5).find('a').eq(1).click();
+        cy.get('table').eq(0).find('tbody').find('tr').eq(2).find('td').eq(5).find('a').eq(1).click({force: true});
         cy.wait(100);
 
         cy.visit('bolt/logout');
