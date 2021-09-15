@@ -36,6 +36,7 @@ class GeneralController extends TwigAwareController implements BackendZoneInterf
             'symfony' => Version::getSymfonyVersion(),
             'os_name' => php_uname('s'),
             'os_version' => php_uname('r'),
+            'memory_limit' => ini_get('memory_limit'),
         ];
 
         return $this->render('@bolt/pages/about.html.twig', $twigVars);

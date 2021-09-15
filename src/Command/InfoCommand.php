@@ -95,6 +95,7 @@ HELP
             sprintf('PHP version: <info>%s</info>', PHP_VERSION),
             sprintf('Symfony version: <info>%s</info>', Version::getSymfonyVersion()),
             sprintf('Operating System: <info>%s</info> - <comment>%s</comment>', php_uname('s'), php_uname('r')),
+            sprintf('Memory limit: <info>%s</info>', ini_get('memory_limit')),
         ]);
 
         $this->warnOutdatedComposerJson();
