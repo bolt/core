@@ -1,6 +1,7 @@
 <template>
     <div class="input-group">
         <input
+            :id="id"
             v-model="val"
             :name="name"
             class="form-control"
@@ -22,6 +23,7 @@ export default {
     name: 'EditorNumber',
     mixins: [val],
     props: {
+        id: String,
         value: String,
         name: String,
         step: Number,
