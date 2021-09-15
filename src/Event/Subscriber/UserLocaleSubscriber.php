@@ -43,7 +43,7 @@ class UserLocaleSubscriber implements EventSubscriberInterface
 
     private function updateBackendLocale(User $user): void
     {
-        $this->session->set('_backend_locale', $this->defaultLocale);
+            $this->session->set('_backend_locale', $user->getLocale() ?? $this->defaultLocale);
     }
 
     public static function getSubscribedEvents()
