@@ -80,8 +80,8 @@
     },
     "conflict": {
         "friendsofphp/php-cs-fixer": ">=2.19.0",
-        "symfony/security-http": "v5.3.0 v5.3.1",
-        "symfony/dependency-injection": "5.3.7"
+        "symfony/dependency-injection": "5.3.7",
+        "symfony/security-http": "v5.3.0 v5.3.1"
     },
     "require-dev": {
         "ext-curl": "*",
@@ -113,11 +113,6 @@
         "symfony/browser-kit": "^5.3",
         "symfony/css-selector": "^5.3",
         "symplify/easy-coding-standard": "^8.2.3"
-    },
-    "conflict": {
-        "friendsofphp/php-cs-fixer": ">=2.19.0",
-        "symfony/security-http": "v5.3.0 v5.3.1",
-        "symfony/dependency-injection": "5.3.7"
     },
     "config": {
         "preferred-install": {
