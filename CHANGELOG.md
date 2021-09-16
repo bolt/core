@@ -1,6 +1,32 @@
 Changelog
 =========
 
+## 5.0.2
+
+Released: 2021-09-17
+
+### 🐛 Bug fixes
+
+- Fix querying selects and multiselects (I-Valchev, [#2828](https://github.com/bolt/core/pull/2828))
+- Fixed the cypress test (Joossensei, [#2821](https://github.com/bolt/core/pull/2821))
+- Addressed remove dummy users issue. (Joossensei, [#2819](https://github.com/bolt/core/pull/2819))
+- Fix missing id's for `integer`/`float` field (Joossensei, [#2817](https://github.com/bolt/core/pull/2817))
+- Fix missing id for `textarea` (Joossensei, [#2816](https://github.com/bolt/core/pull/2816))
+- Fix duplicate ids on login page (Joossensei, [#2814](https://github.com/bolt/core/pull/2814))
+- Show `memory_limit` and attempt to set it on CLI (Bobdenotter, [#2823](https://github.com/bolt/core/pull/2823))
+- Remove missing `related_values_from_content` filter (mcdennem, [#2805](https://github.com/bolt/core/pull/2805))
+
+
+## 5.0.0
+
+Released: 2021-08-30
+
+Really, too much to list. This is a major upgrade, and consists of about 2400 commits since 4.0.
+This blog post lists some relevant details: 
+
+https://boltcms.io/newsitem/big-announcement-bolt-5-0-on-the-horizon
+
+
 ## 4.2.2
 
 Released: 2021-08-23
