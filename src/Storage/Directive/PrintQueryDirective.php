@@ -51,5 +51,4 @@ class PrintQueryDirective
 
         echo $output;
     }
-
 }
