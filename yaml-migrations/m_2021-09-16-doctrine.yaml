@@ -1,6 +1,6 @@
 # Adding the JSON_SEARCH for Bolt 5
 file: packages/doctrine.yaml
-since: 4.2.0
+since: 5.0.2
 
 add:
     doctrine:
