@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Storage\Directive;
 
+use Bolt\Common\Str;
 use Bolt\Storage\QueryInterface;
 use Doctrine\ORM\Query\Parameter;
 
@@ -29,7 +30,7 @@ class PrintQueryDirective
         foreach ($parameters as $parameter) {
             $dql = str_replace(
                 ':' . $parameter->getName() . '',
-                '<b title="' . $parameter->getValue() . '">:' . $parameter->getName() . '</b>',
+                '<b title="' . Str::stringifyValue($parameter->getValue()) . '">:' . $parameter->getName() . '</b>',
                 $dql
             );
         }
@@ -42,7 +43,7 @@ class PrintQueryDirective
             $output .= sprintf(
                 '<li><code>%s</code>: <code>%s</code></li>',
                 $parameter->getName(),
-                $parameter->getValue()
+                Str::stringifyValue($parameter->getValue())
             );
         }
 
