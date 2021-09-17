@@ -15,6 +15,7 @@ Released: 2021-09-17
 - Fix duplicate ids on login page (Joossensei, [#2814](https://github.com/bolt/core/pull/2814))
 - Show `memory_limit` and attempt to set it on CLI (Bobdenotter, [#2823](https://github.com/bolt/core/pull/2823))
 - Remove missing `related_values_from_content` filter (mcdennem, [#2805](https://github.com/bolt/core/pull/2805))
+- Ensure admin/developer option is respected (bobvandevijver, [#2831](https://github.com/bolt/core/pull/2831))
 
 
 ## 5.0.0
