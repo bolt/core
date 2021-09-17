@@ -12,6 +12,7 @@ if (!in_array(PHP_SAPI, ['cli', 'phpdbg', 'embed'], true)) {
 }
 
 set_time_limit(0);
+@ini_set('memory_limit', '1024M');
 
 require dirname(__DIR__).'/vendor/autoload.php';
 
