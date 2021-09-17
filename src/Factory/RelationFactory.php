@@ -7,14 +7,13 @@ namespace Bolt\Factory;
 use Bolt\Entity\Content;
 use Bolt\Entity\Relation;
 use Bolt\Repository\RelationRepository;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Tightenco\Collect\Support\Collection;
 
 class RelationFactory
 {
     /** @var EntityManagerInterface */
-    private $em; 
+    private $em;
 
     /** @var RelationRepository */
     private $repository;
@@ -65,7 +64,6 @@ class RelationFactory
     {
         if ($relation instanceof Relation) {
             $this->em->persist($relation);
-
         } elseif (is_iterable($relation)) {
             foreach ($relation as $r) {
                 $this->em->persist($r);
