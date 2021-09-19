@@ -95,7 +95,9 @@ final class RelationFactoryTest extends DbAwareTestCase
         }
 
         $relationFactory->save($relations);
-        $relationIds = array_map(fn ($relation) => $relation->getId(), $relations);
+        $relationIds = array_map(function ($relation) {
+            return $relation->getId();
+        }, $relations);
 
         $this->assertFalse(in_array(null, $relationIds, true), 'Some of the relations has not been persisted.');
     }
@@ -126,7 +128,9 @@ final class RelationFactoryTest extends DbAwareTestCase
         $entryIds = array_map(function ($entry) {
             return $entry->getId();
         }, $entries);
-        $nonRelatedEntries = array_filter($entryIds, fn ($id) => ! in_array($id, $relatedIds, true));
+        $nonRelatedEntries = array_filter($entryIds, function ($id) use ($relatedIds) {
+            return ! in_array($id, $relatedIds, true);
+        });
 
         reset($nonRelatedEntries);
 
