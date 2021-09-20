@@ -6,6 +6,7 @@
     {% endif %}
 
     <editor-textarea
+        :id='{{ id|json_encode }}'
         :value='{{ value|json_encode }}'
         :label='{{ label|json_encode }}'
         :name='{{ name|json_encode }}'

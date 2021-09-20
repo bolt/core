@@ -1,0 +1,10 @@
+# Adding the JSON_SEARCH for Bolt 5
+file: packages/doctrine.yaml
+since: 5.0.2
+
+add:
+    doctrine:
+        orm:
+            dql:
+                string_functions:
+                    JSON_SEARCH: Scienta\DoctrineJsonFunctions\Query\AST\Functions\Mysql\JsonSearch

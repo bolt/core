@@ -1,6 +1,7 @@
 <template>
     <div>
         <textarea
+            :id="id"
             v-model="rawVal"
             class="form-control field--textarea"
             :name="name"
@@ -23,6 +24,7 @@ export default {
     name: 'EditorTextarea',
     mixins: [field],
     props: {
+        id: String,
         value: String,
         name: String,
         required: Boolean,

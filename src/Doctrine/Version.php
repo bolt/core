@@ -97,6 +97,20 @@ class Version
         return true;
     }
 
+    public function hasJsonSearch(): bool
+    {
+        try {
+            $query = $this->connection->createQueryBuilder();
+            $query
+                ->select('JSON_SEARCH("{}", "one", "")');
+            $query->execute();
+        } catch (\Throwable $e) {
+            return false;
+        }
+
+        return true;
+    }
+
     /**
      * If we're using SQLite, this method tests for JSON support
      *

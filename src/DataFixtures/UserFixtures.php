@@ -59,7 +59,6 @@ class UserFixtures extends BaseFixture implements FixtureGroupInterface
                     continue 2;
                 }
             }
-
             $user = new User();
             $user->setDisplayName($userData['displayname']);
             $user->setUsername($userData['username']);
@@ -68,7 +67,7 @@ class UserFixtures extends BaseFixture implements FixtureGroupInterface
             $user->setRoles($userData['roles']);
             $user->setLocale('en');
             $user->setBackendTheme('default');
-            $user->setStatus(UserStatus::ENABLED);
+            $user->setStatus($userData['status'] ?? UserStatus::DISABLED);
 
             $manager->persist($user);
             $this->addReference('user_' . $userData['username'], $user);
@@ -96,6 +95,7 @@ class UserFixtures extends BaseFixture implements FixtureGroupInterface
                 'password' => $this->append ? Str::generatePassword(10) : 'admin%1',
                 'email' => 'admin@example.org',
                 'roles' => ['ROLE_DEVELOPER'],
+                'status' => UserStatus::ENABLED,
             ],
             [
                 'displayname' => 'Crazy Steve',
@@ -110,6 +110,7 @@ class UserFixtures extends BaseFixture implements FixtureGroupInterface
                 'password' => $this->append ? Str::generatePassword(10) : 'jane%1',
                 'email' => 'jane_admin@example.org',
                 'roles' => ['ROLE_CHIEF_EDITOR'],
+                'status' => UserStatus::ENABLED,
             ],
             [
                 'displayname' => 'Tom Doe',
@@ -124,6 +125,7 @@ class UserFixtures extends BaseFixture implements FixtureGroupInterface
                 'password' => $this->append ? Str::generatePassword(10) : 'john%1',
                 'email' => 'john_user@example.org',
                 'roles' => ['ROLE_EDITOR'],
+                'status' => UserStatus::ENABLED,
             ],
             [
                 'displayname' => 'Eddie Enduser',
@@ -131,6 +133,7 @@ class UserFixtures extends BaseFixture implements FixtureGroupInterface
                 'password' => $this->append ? Str::generatePassword(10) : 'eddie%1',
                 'email' => 'eddie@example.org',
                 'roles' => ['ROLE_USER'],
+                'status' => UserStatus::ENABLED,
             ],
         ];
     }

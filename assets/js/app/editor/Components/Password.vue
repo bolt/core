@@ -2,7 +2,6 @@
     <div>
         <div class="input-group">
             <input
-                :id="id"
                 ref="inputField"
                 class="form-control"
                 type="password"
