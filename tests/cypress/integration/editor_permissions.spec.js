@@ -9,7 +9,7 @@ describe('As an editor I should not be able to access Configuration', () => {
 });
 
 describe('As an editor I should only be able to view the About Bolt maintenance page', () => {
-    it('checks if an editor can access maintenance oages besides About Bolt', () => {
+    it('checks if an editor can access maintenance pages besides About Bolt', () => {
         cy.login('john_editor', 'john%1');
         cy.url().should('contain', '/bolt/');
         cy.get('ul[class="admin__sidebar--menu"]').find('li').eq(10).trigger('mouseover');
@@ -45,12 +45,12 @@ describe('As an editor I should only be able to view the About Bolt maintenance 
 });
 
 describe('As an editor I should only be able to view uploaded files', () => {
-    it('checks if an editor can access templates', () => {
-        // todo: Should they have access to teplates?
-        return;
+    it('checks if an editor can access files', () => {
+        cy.visit('/bolt/login');
         cy.login('john_editor', 'john%1');
         cy.url().should('contain', '/bolt/');
-        cy.get('ul[class="admin__sidebar--menu"]').find('li').eq(10).trigger('mouseover');
+        cy.get('ul[class="admin__sidebar--menu"]').find('li').eq(11).trigger('mouseover');
+        cy.get('ul[class="link--menu"]').find('li').eq(1).find('a').find('span').should('contain', "Geüploade bestanden");
 
         cy.get('a[href="/bolt/menu/filemanagement"]').click();
         cy.url().should('contain', '/bolt/menu/filemanagement');
