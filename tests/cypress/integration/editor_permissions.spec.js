@@ -50,7 +50,7 @@ describe('As an editor I should only be able to view uploaded files', () => {
         cy.login('john_editor', 'john%1');
         cy.url().should('contain', '/bolt/');
         // cy.get('ul[class="admin__sidebar--menu"]').find('li').eq(11).trigger('mouseover');
-        cy.get('ul[class="admin__sidebar--menu"]').find('li').eq(11).trigger('mouseover', {force:true}).get('ul[class="link--menu"]').find('li').eq(1).find('a').find('span').should('contain', "Geüploade bestanden");
+        cy.find('span').eq(58).should('contain', "Uploaded files");
 
         cy.get('a[href="/bolt/menu/filemanagement"]').click();
         cy.url().should('contain', '/bolt/menu/filemanagement');
