@@ -87,11 +87,15 @@ final class RelationFactoryTest extends DbAwareTestCase
         $relations = [];
 
         $limit = count($nonRelatedEntryIds) > 5 ? 5 : count($nonRelatedEntryIds);
-        for ($i = 0; $i < $limit; $i++) {
+        foreach ($nonRelatedEntryIds as $id) {
             /** @var Content|null $entry */
-            $entry = $contentRepository->findOneById($nonRelatedEntryIds[$i]);
+            $entry = $contentRepository->findOneById($id);
             $entries[] = $entry;
             $relations[] = $relationFactory->create($entry, $page);
+
+            if (count($relations) >= $limit) {
+                break;
+            }
         }
 
         $relationFactory->save($relations);
@@ -132,9 +136,7 @@ final class RelationFactoryTest extends DbAwareTestCase
             return ! in_array($id, $relatedIds, true);
         });
 
-        reset($nonRelatedEntries);
-
-        return $nonRelatedEntries;
+        return array_values($nonRelatedEntries);
     }
 
     private function getContentRelatedIds(Collection $contentRelations): array
