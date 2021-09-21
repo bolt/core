@@ -25,7 +25,7 @@ global:
     # these control /bolt/file-edit and /bolt/filemanager -> combined create/read/update/delete permission
     # the part after the files: is the 'location' where the files are part of
     managefiles:config: [ ROLE_ADMIN ] # all configuration yml files /bolt/filemanager/config and /bolt/file-edit/config?file=/bolt/menu.yaml
-    managefiles:files: [ ROLE_CHIEF_EDITOR ]
+    managefiles:files: [ ROLE_EDITOR ]
     managefiles:themes: [ ROLE_ADMIN ]
     editprofile: [ IS_AUTHENTICATED_FULLY ] # edit own profile
     translation: [ ROLE_ADMIN ]
