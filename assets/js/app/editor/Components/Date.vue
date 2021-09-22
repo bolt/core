@@ -48,6 +48,7 @@
 import $ from 'jquery';
 import value from '../mixins/value';
 import flatPickr from 'vue-flatpickr-component';
+import { DateTime } from 'luxon';
 
 export default {
     name: 'EditorDate',
@@ -145,6 +146,11 @@ export default {
             // rather than undefined.
             input[0].reportValidity();
             input[0].setCustomValidity('');
+        },
+        filterDate(string) {
+            if (string) {
+                return DateTime.fromISO(String(string)).toLocaleString();
+            }
         },
     },
 };

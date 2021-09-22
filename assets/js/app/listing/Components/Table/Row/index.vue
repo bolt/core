@@ -13,7 +13,7 @@
                 <span v-if="record.extras.feature" class="badge" :class="`badge-${record.extras.feature}`">{{
                     record.extras.feature
                 }}</span>
-                <span class="listing__row--item-title-excerpt">{{ record.extras.excerpt | raw }}</span>
+                <span class="listing__row--item-title-excerpt">{{ formatRaw(record.extras.excerpt) }}</span>
             </div>
             <!-- end column -->
 

@@ -74,17 +74,17 @@
                 <span class="dropdown-item-text">
                     <i class="fas fa-asterisk fa-w"></i>
                     {{ labels.created_on }}:
-                    <strong>{{ record.createdAt | datetime }}</strong>
+                    <strong>{{ formatAsDateTime(record.createdAt) }}</strong>
                 </span>
                 <span class="dropdown-item-text">
                     <i class="far fa-calendar-alt fa-w"></i>
                     {{ labels.published_on }}:
-                    <strong>{{ record.publishedAt | datetime }}</strong>
+                    <strong>{{ formatAsDateTime(record.publishedAt) }}</strong>
                 </span>
                 <span class="dropdown-item-text">
                     <i class="fas fa-redo fa-w"></i>
                     {{ labels.last_modified_on }}:
-                    <strong>{{ record.modifiedAt | datetime }}</strong>
+                    <strong>{{ formatAsDateTime(record.modifiedAt) }}</strong>
                 </span>
             </div>
         </div>
