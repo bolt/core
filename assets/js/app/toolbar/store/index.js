@@ -1,8 +1,8 @@
-import Vue from 'vue';
+import { createApp } from 'vue';
 import Vuex from 'vuex';
 import general from './modules/general/';
 
-Vue.use(Vuex);
+createApp().use(Vuex);
 
 export default new Vuex.Store({
     modules: {
