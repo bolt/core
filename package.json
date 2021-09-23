@@ -60,7 +60,7 @@
         "vue-template-compiler": "^2.6.14",
         "vue-trumbowyg": "^4.0.0",
         "vuedraggable": "^2.24.3",
-        "vuex": "^3.6.2",
+        "vuex": "^4.0.2",
         "zxcvbn": "^4.4.2"
     },
     "devDependencies": {
