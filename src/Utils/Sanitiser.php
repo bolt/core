@@ -54,6 +54,8 @@ class Sanitiser
         $definition->addAttribute('a', 'frameborder', 'Text');
         $definition->addAttribute('a', 'allowfullscreen', 'Text');
         $definition->addAttribute('a', 'scrolling', 'Text');
+        $definition->addAttribute('td', 'width', 'Text');
+        
 
         // Allow src tag in iframe for embed fields
         $definition->addAttribute('iframe', 'src', 'Text');
