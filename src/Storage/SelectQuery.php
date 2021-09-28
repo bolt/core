@@ -7,6 +7,7 @@ namespace Bolt\Storage;
 use Bolt\Configuration\Config;
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Doctrine\JsonHelper;
+use Bolt\Entity\Field\CheckboxField;
 use Bolt\Entity\Field\NumberField;
 use Bolt\Entity\Field\SelectField;
 use Doctrine\ORM\EntityManagerInterface;
@@ -614,9 +615,11 @@ class SelectQuery implements QueryInterface
             return $this->utils->getNumericCastExpression($valueAlias);
         }
 
-        // LOWER() added to query to enable case insensitive search of JSON  values. Used in conjunction with converting $params of setParameter() to lowercase.
-        // BUG SQLSTATE[42883]: Undefined function: 7 ERROR: function lower(jsonb) does not exist
-        // We want to be able to search case-insensitive, database-agnostic, have to think of a good way..
+        // Special case for checkbox fields: https://github.com/bolt/core/pull/2843
+        if ($this->utils->isFieldType($this, $fieldName, CheckboxField::TYPE)) {
+            return '0 + ' . JsonHelper::wrapJsonFunction($valueAlias, null, $this->em->getConnection());
+        };
+
         return JsonHelper::wrapJsonFunction($valueAlias, null, $this->em->getConnection());
     }
 }
