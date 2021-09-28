@@ -88,7 +88,7 @@
 
 <script>
 const tinycolor = require('tinycolor2');
-
+import store from '../store';
 export default {
     name: 'Toolbar',
     props: {
@@ -114,12 +114,12 @@ export default {
             });
         },
         toolbarColor() {
-            return this.$store.getters['general/toolbarColor'];
+            return store.getters['general/toolbarColor'];
         },
     },
     created() {
         const color = getComputedStyle(document.body).getPropertyValue('--admin-toolbar');
-        this.$store.dispatch('general/toolbarColor', color);
+        store.dispatch('general/toolbarColor', color);
     },
 };
 </script>

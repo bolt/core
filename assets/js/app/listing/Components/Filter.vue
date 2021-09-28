@@ -55,6 +55,7 @@
 
 <script>
 import type from '../mixins/type';
+import store from '../store';
 
 export default {
     name: 'ListingFilter',
@@ -64,33 +65,33 @@ export default {
     },
     computed: {
         size() {
-            return this.$store.getters['general/getRowSize'];
+            return store.getters['general/getRowSize'];
         },
         sorting() {
-            return this.$store.getters['general/getSorting'];
+            return store.getters['general/getSorting'];
         },
         selectAll() {
-            return this.$store.getters['selecting/selectAll'];
+            return store.getters['selecting/selectAll'];
         },
     },
     watch: {
         sorting() {
-            if (this.sorting) this.$store.dispatch('selecting/selectAll', false);
+            if (this.sorting) store.dispatch('selecting/selectAll', false);
         },
     },
     created() {
         const size = localStorage.getItem('listing-row-size');
-        if (size !== null) this.$store.dispatch('general/setRowSize', size);
+        if (size !== null) store.dispatch('general/setRowSize', size);
     },
     methods: {
         enableSorting(arg) {
-            this.$store.dispatch('general/setSorting', arg);
+            store.dispatch('general/setSorting', arg);
         },
         enableSelectAll(arg) {
-            this.$store.dispatch('selecting/selectAll', arg);
+            store.dispatch('selecting/selectAll', arg);
         },
         changeSize(size) {
-            this.$store.dispatch('general/setRowSize', size);
+            store.dispatch('general/setRowSize', size);
             localStorage.setItem('listing-row-size', size);
         },
     },

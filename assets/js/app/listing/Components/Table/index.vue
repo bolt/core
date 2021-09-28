@@ -11,6 +11,7 @@
 <script>
 import draggable from 'vuedraggable';
 import Row from './Row';
+import store from '../../store'
 
 export default {
     name: 'ListingTable',
@@ -24,10 +25,10 @@ export default {
     computed: {
         records: {
             get() {
-                return this.$store.getters['listing/getRecords'];
+                return store.getters['listing/getRecords'];
             },
             set(val) {
-                this.$store.dispatch('listing/setRecords', val);
+                store.dispatch('listing/setRecords', val);
             },
         },
     },

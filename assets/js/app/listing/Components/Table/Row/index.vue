@@ -8,7 +8,7 @@
             <!-- column details / excerpt -->
             <div class="listing__row--item is-details">
                 <a class="listing__row--item-title" :href="record.extras.editLink" :title="slug">
-                    {{ record.extras.title | trim(62) | raw }}
+                    {{ formatRaw(formatTrim(record.extras.title)) }}
                 </a>
                 <span v-if="record.extras.feature" class="badge" :class="`badge-${record.extras.feature}`">{{
                     record.extras.feature
