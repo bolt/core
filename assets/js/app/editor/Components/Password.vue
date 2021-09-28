@@ -7,11 +7,11 @@
                 class="form-control"
                 type="password"
                 :name="name"
+                :id="id"
                 :value="value"
                 :required="required"
                 :readonly="readonly"
                 :data-errormessage="errormessage"
-                :pattern="pattern"
                 :placeholder="placeholder"
                 autocomplete="new-password"
                 @input="measureStrength"
@@ -49,7 +49,6 @@ export default {
         required: Boolean,
         readonly: Boolean,
         errormessage: String | Boolean, //string if errormessage is set, and false otherwise
-        pattern: String | Boolean,
         placeholder: String | Boolean,
     },
 
