@@ -1,4 +1,4 @@
-import Vue from 'vue';
+import { createApp } from 'vue';
 /**
  * VueX Store
  */
@@ -27,26 +27,26 @@ import Collection from './Components/Collection';
 import Checkbox from './Components/Checkbox';
 import UnsavedChangesWarning from './unsavedchanges';
 
-Vue.component('editor-checkbox', Checkbox);
-Vue.component('editor-date', Date);
-Vue.component('editor-embed', Embed);
-Vue.component('editor-email', Email);
-Vue.component('editor-password', Password);
-Vue.component('editor-html', Html);
-Vue.component('editor-image', Image);
-Vue.component('editor-imagelist', Imagelist);
-Vue.component('editor-file', File);
-Vue.component('editor-filelist', Filelist);
-Vue.component('editor-markdown', Markdown);
-Vue.component('editor-number', Number);
-Vue.component('editor-select', Select);
-Vue.component('editor-slug', Slug);
-Vue.component('editor-text', Text);
-Vue.component('editor-textarea', Textarea);
-Vue.component('editor-collection', Collection);
-Vue.component('editor-set', Set);
-Vue.component('general-language', Language);
-Vue.component('theme-select', ThemeSelect);
+createApp().component('editor-checkbox', Checkbox);
+createApp().component('editor-date', Date);
+createApp().component('editor-embed', Embed);
+createApp().component('editor-email', Email);
+createApp().component('editor-password', Password);
+createApp().component('editor-html', Html);
+createApp().component('editor-image', Image);
+createApp().component('editor-imagelist', Imagelist);
+createApp().component('editor-file', File);
+createApp().component('editor-filelist', Filelist);
+createApp().component('editor-markdown', Markdown);
+createApp().component('editor-number', Number);
+createApp().component('editor-select', Select);
+createApp().component('editor-slug', Slug);
+createApp().component('editor-text', Text);
+createApp().component('editor-textarea', Textarea);
+createApp().component('editor-collection', Collection);
+createApp().component('editor-set', Set);
+createApp().component('general-language', Language);
+createApp().component('theme-select', ThemeSelect);
 
 const id = 'editor';
 const editorSelector = '#' + id;
