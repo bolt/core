@@ -618,7 +618,7 @@ class SelectQuery implements QueryInterface
         // Special case for checkbox fields: https://github.com/bolt/core/pull/2843
         if ($this->utils->isFieldType($this, $fieldName, CheckboxField::TYPE)) {
             return '0 + ' . JsonHelper::wrapJsonFunction($valueAlias, null, $this->em->getConnection());
-        };
+        }
 
         return JsonHelper::wrapJsonFunction($valueAlias, null, $this->em->getConnection());
     }
