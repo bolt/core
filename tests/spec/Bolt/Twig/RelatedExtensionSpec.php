@@ -24,7 +24,7 @@ class RelatedExtensionSpec extends ObjectBehavior
 
     public function it_gets_all_related_content(Content $content, RelationRepository $relationRepository, Relation $relation, Content $related): void
     {
-        $relationRepository->findRelations($content, null, true, null, true)
+        $relationRepository->findRelations($content, null, null, true)
             ->shouldBeCalledOnce()
             ->willReturn([$relation, $relation]);
 
@@ -44,7 +44,7 @@ class RelatedExtensionSpec extends ObjectBehavior
 
     public function it_gets_related_content(Content $content, RelationRepository $relationRepository, Relation $relation, Content $related): void
     {
-        $relationRepository->findRelations($content, self::TEST_CT_SLUG, true, null, true)
+        $relationRepository->findRelations($content, self::TEST_CT_SLUG, null, true)
             ->shouldBeCalledOnce()
             ->willReturn([$relation]);
 
@@ -60,7 +60,7 @@ class RelatedExtensionSpec extends ObjectBehavior
 
     public function it_gets_related_content_unidirectional_with_limit(Content $content, RelationRepository $relationRepository, Relation $relation, Content $related): void
     {
-        $relationRepository->findRelations($content, self::TEST_CT_SLUG, false, 3, true)
+        $relationRepository->findRelations($content, self::TEST_CT_SLUG, 3, true)
             ->shouldBeCalledOnce()
             ->willReturn([$relation, $relation, $relation]);
 
@@ -77,7 +77,7 @@ class RelatedExtensionSpec extends ObjectBehavior
 
     public function it_gets_first_related_content(Content $content, RelationRepository $relationRepository, Relation $relation, Content $related): void
     {
-        $relationRepository->findFirstRelation($content, self::TEST_CT_SLUG, true, true)
+        $relationRepository->findFirstRelation($content, self::TEST_CT_SLUG, true)
             ->shouldBeCalledOnce()
             ->willReturn($relation);
 
@@ -92,7 +92,7 @@ class RelatedExtensionSpec extends ObjectBehavior
 
     public function it_couldnt_find_related_content(Content $content, RelationRepository $relationRepository): void
     {
-        $relationRepository->findRelations($content, null, true, null, true)->willReturn([]);
+        $relationRepository->findRelations($content, null, null, true)->willReturn([]);
         $result = $this->getRelatedContent($content);
         $result->shouldBeArray();
         $result->shouldHaveCount(0);
@@ -100,7 +100,7 @@ class RelatedExtensionSpec extends ObjectBehavior
 
     public function it_couldnt_find_first_related_content(Content $content, RelationRepository $relationRepository): void
     {
-        $relationRepository->findFirstRelation($content, null, true, true)->willReturn(null);
+        $relationRepository->findFirstRelation($content, null, true)->willReturn(null);
         $result = $this->getFirstRelatedContent($content);
         $result->shouldBeNull();
     }

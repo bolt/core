@@ -14,6 +14,7 @@
                         :href="previewImage"
                         :style="`background-image: url('${thumbnailImage}')`"
                     >
+                        <span class="sr-only">{{ labels.image_preview }}</span>
                     </a>
                 </div>
             </div>
@@ -21,6 +22,7 @@
                 <div class="input-group mb-3">
                     <input :name="name + '[media]'" type="hidden" :value="media" />
                     <input
+                        :title="name + ' filename'"
                         class="form-control"
                         :name="name + '[filename]'"
                         type="text"
@@ -34,6 +36,7 @@
                 <div v-if="includeAlt" class="input-group mb-3">
                     <input
                         v-model="altData"
+                        :title="name + ' alt'"
                         class="form-control"
                         :name="name + '[alt]'"
                         type="text"
@@ -61,7 +64,9 @@
                             name="image-upload-dropdown"
                             type="button"
                             :disabled="readonly"
-                        ></button>
+                        >
+                            <span class="sr-only">{{ labels.button_upload_options }}</span>
+                        </button>
 
                         <div class="dropdown-menu">
                             <button
@@ -144,7 +149,9 @@
             </div>
         </div>
         <input
+            :id="fieldId"
             ref="selectFile"
+            :title="name + ' filename'"
             class="editor__image--upload"
             :name="fieldName"
             tabindex="-1"
@@ -168,6 +175,7 @@ export default {
     props: {
         filename: String,
         name: String,
+        id: String,
         required: Boolean,
         readonly: Boolean,
         thumbnail: String,
@@ -200,6 +208,9 @@ export default {
         };
     },
     computed: {
+        fieldId() {
+            return this.id;
+        },
         fieldName() {
             return this.name + '[]';
         },

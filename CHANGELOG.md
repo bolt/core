@@ -1,6 +1,197 @@
 Changelog
 =========
 
+## 5.0.2
+
+Released: 2021-09-17
+
+### 🐛 Bug fixes
+
+- Fix querying selects and multiselects (I-Valchev, [#2828](https://github.com/bolt/core/pull/2828))
+- Fixed the cypress test (Joossensei, [#2821](https://github.com/bolt/core/pull/2821))
+- Addressed remove dummy users issue. (Joossensei, [#2819](https://github.com/bolt/core/pull/2819))
+- Fix missing id's for `integer`/`float` field (Joossensei, [#2817](https://github.com/bolt/core/pull/2817))
+- Fix missing id for `textarea` (Joossensei, [#2816](https://github.com/bolt/core/pull/2816))
+- Fix duplicate ids on login page (Joossensei, [#2814](https://github.com/bolt/core/pull/2814))
+- Show `memory_limit` and attempt to set it on CLI (Bobdenotter, [#2823](https://github.com/bolt/core/pull/2823))
+- Remove missing `related_values_from_content` filter (mcdennem, [#2805](https://github.com/bolt/core/pull/2805))
+- Ensure admin/developer option is respected (bobvandevijver, [#2831](https://github.com/bolt/core/pull/2831))
+
+
+## 5.0.0
+
+Released: 2021-08-30
+
+Really, too much to list. This is a major upgrade, and consists of about 2400 commits since 4.0.
+This blog post lists some relevant details: 
+
+https://boltcms.io/newsitem/big-announcement-bolt-5-0-on-the-horizon
+
+
+## 4.2.2
+
+Released: 2021-08-23
+
+### 🐛 Bug fixes
+
+- Fix `optionsLimit` hyphenation warning (I-Valchev, [#2789](https://github.com/bolt/core/pull/2789))
+- Lock `symfony/flex` to `1.13` for now (bobdenotter, [#2786](https://github.com/bolt/core/pull/2786))
+- Search now also finds words with special characters, like `büßen` (bobdenotter, [#2767](https://github.com/bolt/core/pull/2767))
+- Workaround for constructor signature change in Symfony/Process (bobdenotter, [#2766](https://github.com/bolt/core/pull/2766))
+
+
+## 4.2.1
+
+Released: 2021-08-11
+
+### 🐛 Bug fixes
+
+- Use Symfony Process component instead of `passthru` (I-Valchev, [#2755](https://github.com/bolt/core/pull/2755))
+- `imagelist` and `filelist` fields can be emptied (I-Valchev, [#2743](https://github.com/bolt/core/pull/2743))
+- Throw 404 response when thumbnailing a missing image (I-Valchev, [#2742](https://github.com/bolt/core/pull/2742))
+- Fix `group: sidebar` conflicting with Bolt's sidebar (I-Valchev, [#2737](https://github.com/bolt/core/pull/2737))
+
+### 🛠️ Miscellaneous
+
+- Update webpack encore (nestordedios, [#2752](https://github.com/bolt/core/pull/2752))
+- Unlimited select field options (JTNMW, [#2750](https://github.com/bolt/core/pull/2750))
+
+
+## 4.2.0
+
+Released: 2021-07-27
+
+- Preparations for upgrading to Bolt 5
+- Add Composer scripts for tasks, when running Composer
+
+
+## 4.1.23
+
+Released: 2021-07-18
+
+### 🐛 Bug fixes
+
+- Don't lowercase values in queries, allow for booleans (bobdenotter, [#2686](https://github.com/bolt/core/pull/2686))
+- Fix incorrect error when uploading an allowed filetype, that isn't an image (bobdenotter, [#2663](https://github.com/bolt/core/pull/2663))
+- Allow whitespace in `orderby` in setcontent queries (bobdenotter, [#2712](https://github.com/bolt/core/pull/2712))
+
+### 🛠️ Miscellaneous
+
+- Replace `_` with space in Field labels (bobdenotter, [#2711](https://github.com/bolt/core/pull/2711))
+- Support Twig chain loaders if available (emodric, [#2660](https://github.com/bolt/core/pull/2660))
+- Use `localdate`, in preparation of this being the standard in 5.0 (bobdenotter, [#2656](https://github.com/bolt/core/pull/2656))
+- Remove unneeded line and fix rogue quote (bobdenotter, [#2650](https://github.com/bolt/core/pull/2650))
+
+### 🤖 Tests
+
+- Ignore two more PHPstan false positives (bobdenotter, [#2685](https://github.com/bolt/core/pull/2685))
+- Fix `If condition is always true` on new phpstan (I-Valchev, [#2675](https://github.com/bolt/core/pull/2675))
+
+
+## 4.1.22
+
+Released: 2021-06-18
+
+### 🛠️ Miscellaneous
+
+- [security] Don't allow `symfony/security-http` 5.3.0 and 5.3.1 (bobdenotter, [#2640](https://github.com/bolt/core/pull/2640))
+- Add `inferred_slug` values to parsed ContentType, if applicable (bobdenotter, [#2636](https://github.com/bolt/core/pull/2636))
+- Pass around `BaseExtension` instead of string in `ExtensionsConfigureCommand` (bobdenotter, [#2628](https://github.com/bolt/core/pull/2628))
+
+### 🤖 Tests
+
+- Add cypress tests (I-Valchev, [#2625](https://github.com/bolt/core/pull/2625))
+
+
+## 4.1.21
+
+Released: 2021-06-11
+
+### 🐛 Bug fixes
+
+- Fix `maximum_listing_select` in `config.yaml` (I-Valchev, [#2619](https://github.com/bolt/core/pull/2619))
+- `extensions:configure` accepts both `.yaml` and `.yml` for config, routes and services in extensions (I-Valchev, [#2618](https://github.com/bolt/core/pull/2618))
+- Fix `|filter` and `|order` chaining returning no results (I-Valchev, [#2603](https://github.com/bolt/core/pull/2603))
+
+### ⚙️ Code Quality / Developer Experience
+
+- Add restriction for (global) Composer 2 to `composer.json` (bobdenotter, [#2614](https://github.com/bolt/core/pull/2614))
+- Fix error in custom code producing seemingly unrelated message. Catch `LoaderLoadException` instead of `Throwable` (bobdenotter, [#2623](https://github.com/bolt/core/pull/2623))
+- Pin Chromedriver to version 90.x  (bobdenotter, [#2610](https://github.com/bolt/core/pull/2610))
+
+
+## 4.1.20
+
+Released: 2021-05-31
+
+### 🐛 Bug fixes
+
+- Performance boost: Keep in-memory copy of `currentLocale` (bobdenotter, [#2597](https://github.com/bolt/core/pull/2597))
+- Fix copy-themes with packages. Implement copying specific theme (I-Valchev, [#2584](https://github.com/bolt/core/pull/2584))
+
+### ⚙️ Code Quality / Developer Experience
+
+- Update LICENSE (I-Valchev, [#2567](https://github.com/bolt/core/pull/2567))
+
+
+## 4.1.19
+
+Released: 2021-05-11
+
+### 🐛 Bug fixes
+
+- Several fixes for handling Relations (bobdenotter, [#2576](https://github.com/bolt/core/pull/2576))
+- Copy packaged themes in `bolt:copy-themes` command (I-Valchev, [#2563](https://github.com/bolt/core/pull/2563))
+- Fix a CSS quirk in listing overview pages (bobdenotter, [#2554](https://github.com/bolt/core/pull/2554))
+
+### 🛠️ Miscellaneous
+
+- Replace `node-sass` with `sass` 🗑🔥 (bobdenotter, [#2562](https://github.com/bolt/core/pull/2562))
+- Allow `sensio/framework-extra-bundle` version 6 (bobvandevijver, [#2551](https://github.com/bolt/core/pull/2551))
+
+### ⚙️ Code Quality / Developer Experience
+
+- Fix ecs breakage with `friendsofphp/php-cs-fixer` (I-Valchev, [#2566](https://github.com/bolt/core/pull/2566))
+
+## 4.1.18
+
+Released: 2021-04-21
+
+### 🐛 Bug fixes
+
+- Fix edgecase where Excerpt could start with `. `. (bobdenotter, [#2542](https://github.com/bolt/core/pull/2542))
+- The `latest` directive uses `-publishedAt` instead of `-id` (I-Valchev, [#2541](https://github.com/bolt/core/pull/2541))
+- Fix datepicker to only attempt to use existing locales, ensuring Time Picking still works (bobdenotter, [#2539](https://github.com/bolt/core/pull/2539))
+- Locale get link always `_locale` parameter (I-Valchev, [#2532](https://github.com/bolt/core/pull/2532))
+- Corrected the filepath for `getsvg()` function (mcdennem, [#2531](https://github.com/bolt/core/pull/2531))
+- Decode HTML entities in `title_format` and related (I-Valchev, [#2529](https://github.com/bolt/core/pull/2529))
+- Allow parsing of `localdate`s like `now` or `today + 1 week, 21:00` (bobdenotter, [#2518](https://github.com/bolt/core/pull/2518))
+- Assert User's email is not blank (bobdenotter, [#2517](https://github.com/bolt/core/pull/2517))
+- Fix bug where `anyField` search no longer works on listing (I-Valchev, [#2515](https://github.com/bolt/core/pull/2515))
+- Make sure a select field can accept a string value (I-Valchev, [#2511](https://github.com/bolt/core/pull/2511))
+- Do not remove reverse relation when save (napley, [#2535](https://github.com/bolt/core/pull/2535))
+
+### 🛠️ Miscellaneous
+
+- Suppress unneeded notices in ECS (bobdenotter, [#2520](https://github.com/bolt/core/pull/2520))
+
+
+## 4.1.17
+
+Released: 2021-04-05 (Happy Easter 🐣)
+
+### 🐛 Bug fixes
+
+- Use `CompletePackageInterface` in BaseExtension (bobdenotter, [#2507](https://github.com/bolt/core/pull/2507))
+- Don't keep the date field buttons focused after clicking (I-Valchev, [#2505](https://github.com/bolt/core/pull/2505))
+
+### ⚙️ Code Quality / Developer Experience
+
+- Fix typehinting `PathExpression` -> `Node` for property (bobdenotter, [#2509](https://github.com/bolt/core/pull/2509))
+- Create SECURITY.md (I-Valchev, [#2506](https://github.com/bolt/core/pull/2506))
+- Fixes a PHPStan check error, introduced in Symfony 5.2.6 (bobdenotter, [#2497](https://github.com/bolt/core/pull/2497))
+
+
 ## 4.1.16
 
 Released: 2021-03-23

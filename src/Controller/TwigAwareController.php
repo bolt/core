@@ -24,6 +24,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tightenco\Collect\Support\Collection;
 use Twig\Environment;
+use Twig\Loader\ChainLoader;
 use Twig\Loader\FilesystemLoader;
 
 class TwigAwareController extends AbstractController
@@ -69,14 +70,6 @@ class TwigAwareController extends AbstractController
         $this->templateChooser = $templateChooser;
         $this->defaultLocale = $defaultLocale;
         $this->commonExtension = $commonExtension;
-    }
-
-    /**
-     * @deprecated since Bolt 4.0, use "render()" instead
-     */
-    public function renderTemplate($template, array $parameters = [], ?Response $response = null): Response
-    {
-        return $this->render($template, $parameters, $response);
     }
 
     /**
@@ -190,8 +183,12 @@ class TwigAwareController extends AbstractController
 
     private function setTwigLoader(): void
     {
-        /** @var FilesystemLoader $twigLoaders */
+        /** @var FilesystemLoader|ChainLoader $twigLoaders */
         $twigLoaders = $this->twig->getLoader();
+
+        $twigLoaders = $twigLoaders instanceof ChainLoader ?
+            $twigLoaders->getLoaders() :
+            [$twigLoaders];
 
         $path = $this->config->getPath('theme');
 
@@ -199,8 +196,10 @@ class TwigAwareController extends AbstractController
             $path .= DIRECTORY_SEPARATOR . $this->config->get('theme/template_directory');
         }
 
-        if ($twigLoaders instanceof FilesystemLoader) {
-            $twigLoaders->prependPath($path, '__main__');
+        foreach ($twigLoaders as $twigLoader) {
+            if ($twigLoader instanceof FilesystemLoader) {
+                $twigLoader->prependPath($path, '__main__');
+            }
         }
     }
 

@@ -88,17 +88,22 @@ class ContentTypesParser extends BaseParser
             throw new ConfigurationException($error);
         }
 
+        $contentType['inferred_slug'] = null;
+
         if (! isset($contentType['slug'])) {
             $contentType['slug'] = Str::slug($contentType['name']);
+            if (Str::slug($contentType['name']) !== $key) {
+                $contentType['inferred_slug'] = [Str::slug($contentType['name']), $key];
+            }
         }
         if (! isset($contentType['name'])) {
-            $contentType['name'] = ucwords(preg_replace('/[^a-z0-9]/i', ' ', $contentType['slug']));
+            $contentType['name'] = Str::humanize($contentType['slug']);
         }
         if (! isset($contentType['singular_slug'])) {
             $contentType['singular_slug'] = Str::slug($contentType['singular_name']);
         }
         if (! isset($contentType['singular_name'])) {
-            $contentType['singular_name'] = ucwords(preg_replace('/[^a-z0-9]/i', ' ', $contentType['singular_slug']));
+            $contentType['singular_name'] = Str::humanize($contentType['singular_slug']);
         }
         if (! isset($contentType['show_on_dashboard'])) {
             $contentType['show_on_dashboard'] = true;
@@ -204,9 +209,12 @@ class ContentTypesParser extends BaseParser
             $contentType['taxonomy'] = [];
         }
 
-        // when adding relations, make sure they're added by their slug. Not their 'name' or 'singular name'.
         if (! empty($contentType['relations']) && is_array($contentType['relations'])) {
             foreach (array_keys($contentType['relations']) as $relkey) {
+                // Default `required` to `false` for Relations
+                $contentType['relations'][$relkey]['required'] = $contentType['relations'][$relkey]['required'] ?? false;
+
+                // Make sure Relations are added by their slug. Not their 'name' or 'singular name'.
                 if ($relkey !== Str::slug($relkey)) {
                     $contentType['relations'][Str::slug($relkey)] = $contentType['relations'][$relkey];
                     unset($contentType['relations'][$relkey]);
@@ -316,11 +324,11 @@ class ContentTypesParser extends BaseParser
         }
 
         if (empty($field['label'])) {
-            $field['label'] = ucwords($key);
+            $field['label'] = Str::humanize($key);
         }
 
         if (isset($field['allow_html']) === false) {
-            $field['allow_html'] = in_array($field['type'], ['html', 'markdown'], true);
+            $field['allow_html'] = in_array($field['type'], ['text', 'textarea', 'html', 'markdown'], true);
         }
 
         if (isset($field['sanitise']) === false) {

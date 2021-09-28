@@ -32,7 +32,7 @@
         <input type="hidden" name="location" value="{{ location }}">
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('editfile') }}">
         <div class="form-group">
-            <textarea name="editfile" id="editfile_textarea">{{ contents }}</textarea>
+            <textarea title="undefined" name="editfile" id="editfile_textarea">{{ contents }}</textarea>
         </div>
         <div class="form-group">
             <button class="btn btn-primary" name="save" type="submit" {% if not writable %}disabled{% endif %}>{{ macro.icon('save') }}{{ 'action.save'|trans }}</button>

@@ -31,18 +31,24 @@ class ImageExtension extends AbstractExtension
     /** @var Packages */
     private $assets;
 
+    /** @var string */
+    private $publicFolder;
+
     public function __construct(
         MediaRepository $mediaRepository,
         Notifications $notifications,
         ThumbnailHelper $thumbnailHelper,
         ContentExtension $contentExtension,
-        Packages $assets)
+        Packages $assets,
+        string $publicFolder,
+        string $projectDir)
     {
         $this->mediaRepository = $mediaRepository;
         $this->notifications = $notifications;
         $this->thumbnailHelper = $thumbnailHelper;
         $this->contentExtension = $contentExtension;
         $this->assets = $assets;
+        $this->publicFolder = $projectDir . DIRECTORY_SEPARATOR . $publicFolder;
     }
 
     /**
@@ -143,7 +149,7 @@ class ImageExtension extends AbstractExtension
      */
     public function getSvg($image): ?string
     {
-        $image = $this->assets->getUrl($this->getFilename($image, true), 'files');
+        $image = $this->publicFolder . $this->assets->getUrl($this->getFilename($image, true), 'files');
         $extension = pathinfo($image, PATHINFO_EXTENSION);
 
         if ($extension !== 'svg') {

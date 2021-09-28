@@ -2655,5 +2655,23 @@
         <target>Edit Permissions</target>
       </segment>
     </unit>
+    <unit id="OYUVA5." name="general.label.search">
+      <segment>
+        <source>general.label.search</source>
+        <target>Search</target>
+      </segment>
+    </unit>
+    <unit id="wG04eAa" name="image.image_preview">
+      <segment>
+        <source>image.image_preview</source>
+        <target>Preview the image</target>
+      </segment>
+    </unit>
+    <unit id="OEqzPDO" name="listing_table.actions.select_all">
+      <segment>
+        <source>listing_table.actions.select_all</source>
+        <target>Select all</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

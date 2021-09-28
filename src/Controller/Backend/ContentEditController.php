@@ -41,7 +41,7 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Tightenco\Collect\Support\Collection;
 
 /**
- * CRUD + status, duplicate, preview, for content - note that listing is handled by ListingController.php
+ * CRUD + status, duplicate, for content - note that listing is handled by ListingController.php
  */
 class ContentEditController extends TwigAwareController implements BackendZoneInterface
 {
@@ -251,22 +251,6 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
     }
 
     /**
-     * @Route("/preview/{id}", name="bolt_content_edit_preview", methods={"POST"}, requirements={"id": "\d+"})
-     */
-    public function preview(?Content $content = null): Response
-    {
-        $this->validateCsrf('editrecord');
-
-        $content = $this->contentFromPost($content);
-        $this->denyAccessUnlessGranted(ContentVoter::CONTENT_VIEW, $content);
-
-        $event = new ContentEvent($content);
-        $this->dispatcher->dispatch($event, ContentEvent::ON_PREVIEW);
-
-        return $this->renderSingle($content, false);
-    }
-
-    /**
      * @Route("/duplicate/{id}", name="bolt_content_duplicate", methods={"GET"}, requirements={"id": "\d+"})
      */
     public function duplicate(Content $content): Response
@@ -360,7 +344,9 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         return new RedirectResponse($url);
     }
 
-    private function contentFromPost(?Content $content): Content
+    // todo: This function should not be public.
+    // It needs to be abstracted into its own class, alongside the other functions it uses.
+    public function contentFromPost(?Content $content): Content
     {
         $formData = $this->request->request->all();
         $locale = $this->getPostedLocale($formData) ?: $content->getDefaultLocale();
@@ -434,7 +420,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         }
     }
 
-    private function updateCollections(Content $content, array $formData, ?string $locale): void
+    public function updateCollections(Content $content, array $formData, ?string $locale): void
     {
         $collections = $content->getFields()->filter(function (Field $field) {
             return $field->getType() === CollectionField::TYPE;
@@ -479,7 +465,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         }
     }
 
-    private function getFieldToUpdate(Content $content, string $fieldName, $fieldDefinition = ''): Field
+    public function getFieldToUpdate(Content $content, string $fieldName, $fieldDefinition = ''): Field
     {
         /** @var Field $field */
         $field = null;
@@ -513,7 +499,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         return $field;
     }
 
-    private function updateField(Field $field, $value, ?string $locale): void
+    public function updateField(Field $field, $value, ?string $locale): void
     {
         // If the Field is translatable, set the locale
         if ($field->getDefinition()->get('localize')) {
@@ -557,7 +543,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         }
     }
 
-    private function updateTaxonomy(Content $content, string $key, $taxonomy): void
+    public function updateTaxonomy(Content $content, string $key, $taxonomy): void
     {
         $taxonomy = (new Collection(Json::findArray($taxonomy)))->filter();
 
@@ -584,7 +570,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
     private function updateRelation(Content $content, $newRelations): array
     {
         $newRelations = (new Collection(Json::findArray($newRelations)))->filter();
-        $currentRelations = $this->relationRepository->findRelations($content, null, true, null, false);
+        $currentRelations = $this->relationRepository->findRelations($content, null, null, false);
         $relationsResult = [];
 
         // Remove old ones
@@ -636,7 +622,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
 
     private function getPostedLocale(array $post): ?string
     {
-        return $post['_edit_locale'] ?: null;
+        return $post['_edit_locale'] ?? null;
     }
 
     private function renderEditor(Content $content, $errors = null): Response

@@ -85,14 +85,14 @@ class CopyAssetsCommand extends Command
             }
         }
 
-        if ($rows) {
+        if (! empty($rows)) {
             $io->table(['', 'Folder', 'Method / Error'], $rows);
         }
 
         if ($exitCode !== 0) {
             $io->error('Some errors occurred while installing assets.');
         } else {
-            $io->success($rows ? 'All assets were successfully installed.' : 'No assets were provided by any bundle.');
+            $io->success(! empty($rows) ? 'All assets were successfully installed.' : 'No assets were provided by any bundle.');
         }
 
         return $exitCode;

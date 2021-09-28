@@ -52,7 +52,6 @@ class RelatedExtension extends AbstractExtension
             new TwigFilter('related_first', [$this, 'getFirstRelatedContent']),
             new TwigFilter('related_options', [$this, 'getRelatedOptions']),
             new TwigFilter('related_values', [$this, 'getRelatedValues']),
-            new TwigFilter('related_values_from_content', [$this, 'getRelatedValuesFromContent']),
         ];
     }
 
@@ -67,7 +66,6 @@ class RelatedExtension extends AbstractExtension
             new TwigFunction('first_related_content', [$this, 'getFirstRelatedContent']),
             new TwigFunction('related_options', [$this, 'getRelatedOptions']),
             new TwigFunction('related_values', [$this, 'getRelatedValues']),
-            new TwigFunction('related_values_from_content', [$this, 'getRelatedValuesFromContent']),
         ];
     }
 
@@ -80,7 +78,7 @@ class RelatedExtension extends AbstractExtension
             return [];
         }
 
-        $relations = $this->relationRepository->findRelations($content, null, $bidirectional, $limit, $publishedOnly);
+        $relations = $this->relationRepository->findRelations($content, null, $limit, $publishedOnly);
 
         return (new Collection($relations))
             ->reduce(function (array $result, Relation $relation) use ($content): array {
@@ -105,7 +103,7 @@ class RelatedExtension extends AbstractExtension
             return [];
         }
 
-        $relations = $this->relationRepository->findRelations($content, $name, $bidirectional, $limit, $publishedOnly);
+        $relations = $this->relationRepository->findRelations($content, $name, $limit, $publishedOnly);
 
         return (new Collection($relations))
             ->map(function (Relation $relation) use ($content) {
@@ -115,13 +113,13 @@ class RelatedExtension extends AbstractExtension
             ->toArray();
     }
 
-    public function getFirstRelatedContent($content, ?string $name = null, bool $bidirectional = true, bool $publishedOnly = true): ?Content
+    public function getFirstRelatedContent($content, ?string $name = null, bool $publishedOnly = true): ?Content
     {
         if (! $this->checkforContent($content, 'related_first')) {
             return null;
         }
 
-        $relation = $this->relationRepository->findFirstRelation($content, $name, $bidirectional, $publishedOnly);
+        $relation = $this->relationRepository->findFirstRelation($content, $name, $publishedOnly);
 
         if ($relation === null) {
             return null;
@@ -200,29 +198,6 @@ class RelatedExtension extends AbstractExtension
         }
 
         return new Collection($values);
-    }
-
-    /**
-     * Gets relations from this content via the content variable, and not via a doctrine query
-     */
-    public function getRelatedValuesFromContent(Content $source, string $contentType): Collection
-    {
-        if (! $this->checkforContent($source, 'related_values')) {
-            return new Collection([]);
-        }
-
-        if ($source->getId() === null) {
-            return new Collection([]);
-        }
-
-        return new Collection($source->getRelationsFromThisContent()
-            ->filter(function (Relation $relation) use ($contentType) {
-                return $relation->getToContent()->getContentType() === $contentType;
-            })->map(function (Relation $relation) {
-                $toContent = $relation->getToContent();
-
-                return $toContent->getId();
-            })->getValues());
     }
 
     private function checkforContent($content, string $keyword): bool

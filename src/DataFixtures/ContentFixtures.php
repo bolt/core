@@ -259,12 +259,10 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
 
     private function getFieldTypeValue(DeepCollection $field, bool $singleton, Content $content)
     {
-        $nb = $singleton ? 8 : 4;
-
         switch ($field['type']) {
             case 'html':
             case 'redactor':
-                $data = [FakeContent::generateHTML($nb)];
+                $data = [FakeContent::generateHTML(4)];
 
                 break;
             case 'article':
@@ -272,7 +270,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
 
                 break;
             case 'markdown':
-                $data = [FakeContent::generateMarkdown($nb)];
+                $data = [FakeContent::generateMarkdown(4)];
 
                 break;
             case 'textarea':
@@ -402,8 +400,8 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
             'title' => 'Welcome to your new site',
             'slug' => 'hero-section',
             'teaser' => 'Take a look around, this is Bolt\'s default 2021 theme. To edit your site\'s content,'
-                . ' go to /bolt and login with your username and password.'
-                . ' Documentation, examples and support are available on the official Bolt website (boltcms.io).'
+                . ' go <a href="/bolt/">login with</a> your username and password.'
+                . ' Documentation, examples and support are available on the official <a href="https://boltcms.io">Bolt website</a>.'
                 . ' Happy building 👩🏾‍💻 🧑‍🎨',
         ];
         $records['blocks'][] = [
@@ -438,7 +436,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
             'text_plain' => 'Text with <strong>no</strong> markup allowed.',
             'textarea_field' => 'Textarea field with <em>simple</em> HTML in it.',
             'html_field' => 'HTML field with <em>simple</em> HTML in it.',
-            'markdown_field' => 'Markdown field  with *simple* Markdown in it.',
+            'markdown_field' => 'Markdown field with *simple* Markdown in it.',
             'text_not_sanitised' => 'Text field with <strong>markup</strong>, including <script>console.log(\'hoi\')</script>. The end.',
             'text_sanitised' => 'Text field with <strong>markup</strong>, including <script>console.log(\'hoi\')</script>. The end.',
             'attachment' => [

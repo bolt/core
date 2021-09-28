@@ -12,13 +12,14 @@
                     'action.preview',
                     'fa-external-link-square-alt',
                     'primary mb-0',
-                    {   'type': 'submit',
+                    {   'id': 'button-preview',
+                        'type': 'submit',
                         'form': 'editcontent',
                         'formtarget': '_blank',
                         'formaction': path('bolt_content_edit_preview', {'id': record.id|default(0) })
                     }) }}
 
-                <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button name="bttn_name" type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="sr-only">Toggle Dropdown</span>
                 </button>
                 <div class="dropdown-menu">

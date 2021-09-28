@@ -98,7 +98,7 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
 
     private function parseQueryParams(Request $request, ContentType $contentType): array
     {
-        if ($this->config->get('general/query_search') === false) {
+        if ($this->config->get('general/query_search')->get('enable', true) === false) {
             return [
                 'order' => $contentType->get('order'),
                 'status' => 'published',
@@ -111,7 +111,7 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
         $allowedParams = array_merge(
             $contentType['fields']->keys()->all(),
             $contentType['taxonomy']->all(),
-            ['order', 'earliest', 'latest', 'offset', 'page', 'random', 'author']
+            ['order', 'earliest', 'latest', 'offset', 'page', 'random', 'author', 'anyField', 'anything']
         );
 
         $params = $queryParams->mapWithKeys(function ($value, $key) use ($allowedParams) {
@@ -134,6 +134,12 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
 
         // Ensure we only list things that are 'published'
         $params['status'] = 'published';
+
+        if ($this->config->get('general/query_search')->get('ignore_empty', false) === true) {
+            $params = array_filter($params, function ($param) {
+                return ! ($param === '' | $param === '%%');
+            });
+        }
 
         return $params;
     }

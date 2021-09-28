@@ -4,14 +4,16 @@ declare(strict_types=1);
 
 namespace Bolt\Storage;
 
-use Bolt\Common\Arr;
 use Bolt\Configuration\Config;
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Doctrine\JsonHelper;
+use Bolt\Entity\Field\NumberField;
+use Bolt\Entity\Field\SelectField;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query\Expr\Andx;
 use Doctrine\ORM\Query\Expr\Base;
 use Doctrine\ORM\Query\Expr\Orx;
+use Doctrine\ORM\Query\Expr\Select;
 use Doctrine\ORM\Query\ParameterTypeInferer;
 use Doctrine\ORM\QueryBuilder;
 
@@ -96,16 +98,29 @@ class SelectQuery implements QueryInterface
     /** @var Config */
     private $config;
 
+    /** @var FieldQueryUtils */
+    private $utils;
+
+    /** @var EntityManagerInterface */
+    private $em;
+
     /**
      * Constructor.
      */
-    public function __construct(?QueryBuilder $qb = null, QueryParameterParser $parser, Config $config)
-    {
+    public function __construct(
+        ?QueryBuilder $qb = null,
+        QueryParameterParser $parser,
+        Config $config,
+        EntityManagerInterface $em,
+        FieldQueryUtils $utils
+    ) {
         $this->qb = $qb;
         $this->parser = $parser;
         $this->config = $config;
 
         $this->setTaxonomyFields();
+        $this->utils = $utils;
+        $this->em = $em;
     }
 
     /**
@@ -176,19 +191,13 @@ class SelectQuery implements QueryInterface
      */
     public function setParameters(array $params): void
     {
-        // Change all params to lowercase, filter out empty ones
+        // Filter out empty parameters, ignoring it if 'like' statement is empty
         $this->params = array_filter(
-            Arr::mapRecursive($params, function ($param) {
-                if (is_bool($param)) {
-                    return $param;
-                }
-
-                return mb_strtolower((string) $param, 'utf-8');
+            $params,
+            function ($a) {
+                return $a !== '%%';
             }
-        ), function ($param) {
-            // ignore parameter if like statement is empty
-            return $param !== '%%';
-        });
+        );
 
         $this->processFilters();
     }
@@ -224,7 +233,6 @@ class SelectQuery implements QueryInterface
             return null;
         }
         $expr = $this->qb->expr()->andX();
-        $em = $this->getQueryBuilder()->getEntityManager();
 
         $this->referenceJoins = [];
         $this->taxonomyJoins = [];
@@ -247,12 +255,12 @@ class SelectQuery implements QueryInterface
                 $core = $this->getCoreFieldExpression($filter);
                 $reference = $this->getReferenceFieldExpression($filter);
                 $taxonomy = $this->getTaxonomyFieldExpression($filter);
-                $regular = $this->getRegularFieldExpression($filter, $em);
+                $regular = $this->getRegularFieldExpression($filter);
                 $anythingExpr->addMultiple([$core, $reference, $taxonomy, $regular]);
                 $expr = $expr->add($anythingExpr);
             } else {
                 // This means the name / value in the `where` is stored in the `bolt_field` table
-                $expr = $expr->add($this->getRegularFieldExpression($filter, $em));
+                $expr = $expr->add($this->getRegularFieldExpression($filter));
             }
         }
 
@@ -306,6 +314,8 @@ class SelectQuery implements QueryInterface
 
         $dateFields = $this->getDateFields();
 
+        $numberFields = $this->getNumberFields();
+
         // Set the regular fields. They are needed for setting the correct param if DB does not support json.
         $this->setRegularFields();
 
@@ -321,7 +331,7 @@ class SelectQuery implements QueryInterface
                 $param = date('c', strtotime($param));
             }
 
-            if (in_array($fieldName, $this->regularFields, true)) {
+            if (in_array($fieldName, $this->regularFields, true) && ! in_array($fieldName, $numberFields, true)) {
                 $param = JsonHelper::wrapJsonFunction(null, $param, $query->getEntityManager()->getConnection());
             }
 
@@ -473,6 +483,15 @@ class SelectQuery implements QueryInterface
         return array_merge($dateFields, $this->coreDateFields);
     }
 
+    private function getNumberFields(): array
+    {
+        // Get all fields from the current contentType
+        $ctFields = $this->getConfig()->get('contenttypes/' . $this->getContentType())->get('fields');
+
+        // And return the keys of those that are `type: number`)
+        return $ctFields->where('type', 'number')->keys()->all();
+    }
+
     public function getIndex(): int
     {
         return $this->index;
@@ -540,7 +559,7 @@ class SelectQuery implements QueryInterface
         return preg_replace($originalLeftExpression, $newLeftExpression, $originalExpression);
     }
 
-    private function getRegularFieldExpression(Filter $filter, EntityManagerInterface $em): string
+    private function getRegularFieldExpression(Filter $filter): string
     {
         $this->fieldJoins[$filter->getKey()] = $filter;
         $expr = $this->qb->expr()->andX();
@@ -548,13 +567,7 @@ class SelectQuery implements QueryInterface
         // where clause for the value of the field
         $valueAlias = sprintf('translations_%s.value', $filter->getKey());
 
-        $originalLeftExpression = 'content.' . $filter->getKey();
-        // LOWER() added to query to enable case insensitive search of JSON  values. Used in conjunction with converting $params of setParameter() to lowercase.
-        // BUG SQLSTATE[42883]: Undefined function: 7 ERROR: function lower(jsonb) does not exist
-        // We want to be able to search case-insensitive, database-agnostic, have to think of a good way..
-        $newLeftExpression = JsonHelper::wrapJsonFunction($valueAlias, null, $em->getConnection());
-        $valueWhere = $filter->getExpression();
-        $valueWhere = str_replace($originalLeftExpression, $newLeftExpression, $valueWhere);
+        $valueWhere = $this->getRegularFieldWhereExpression($filter, $valueAlias);
         $expr->add($valueWhere);
 
         // @todo: Filter non-standalone fields (i.e. fields with parents)
@@ -577,5 +590,33 @@ class SelectQuery implements QueryInterface
         }
 
         return $expr->__toString();
+    }
+
+    private function getRegularFieldWhereExpression(Filter $filter, string $valueAlias): string
+    {
+        if ($this->utils->isFieldType($this, $filter->getKey(), SelectField::TYPE) && $this->utils->hasJsonSearch()) {
+            // todo: Instead of using only the 1st param, make sure that the whole expression works.
+            // this is the case for things like multiselect: abc || def
+            return sprintf("JSON_SEARCH(%s, 'one', :%s) != ''", $valueAlias, current($filter->getParameters()));
+        }
+
+        $originalLeftExpression = 'content.' . $filter->getKey();
+        $valueWhere = $filter->getExpression();
+
+        $newLeftExpression = $this->getRegularFieldLeftExpression($valueAlias, $filter->getKey());
+
+        return str_replace($originalLeftExpression, $newLeftExpression, $valueWhere);
+    }
+
+    private function getRegularFieldLeftExpression(string $valueAlias, string $fieldName, $value = null): string
+    {
+        if ($this->utils->isFieldType($this, $fieldName, NumberField::TYPE) && $this->utils->hasCast()) {
+            return $this->utils->getNumericCastExpression($valueAlias);
+        }
+
+        // LOWER() added to query to enable case insensitive search of JSON  values. Used in conjunction with converting $params of setParameter() to lowercase.
+        // BUG SQLSTATE[42883]: Undefined function: 7 ERROR: function lower(jsonb) does not exist
+        // We want to be able to search case-insensitive, database-agnostic, have to think of a good way..
+        return JsonHelper::wrapJsonFunction($valueAlias, null, $this->em->getConnection());
     }
 }

@@ -8,6 +8,7 @@ use Bolt\Version;
 use ComposerPackages\Packages;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
@@ -27,9 +28,12 @@ class InfoCommand extends Command
     /** @var SymfonyStyle */
     private $io;
 
-    public function __construct(\Bolt\Doctrine\Version $doctrineVersion)
+    private $projectDir;
+
+    public function __construct(\Bolt\Doctrine\Version $doctrineVersion, string $projectDir)
     {
         $this->doctrineVersion = $doctrineVersion;
+        $this->projectDir = $projectDir;
 
         parent::__construct();
     }
@@ -45,7 +49,8 @@ class InfoCommand extends Command
                 <<<'HELP'
 The <info>%command.name%</info> command shows some information about this installation of Bolt.
 HELP
-            );
+            )
+            ->addOption('tablesInitialised', null, InputOption::VALUE_NONE, 'If set, outputs whether the Database tables are initialised or not');
     }
 
     /**
@@ -54,6 +59,11 @@ HELP
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        // If we just need to see if tables exist, exit quickly.
+        if ($input->getOption('tablesInitialised')) {
+            return (int) ! $this->doctrineVersion->tableContentExists();
+        }
+
         $this->io = new SymfonyStyle($input, $output);
 
         $this->outputImage($this->io);
@@ -85,13 +95,14 @@ HELP
             sprintf('PHP version: <info>%s</info>', PHP_VERSION),
             sprintf('Symfony version: <info>%s</info>', Version::getSymfonyVersion()),
             sprintf('Operating System: <info>%s</info> - <comment>%s</comment>', php_uname('s'), php_uname('r')),
+            sprintf('Memory limit: <info>%s</info>', ini_get('memory_limit')),
         ]);
 
         $this->warnOutdatedComposerJson();
 
         $this->io->text('');
 
-        return 0;
+        return Command::SUCCESS;
     }
 
     private function warnOutdatedComposerJson(): void
@@ -105,7 +116,8 @@ HELP
 
         // We check for 4.1.999, because "4.2.0-beta.1" is considered lower than "4.2.0"
         if (Version::compare('4.1.999', '<=')) {
-            $this->composer = json_decode(file_get_contents('composer.json'));
+            $composerFilename = $this->projectDir . DIRECTORY_SEPARATOR . 'composer.json';
+            $this->composer = json_decode(file_get_contents($composerFilename));
             $warnings = 0;
 
             $warnings += $this->checkComposerScript('pre-install-cmd', 'Bolt\\ComposerScripts\\ProjectEventHandler::preInstall');
@@ -116,7 +128,7 @@ HELP
             $warnings += $this->checkComposerScript('pre-package-uninstall', 'Bolt\\ComposerScripts\\ProjectEventHandler::prePackageUninstall');
 
             if ($warnings) {
-                $update = 'Check the update instructions at <href=https://github.com/bolt/core/discussions/2318>https://github.com/bolt/core/discussions/2318</>';
+                $update = 'Check the update instructions at <href=https://github.com/bolt/core/discussions/2731>https://github.com/bolt/core/discussions/2731</>';
                 $this->io->writeln($update);
             }
         }

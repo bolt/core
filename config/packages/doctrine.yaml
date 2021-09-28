@@ -33,6 +33,7 @@ doctrine:
             string_functions:
                 JSON_EXTRACT: Bolt\Doctrine\Functions\JsonExtract
                 JSON_GET_TEXT: Scienta\DoctrineJsonFunctions\Query\AST\Functions\Postgresql\JsonGetText
+                JSON_SEARCH: Scienta\DoctrineJsonFunctions\Query\AST\Functions\Mysql\JsonSearch
                 CAST: Bolt\Doctrine\Query\Cast
             numeric_functions:
                 RAND: Bolt\Doctrine\Functions\Rand

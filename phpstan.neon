@@ -21,15 +21,20 @@ parameters:
             message: '#Call to an undefined method Knp\\DoctrineBehaviors\\Contract\\Entity\\TranslationInterface#'
             path: %currentWorkingDirectory%/src/*
 
-        # Parameters in Storage\Directive\OrderDirective::orderByNumericField() aren't seen as ints
+        # false positive: Parameters in Storage\Directive\OrderDirective::orderByNumericField() aren't seen as integers
         -
             message: '#of method Doctrine\\ORM\\Query\\Expr::substring\(\) expects int#'
-            path: %currentWorkingDirectory%/src/Storage/Directive/OrderDirective.php
+            path: %currentWorkingDirectory%/src/Storage/FieldQueryUtils.php
 
         # Call to undefined __get()
         -
             message: '#Call to an undefined method Sirius\\Upload\\Result\\ResultInterface|Symfony\\Component\\HttpFoundation\\File\\File::__get\(\)#'
             path:  %currentWorkingDirectory%/src/Controller/Backend/Async/UploadController.php
+
+        # false positive: An item to the Logger's Record added by us isn't recognized
+        -
+            message: "#Offset 'location' does not exist on array#"
+            path: %currentWorkingDirectory%/src/Log/LogHandler.php
 
 includes:
 	- vendor/phpstan/phpstan-symfony/extension.neon

@@ -14,12 +14,14 @@
     {% set filelist = path('bolt_async_filelisting', {'location': location|default('files'), 'type': 'images' }) %}
     {% set labels = {
         'button_upload': 'image.button_upload'|trans,
+        'button_upload_options': 'image.button_upload_options'|trans,
         'button_from_library': 'image.button_from_library'|trans,
         'placeholder_filename': 'image.placeholder_filename'|trans,
         'placeholder_alt_text': 'image.placeholder_alt_text'|trans,
         'placeholder_title': 'image.placeholder_title'|trans,
         'button_remove': 'image.button_remove'|trans,
         'button_edit_attributes': 'image.button_edit_attributes'|trans,
+        'button_from_url': 'image.button_from_url'|trans,
         'button_move_up': 'image.button_up'|trans,
         'button_move_down': 'image.button_down'|trans,
         'add_new_image': 'image.add_new_image'|trans,

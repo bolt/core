@@ -9,6 +9,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
@@ -40,7 +41,6 @@ class SetupCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $exitCode = 0;
         $io = new SymfonyStyle($input, $output);
 
         // Because SQLite breaks on `--if-not-exists`, we need to check for that here.
@@ -55,11 +55,24 @@ class SetupCommand extends Command
         $this->processExitCode($exitCode, 'An error occurred when creating the database.');
 
         $command = $this->getApplication()->find('doctrine:schema:create');
-        $exitCode = $command->run(new ArrayInput([]), $output);
+        $exitCode = $command->run(new ArrayInput([]), new NullOutput());
         $this->processExitCode($exitCode, 'An error occurred when creating the database schema.');
 
+        $command = $this->getApplication()->find('doctrine:migrations:sync-metadata-storage');
+        $exitCode = $command->run(new ArrayInput([]), new NullOutput());
+        $this->processExitCode($exitCode, 'An error occurred when initialising the Doctrine Migrations metatada storage.');
+
+        $command = $this->getApplication()->find('doctrine:migrations:version');
+        $commandInput = new ArrayInput([
+            '--add' => true,
+            '--all' => true,
+        ]);
+        $commandInput->setInteractive(false);
+        $exitCode = $command->run($commandInput, new NullOutput());
+        $this->processExitCode($exitCode, 'An error occurred when initialising the Doctrine Migrations metatada storage.');
+
         $command = $this->getApplication()->find('bolt:reset-secret');
-        $exitCode = $command->run(new ArrayInput([]), $output);
+        $exitCode = $command->run(new ArrayInput([]), new NullOutput());
         $this->processExitCode($exitCode, 'An error occurred while resetting APP_SECRET in the .env file.');
 
         $command = $this->getApplication()->find('bolt:add-user');
@@ -84,11 +97,16 @@ class SetupCommand extends Command
             foreach ($this->errors as $error) {
                 $io->warning($error);
             }
-        } else {
-            $io->success('Bolt was set up successfully! Start a web server, and open your Bolt site in a browser.');
+
+            return Command::FAILURE;
         }
 
-        return 0;
+        $io->success('Bolt was set up successfully! Start a web server, and open your Bolt site in a browser.');
+
+        $command = $this->getApplication()->find('bolt:server');
+        $command->run(new ArrayInput(['--full-path' => true]), $output);
+
+        return Command::SUCCESS;
     }
 
     private function processExitCode(int $exitCode, string $message): void

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Command;
 
 use Bolt\Common\Str;
+use Bolt\Extension\BaseExtension;
 use Bolt\Extension\ExtensionRegistry;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -46,7 +47,7 @@ class ExtensionsConfigureCommand extends Command
         if ($input->getOption('remove-services')) {
             $this->deleteExtensionRoutesAndServices($extensions);
 
-            return 0;
+            return Command::SUCCESS;
         }
 
         $this->copyExtensionRoutesAndServices($extensions);
@@ -57,7 +58,7 @@ class ExtensionsConfigureCommand extends Command
 
         $this->runExtensionInstall($extensions);
 
-        return 0;
+        return Command::SUCCESS;
     }
 
     private function copyExtensionConfig(array $packages): void
@@ -65,14 +66,9 @@ class ExtensionsConfigureCommand extends Command
         // @todo: Combine this with Bolt\Extension\ConfigTrait.php
         foreach ($packages as $package) {
             $path = $this->getPackagePath($package);
-            $origin = $this->getRelativePath($path) . '/config/config.yaml';
 
-            [$namespace, $name] = explode('\\', mb_strtolower($this->getNamespace($package) . '\\'));
-            $destination = $this->getExtensionConfigPath($namespace, $name);
-
-            if (file_exists($origin) && ! file_exists($destination)) {
-                file_put_contents($destination, file_get_contents($origin));
-            }
+            $this->copyConfig($this->getRelativePath($path) . '/config/config.yaml', $package);
+            $this->copyConfig($this->getRelativePath($path) . '/config/config.yml', $package);
         }
     }
 
@@ -101,19 +97,11 @@ class ExtensionsConfigureCommand extends Command
         foreach ($packages as $package) {
             $path = $this->getPackagePath($package);
 
-            $sourceRoutes = $this->getRelativePath($path) . '/config/routes.yaml';
-            if (file_exists($sourceRoutes)) {
-                $destination = $this->getExtensionRoutesPath($path);
-                $oldExtensionsRoutes = array_diff($oldExtensionsRoutes, [$destination]);
-                file_put_contents($destination, file_get_contents($sourceRoutes));
-            }
+            $this->copyRoute($this->getRelativePath($path) . '/config/routes.yaml', $path, $oldExtensionsRoutes);
+            $this->copyRoute($this->getRelativePath($path) . '/config/routes.yml', $path, $oldExtensionsRoutes);
 
-            $sourceServices = $this->getRelativePath($path) . '/config/services.yaml';
-            if (file_exists($sourceServices)) {
-                $destination = $this->getExtensionServicesPath($path);
-                $oldExtensionsServices = array_diff($oldExtensionsServices, [$destination]);
-                file_put_contents($destination, file_get_contents($sourceServices));
-            }
+            $this->copyService($this->getRelativePath($path) . '/config/services.yaml', $path, $oldExtensionsServices);
+            $this->copyService($this->getRelativePath($path) . '/config/services.yml', $path, $oldExtensionsServices);
         }
 
         // Remove routes.yaml files for old (uninstalled) extensions
@@ -121,6 +109,34 @@ class ExtensionsConfigureCommand extends Command
 
         // Remove services.yaml files for old (uninstalled) extensions
         array_map('unlink', $oldExtensionsServices);
+    }
+
+    private function copyConfig(string $source, BaseExtension $package): void
+    {
+        [$namespace, $name] = explode('\\', mb_strtolower($this->getNamespace($package) . '\\'));
+        $destination = $this->getExtensionConfigPath($namespace, $name);
+
+        if (file_exists($source) && ! file_exists($destination)) {
+            file_put_contents($destination, file_get_contents($source));
+        }
+    }
+
+    private function copyRoute(string $source, string $packagePath, array &$oldExtensionsRoutes): void
+    {
+        if (file_exists($source)) {
+            $destination = $this->getExtensionRoutesPath($packagePath);
+            $oldExtensionsRoutes = array_diff($oldExtensionsRoutes, [$destination]);
+            file_put_contents($destination, file_get_contents($source));
+        }
+    }
+
+    private function copyService(string $source, string $packagePath, array &$oldExtensionsServices): void
+    {
+        if (file_exists($source)) {
+            $destination = $this->getExtensionServicesPath($packagePath);
+            $oldExtensionsServices = array_diff($oldExtensionsServices, [$destination]);
+            file_put_contents($destination, file_get_contents($source));
+        }
     }
 
     private function runExtensionInstall(array $packages): void
@@ -164,14 +180,14 @@ class ExtensionsConfigureCommand extends Command
             $name);
     }
 
-    private function getPackagePath($package): string
+    private function getPackagePath(BaseExtension $package): string
     {
         $reflection = new \ReflectionClass($package);
 
         return dirname(dirname($reflection->getFilename()));
     }
 
-    private function getNamespace($package): string
+    private function getNamespace(BaseExtension $package): string
     {
         $reflection = new \ReflectionClass($package);
 

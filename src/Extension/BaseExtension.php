@@ -12,7 +12,7 @@ use Composer\Package\PackageInterface;
 use ComposerPackages\Packages;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Twig\Environment;
-use Twig\Extension\ExtensionInterface as TwigExtensionInterface;
+use Twig\Loader\ChainLoader;
 use Twig\Loader\FilesystemLoader;
 
 /**
@@ -56,6 +56,24 @@ abstract class BaseExtension implements ExtensionInterface
     }
 
     /**
+     * Called when initialising the Extension from the Command Line only
+     */
+    public function initializeCli(): void
+    {
+        // Nothing
+    }
+
+    /**
+     * Called when installing the Extension or when running
+     * `bin/console extensions:configure`. Use this to install assets for the
+     * Extension or other tasks that need to be done once.
+     */
+    public function install(): void
+    {
+        // Nothing
+    }
+
+    /**
      * Shortcut method to register a widget and inject the extension into it
      */
     public function addWidget(WidgetInterface $widget): void
@@ -67,13 +85,6 @@ abstract class BaseExtension implements ExtensionInterface
         if ($widgets) {
             $widgets->registerWidget($widget);
         }
-    }
-
-    /**
-     * @deprecated
-     */
-    public function addTwigExtension(TwigExtensionInterface $extension): void
-    {
     }
 
     /**
@@ -93,11 +104,17 @@ abstract class BaseExtension implements ExtensionInterface
             return;
         }
 
-        /** @var FilesystemLoader $twigLoaders */
+        /** @var FilesystemLoader|ChainLoader $twigLoaders */
         $twigLoaders = $this->getTwig()->getLoader();
 
-        if ($twigLoaders instanceof FilesystemLoader) {
-            $twigLoaders->prependPath($foldername, $namespace);
+        $twigLoaders = $twigLoaders instanceof ChainLoader ?
+            $twigLoaders->getLoaders() :
+            [$twigLoaders];
+
+        foreach ($twigLoaders as $twigLoader) {
+            if ($twigLoader instanceof FilesystemLoader) {
+                $twigLoader->prependPath($foldername, $namespace);
+            }
         }
     }
 
@@ -124,29 +141,6 @@ abstract class BaseExtension implements ExtensionInterface
         $dp = $this->getEventDispatcher();
 
         $dp->addListener($event, $callback);
-    }
-
-    /**
-     * @deprecated
-     */
-    public function registerWidget(WidgetInterface $widget): void
-    {
-        $this->addWidget($widget);
-    }
-
-    /**
-     * @deprecated
-     */
-    public function registerTwigExtension(TwigExtensionInterface $extension): void
-    {
-    }
-
-    /**
-     * @deprecated
-     */
-    public function registerListener($event, $callback): void
-    {
-        $this->addListener($event, $callback);
     }
 
     /**

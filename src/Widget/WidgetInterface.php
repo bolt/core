@@ -14,9 +14,29 @@ interface WidgetInterface
     public function getName(): string;
 
     /**
-     * @return string from Bolt\Widget\Injector\Target constants enum
+     * @return string[] from Bolt\Widget\Injector\Target constants enum
      */
-    public function getTarget(): string;
+    public function getTargets(): array;
+
+    /**
+     * @param string[] $targets from Bolt\Widget\Injector\Target constants enum
+     */
+    public function setTargets(array $targets): self;
+
+    /**
+     * @param string $target from Bolt\Widget\Injector\Target constants enum
+     */
+    public function addTarget(string $target): self;
+
+    /**
+     * @param string $target from Bolt\Widget\Injector\Target constants enum
+     */
+    public function removeTarget(string $target): self;
+
+    /**
+     * @param string $target from Bolt\Widget\Injector\Target constants enum
+     */
+    public function hasTarget(string $target): bool;
 
     public function getPriority(): int;
 

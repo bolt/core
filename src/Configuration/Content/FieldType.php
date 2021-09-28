@@ -53,6 +53,7 @@ class FieldType extends Collection
             'height' => '10',
             'icon' => '',
             'maxlength' => '',
+            'autocomplete' => true,
         ]);
     }
 

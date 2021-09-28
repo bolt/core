@@ -7,18 +7,23 @@ namespace Bolt\Factory;
 use Bolt\Entity\Content;
 use Bolt\Entity\Relation;
 use Bolt\Repository\RelationRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Tightenco\Collect\Support\Collection;
 
 class RelationFactory
 {
+    /** @var EntityManagerInterface */
+    private $em;
+
     /** @var RelationRepository */
     private $repository;
 
     /** @var Collection */
     private $relations;
 
-    public function __construct(RelationRepository $repository)
+    public function __construct(RelationRepository $repository, EntityManagerInterface $em)
     {
+        $this->em = $em;
         $this->repository = $repository;
         $this->relations = collect([]);
     }
@@ -47,8 +52,24 @@ class RelationFactory
     private function getFromMemory(Content $from, Content $to): ?Relation
     {
         return $this->relations->filter(function (Relation $relation) use ($from, $to) {
-            return $relation->getFromContent() === $from || $relation->getFromContent() === $to
-                || $relation->getToContent() === $to || $relation->getToContent() === $from;
+            return ($relation->getFromContent() === $from && $relation->getToContent() === $to)
+                || ($relation->getToContent() === $to && $relation->getToContent() === $from);
         })->last(null, null);
+    }
+
+    /**
+     * @param Relation|Relation[] $relation
+     */
+    public function save($relation): void
+    {
+        if ($relation instanceof Relation) {
+            $this->em->persist($relation);
+        } elseif (is_iterable($relation)) {
+            foreach ($relation as $r) {
+                $this->em->persist($r);
+            }
+        }
+
+        $this->em->flush();
     }
 }

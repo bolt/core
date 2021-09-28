@@ -80,7 +80,7 @@ class Canonical
         $_SERVER['CANONICAL_SCHEME'] = $configUrl['scheme'];
     }
 
-    public function get(?string $route = null, array $params = []): ?string
+    public function get(?string $route = null, array $params = [], bool $absolute = true): ?string
     {
         // Ensure request has been matched
         if (! $this->request->attributes->get('_route')) {
@@ -89,6 +89,10 @@ class Canonical
 
         if ($route) {
             $this->setPath($route, $params);
+        }
+
+        if (! $absolute) {
+            return $this->getPath();
         }
 
         return sprintf(

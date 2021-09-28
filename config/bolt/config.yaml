@@ -25,10 +25,15 @@ date_format: 'F j, Y H:i'
 # You can set a preference to omit background images on the login screen.
 omit_backgrounds: true
 
-# If you're a party-pooper who wants to hide the `generator` meta tag and
-# `x-powered-by` header, set these to true
+# If you're a party-pooper and dislike the `generator` meta tag, set to `true`
 omit_meta_generator_tag: false
-omit_powered_by_header: false
+
+headers:
+    # Allow of Google's FLoC by setting this to `true` (defaults to `false` for opt-out)
+    # https://github.com/symfony/symfony/pull/40989
+    allow-floc: false
+    # Add Bolt's "Powered By" (defaults to `true`)
+    powered_by: true
 
 # If your site is reachable under different urls (say, both blog.example.org/
 # as well as example.org/), its a good idea to set one of these as the
@@ -36,6 +41,12 @@ omit_powered_by_header: false
 #
 # If you include `https://`, it will be included in the canonical urls.
 #canonical: example.org
+
+# If you want to override the canonical template, from the theme:
+#canonical_template: 'partials/_canonical.html.twig'
+
+# By setting this to true, you will get a relative canonical path passed to the template.
+#relative_canonical_url: true
 
 # Bolt can insert a <link rel="shortcut icon"> for all pages on the site.
 
@@ -104,7 +115,11 @@ listing_sort: datepublish DESC
 # Allow filtering on listing pages using query parameters, much like you would
 # with {% setcontent %}. E.g. /pages?order=id and /pages?title--like=voluptat
 # Useful for search.
-query_search: true
+query_search:
+    # Enables filtering.
+    enable: true
+    # If true, query params with empty values will be ignored.
+    ignore_empty: false
 
 # Maximum amount of items to show in a `<select>` for picking a record. For
 # example in `type: select`.

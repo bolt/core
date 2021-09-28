@@ -45,7 +45,7 @@
                         {{ file.getRelativePathname|shy }}
                     </a>
                 </b>
-                {% if title %}<br><small style="color: #888;">{{ title }}</small>{% endif %}
+                {% if title %}<br><small>{{ title }}</small>{% endif %}
             </td>
             <td class="listing-thumb">
                 {%- if thumbnail -%}
@@ -58,12 +58,12 @@
                 {%- endif -%}
             </td>
             <td>
-                <small style="color: #888; white-space:nowrap;">{{ file.getSize()|format_bytes(1) }}
+                <small style="white-space:nowrap;">{{ file.getSize()|format_bytes(1) }}
                 {% if dimensions %}<br>{{ dimensions }}{% endif %}
                 </small>
             </td>
             <td>
-                <small style="color: #888;">{{ file.getCTime()|date('Y-m-d H:i:s') }}</small>
+                <small>{{ file.getCTime()|date('Y-m-d H:i:s') }}</small>
             </td>
             <td>
                 {% include '@bolt/finder/_files_actions.html.twig' %}

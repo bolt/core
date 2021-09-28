@@ -15,8 +15,12 @@
     {% set multiple = field.definition.get('multiple')|default ? 'true' : 'false' %}
 {% endif %}
 
-{% if searchable is not defined %}
-    {% set searchable = field.definition.get('searchable')|default ? 'true' : 'false' %}
+{% if autocomplete is not defined %}
+	{% set autocomplete = field.definition.get('autocomplete')|default ? 'true' : 'false' %}
+{% endif %}
+
+{% if limit is not defined %}
+	{% set limit = field.definition.get('limit')|default(2000) %}
 {% endif %}
 
 {% block field %}
@@ -26,9 +30,10 @@
         :name='{{ name|json_encode }}'
         :id='{{ id|json_encode }}'
         :options="{{ options|json_encode }}"
+        :optionslimit="{{ limit }}"
         :form='{{ form|json_encode }}'
         :multiple="{{ multiple }}"
-        :searchable="{{ searchable }}"
+        :autocomplete="{{ autocomplete }}"
         :readonly="{{ readonly|json_encode }}"
         :errormessage='{{ errormessage|json_encode }}'
         :allowempty="{{ required ? 'false' : 'true' }}"

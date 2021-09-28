@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Bolt\Twig;
 
 use Bolt\Canonical;
-use Bolt\Common\Str;
 use Bolt\Configuration\Config;
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Entity\Content;
@@ -13,7 +12,6 @@ use Bolt\Entity\Field;
 use Bolt\Entity\Field\Excerptable;
 use Bolt\Entity\Field\ImageField;
 use Bolt\Entity\Field\ImagelistField;
-use Bolt\Entity\Field\TemplateselectField;
 use Bolt\Entity\Taxonomy;
 use Bolt\Enum\Statuses;
 use Bolt\Log\LoggerTrait;
@@ -26,9 +24,6 @@ use Bolt\Utils\Excerpt;
 use Bolt\Utils\Html;
 use Bolt\Utils\Sanitiser;
 use Pagerfanta\Pagerfanta;
-use Symfony\Component\Finder\Finder;
-use Symfony\Component\Finder\SplFileInfo;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Exception\InvalidParameterException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -58,9 +53,6 @@ class ContentExtension extends AbstractExtension
     /** @var Security */
     private $security;
 
-    /** @var Request */
-    private $request;
-
     /** @var Config */
     private $config;
 
@@ -85,6 +77,9 @@ class ContentExtension extends AbstractExtension
     /** @var Sanitiser */
     private $sanitiser;
 
+    /** @var RequestStack */
+    private $requestStack;
+
     public function __construct(
         UrlGeneratorInterface $urlGenerator,
         ContentRepository $contentRepository,
@@ -104,7 +99,6 @@ class ContentExtension extends AbstractExtension
         $this->contentRepository = $contentRepository;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->security = $security;
-        $this->request = $requestStack->getCurrentRequest() ?? Request::createFromGlobals();
         $this->config = $config;
         $this->query = $query;
         $this->taxonomyRepository = $taxonomyRepository;
@@ -113,6 +107,7 @@ class ContentExtension extends AbstractExtension
         $this->contentHelper = $contentHelper;
         $this->notifications = $notifications;
         $this->sanitiser = $sanitiser;
+        $this->requestStack = $requestStack;
     }
 
     /**
@@ -158,9 +153,7 @@ class ContentExtension extends AbstractExtension
             new TwigFunction('excerpt', [$this, 'getExcerpt'], $safe),
             new TwigFunction('previous_record', [$this, 'getPreviousContent']),
             new TwigFunction('next_record', [$this, 'getNextContent']),
-            new TwigFunction('list_templates', [$this, 'getListTemplates']),
             new TwigFunction('pager', [$this, 'pager'], $env + $safe),
-            new TwigFunction('select_options', [$this, 'selectOptions']),
             new TwigFunction('taxonomy_options', [$this, 'taxonomyOptions']),
             new TwigFunction('taxonomy_values', [$this, 'taxonomyValues']),
             new TwigFunction('icon', [$this, 'icon'], $safe),
@@ -196,8 +189,8 @@ class ContentExtension extends AbstractExtension
             return '<mark>No content given</mark>';
         }
 
-        if (empty($locale)) {
-            $locale = $this->request->getLocale();
+        if (empty($locale) && $this->requestStack->getCurrentRequest()) {
+            $locale = $this->requestStack->getCurrentRequest()->getLocale();
         }
 
         if (ContentHelper::isSuitable($content)) {
@@ -257,7 +250,7 @@ class ContentExtension extends AbstractExtension
         }
 
         if (ContentHelper::isSuitable($content, 'excerpt_format')) {
-            $excerpt = $this->contentHelper->get($content, $content->getDefinition()->get('excerpt_format'), $this->request->getLocale());
+            $excerpt = $this->contentHelper->get($content, $content->getDefinition()->get('excerpt_format'), $this->requestStack->getCurrentRequest()->getLocale());
         } else {
             $excerpt = $this->getFieldBasedExcerpt($content, $length, $includeTitle);
         }
@@ -296,7 +289,7 @@ class ContentExtension extends AbstractExtension
             }
         }
 
-        $specialChars = ['.', ',', '!', '?'];
+        $specialChars = ['.', ',', '!', '?', '>'];
         $excerpt = array_reduce($excerptParts, function (string $excerpt, string $part) use ($specialChars): string {
             if (in_array(mb_substr($part, -1), $specialChars, true) === false) {
                 // add period at end of string if it doesn't have sentence end
@@ -359,19 +352,12 @@ class ContentExtension extends AbstractExtension
             'contentTypeSlug' => $content->getContentTypeSingularSlug(),
         ];
 
-        $routeParams = $this->request->get('_route_params');
+        $routeParams = $this->requestStack->getCurrentRequest()->get('_route_params');
 
         return isset($routeParams['slugOrId']) &&
             isset($routeParams['contentTypeSlug']) &&
             $recordParams['slugOrId'] === $routeParams['slugOrId'] &&
             $recordParams['contentTypeSlug'] === $routeParams['contentTypeSlug'];
-    }
-
-    /**
-     * @deprecated since Bolt 4.1.11, you no longer need to use `record|allow_twig` *
-     */
-    public function allowTwig(Environment $env, Content $content): void
-    {
     }
 
     /**
@@ -489,66 +475,11 @@ class ContentExtension extends AbstractExtension
         return new Collection($taxonomies);
     }
 
-    public function getListTemplates(TemplateselectField $field): Collection
-    {
-        $definition = $field->getDefinition();
-        $current = current($field->getValue());
-
-        $finder = new Finder();
-        $templatesDir = $this->config->get('theme/template_directory');
-        $templatesPath = $this->config->getPath('theme', true, $templatesDir);
-
-        $filter = $definition->get('filter', '/^[^_].*\.twig$/');
-
-        if (! Str::isValidRegex($filter)) {
-            $filter = Str::isValidRegex('/' . $filter . '/') ? '/' . $filter . '/' : '/^[^_].*\.twig$/';
-        }
-
-        $finder
-            ->files()
-            ->in($templatesPath)
-            ->path($definition->get('path'))
-            ->sortByName()
-            ->filter(function (SplFileInfo $file) use ($filter) {
-                return preg_match($filter, $file->getRelativePathname()) === 1;
-            });
-
-        $options = [];
-
-        if ($definition->get('required') === false) {
-            $options = [[
-                'key' => '',
-                'value' => '(choose a template)',
-                'selected' => false,
-            ]];
-        }
-
-        foreach ($finder as $file) {
-            $options[] = [
-                'key' => $file->getRelativePathname(),
-                'value' => $file->getRelativePathname(),
-            ];
-
-            if ($current === $file->getRelativePathname()) {
-                $current = false;
-            }
-        }
-
-        if ($current !== false) {
-            $options[] = [
-                'key' => $current,
-                'value' => $current . ' (file seems to be missing)',
-            ];
-        }
-
-        return new Collection($options);
-    }
-
     public function pager(Environment $twig, ?Pagerfanta $records = null, string $template = '@bolt/helpers/_pager_basic.html.twig', string $class = 'pagination', int $surround = 3)
     {
         $params = array_merge(
-            $this->request->get('_route_params'),
-            $this->request->query->all()
+            $this->requestStack->getCurrentRequest()->get('_route_params'),
+            $this->requestStack->getCurrentRequest()->query->all()
         );
 
         if (! $records && array_key_exists('records', $twig->getGlobals())) {
@@ -559,96 +490,11 @@ class ContentExtension extends AbstractExtension
             'records' => $records,
             'surround' => $surround,
             'class' => $class,
-            'route' => $this->request->get('_route'),
+            'route' => $this->requestStack->getCurrentRequest()->get('_route'),
             'routeParams' => $params,
         ];
 
         return $twig->render($template, $context);
-    }
-
-    public function selectOptions(Field $field): Collection
-    {
-        $values = $field->getDefinition()->get('values');
-
-        if (is_iterable($values)) {
-            return $this->selectOptionsArray($field);
-        }
-
-        return $this->selectOptionsContentType($field);
-    }
-
-    private function selectOptionsArray(Field $field): Collection
-    {
-        $values = $field->getDefinition()->get('values');
-        $currentValues = $field->getValue();
-
-        $options = [];
-
-        // We need to add this as a 'dummy' option for when the user is allowed
-        // not to pick an option. This is needed, because otherwise the `select`
-        // would default to the one.
-        if (! $field->getDefinition()->get('required', true)) {
-            $options[] = [
-                'key' => '',
-                'value' => '',
-                'selected' => false,
-            ];
-        }
-
-        if (! is_iterable($values)) {
-            return new Collection($options);
-        }
-
-        foreach ($values as $key => $value) {
-            $options[] = [
-                'key' => $key,
-                'value' => $value,
-                'selected' => in_array($key, $currentValues, true),
-            ];
-        }
-
-        return new Collection($options);
-    }
-
-    private function selectOptionsContentType(Field $field): Collection
-    {
-        [ $contentTypeSlug, $format ] = explode('/', $field->getDefinition()->get('values'));
-
-        $options = [];
-
-        if (! $field->getDefinition()->get('required')) {
-            $options[] = [
-                'key' => '',
-                'value' => '',
-            ];
-        }
-
-        if (! empty($field->getDefinition()->get('limit'))) {
-            $maxAmount = $field->getDefinition()->get('limit');
-        } else {
-            $maxAmount = $this->config->get('maximum_listing_select', 200);
-        }
-        $order = $field->getDefinition()->get('order', '');
-
-        $params = [
-            'limit' => $maxAmount,
-            'order' => $order,
-        ];
-
-        /** @var Content[] $records */
-        $records = iterator_to_array($this->query->getContent($contentTypeSlug, $params)->getCurrentPageResults());
-
-        foreach ($records as $record) {
-            if ($field->getDefinition()->get('mode') === 'format') {
-                $formattedKey = $this->contentHelper->get($record, $field->getDefinition()->get('format'));
-            }
-            $options[] = [
-                'key' => $formattedKey ?? $record->getId(),
-                'value' => $this->contentHelper->get($record, $format),
-            ];
-        }
-
-        return new Collection($options);
     }
 
     public function taxonomyOptions(Collection $taxonomy): Collection

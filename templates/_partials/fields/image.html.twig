@@ -8,22 +8,25 @@
 
 {% block field %}
     {% if setPath is not defined %}
-        {% set setPath = field.definition.get('upload')|placeholders({'contenttype': record.contenttype}) %} 
+        {% set setPath = field.definition.get('upload')|placeholders({'contenttype': record.contenttype}) %}
     {% endif %}
     {% set directory = path('bolt_async_upload', {'location': location|default('files'), 'path': setPath}) %}
     {% set directoryurl = path('bolt_async_upload_url', {'location': location|default('files'), 'path': setPath}) %}
     {% set filelist = path('bolt_async_filelisting', {'location': location|default('files'), 'type': 'images' }) %}
     {% set labels = {
         'button_upload': 'image.button_upload'|trans,
+        'button_upload_options': 'image.button_upload_options'|trans,
         'button_from_library': 'image.button_from_library'|trans,
         'button_remove': 'image.button_remove'|trans,
         'placeholder_filename': 'image.placeholder_filename'|trans,
         'placeholder_alt_text': 'image.placeholder_alt_text'|trans,
         'button_edit_attributes': 'image.button_edit_attributes'|trans,
         'button_from_url': 'image.button_from_url'|trans,
+        'image_preview': 'image.image_preview'|trans,
     }|json_encode %}
 
     <editor-image
+        :id='{{ id|json_encode }}'
         :name='{{ name|json_encode }}'
         :filename='{{ field.get('filename')|json_encode }}'
         :media='{{ field.get('media')|json_encode }}'

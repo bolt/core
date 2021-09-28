@@ -16,6 +16,9 @@ class ExtensionRegistry
     /** @var array */
     protected $extensionClasses = [];
 
+    /** @var PackageInterface[] */
+    protected $themes = [];
+
     /**
      * @see ExtensionCompilerPass::process()
      */
@@ -59,6 +62,18 @@ class ExtensionRegistry
     public function getExtensions(): array
     {
         return $this->extensions;
+    }
+
+    /**
+     * @return PackageInterface[]
+     */
+    public function getThemes(): array
+    {
+        if (! $this->themes) {
+            $this->themes = iterator_to_array(Types::get('bolt-theme'));
+        }
+
+        return $this->themes;
     }
 
     public function getExtensionNames(): array

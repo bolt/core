@@ -36,6 +36,9 @@ class LocaleHelper
     /** @var string */
     private $defaultLocale;
 
+    /** @var Collection */
+    private $currentLocale;
+
     public function __construct(string $locales, ContentRepository $contentRepository, UrlGeneratorInterface $urlGenerator, Config $config, string $defaultLocale)
     {
         $this->localeCodes = new Collection(explode('|', $locales));
@@ -51,7 +54,13 @@ class LocaleHelper
 
     public function getCurrentLocale(Environment $twig): ?Collection
     {
-        return $this->getLocales($twig)->firstWhere('current', true);
+        // Getting the currentLocale is surprisingly inefficient, so we do it once per Request
+        // See https://github.com/bolt/core/pull/2597
+        if (! isset($this->currentLocale)) {
+            $this->currentLocale = $this->getLocales($twig)->firstWhere('current', true);
+        }
+
+        return $this->currentLocale;
     }
 
     public function getLocales(Environment $twig, ?Collection $localeCodes = null, bool $all = false): Collection
@@ -139,24 +148,11 @@ class LocaleHelper
 
     private function getLink(string $route, array $routeParams, Collection $locale): string
     {
-        switch ($route) {
-            case 'record':
-            case 'homepage':
-            case 'listing':
-            case 'search':
-            case 'taxonomy':
-                $route = $route .= '_locale';
-                // no break
-            case 'record_locale':
-            case 'homepage_locale':
-            case 'listing_locale':
-            case 'search_locale':
-            case 'taxonomy_locale':
-                $routeParams['_locale'] = $locale->get('code');
+        $routeParams['_locale'] = $locale->get('code');
 
-                break;
-            default:
-                $routeParams['edit_locale'] = $locale->get('code');
+        if ($route === 'bolt_content_edit') {
+            unset($routeParams['_locale']);
+            $routeParams['edit_locale'] = $locale->get('code');
         }
 
         return $this->urlGenerator->generate($route, $routeParams);

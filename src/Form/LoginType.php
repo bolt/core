@@ -5,7 +5,6 @@
 namespace Bolt\Form;
 
     use Bolt\Form\FieldTypes\PasswordWithPreviewType;
-    use Cocur\Slugify\Slugify;
     use Symfony\Component\Form\AbstractType;
     use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
     use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -31,11 +30,6 @@ namespace Bolt\Form;
 
         public function buildForm(FormBuilderInterface $builder, array $options): void
         {
-            $slugify = new Slugify();
-
-            // last username entered by the user (if any)
-            $last_username = $slugify->slugify($this->authenticationUtils->getLastUsername());
-
             $builder
                 ->add('username', TextType::class, [
                     'label' => 'label.username_or_email',
@@ -47,7 +41,7 @@ namespace Bolt\Form;
                     'attr' => [
                         'placeholder' => 'placeholder.username_or_email',
                     ],
-                    'data' => $last_username,
+                    'data' => $this->authenticationUtils->getLastUsername(),
                 ])
                 ->add('password', PasswordWithPreviewType::class, [
                     'label' => 'label.password',

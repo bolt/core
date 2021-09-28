@@ -176,8 +176,11 @@ class UploadController extends AbstractController implements AsyncZoneInterface
         if ($result->isValid()) {
             try {
                 $media = $this->mediaFactory->createFromFilename($locationName, $path, $result->__get('name'));
-                $this->em->persist($media);
-                $this->em->flush();
+
+                if ($this->mediaFactory->isImage($media)) {
+                    $this->em->persist($media);
+                    $this->em->flush();
+                }
 
                 return new JsonResponse($media->getFilenamePath());
             } catch (\Throwable $e) {

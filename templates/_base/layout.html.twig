@@ -40,6 +40,7 @@
             'about.visit_bolt': 'about.visit_bolt'|trans,
             'listing.button_search': 'general.phrase.search'|trans,
             'listing.placeholder_search': 'listing.placeholder_search'|trans,
+            'general.label.search': 'general.label.search'|trans,
         }|json_encode %}
 
         <admin-toolbar
@@ -82,7 +83,7 @@
         'action.view': 'action.view'|trans,
     }|json_encode %}
     <div class="admin__sidebar">
-        <div class="sidebar sidebar--sticky" id="sidebar">
+        <div class="sidebar sidebar--sticky" id="bolt--sidebar">
             <admin-sidebar
               :menu="{{ admin_menu_json }}"
               :version="'{{ constant('Bolt\\Version::VERSION')|replace({'alpha': 'α', 'beta': 'β'}) }}'"

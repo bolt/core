@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bolt\ComposerScripts;
 
 use Composer\Script\Event;
@@ -10,20 +12,15 @@ class CreateProjectScript extends Script
     {
         parent::init('Running composer "post-create-project-cmd" scripts');
 
-        self::copyEnv();
         self::deleteGitignore();
         self::createReadme();
 
         chdir(parent::getProjectFolder($event));
 
+        self::run('php bin/console bolt:reset-secret');
         self::run('php bin/console bolt:copy-themes --ansi');
-        self::run('php bin/console bolt:welcome --ansi');
-    }
-
-    private static function copyEnv(): void
-    {
-        if (! file_exists('.env')) {
-            copy('.env.dist', '.env');
+        if (self::isTtySupported()) {
+            self::run('php bin/console bolt:welcome --ansi');
         }
     }
 

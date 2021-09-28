@@ -88,7 +88,21 @@ class Version
         try {
             $query = $this->connection->createQueryBuilder();
             $query
-                ->select('CAST (1.1 AS int)');
+                ->select('CAST(1.1 AS int)');
+            $query->execute();
+        } catch (\Throwable $e) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public function hasJsonSearch(): bool
+    {
+        try {
+            $query = $this->connection->createQueryBuilder();
+            $query
+                ->select('JSON_SEARCH("{}", "one", "")');
             $query->execute();
         } catch (\Throwable $e) {
             return false;

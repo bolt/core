@@ -8,6 +8,7 @@ use Bolt\Extension\ExtensionInterface;
 use Bolt\Widget\Exception\WidgetException;
 use Cocur\Slugify\Slugify;
 use Twig\Error\LoaderError;
+use Twig\Loader\ChainLoader;
 use Twig\Loader\FilesystemLoader;
 
 /**
@@ -24,6 +25,9 @@ abstract class BaseWidget implements WidgetInterface
 
     /** @var string from Target enum */
     protected $target;
+
+    /** @var string[] */
+    protected $targets = [];
 
     /** @var string from RequestZone */
     protected $zone;
@@ -46,7 +50,7 @@ abstract class BaseWidget implements WidgetInterface
     /** @var int duration (in seconds) to cache output */
     protected $cacheDuration = 600;
 
-    public function setName(string $name): self
+    public function setName(string $name): WidgetInterface
     {
         $this->name = $name;
         $this->slug = null;
@@ -63,20 +67,51 @@ abstract class BaseWidget implements WidgetInterface
         return $this->name;
     }
 
-    public function setTarget(string $target): self
+    public function getTargets(): array
     {
-        $this->target = $target;
+        // backwards compatibility for $target
+        if ($this->target && ! $this->hasTarget($this->target)) {
+            $this->targets[] = $this->target;
+        }
+
+        if ($this->targets === null) {
+            throw new WidgetException("Widget {$this->getName()} does not have Targets set");
+        }
+
+        return $this->targets;
+    }
+
+    /**
+     * @var string[]
+     */
+    public function setTargets(array $targets): WidgetInterface
+    {
+        $this->targets = $targets;
 
         return $this;
     }
 
-    public function getTarget(): string
+    public function addTarget(string $target): WidgetInterface
     {
-        if ($this->target === null) {
-            throw new WidgetException("Widget {$this->getName()} does not have Target set");
+        if (! $this->hasTarget($target)) {
+            $this->targets[] = $target;
         }
 
-        return $this->target;
+        return $this;
+    }
+
+    public function removeTarget(string $target): WidgetInterface
+    {
+        if ($this->hasTarget($target)) {
+            unset($this->targets[$target]);
+        }
+
+        return $this;
+    }
+
+    public function hasTarget(string $target): bool
+    {
+        return is_array($this->targets) && in_array($target, $this->targets, true);
     }
 
     public function setPriority(int $priority): self
@@ -195,11 +230,17 @@ abstract class BaseWidget implements WidgetInterface
 
     private function addTwigLoader(): void
     {
-        /** @var FilesystemLoader $twigLoaders */
+        /** @var FilesystemLoader|ChainLoader $twigLoaders */
         $twigLoaders = $this->getTwig()->getLoader();
 
-        if ($twigLoaders instanceof FilesystemLoader) {
-            $twigLoaders->addPath($this->getTemplateFolder(), $this->getSlug());
+        $twigLoaders = $twigLoaders instanceof ChainLoader ?
+            $twigLoaders->getLoaders() :
+            [$twigLoaders];
+
+        foreach ($twigLoaders as $twigLoader) {
+            if ($twigLoader instanceof FilesystemLoader) {
+                $twigLoader->addPath($this->getTemplateFolder(), $this->getSlug());
+            }
         }
     }
 

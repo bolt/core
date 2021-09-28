@@ -51,6 +51,6 @@ class ExtensionsListCommand extends Command
             $io->caution('No installed extensions could be found');
         }
 
-        return 0;
+        return Command::SUCCESS;
     }
 }

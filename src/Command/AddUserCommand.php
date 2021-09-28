@@ -240,7 +240,11 @@ class AddUserCommand extends Command
         $plainPassword = $input->getArgument('password');
         $email = $input->getArgument('email');
         $displayName = $input->getArgument('display-name');
-        $roles = $input->getOption('roles');
+
+        // Always merge the admin/developer role when the parameter has been given
+        $isAdmin = $input->getOption('admin') ? ['ROLE_ADMIN'] : [];
+        $isDeveloper = $input->getOption('developer') ? ['ROLE_DEVELOPER'] : [];
+        $roles = array_unique(array_merge($input->getOption('roles'), $isAdmin, $isDeveloper));
 
         // create the user and encode its password
         $user = UserRepository::factory($displayName, $username, $email);
@@ -275,7 +279,7 @@ class AddUserCommand extends Command
             $this->io->comment(sprintf('New user database id: %d / Elapsed time: %.2f ms / Consumed memory: %.2f MB', $user->getId(), $event->getDuration(), $event->getMemory() / (1024 ** 2)));
         }
 
-        return 0;
+        return Command::SUCCESS;
     }
 
     /**
