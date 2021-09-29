@@ -1,6 +1,20 @@
 Changelog
 =========
 
+## 5.0.3
+
+Released: 2021-09-29
+
+### 🐛 Bug fixes
+
+- Fix Multiselect in setcontent (bobdenotter, [#2846](https://github.com/bolt/core/pull/2846))
+- Fix `{% setcontent where { … } %}` for Checkbox fields (bobdenotter, [#2844](https://github.com/bolt/core/pull/2844))
+- Update Sanitiser.php (Joossensei, [#2843](https://github.com/bolt/core/pull/2843), [#2840](https://github.com/bolt/core/pull/2840))
+- Changed editor permissions test issue (Joossensei, [#2836](https://github.com/bolt/core/pull/2836))
+- Added possible null return for `getId` (andersbjorkland, [#2835](https://github.com/bolt/core/pull/2835))
+- Added `save`-method to RelationFactory (andersbjorkland, [#2833](https://github.com/bolt/core/pull/2833))
+
+
 ## 5.0.2
 
 Released: 2021-09-17
