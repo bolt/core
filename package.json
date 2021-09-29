@@ -51,6 +51,7 @@
         "stylelint-config-recommended-scss": "^4.3.0",
         "stylelint-scss": "^3.21.0",
         "terser": "^5.9.0",
+        "tiny-emitter": "^2.1.0",
         "tinycolor2": "^1.4.2",
         "vue": "^3.2",
         "vue-flatpickr-component": "^9.0.5",

@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import { DateTime } from 'luxon';
+import { Popover } from 'bootstrap';
 
 import { version } from '../version';
 window.assetsVersion = version;
@@ -62,8 +63,11 @@ $(document).ready(function() {
     /*
      ** Initialise all popover elements
      */
-    $('[data-toggle="popover"]').popover();
-
+    
+    var popoverEl = document.getElementsByClassName('.fa.fa-info-circle');
+    if (popoverEl > 0) {
+        new Popover(popoverEl);
+    }
     /*
      ** When a field from another group is invalid, show it.
      */

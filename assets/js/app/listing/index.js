@@ -34,7 +34,7 @@ const listing = {
 if (document.getElementById(id)) {
     const app = createApp(listing);
     app.component('ListingRecords', Records)
-    app.component('ListingFilters', Filter)
+    app.component('ListingFilter', Filter)
     app.component('ListingTable', Table)
     app.component('ListingSelectBox', SelectBox)
     app.mount('#' + id);

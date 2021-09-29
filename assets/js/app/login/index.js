@@ -19,10 +19,11 @@ const login = {
         }
     }
 }
+if (document.getElementById(id)) {
+    const app = createApp(login)
 
-const app = createApp(login)
+    app.component('EditorPassword', Password);
+    app.component('editor-text', Text);
 
-app.component('EditorPassword', Password);
-app.component('editor-text', Text);
-
-app.mount('#' + id)
+    app.mount('#' + id)
+}

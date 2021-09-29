@@ -52,6 +52,7 @@
 
 <script>
 import field from '../mixins/value';
+var emitter = require('tiny-emitter/instance');
 
 export default {
     name: 'EditorSlug',
@@ -91,7 +92,7 @@ export default {
                 this.generateSlug();
             }
         }, 0);
-        this.$root.$on('slugify-from-title', () => this.generateSlug());
+        emitter.on('slugify-from-title', () => this.generateSlug());
     },
     methods: {
         shouldGenerateFromTitle(title) {

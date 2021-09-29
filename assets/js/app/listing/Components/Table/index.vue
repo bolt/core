@@ -1,10 +1,8 @@
 <template>
     <div class="listing__records">
-        <draggable v-model="records" handle=".listing__row--move" force-fallback="true">
             <transition-group>
                 <table-row v-for="record in records" :key="record.id" :record="record" :labels="labels"></table-row>
             </transition-group>
-        </draggable>
     </div>
 </template>
 

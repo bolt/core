@@ -3,7 +3,7 @@
         <ul class="listing__row--list">
             <li class="text-nowrap">
                 <span class="status" :class="`is-${record.status}`" :title="record.status"></span>
-                {{ formatAsDate(record.publishedAt ? record.publishedAt : record.createdAt) }}
+                {{ datetime(record.publishedAt ? record.publishedAt : record.createdAt) }}
             </li>
             <li v-if="size === 'normal'"><i class="fas fa-user"></i> {{ record.authorName }}</li>
             <li v-if="size === 'normal'">
@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import { DateTime } from 'luxon';
 export default {
     name: 'MetaData',
     props: {
@@ -25,5 +26,12 @@ export default {
         size: String,
         record: Object,
     },
+    methods: {
+        datetime(string) {
+            if (string) {
+                return DateTime.fromISO(String(string)).toLocaleString();
+            }
+        }
+    }
 };
 </script>

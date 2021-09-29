@@ -27,40 +27,45 @@ import Collection from './Components/Collection';
 import Checkbox from './Components/Checkbox';
 import UnsavedChangesWarning from './unsavedchanges';
 
-createApp().component('editor-checkbox', Checkbox);
-createApp().component('editor-date', Date);
-createApp().component('editor-embed', Embed);
-createApp().component('editor-email', Email);
-createApp().component('editor-password', Password);
-createApp().component('editor-html', Html);
-createApp().component('editor-image', Image);
-createApp().component('editor-imagelist', Imagelist);
-createApp().component('editor-file', File);
-createApp().component('editor-filelist', Filelist);
-createApp().component('editor-markdown', Markdown);
-createApp().component('editor-number', Number);
-createApp().component('editor-select', Select);
-createApp().component('editor-slug', Slug);
-createApp().component('editor-text', Text);
-createApp().component('editor-textarea', Textarea);
-createApp().component('editor-collection', Collection);
-createApp().component('editor-set', Set);
-createApp().component('general-language', Language);
-createApp().component('theme-select', ThemeSelect);
-
 const id = 'editor';
 const editorSelector = '#' + id;
+const editorPage = {
+    data() {
+        return {
+            store,
+            el: editorSelector,
+            name: 'BoltEditor',
+            mounted: function() {
+                // Wait 2 seconds, so that Vue is initialised properly without triggering change events.
+                setTimeout(function() {
+                    UnsavedChangesWarning.warnFor(editorSelector + ' form');
+                }, 2000);
+            },
+        }
+    }
+}
+
+const app = createApp(editorPage);
 
 if (document.getElementById(id)) {
-    new Vue({
-        store,
-        el: editorSelector,
-        name: 'BoltEditor',
-        mounted: function() {
-            // Wait 2 seconds, so that Vue is initialised properly without triggering change events.
-            setTimeout(function() {
-                UnsavedChangesWarning.warnFor(editorSelector + ' form');
-            }, 2000);
-        },
-    });
+    app.component('EditorCheckbox', Checkbox);
+    app.component('EditorDate', Date);
+    app.component('EditorEmbed', Embed);
+    app.component('EditorEmail', Email);
+    app.component('EditorPassword', Password);
+    app.component('EditorHtml', Html);
+    app.component('EditorImage', Image);
+    app.component('EditorImage', Imagelist);
+    app.component('EditorFile', File);
+    app.component('EditorFile', Filelist);
+    app.component('EditorMarkdown', Markdown);
+    app.component('EditorNumber', Number);
+    app.component('EditorSelect', Select);
+    app.component('EditorSlug', Slug);
+    app.component('EditorText', Text);
+    app.component('EditorTextarea', Textarea);
+    app.component('EditorCollection', Collection);
+    app.component('EditorLanguage', Language);
+    app.component('ThemeSelect', ThemeSelect);
+    app.mount(editorSelector);
 }
