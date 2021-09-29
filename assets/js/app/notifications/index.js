@@ -1,6 +1,8 @@
 import $ from 'jquery';
-import 'bootstrap';
+import { Toast } from 'bootstrap';
+
+var className = document.getElementsByClassName('.toast');
 
 $(document).ready(function() {
-    $('.toast').toast('show');
+    new Toast(className).show;
 });
