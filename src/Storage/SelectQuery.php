@@ -598,7 +598,7 @@ class SelectQuery implements QueryInterface
         if ($this->utils->isFieldType($this, $filter->getKey(), SelectField::TYPE) && $this->utils->hasJsonSearch()) {
             // todo: Instead of using only the 1st param, make sure that the whole expression works.
             // this is the case for things like multiselect: abc || def
-            return sprintf("JSON_SEARCH(%s, 'one', :%s) != ''", $valueAlias, current($filter->getParameters()));
+            return sprintf("JSON_SEARCH(%s, 'one', :%s) != ''", $valueAlias, key($filter->getParameters()));
         }
 
         $originalLeftExpression = 'content.' . $filter->getKey();
