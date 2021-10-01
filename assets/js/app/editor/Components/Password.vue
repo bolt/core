@@ -6,6 +6,7 @@
                 class="form-control"
                 type="password"
                 :name="name"
+                :id="id"
                 :value="value"
                 :required="required"
                 :readonly="readonly"
@@ -64,8 +65,8 @@ export default {
     methods: {
         togglePassword(event) {
             const iconElement = event.target;
-            const inputElement = this.$el.querySelector('#' + this.id);
-            const inputType = inputElement.attributes.getNamedItem('type').value;
+            const inputElement = $('#' + this.id)[0];
+            const inputType = inputElement.getAttribute('type');
 
             if (inputType === 'password') {
                 inputElement.setAttribute('type', 'text');
