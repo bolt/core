@@ -8,7 +8,7 @@
             <!-- column details / excerpt -->
             <div class="listing__row--item is-details">
                 <a class="listing__row--item-title" :href="record.extras.editLink" :title="slug">
-                    {{ trim(raw(record.extras.title, 62)) }}
+                    {{ trim(raw(record.extras.title, 62)) }}&nbsp;
                 </a>
                 <span v-if="record.extras.feature" class="badge" :class="`badge-${record.extras.feature}`">{{
                     record.extras.feature
@@ -100,8 +100,10 @@ export default {
         leave() {
             // When we 'leave' the row, make sure we close the dropdown.
             // $('.dropdown-toggle[aria-expanded="true"]').dropdown('toggle');
-            const dropdown = new Dropdown(document.getElementsByClassName('.dropdown-toggle'));
-            dropdown.toggle();
+            var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle[aria-expanded="true"]'))
+            var dropdownList = dropdownElementList.map(function (dropdownToggleEl) {
+                return new bootstrap.Dropdown(dropdownToggleEl).toggle();
+            })
         },
     },
 };
