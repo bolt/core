@@ -2,11 +2,11 @@
     <div>
         <div class="input-group">
             <input
+                :id="id"
                 ref="inputField"
                 class="form-control"
                 type="password"
                 :name="name"
-                :id="id"
                 :value="value"
                 :required="required"
                 :readonly="readonly"
@@ -31,6 +31,7 @@
 
 <script>
 import ProgressBar from './ProgressBar';
+import $ from 'jquery';
 
 export default {
     name: 'EditorPassword',
