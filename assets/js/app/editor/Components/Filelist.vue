@@ -38,7 +38,7 @@ import File from './File';
 
 export default {
     name: 'EditorFile',
-    components: { 'editor-file': File },
+    components: { 'EditorFile': File },
     props: {
         files: Array,
         directory: String,

@@ -6,6 +6,7 @@
 
 <script>
 import VueSimplemde from 'vue-simplemde';
+import { formatStrip } from '../../../filters/string';
 
 export default {
     name: 'EditorMarkdown',
@@ -27,7 +28,7 @@ export default {
         };
     },
     mounted() {
-        this.val = this.$options.filters.strip(this.value);
+        this.val = formatStrip(this.value);
     },
 };
 </script>

@@ -8,6 +8,8 @@
 </template>
 
 <script>
+import store from '../../../store'
+
 export default {
     name: 'Checkbox',
     props: {
@@ -20,10 +22,10 @@ export default {
     },
     computed: {
         selectAll() {
-            return this.$store.getters['selecting/selectAll'];
+            return store.getters['selecting/selectAll'];
         },
         sorting() {
-            return this.$store.getters['general/getSorting'];
+            return store.getters['general/getSorting'];
         },
     },
     watch: {
@@ -32,8 +34,8 @@ export default {
         },
         selected() {
             this.selected
-                ? this.$store.dispatch('selecting/select', this.id)
-                : this.$store.dispatch('selecting/deSelect', this.id);
+                ? store.dispatch('selecting/select', this.id)
+                : store.dispatch('selecting/deSelect', this.id);
         },
         sorting() {
             if (this.sorting) this.selected = false;

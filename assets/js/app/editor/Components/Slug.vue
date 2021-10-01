@@ -83,7 +83,7 @@ export default {
         setTimeout(() => {
             let title = '';
             this.generate.split(',').forEach(element => {
-                title = title + document.querySelector(`input[name='fields[${element}]']`).value;
+                title = title + $("input[name='fields[${element}]']").value;
             });
             if (this.shouldGenerateFromTitle(title)) {
                 this.icon = 'unlock';
