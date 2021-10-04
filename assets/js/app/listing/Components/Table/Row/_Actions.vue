@@ -11,7 +11,7 @@
             <button
                 type="button"
                 class="btn btn-sm btn-secondary edit-actions__dropdown-toggler dropdown-toggle dropdown-toggle-split"
-                data-bs-toggle="dropdown"
+                data-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="false"
             >
