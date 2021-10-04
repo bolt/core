@@ -3,6 +3,7 @@
         <div v-for="(child, index) in containerImages" :key="child.id" class="form-fieldsgroup">
             <editor-image
                 v-if="child.hidden !== true"
+                :images="images"
                 :filename="child.filename"
                 :thumbnail="child.thumbnail"
                 :title="child.title"

@@ -2,6 +2,7 @@
     <div class="editor-filelist">
         <div v-for="(child, index) in containerFiles" :key="child.id" class="form-fieldsgroup">
             <editor-file
+                :files="files"
                 :filename="child.filename"
                 :thumbnail="child.thumbnail"
                 :title="child.title"
