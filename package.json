@@ -32,7 +32,7 @@
         "axios": "^0.21.4",
         "baguettebox.js": "^1.11.1",
         "bootbox": "^5.5.2",
-        "bootstrap": "^5.1.1",
+        "bootstrap": "^4.5.3",
         "browserslist": "^4.17.1",
         "caniuse-lite": "^1.0.30001259",
         "codemirror": "^5.63.0",
