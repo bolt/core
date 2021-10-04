@@ -35,7 +35,7 @@ Predefined variables:
             {% with {'path': path(route, p), 'label': 1 } %}
                 {{ block('item') }}
             {% endwith %}
-            {% with { 'label': '…', 'enabled': false } %}
+            {% with { 'path': '', 'label': '…', 'enabled': false } %}
                 {{ block('item') }}
             {% endwith %}
         {% endif %}
@@ -51,7 +51,7 @@ Predefined variables:
 
         {# If we didn't finish with the last, add a link to the end #}
         {% if end < records.nbPages %}
-            {% with { 'label': '…', 'enabled': false  } %}
+            {% with { 'path': '', 'label': '…', 'enabled': false  } %}
                 {{ block('item') }}
             {% endwith %}
             {% set p = routeParams|merge({page: records.nbPages}) %}

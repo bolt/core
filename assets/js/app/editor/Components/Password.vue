@@ -2,6 +2,7 @@
     <div>
         <div class="input-group">
             <input
+                :id="id"
                 ref="inputField"
                 class="form-control"
                 type="password"
@@ -30,6 +31,7 @@
 
 <script>
 import ProgressBar from './ProgressBar';
+import $ from 'jquery';
 
 export default {
     name: 'EditorPassword',
@@ -64,8 +66,8 @@ export default {
     methods: {
         togglePassword(event) {
             const iconElement = event.target;
-            const inputElement = this.$el.querySelector('#' + this.id);
-            const inputType = inputElement.attributes.getNamedItem('type').value;
+            const inputElement = $('#' + this.id)[0];
+            const inputType = inputElement.getAttribute('type');
 
             if (inputType === 'password') {
                 inputElement.setAttribute('type', 'text');
