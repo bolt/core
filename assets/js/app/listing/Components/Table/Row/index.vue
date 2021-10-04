@@ -51,7 +51,6 @@ import Meta from './_Meta';
 import Actions from './_Actions';
 import store from '../../../store';
 import $ from 'jquery';
-import { Dropdown } from 'bootstrap';
 
 export default {
     name: 'TableRow',
@@ -99,11 +98,7 @@ export default {
 
         leave() {
             // When we 'leave' the row, make sure we close the dropdown.
-            // $('.dropdown-toggle[aria-expanded="true"]').dropdown('toggle');
-            var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle[aria-expanded="true"]'))
-            var dropdownList = dropdownElementList.map(function (dropdownToggleEl) {
-                return new bootstrap.Dropdown(dropdownToggleEl).toggle();
-            })
+            $('.dropdown-toggle[aria-expanded="true"]').dropdown('toggle');
         },
     },
 };
