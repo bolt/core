@@ -63,7 +63,7 @@ export default {
     methods: {
         togglePassword(event) {
             const iconElement = event.target;
-            const inputElement = document.querySelector('#' + this.id);
+            const inputElement = $('#' + this.id)[0];
             const inputType = inputElement.getAttribute('type');
 
             if (inputType === 'password') {
