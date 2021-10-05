@@ -40,7 +40,7 @@
         :required='{{ required|json_encode }}'
         :readonly='{{ readonly|json_encode }}'
         :errormessage='{{ errormessage|json_encode }}'
-        :pattern='{{ pattern|json_encode }}'
+        {% if pattern %}:pattern='{{ pattern|json_encode }}'{% endif %}
         :placeholder='{{ placeholder|json_encode }}'
         :alt='{{ field.get('alt')|json_encode }}'
         :include-alt='{{ field.includeAlt|json_encode }}'

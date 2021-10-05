@@ -55,9 +55,9 @@ if (document.getElementById(id)) {
     app.component('EditorPassword', Password);
     app.component('EditorHtml', Html);
     app.component('EditorImage', Image);
-    app.component('EditorImage', Imagelist);
+    app.component('EditorImageList', Imagelist);
     app.component('EditorFile', File);
-    app.component('EditorFile', Filelist);
+    app.component('EditorFileList', Filelist);
     app.component('EditorMarkdown', Markdown);
     app.component('EditorNumber', Number);
     app.component('EditorSelect', Select);

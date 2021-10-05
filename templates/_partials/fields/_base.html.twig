@@ -39,7 +39,7 @@
 {% set errormessage = field.definition.get('error')|default(false) %}
 
 {# Set pattern #}
-{% set pattern = field.definition.get('pattern')|default(false) %}
+{% set pattern = field.definition.pattern|default(false) %}
 
 {# Set maxlength #}
 {% set maxlength = field.definition.get('maxlength')|default('') %}

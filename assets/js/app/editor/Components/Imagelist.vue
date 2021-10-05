@@ -41,7 +41,7 @@
 import Image from './Image';
 
 export default {
-    name: 'EditorImage',
+    name: 'EditorImageList',
     components: { 'EditorImage': Image },
     props: {
         images: Array,
