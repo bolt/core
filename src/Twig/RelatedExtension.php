@@ -10,7 +10,7 @@ use Bolt\Entity\Relation;
 use Bolt\Repository\RelationRepository;
 use Bolt\Storage\Query;
 use Bolt\Utils\ContentHelper;
-use Symfony\Contracts\Cache\CacheInterface;
+use Symfony\Contracts\Cache\TagAwareCacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 use Tightenco\Collect\Support\Collection;
 use Twig\Extension\AbstractExtension;
@@ -37,7 +37,7 @@ class RelatedExtension extends AbstractExtension
     /** @var CacheInterface */
     private $cache;
 
-    public function __construct(RelationRepository $relationRepository, Config $config, Query $query, ContentHelper $contentHelper, Notifications $notifications, CacheInterface $cache)
+    public function __construct(RelationRepository $relationRepository, Config $config, Query $query, ContentHelper $contentHelper, Notifications $notifications, TagAwareCacheInterface $cache)
     {
         $this->relationRepository = $relationRepository;
         $this->config = $config;
@@ -157,10 +157,10 @@ class RelatedExtension extends AbstractExtension
 
         $cacheKey = 'relatedOptions_' . md5($contentTypeSlug . $order . $format . (string) $required . $maxAmount);
 
-        dump($cacheKey);
 
         $options = $this->cache->get($cacheKey, function (ItemInterface $item) use ($contentTypeSlug, $order, $format, $required, $maxAmount) {
-//            $item->tag('backendmenu');
+            dump('cache ' . $contentTypeSlug);
+            $item->tag($contentTypeSlug);
 
             return $this->getRelatedOptionsCache($contentTypeSlug, $order, $format, $required, $maxAmount);
         });
