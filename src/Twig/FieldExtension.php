@@ -16,6 +16,9 @@ use Bolt\Storage\Query;
 use Bolt\Utils\ContentHelper;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
+use Symfony\Component\Stopwatch\Stopwatch;
+use Symfony\Contracts\Cache\ItemInterface;
+use Symfony\Contracts\Cache\TagAwareCacheInterface;
 use Tightenco\Collect\Support\Collection;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
@@ -38,19 +41,26 @@ class FieldExtension extends AbstractExtension
 
     /** @var Query */
     private $query;
+    /** @var Stopwatch */
+    private $stopwatch;
+
+    /** @var TagAwareCacheInterface */
+    private $cache;
 
     public function __construct(
         Notifications $notifications,
         ContentRepository $contentRepository,
         Config $config,
         ContentHelper $contentHelper,
-        Query $query)
+        Query $query, Stopwatch $stopwatch, TagAwareCacheInterface $cache)
     {
         $this->notifications = $notifications;
         $this->contentRepository = $contentRepository;
         $this->config = $config;
         $this->contentHelper = $contentHelper;
         $this->query = $query;
+        $this->stopwatch = $stopwatch;
+        $this->cache = $cache;
     }
 
     /**
@@ -275,19 +285,38 @@ class FieldExtension extends AbstractExtension
             'order' => $order,
         ];
 
-        /** @var Content[] $records */
-        $records = iterator_to_array($this->query->getContent($contentTypeSlug, $params)->getCurrentPageResults());
-
-        foreach ($records as $record) {
-            if ($field->getDefinition()->get('mode') === 'format') {
-                $formattedKey = $this->contentHelper->get($record, $field->getDefinition()->get('format'));
-            }
-            $options[] = [
-                'key' => $formattedKey ?? $record->getId(),
-                'value' => $this->contentHelper->get($record, $format),
-            ];
-        }
+        $options = $this->selectOptionsContentTypeCache($contentTypeSlug, $params, $field, $format);
 
         return new Collection($options);
+    }
+
+    private function selectOptionsContentTypeCache(string $contentTypeSlug, array $params, Field $field, string $format)
+    {
+        $cacheKey = 'selectOptions_' . md5($contentTypeSlug . implode('-', $params));
+
+        $this->stopwatch->start('selectOptions');
+
+        $options = $this->cache->get($cacheKey, function (ItemInterface $item) use ($contentTypeSlug, $params, $field, $format) {
+            $item->tag($contentTypeSlug);
+
+            /** @var Content[] $records */
+            $records = iterator_to_array($this->query->getContent($contentTypeSlug, $params)->getCurrentPageResults());
+
+            foreach ($records as $record) {
+                if ($field->getDefinition()->get('mode') === 'format') {
+                    $formattedKey = $this->contentHelper->get($record, $field->getDefinition()->get('format'));
+                }
+                $options[] = [
+                    'key' => $formattedKey ?? $record->getId(),
+                    'value' => $this->contentHelper->get($record, $format),
+                ];
+            }
+
+            return $options;
+        });
+
+        $this->stopwatch->stop('selectOptions');
+
+        return $options;
     }
 }

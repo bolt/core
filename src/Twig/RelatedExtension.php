@@ -10,8 +10,8 @@ use Bolt\Entity\Relation;
 use Bolt\Repository\RelationRepository;
 use Bolt\Storage\Query;
 use Bolt\Utils\ContentHelper;
-use Symfony\Contracts\Cache\TagAwareCacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
+use Symfony\Contracts\Cache\TagAwareCacheInterface;
 use Tightenco\Collect\Support\Collection;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
@@ -157,7 +157,6 @@ class RelatedExtension extends AbstractExtension
 
         $cacheKey = 'relatedOptions_' . md5($contentTypeSlug . $order . $format . (string) $required . $maxAmount);
 
-
         $options = $this->cache->get($cacheKey, function (ItemInterface $item) use ($contentTypeSlug, $order, $format, $required, $maxAmount) {
             dump('cache ' . $contentTypeSlug);
             $item->tag($contentTypeSlug);
@@ -165,14 +164,11 @@ class RelatedExtension extends AbstractExtension
             return $this->getRelatedOptionsCache($contentTypeSlug, $order, $format, $required, $maxAmount);
         });
 
-
-
         return new Collection($options);
     }
 
     public function getRelatedOptionsCache(string $contentTypeSlug, string $order, string $format, bool $required, int $maxAmount): array
     {
-
         $pager = $this->query->getContent($contentTypeSlug, ['order' => $order])
             ->setMaxPerPage($maxAmount)
             ->setCurrentPage(1);
@@ -200,7 +196,6 @@ class RelatedExtension extends AbstractExtension
         }
 
         return $options;
-
     }
 
     public function getRelatedValues(Content $source, string $contentType): Collection

@@ -14,6 +14,9 @@ use Symfony\Component\Routing\Exception\RouteNotFoundException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Stopwatch\Stopwatch;
+use Symfony\Contracts\Cache\ItemInterface;
+use Symfony\Contracts\Cache\TagAwareCacheInterface;
 
 class Canonical
 {
@@ -43,14 +46,20 @@ class Canonical
 
     /** @var RouterInterface */
     private $router;
+    /** @var Stopwatch */
+    private $stopwatch;
+    /** @var TagAwareCacheInterface */
+    private $cache;
 
-    public function __construct(Config $config, UrlGeneratorInterface $urlGenerator, RequestStack $requestStack, RouterInterface $router, string $defaultLocale)
+    public function __construct(Config $config, UrlGeneratorInterface $urlGenerator, RequestStack $requestStack, RouterInterface $router, string $defaultLocale, Stopwatch $stopwatch, TagAwareCacheInterface $cache)
     {
         $this->config = $config;
         $this->urlGenerator = $urlGenerator;
         $this->request = $requestStack->getCurrentRequest() ?? Request::createFromGlobals();
         $this->defaultLocale = $defaultLocale;
         $this->router = $router;
+        $this->stopwatch = $stopwatch;
+        $this->cache = $cache;
 
         $this->init();
     }
@@ -175,6 +184,23 @@ class Canonical
 
     public function generateLink(?string $route, ?array $params, $canonical = false): ?string
     {
+        $cacheKey = 'generateLink_' . md5($route . implode('-', $params) . (string) $canonical);
+
+        $this->stopwatch->start('bolt.GenerateLink');
+
+        $link = $this->cache->get($cacheKey, function (ItemInterface $item) use ($route, $params, $canonical) {
+            $item->tag('routes');
+
+            return $this->generateLinkHelper($route, $params, $canonical);
+        });
+
+        $this->stopwatch->stop('bolt.GenerateLink');
+
+        return $link;
+    }
+
+    private function generateLinkHelper(?string $route, ?array $params, $canonical = false): ?string
+    {
         $removeDefaultLocaleOnCanonical = $this->config->get('general/localization/remove_default_locale_on_canonical', true);
         $hasDefaultLocale = isset($params['_locale']) && $params['_locale'] === $this->defaultLocale;
 
@@ -197,15 +223,17 @@ class Canonical
         }
 
         try {
-            return $this->urlGenerator->generate(
+            $link = $this->urlGenerator->generate(
                 $route,
                 $params,
                 $canonical ? UrlGeneratorInterface::ABSOLUTE_URL : UrlGeneratorInterface::ABSOLUTE_PATH
             );
         } catch (InvalidParameterException | MissingMandatoryParametersException | RouteNotFoundException | \TypeError $e) {
             // Just use the current URL /shrug
-            return $canonical ? $this->request->getUri() : $this->request->getPathInfo();
+            $link = $canonical ? $this->request->getUri() : $this->request->getPathInfo();
         }
+
+        return $link;
     }
 
     private function routeRequiresParam(string $route, string $param): bool

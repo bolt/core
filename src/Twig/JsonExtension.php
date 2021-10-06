@@ -142,7 +142,6 @@ class JsonExtension extends AbstractExtension
         return $result;
     }
 
-
     /**
      * Test whether a passed string contains valid JSON.
      */

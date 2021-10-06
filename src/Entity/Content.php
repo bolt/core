@@ -192,6 +192,7 @@ class Content
         if ($locale !== null) {
             $key .= '-' . $locale;
         }
+
         return $key;
     }
 
