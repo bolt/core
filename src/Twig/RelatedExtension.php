@@ -10,6 +10,8 @@ use Bolt\Entity\Relation;
 use Bolt\Repository\RelationRepository;
 use Bolt\Storage\Query;
 use Bolt\Utils\ContentHelper;
+use Symfony\Contracts\Cache\CacheInterface;
+use Symfony\Contracts\Cache\ItemInterface;
 use Tightenco\Collect\Support\Collection;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
@@ -32,13 +34,17 @@ class RelatedExtension extends AbstractExtension
     /** @var Notifications */
     private $notifications;
 
-    public function __construct(RelationRepository $relationRepository, Config $config, Query $query, ContentHelper $contentHelper, Notifications $notifications)
+    /** @var CacheInterface */
+    private $cache;
+
+    public function __construct(RelationRepository $relationRepository, Config $config, Query $query, ContentHelper $contentHelper, Notifications $notifications, CacheInterface $cache)
     {
         $this->relationRepository = $relationRepository;
         $this->config = $config;
         $this->query = $query;
         $this->contentHelper = $contentHelper;
         $this->notifications = $notifications;
+        $this->cache = $cache;
     }
 
     /**
@@ -149,6 +155,24 @@ class RelatedExtension extends AbstractExtension
             $order = $contentType->get('order');
         }
 
+        $cacheKey = 'relatedOptions_' . md5($contentTypeSlug . $order . $format . (string) $required . $maxAmount);
+
+        dump($cacheKey);
+
+        $options = $this->cache->get($cacheKey, function (ItemInterface $item) use ($contentTypeSlug, $order, $format, $required, $maxAmount) {
+//            $item->tag('backendmenu');
+
+            return $this->getRelatedOptionsCache($contentTypeSlug, $order, $format, $required, $maxAmount);
+        });
+
+
+
+        return new Collection($options);
+    }
+
+    public function getRelatedOptionsCache(string $contentTypeSlug, string $order, string $format, bool $required, int $maxAmount): array
+    {
+
         $pager = $this->query->getContent($contentTypeSlug, ['order' => $order])
             ->setMaxPerPage($maxAmount)
             ->setCurrentPage(1);
@@ -175,7 +199,8 @@ class RelatedExtension extends AbstractExtension
             ];
         }
 
-        return new Collection($options);
+        return $options;
+
     }
 
     public function getRelatedValues(Content $source, string $contentType): Collection
