@@ -64,7 +64,7 @@ class Field implements FieldInterface, TranslatableInterface
     private $version;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Bolt\Entity\Content", inversedBy="fields")
+     * @ORM\ManyToOne(targetEntity="Bolt\Entity\Content", inversedBy="fields", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $content;
