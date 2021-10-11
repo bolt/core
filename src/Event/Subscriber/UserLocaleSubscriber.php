@@ -41,7 +41,7 @@ class UserLocaleSubscriber implements EventSubscriberInterface
         //Update own locale on user edit
         if ($event->getUser()->getUsername() !== $this->session->get('Username')) {
             $this->updateBackendLocale($event->getUser());
-        } 
+        }
         //else update the set the backend locale for the current user
         else {
             $this->updateUserBackendLocale($event->getUser());
