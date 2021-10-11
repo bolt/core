@@ -36,22 +36,16 @@ class UserLocaleSubscriber implements EventSubscriberInterface
         $this->updateBackendLocale($user);
     }
 
-    // public function onUserEdit(UserEvent $event): void
-    // {
-        
-    // }
-
-    //todo create this function
-    public function onAdminUserEdit(UserEvent $event) : void
+    public function onUserEdit(UserEvent $event): void
     {
-        //Check if user role is admin || developer and if theyre editing a user
-        if ($event->getUser()->getRoles() === 'ROLE_ADMIN' || 'ROLE_DEVELOPER') {
-            //Set the new locale for the user but dont update session locale
-            $this->updateUserBackendLocale($event->getUser());
-        } else {
-            //If not then do the standard update session
+        //Update own locale on user edit
+        if ($event->getUser()->getUsername() !== $this->session->get('Username')) {
             $this->updateBackendLocale($event->getUser());
-        }  
+        } 
+        //else update the set the backend locale for the current user
+        else {
+            $this->updateUserBackendLocale($event->getUser());
+        }
     }
 
     public function updateUserBackendLocale(User $user): void
@@ -69,7 +63,7 @@ class UserLocaleSubscriber implements EventSubscriberInterface
     {
         return [
             SecurityEvents::INTERACTIVE_LOGIN => 'onInteractiveLogin',
-            UserEvent::ON_POST_SAVE => 'onAdminUserEdit',
+            UserEvent::ON_POST_SAVE => 'onUserEdit',
         ];
     }
 }
