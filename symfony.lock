@@ -473,9 +473,6 @@
             "config/packages/httplug.yaml"
         ]
     },
-    "php-http/httplug-pack": {
-        "version": "1.2.0"
-    },
     "php-http/logger-plugin": {
         "version": "1.1.0"
     },
