@@ -61,7 +61,7 @@ $checkbox-row-width: 32px;
   &--item {
     min-height: inherit;
     padding: 0;
-    margin: 0 0 $spacer/4;
+    margin: 0 0 $spacer*0.25;
 
     &.is-thumbnail {
       display: none;
@@ -230,7 +230,7 @@ $checkbox-row-width: 32px;
     }
 
     li {
-      margin-bottom: $spacer / 4;
+      margin-bottom: $spacer * 0.25;
       color: var(--shade);
       text-transform: capitalize;
       text-overflow: ellipsis;

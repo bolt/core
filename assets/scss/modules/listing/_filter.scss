@@ -1,5 +1,7 @@
 //** Lisitng | Filter
 
+@use "sass:math";
+
 .listing__filter {
   display: flex;
   justify-content: space-between;
@@ -24,7 +26,7 @@
     justify-content: flex-end;
 
     li {
-      margin-right: $spacer / 3;
+      margin-right: math.div($spacer, 3);
 
       &:last-child {
         margin-right: 0.15rem;

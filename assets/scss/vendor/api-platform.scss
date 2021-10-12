@@ -12,7 +12,7 @@ $api-delete: #ed5a5a;
 /**  METHODS BLOCS **/
 
 #swagger-ui.api-platform {
-  padding: $spacer / 2;
+  padding: $spacer * 0.5;
 
   .opblock-summary {
     &.opblock-summary-get {

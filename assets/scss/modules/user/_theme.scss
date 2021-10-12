@@ -14,7 +14,7 @@
 
 .theme {
   flex: 0 0 33%;
-  padding: 0 $spacer / 2;
+  padding: 0 $spacer * 0.5;
   margin-bottom: $spacer;
 
   &--name {

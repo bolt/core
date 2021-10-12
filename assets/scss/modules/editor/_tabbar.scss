@@ -1,5 +1,7 @@
 //** Editor | Tab Bar
 
+@use "sass:math";
+
 .editor__tabbar {
   margin-bottom: $spacer * 2;
   border-bottom: solid 2px var(--shade-300);
@@ -10,7 +12,7 @@
   }
 
   .nav-link {
-    padding: $spacer / 2 $spacer / 1.5;
+    padding: $spacer * 0.5 math.div($spacer, 1.5);
 
     &::after {
       transition: $transition-base;

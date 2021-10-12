@@ -1,3 +1,5 @@
+@use "sass:math";
+
 $fp-path: '/assets/icons/flags/';
 $fp-enable-4x3: true;
 $fp-enable-1x1: false;
@@ -10,7 +12,7 @@ $fp-enable-1x1: false;
   background-repeat: no-repeat;
   position: relative;
   display: inline-block;
-  width: (4 / 3) * 1em;
+  width: math.div(4, 3) * 1em;
   vertical-align: sub;
   line-height: 1em;
 }
