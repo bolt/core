@@ -1,3 +1,5 @@
+@use "sass:math";
+
 .CodeMirror-fullscreen,
 .editor-toolbar.fullscreen,
 .editor-preview-side {
@@ -26,13 +28,13 @@
 .is-slim .CodeMirror-fullscreen,
 .is-slim .editor-toolbar.fullscreen,
 .is-slim .editor-preview-side {
-  left: $admin-sidebar-width / 3;
+  left: math.div($admin-sidebar-width, 3);
 }
 
 .editor-toolbar {
   background-color: $input-disabled-bg;
   opacity: 1;
-  padding: 0 $spacer / 2;
+  padding: 0 $spacer * 0.5;
   border: $input-border-width solid $input-border-color;
   border-bottom: 0;
   border-radius: $input-border-radius $input-border-radius 0 0;
@@ -48,7 +50,7 @@
   }
 
   a {
-    padding: $spacer / 3 0;
+    padding: math.div($spacer, 3) 0;
     margin: 0;
     height: auto;
     border-radius: 0;

@@ -1,5 +1,7 @@
 //** Fields | HTML
 
+@use "sass:math";
+
 .trumbowyg-editor {
   background: var(--foreground);
 }
@@ -26,5 +28,5 @@
 }
 
 .is-slim .trumbowyg-fullscreen {
-  left: $admin-sidebar-width / 3;
+  left: math.div($admin-sidebar-width, 3);
 }

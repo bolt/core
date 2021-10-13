@@ -1,3 +1,6 @@
+@use "sass:math";
+@use "sass:list";
+
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
 
@@ -39,7 +42,7 @@ $vue-multiselect-arrow-padding : 8px !default;
 
 $vue-multiselect-spinner-size : 16px !default;
 $vue-multiselect-spinner-thickness : 2px !default;
-$vue-multiselect-spinner-margin : -$vue-multiselect-spinner-size/2 !default;
+$vue-multiselect-spinner-margin : math.div(-$vue-multiselect-spinner-size, 2) !default;
 $vue-multiselect-spinner-color : $dark !default;
 
 //** Overrides for Bolt **//
@@ -111,8 +114,8 @@ fieldset[disabled] .multiselect {
 .multiselect__single {
   position: relative;
   display: inline-block;
-  min-height: $vue-multiselect-min-height / 2;
-  line-height: $vue-multiselect-min-height / 2;
+  min-height: list.slash($vue-multiselect-min-height, 2);
+  line-height: list.slash($vue-multiselect-min-height, 2);
   border: none;
   border-radius: $vue-multiselect-border-radius;
   background: $vue-multiselect-bg;
@@ -145,7 +148,7 @@ fieldset[disabled] .multiselect {
 }
 
 .multiselect__single {
-  padding-left: $vue-multiselect-padding-x / 2;
+  padding-left: list.slash($vue-multiselect-padding-x, 2);
   margin-bottom: $vue-multiselect-padding-y;
 }
 
@@ -213,7 +216,7 @@ fieldset[disabled] .multiselect {
 }
 
 .multiselect__current {
-  line-height: $vue-multiselect-min-height / 2;
+  line-height: list.slash($vue-multiselect-min-height, 2);
   min-height: $vue-multiselect-min-height;
   box-sizing: border-box;
   display: block;
@@ -228,7 +231,7 @@ fieldset[disabled] .multiselect {
 }
 
 .multiselect__select {
-  line-height: $vue-multiselect-min-height / 2;
+  line-height: list.slash($vue-multiselect-min-height, 2);
   display: block;
   position: absolute;
   box-sizing: border-box;
@@ -309,7 +312,7 @@ fieldset[disabled] .multiselect {
   display: block;
   padding: $vue-multiselect-padding-y $vue-multiselect-padding-x;
   min-height: $vue-multiselect-min-height;
-  line-height: $vue-multiselect-min-height / 2;
+  line-height: list.slash($vue-multiselect-min-height, 2);
   text-decoration: none;
   text-transform: none;
   vertical-align: middle;
@@ -424,7 +427,7 @@ fieldset[disabled] .multiselect {
 
 .multiselect__strong {
   margin-bottom: $vue-multiselect-padding-y;
-  line-height: $vue-multiselect-min-height/2;
+  line-height: list.slash($vue-multiselect-min-height, 2);
   display: inline-block;
   vertical-align: top;
 }

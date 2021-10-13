@@ -1,5 +1,7 @@
 //** Admin | Sidebar
 
+@use "sass:math";
+
 .admin__sidebar {
   background: var(--admin-sidebar);
   color: var(--admin-sidebar-text);
@@ -38,7 +40,7 @@
   &--link {
     position: relative;
     width: 100%;
-    padding: $spacer/1.75 $spacer*1.5 $spacer/1.75 $spacer;
+    padding: math.div($spacer, 1.75) $spacer*1.5 math.div($spacer, 1.75) $spacer;
     display: block;
     font-weight: $font-weight-semibold;
     letter-spacing: $letter-spacing;
@@ -47,7 +49,7 @@
 
     @include media-breakpoint-up(wd) {
       font-size: 0.9375rem;
-      padding: $spacer/1.75 $spacer*1.5 $spacer/1.75 $spacer*2;
+      padding: math.div($spacer, 1.75) $spacer*1.5 math.div($spacer, 1.75) $spacer*2;
     }
 
     &:hover {
@@ -142,7 +144,7 @@
         }
 
         a {
-          padding: $spacer / 1.75 $spacer;
+          padding: math.div($spacer, 1.75) $spacer;
           color: var(--admin-sidebar-menu-text);
           display: flex;
           align-items: center;
@@ -223,7 +225,7 @@
 .admin {
   &.is-slim {
     .admin__sidebar {
-      width: $admin-sidebar-width / 3;
+      width: math.div($admin-sidebar-width, 3);
 
       .admin__sidebar--separator {
         visibility: hidden;
@@ -238,7 +240,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: $spacer / 1.25 $spacer / 2;
+        padding: math.div($spacer, 1.25) $spacer * 0.5;
 
         .link--icon {
           font-size: 140%;
@@ -252,15 +254,15 @@
       }
 
       .admin__sidebar--slim {
-        width: $admin-sidebar-width / 3;
-        bottom: $spacer / 2;
+        width: math.div($admin-sidebar-width, 3);
+        bottom: $spacer * 0.5;
       }
     }
 
     .admin__header,
     .admin__body {
       @include media-breakpoint-up(lg) {
-        margin-left: $admin-sidebar-width / 3;
+        margin-left: math.div($admin-sidebar-width, 3);
       }
     }
   }
