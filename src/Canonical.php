@@ -182,7 +182,7 @@ class Canonical
         $this->path = $this->generateLink($route, $params, false);
     }
 
-    public function generateLink(?string $route, ?array $params, $canonical = false): ?string
+    public function generateLink(?string $route, ?array $params, $canonical = false): string
     {
         $cacheKey = 'generateLink_' . md5($route . implode('-', $params) . (string) $canonical);
 
@@ -199,7 +199,7 @@ class Canonical
         return $link;
     }
 
-    private function generateLinkHelper(?string $route, ?array $params, $canonical = false): ?string
+    private function generateLinkHelper(?string $route, ?array $params, $canonical = false): string
     {
         $removeDefaultLocaleOnCanonical = $this->config->get('general/localization/remove_default_locale_on_canonical', true);
         $hasDefaultLocale = isset($params['_locale']) && $params['_locale'] === $this->defaultLocale;

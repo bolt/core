@@ -302,6 +302,8 @@ class FieldExtension extends AbstractExtension
             /** @var Content[] $records */
             $records = iterator_to_array($this->query->getContent($contentTypeSlug, $params)->getCurrentPageResults());
 
+            $options = [];
+
             foreach ($records as $record) {
                 if ($field->getDefinition()->get('mode') === 'format') {
                     $formattedKey = $this->contentHelper->get($record, $field->getDefinition()->get('format'));

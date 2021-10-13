@@ -34,7 +34,7 @@ class RelatedExtension extends AbstractExtension
     /** @var Notifications */
     private $notifications;
 
-    /** @var CacheInterface */
+    /** @var TagAwareCacheInterface */
     private $cache;
 
     public function __construct(RelationRepository $relationRepository, Config $config, Query $query, ContentHelper $contentHelper, Notifications $notifications, TagAwareCacheInterface $cache)
@@ -158,7 +158,6 @@ class RelatedExtension extends AbstractExtension
         $cacheKey = 'relatedOptions_' . md5($contentTypeSlug . $order . $format . (string) $required . $maxAmount);
 
         $options = $this->cache->get($cacheKey, function (ItemInterface $item) use ($contentTypeSlug, $order, $format, $required, $maxAmount) {
-            dump('cache ' . $contentTypeSlug);
             $item->tag($contentTypeSlug);
 
             return $this->getRelatedOptionsCache($contentTypeSlug, $order, $format, $required, $maxAmount);
