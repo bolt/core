@@ -6,15 +6,19 @@ use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\ErrorHandler\Debug;
+use Bolt\Configuration\Config;
 
 if (!in_array(PHP_SAPI, ['cli', 'phpdbg', 'embed'], true)) {
     echo 'Warning: The console should be invoked via the CLI version of PHP, not the '.PHP_SAPI.' SAPI'.PHP_EOL;
 }
 
-set_time_limit(0);
-@ini_set('memory_limit', '1024M');
-
 require dirname(__DIR__).'/vendor/autoload.php';
+
+// Set the `time_limit` and `memory_limit`, if we're allowed to
+set_time_limit(0);
+if (Config::convertPHPSizeToBytes(ini_get('memory_limit')) < 1073741824) {
+    @ini_set('memory_limit', '1024M');
+}
 
 if (!class_exists(Application::class) || !class_exists(Dotenv::class)) {
     throw new LogicException('You need to add "symfony/framework-bundle" and "symfony/dotenv" as Composer dependencies.');

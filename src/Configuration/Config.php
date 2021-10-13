@@ -288,7 +288,7 @@ class Config
     /**
      * This function transforms the php.ini notation for numbers (like '2M') to an integer (2*1024*1024 in this case)
      */
-    private function convertPHPSizeToBytes(string $size): int
+    public static function convertPHPSizeToBytes(string $size): int
     {
         $suffix = mb_strtoupper(mb_substr($size, -1));
         if (! in_array($suffix, ['P', 'T', 'G', 'M', 'K'], true)) {

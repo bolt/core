@@ -2,13 +2,20 @@
 
 declare(strict_types=1);
 
+use Bolt\Configuration\Config;
 use Bolt\Kernel;
-
 use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\ErrorHandler\Debug;
 use Symfony\Component\HttpFoundation\Request;
 
 require dirname(__DIR__).'/vendor/autoload.php';
+
+// Set the `time_limit` and `memory_limit`, if we're allowed to
+set_time_limit(0);
+if (Config::convertPHPSizeToBytes(ini_get('memory_limit')) < 1073741824) {
+    @ini_set('memory_limit', '1024M');
+}
+
 
 (new Dotenv())->bootEnv(dirname(__DIR__).'/.env');
 
