@@ -152,7 +152,7 @@ class Content
 
     public function __construct(?ContentType $contentTypeDefinition = null)
     {
-        $this->createdAt = new \DateTime();
+        $this->createdAt = $this->convertToUTCFromLocal(new \DateTime());
         $this->status = Statuses::DRAFT;
         $this->taxonomies = new ArrayCollection();
         $this->fields = new ArrayCollection();
