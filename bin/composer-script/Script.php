@@ -42,6 +42,7 @@ class Script
         // We'll have to attempt one, and otherwise fall back to the other.
 
         try {
+            /* @phpstan-ignore-next-line */
             $process = new Process($command);
         } catch (\TypeError $e) {
             $process = new Process([$command]);
