@@ -6,6 +6,7 @@ framework:
 
 # php_translation
 translation:
+    locales: '%locales_array%'
     webui:
         enabled: true
     edit_in_place:

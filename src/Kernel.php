@@ -91,6 +91,9 @@ class Kernel extends BaseKernel
     {
         $container->setParameter('bolt.public_folder', $this->getPublicFolder());
 
+        $locales = explode("|", $container->getParameter('app_locales'));
+        $container->setParameter("locales_array", $locales);
+
         $fileLocator = new FileLocator([$confDir . '/bolt']);
         $fileName = $fileLocator->locate('config.yaml', null, true);
 
