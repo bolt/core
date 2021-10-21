@@ -193,15 +193,15 @@ class Content
     {
         $this->contentTypeDefinition = ContentType::factory($this->contentType, $contentTypesConfig);
 
-        if ($this->getId()) {
-            // Content is not new, so return.
-            return;
-        }
-
         // Set default status and default values
         $this->setStatus($this->contentTypeDefinition->get('default_status', 'published'));
         $this->contentTypeDefinition->get('fields')->each(function (LaravelCollection $item, string $name): void {
             if ($item->has('default') && $item->get('default') !== null) {
+                if ($this->hasField($name)) {
+                    // If the field already exists in the database, don't override the value. ¯\_(ツ)_/¯
+                    return;
+                }
+
                 $field = FieldRepository::factory($item, $name);
                 $field->setValue($field->getDefaultValue());
 
