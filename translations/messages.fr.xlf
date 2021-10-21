@@ -2352,7 +2352,7 @@
     <unit id="pXtciRI" name="content.edit_missing_definition">
       <segment>
         <source>content.edit_missing_definition</source>
-        <target>La définition de ce ContentType est manquante ! La modification de cet enregistrement ne fonctionnera pas comme prévu. Veuillez vérifier votre contenttypes.yaml pour vous assurer qu'il contient% contenttype%.</target>
+        <target>La définition de ce ContentType est manquante ! La modification de cet enregistrement ne fonctionnera pas comme prévu. Veuillez vérifier votre contenttypes.yaml pour vous assurer qu'il contient %contenttype%.</target>
       </segment>
     </unit>
     <unit id="RBJ0NMl" name="collection.select">
