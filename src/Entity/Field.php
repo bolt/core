@@ -226,7 +226,7 @@ class Field implements FieldInterface, TranslatableInterface
     }
 
     /**
-     * @return string|array|Markup
+     * @return string|array|Markup|bool
      */
     public function getTwigValue()
     {
