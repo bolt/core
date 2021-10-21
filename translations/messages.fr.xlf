@@ -2310,7 +2310,7 @@
     <unit id="munFS0n" name="title.filtered_by">
       <segment>
         <source>title.filtered_by</source>
-        <target><![CDATA[Tout le contenu, filtré par <em>'% filter%'</em>.]]></target>
+        <target><![CDATA[Tout le contenu, filtré par <em>'%filter%'</em>.]]></target>
       </segment>
     </unit>
     <unit id="GPd6Hap" name="action.view_site">
