@@ -1,0 +1,7 @@
+# Adding the new locales_array for Bolt 5.0.4
+file: packages/dtranslation.yaml
+since: 5.0.4
+
+add:
+    translation:
+        locales: '%locales_array%'
