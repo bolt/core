@@ -1,6 +1,36 @@
 Changelog
 =========
 
+## 5.0.4 
+
+Released: 2021-10-22
+
+### 🐛 Bug fixes
+
+- Fix french translations (oto-emo, [#2869](https://github.com/bolt/core/pull/2869))
+- Allow labels to be edited in the Editor (I-Valchev, [#2865](https://github.com/bolt/core/pull/2865))
+- Fixed created date `UTC` in Content Entity (oto-emo, [#2864](https://github.com/bolt/core/pull/2864))
+- Add `cascade={"persist"}` to Field#content relation (bobdenotter, [#2854](https://github.com/bolt/core/pull/2854))
+- Fixed issue about the password eye (Joossensei, [#2851](https://github.com/bolt/core/pull/2851))
+- Fixed not rendering ellipsis (Joossensei, [#2849](https://github.com/bolt/core/pull/2849))
+-  Fixes the wrong url by `setpath()` when on a 404-page (mcdennem, [#2871](https://github.com/bolt/core/pull/2871))
+
+### 📦 Additions and new features
+
+- Improve the way `time_limit` and `memory_limit` is being set (bobdenotter, [#2863](https://github.com/bolt/core/pull/2863))
+
+### 🛠️ Miscellaneous
+
+- Update Composer to 2.1 and Symplify to 9.4 (bobdenotter, [#2870](https://github.com/bolt/core/pull/2870))
+- Set `default` value for new fields in existing records (I-Valchev, [#2867](https://github.com/bolt/core/pull/2867))
+- Update for SCSS deprecations (Joossensei, [#2861](https://github.com/bolt/core/pull/2861))
+- Update Chinese translation (ziselive, [#2852](https://github.com/bolt/core/pull/2852))
+
+### ⚙️ Code Quality / Developer Experience
+
+- Unlock `symfony/flex` so it updates past 1.13 (bobdenotter, [#2860](https://github.com/bolt/core/pull/2860))
+
+
 ## 5.0.3
 
 Released: 2021-09-29
