@@ -13,7 +13,8 @@ Released: 2021-10-22
 - Add `cascade={"persist"}` to Field#content relation (bobdenotter, [#2854](https://github.com/bolt/core/pull/2854))
 - Fixed issue about the password eye (Joossensei, [#2851](https://github.com/bolt/core/pull/2851))
 - Fixed not rendering ellipsis (Joossensei, [#2849](https://github.com/bolt/core/pull/2849))
--  Fixes the wrong url by `setpath()` when on a 404-page (mcdennem, [#2871](https://github.com/bolt/core/pull/2871))
+- Fixes the wrong url by `setpath()` when on a 404-page (mcdennem, [#2871](https://github.com/bolt/core/pull/2871))
+- Fix the default value for new checkboxes in existing records (I-Valchev, [#2868](https://github.com/bolt/core/pull/2868))
 
 ### 📦 Additions and new features
 
