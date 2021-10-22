@@ -6,6 +6,8 @@
         {% set mode = field.definition.mode|default('checkbox') %}
     {% endif %}
 
+    {% set value = value ? true : false %}
+
     <editor-checkbox
         :id="{{ name|json_encode }}"
         :value="{{ value|json_encode }}"
