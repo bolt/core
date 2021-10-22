@@ -166,7 +166,7 @@ class Canonical
     {
         if (! $route && ! $this->request->attributes->get('_route')) {
             return;
-        } else if ($this->request->attributes->get('_route')) {
+        } elseif ($this->request->attributes->has('_route')) {
             $route = $this->request->attributes->get('_route');
         }
 
