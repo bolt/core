@@ -164,7 +164,7 @@ class Canonical
 
     public function setPath(?string $route = null, array $params = []): void
     {
-        if (! $route && ! $this->request->attributes->get('_route')) {
+        if (! $route && ! $this->request->attributes->has('_route')) {
             return;
         } elseif ($this->request->attributes->has('_route')) {
             $route = $this->request->attributes->get('_route');
