@@ -108,7 +108,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services->set(OrderedImportsFixer::class)
         ->call('configure', [[
-            'importsOrder' => ['class', 'const', 'function'],
+            'imports_order' => ['class', 'const', 'function'],
         ]]);
 
     $services->set(DeclareEqualNormalizeFixer::class)

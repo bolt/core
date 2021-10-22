@@ -41,11 +41,12 @@ includes:
 	- vendor/phpstan/phpstan-doctrine/extension.neon
 #    - vendor/thecodingmachine/phpstan-safe-rule/phpstan-safe-rule.neon # make ON when thecodingmachine/safe will get stable
 
-services:
-	-
-		class: Symplify\CodingStandard\Rules\ForbiddenFuncCallRule
-		tags: [phpstan.rules.rule]
-		arguments:
-			forbiddenFunctions: ['d', 'dd', 'dump', 'var_dump', 'extract']
-
-	- Symplify\PackageBuilder\Matcher\ArrayStringAndFnMatcher
+# Todo: add these: https://tomasvotruba.com/blog/2020/12/14/new-in-symplify-9-more-than-110-phpstan-rules/
+# services:
+#	-
+#		class: Symplify\CodingStandard\Rules\ForbiddenFuncCallRule
+#		tags: [phpstan.rules.rule]
+#		arguments:
+#			forbiddenFunctions: ['d', 'dd', 'dump', 'var_dump', 'extract']
+#
+#	- Symplify\PackageBuilder\Matcher\ArrayStringAndFnMatcher
