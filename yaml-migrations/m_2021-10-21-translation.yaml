@@ -1,0 +1,20 @@
+# Adding the new locales_array for Bolt 5.0.4
+file: packages/translation.yaml
+since: 5.0.4
+
+add:
+    translation:
+        locales: '%locales_array%'
+        default_locale: '%locale%'
+        webui:
+            enabled: true
+        edit_in_place:
+            enabled: false
+            config_name: site
+        configs:
+            site:
+                dirs: ["%kernel.project_dir%/public/theme/%bolt.theme%"]
+                output_dir: "%kernel.project_dir%/translations"
+        auto_add_missing_translations:
+            enabled: true
+            config_name: site
