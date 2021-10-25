@@ -8,6 +8,7 @@ use Bolt\Entity\User;
 use Bolt\Event\UserEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\Security\Http\SecurityEvents;
 
@@ -23,10 +24,14 @@ class UserLocaleSubscriber implements EventSubscriberInterface
     /** @var string */
     private $defaultLocale;
 
-    public function __construct(SessionInterface $session, string $defaultLocale)
+    /** @var Security */
+    private $security;
+
+    public function __construct(SessionInterface $session, string $defaultLocale, Security $security)
     {
         $this->session = $session;
         $this->defaultLocale = $defaultLocale;
+        $this->security = $security;
     }
 
     public function onInteractiveLogin(InteractiveLoginEvent $event): void
@@ -38,20 +43,10 @@ class UserLocaleSubscriber implements EventSubscriberInterface
 
     public function onUserEdit(UserEvent $event): void
     {
-        //Update own locale on user edit
-        if ($event->getUser()->getUsername() !== $this->session->get('Username')) {
+        // Update own locale on user edit
+        if ($event->getUser() === $this->security->getUser()) {
             $this->updateBackendLocale($event->getUser());
         }
-        //else update the set the backend locale for the current user
-        else {
-            $this->updateUserBackendLocale($event->getUser());
-        }
-    }
-
-    public function updateUserBackendLocale(User $user): void
-    {
-        //Update user specific setting not the session
-        $user->setLocale($user->getLocale() ?? $this->defaultLocale);
     }
 
     private function updateBackendLocale(User $user): void
