@@ -13,7 +13,7 @@
                 :required="required"
                 :readonly="readonly"
                 :data-errormessage="errormessage"
-                :pattern="pattern"
+                :pattern="pattern ? pattern : ''"
                 :placeholder="placeholder"
             />
         </div>
@@ -39,13 +39,9 @@ export default {
         readonly: {
             type: Boolean,
         },
-        errormessage: {
-            type: String | Boolean, //string if errormessage is set, and false otherwise
-        },
-        pattern: {
-            type: String | Boolean,
-        },
-        placeholder: String | Boolean,
+        errormessage: [String, Boolean],
+        pattern: [String, Boolean],
+        placeholder: [String, Boolean],
     },
 };
 </script>

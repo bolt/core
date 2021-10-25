@@ -85,7 +85,7 @@
 </template>
 
 <script>
-import Vue from 'vue';
+import { compile } from 'vue';
 import $ from 'jquery';
 var uniqid = require('locutus/php/misc/uniqid');
 export default {
@@ -239,7 +239,7 @@ export default {
     },
     methods: {
         compile(element) {
-            return Vue.compile(element);
+            return compile(element);
         },
         setAllButtonsStates(collectionContainer) {
             let vueThis = this;
