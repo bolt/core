@@ -3,7 +3,7 @@
 parameters:
     locale: 'en'
     # This parameter defines the codes of the locales (languages) enabled in the application
-    app_locales: en|nl|es|fr|de|pl|it|hu|pt_BR|ja|nb|nn|nl_NL|nl_BE|is|ru|cs|bg
+    app_locales: en|nl|es|fr|de|pl|it|hu|pt_BR|ja|nb|nn|nl_NL|nl_BE|is|ru|cs|bg|sv_SE
     app.notifications.email_sender: anonymous@example.com
     # Default table prefix for Bolt database
     bolt.table_prefix: bolt_

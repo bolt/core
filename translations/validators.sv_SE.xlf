@@ -1,0 +1,677 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="sv-SE">
+  <file id="validators.sv_SE">
+    <unit id="zh5oKD9" name="This value should be false.">
+      <segment>
+        <source>This value should be false.</source>
+        <target>Detta värde borde vara falskt.</target>
+      </segment>
+    </unit>
+    <unit id="NN2_iru" name="This value should be true.">
+      <segment>
+        <source>This value should be true.</source>
+        <target>Detta värde borde vara sant.</target>
+      </segment>
+    </unit>
+    <unit id="OjM_kpf" name="This value should be of type {{ type }}.">
+      <segment>
+        <source>This value should be of type {{ type }}.</source>
+        <target>Detta värde borde vara av typen {{ type }}.</target>
+      </segment>
+    </unit>
+    <unit id="f0P5pBD" name="This value should be blank.">
+      <segment>
+        <source>This value should be blank.</source>
+        <target>Detta värde borde vara tomt.</target>
+      </segment>
+    </unit>
+    <unit id="ih.4TRN" name="The value you selected is not a valid choice.">
+      <segment>
+        <source>The value you selected is not a valid choice.</source>
+        <target>Värdet du valde är inte ett giltigt val.</target>
+      </segment>
+    </unit>
+    <unit id="7smtimf" name="0d999f2">
+      <segment>
+        <source>0d999f2</source>
+        <target>Du måste välja minst {{ limit }} val.|Du måste välja minst {{ limit }} val.</target>
+      </segment>
+    </unit>
+    <unit id="JRlXq2Z" name="0824486">
+      <segment>
+        <source>0824486</source>
+        <target>Du får välja som mest {{ limit }} val.|Du får välja som mest {{ limit }} val.</target>
+      </segment>
+    </unit>
+    <unit id="87zjiHi" name="One or more of the given values is invalid.">
+      <segment>
+        <source>One or more of the given values is invalid.</source>
+        <target>Ett eller flera av de angivna värdena är ogiltiga.</target>
+      </segment>
+    </unit>
+    <unit id="3NeQftv" name="This field was not expected.">
+      <segment>
+        <source>This field was not expected.</source>
+        <target>Detta fält var inte förväntat.</target>
+      </segment>
+    </unit>
+    <unit id="SwMV4zp" name="This field is missing.">
+      <segment>
+        <source>This field is missing.</source>
+        <target>Detta fält saknas.</target>
+      </segment>
+    </unit>
+    <unit id="LO2vFKN" name="This value is not a valid date.">
+      <segment>
+        <source>This value is not a valid date.</source>
+        <target>Detta värde är inte ett giltigt datum.</target>
+      </segment>
+    </unit>
+    <unit id="86dU_nv" name="This value is not a valid datetime.">
+      <segment>
+        <source>This value is not a valid datetime.</source>
+        <target>Detta värde är inte en giltig datetime.</target>
+      </segment>
+    </unit>
+    <unit id="PSvNXdi" name="This value is not a valid email address.">
+      <segment>
+        <source>This value is not a valid email address.</source>
+        <target>Detta värde är inte en giltig epost-adress</target>
+      </segment>
+    </unit>
+    <unit id="3KeHbZy" name="The file could not be found.">
+      <segment>
+        <source>The file could not be found.</source>
+        <target>Filen kunde inte hittas.</target>
+      </segment>
+    </unit>
+    <unit id="KtJhQZo" name="The file is not readable.">
+      <segment>
+        <source>The file is not readable.</source>
+        <target>Filen kan inte läsas.</target>
+      </segment>
+    </unit>
+    <unit id="2O3FbJ6" name="1ad411a">
+      <segment>
+        <source>1ad411a</source>
+        <target>Filen är för stor ({{ size }} {{ suffix }}). Maximalt tillåten storlek är {{ limit }} {{ suffix }}.</target>
+      </segment>
+    </unit>
+    <unit id="p4L.BFV" name="30a318d">
+      <segment>
+        <source>30a318d</source>
+        <target>Filens mime-type är ogiltig ({{ type }}). Tillåtna mime-typer är {{ types }}.</target>
+      </segment>
+    </unit>
+    <unit id="NubOmrs" name="This value should be {{ limit }} or less.">
+      <segment>
+        <source>This value should be {{ limit }} or less.</source>
+        <target>Detta värde borde vara {{ limit }} eller mindre.</target>
+      </segment>
+    </unit>
+    <unit id="SjJg9Hy" name="0e0c1e1">
+      <segment>
+        <source>0e0c1e1</source>
+        <target>Detta värde är för långt. Det borde vara {{ limit }} tecken eller mindre.|Detta värde är för långt. Det borde vara {{ limit }} tecken eller mindre.</target>
+      </segment>
+    </unit>
+    <unit id="qgR8M_U" name="This value should be {{ limit }} or more.">
+      <segment>
+        <source>This value should be {{ limit }} or more.</source>
+        <target>Detta värde borde vara {{ limit }} eller mer.</target>
+      </segment>
+    </unit>
+    <unit id="JJVWzKj" name="5188ff9">
+      <segment>
+        <source>5188ff9</source>
+        <target>Detta värde är för kort. Det borde ha {{ limit }} tecken eller mer.|Detta värde är för kort. Det borde ha {{ limit }} tecken eller mer.</target>
+      </segment>
+    </unit>
+    <unit id="1KV4L.t" name="This value should not be blank.">
+      <segment>
+        <source>This value should not be blank.</source>
+        <target>Detta värde borde inte vara tomt.</target>
+      </segment>
+    </unit>
+    <unit id="2G4Vepm" name="This value should not be null.">
+      <segment>
+        <source>This value should not be null.</source>
+        <target>Detta värde borde inte vara null.</target>
+      </segment>
+    </unit>
+    <unit id="yDc3m6E" name="This value should be null.">
+      <segment>
+        <source>This value should be null.</source>
+        <target>Detta värde borde vara null.</target>
+      </segment>
+    </unit>
+    <unit id="zKzWejA" name="This value is not valid.">
+      <segment>
+        <source>This value is not valid.</source>
+        <target>Detta värde är inte giltigt.</target>
+      </segment>
+    </unit>
+    <unit id="HSuBZpQ" name="This value is not a valid time.">
+      <segment>
+        <source>This value is not a valid time.</source>
+        <target>Detta värde är inte en giltig tid.</target>
+      </segment>
+    </unit>
+    <unit id="snWc_QT" name="This value is not a valid URL.">
+      <segment>
+        <source>This value is not a valid URL.</source>
+        <target>Detta värde är inte en giltig URL.</target>
+      </segment>
+    </unit>
+    <unit id="jpaLsb2" name="The two values should be equal.">
+      <segment>
+        <source>The two values should be equal.</source>
+        <target>De två värdena borde vara lika.</target>
+      </segment>
+    </unit>
+    <unit id="fIlB1B_" name="The file is too large. Allowed maximum size is {{ limit }} {{ suffix }}.">
+      <segment>
+        <source>The file is too large. Allowed maximum size is {{ limit }} {{ suffix }}.</source>
+        <target>Filen är för stor. Maximalt tillåten storlek är {{ limit }} {{ suffix }}.</target>
+      </segment>
+    </unit>
+    <unit id="tW7o0t9" name="The file is too large.">
+      <segment>
+        <source>The file is too large.</source>
+        <target>Filen är för stor.</target>
+      </segment>
+    </unit>
+    <unit id=".exF5Ww" name="The file could not be uploaded.">
+      <segment>
+        <source>The file could not be uploaded.</source>
+        <target>Filen kunde inte laddas upp.</target>
+      </segment>
+    </unit>
+    <unit id="d7sS5yw" name="This value should be a valid number.">
+      <segment>
+        <source>This value should be a valid number.</source>
+        <target>Detta värde borde vara ett giltigt nummer.</target>
+      </segment>
+    </unit>
+    <unit id="BS2Ez6i" name="This file is not a valid image.">
+      <segment>
+        <source>This file is not a valid image.</source>
+        <target>Denna fil är inte en giltig bild.</target>
+      </segment>
+    </unit>
+    <unit id="ydcT9kU" name="This is not a valid IP address.">
+      <segment>
+        <source>This is not a valid IP address.</source>
+        <target>Detta är inte en giltig IP-adress.</target>
+      </segment>
+    </unit>
+    <unit id="lDOGNFX" name="This value is not a valid language.">
+      <segment>
+        <source>This value is not a valid language.</source>
+        <target>Detta värde är inte ett giltigt språk.</target>
+      </segment>
+    </unit>
+    <unit id="y9IdYkA" name="This value is not a valid locale.">
+      <segment>
+        <source>This value is not a valid locale.</source>
+        <target>Detta värde är inte en giltig språkinställning.</target>
+      </segment>
+    </unit>
+    <unit id="1YC0pOd" name="This value is not a valid country.">
+      <segment>
+        <source>This value is not a valid country.</source>
+        <target>Detta värde är inte ett giltigt land.</target>
+      </segment>
+    </unit>
+    <unit id="B5ebaMp" name="This value is already used.">
+      <segment>
+        <source>This value is already used.</source>
+        <target>Detta värde är redan i användning.</target>
+      </segment>
+    </unit>
+    <unit id="L6097a6" name="The size of the image could not be detected.">
+      <segment>
+        <source>The size of the image could not be detected.</source>
+        <target>Storleken på bilden kunde inte uppfattas.</target>
+      </segment>
+    </unit>
+    <unit id="g9NoIBz" name="266051e">
+      <segment>
+        <source>266051e</source>
+        <target>Bilden är för bred ({{ width }}px). Maximalt tillåten bredd är {{ max_width }}px.</target>
+      </segment>
+    </unit>
+    <unit id="HTsQNva" name="c1c23f9">
+      <segment>
+        <source>c1c23f9</source>
+        <target>Bilden är för smal ({{ width }}px). Minsta tillåtna bredd är {{ min_width }}px.</target>
+      </segment>
+    </unit>
+    <unit id="h3PRqha" name="9a128f7">
+      <segment>
+        <source>9a128f7</source>
+        <target>Bilden är för hög ({{ height }}px). Maximalt tillåten höjd är {{ max_height }}px.</target>
+      </segment>
+    </unit>
+    <unit id="IVraZ3b" name="8a4cd70">
+      <segment>
+        <source>8a4cd70</source>
+        <target>Bildens höjd är för liten ({{ height }}px). Minsta tillåtna höjd är {{ min_height }}px.</target>
+      </segment>
+    </unit>
+    <unit id="PSdMNab" name="This value should be the user's current password.">
+      <segment>
+        <source>This value should be the user's current password.</source>
+        <target>Detta värde borde vara användarens nuvarande lösenord.</target>
+      </segment>
+    </unit>
+    <unit id="Anek_FY" name="fd389d6">
+      <segment>
+        <source>fd389d6</source>
+        <target>Detta värde borde ha exakt {{ limit }} tecken.|Detta värde borde ha exakt {{ limit }} tecken.</target>
+      </segment>
+    </unit>
+    <unit id="xJ2Bcr_" name="The file was only partially uploaded.">
+      <segment>
+        <source>The file was only partially uploaded.</source>
+        <target>Filen laddades bara delvis upp.</target>
+      </segment>
+    </unit>
+    <unit id="HzkJDtF" name="No file was uploaded.">
+      <segment>
+        <source>No file was uploaded.</source>
+        <target>Ingen fil laddades upp.</target>
+      </segment>
+    </unit>
+    <unit id="mHfEaB3" name="No temporary folder was configured in php.ini.">
+      <segment>
+        <source>No temporary folder was configured in php.ini.</source>
+        <target>Ingen tillfällig filmapp är konfigurerad i php.ini, eller den konfigurerade filmappen existerar inte.</target>
+      </segment>
+    </unit>
+    <unit id="y9K3BGb" name="Cannot write temporary file to disk.">
+      <segment>
+        <source>Cannot write temporary file to disk.</source>
+        <target>Kan inte skriva tillfällig fil till lagringsutrymmet.</target>
+      </segment>
+    </unit>
+    <unit id="kx3yHIM" name="A PHP extension caused the upload to fail.">
+      <segment>
+        <source>A PHP extension caused the upload to fail.</source>
+        <target>Filuppladdningen misslyckades på grund av ett PHP-tillägg.</target>
+      </segment>
+    </unit>
+    <unit id="YuLxmhd" name="b54c218">
+      <segment>
+        <source>b54c218</source>
+        <target>Denna samling borde innehålla {{ limit }} element eller fler.|Denna samling borde innehålla {{ limit }} element eller fler.</target>
+      </segment>
+    </unit>
+    <unit id="qXV2OMI" name="949632c">
+      <segment>
+        <source>949632c</source>
+        <target>Denna samling borde innehålla {{ limit }} element eller färre.|Denna samling borde innehålla {{ limit }} element eller färre.</target>
+      </segment>
+    </unit>
+    <unit id="BnjGMFh" name="e0582dc">
+      <segment>
+        <source>e0582dc</source>
+        <target>Denna samling borde innehålla exakt {{ limit }} element.|Denna samling borde innehålla exakt {{ limit }} element.</target>
+      </segment>
+    </unit>
+    <unit id="MAzmID7" name="Invalid card number.">
+      <segment>
+        <source>Invalid card number.</source>
+        <target>Ogiltigt kortnummer.</target>
+      </segment>
+    </unit>
+    <unit id="c3REGK3" name="Unsupported card type or invalid card number.">
+      <segment>
+        <source>Unsupported card type or invalid card number.</source>
+        <target>Korttypen stöds inte eller ogiltigt kortnummer.</target>
+      </segment>
+    </unit>
+    <unit id="XSVzcbV" name="This is not a valid International Bank Account Number (IBAN).">
+      <segment>
+        <source>This is not a valid International Bank Account Number (IBAN).</source>
+        <target>Detta är inte ett giltigt International Bank Account Number (IBAN).</target>
+      </segment>
+    </unit>
+    <unit id="yHirwNr" name="This value is not a valid ISBN-10.">
+      <segment>
+        <source>This value is not a valid ISBN-10.</source>
+        <target>Detta är inte ett giltigt ISBN-10.</target>
+      </segment>
+    </unit>
+    <unit id="c_q0_ua" name="This value is not a valid ISBN-13.">
+      <segment>
+        <source>This value is not a valid ISBN-13.</source>
+        <target>Detta är inte ett giltigt ISBN-13.</target>
+      </segment>
+    </unit>
+    <unit id="M4FlD6n" name="This value is neither a valid ISBN-10 nor a valid ISBN-13.">
+      <segment>
+        <source>This value is neither a valid ISBN-10 nor a valid ISBN-13.</source>
+        <target>Detta värde är varken ett giltigt ISBN-10 eller ett giltigt ISBN-13.</target>
+      </segment>
+    </unit>
+    <unit id="cuct0Ow" name="This value is not a valid ISSN.">
+      <segment>
+        <source>This value is not a valid ISSN.</source>
+        <target>Detta värde är inte ett giltigt ISSN.</target>
+      </segment>
+    </unit>
+    <unit id="JBLs1a1" name="This value is not a valid currency.">
+      <segment>
+        <source>This value is not a valid currency.</source>
+        <target>Detta värde är inte en giltig valuta.</target>
+      </segment>
+    </unit>
+    <unit id="c.WxzFW" name="This value should be equal to {{ compared_value }}.">
+      <segment>
+        <source>This value should be equal to {{ compared_value }}.</source>
+        <target>Detta värde borde vara lika med {{ compared_value }}.</target>
+      </segment>
+    </unit>
+    <unit id="_jdjkwq" name="This value should be greater than {{ compared_value }}.">
+      <segment>
+        <source>This value should be greater than {{ compared_value }}.</source>
+        <target>Detta värde borde vara större än {{ compared_value }}.</target>
+      </segment>
+    </unit>
+    <unit id="o8A8a0H" name="This value should be greater than or equal to {{ compared_value }}.">
+      <segment>
+        <source>This value should be greater than or equal to {{ compared_value }}.</source>
+        <target>Detta värde borde vara större eller lika med {{ compared_value }}.</target>
+      </segment>
+    </unit>
+    <unit id="SreIWoo" name="9670078">
+      <segment>
+        <source>9670078</source>
+        <target>Detta värde borde vara identiskt med {{ compared_value_type }} {{ compared_value }}.</target>
+      </segment>
+    </unit>
+    <unit id="jG0QFKw" name="This value should be less than {{ compared_value }}.">
+      <segment>
+        <source>This value should be less than {{ compared_value }}.</source>
+        <target>Detta värde borde vara mindre än {{ compared_value }}.</target>
+      </segment>
+    </unit>
+    <unit id="9lWrKmm" name="This value should be less than or equal to {{ compared_value }}.">
+      <segment>
+        <source>This value should be less than or equal to {{ compared_value }}.</source>
+        <target>Detta värde borde vara mindre än eller lika med {{ compared_value }}.</target>
+      </segment>
+    </unit>
+    <unit id="ftTwGs." name="This value should not be equal to {{ compared_value }}.">
+      <segment>
+        <source>This value should not be equal to {{ compared_value }}.</source>
+        <target>Detta värde borde inte vara lika med { compared_value }}.</target>
+      </segment>
+    </unit>
+    <unit id="JIjdvtb" name="0eedf91">
+      <segment>
+        <source>0eedf91</source>
+        <target>Detta värde borde inte vara identiskt med {{ compared_value_type }} {{ compared_value }}.</target>
+      </segment>
+    </unit>
+    <unit id="vzvxzpR" name="9c3ad0f">
+      <segment>
+        <source>9c3ad0f</source>
+        <target>Bildens proportion är för stor ({{ ratio }}). Maximalt tillåten proportion är {{ max_ratio }}.</target>
+      </segment>
+    </unit>
+    <unit id="LiDaIWN" name="4376d45">
+      <segment>
+        <source>4376d45</source>
+        <target>Bildens proportion är för liten ({{ ratio }}). Minsta tillåtna proportion är {{ min_ratio }}.</target>
+      </segment>
+    </unit>
+    <unit id="rpajj.a" name="The image is square ({{ width }}x{{ height }}px). Square images are not allowed.">
+      <segment>
+        <source>The image is square ({{ width }}x{{ height }}px). Square images are not allowed.</source>
+        <target>Bilden är kvadratisk ({{ width }}x{{ height }}px). Kvadratiska bilder är inte tillåtna.</target>
+      </segment>
+    </unit>
+    <unit id="501jWTO" name="1dc128a">
+      <segment>
+        <source>1dc128a</source>
+        <target>Bilden är landskapsorienterad ({{ width }}x{{ height }}px). landskapsorienterade bilder är inte tillåtna.</target>
+      </segment>
+    </unit>
+    <unit id="J4L.QnM" name="9e27714">
+      <segment>
+        <source>9e27714</source>
+        <target>Bilden är porträttorienterad ({{ width }}x{{ height }}px). porträttorienterade bilder är inte tillåtna.</target>
+      </segment>
+    </unit>
+    <unit id="jZgqcpL" name="An empty file is not allowed.">
+      <segment>
+        <source>An empty file is not allowed.</source>
+        <target>En tom fil är inte tillåten.</target>
+      </segment>
+    </unit>
+    <unit id="bcfVezI" name="The host could not be resolved.">
+      <segment>
+        <source>The host could not be resolved.</source>
+        <target>Värden kunde inte lösas.</target>
+      </segment>
+    </unit>
+    <unit id="NtzKvgt" name="This value does not match the expected {{ charset }} charset.">
+      <segment>
+        <source>This value does not match the expected {{ charset }} charset.</source>
+        <target>Detta värde matchar inte den förväntade {{ charset }} teckenuppsättningen.</target>
+      </segment>
+    </unit>
+    <unit id="Wi2y9.N" name="This is not a valid Business Identifier Code (BIC).">
+      <segment>
+        <source>This is not a valid Business Identifier Code (BIC).</source>
+        <target>Detta är inte en giltig Business Identifier Code (BIC).</target>
+      </segment>
+    </unit>
+    <unit id="VKDowX6" name="Error">
+      <segment>
+        <source>Error</source>
+        <target>Error</target>
+      </segment>
+    </unit>
+    <unit id="8zqt0Ik" name="This is not a valid UUID.">
+      <segment>
+        <source>This is not a valid UUID.</source>
+        <target>Detta är inte en giltig UUID.</target>
+      </segment>
+    </unit>
+    <unit id="ru.4wkH" name="This value should be a multiple of {{ compared_value }}.">
+      <segment>
+        <source>This value should be a multiple of {{ compared_value }}.</source>
+        <target>Detta värde borde vara en multiple of {{ compared_value }}.</target>
+      </segment>
+    </unit>
+    <unit id="M3vyK6s" name="This Business Identifier Code (BIC) is not associated with IBAN {{ iban }}.">
+      <segment>
+        <source>This Business Identifier Code (BIC) is not associated with IBAN {{ iban }}.</source>
+        <target>Denna Business Identifier Code (BIC) är inte associerad med IBAN {{ iban }}.</target>
+      </segment>
+    </unit>
+    <unit id="2v2xpAh" name="This value should be valid JSON.">
+      <segment>
+        <source>This value should be valid JSON.</source>
+        <target>Detta värde borde vara en giltig JSON.</target>
+      </segment>
+    </unit>
+    <unit id="9CWVEGq" name="This collection should contain only unique elements.">
+      <segment>
+        <source>This collection should contain only unique elements.</source>
+        <target>Denna samling borde innehålla endast unika element.</target>
+      </segment>
+    </unit>
+    <unit id="WdvZfq." name="This value should be positive.">
+      <segment>
+        <source>This value should be positive.</source>
+        <target>Detta värde borde vara positivt.</target>
+      </segment>
+    </unit>
+    <unit id="ubHMK2q" name="This value should be either positive or zero.">
+      <segment>
+        <source>This value should be either positive or zero.</source>
+        <target>Detta värde borde vara antingen positivt eller noll.</target>
+      </segment>
+    </unit>
+    <unit id="IwNTzo_" name="This value should be negative.">
+      <segment>
+        <source>This value should be negative.</source>
+        <target>Detta värde borde vara negativt.</target>
+      </segment>
+    </unit>
+    <unit id="0GfwMfP" name="This value should be either negative or zero.">
+      <segment>
+        <source>This value should be either negative or zero.</source>
+        <target>Detta värde borde vara antingen negativt eller noll.</target>
+      </segment>
+    </unit>
+    <unit id="fs3qQZR" name="This value is not a valid timezone.">
+      <segment>
+        <source>This value is not a valid timezone.</source>
+        <target>Detta värde är inte en giltig tidszon.</target>
+      </segment>
+    </unit>
+    <unit id="A3Gr4fn" name="7e27e92">
+      <segment>
+        <source>7e27e92</source>
+        <target>Detta lösenord har spridits vid en dataläcka och ska inte användas. Vänligen använd ett annat lösenord.</target>
+      </segment>
+    </unit>
+    <unit id="VvxxWas" name="This value should be between {{ min }} and {{ max }}.">
+      <segment>
+        <source>This value should be between {{ min }} and {{ max }}.</source>
+        <target>Detta värde borde vara mellan {{ min }} och {{ max }}.</target>
+      </segment>
+    </unit>
+    <unit id=".SEaaBa" name="This form should not contain extra fields.">
+      <segment>
+        <source>This form should not contain extra fields.</source>
+        <target>Detta formulär borde inte innehålla extrafält.</target>
+      </segment>
+    </unit>
+    <unit id="WPnLAh9" name="The uploaded file was too large. Please try to upload a smaller file.">
+      <segment>
+        <source>The uploaded file was too large. Please try to upload a smaller file.</source>
+        <target>Den uppladdade filen var för stor. Vänligen försök att ladda upp en mindre fil.</target>
+      </segment>
+    </unit>
+    <unit id="fvxWW3V" name="The CSRF token is invalid. Please try to resubmit the form.">
+      <segment>
+        <source>The CSRF token is invalid. Please try to resubmit the form.</source>
+        <target>CSRF-token är ogiltig. Vänligen försök att skicka formuläret igen.</target>
+      </segment>
+    </unit>
+    <unit id="TG1D5NO" name="post.blank_summary">
+      <notes>
+        <note priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>post.blank_summary</source>
+        <target>Ge din post en sammanfattning!</target>
+      </segment>
+    </unit>
+    <unit id="BZOzjk." name="post.blank_content">
+      <notes>
+        <note priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>post.blank_content</source>
+        <target>Din post borde ha något innehåll!</target>
+      </segment>
+    </unit>
+    <unit id="S6M.YWY" name="post.too_short_content">
+      <notes>
+        <note priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>post.too_short_content</source>
+        <target>Postinnehåll är för kort (minst {{ limit }} tecken)</target>
+      </segment>
+    </unit>
+    <unit id="niM7JYj" name="post.too_many_tags">
+      <notes>
+        <note priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>post.too_many_tags</source>
+        <target>För många tags ({{ limit }} tags eller färre)</target>
+      </segment>
+    </unit>
+    <unit id="ARUoKOV" name="comment.blank">
+      <notes>
+        <note priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>comment.blank</source>
+        <target>Vänligen lämna inte din kommentar tom!</target>
+      </segment>
+    </unit>
+    <unit id="J.L_ppQ" name="comment.too_short">
+      <notes>
+        <note priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>comment.too_short</source>
+        <target>Kommentar är för kort (minst {{ limit }} tecken)</target>
+      </segment>
+    </unit>
+    <unit id=".bkQKXb" name="comment.too_long">
+      <notes>
+        <note priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>comment.too_long</source>
+        <target>Kommentar för lång (maximalt {{ limit }} tecken)</target>
+      </segment>
+    </unit>
+    <unit id="cTT8h4_" name="comment.is_spam">
+      <notes>
+        <note priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>comment.is_spam</source>
+        <target>Innehållet i denna kommentar betraktas som spam.</target>
+      </segment>
+    </unit>
+    <unit id="LDy5h0B" name="user.duplicate_email">
+      <segment>
+        <source>user.duplicate_email</source>
+        <target>En användare med {{ value }} e-post existerar redan.</target>
+      </segment>
+    </unit>
+    <unit id="D4OMpCY" name="user.duplicate_username">
+      <segment>
+        <source>user.duplicate_username</source>
+        <target>En användare men {{ value }} användarnamn existerar redan.</target>
+      </segment>
+    </unit>
+    <unit id="HjWW.NS" name="user.not_valid_password">
+      <segment>
+        <source>user.not_valid_password</source>
+        <target>Ogiltigt lösenord. Lösenordet borde innehålla minst 6 tecken.</target>
+      </segment>
+    </unit>
+    <unit id="fkXL.k6" name="user.not_valid_email">
+      <segment>
+        <source>user.not_valid_email</source>
+        <target>Ogiltig e-post</target>
+      </segment>
+    </unit>
+    <unit id="4eH4IFY" name="user.username_invalid_characters">
+      <segment>
+        <source>user.username_invalid_characters</source>
+        <target>Användarnamnet måste innehålla endast gemener av latinska tecken, nummer och understreck.</target>
+      </segment>
+    </unit>
+    <unit id="4oq.CNw" name="user.not_valid_display_name">
+      <segment>
+        <source>user.not_valid_display_name</source>
+        <target>Ogiltigt visningsnamn</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>
