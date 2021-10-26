@@ -198,7 +198,7 @@ class Content
             $this->setStatus($this->contentTypeDefinition->get('default_status', 'published'));
         }
 
-        // Set default default values.
+        // Set default values.
         $this->contentTypeDefinition->get('fields')->each(function (LaravelCollection $item, string $name): void {
             if ($item->has('default') && $item->get('default') !== null) {
                 if ($this->hasField($name)) {
