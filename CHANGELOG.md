@@ -1,6 +1,15 @@
 Changelog
 =========
 
+## 5.0.5
+
+Released: 2021-10-24
+
+### 🐛 Bug fixes
+
+- Fix setPath: Don't override existing `$route`, if we already have one (bobdenotter, [#2876](https://github.com/bolt/core/pull/2876))
+- Fix dependency resolution blockage (bobdenotter, [#2875](https://github.com/bolt/core/pull/2875))
+
 ## 5.0.4 
 
 Released: 2021-10-22
