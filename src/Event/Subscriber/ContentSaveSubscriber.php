@@ -25,8 +25,7 @@ class ContentSaveSubscriber implements EventSubscriberInterface
 
     public function postSave(ContentEvent $event): ContentEvent
     {
-        // Make sure we flush the cache for the menus
-        $this->cache->invalidateTags(['backendmenu', 'frontendmenu']);
+        $this->flushCaches($event);
 
         // Saving an entry in the log.
         $context = [
@@ -55,18 +54,27 @@ class ContentSaveSubscriber implements EventSubscriberInterface
 
     public function postDelete(ContentEvent $event): ContentEvent
     {
-        // Make sure we flush the cache for the menus
-        $this->cache->invalidateTags(['backendmenu', 'frontendmenu']);
+        $this->flushCaches($event);
 
         return $event;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             ContentEvent::POST_SAVE => ['postSave', self::PRIORITY],
             ContentEvent::PRE_DELETE => ['preDelete', self::PRIORITY],
             ContentEvent::POST_DELETE => ['postDelete', self::PRIORITY],
         ];
+    }
+
+    private function flushCaches(ContentEvent $event): void
+    {
+        // Make sure we flush the cache for the menus
+        $this->cache->invalidateTags([
+            'backendmenu',
+            'frontendmenu',
+            $event->getContent()->getContentTypeSlug()
+        ]);
     }
 }
