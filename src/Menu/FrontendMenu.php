@@ -38,7 +38,7 @@ final class FrontendMenu implements FrontendMenuBuilderInterface
     {
         $this->stopwatch->start('bolt.frontendMenu');
 
-        $key = 'frontendmenu_' . ($name ?: 'main') . '_' . $this->request->getLocale();
+        $key = 'bolt.frontendMenu_' . ($name ?: 'main') . '_' . $this->request->getLocale();
 
         $menu = $this->cache->get($key, function (ItemInterface $item) use ($name, $twig) {
             $item->tag('frontendmenu');
