@@ -240,17 +240,6 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
             ]);
         }
 
-        /*
-         * @todo Make fixtures work from the backend
-         */
-        // $menu->getChild('Maintenance')->addChild('Fixtures', [
-        //     'uri' => '',
-        //     'extras' => [
-        //         'name' => $t->trans('caption.fixtures_dummy_content'),
-        //         'icon' => 'fa-hat-wizard',
-        //     ],
-        // ]);
-
         if ($this->authorizationChecker->isGranted('clearcache')) {
             $menu->getChild('Maintenance')->addChild('Clear the cache', [
                 'uri' => $this->urlGenerator->generate('bolt_clear_cache'),
@@ -260,17 +249,6 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
                 ],
             ]);
         }
-
-        /*
-         * @todo Make Installation checks work from the backend
-         */
-        // $menu->getChild('Maintenance')->addChild('Installation checks', [
-        //     'uri' => '',
-        //     'extras' => [
-        //         'name' => $t->trans('caption.installation_checks'),
-        //         'icon' => 'fa-clipboard-check',
-        //     ],
-        // ]);
 
         if ($this->authorizationChecker->isGranted('translation')) {
             $menu->getChild('Maintenance')->addChild('Translations', [

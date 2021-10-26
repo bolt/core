@@ -4,28 +4,22 @@ declare(strict_types=1);
 
 namespace Bolt\Menu;
 
-use Symfony\Component\Stopwatch\Stopwatch;
-
+/**
+ * @deprecated since Bolt 5.1. This class is just an empty wrapper around BackendMenu now. Use that class instead
+ */
 final class StopwatchBackendMenuBuilder implements BackendMenuBuilderInterface
 {
-    /** @var BackendMenuBuilderInterface */
+    /** @var BackendMenu */
     private $menuBuilder;
 
-    /** @var Stopwatch */
-    private $stopwatch;
-
-    public function __construct(BackendMenuBuilderInterface $menuBuilder, Stopwatch $stopwatch)
+    public function __construct(BackendMenu $menuBuilder)
     {
         $this->menuBuilder = $menuBuilder;
-        $this->stopwatch = $stopwatch;
     }
 
     public function buildAdminMenu(): array
     {
-        $this->stopwatch->start('bolt.backendMenu');
-        $menu = $this->menuBuilder->buildAdminMenu();
-        $this->stopwatch->stop('bolt.backendMenu');
-
-        return $menu;
+        return $this->menuBuilder->buildAdminMenu();
+        ;
     }
 }
