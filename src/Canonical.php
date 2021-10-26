@@ -186,7 +186,7 @@ class Canonical
 
     public function generateLink(?string $route, ?array $params, $canonical = false): string
     {
-        $cacheKey = 'generateLink_' . md5($route . implode('-', $params) . (string) $canonical);
+        $cacheKey = 'bolt.generateLink_' . md5($route . implode('-', $params) . (string) $canonical);
 
         $link = $this->cache->get($cacheKey, function (ItemInterface $item) use ($route, $params, $canonical) {
             $item->tag('routes');
