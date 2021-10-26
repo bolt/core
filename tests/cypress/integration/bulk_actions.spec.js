@@ -33,7 +33,7 @@ describe('As an Admin I want to change the status of several tests at once', () 
         cy.get('button[name="bulk-action"]').click();
         cy.url().should('contain', '/bolt/content/tests');
 
-        cy.get('.listing__records .is-meta .is-draft').its('length').should('eq', 7);
+        cy.get('.listing__records .is-meta .status.is-draft').its('length').should('eq', 8);
         cy.get('.listing__records .is-meta .status.is-published').should('not.exist');
         cy.get('.listing__records .is-meta .status.is-held').should('not.exist');
 
@@ -46,7 +46,7 @@ describe('As an Admin I want to change the status of several tests at once', () 
         cy.get('button[name="bulk-action"]').click();
         cy.url().should('contain', '/bolt/content/tests');
 
-        cy.get('.listing__records .is-meta .status.is-published').its('length').should('eq', 7);
+        cy.get('.listing__records .is-meta .status.is-published').its('length').should('eq', 8);
         cy.get('.listing__records .is-meta .status-is-draft').should('not.exist');
         cy.get('.listing__records .is-meta .status.is-held').should('not.exist');
         cy.findByText("Status changed successfully");
