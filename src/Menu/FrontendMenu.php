@@ -42,7 +42,7 @@ final class FrontendMenu implements FrontendMenuBuilderInterface
 
         $menu = $this->cache->get($key, function (ItemInterface $item) use ($name, $twig) {
             $item->tag('frontendmenu');
-            sleep(4);
+
             return $this->menuBuilder->buildMenu($twig, $name);
         });
 
