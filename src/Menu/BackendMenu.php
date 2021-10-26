@@ -37,7 +37,7 @@ final class BackendMenu implements BackendMenuBuilderInterface
         $this->stopwatch->start('bolt.backendMenu');
 
         $locale = $this->requestStack->getCurrentRequest()->getLocale();
-        $cacheKey = 'backendmenu_' . $locale;
+        $cacheKey = 'bolt.backendmenu_' . $locale;
 
         $menu = $this->cache->get($cacheKey, function (ItemInterface $item) {
             $item->tag('backendmenu');
