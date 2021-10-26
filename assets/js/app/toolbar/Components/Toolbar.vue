@@ -25,6 +25,7 @@
                 :title="labels['listing.placeholder_search']"
                 name="filter"
                 :value="filterValue"
+                required
             />
             <div class="input-group-append">
                 <button
