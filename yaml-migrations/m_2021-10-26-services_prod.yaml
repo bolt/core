@@ -1,0 +1,12 @@
+# Remove keys (and underlying values) from the file: `services_prod.yaml`
+# See: https://github.com/bolt/core/pull/2886
+
+file: services_prod.yaml
+since: 5.0.6
+
+remove:
+    services:
+        Bolt\Menu\CachedBackendMenuBuilder: ~
+        Bolt\Menu\BackendMenuBuilderInterface: ~
+        Bolt\Menu\CachedFrontendMenuBuilder: ~
+        Bolt\Menu\FrontendMenuBuilderInterface: ~
