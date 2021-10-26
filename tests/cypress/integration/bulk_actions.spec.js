@@ -28,7 +28,7 @@ describe('As an Admin I want to change the status of several tests at once', () 
         cy.get('.multiselect--active').should('contain', "Delete");
 
         cy.get("aside .card-body .multiselect__content-wrapper").click();
-        cy.get("ul > li:nth-child(2)").click();
+        cy.get(".multiselect__content > li:nth-child(2)").click();
         cy.wait(100);
         cy.get('button[name="bulk-action"]').should('be.enabled');
         cy.get('button[name="bulk-action"]').click();
