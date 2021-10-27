@@ -13,7 +13,7 @@ Predefined variables:
 {% set end = min(records.currentPage + surround, records.nbPages) %}
 
 {% block item %}
-    {% set tailwind = 'w-10 h-10 md:flex justify-center items-center hidden cursor-pointer leading-5 transition duration-150 ease-in rounded-full text-black no-underline' %}
+    {% set tailwind = 'w-10 md:flex justify-center items-center hidden cursor-pointer leading-5 transition duration-150 ease-in rounded-full text-black no-underline' %}
     {% if path is defined %}
         <a href="{{ path(route, p) }}" class="{{ tailwind }} {{ class }}">{{ label|default('…') }}</a>
     {% elseif enabled is defined and enabled == false %}
