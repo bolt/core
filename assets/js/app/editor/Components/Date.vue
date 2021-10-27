@@ -95,7 +95,7 @@ export default {
             required: true,
         },
         errormessage: {
-            type: String | Boolean,
+            type: [String, Boolean],
             required: true,
         },
     },

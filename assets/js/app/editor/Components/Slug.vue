@@ -14,7 +14,7 @@
                 :readonly="readonly || !edit"
                 :required="required"
                 :data-errormessage="errormessage"
-                :pattern="pattern"
+                :pattern="pattern ? pattern : null"
                 :title="name"
             />
             <div class="input-group-append">
@@ -66,8 +66,8 @@ export default {
         labels: Object,
         required: Boolean,
         readonly: Boolean,
-        errormessage: String | Boolean, //string if errormessage is set, and false otherwise
-        pattern: String | Boolean,
+        errormessage: [String, Boolean], //string if errormessage is set, and false otherwise
+        pattern: [String, Boolean],
         localize: Boolean,
         isNew: Boolean,
     },

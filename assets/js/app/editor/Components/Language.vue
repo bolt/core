@@ -11,14 +11,14 @@
             :limit="1"
             @input="switchLocale()"
         >
-            <template slot="singleLabel" slot-scope="props">
+            <template v-slot="props">
                 <span class="fp mr-1" :class="props.option.flag"></span>
                 <span>
                     {{ props.option.name }}
                     <small style="white-space: nowrap">({{ props.option.code }})</small>
                 </span>
             </template>
-            <template slot="option" slot-scope="props">
+            <template v-slot:item="props">
                 <span class="fp mr-1" :class="props.option.flag"></span>
                 <span>
                     {{ props.option.name }}

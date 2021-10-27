@@ -18,15 +18,18 @@
             track-by="key"
             @tag="addTag"
         >
-            <template v-if="name === 'status'" slot="singleLabel" slot-scope="props">
+            <!-- eslint-disable-next-line vue/valid-v-slot -->
+            <template v-if="name === 'status'" v-slot="props">
                 <span class="status mr-2" :class="`is-${props.option.key}`"></span>
                 {{ formatRaw(props.option.value) }}
             </template>
-            <template v-if="name === 'status'" slot="option" slot-scope="props">
+            <!-- eslint-disable-next-line vue/valid-v-slot -->
+            <template v-if="name === 'status'" v-slot="props">
                 <span class="status mr-2" :class="`is-${props.option.key}`"></span>
                 {{ formatRaw(props.option.value) }}
             </template>
-            <template v-if="name !== 'status'" slot="tag" slot-scope="props">
+            <!-- eslint-disable-next-line vue/valid-v-slot -->
+            <template v-if="name !== 'status'" v-slot="props">
                 <span :class="{ empty: props.option.value == '' }" @drop="drop($event)" @dragover="allowDrop($event)">
                     <span
                         :id="props.option.key"
@@ -86,11 +89,10 @@ export default {
     computed: {
         sanitized() {
             let filtered;
-
             if (this.selected === null) {
                 return JSON.stringify([]);
             } else if (this.selected.map) {
-                filtered = this.selected.map(item => item.key);
+                filtered = this.selected.map(item => item);
                 return JSON.stringify(filtered);
             } else {
                 return JSON.stringify([this.selected.key]);
@@ -119,10 +121,12 @@ export default {
             .filter(item => undefined !== item);
 
         if (filterSelectedItems.length === 0) {
-            filterSelectedItems = [_options[0]];
+            filterSelectedItems = [{key: '', value: ''}];
         }
 
         this.selected = filterSelectedItems;
+        console.log(this.selected)
+        console.log("END MOUNTING");
     },
     methods: {
         addTag(newTag) {

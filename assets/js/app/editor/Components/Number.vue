@@ -10,7 +10,7 @@
             :required="required"
             :readonly="readonly"
             :data-errormessage="errormessage"
-            :pattern="pattern ? pattern : ''"
+            :pattern="pattern ? pattern : null"
             :placeholder="placeholder"
         />
     </div>

@@ -17,7 +17,7 @@
                                 :required="required"
                                 :readonly="readonly"
                                 :data-errormessage="errormessage"
-                                :pattern="pattern"
+                                :pattern="pattern ? pattern : null"
                             />
                             <span class="input-group-append">
                                 <button
@@ -121,17 +121,17 @@ export default {
         name: String,
         authorurl: String,
         authorname: String,
-        height: Number | String, //String if not set
+        height: [Number, String], //String if not set
         html: String,
         thumbnail: String,
         title: String,
         url: String,
-        width: Number | String, //String if not set
+        width: [Number, String], //String if not set
         labels: Object,
         required: Boolean,
         readonly: Boolean,
-        errormessage: String | Boolean, //string if errormessage is set, and false otherwise
-        pattern: String | Boolean,
+        errormessage: [String, Boolean], //string if errormessage is set, and false otherwise
+        pattern: [String, Boolean],
     },
     data() {
         return {
