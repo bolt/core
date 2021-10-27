@@ -53,19 +53,19 @@ if (document.getElementById(id)) {
     app.component('EditorEmbed', Embed);
     app.component('EditorEmail', Email);
     app.component('EditorPassword', Password);
-    app.component('EditorHtml', Html);
+    app.component('EditorHtml', Html); // Trumbowyg b0rk
     app.component('EditorImage', Image);
-    app.component('EditorImageList', Imagelist);
+    app.component('EditorImageList', Imagelist); // b0rk
     app.component('EditorFile', File);
-    app.component('EditorFileList', Filelist);
-    app.component('EditorMarkdown', Markdown);
+    app.component('EditorFileList', Filelist); // same b0rk as imagelist
+    app.component('EditorMarkdown', Markdown); // Md itself works but the side by side seems to be broken
     app.component('EditorNumber', Number);
-    app.component('EditorSelect', Select);
+    app.component('EditorSelect', Select); // b0rk
     app.component('EditorSlug', Slug);
     app.component('EditorText', Text);
     app.component('EditorTextarea', Textarea);
-    app.component('EditorCollection', Collection);
+    app.component('EditorCollection', Collection); 
     app.component('EditorLanguage', Language);
-    app.component('ThemeSelect', ThemeSelect);
+    app.component('ThemeSelect', ThemeSelect); 
     app.mount(editorSelector);
 }
