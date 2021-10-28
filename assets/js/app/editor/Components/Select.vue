@@ -18,18 +18,15 @@
             track-by="key"
             @tag="addTag"
         >
-            <!-- eslint-disable-next-line vue/valid-v-slot -->
-            <template v-if="name === 'status'" v-slot="props">
+            <template v-if="name === 'status'" v-slot:singleLabel="props">
                 <span class="status mr-2" :class="`is-${props.option.key}`"></span>
                 {{ formatRaw(props.option.value) }}
             </template>
-            <!-- eslint-disable-next-line vue/valid-v-slot -->
-            <template v-if="name === 'status'" v-slot="props">
+            <template v-if="name === 'status'" v-slot:option="props">
                 <span class="status mr-2" :class="`is-${props.option.key}`"></span>
                 {{ formatRaw(props.option.value) }}
             </template>
-            <!-- eslint-disable-next-line vue/valid-v-slot -->
-            <template v-if="name !== 'status'" v-slot="props">
+            <template v-if="name !== 'status'"  v-slot:tag="props">
                 <span :class="{ empty: props.option.value == '' }" @drop="drop($event)" @dragover="allowDrop($event)">
                     <span
                         :id="props.option.key"
@@ -61,6 +58,7 @@
 </template>
 
 <script>
+import { formatRaw } from '../../../filters/string';
 import Multiselect from 'vue-multiselect';
 import $ from 'jquery';
 
@@ -89,7 +87,7 @@ export default {
     computed: {
         sanitized() {
             let filtered;
-            console.log("SELECETED" + this.selected)
+            // console.log("SELECETED" + this.selected)
             if (this.selected === null) {
                 return JSON.stringify([]);
             } else if (this.selected.map) {
@@ -126,10 +124,11 @@ export default {
         }
 
         this.selected = filterSelectedItems;
-        console.log(this.key)
-        console.log("END MOUNTING");
+        // console.log(this.key)
+        // console.log("END MOUNTING");
     },
     methods: {
+        formatRaw,
         addTag(newTag) {
             const tag = {
                 key: newTag,
