@@ -87,11 +87,10 @@ export default {
     computed: {
         sanitized() {
             let filtered;
-            // console.log("SELECETED" + this.selected)
             if (this.selected === null) {
                 return JSON.stringify([]);
             } else if (this.selected.map) {
-                filtered = this.selected.map(item => item);
+                filtered = this.selected.map(item => item.key);
                 return JSON.stringify(filtered);
             } else {
                 return JSON.stringify([this.selected.key]);
@@ -124,8 +123,6 @@ export default {
         }
 
         this.selected = filterSelectedItems;
-        // console.log(this.key)
-        // console.log("END MOUNTING");
     },
     methods: {
         formatRaw,
