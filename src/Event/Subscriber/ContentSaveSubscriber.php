@@ -26,7 +26,11 @@ class ContentSaveSubscriber implements EventSubscriberInterface
     public function postSave(ContentEvent $event): ContentEvent
     {
         // Make sure we flush the cache for the menus
-        $this->cache->invalidateTags(['backendmenu', 'frontendmenu']);
+        $this->cache->invalidateTags([
+            'backendmenu',
+            'frontendmenu',
+            $event->getContent()->getCacheKey()
+        ]);
 
         // Saving an entry in the log.
         $context = [
