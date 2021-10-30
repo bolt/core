@@ -74,7 +74,8 @@ class ContentSaveSubscriber implements EventSubscriberInterface
         $this->cache->invalidateTags([
             'backendmenu',
             'frontendmenu',
-            $event->getContent()->getContentTypeSlug()
+            $event->getContent()->getContentTypeSlug(),
+            $event->getContent()->getCacheKey(),
         ]);
     }
 }
