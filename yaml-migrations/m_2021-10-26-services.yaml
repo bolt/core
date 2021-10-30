@@ -1,0 +1,10 @@
+# Remove keys (and underlying values) from the file: `services.yaml`
+# See: https://github.com/bolt/core/pull/2886
+
+file: services.yaml
+since: 5.0.6
+
+add:
+    services:
+        Bolt\Menu\BackendMenuBuilderInterface: '@Bolt\Menu\BackendMenu'
+        Bolt\Menu\FrontendMenuBuilderInterface: '@Bolt\Menu\FrontendMenu'
