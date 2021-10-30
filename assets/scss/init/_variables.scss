@@ -105,6 +105,9 @@ $grid-breakpoints: (
 // 117: for 4.5 color contrast (WCAG2 for normal text) (see ~bootstrap/_functions.scss for use in function)
 $yiq-contrasted-threshold:  150;
 
+// Variables overriding Bootstrap
+$toast-background-color: #fbfaf9;
+
 :root {
   --body: #222; // Note: this value isn't actually used. @todo Find out where it's coming from.
   --body-dimmed: #555;

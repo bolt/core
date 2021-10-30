@@ -98,7 +98,7 @@ class ImageExtension extends AbstractExtension
     /**
      * @param ImageField|array|string $image
      */
-    public function showImage($image, ?int $width = null, ?int $height = null): string
+    public function showImage($image, ?int $width = null, ?int $height = null, ?bool $lazy = null): string
     {
         $filename = $this->getFilename($image, true);
         $alt = $this->getAlt($image);
@@ -111,8 +111,11 @@ class ImageExtension extends AbstractExtension
         if ($height) {
             $height = sprintf('height="%s"', $height);
         }
+        if ($lazy) {
+            $lazy = 'loading="lazy"';
+        }
 
-        return sprintf('<img src="%s" alt="%s" %s %s>', $path, $alt, (string) $width, (string) $height);
+        return sprintf('<img src="%s" alt="%s" %s %s %s>', $path, $alt, (string) $width, (string) $height, $lazy);
     }
 
     /**

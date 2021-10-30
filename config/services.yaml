@@ -87,11 +87,11 @@ services:
         tags:
             - { name: knp_menu.menu_builder, method: createAdminMenu, alias: admin_menu } # The alias is what is used to retrieve the menu
 
-    Bolt\Menu\BackendMenuBuilderInterface: '@Bolt\Menu\BackendMenuBuilder'
+    Bolt\Menu\BackendMenuBuilderInterface: '@Bolt\Menu\BackendMenu'
 
     Bolt\Menu\FrontendMenuBuilder: ~
 
-    Bolt\Menu\FrontendMenuBuilderInterface: '@Bolt\Menu\FrontendMenuBuilder'
+    Bolt\Menu\FrontendMenuBuilderInterface: '@Bolt\Menu\FrontendMenu'
 
     # Needed for SetContent from bolt/core
     Bolt\Storage\ContentQueryParser:

@@ -186,6 +186,16 @@ class Content
         return $this->id;
     }
 
+    public function getCacheKey(?string $locale = null): string
+    {
+        $key = sprintf('record-%05d', $this->getId());
+        if ($locale !== null) {
+            $key .= '-' . $locale;
+        }
+
+        return $key;
+    }
+
     /**
      * @see \Bolt\Event\Listener\ContentFillListener
      */
@@ -193,8 +203,12 @@ class Content
     {
         $this->contentTypeDefinition = ContentType::factory($this->contentType, $contentTypesConfig);
 
-        // Set default status and default values
-        $this->setStatus($this->contentTypeDefinition->get('default_status', 'published'));
+        if (! $this->getId()) {
+            // Content is new. Set the default status.
+            $this->setStatus($this->contentTypeDefinition->get('default_status', 'published'));
+        }
+
+        // Set default values.
         $this->contentTypeDefinition->get('fields')->each(function (LaravelCollection $item, string $name): void {
             if ($item->has('default') && $item->get('default') !== null) {
                 if ($this->hasField($name)) {

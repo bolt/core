@@ -5,7 +5,7 @@ describe('No localization link for contenttype without locales', () => {
         cy.login();
 
         cy.findAllByText('Entries').click();
-        cy.get('a[href="/bolt/edit/23"]').eq(1).click();
+        cy.get('a[href="/bolt/edit/23"]').eq(0).click({force: true});
 
         cy.url().should('contain', '/bolt/edit/23');
         cy.get('h1').find('span').should('contain', 'Edit Entry');
