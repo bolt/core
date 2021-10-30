@@ -8,6 +8,9 @@ use Bolt\Common\Json;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Stopwatch\Stopwatch;
+use Symfony\Contracts\Cache\ItemInterface;
+use Symfony\Contracts\Cache\TagAwareCacheInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigTest;
@@ -24,9 +27,17 @@ class JsonExtension extends AbstractExtension
     /** @var NormalizerInterface */
     private $normalizer;
 
-    public function __construct(NormalizerInterface $normalizer)
+    /** @var Stopwatch */
+    private $stopwatch;
+
+    /** @var TagAwareCacheInterface */
+    private $cache;
+
+    public function __construct(NormalizerInterface $normalizer, Stopwatch $stopwatch, TagAwareCacheInterface $cache)
     {
         $this->normalizer = $normalizer;
+        $this->stopwatch = $stopwatch;
+        $this->cache = $cache;
     }
 
     /**
@@ -55,7 +66,13 @@ class JsonExtension extends AbstractExtension
     {
         $this->includeDefinition = $includeDefinition;
 
-        return Json::json_encode($this->normalizeRecords($records, $locale), $options);
+        $this->stopwatch->start('bolt.jsonRecords');
+
+        $json = Json::json_encode($this->normalizeRecords($records, $locale), $options);
+
+        $this->stopwatch->stop('bolt.jsonRecords');
+
+        return $json;
     }
 
     /**
@@ -79,6 +96,23 @@ class JsonExtension extends AbstractExtension
     }
 
     private function contentToArray(Content $content, string $locale = ''): array
+    {
+        $cacheKey = 'bolt.contentToArray_' . $content->getCacheKey($locale);
+
+        $this->stopwatch->start($cacheKey);
+
+        $result = $this->cache->get($cacheKey, function (ItemInterface $item) use ($content, $locale) {
+            $item->tag($content->getCacheKey());
+
+            return $this->contentToArrayCacheHelper($content, $locale);
+        });
+
+        $this->stopwatch->stop($cacheKey);
+
+        return $result;
+    }
+
+    private function contentToArrayCacheHelper(Content $content, string $locale = ''): array
     {
         $group = [self::SERIALIZE_GROUP];
 

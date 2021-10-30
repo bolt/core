@@ -186,6 +186,16 @@ class Content
         return $this->id;
     }
 
+    public function getCacheKey(?string $locale = null): string
+    {
+        $key = sprintf('record-%05d', $this->getId());
+        if ($locale !== null) {
+            $key .= '-' . $locale;
+        }
+
+        return $key;
+    }
+
     /**
      * @see \Bolt\Event\Listener\ContentFillListener
      */

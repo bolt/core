@@ -1,6 +1,26 @@
 Changelog
 =========
 
+## 5.0.6
+
+Released: 2021-10-28
+
+### 🐛 Bug fixes
+
+- Only set the `default_status` on new content (I-Valchev, [#2883](https://github.com/bolt/core/pull/2883))
+- Fixed that onUserEdit changes backend locale.  (Joossensei, [#2829](https://github.com/bolt/core/pull/2829))
+- Make Bolt's search keyword required (I-Valchev, [#2885](https://github.com/bolt/core/pull/2885))
+- Fix overlapping text on toasts / notifications (I-Valchev, [#2881](https://github.com/bolt/core/pull/2881))
+
+### 📦 Additions and new features
+
+- Add `lazy` parameter to `|showimage` filter (I-Valchev, [#2882](https://github.com/bolt/core/pull/2882))
+
+### 🤖 Tests
+
+- Fix the Cypress tests (Joossensei, [#2884](https://github.com/bolt/core/pull/2884))
+
+
 ## 5.0.5
 
 Released: 2021-10-24
