@@ -24,6 +24,7 @@
 {% endif %}
 
 {% block field %}
+    {% dump(value) %}
     <editor-select
         :classname="{{ ['wide-options ', class]|join|json_encode }}"
         :value="{{ value|json_encode }}"
