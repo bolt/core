@@ -27,6 +27,7 @@ class LogoutListener implements LogoutHandlerInterface
     public function logout(Request $request, Response $response, TokenInterface $token): void
     {
         $user = $token->getUser();
+
         if (! $user instanceof User) {
             return;
         }
@@ -34,10 +35,16 @@ class LogoutListener implements LogoutHandlerInterface
         $userArr = [
             'id' => $user->getId(),
             'username' => $user->getUsername(),
+            'token_id' => null,
+            'ip' => $request->getClientIp(),
         ];
-        $this->logger->notice('User \'{username}\' logged out (manually)', $userArr);
 
-        $this->em->remove($user->getUserAuthToken());
-        $this->em->flush();
+        if ($user->getUserAuthToken()) {
+            $userArr['token_id'] = $user->getUserAuthToken()->getId();
+            $this->em->remove($user->getUserAuthToken());
+            $this->em->flush();
+        }
+
+        $this->logger->notice('User \'{username}\' logged out (manually, auth_token: {token_id}, {ip})', $userArr);
     }
 }

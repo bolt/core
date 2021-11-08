@@ -138,8 +138,11 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         $userArr = [
             'id' => $user->getId(),
             'username' => $user->getUsername(),
+            'token_id' => $userAuthToken->getId(),
+            'user_agent' => $parsedUserAgent,
+            'ip' => $request->getClientIp(),
         ];
-        $this->logger->notice('User \'{username}\' logged in (manually)', $userArr);
+        $this->logger->notice('User \'{username}\' logged in (manually, auth_token: {token_id}, {user_agent}, {ip})', $userArr);
 
         // @todo: Allow different roles to redirect to different pages on success.
         if ($request->get('_target_path', false)) {
