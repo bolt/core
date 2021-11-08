@@ -69,7 +69,9 @@
 
             {% include '@bolt/content/_fields.html.twig' %}
 
-            <div class="tab-pane" id="relations" role="tabpanel" aria-labelledby="relations-tab">
+            {# Note: the `|slug` below should be entirely unnecesary, but is added here for consistency, if a certain
+            locale / slugify config insist on keeping uppercase letters. See: https://github.com/bolt/core/pull/2907 #}
+            <div class="tab-pane" id="{{ "Relations"|slug }}" role="tabpanel" aria-labelledby="relations-tab">
 
                 {% include '@bolt/content/_relationships.html.twig' %}
 
