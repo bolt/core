@@ -120,8 +120,7 @@
         </thead>
         <tbody>
             {% for iteratedUser in users %}
-                {% if iteratedUser.getUserAuthToken %}
-                    {% set authtoken = iteratedUser.getUserAuthToken %}
+                {% for authtoken in iteratedUser.userAuthTokens %}
                     <tr>
                         <td class="text-nowrap">{{ iteratedUser.id }}</td>
                         <td class="text-nowrap">{{ iteratedUser.username }}</td>
@@ -134,7 +133,7 @@
                         <td class="text-nowrap"><code>{{ iteratedUser.lastIp|default('-') }}</code></td>
                         <td>{{ authtoken.useragent|default('-') }}</td>
                     </tr>
-                {% endif %}
+                {% endfor %}
             {% endfor %}
         </tbody>
     </table>
