@@ -36,11 +36,6 @@ class DetailController extends TwigAwareController implements FrontendZoneInterf
      *     name="record_locale",
      *     requirements={"contentTypeSlug"="%bolt.requirement.contenttypes%", "_locale": "%app_locales%"},
      *     methods={"GET|POST"})
-     * @Route(
-     *     "/preview/{slugOrId}",
-     *     name="record",
-     *     methods={"GET"})
-     *
      * @param string|int $slugOrId
      */
     public function record($slugOrId, ?string $contentTypeSlug = null, bool $requirePublished = true, ?string $_locale = null): Response
