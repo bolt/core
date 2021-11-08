@@ -18,7 +18,7 @@ class UserAuthToken
      */
     private $id;
 
-    /** @ORM\OneToOne(targetEntity="Bolt\Entity\User", inversedBy="userAuthToken", cascade={"persist"}) */
+    /** @ORM\ManyToOne(targetEntity="Bolt\Entity\User", inversedBy="userAuthTokens", cascade={"persist"}) */
     private $user;
 
     /** @ORM\Column(type="string", length=255) */

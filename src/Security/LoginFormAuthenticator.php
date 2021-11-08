@@ -11,6 +11,7 @@ use Bolt\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -48,13 +49,17 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     /** @var Security */
     private $security;
 
+    /** @var SessionInterface */
+    private $session;
+
     public function __construct(
         UserRepository $userRepository,
         RouterInterface $router,
         CsrfTokenManagerInterface $csrfTokenManager,
         UserPasswordEncoderInterface $passwordEncoder,
         EntityManagerInterface $em,
-        Security $security
+        Security $security,
+        SessionInterface $session
     ) {
         $this->userRepository = $userRepository;
         $this->router = $router;
@@ -62,6 +67,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         $this->passwordEncoder = $passwordEncoder;
         $this->em = $em;
         $this->security = $security;
+        $this->session = $session;
     }
 
     protected function getLoginUrl(): string
@@ -117,11 +123,6 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
             return null;
         }
 
-        if ($user->getUserAuthToken()) {
-            $this->em->remove($user->getUserAuthToken());
-            $this->em->flush();
-        }
-
         $user->setLastseenAt(new \DateTime());
         $user->setLastIp($request->getClientIp());
         /** @var Parser $uaParser */
@@ -134,6 +135,8 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
         $this->em->persist($user);
         $this->em->flush();
+
+        $this->session->set('user_auth_token_id', $userAuthToken->getId());
 
         $userArr = [
             'id' => $user->getId(),
