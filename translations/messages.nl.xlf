@@ -181,13 +181,13 @@
         <target>Copyright</target>
       </segment>
     </unit>
-    <unit id="IaF1MjB" name="label.rememberme">
+    <unit id="IaF1MjB" name="label.remembermeduration">
       <notes>
         <note>templates/security/login.twig:80</note>
       </notes>
       <segment>
-        <source>label.rememberme</source>
-        <target>Onthoud me?</target>
+        <source>label.remembermeduration</source>
+        <target>Onthoud me? (%duration% dagen)</target>
       </segment>
     </unit>
     <unit id="k.JymqB" name="about.visit_bolt">
