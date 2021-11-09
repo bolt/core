@@ -69,7 +69,7 @@ class ContentRepository extends ServiceEntityRepository
     {
         $qb = $this->getQueryBuilder()
             ->addSelect('a')
-            ->innerJoin('content.author', 'a')
+            ->leftJoin('content.author', 'a')
             ->orderBy('content.modifiedAt', 'DESC');
 
         if ($contentTypes->has('slug')) {
