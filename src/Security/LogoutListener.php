@@ -46,7 +46,7 @@ class LogoutListener implements LogoutHandlerInterface
             'username' => $user->getUsername(),
             'token_id' => $authTokenId = $this->session->get('user_auth_token_id'),
             'ip' => $request->getClientIp(),
-        ];
+        ]);
 
         $this->logger->notice('User \'{username}\' logged out (manually, auth_token: {token_id}, {ip})', $userArr);
     }
