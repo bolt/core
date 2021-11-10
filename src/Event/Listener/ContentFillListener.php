@@ -92,14 +92,14 @@ class ContentFillListener
             $slugField = null;
         }
 
-        $fields = $slug ? $this->fieldRepository->findAllBySlug($slug) : null;
+        $safe = true;
 
-        if (! $fields) {
-            // No slug field with that slug exists. We're done here.
-            return;
+        if (! $slug) {
+            $slug = $this->getSafeSlug($content->getContentTypeSingularSlug());
+            $safe = false;
         }
 
-        $safe = true;
+        $fields = $slug ? $this->fieldRepository->findAllBySlug($slug) : null;
 
         // Clone fields for each locale
         $tempFields = [];
@@ -134,9 +134,9 @@ class ContentFillListener
         }
 
         // If we're not safe, use recursion to find safe slug
-        if (! $safe && $slugField) {
+        if (! $safe) {
             $newSlug = $this->getSafeSlug($slug);
-            $slugField->setValue($newSlug);
+            $content->setFieldValue('slug', $newSlug);
             $this->guaranteeUniqueSLug($content);
         }
     }
