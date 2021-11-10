@@ -47,6 +47,5 @@ class LogoutListener implements LogoutHandlerInterface
             'token_id' => $authTokenId = $this->session->get('user_auth_token_id'),
             'ip' => $request->getClientIp(),
         ]);
-
     }
 }
