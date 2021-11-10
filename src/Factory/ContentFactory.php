@@ -62,7 +62,7 @@ class ContentFactory
 
         $this->contentFillListener->fillContent($content);
 
-        if ($this->security->isGranted(ContentVoter::CONTENT_CREATE, $content)) {
+        if ($this->security->getUser() !== null && $this->security->isGranted(ContentVoter::CONTENT_CREATE, $content)) {
             /** @var User $user */
             $user = $this->security->getUser();
             $content->setAuthor($user);
