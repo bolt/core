@@ -373,7 +373,7 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
                     'uri' => $this->urlGenerator->generate('bolt_menupage', ['slug' => $slug]),
                     'extras' => [
                         'name' => $label,
-                        'icon' => $contentType->get('icon_many'),
+                        'icon' => "fa-map-signs",
                         'slug' => $slug,
                     ],
                 ]);
