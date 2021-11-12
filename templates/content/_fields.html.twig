@@ -20,6 +20,7 @@
                 {# Three-step include: first try a 'built-in' fieldtype, then a field added by
                 an Extension, and fall back to 'generic' field type #}
                 {% include [
+                    fielddefinition.template|default(''),
                     '@bolt/_partials/fields/' ~ fielddefinition.type ~ '.html.twig',
                     '@' ~ fielddefinition.type ~ '/' ~ fielddefinition.type ~ '.html.twig',
                     '@bolt/_partials/fields/generic.html.twig'
