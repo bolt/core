@@ -7,6 +7,7 @@ namespace Bolt\Entity;
 use Bolt\Common\Json;
 use Bolt\Enum\UserStatus;
 use Cocur\Slugify\Slugify;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -103,8 +104,17 @@ class User implements UserInterface, \Serializable
     /** @ORM\Column(type="string", length=30, options={"default":"enabled"}) */
     private $status = UserStatus::ENABLED;
 
-    /** @ORM\OneToOne(targetEntity="Bolt\Entity\UserAuthToken", mappedBy="user", cascade={"persist", "remove"}) */
-    private $userAuthToken;
+    /** @ORM\OneToMany(
+     *     targetEntity="Bolt\Entity\UserAuthToken",
+     *     mappedBy="user",
+     *     indexBy="id",
+     *     fetch="EAGER",
+     *     orphanRemoval=true,
+     *     cascade={"persist", "remove"}
+     * )
+     * @var Collection|UserAuthToken[]
+     */
+    private $userAuthTokens;
 
     /** @ORM\Column(type="string", length=250, nullable=true) */
     private $avatar;
@@ -296,20 +306,20 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
-    public function getUserAuthToken(): ?UserAuthToken
+    public function getUserAuthTokens(): array
     {
-        return $this->userAuthToken;
+        return $this->userAuthTokens->toArray();
     }
 
     public function setUserAuthToken(?UserAuthToken $userAuthToken): self
     {
-        $this->userAuthToken = $userAuthToken;
-
         // set (or unset) the owning side of the relation if necessary
         $newUser = $userAuthToken === null ? null : $this;
         if ($userAuthToken->getUser() !== $newUser) {
             $userAuthToken->setUser($newUser);
         }
+
+        $this->userAuthTokens[] = $userAuthToken;
 
         return $this;
     }
