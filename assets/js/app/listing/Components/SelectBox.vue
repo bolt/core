@@ -57,7 +57,7 @@ export default {
         plural: String,
         labels: Object,
         csrftoken: String,
-        backendPrefix: RegExp,
+        backendPrefix: String,
     },
     data() {
         return {
