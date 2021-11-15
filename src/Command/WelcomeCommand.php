@@ -50,7 +50,7 @@ HELP
         $io->note('If you wish to continue with SQLite, you can answer \'Y\' to the next question. If you\'d like to use MySQL or PostgreSQL, answer \'n\', configure `.env.local`, and then continue the setup.');
 
         $helper = $this->getHelper('question');
-        $question = new ConfirmationQuestion('Do yo want to continue the setup now? (Y/n)', true);
+        $question = new ConfirmationQuestion('Do you want to continue the setup now? (Y/n)', true);
 
         $returnCode = Command::SUCCESS;
 
