@@ -47,7 +47,7 @@ class SetupCommand extends Command
         // See: https://github.com/doctrine/DoctrineBundle/issues/542
         $options = ['-q' => true];
         if ($this->connection->getDatabasePlatform()->getName() !== 'sqlite') {
-            $options[] = ['--if-not-exists' => true];
+            $options['--if-not-exists'] = true;
         }
 
         $command = $this->getApplication()->find('doctrine:database:create');
