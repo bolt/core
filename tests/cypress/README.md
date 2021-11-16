@@ -27,6 +27,8 @@ Usage
   npm run cypress:dev -- --spec "./tests/cypress/integration/your_test.spec.js"
   ```
   
+  If you want to run the test on the same project make sure to run `make db-reset` otherwise it will fail on a few tests that depend on the standard fixtures.
+  
   You can add additional options to the run command by typing `--` and the option you want after it. A list of all options is available [here](https://docs.cypress.io/guides/guides/command-line#Commands).
     
 Writing / editing tests
