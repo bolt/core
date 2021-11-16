@@ -145,3 +145,7 @@ services:
         class: Jasny\Twig\ArrayExtension
         tags:
             - { name: twig.extension }
+
+    Bolt\Api\ContentDataPersister:
+        decorates: 'api_platform.doctrine.orm.data_persister'
+    
