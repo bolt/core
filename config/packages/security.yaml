@@ -39,7 +39,7 @@ security:
 
             remember_me:
                 secret: '%kernel.secret%'
-                lifetime: 2592000
+                lifetime: '%bolt.remember_lifetime%'
                 remember_me_parameter: login[remember_me]
 
     access_control:

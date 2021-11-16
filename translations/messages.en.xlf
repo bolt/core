@@ -2673,5 +2673,11 @@
         <target>Select all</target>
       </segment>
     </unit>
+    <unit id="2hoKa1k" name="label.remembermeduration">
+      <segment>
+        <source>label.remembermeduration</source>
+        <target>Remember me? (%duration% days)</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

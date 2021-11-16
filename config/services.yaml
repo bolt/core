@@ -12,6 +12,7 @@ parameters:
     #        default: bolt_
     #        foo_manager: foo_
     bolt.backend_url: /bolt
+    bolt.remember_lifetime: 2592000 # 30 days in seconds
 
 services:
     # default configuration for services in *this* file
@@ -28,6 +29,8 @@ services:
             $projectDir: '%kernel.project_dir%'
             $publicFolder: '%bolt.public_folder%'
             $tablePrefix: '%bolt.table_prefix%'
+            $rememberLifetime: '%bolt.remember_lifetime%'
+            
     _instanceof:
         Bolt\Menu\ExtensionBackendMenuInterface:
             tags: [ 'bolt.extension_backend_menu' ]
