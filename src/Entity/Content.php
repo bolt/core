@@ -24,9 +24,10 @@ use Tightenco\Collect\Support\Collection as LaravelCollection;
 /**
  * @ApiResource(
  *     normalizationContext={"groups"={"get_content","get_definition"}},
+ *     denormalizationContext={"groups"={"api_write"},"enable_max_depth"=true},
  *     collectionOperations={
  *          "get"={"security"="is_granted('api:get')"},
- *          "post"={"security"="is_granted(‘api:post’)"}
+ *          "post"={"security"="is_granted('api:post')"}
  *     },
  *     itemOperations={
  *          "get"={"security"="is_granted('api:get')"},
@@ -721,7 +722,7 @@ class Content
 
     /**
      * All date/timestamps are created in the current local timezone by default.
-     * Dates/timestamps must be stored in UTC in the database. This method converts
+     * Dates/timestamps must be stored in UTC in the dat    abase. This method converts
      * the local date to UTC.
      */
     private function convertToUTCFromLocal(?\DateTime $dateTime): ?\DateTime
