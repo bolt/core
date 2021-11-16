@@ -82,12 +82,13 @@ Alternatively, run `make db-reset`, on a UNIX-like system.
 ---------------------
 
 To set up initially, run `npm install` to get the required dependencies /
-`node_modules`. Alternatively give the path to the python executable (`npm install --python="/usr/local/bin/python3.7"`) Then:
-  - Prepare directory structure `mkdir -p node_modules/node-sass/vendor`
-  - Rebuild npm environment for current OS `npm rebuild node-sass`
-  - Run `npm run start` (alternatively `npm run start --python="/usr/local/bin/python3.7"`)
+`node_modules`. Then:
+
+  - Rebuild npm environment for current OS `npm rebuild sass`
+  - Run `npm run start`
 
 See the other options by running `npm run`.
+
 (Note: on testing remotely, assets can be compiled into public/assets by simply `npm run-script build`)
 
 5 Run the prototype
