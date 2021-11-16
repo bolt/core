@@ -24,9 +24,10 @@ use Tightenco\Collect\Support\Collection as LaravelCollection;
 /**
  * @ApiResource(
  *     normalizationContext={"groups"={"get_content","get_definition"}},
+ *     denormalizationContext={"groups"={"api_write"},"enable_max_depth"=true},
  *     collectionOperations={
  *          "get"={"security"="is_granted('api:get')"},
- *          "post"={"security"="is_granted(‘api:post’)"}
+ *          "post"={"security"="is_granted('api:post')"}
  *     },
  *     itemOperations={
  *          "get"={"security"="is_granted('api:get')"},
@@ -59,7 +60,7 @@ class Content
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups("get_content")
+     * @Groups({"get_content", "api_write"})
      */
     private $id;
 
@@ -67,7 +68,7 @@ class Content
      * @var string
      *
      * @ORM\Column(type="string", length=191)
-     * @Groups("get_content")
+     * @Groups({"get_content","api_write"})
      */
     private $contentType;
 
@@ -83,7 +84,7 @@ class Content
      * @var string
      *
      * @ORM\Column(type="string", length=191)
-     * @Groups("get_content")
+     * @Groups({"get_content","api_write"})
      */
     private $status;
 
@@ -91,7 +92,7 @@ class Content
      * @var \DateTime
      *
      * @ORM\Column(type="datetime")
-     * @Groups("get_content")
+     * @Groups({"get_content","api_write"})
      */
     private $createdAt;
 
@@ -99,7 +100,7 @@ class Content
      * @var \DateTime|null
      *
      * @ORM\Column(type="datetime", nullable=true)
-     * @Groups("get_content")
+     * @Groups({"get_content","api_write"})
      */
     private $modifiedAt = null;
 
@@ -107,7 +108,7 @@ class Content
      * @var \DateTime|null
      *
      * @ORM\Column(type="datetime", nullable=true)
-     * @Groups("get_content")
+     * @Groups({"get_content","api_write"})
      */
     private $publishedAt = null;
 
@@ -115,7 +116,7 @@ class Content
      * @var \DateTime|null
      *
      * @ORM\Column(type="datetime", nullable=true)
-     * @Groups("get_content")
+     * @Groups({"get_content","api_write"})
      */
     private $depublishedAt = null;
 
@@ -134,6 +135,7 @@ class Content
      *     cascade={"persist"}
      * )
      * @ORM\OrderBy({"sortorder": "ASC"})
+     * @Groups("api_write")
      */
     private $fields;
 
@@ -706,7 +708,7 @@ class Content
 
     /**
      * All date/timestamps are created in the current local timezone by default.
-     * Dates/timestamps must be stored in UTC in the database. This method converts
+     * Dates/timestamps must be stored in UTC in the dat    abase. This method converts
      * the local date to UTC.
      */
     private function convertToUTCFromLocal(?\DateTime $dateTime): ?\DateTime
@@ -725,10 +727,17 @@ class Content
      */
     private function standaloneFieldsFilter(): Collection
     {
-        $keys = $this->getDefinition()->get('fields')->keys()->all();
+        $definition = $this->getDefinition();
+
+        $keys = $definition ?
+            $this->getDefinition()->get('fields')->keys()->all()
+            : [];
+        // If the definition is missing, we cannot filter out keys. ¯\_(ツ)_/¯
+
 
         return $this->fields->filter(function (Field $field) use ($keys) {
-            return ! $field->hasParent() && in_array($field->getName(), $keys, true);
+            return ! $field->hasParent() &&
+                (in_array($field->getName(), $keys, true) || empty($keys));
         });
     }
 

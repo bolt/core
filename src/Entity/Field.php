@@ -22,15 +22,17 @@ use Twig\Markup;
 
 /**
  * @ApiResource(
+ *     denormalizationContext={"groups"={"api_write"},"enable_max_depth"=true},
+ *     normalizationContext={"groups"={"get_field"}},
+ *
  *     subresourceOperations={
  *         "api_contents_fields_get_subresource"={
- *             "method"="GET",
- *              "normalization_context"={"groups"={"get_field"}}
+ *             "method"="GET"
  *         },
  *     },
  *     collectionOperations={
  *          "get"={"security"="is_granted('api:get')"},
- *          "post"={"security"="is_granted(‘api:post’)"}
+ *          "post"={"security"="is_granted('api:post')"}
  *     },
  *     itemOperations={
  *          "get"={"security"="is_granted('api:get')"},
@@ -65,7 +67,7 @@ class Field implements FieldInterface, TranslatableInterface
 
     /**
      * @ORM\Column(type="string", length=191)
-     * @Groups("get_field")
+     * @Groups({"get_field","api_write"})
      */
     public $name;
 
@@ -76,8 +78,10 @@ class Field implements FieldInterface, TranslatableInterface
     private $version;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Bolt\Entity\Content", inversedBy="fields")
+     * @ORM\ManyToOne(targetEntity="Bolt\Entity\Content", inversedBy="fields", fetch="EAGER")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("api_write")
+
      */
     private $content;
 
@@ -291,6 +295,9 @@ class Field implements FieldInterface, TranslatableInterface
         return $this;
     }
 
+    /**
+     * @Groups("api_write")
+     */
     public function setValue($value): self
     {
         $this->translate($this->getLocale(), ! $this->isTranslatable())->setValue($value);
