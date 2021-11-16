@@ -83,7 +83,7 @@ Alternatively, run `make db-reset`, on a UNIX-like system.
 
 To set up initially, run `npm install` to get the required dependencies /
 `node_modules`. Then:
-  - Prepare directory structure `mkdir -p node_modules/node-sass/vendor`
+
   - Rebuild npm environment for current OS `npm rebuild sass`
   - Run `npm run start`
 
