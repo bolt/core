@@ -3,23 +3,15 @@
 namespace Bolt\Api;
 
 use ApiPlatform\Core\DataPersister\ContextAwareDataPersisterInterface;
-use Bolt\Configuration\Config;
-use Bolt\Configuration\Content\FieldType;
-use Bolt\Entity\Content;
-use Bolt\Repository\FieldRepository;
 
 class ContentDataPersister implements ContextAwareDataPersisterInterface
 {
     /** @var ContextAwareDataPersisterInterface */
     private $decorated;
 
-    /** @var Config */
-    private $config;
-
-    public function __construct(ContextAwareDataPersisterInterface $decorated, Config $config)
+    public function __construct(ContextAwareDataPersisterInterface $decorated)
     {
         $this->decorated = $decorated;
-        $this->config = $config;
     }
 
     public function supports($data, array $context = []): bool
@@ -29,23 +21,10 @@ class ContentDataPersister implements ContextAwareDataPersisterInterface
 
     public function persist($data, array $context = [])
     {
-        if ($data instanceof Content) {
-            $contentTypes = $this->config->get('contenttypes');
-
-            $data->setDefinitionFromContentTypesConfig($contentTypes);
-
-            foreach($data->getFields() as $field) {
-                $fieldDefinition = FieldType::factory($field->getName(), $data->getDefinition());
-                $newField = FieldRepository::factory($fieldDefinition);
-
-                $newField->setName($field->getName());
-                $newField->setValue($field->getValue());
-
-                $data->removeField($field);
-                $data->addField($newField);
-            }
-
-        }
+        // Here we need to make some adjustments.
+        // Like setting the proper author, making the fields
+        // the right type, etc.
+        dd("PERSISTING");
 
         $this->decorated->persist($data, $context);
     }
