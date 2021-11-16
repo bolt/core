@@ -78,7 +78,7 @@ class Field implements FieldInterface, TranslatableInterface
     private $version;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Bolt\Entity\Content", inversedBy="fields", cascade={"persist"}, fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity="Bolt\Entity\Content", inversedBy="fields", fetch="EAGER")
      * @ORM\JoinColumn(nullable=false)
      * @Groups("api_write")
      */

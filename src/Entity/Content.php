@@ -722,7 +722,7 @@ class Content
 
     /**
      * All date/timestamps are created in the current local timezone by default.
-     * Dates/timestamps must be stored in UTC in the database. This method converts
+     * Dates/timestamps must be stored in UTC in the dat    abase. This method converts
      * the local date to UTC.
      */
     private function convertToUTCFromLocal(?\DateTime $dateTime): ?\DateTime
