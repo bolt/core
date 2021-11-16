@@ -47,7 +47,7 @@
             site-name="{{ config.get('general/sitename') }}"
             :menu="{{ admin_menu_json }}"
             :labels="{{ labels }}"
-            :backend-prefix="{{ path('bolt_dashboard') }}"
+            backend-prefix="{{ path('bolt_dashboard') }}"
             :avatar="{{ user_avatar|json_encode }}"
             :is-impersonator="{{ is_granted('IS_IMPERSONATOR')|json_encode }}"
             filter-value="{{ filter_value|default('') }}"

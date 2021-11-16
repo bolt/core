@@ -95,7 +95,7 @@ export default {
         siteName: String,
         menu: Array,
         labels: Object,
-        backendPrefix: RegExp,
+        backendPrefix: String,
         isImpersonator: Boolean,
         filterValue: String,
         avatar: String,
