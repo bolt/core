@@ -16,9 +16,11 @@ npm-debug.log
 yarn-error.log
 webpack_stats.json
 
-### Behat / Front-end testing files
+### Behat / Cypress / Front-end testing files
 bin/chromedriver*
 bin/selenium-server-standalone*
+tests/cypress/screenshots/
+tests/cypress/videos/
 
 ### File-system cruft and temporary files
 __*
@@ -80,6 +82,7 @@ appveyor.yml
 ###> symfony/web-server-bundle ###
 /.web-server-pid
 ###< symfony/web-server-bundle ###
+
 ###> phpunit/phpunit ###
 /phpunit.xml
 ###< phpunit/phpunit ###
