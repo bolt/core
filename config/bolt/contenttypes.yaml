@@ -208,6 +208,7 @@ showcases:
         email:
             type: email
             info: "This is an <i>info box</i> shown as a popover next to the field label."
+            pattern: email
         embed:
             type: embed
             group: Media
