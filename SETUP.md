@@ -136,10 +136,9 @@ Testing
 
 Bolt uses several testing frameworks for [different test layers][fowler]:
 
-- unit: PHPSpec, PHPUnit, Jest
+- unit: PHPSpec, PHPUnit
 - integration (of Symfony services): PHPUnit with KernelTestCase
-- functional (API Contracts): Behat
-- acceptance (UI, end-to-end): Behat/Mink
+- functional (API Contracts): Cypress
 
 To run PHP unit tests:
 ```
@@ -148,10 +147,10 @@ make test
 
 To run E2E tests:
 ```
-make behat-js
+npm run cypress:dev
 ```
 
-Read more about running and creating tests on the [e2e tests page](tests/e2e/README.md).
+Read more about running and creating tests on the [Cypress tests page](tests/cypress/README.md).
 
 Fixing IDE issues
 -----------------
@@ -173,3 +172,6 @@ Several translation-related Console commands are available:
  - `bin/console translation:download` - Download translations from Loco (replaces all local ones)
  - `bin/console translation:sync bolt down` - Download translations from Loco (replaces local changes if there is a conflict)
  - `bin/console translation:sync bolt up` - Send updated translations to Loco
+
+
+[fowler]: https://martinfowler.com/articles/practical-test-pyramid.html
