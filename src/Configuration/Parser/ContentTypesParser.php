@@ -352,7 +352,7 @@ class ContentTypesParser extends BaseParser
 
         if (isset($field['pattern']) === true && $field['pattern'] === 'email') {
             // HTML5 form validation regex equivalent
-            $field['pattern'] = "[A-Za-z0-9]+@[A-Za-z0-9-]+\.[A-Za-z0-9-]+";
+            $field['pattern'] = "[A-Za-z0-9!#$%&'*+/=?^_`{|}~.-]+@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)+";
         } elseif (isset($field['pattern']) === true && $field['pattern'] === 'url') {
             // HTML5 form validation regex equivalent
             $field['pattern'] = "^(https?://)?([a-zA-Z0-9]([a-zA-ZäöüÄÖÜ0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}?((.*))?$";
