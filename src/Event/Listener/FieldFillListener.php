@@ -54,11 +54,6 @@ class FieldFillListener
                 $value = $this->clean($field->getParsedValue());
                 $field->setValue($value);
             }
-
-            if ($field->getType() === 'generic') {
-                dump($field->getDefinition()->get('type'));
-                die;
-            }
         }
     }
 
