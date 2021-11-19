@@ -5,10 +5,10 @@ SHELL = bash
 COMPOSER ?= COMPOSER_MEMORY_LIMIT=-1 composer
 
 .PHONY: help install server server-stop cache csclear cscheck csfix csfix-tests stancheck test \
-behat behat-quiet behat-js behat-js-quiet behat-api behat-api-quiet full-test db-create db-update db-reset \
+ full-test db-create db-update db-reset \
 docker-install docker-install-deps docker-start docker-assets-serve \
 docker-update docker-cache docker-csclear docker-cscheck docker-csfix docker-stancheck docker-db-create docker-db-reset \
-docker-db-update docker-npm-fix-env docker-test docker-server-stop docker-behat docker-full-test \
+docker-db-update docker-npm-fix-env docker-test docker-server-stop docker-full-test \
 docker-command docker-console
 
 default: help
@@ -64,50 +64,9 @@ test: ## to run phpunit tests
 	vendor/bin/phpspec run
 	vendor/bin/phpunit
 
-behat-api: ## to run behat API tests
-	make server
-	vendor/bin/behat --tags=api
-
-behat-api-quiet: ## to run behat API tests quietly
-	make server
-	vendor/bin/behat --tags=api --format=progress
-
-behat-js: ## to run behat JS tests
-	make server
-	echo "Running Behat e2e tests. Make sure you have the latest version of Google Chrome installed"
-	. ./run_behat_tests.sh
-	## run the selenium server. chromedriver executable must be in $PATH
-	vendor/bin/selenium-server-standalone >/dev/null 2>&1 &
-	sleep 10s
-	vendor/bin/behat --tags=javascript
-	## @todo: stop selenium server
-
-behat-js-quiet: ## to run behat JS tests quietly
-	make server
-	echo "Running Behat e2e tests. Make sure you have the latest version of Google Chrome installed"
-	. ./run_behat_tests.sh
-	## run the selenium server. chromedriver executable must be in $PATH
-	vendor/bin/selenium-server-standalone >/dev/null 2>&1 &
-	sleep 10s
-	vendor/bin/behat --tags=javascript --format=progress
-	## @todo: stop selenium server
-
-behat:
-	make behat-api
-	make behat-js
-
-behat-quiet:
-	make behat-api-quiet
-	make behat-js-quiet
-
-behat-in-ci:
-	make db-reset-without-images
-	make behat-js-quiet
-
 full-test: ## to run full tests
 	make cscheck
 	make test
-	make behat
 
 db-create: ## to create database and load fixtures
 	bin/console doctrine:database:create
@@ -206,15 +165,10 @@ docker-server: ## to start server with docker
 docker-server-stop: ## to stop server with docker
 	docker-compose exec -T -u www-data php bin/console server:stop
 
-docker-behat: ## to run behat tests with docker
-	docker-compose exec -T php vendor/bin/behat -v
-
 docker-full-test: ## to run all test with docker
 	make docker-cache
 	make docker-cscheck
 	make docker-test
-	make docker-behat
-	make behat
 
 docker-command: ## to run commmand shell in php container
 	docker-compose exec -T php sh -c "$(c)"
