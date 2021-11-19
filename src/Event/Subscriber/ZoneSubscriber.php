@@ -6,6 +6,7 @@ namespace Bolt\Event\Subscriber;
 
 use Bolt\Controller\Backend\Async\AsyncZoneInterface;
 use Bolt\Controller\Backend\BackendZoneInterface;
+use Bolt\Controller\ErrorZoneInterface;
 use Bolt\Controller\Frontend\FrontendZoneInterface;
 use Bolt\Widget\Injector\RequestZone;
 use ReflectionClass;
@@ -73,6 +74,8 @@ class ZoneSubscriber implements EventSubscriberInterface
                 return RequestZone::FRONTEND;
             } elseif ($reflection->implementsInterface(AsyncZoneInterface::class)) {
                 return RequestZone::ASYNC;
+            } elseif ($reflection->implementsInterface(ErrorZoneInterface::class)) {
+                return RequestZone::ERROR;
             }
         } catch (\ReflectionException $e) {
             // Alas…

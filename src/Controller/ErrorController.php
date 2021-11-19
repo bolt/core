@@ -23,7 +23,7 @@ use Symfony\Component\Security\Core\Security;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 
-class ErrorController extends SymfonyErrorController
+class ErrorController extends SymfonyErrorController implements ErrorZoneInterface
 {
     /** @var Config */
     private $config;
