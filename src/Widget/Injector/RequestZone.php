@@ -20,6 +20,7 @@ class RequestZone
 
     public const EVERYWHERE = 'everywhere';
     public const NOWHERE = 'nowhere';
+    public const ERROR = 'error';
 
     /**
      * Check if request is for frontend routes.
@@ -43,6 +44,14 @@ class RequestZone
     public static function isForAsync(Request $request): bool
     {
         return static::is($request, static::ASYNC);
+    }
+
+    /**
+     * Check if request is for handling an exception/error.
+     */
+    public static function isForError(Request $request): bool
+    {
+        return static::is($request, static::ERROR);
     }
 
     /**
