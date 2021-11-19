@@ -37,12 +37,6 @@
     "behat/mink-extension": {
         "version": "2.3.1"
     },
-    "behat/mink-goutte-driver": {
-        "version": "v1.2.1"
-    },
-    "behat/mink-selenium2-driver": {
-        "version": "v1.3.1"
-    },
     "behat/symfony2-extension": {
         "version": "2.1",
         "recipe": {
@@ -60,9 +54,6 @@
     },
     "behat/transliterator": {
         "version": "v1.3.0"
-    },
-    "behatch/contexts": {
-        "version": "3.2.0"
     },
     "bobdenotter/configuration-notices": {
         "version": "1.0.2"
@@ -236,38 +227,14 @@
     "ezyang/htmlpurifier": {
         "version": "v4.12.0"
     },
-    "fabpot/goutte": {
-        "version": "v3.3.0"
-    },
     "fakerphp/faker": {
         "version": "v1.10.1"
     },
     "fig/link-util": {
         "version": "1.1.0"
     },
-    "friends-of-behat/mink": {
-        "version": "v1.8.0"
-    },
-    "friends-of-behat/mink-browserkit-driver": {
-        "version": "v1.4.0"
-    },
     "friends-of-behat/mink-extension": {
         "version": "2.3.1"
-    },
-    "friends-of-behat/symfony-extension": {
-        "version": "2.0",
-        "recipe": {
-            "repo": "github.com/symfony/recipes-contrib",
-            "branch": "master",
-            "version": "2.0",
-            "ref": "3d21344765fd3440a85bdd27d4cada186ec628bd"
-        },
-        "files": [
-            "behat.yml.dist",
-            "config/services_test.yaml",
-            "features/demo.feature",
-            "tests/Behat/DemoContext.php"
-        ]
     },
     "friendsofapi/localise.biz": {
         "version": "1.0.1"
@@ -275,17 +242,8 @@
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.3"
     },
-    "guzzlehttp/guzzle": {
-        "version": "6.5.2"
-    },
-    "guzzlehttp/promises": {
-        "version": "v1.3.1"
-    },
     "guzzlehttp/psr7": {
         "version": "1.6.1"
-    },
-    "instaclick/php-webdriver": {
-        "version": "1.4.7"
     },
     "intervention/image": {
         "version": "2.5.1"
@@ -869,9 +827,6 @@
     },
     "symfony/property-info": {
         "version": "v4.4.4"
-    },
-    "symfony/proxy-manager-bridge": {
-        "version": "v4.4.10"
     },
     "symfony/routing": {
         "version": "4.2",
