@@ -34,7 +34,7 @@ class ContentDataPersister implements ContextAwareDataPersisterInterface
 
             $data->setDefinitionFromContentTypesConfig($contentTypes);
 
-            foreach($data->getFields() as $field) {
+            foreach ($data->getFields() as $field) {
                 $fieldDefinition = FieldType::factory($field->getName(), $data->getDefinition());
                 $newField = FieldRepository::factory($fieldDefinition);
 
@@ -44,7 +44,6 @@ class ContentDataPersister implements ContextAwareDataPersisterInterface
                 $data->removeField($field);
                 $data->addField($newField);
             }
-
         }
 
         $this->decorated->persist($data, $context);
