@@ -80,7 +80,7 @@ class HtmlInjector
         $snippet = $widget() . "\n";
 
         // If the widget doesn't produce output, there's no need to inject it.
-        if (empty($snippet)) {
+        if (mb_strlen($snippet) > 0) {
             return;
         }
 
@@ -240,7 +240,7 @@ class HtmlInjector
         return $result;
     }
 
-    private static function findTagStart(string $rawHtml, string $htmlTag): ?string
+    protected static function findTagStart(string $rawHtml, string $htmlTag): ?string
     {
         preg_match('~(<' . $htmlTag . '[^>]*?>)~mi', $rawHtml, $matches);
 
@@ -251,7 +251,7 @@ class HtmlInjector
         return $matches[1];
     }
 
-    private static function findTagEnd(string $rawHtml, string $htmlTag): ?string
+    protected static function findTagEnd(string $rawHtml, string $htmlTag): ?string
     {
         preg_match_all('~((<' . $htmlTag . '(\s[^>]*)?>)|(</' . $htmlTag . '>))~mi', $rawHtml, $allMatches);
 

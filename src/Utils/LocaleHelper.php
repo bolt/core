@@ -56,7 +56,7 @@ class LocaleHelper
     {
         // Getting the currentLocale is surprisingly inefficient, so we do it once per Request
         // See https://github.com/bolt/core/pull/2597
-        if (! isset($this->currentLocale)) {
+        if (! $this->currentLocale instanceof Collection) {
             $this->currentLocale = $this->getLocales($twig)->firstWhere('current', true);
         }
 

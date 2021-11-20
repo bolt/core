@@ -82,7 +82,7 @@ abstract class BaseWidget implements WidgetInterface
     }
 
     /**
-     * @var string[]
+     * @param string[] $targets
      */
     public function setTargets(array $targets): WidgetInterface
     {
