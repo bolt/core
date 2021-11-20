@@ -28,7 +28,7 @@
         "jasny/twig-extensions": "^1.3",
         "knplabs/doctrine-behaviors": "^2.1",
         "knplabs/knp-menu-bundle": "^3.1",
-        "league/glide-symfony": "^2.1",
+        "league/glide-symfony": "^1.0.4",
         "miljar/php-exif": "^0.6.4",
         "nelexa/zip": "^3.3 || ^4.0",
         "nelmio/cors-bundle": "^2.1",
