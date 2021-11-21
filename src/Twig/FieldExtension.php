@@ -307,6 +307,17 @@ class FieldExtension extends AbstractExtension
 
             $options = [];
 
+            // We need to add this as a 'dummy' option for when the user is allowed
+            // not to pick an option. This is needed, because otherwise the `select`
+            // would default to the one.
+            if (! $field->getDefinition()->get('required', true)) {
+                $options[] = [
+                    'key' => '',
+                    'value' => '',
+                    'selected' => false,
+                ];
+            }
+
             foreach ($records as $record) {
                 if ($field->getDefinition()->get('mode') === 'format') {
                     $formattedKey = $this->contentHelper->get($record, $field->getDefinition()->get('format'));

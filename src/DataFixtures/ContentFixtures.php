@@ -10,6 +10,7 @@ use Bolt\Configuration\Content\ContentType;
 use Bolt\Configuration\FileLocations;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
+use Bolt\Entity\Field\SelectField;
 use Bolt\Enum\Statuses;
 use Bolt\Repository\FieldRepository;
 use Bolt\Utils\FakeContent;
@@ -75,6 +76,8 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
         $this->loadContent($manager);
 
         $manager->flush();
+
+        $this->setSelectFieldsMappedWithContent($manager);
     }
 
     private function loadContent(ObjectManager $manager): void
@@ -367,6 +370,14 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 }
 
                 break;
+            case 'select':
+                $data = [];
+
+                if (isset($field['values']) && ($field['values'] instanceof ContentType)) {
+                    $data = [\array_rand($field['values']->all())];
+                }
+
+                break;
             default:
                 $data = [$this->faker->sentence(6, true)];
         }
@@ -473,5 +484,63 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
         }
 
         return $preset;
+    }
+
+    private function setSelectFieldsMappedWithContent(ObjectManager $manager): void
+    {
+        /** @var Content[] $allContent */
+        $allContent = $manager->getRepository(Content::class)->findAll();
+
+        foreach ($allContent as $content) {
+            $contentDefaultLocale = $content->getDefaultLocale();
+            $contentLocales = $content->getLocales();
+            foreach ($content->getFields() as $field) {
+                if (! $this->isSelectFieldAndMappedWithContent($field)) {
+                    continue;
+                }
+
+                /** @var SelectField $field */
+                $contentType = $field->getContentType();
+
+                if (! \is_string($contentType)) {
+                    continue;
+                }
+
+                try {
+                    /** @var Content $randomReference */
+                    $randomReference = $this->getRandomReference(\sprintf('content_%s', $contentType));
+                } catch (\Exception $exception) {
+                    continue;
+                }
+
+                $content->setFieldValue($field->getName(), [$randomReference->getId()], $this->defaultLocale);
+
+                foreach ($contentLocales as $locale) {
+                    if (
+                        $locale !== $contentDefaultLocale
+                        && array_search($locale, $contentLocales->toArray(), true) !== (count($contentLocales) - 1)
+                    ) {
+                        $content->setFieldValue($field->getName(), [$randomReference->getId()], $locale);
+                    }
+                }
+            }
+
+            $manager->persist($content);
+        }
+
+        $manager->flush();
+    }
+
+    private function isSelectFieldAndMappedWithContent(Field $field): bool
+    {
+        if (! $field instanceof SelectField) {
+            return FALSE;
+        }
+
+        if (! $field->isContentSelect()) {
+            return FALSE;
+        }
+
+        return TRUE;
     }
 }
