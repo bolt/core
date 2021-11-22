@@ -7,6 +7,12 @@ payoff: The amazing payoff goes here
 
 secret: '%env(APP_SECRET)%'
 
+# Set the caching configuration for various areas of Bolt.
+# The expires_after is counted in seconds.
+caching: 
+    related_options: true
+    expires_after: 3600
+
 # The theme to use.
 #
 # Dont edit the provided templates directly, because they _will_ get updated
