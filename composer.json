@@ -104,7 +104,7 @@
         "phpspec/phpspec": "^6.3.1",
         "phpspec/prophecy": "^1.14",
         "phpstan/phpstan": "^1.2.0",
-        "phpstan/phpstan-doctrine": "^1.0.1",
+        "phpstan/phpstan-doctrine": "^1.0",
         "phpstan/phpstan-symfony": "^1.0.1",
         "phpunit/phpunit": "^8.5",
         "se/selenium-server-standalone": "^3.141",

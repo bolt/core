@@ -82,7 +82,7 @@ class ContentFillListener
         return $this->users->getFirstAdminUser();
     }
 
-    private function guaranteeUniqueSLug(Content $content): void
+    private function guaranteeUniqueSlug(Content $content): void
     {
         $slug = $content->getSlug();
 
@@ -137,7 +137,7 @@ class ContentFillListener
         if (! $safe) {
             $newSlug = $this->getSafeSlug($slug);
             $content->setFieldValue('slug', $newSlug);
-            $this->guaranteeUniqueSLug($content);
+            $this->guaranteeUniqueSlug($content);
         }
     }
 

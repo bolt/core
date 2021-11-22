@@ -77,7 +77,6 @@ class CopyAssetsCommand extends Command
             try {
                 $this->filesystem->remove($targetDir);
                 $this->hardCopy($originDir, $targetDir);
-                dump($originDir, $targetDir);
                 $rows[] = [sprintf('<fg=green;options=bold>%s</>', "\xE2\x9C\x94"), $message, 'copied'];
             } catch (\Throwable $e) {
                 $exitCode = 1;

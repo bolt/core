@@ -246,7 +246,6 @@ class Content
             return (string) $this->getId();
         }
 
-        $slug = null;
         if ($locale === null) {
             // get slug with locale the slug already has
             $slug = $this->getFieldValue('slug');
@@ -263,7 +262,7 @@ class Content
         }
 
         // if no slug exists for the current/requested locale, default fallback
-        if (! $slug && $this->hasField('slug')) {
+        if ($slug === '') {
             $field = $this->getField('slug');
 
             // @todo: Refactor this. Field.php should be able to get locale

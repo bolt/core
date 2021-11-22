@@ -56,7 +56,7 @@ class CollectionField extends Field implements FieldInterface, FieldParentInterf
     }
 
     /**
-     * @var FieldInterface[]
+     * @param FieldInterface[] $fields
      */
     public function setValue($fields): Field
     {
