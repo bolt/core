@@ -12,14 +12,15 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Csrf\CsrfToken;
@@ -40,8 +41,8 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     /** @var CsrfTokenManagerInterface */
     private $csrfTokenManager;
 
-    /** @var UserPasswordEncoderInterface */
-    private $passwordEncoder;
+    /** @var UserPasswordHasherInterface */
+    private $passwordHasher;
 
     /** @var EntityManagerInterface */
     private $em;
@@ -56,7 +57,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         UserRepository $userRepository,
         RouterInterface $router,
         CsrfTokenManagerInterface $csrfTokenManager,
-        UserPasswordEncoderInterface $passwordEncoder,
+        UserPasswordHasherInterface $passwordHasher,
         EntityManagerInterface $em,
         Security $security,
         SessionInterface $session
@@ -64,7 +65,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         $this->userRepository = $userRepository;
         $this->router = $router;
         $this->csrfTokenManager = $csrfTokenManager;
-        $this->passwordEncoder = $passwordEncoder;
+        $this->passwordHasher = $passwordHasher;
         $this->em = $em;
         $this->security = $security;
         $this->session = $session;
@@ -110,9 +111,12 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         return $this->userRepository->findOneByCredentials($credentials['username']);
     }
 
+    /**
+     * @var PasswordAuthenticatedUserInterface $user
+     */
     public function checkCredentials($credentials, UserInterface $user): bool
     {
-        return empty($credentials['password']) ? false : $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
+        return empty($credentials['password']) ? false : $this->passwordHasher->isPasswordValid($user, $credentials['password']);
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey): ?RedirectResponse

@@ -19,9 +19,9 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
@@ -35,8 +35,8 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
     /** @var EntityManagerInterface */
     private $em;
 
-    /** @var UserPasswordEncoderInterface */
-    private $passwordEncoder;
+    /** @var UserPasswordHasherInterface */
+    private $passwordHasher;
 
     /** @var EventDispatcherInterface */
     private $dispatcher;
@@ -50,7 +50,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
     public function __construct(
         UrlGeneratorInterface $urlGenerator,
         EntityManagerInterface $em,
-        UserPasswordEncoderInterface $passwordEncoder,
+        UserPasswordHasherInterface $passwordHasher,
         CsrfTokenManagerInterface $csrfTokenManager,
         EventDispatcherInterface $dispatcher,
         Config $config,
@@ -58,7 +58,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
     ) {
         $this->urlGenerator = $urlGenerator;
         $this->em = $em;
-        $this->passwordEncoder = $passwordEncoder;
+        $this->passwordHasher = $passwordHasher;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->dispatcher = $dispatcher;
         $this->defaultLocale = $defaultLocale;
@@ -206,7 +206,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
 
         // Once validated, encode the password
         if ($user->getPlainPassword()) {
-            $user->setPassword($this->passwordEncoder->encodePassword($user, $user->getPlainPassword()));
+            $user->setPassword($this->passwordHasher->hashPassword($user, $user->getPlainPassword()));
             $user->eraseCredentials();
         }
 

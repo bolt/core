@@ -15,7 +15,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
@@ -29,8 +29,8 @@ class ResetPasswordCommand extends Command
     /** @var EntityManagerInterface */
     private $entityManager;
 
-    /** @var UserPasswordEncoderInterface */
-    private $passwordEncoder;
+    /** @var UserPasswordHasherInterface */
+    private $passwordHasher;
 
     /** @var ValidatorInterface */
     private $validator;
@@ -38,13 +38,13 @@ class ResetPasswordCommand extends Command
     /** @var UserRepository */
     private $userRepository;
 
-    public function __construct(EntityManagerInterface $em, UserPasswordEncoderInterface $encoder,
+    public function __construct(EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasher,
                                 UserRepository $userRepository, ValidatorInterface $validator)
     {
         parent::__construct();
 
         $this->entityManager = $em;
-        $this->passwordEncoder = $encoder;
+        $this->passwordHasher = $passwordHasher;
         $this->validator = $validator;
         $this->userRepository = $userRepository;
     }
@@ -89,8 +89,8 @@ class ResetPasswordCommand extends Command
         $user->setPlainPassword($plainPassword);
 
         // See https://symfony.com/doc/current/book/security.html#security-encoding-password
-        $encodedPassword = $this->passwordEncoder->encodePassword($user, $user->getPlainPassword());
-        $user->setPassword($encodedPassword);
+        $hashedPassword = $this->passwordHasher->hashPassword($user, $user->getPlainPassword());
+        $user->setPassword($hashedPassword);
         $user->eraseCredentials();
 
         $this->entityManager->persist($user);

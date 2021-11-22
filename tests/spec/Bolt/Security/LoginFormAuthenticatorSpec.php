@@ -11,8 +11,8 @@ use Doctrine\ORM\EntityManager;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\RouterInterface;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Csrf\CsrfToken;
@@ -28,9 +28,9 @@ class LoginFormAuthenticatorSpec extends ObjectBehavior
         'username' => 'test',
     ];
 
-    public function let(UserRepository $userRepository, RouterInterface $router, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $userPasswordEncoder, EntityManager $em): void
+    public function let(UserRepository $userRepository, RouterInterface $router, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordHasherInterface $passwordHasher, EntityManager $em): void
     {
-        $this->beConstructedWith($userRepository, $router, $csrfTokenManager, $userPasswordEncoder, $em);
+        $this->beConstructedWith($userRepository, $router, $csrfTokenManager, $passwordHasher, $em);
     }
 
     public function it_gets_login_url(RouterInterface $router, Request $request): void
