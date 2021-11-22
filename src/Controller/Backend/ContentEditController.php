@@ -36,7 +36,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Tightenco\Collect\Support\Collection;
 
@@ -82,7 +81,6 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         EntityManagerInterface $em,
         UrlGeneratorInterface $urlGenerator,
         ContentFillListener $contentFillListener,
-        CsrfTokenManagerInterface $csrfTokenManager,
         EventDispatcherInterface $dispatcher,
         string $defaultLocale
     ) {
@@ -93,7 +91,6 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         $this->em = $em;
         $this->urlGenerator = $urlGenerator;
         $this->contentFillListener = $contentFillListener;
-        $this->csrfTokenManager = $csrfTokenManager;
         $this->dispatcher = $dispatcher;
         $this->defaultLocale = $defaultLocale;
     }

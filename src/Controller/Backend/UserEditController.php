@@ -22,7 +22,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class UserEditController extends TwigAwareController implements BackendZoneInterface
@@ -51,7 +50,6 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
         UrlGeneratorInterface $urlGenerator,
         EntityManagerInterface $em,
         UserPasswordEncoderInterface $passwordEncoder,
-        CsrfTokenManagerInterface $csrfTokenManager,
         EventDispatcherInterface $dispatcher,
         Config $config,
         string $defaultLocale
@@ -59,7 +57,6 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
         $this->urlGenerator = $urlGenerator;
         $this->em = $em;
         $this->passwordEncoder = $passwordEncoder;
-        $this->csrfTokenManager = $csrfTokenManager;
         $this->dispatcher = $dispatcher;
         $this->defaultLocale = $defaultLocale;
         $this->assignableRoles = $config->get('permissions/assignable_roles')->all();

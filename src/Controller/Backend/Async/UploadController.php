@@ -25,7 +25,6 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
-use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Throwable;
 use Webmozart\PathUtil\Path;
 
@@ -54,12 +53,11 @@ class UploadController extends AbstractController implements AsyncZoneInterface
     /** @var Filesystem */
     private $filesystem;
 
-    public function __construct(MediaFactory $mediaFactory, EntityManagerInterface $em, Config $config, CsrfTokenManagerInterface $csrfTokenManager, TextExtension $textExtension, RequestStack $requestStack, Filesystem $filesystem)
+    public function __construct(MediaFactory $mediaFactory, EntityManagerInterface $em, Config $config, TextExtension $textExtension, RequestStack $requestStack, Filesystem $filesystem)
     {
         $this->mediaFactory = $mediaFactory;
         $this->em = $em;
         $this->config = $config;
-        $this->csrfTokenManager = $csrfTokenManager;
         $this->textExtension = $textExtension;
         $this->request = $requestStack->getCurrentRequest();
         $this->filesystem = $filesystem;

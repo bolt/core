@@ -16,7 +16,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Webmozart\PathUtil\Path;
 
 /**
@@ -42,15 +41,13 @@ class MediaEditController extends TwigAwareController implements BackendZoneInte
         EntityManagerInterface $em,
         UrlGeneratorInterface $urlGenerator,
         FileLocations $fileLocations,
-        MediaFactory $mediaFactory,
-        CsrfTokenManagerInterface $csrfTokenManager
+        MediaFactory $mediaFactory
     ) {
         $this->em = $em;
         $this->urlGenerator = $urlGenerator;
         $this->fileLocations = $fileLocations;
         $this->mediaFactory = $mediaFactory;
         $this->urlGenerator = $urlGenerator;
-        $this->csrfTokenManager = $csrfTokenManager;
     }
 
     /**
