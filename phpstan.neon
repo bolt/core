@@ -36,6 +36,11 @@ parameters:
             message: "#Offset 'location' does not exist on array#"
             path: %currentWorkingDirectory%/src/Log/LogHandler.php
 
+        # false positive: UserPasswordHasherInterface::isPasswordValid() given UserInterface
+        -
+        	message: '#UserPasswordHasherInterface::isPasswordValid\(\)#'
+        	path: %currentWorkingDirectory%/src/Security/LoginFormAuthenticator.php
+
 includes:
 	- vendor/phpstan/phpstan-symfony/extension.neon
 	- vendor/phpstan/phpstan-doctrine/extension.neon
