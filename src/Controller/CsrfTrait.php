@@ -13,6 +13,12 @@ trait CsrfTrait
     /** @var CsrfTokenManagerInterface */
     protected $csrfTokenManager;
 
+    /** @required */
+    public function setCsrfTokenManager(CsrfTokenManagerInterface $csrfTokenManager)
+    {
+        $this->csrfTokenManager = $csrfTokenManager;
+    }
+
     protected function validateCsrf(string $tokenId): void
     {
         $token = new CsrfToken($tokenId, $this->request->get('_csrf_token', $this->request->get('token')));

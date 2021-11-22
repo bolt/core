@@ -14,7 +14,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 /**
  * @Security("is_granted('bulk_operations')")
@@ -29,9 +28,8 @@ class BulkOperationsController extends AbstractController implements BackendZone
     /** @var Request */
     private $request;
 
-    public function __construct(CsrfTokenManagerInterface $csrfTokenManager, RequestStack $requestStack)
+    public function __construct(RequestStack $requestStack)
     {
-        $this->csrfTokenManager = $csrfTokenManager;
         $this->request = $requestStack->getCurrentRequest();
     }
 
