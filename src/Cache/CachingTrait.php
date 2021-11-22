@@ -53,7 +53,7 @@ trait CachingTrait
             });
         }
 
-        return $fn($params);
+        return call_user_func_array($fn, $params);
     }
 
     private function isCachingEnabled(): bool
