@@ -19,7 +19,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -57,8 +57,8 @@ class AddUserCommand extends Command
     /** @var EntityManagerInterface */
     private $entityManager;
 
-    /** @var UserPasswordEncoderInterface */
-    private $passwordEncoder;
+    /** @var UserPasswordHasherInterface */
+    private $passwordHasher;
 
     /** @var ValidatorInterface */
     private $validator;
@@ -66,12 +66,12 @@ class AddUserCommand extends Command
     /** @var Config */
     private $config;
 
-    public function __construct(EntityManagerInterface $em, UserPasswordEncoderInterface $encoder, ValidatorInterface $validator, Config $config)
+    public function __construct(EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasher, ValidatorInterface $validator, Config $config)
     {
         parent::__construct();
 
         $this->entityManager = $em;
-        $this->passwordEncoder = $encoder;
+        $this->passwordHasher = $passwordHasher;
         $this->validator = $validator;
         $this->config = $config;
     }
@@ -246,7 +246,7 @@ class AddUserCommand extends Command
         $isDeveloper = $input->getOption('developer') ? ['ROLE_DEVELOPER'] : [];
         $roles = array_unique(array_merge($input->getOption('roles'), $isAdmin, $isDeveloper));
 
-        // create the user and encode its password
+        // create the user and hash its password
         $user = UserRepository::factory($displayName, $username, $email);
         $user->setRoles($roles);
         $user->setLocale('en');
@@ -265,8 +265,8 @@ class AddUserCommand extends Command
         }
 
         // See https://symfony.com/doc/current/book/security.html#security-encoding-password
-        $encodedPassword = $this->passwordEncoder->encodePassword($user, $user->getPlainPassword());
-        $user->setPassword($encodedPassword);
+        $hashedPassword = $this->passwordHasher->hashPassword($user, $user->getPlainPassword());
+        $user->setPassword($hashedPassword);
         $user->eraseCredentials();
 
         $this->entityManager->persist($user);
