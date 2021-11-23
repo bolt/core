@@ -38,6 +38,8 @@ class ContentDataPersister implements ContextAwareDataPersisterInterface
                 $fieldDefinition = FieldType::factory($field->getName(), $data->getDefinition());
                 $newField = FieldRepository::factory($fieldDefinition);
 
+                // todo: This works for standalone fields only.
+                // See CollectionField.php and SetField.php
                 $newField->setName($field->getName());
                 $newField->setValue($field->getValue());
 

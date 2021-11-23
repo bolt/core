@@ -1,7 +1,7 @@
 security:
     role_hierarchy:
         ROLE_DEVELOPER: [ROLE_ADMIN, ROLE_CAN_SWITCH_USER]
-        ROLE_ADMIN: [ROLE_CHIEF_EDITOR, ROLE_WEBSERVICE]
+        ROLE_ADMIN: [ROLE_CHIEF_EDITOR]
         ROLE_CHIEF_EDITOR: [ROLE_EDITOR]
         ROLE_EDITOR: [ROLE_USER]
         # ROLE_USER is assigned to Bolt Entity Users if no roles have been set
