@@ -46,11 +46,11 @@ describe('As an Admin, I want to reset an image field', () => {
         cy.get('a[id="media-tab"]').click();
 
         cy.get("label[for=field-image]").should('contain', 'Image');
-        cy.get('input[name="fields[image][filename]"]').should('have.value', 'foal.jpg');
-        cy.get('input[name="fields[image][alt]"]').should('have.value', 'Ex veniam repellat ipsam autem delectus.');
+        cy.get('input[name="fields[image][filename]"]').should('not.be.empty');
+        cy.get('input[name="fields[image][alt]"]').should('not.be.empty');
 
         cy.get('button[class="btn btn-sm btn-hidden-danger"]').should('contain', 'Remove').eq(0).click();
-        cy.get('input[name="fields[image][filename]"]').should('have.value', '');
-        cy.get('input[name="fields[image][alt]"]').should('have.value', '');
+        cy.get('input[name="fields[image][filename]"]').should('be.empty');
+        cy.get('input[name="fields[image][alt]"]').should('be.empty');
     })
 });
