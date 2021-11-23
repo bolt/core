@@ -21,7 +21,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
-use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Webmozart\PathUtil\Path;
 
 class FilemanagerController extends TwigAwareController implements BackendZoneInterface
@@ -42,12 +41,11 @@ class FilemanagerController extends TwigAwareController implements BackendZoneIn
     /** @var Filesystem */
     private $filesystem;
 
-    public function __construct(FileLocations $fileLocations, MediaRepository $mediaRepository, SessionInterface $session, Filesystem $filesystem, CsrfTokenManagerInterface $csrfTokenManager)
+    public function __construct(FileLocations $fileLocations, MediaRepository $mediaRepository, SessionInterface $session, Filesystem $filesystem)
     {
         $this->fileLocations = $fileLocations;
         $this->mediaRepository = $mediaRepository;
         $this->session = $session;
-        $this->csrfTokenManager = $csrfTokenManager;
         $this->filesystem = $filesystem;
     }
 

@@ -15,7 +15,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 class PreviewController extends TwigAwareController implements FrontendZoneInterface
 {
@@ -33,12 +32,10 @@ class PreviewController extends TwigAwareController implements FrontendZoneInter
     public function __construct(
         ContentEditController $contentEditController,
         EventDispatcherInterface $dispatcher,
-        CsrfTokenManagerInterface $csrfTokenManager,
         UrlGeneratorInterface $urlGenerator)
     {
         $this->contentEditController = $contentEditController;
         $this->dispatcher = $dispatcher;
-        $this->csrfTokenManager = $csrfTokenManager;
         $this->urlGenerator = $urlGenerator;
     }
 

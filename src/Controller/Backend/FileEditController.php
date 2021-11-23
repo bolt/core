@@ -16,7 +16,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
-use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Parser;
 use Webimpress\SafeWriter\Exception\ExceptionInterface;
@@ -36,9 +35,8 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
     /** @var Filesystem */
     private $filesystem;
 
-    public function __construct(CsrfTokenManagerInterface $csrfTokenManager, MediaRepository $mediaRepository, EntityManagerInterface $em)
+    public function __construct(MediaRepository $mediaRepository, EntityManagerInterface $em)
     {
-        $this->csrfTokenManager = $csrfTokenManager;
         $this->mediaRepository = $mediaRepository;
         $this->em = $em;
         $this->filesystem = new Filesystem();
