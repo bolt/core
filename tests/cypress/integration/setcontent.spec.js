@@ -14,9 +14,7 @@ describe('As a user I want to see the results of Setcontent', () => {
 
         cy.get('main').should('not.contain', '[no]');
     })
-});
 
-describe('As a user I want to see the results of Setcontent on a translated page', () => {
     it('checks that the Setcontent is visible on a translated page as a user', () => {
         cy.visit('/nl/page/setcontent-test-page');
         cy.get('#results-one').should('contain', 'yes');

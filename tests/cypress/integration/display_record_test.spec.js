@@ -1,15 +1,12 @@
 /// <reference types="cypress" />
 
-
-describe('As a user I want to see how the record title is displayed', () => {
+describe('As a user I want to see how the record is displayed', () => {
     it('checks that the record title is displayed as a user', () => {
         cy.visit('/test/title-of-the-test');
         cy.get('.title').should('have.length', 1);
         cy.get('.title').should('contain', '74: Title of the test');
     })
-});
 
-describe('As a user I want to see how fields are escaped', () => {
     it('checks that fields are escaped as a user', () => {
         cy.visit('/test/title-of-the-test');
         cy.get('.title').should('have.length', 1);
@@ -29,9 +26,7 @@ describe('As a user I want to see how fields are escaped', () => {
         cy.get('div.box.text_sanitise_a').should('not.contain', 'Text field with <strong>markup</strong>, including . The end.');
         cy.get('div.box.text_sanitise_b').should('not.contain', 'Text field with <strong>markup</strong>, including <script>console.log(\'hoi\')</script>. The end.');
     })
-});
 
-describe('As a user I want to see how file fields are displayed', () => {
     it('checks that file fields are displayed as a user', () => {
         cy.visit('/test/title-of-the-test');
         cy.get('.title').should('have.length', 1);

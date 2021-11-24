@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-describe('As an Admin I want to be able to make use of the embed field', () => {
+describe('As an Admin I want to be able to make use of the embed, infobox and image fields', () => {
     it('checks if an admin can use the embed field', () => {
         cy.login();
         cy.visit('/bolt/edit/44');
@@ -22,9 +22,7 @@ describe('As an Admin I want to be able to make use of the embed field', () => {
         cy.get('input[name="fields[embed][width]"]').should('have.value', '');
         cy.get('input[name="fields[embed][height]"]').should('have.value', '');
     })
-});
 
-describe('As an Admin I want to see the field infobox', () => {
     it('checks if an admin can see the infobox field', () => {
         cy.login();
         cy.visit('/bolt/edit/38');
@@ -37,9 +35,7 @@ describe('As an Admin I want to see the field infobox', () => {
         cy.get('.popover-header').should('contain', 'Email').should('be.visible');
         cy.get('.popover-body').should('contain', 'This is an info box shown as a popover next to the field label.').should('be.visible');
     })
-});
 
-describe('As an Admin, I want to reset an image field', () => {
     it('checks if an admin can reset an image field', () => {
         cy.login();
         cy.visit('/bolt/edit/40');

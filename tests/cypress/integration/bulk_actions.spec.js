@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-describe('As an admin I want to select all items on a contentlisting page', () => {
+describe('As an admin I should be able to run bulk actions', () => {
     it('checks if an admin can see all items', () => {
         cy.login();
         cy.visit('/bolt/content/pages');
@@ -12,10 +12,8 @@ describe('As an admin I want to select all items on a contentlisting page', () =
         cy.get('.admin__body--aside .card-body .multiselect').should('contain', 'Select option');
         cy.get('button[name="bulk-action"]').should('be.disabled');
     })
-});
 
-describe('As an Admin I want to change the status of several tests at once', () => {
-    it('checks if an admin can make multiple changes', () => {
+    it('checks if an admin can make multiple changes at once', () => {
         cy.login();
         cy.visit('/bolt/content/tests');
         cy.get(".listing__filter .custom-checkbox").click();

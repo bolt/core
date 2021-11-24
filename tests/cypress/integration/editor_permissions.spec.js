@@ -1,14 +1,12 @@
 /// <reference types="cypress" />
 
-describe('As an editor I should not be able to access Configuration', () => {
+describe('Check all editors privileges', () => {
     it('checks if an editor can access Configuration', () => {
         cy.login('john_editor', 'john%1');
         cy.url().should('contain', '/bolt/');
         cy.get('ul[class="admin__sidebar--menu"]').find('li').find('a[href="/bolt/menu/configuration"]').should('not.exist');
     })
-});
 
-describe('As an editor I should only be able to view the About Bolt maintenance page', () => {
     it('checks if an editor can access maintenance pages besides About Bolt', () => {
         cy.login('john_editor', 'john%1');
         cy.url().should('contain', '/bolt/');
@@ -42,9 +40,7 @@ describe('As an editor I should only be able to view the About Bolt maintenance 
         cy.url().should('contain', '/bolt/');
         cy.url().should('not.contain', '/bolt/kitchensink');
     })
-});
 
-describe('As an editor I should only be able to view uploaded files', () => {
     it('checks if an editor can access files', () => {
         cy.visit('/bolt/login');
         cy.login('john_editor', 'john%1');

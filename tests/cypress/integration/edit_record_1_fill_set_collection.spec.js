@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-describe('As an Admin I want to fill in a Set', () => {
+describe('As an Admin I want to fill in a Set and an Collection', () => {
     it('checks if an admin can fill in a set', () => {
         cy.login();
         cy.visit('/bolt/edit/43');
@@ -27,9 +27,7 @@ describe('As an Admin I want to fill in a Set', () => {
         cy.get('textarea[name="sets[set][textarea]"]').should('have.value', 'Bar');
 
     })
-});
 
-describe('As an Admin I want to fill in a Collection', () => {
     it('checks if an admin can fill in a collection', () => {
         cy.login();
         cy.visit('/bolt/edit/43');
