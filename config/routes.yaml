@@ -39,7 +39,7 @@ frontend:
 # of how you can require a valid ContentType in the URL.
 #
 # contentlisting:
-#   path: /{contenttypeslug}
+#   path: /{contentTypeSlug}
 #   defaults:
 #     _controller: Bolt\Controller\Frontend\ListingController::listing
 #   requirements:
