@@ -1,6 +1,25 @@
 Changelog
 =========
 
+## 5.0.7
+
+Released: 2021-11-26
+
+### 🐛 Bug fixes
+
+- Ensure consistency in sluggified anchor link (bobdenotter, [#2907](https://github.com/bolt/core/pull/2907))
+
+### 🛠️ Miscellaneous
+
+- Fix getting db version (lock `doctrine/dbal`) (I-Valchev, [#2977](https://github.com/bolt/core/pull/2977))
+- Enable 'Remember me' by default, and make duration configurable (bobdenotter, [#2911](https://github.com/bolt/core/pull/2911))
+- Redirect 'GET on Preview' link to edit page (bobdenotter, [#2904](https://github.com/bolt/core/pull/2904))
+
+### 📖 Documentation
+
+- Fix contentlisting route example (nestordedios, [#2950](https://github.com/bolt/core/pull/2950))
+
+
 ## 5.0.6
 
 Released: 2021-10-28
