@@ -17,7 +17,7 @@ use Doctrine\ORM\Query\Expr\Orx;
 use Doctrine\ORM\Query\Expr\Select;
 use Doctrine\ORM\Query\ParameterTypeInferer;
 use Doctrine\ORM\QueryBuilder;
-
+use Carbon\Carbon;
 /**
  *  This query class coordinates a select query build from Bolt's
  *  custom query DSL as documented here:.
@@ -329,7 +329,7 @@ class SelectQuery implements QueryInterface
             $fieldName = preg_replace('/(_[0-9]+)$/', '', $key);
             // Use strtotime on 'date' fields to allow selections like "today", "in 3 weeks" or "this year"
             if (in_array($fieldName, $dateFields, true) && (strtotime($param) !== false)) {
-                $param = date('c', strtotime($param));
+                $param = Carbon::parse(strtotime($param))->toIso8601ZuluString('millisecond');
             }
 
             if (in_array($fieldName, $this->regularFields, true) && ! in_array($fieldName, $numberFields, true)) {
