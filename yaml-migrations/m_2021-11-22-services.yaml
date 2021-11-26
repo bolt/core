@@ -1,0 +1,8 @@
+# Adding the new services for Bolt 5.1.0
+file: services.yaml
+since: 5.1.0
+
+add:
+    services:
+        Bolt\Cache\RelatedOptionsUtilityCacher:
+            decorates: Bolt\Utils\RelatedOptionsUtility
