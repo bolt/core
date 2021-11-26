@@ -3,19 +3,6 @@
 
 # The Homepage content type is a singleton: There can be only one record of this
 # content type.
-testing:
-    name: testing
-    singular_name: test
-    fields:
-        title:
-            type: text
-        date_start:
-            type: date
-            variant: inline
-        date_end:
-            type: date
-            variant: inline
-
 
 homepage:
     name: Homepage
