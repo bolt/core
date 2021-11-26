@@ -10,6 +10,7 @@ use Bolt\Doctrine\JsonHelper;
 use Bolt\Entity\Field\CheckboxField;
 use Bolt\Entity\Field\NumberField;
 use Bolt\Entity\Field\SelectField;
+use Carbon\Carbon;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query\Expr\Andx;
 use Doctrine\ORM\Query\Expr\Base;
@@ -329,7 +330,7 @@ class SelectQuery implements QueryInterface
             $fieldName = preg_replace('/(_[0-9]+)$/', '', $key);
             // Use strtotime on 'date' fields to allow selections like "today", "in 3 weeks" or "this year"
             if (in_array($fieldName, $dateFields, true) && (strtotime($param) !== false)) {
-                $param = date('c', strtotime($param));
+                $param = Carbon::parse(strtotime($param))->toIso8601ZuluString('milisecond');
             }
 
             if (in_array($fieldName, $this->regularFields, true) && ! in_array($fieldName, $numberFields, true)) {
