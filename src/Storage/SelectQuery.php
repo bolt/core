@@ -330,7 +330,7 @@ class SelectQuery implements QueryInterface
             $fieldName = preg_replace('/(_[0-9]+)$/', '', $key);
             // Use strtotime on 'date' fields to allow selections like "today", "in 3 weeks" or "this year"
             if (in_array($fieldName, $dateFields, true) && (strtotime($param) !== false)) {
-                $param = Carbon::parse(strtotime($param))->toIso8601ZuluString('milisecond');
+                $param = Carbon::parse((string) strtotime($param))->toIso8601ZuluString('milisecond');
             }
 
             if (in_array($fieldName, $this->regularFields, true) && ! in_array($fieldName, $numberFields, true)) {
