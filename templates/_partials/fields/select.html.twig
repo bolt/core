@@ -25,7 +25,7 @@
 
 {% block field %}
     <editor-select
-        :classname="{{ "wide-options"|json_encode }}"
+        :classname="{{ ['wide-options ', class]|join|json_encode }}"
         :value="{{ value|json_encode }}"
         :name='{{ name|json_encode }}'
         :id='{{ id|json_encode }}'
