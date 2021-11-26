@@ -2,53 +2,113 @@
 
 {% block main %}
 
-    {# This template is used for 'listings': Generic pages that list a number of
-       records from a certain content type. These records are available as an array
-       called 'records'. In the for-loop below, we iterate over the records that
-       are on this page. It can be used for overview pages like 'all entries', or
-       'all records tagged with kittens'. #}
+	{% set range = app.request.get('range', '') %}
+	{% set filters = app.request.get('filter', '') %}
+	{% set searchroot = app.request.get('searchroot', '')  %}
 
-    {# If used for listing a taxonomy, we add a heading #}
-    {% if taxonomy is defined %}
-        <h1>
-            {{ __('general.phrase.overview-for', {'%slug%': taxonomy.options[slug]|default(slug) }) }}
-        </h1>
-    {% endif %}
+	{# set the initial form action based on the requested url #}
+	{% if searchroot is empty %}
+		{% elseif range != '' %}
+			{% set searchroot = '/pages/' ~ range  %}
+		{% else %}
+			{% set searchroot = '/pages' %}
+	{% endif %}
+	{# {% endif %} #}
 
-    {% for record in records %}
-        <article>
+	{# prepare variables for later in the page #}
+	{% set filteroptions = {} %}
+	<span>Gekozen filter(s):
+	</span>
+	{% if filters['date_event']|default() != '' %}
+		{# date filter comes before start and end ranges #}
+		<span class="selected-label">Dag:
+			{{ filters['date_event'] }}</span>
+		{% set filteroptions = filteroptions|merge({ date_start: '>= ' ~ filters['date_event'], date_end: '<= ' ~ date('d-m-Y', filters['date_event'] ~ " + 1 day" )}) %}
+	{% elseif (filters['date_start']|default() != '') or (range not in ['vandaag', 'morgen']) %}
+		{# date range only works if no event date is set #}
+		{% if filters['date_start']|default() != '' %}
+			<span class="selected-label">Van:
+				{{ filters['date_start'] }}</span>
+			{% set filteroptions = filteroptions|merge({ 'date_end': "<= " ~ filters['date_start'] ~ ' 23:59:59' }) %}
+		{% endif %}
 
-            <h2><a href="{{ record|link }}">{{ record|title }}</a></h2>
+		{% if filters['date_end']|default() != '' %}
+			<span class="selected-label">Tot:
+				{{ filters['date_end'] }}</span>
+			{% set filteroptions = filteroptions|merge({ 'date_start': "<= " ~ filters['date_end'] ~ ' 23:59:59' }) %}
+		{% endif %}
+	{% elseif range == 'vandaag' %}
+		<span class="selected-label">Vandaag</span>
+		{% set filteroptions = filteroptions|merge({ date_start: '>= today', date_end: '<= tomorrow' }) %}
+	{% elseif range == 'morgen' %}
+		<span class="selected-label">Morgen</span>
+		{% set filteroptions = filteroptions|merge({ date_start: '>= tomorrow', date_end: '<= tomorrow + 1 day' }) %}
+	{% endif %}
 
-                {% if record|image %}
-                    <a href="{{ record|image }}">
-                        <img src="{{ record|thumbnail(480, 320) }}" alt="{{ record|image.alt|default() }}" />
-                    </a>
-            {% endif %}
 
-            <p>{{ record|excerpt(300, false, search|default('')) }}</p>
+	<form name="pagessearch" action="/pages" method="post">
+		<input name="filter[date_event]" type="date" id="date-event" class="datepicker" autocomplete="off" placeholder="{{ "now"|date("d-m-Y") }}" {% if filters['date_event']|default() != '' %} value="{{ filters['date_event'] }}" {% endif %} aria-label="Kies een datum">
+		<input type="submit" value="Zoeken"/>
+		<a href="/pages/vandaag">Toon alle activiteiten van vandaag</a>
+		<a href="/pages/morgen">Toon alle activiteiten voor morgen</a>
+	</form>
 
-            {% include 'partials/_recordfooter.twig' with { 'record': record } %}
+	{% dump(filteroptions) %}
 
-        </article>
+	{% setcontent records = 'test' where filteroptions orderby 'date_start' limit 10 printquery %}
+	{% for record in records %}
+		{{ dump("Date Start:" ~ record.date_start) }}
+	{% endfor %}
+	{# This template is used for 'listings': Generic pages that list a number of
+	       records from a certain content type. These records are available as an array
+	       called 'records'. In the for-loop below, we iterate over the records that
+	       are on this page. It can be used for overview pages like 'all entries', or
+	       'all records tagged with kittens'. #}
 
-        {% if not loop.last %}
-            <hr>
-        {% endif %}
+	{# If used for listing a taxonomy, we add a heading #}
+	{% if taxonomy is defined %}
+		<h1>
+			{{ __('general.phrase.overview-for', {'%slug%': taxonomy.options[slug]|default(slug) }) }}
+		</h1>
+	{% endif %}
 
-    {% else %}
-        <article>
+	{% for record in records %}
+		<article>
 
-            <h2>{{ __('general.phrase.no-content-found') }}</h2>
+			<h2>
+				<a href="{{ record|link }}">{{ record|title }}</a>
+			</h2>
 
-            <p>
-                {{ __("Unfortunately, no content could be found. Try another page, or go to the <a href=\"%paths_root%\">homepage</a>.", {'%paths_root%': path('homepage')} ) }}
-            </p>
+			{% if record|image %}
+				<a href="{{ record|image }}">
+					<img src="{{ record|thumbnail(480, 320) }}" alt="{{ record|image.alt|default() }}"/>
+				</a>
+			{% endif %}
 
-        </article>
-    {% endfor %}
+			<p>{{ record|excerpt(300, false, search|default('')) }}</p>
 
-    {# If there are more records than will fit on one page, the pager is shown. #}
-        {{ pager(records, template = 'helpers/_pager_basic.html.twig') }}
+			{% include 'partials/_recordfooter.twig' with { 'record': record } %}
+
+		</article>
+
+		{% if not loop.last %}
+			<hr>
+		{% endif %}
+
+	{% else %}
+		<article>
+
+			<h2>{{ __('general.phrase.no-content-found') }}</h2>
+
+			<p>
+				{{ __("Unfortunately, no content could be found. Try another page, or go to the <a href=\"%paths_root%\">homepage</a>.", {'%paths_root%': path('homepage')} ) }}
+			</p>
+
+		</article>
+	{% endfor %}
+
+	{# If there are more records than will fit on one page, the pager is shown. #}
+	{{ pager(records, template = 'helpers/_pager_basic.html.twig') }}
 
 {% endblock main %}
+

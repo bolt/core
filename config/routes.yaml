@@ -5,7 +5,11 @@
 # ------------------------------------------------------------------------------
 # Place your own routes here, that have a HIGHER priority than the default routes.
 
-
+activiteiten-range:
+    path: /pages/{range}
+    defaults:
+        _controller: Bolt\Controller\Frontend\ListingController::listing
+        contentTypeSlug: pages
 
 # ------------------------------------------------------------------------------
 # These are the routes defining the default behaviour of Bolt's frontend.
@@ -39,7 +43,7 @@ frontend:
 # of how you can require a valid ContentType in the URL.
 #
 # contentlisting:
-#   path: /{contentTypeSlug}
+#   path: /{contenttypeslug}
 #   defaults:
 #     _controller: Bolt\Controller\Frontend\ListingController::listing
 #   requirements:
