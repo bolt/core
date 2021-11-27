@@ -16,9 +16,6 @@ use Bolt\Storage\Query;
 use Bolt\Utils\ContentHelper;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
-use Symfony\Component\Stopwatch\Stopwatch;
-use Symfony\Contracts\Cache\ItemInterface;
-use Symfony\Contracts\Cache\TagAwareCacheInterface;
 use Tightenco\Collect\Support\Collection;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
@@ -42,28 +39,19 @@ class FieldExtension extends AbstractExtension
     /** @var Query */
     private $query;
 
-    /** @var Stopwatch */
-    private $stopwatch;
-
-    /** @var TagAwareCacheInterface */
-    private $cache;
 
     public function __construct(
         Notifications $notifications,
         ContentRepository $contentRepository,
         Config $config,
         ContentHelper $contentHelper,
-        Query $query,
-        Stopwatch $stopwatch,
-        TagAwareCacheInterface $cache)
+        Query $query)
     {
         $this->notifications = $notifications;
         $this->contentRepository = $contentRepository;
         $this->config = $config;
         $this->contentHelper = $contentHelper;
         $this->query = $query;
-        $this->stopwatch = $stopwatch;
-        $this->cache = $cache;
     }
 
     /**

@@ -99,6 +99,9 @@ services:
     Bolt\Cache\SelectOptionsCacher:
         decorates: Bolt\Twig\FieldExtension
 
+    Bolt\Cache\ContentToArrayCacher:
+        decorates: Bolt\Twig\JsonExtension
+
     Bolt\Menu\BackendMenuBuilderInterface: '@Bolt\Menu\BackendMenu'
 
     Bolt\Menu\FrontendMenuBuilder: ~

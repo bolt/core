@@ -13,6 +13,7 @@ caching:
     related_options: 600
     canonical: 10
     selectoptions: 600
+    content_array: 600
 
 # The theme to use.
 #

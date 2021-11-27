@@ -11,8 +11,6 @@ use Bolt\Repository\RelationRepository;
 use Bolt\Storage\Query;
 use Bolt\Utils\ContentHelper;
 use Bolt\Utils\RelatedOptionsUtility;
-use Symfony\Contracts\Cache\ItemInterface;
-use Symfony\Contracts\Cache\TagAwareCacheInterface;
 use Tightenco\Collect\Support\Collection;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
@@ -35,9 +33,6 @@ class RelatedExtension extends AbstractExtension
     /** @var Notifications */
     private $notifications;
 
-    /** @var TagAwareCacheInterface */
-    private $cache;
-
     /** @var RelatedOptionsUtility */
     private $optionsUtility;
 
@@ -47,7 +42,6 @@ class RelatedExtension extends AbstractExtension
         Query $query,
         ContentHelper $contentHelper,
         Notifications $notifications,
-        TagAwareCacheInterface $cache,
         RelatedOptionsUtility $optionsUtility)
     {
         $this->relationRepository = $relationRepository;
@@ -55,7 +49,6 @@ class RelatedExtension extends AbstractExtension
         $this->query = $query;
         $this->contentHelper = $contentHelper;
         $this->notifications = $notifications;
-        $this->cache = $cache;
         $this->optionsUtility = $optionsUtility;
     }
 
