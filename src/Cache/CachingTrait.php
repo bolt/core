@@ -3,6 +3,7 @@
 namespace Bolt\Cache;
 
 use Bolt\Configuration\Config;
+use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
 
@@ -10,6 +11,9 @@ trait CachingTrait
 {
     /** @var TagAwareCacheInterface */
     private $cache;
+
+    /** @var Stopwatch */
+    private $stopwatch;
 
     /** @var string */
     private $cacheKey;
@@ -20,9 +24,10 @@ trait CachingTrait
     /**
      * @required
      */
-    public function setCache(TagAwareCacheInterface $cache): void
+    public function setCache(TagAwareCacheInterface $cache, Stopwatch $stopwatch): void
     {
         $this->cache = $cache;
+        $this->stopwatch = $stopwatch;
     }
 
     /**
@@ -33,9 +38,9 @@ trait CachingTrait
         $this->config = $config;
     }
 
-    public function setCacheKey(string $key): void
+    public function setCacheKey(array $tokens): void
     {
-        $this->cacheKey = $key;
+        $this->cacheKey = self::CACHE_CONFIG_KEY . '_' . md5(implode('', $tokens));
     }
 
     public function getCacheKey(): string
@@ -45,24 +50,34 @@ trait CachingTrait
 
     public function execute(callable $fn, array $params = [])
     {
+        $key = $this->getCacheKey();
+
+        $this->stopwatch->start('bolt.cache.'. $key);
+
         if ($this->isCachingEnabled()) {
-            return $this->cache->get($this->getCacheKey(), function(ItemInterface $item) use ($fn, $params) {
+            $results = $this->cache->get($key, function (ItemInterface $item) use ($fn, $params) {
                 $item->expiresAfter($this->getExpiresAfter());
 
                 return call_user_func_array($fn, $params);
             });
+        } else {
+            $results = call_user_func_array($fn, $params);
         }
 
-        return call_user_func_array($fn, $params);
+        $this->stopwatch->stop('bolt.cache.'. $key);
+
+        return $results;
     }
 
     private function isCachingEnabled(): bool
     {
-        return $this->config->get('general/caching/' . self::CACHE_CONFIG_KEY, true);
+        $configKey = $this->config->get('general/caching/' . self::CACHE_CONFIG_KEY);
+
+        return $configKey > 0;
     }
 
     private function getExpiresAfter(): int
     {
-        return $this->config->get('general/caching/expires_after', 3600);
+        return (int) $this->config->get('general/caching/' . self::CACHE_CONFIG_KEY, 3600);
     }
 }

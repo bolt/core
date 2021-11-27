@@ -9,9 +9,8 @@ secret: '%env(APP_SECRET)%'
 
 # Set the caching configuration for various areas of Bolt.
 # The expires_after is counted in seconds.
-caching: 
-    related_options: true
-    expires_after: 3600
+caching:
+    related_options: 600
 
 # The theme to use.
 #
