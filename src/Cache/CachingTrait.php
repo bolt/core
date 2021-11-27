@@ -65,7 +65,7 @@ trait CachingTrait
     {
         $key = $this->getCacheKey();
 
-        $this->stopwatch->start('bolt.cache.'. $key);
+        $this->stopwatch->start('bolt.cache.' . $key);
 
         if ($this->isCachingEnabled()) {
             $results = $this->cache->get($key, function (ItemInterface $item) use ($fn, $params) {
@@ -78,7 +78,7 @@ trait CachingTrait
             $results = call_user_func_array($fn, $params);
         }
 
-        $this->stopwatch->stop('bolt.cache.'. $key);
+        $this->stopwatch->stop('bolt.cache.' . $key);
 
         return $results;
     }
