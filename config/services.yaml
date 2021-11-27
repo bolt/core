@@ -96,6 +96,9 @@ services:
     Bolt\Cache\CanonicalCacher:
         decorates: Bolt\Canonical
 
+    Bolt\Cache\SelectOptionsCacher:
+        decorates: Bolt\Twig\FieldExtension
+
     Bolt\Menu\BackendMenuBuilderInterface: '@Bolt\Menu\BackendMenu'
 
     Bolt\Menu\FrontendMenuBuilder: ~

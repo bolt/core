@@ -288,39 +288,27 @@ class FieldExtension extends AbstractExtension
             'order' => $order,
         ];
 
-        $options = $this->selectOptionsContentTypeCache($contentTypeSlug, $params, $field, $format);
+        $options = $this->selectOptionsHelper($contentTypeSlug, $params, $field, $format);
 
         return new Collection($options);
     }
 
-    private function selectOptionsContentTypeCache(string $contentTypeSlug, array $params, Field $field, string $format)
+    public function selectOptionsHelper(string $contentTypeSlug, array $params, Field $field, string $format): array
     {
-        $cacheKey = 'selectOptions_' . md5($contentTypeSlug . implode('-', $params));
+        /** @var Content[] $records */
+        $records = iterator_to_array($this->query->getContent($contentTypeSlug, $params)->getCurrentPageResults());
 
-        $this->stopwatch->start('selectOptions');
+        $options = [];
 
-        $options = $this->cache->get($cacheKey, function (ItemInterface $item) use ($contentTypeSlug, $params, $field, $format) {
-            $item->tag($contentTypeSlug);
-
-            /** @var Content[] $records */
-            $records = iterator_to_array($this->query->getContent($contentTypeSlug, $params)->getCurrentPageResults());
-
-            $options = [];
-
-            foreach ($records as $record) {
-                if ($field->getDefinition()->get('mode') === 'format') {
-                    $formattedKey = $this->contentHelper->get($record, $field->getDefinition()->get('format'));
-                }
-                $options[] = [
-                    'key' => $formattedKey ?? $record->getId(),
-                    'value' => $this->contentHelper->get($record, $format),
-                ];
+        foreach ($records as $record) {
+            if ($field->getDefinition()->get('mode') === 'format') {
+                $formattedKey = $this->contentHelper->get($record, $field->getDefinition()->get('format'));
             }
-
-            return $options;
-        });
-
-        $this->stopwatch->stop('selectOptions');
+            $options[] = [
+                'key' => $formattedKey ?? $record->getId(),
+                'value' => $this->contentHelper->get($record, $format),
+            ];
+        }
 
         return $options;
     }
