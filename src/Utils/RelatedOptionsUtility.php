@@ -24,6 +24,9 @@ class RelatedOptionsUtility
         $this->contentHelper = $contentHelper;
     }
 
+    /**
+     * Decorated by `Bolt\Cache\RelatedOptionsUtilityCacher`
+     */
     public function fetchRelatedOptions(string $contentTypeSlug, string $order, string $format, bool $required, int $maxAmount): array
     {
         $pager = $this->query->getContent($contentTypeSlug, ['order' => $order])

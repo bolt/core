@@ -293,6 +293,9 @@ class FieldExtension extends AbstractExtension
         return new Collection($options);
     }
 
+    /**
+     * Decorated by `\Bolt\Cache\SelectOptionsCacher`
+     */
     public function selectOptionsHelper(string $contentTypeSlug, array $params, Field $field, string $format): array
     {
         /** @var Content[] $records */
