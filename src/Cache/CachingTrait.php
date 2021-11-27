@@ -16,7 +16,10 @@ trait CachingTrait
     private $stopwatch;
 
     /** @var string */
-    private $cacheKey;
+    private $cacheKey = '';
+
+    /** @var array */
+    private $cacheTags = [];
 
     /** @var Config */
     private $config;
@@ -48,6 +51,16 @@ trait CachingTrait
         return $this->cacheKey ?? '';
     }
 
+    public function setCacheTags(array $tags): void
+    {
+        $this->cacheTags = $tags;
+    }
+
+    public function getCacheTags(): array
+    {
+        return $this->cacheTags;
+    }
+
     public function execute(callable $fn, array $params = [])
     {
         $key = $this->getCacheKey();
@@ -57,6 +70,7 @@ trait CachingTrait
         if ($this->isCachingEnabled()) {
             $results = $this->cache->get($key, function (ItemInterface $item) use ($fn, $params) {
                 $item->expiresAfter($this->getExpiresAfter());
+                $item->tag($this->getCacheTags());
 
                 return call_user_func_array($fn, $params);
             });
