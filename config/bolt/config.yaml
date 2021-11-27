@@ -11,6 +11,7 @@ secret: '%env(APP_SECRET)%'
 # The expires_after is counted in seconds.
 caching:
     related_options: 600
+    canonical: 10
 
 # The theme to use.
 #

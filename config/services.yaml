@@ -93,6 +93,9 @@ services:
     Bolt\Cache\RelatedOptionsUtilityCacher:
         decorates: Bolt\Utils\RelatedOptionsUtility
 
+    Bolt\Cache\CanonicalCacher:
+        decorates: Bolt\Canonical
+
     Bolt\Menu\BackendMenuBuilderInterface: '@Bolt\Menu\BackendMenu'
 
     Bolt\Menu\FrontendMenuBuilder: ~
