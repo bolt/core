@@ -10,10 +10,12 @@ secret: '%env(APP_SECRET)%'
 # Set the caching configuration for various areas of Bolt.
 # The expires_after is counted in seconds.
 caching:
-    related_options: 600
+    related_options: 1800
     canonical: 10
-    selectoptions: 600
-    content_array: 600
+    selectoptions: 1800
+    content_array: 1800
+    frontend_menu: 3600
+    backend_menu: 1800
 
 # The theme to use.
 #
@@ -217,7 +219,7 @@ localization:
 
 # Define the seed used to generated the test data
 # Used in <bolt-core>/src/DataFixtures/ContentFixtures.php
-fixtures_seed: 87654
+#fixtures_seed: 87654
 
 # Globally enable / disable the validator for Fields
 validator_options:
