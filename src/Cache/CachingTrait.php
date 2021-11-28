@@ -12,7 +12,7 @@ trait CachingTrait
     private $cache;
 
     /** @var string */
-    private $cacheKey;
+    private $cacheKey = '';
 
     /** @var Config */
     private $config;
@@ -40,7 +40,7 @@ trait CachingTrait
 
     public function getCacheKey(): string
     {
-        return $this->cacheKey ?? '';
+        return $this->cacheKey;
     }
 
     public function execute(callable $fn, array $params = [])
