@@ -121,8 +121,6 @@ class FieldExtension extends AbstractExtension
 
     public function getType(Field $field): string
     {
-        // Note, this used to be a ternary, with `?? $field->getDefinition()->get('type');`. I'm not sure
-        // how/when this would trigger, since $field->getType always returns a value. 🤔💭
         return $field->getType();
     }
 

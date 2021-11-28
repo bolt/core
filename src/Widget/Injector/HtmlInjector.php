@@ -80,7 +80,7 @@ class HtmlInjector
         $snippet = $widget() . "\n";
 
         // If the widget doesn't produce output, there's no need to inject it.
-        if (mb_strlen($snippet) > 0) {
+        if (mb_strlen($snippet) === 0) {
             return;
         }
 
