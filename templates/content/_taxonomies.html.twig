@@ -6,7 +6,19 @@
             {% set options = taxonomy_options(definition) %}
             {% set value = taxonomy_values(record.taxonomies, definition) %}
 
+            {% set prefix = prefix|default(definition['prefix']|default) %}
+            {% if prefix and not (prefix starts with '<p' or prefix starts with '<span' or prefix starts with '<div') %}
+                {% set prefix = '<div id="' ~ taxonomy ~ '_prefix" class="form--helper">' ~ prefix|markdown ~ '</div>' %}
+            {% endif %}
+
+            {% set postfix = postfix|default(definition['postfix']|default) %}
+            {% if postfix and not (postfix starts with '<p' or postfix starts with '<span' or postfix starts with '<div') %}
+                {% set postfix = '<div id="' ~ taxonomy ~ '_postfix" class="form--helper">' ~ postfix|markdown ~ '</div>' %}
+            {% endif %}
+
             <div class="form-group is-normal">
+
+                {{ prefix|raw }}
 
                 {% include '@bolt/_partials/fields/_label.html.twig' with {
                     'id': 'taxonomy-' ~ definition.slug,
@@ -25,6 +37,8 @@
                             :allowempty="{{ definition.required ? 'false' : 'true' }}"
                     ></editor-select>
                 </div>
+
+                {{ postfix|raw }}
 
             </div>
 
