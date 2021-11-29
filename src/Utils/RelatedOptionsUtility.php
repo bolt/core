@@ -5,6 +5,11 @@ namespace Bolt\Utils;
 use Bolt\Entity\Content;
 use Bolt\Storage\Query;
 
+/**
+ * Utility class to get the 'Related Records' as options to show as a pull-down in the Editor.
+ *
+ * Decorated by `Bolt\Cache\RelatedOptionsUtilityCacher`
+ */
 class RelatedOptionsUtility
 {
     /** @var Query */
@@ -19,6 +24,9 @@ class RelatedOptionsUtility
         $this->contentHelper = $contentHelper;
     }
 
+    /**
+     * Decorated by `Bolt\Cache\RelatedOptionsUtilityCacher`
+     */
     public function fetchRelatedOptions(string $contentTypeSlug, string $order, string $format, bool $required, int $maxAmount): array
     {
         $pager = $this->query->getContent($contentTypeSlug, ['order' => $order])
