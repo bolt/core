@@ -101,8 +101,6 @@
         "php-http/httplug-bundle": "^1.19",
         "php-http/message": "^1.12",
         "php-translation/loco-adapter": "^0.11",
-        "phpspec/phpspec": "^6.3.1",
-        "phpspec/prophecy": "^1.14",
         "phpstan/phpstan": "^0.12",
         "phpstan/phpstan-doctrine": "^0.12",
         "phpstan/phpstan-symfony": "^0.12",
