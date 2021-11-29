@@ -24,7 +24,7 @@ class Excerpt
      * Nothing exciting here. The array_unique is required, unless you decide
      * to make the words unique before passing in.
      */
-    private static function extractLocations(array $words, string $fulltext): array
+    protected static function extractLocations(array $words, string $fulltext): array
     {
         $locations = [];
         foreach ($words as $word) {
@@ -49,7 +49,7 @@ class Excerpt
      * The only exception is where we have only two matches in which case we just take the
      * first as will be equally distant.
      */
-    private static function determineSnipLocation(array $locations, int $prevCount): int
+    protected static function determineSnipLocation(array $locations, int $prevCount): int
     {
         // If we only have 1 match we don't actually do the for loop so set to the first
         $startPos = (int) reset($locations);
@@ -84,7 +84,7 @@ class Excerpt
      *
      * @param string|array $words
      */
-    private static function extractRelevant($words, string $fulltext, int $relLength = 300): string
+    protected static function extractRelevant($words, string $fulltext, int $relLength = 300): string
     {
         $fulltext = strip_tags($fulltext);
 

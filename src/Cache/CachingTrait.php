@@ -48,7 +48,7 @@ trait CachingTrait
 
     public function getCacheKey(): string
     {
-        return $this->cacheKey ?? '';
+        return $this->cacheKey;
     }
 
     public function setCacheTags(array $tags): void

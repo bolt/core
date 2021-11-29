@@ -116,7 +116,7 @@ class Relation
 
     public function getDefinition(): array
     {
-        if (empty($this->definition) === true && empty($this->fromContent) === false) {
+        if (empty($this->definition) && $this->fromContent instanceof Content) {
             $this->setDefinitionFromContentDefinition();
         }
 

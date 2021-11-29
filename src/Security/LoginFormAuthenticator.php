@@ -111,11 +111,11 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         return $this->userRepository->findOneByCredentials($credentials['username']);
     }
 
-    /**
-     * @var PasswordAuthenticatedUserInterface $user
-     */
     public function checkCredentials($credentials, UserInterface $user): bool
     {
+        /**
+         * @var PasswordAuthenticatedUserInterface $user
+         */
         return empty($credentials['password']) ? false : $this->passwordHasher->isPasswordValid($user, $credentials['password']);
     }
 

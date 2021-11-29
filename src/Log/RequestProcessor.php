@@ -47,7 +47,7 @@ class RequestProcessor
             ];
         }
 
-        if (! empty($user)) {
+        if ($user instanceof User) {
             $record['user'] = [
                 'id' => $user->getId(),
                 'username' => $user->getUsername(),

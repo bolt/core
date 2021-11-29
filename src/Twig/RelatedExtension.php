@@ -8,8 +8,6 @@ use Bolt\Configuration\Config;
 use Bolt\Entity\Content;
 use Bolt\Entity\Relation;
 use Bolt\Repository\RelationRepository;
-use Bolt\Storage\Query;
-use Bolt\Utils\ContentHelper;
 use Bolt\Utils\RelatedOptionsUtility;
 use Tightenco\Collect\Support\Collection;
 use Twig\Extension\AbstractExtension;
@@ -24,12 +22,6 @@ class RelatedExtension extends AbstractExtension
     /** @var Config */
     private $config;
 
-    /** @var Query */
-    private $query;
-
-    /** @var ContentHelper */
-    private $contentHelper;
-
     /** @var Notifications */
     private $notifications;
 
@@ -39,15 +31,11 @@ class RelatedExtension extends AbstractExtension
     public function __construct(
         RelationRepository $relationRepository,
         Config $config,
-        Query $query,
-        ContentHelper $contentHelper,
         Notifications $notifications,
         RelatedOptionsUtility $optionsUtility)
     {
         $this->relationRepository = $relationRepository;
         $this->config = $config;
-        $this->query = $query;
-        $this->contentHelper = $contentHelper;
         $this->notifications = $notifications;
         $this->optionsUtility = $optionsUtility;
     }
