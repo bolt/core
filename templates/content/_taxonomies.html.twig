@@ -5,7 +5,8 @@
 
             {% set options = taxonomy_options(definition) %}
             {% set value = taxonomy_values(record.taxonomies, definition) %}
-
+            
+            {# Set the prefix and postfix attributes #}
             {% set prefix = prefix|default(definition['prefix']|default) %}
             {% if prefix and not (prefix starts with '<p' or prefix starts with '<span' or prefix starts with '<div') %}
                 {% set prefix = '<div id="' ~ taxonomy ~ '_prefix" class="form--helper">' ~ prefix|markdown ~ '</div>' %}
