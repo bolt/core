@@ -173,6 +173,9 @@ class Canonical
         $this->path = $this->generateLink($route, $params, false);
     }
 
+    /**
+     * Decorated by `\Bolt\Utils\CanonicalCacher`
+     */
     public function generateLink(?string $route, ?array $params, $canonical = false): ?string
     {
         $removeDefaultLocaleOnCanonical = $this->config->get('general/localization/remove_default_locale_on_canonical', true);

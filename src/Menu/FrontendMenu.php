@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Menu;
 
+use Bolt\Configuration\Config;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Stopwatch\Stopwatch;
@@ -26,12 +27,16 @@ final class FrontendMenu implements FrontendMenuBuilderInterface
     /** @var Stopwatch */
     private $stopwatch;
 
-    public function __construct(FrontendMenuBuilder $menuBuilder, TagAwareCacheInterface $cache, RequestStack $requestStack, Stopwatch $stopwatch)
+    /** @var Config */
+    private $config;
+
+    public function __construct(FrontendMenuBuilder $menuBuilder, TagAwareCacheInterface $cache, RequestStack $requestStack, Stopwatch $stopwatch, Config $config)
     {
         $this->cache = $cache;
         $this->menuBuilder = $menuBuilder;
         $this->request = $requestStack->getCurrentRequest();
         $this->stopwatch = $stopwatch;
+        $this->config = $config;
     }
 
     public function buildMenu(Environment $twig, ?string $name = null): array
@@ -41,6 +46,7 @@ final class FrontendMenu implements FrontendMenuBuilderInterface
         $key = 'bolt.frontendMenu_' . ($name ?: 'main') . '_' . $this->request->getLocale();
 
         $menu = $this->cache->get($key, function (ItemInterface $item) use ($name, $twig) {
+            $item->expiresAfter($this->config->get('general/caching/frontend_menu'));
             $item->tag('frontendmenu');
 
             return $this->menuBuilder->buildMenu($twig, $name);

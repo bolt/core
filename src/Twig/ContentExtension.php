@@ -183,10 +183,13 @@ class ContentExtension extends AbstractExtension
         return '(untitled)';
     }
 
-    public function getTitle(?Content $content, string $locale = '', int $length = 120): string
+    /**
+     * @param Content|string|null $content
+     */
+    public function getTitle($content, string $locale = '', int $length = 120): string
     {
         if (! $content instanceof Content) {
-            return '<mark>No content given</mark>';
+            return $content ?? '<mark>No content given</mark>';
         }
 
         if (empty($locale) && $this->requestStack->getCurrentRequest()) {
