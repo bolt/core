@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-describe('No localization link for contenttype without locales', () => {
+describe('Checks for localization', () => {
     it('checks that there\'s no localization link for contentype without locales', () => {
         cy.login();
 
@@ -11,9 +11,7 @@ describe('No localization link for contenttype without locales', () => {
         cy.get('h1').find('span').should('contain', 'Edit Entry');
         cy.get('#multiselect-localeswitcher').should('not.exist');
     })
-});
 
-describe('See localization link for contenttype with locales', () => {
     it('checks that there\'s a localization link for contentype with locales', () => {
         cy.login();
 

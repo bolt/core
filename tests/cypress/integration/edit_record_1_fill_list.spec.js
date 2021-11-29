@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-describe('As an Admin I want to fill in an imagelist', () => {
+describe('As an Admin I want to fill in an imagelist and filelist', () => {
     it('checks if an admin can fill in an imagelist', () => {
         cy.login();
         cy.visit('/bolt/edit/42');
@@ -55,9 +55,7 @@ describe('As an Admin I want to fill in an imagelist', () => {
         cy.get('.editor__imagelist').find('div[class="form-fieldsgroup"]').its('length').should('eq', 4);
         cy.url().should('contain', '/bolt/edit/42?edit_locale=en#media');
     })
-});
 
-describe('As an Admin I want to fill in a filelist', () => {
     it('checks if an admin can fill in an filelist', () => {
         cy.login();
         cy.visit('/bolt/edit/42');

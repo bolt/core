@@ -1,22 +1,18 @@
 /// <reference types="cypress" />
 
-describe('As an Admin I want to see separated content (separator)', () => {
+describe('As an Admin I want to see separators, placeholders and default values', () => {
     it('checks if an admin can see separated content (separator)', () => {
         cy.login();
         cy.visit('/bolt/edit/43');
         cy.get('#field--field-html').find('hr').its('length').should('eq', 1);
     })
-});
 
-describe('As an Admin I want to see placeholder on new content', () => {
     it('checks if an admin can see placeholder on new content', () => {
         cy.login();
         cy.visit('/bolt/new/showcases');
         cy.get('input[name="fields[title]"]').should('have.attr', 'placeholder').and('match', /Placeholder for the title/);
     })
-});
 
-describe('As an Admin, I want to see default values on new content', () => {
     it('checks if an admin can see default values', () => {
         cy.login();
         cy.visit('/bolt');

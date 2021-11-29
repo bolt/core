@@ -1,15 +1,13 @@
 /// <reference types="cypress" />
 
-describe('As an Admin I want to navigate over record listing', () => {
+describe('As an Admin I want to use record listing', () => {
     it('checks that an admin can navigate over the record listing', () => {
         cy.login();
         cy.get('a[rel=next]').scrollIntoView();
         cy.get('a[rel=next]').click();
         cy.get('#listing .listing__row .is-details a').should('exist');
     })
-});
 
-describe('As an Admin I want to sort content', () => {
     it('checks that an admin can sort content', () => {
         cy.login();
         cy.visit('/bolt');
@@ -26,9 +24,7 @@ describe('As an Admin I want to sort content', () => {
         cy.get('.listing__row--list').eq(0).find('li').eq(1).should('contain', 'Admin');
         cy.get('.listing__row--list').eq(3).find('li').eq(1).should('not.contain', 'Admin');
     })
-});
 
-describe('As an Admin I want to filter content', () => {
     it('checks that an admin can filter content', () => {
         cy.login();
         cy.visit('/bolt/content/entries');
@@ -57,16 +53,12 @@ describe('As an Admin I want to filter content', () => {
         cy.url().should('contain', '/bolt/content/entries?sortBy=&filter=');
         cy.get('.listing--container').its('length').should('eq', 10);
     })
-});
 
-describe('As a user I want to see contenttype listing', () => {
     it('checks that a user can see the contenttype listing', () => {
         cy.visit('/pages');
         cy.get('article').its('length').should('eq', 6);
     })
-});
 
-describe('As an admin I want to see expanded and compact contenttype listing', () => {
     it('checks that an admin can expand and compact the contenttype listing', () => {
         cy.login();
         cy.visit('/bolt/content/pages');
@@ -82,9 +74,7 @@ describe('As an admin I want to see expanded and compact contenttype listing', (
         cy.get('div[class="listing__row--item is-thumbnail"]').should('be.visible');
         cy.get('span[class="listing__row--item-title-excerpt"]').should('be.visible');
     })
-});
 
-describe('As an admin I want to see the the last edited records in the sidebar', () => {
     it('checks that an admin can see the last edited records in the sidebar', () => {
         cy.login();
         cy.visit('/bolt/edit/74');
@@ -96,9 +86,7 @@ describe('As an admin I want to see the the last edited records in the sidebar',
         cy.get('#bolt--sidebar ul li:nth-child(8) ul > li:nth-child(1) > a').find('span').should('contain', 'New');
         cy.get('#bolt--sidebar ul li:nth-child(8) ul > li:nth-child(2) > a').find('span').should('contain', 'Title of the test');
     })
-});
 
-describe('As an admin I want to see the settings menu items', () => {
     it('checks that an admin can see the settings menu items', () => {
         cy.login();
 

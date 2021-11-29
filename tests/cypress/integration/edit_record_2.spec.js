@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-describe('As an Admin I want to view saved changes of a record', () => {
+describe('As an Admin I want to view saved changes of a record or preview these', () => {
     it('checks if an admin can view saved changes on a record', () => {
         cy.login();
         cy.visit('/bolt/edit/2');
@@ -23,9 +23,7 @@ describe('As an Admin I want to view saved changes of a record', () => {
         cy.get('h1').should('not.contain', 'This is the title in the wrong locale');
         cy.get('h1').should('contain', 'This is the title in the right locale');
     })
-});
 
-describe('As an Admin I want to preview an edited record', () => {
     it('checks if an admin can preview an edited record', () => {
         cy.login();
         cy.visit('/bolt/edit/30');

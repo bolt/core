@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-describe('As an Admin I want to see the files in the "Files" section', () => {
+describe('As an Admin I am able to use the files section', () => {
     it('checks if an admin can see the files in the Files section', () => {
         cy.login();
         cy.visit('/bolt/filemanager/themes');
@@ -10,9 +10,7 @@ describe('As an Admin I want to see the files in the "Files" section', () => {
         cy.visit('/bolt/filemanager/files');
         cy.get('.path').should('contain', 'Path: files/');
     })
-});
 
-describe('As an Admin I want to delete a file from the "Files" section', () => {
     it('checks if an admin can delete files in the Files section', () => {
         cy.login();
         cy.visit('/bolt/filemanager/files');
@@ -28,9 +26,7 @@ describe('As an Admin I want to delete a file from the "Files" section', () => {
         cy.get('.toast-body').should('contain', 'File deleted successfully');
         cy.get('#files-list tr').should('not.contain', '_b-penguin.jpeg');
     })
-});
 
-describe('As an Admin I want accidentally click delete file and want to cancel', () => {
     it('checks if an admin can cancel deleting files in the Files section', () => {
         cy.login();
         cy.visit('/bolt/filemanager/files');
@@ -46,9 +42,7 @@ describe('As an Admin I want accidentally click delete file and want to cancel',
         cy.get('.toast-body').should('not.exist');
         cy.get('#files-list tr').should('contain', '_a-sunrise.jpeg');
     })
-});
 
-describe('As an Admin I want to duplicate a file', () => {
     it('checks if an admin can duplicate files in the Files section', () => {
         cy.login();
         cy.visit('/bolt/filemanager/files');
@@ -81,9 +75,7 @@ describe('As an Admin I want to duplicate a file', () => {
         cy.get('.modal-dialog').should('have.length', 1);
         cy.get('button[class="btn btn-primary bootbox-accept"]').click();
     })
-});
 
-describe('As an admin I want to create and delete a folder', () => {
     it('checks if an admin can create and delete folders in the Files section', () => {
         cy.login();
         cy.visit('/bolt/filemanager/files');
