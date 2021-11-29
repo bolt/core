@@ -69,7 +69,7 @@ final class ContentExtension implements QueryCollectionExtensionInterface, Query
         $queryBuilder->setParameter('status', Statuses::PUBLISHED);
 
         //todo: Fix this when https://github.com/doctrine/orm/issues/3835 closed.
-        if (! empty($this->viewlessContentTypes)) {
+        if ($this->viewlessContentTypes->isNotEmpty()) {
             $queryBuilder->andWhere(sprintf('%s.contentType NOT IN (:cts)', $rootAlias));
             $queryBuilder->setParameter('cts', $this->viewlessContentTypes);
         }
@@ -82,7 +82,7 @@ final class ContentExtension implements QueryCollectionExtensionInterface, Query
         $queryBuilder->setParameter('status', Statuses::PUBLISHED);
 
         //todo: Fix this when https://github.com/doctrine/orm/issues/3835 closed.
-        if (! empty($this->viewlessContentTypes)) {
+        if ($this->viewlessContentTypes->isNotEmpty()) {
             $queryBuilder->andWhere('c.contentType NOT IN (:cts)');
             $queryBuilder->setParameter('cts', $this->viewlessContentTypes);
         }

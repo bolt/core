@@ -33,13 +33,13 @@ parameters:
 
         # false positive: An item to the Logger's Record added by us isn't recognized
         -
-            message: "#Offset 'location' does not exist on array#"
+            message: "#Offset '.*' ([a-z ]*)on array#"
             path: %currentWorkingDirectory%/src/Log/LogHandler.php
 
-        # false positive: UserPasswordHasherInterface::isPasswordValid() given UserInterface
+        # False positive: `id` on Entities
         -
-        	message: '#UserPasswordHasherInterface::isPasswordValid\(\)#'
-        	path: %currentWorkingDirectory%/src/Security/LoginFormAuthenticator.php
+            message: '#Property Bolt\\Entity\\(.*)::\$id is never written, only read#'
+            path: %currentWorkingDirectory%/src/Entity/*
 
 includes:
 	- vendor/phpstan/phpstan-symfony/extension.neon

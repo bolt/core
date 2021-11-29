@@ -22,7 +22,7 @@ class FieldType extends Collection
         );
     }
 
-    private static function defaults(): Collection
+    protected static function defaults(): Collection
     {
         return new Collection([
             'slug' => '',

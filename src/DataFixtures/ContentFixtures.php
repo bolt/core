@@ -247,7 +247,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
 
                             try {
                                 return $this->faker->{$match};
-                            } catch (\Throwable $e) {
+                            } finally {
                             }
 
                             return '(unknown)';

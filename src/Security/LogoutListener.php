@@ -18,15 +18,11 @@ class LogoutListener implements LogoutHandlerInterface
 {
     use LoggerTrait;
 
-    /** @var EntityManagerInterface */
-    private $em;
-
     /** @var SessionInterface */
     private $session;
 
-    public function __construct(EntityManagerInterface $em, SessionInterface $session)
+    public function __construct(SessionInterface $session)
     {
-        $this->em = $em;
         $this->session = $session;
     }
 
