@@ -46,14 +46,12 @@ csclear: ## to clean cache and check coding style
 cscheck: ## to check coding style
 	make csclear
 	vendor/bin/ecs check src
-	vendor/bin/ecs check tests/spec
 	vendor/bin/ecs check tests/php
 	make stancheck
 
 csfix: ## to fix coding style
 	make csclear
 	vendor/bin/ecs check src --fix
-	vendor/bin/ecs check tests/spec --fix
 	vendor/bin/ecs check tests/php --fix
 	make stancheck
 
@@ -61,7 +59,6 @@ stancheck: ## to run phpstan
 	vendor/bin/phpstan --memory-limit=1G analyse -c phpstan.neon src
 
 test: ## to run phpunit tests
-	vendor/bin/phpspec run
 	vendor/bin/phpunit
 
 full-test: ## to run full tests
@@ -155,8 +152,7 @@ docker-db-update: ## to update schema database with docker
 docker-npm-fix-env: ## to rebuild asset sass
 	$(DC_RUN) node sh -c "npm rebuild node-sass"
 
-docker-test: ## to run phpspec and phpunit tests with docker
-	docker-compose exec -T php sh -c "vendor/bin/phpspec run"
+docker-test: ## to run phpunit tests with docker
 	docker-compose exec -T php sh -c "vendor/bin/phpunit"
 
 docker-server: ## to start server with docker
