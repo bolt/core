@@ -2,8 +2,9 @@
 {% for contentType, relation in record.definition.relations %}
 
     {% set options = related_options(contentType, relation.order|default(), relation.format|default(), relation.required) %}
-    {% set value = record|related_values(contentType) %}{# Set the prefix and postfix attributes #}
+    {% set value = record|related_values(contentType) %}
 
+    {# Set the prefix and postfix attributes #}
     {% set prefix = prefix|default(relation['prefix']|default) %}
     {% if prefix and not (prefix starts with '<p' or prefix starts with '<span' or prefix starts with '<div') %}
         {% set prefix = '<div id="' ~ contentType ~ '_prefix" class="form--helper">' ~ prefix|markdown ~ '</div>' %}
