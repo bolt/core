@@ -37,15 +37,18 @@ global:
     maintenance-mode: [ ROLE_EDITOR ] # view the frontend when in maintenance mode
     systemlog: [ ROLE_ADMIN ]
     api_admin: [ ROLE_ADMIN ] # WARNING: this only shows/hides api in the bolt admin, it doesn't protect the /api route(s)
-    bulk_operations: [ ROLE_CHIEF_EDITOR ]
+    bulk_operations: [ ROLE_EDITOR ]
     kitchensink: [ ROLE_ADMIN ]
-    upload: [ ROLE_EDITOR ] 
+    upload: [ ROLE_EDITOR ] # TODO PERMISSIONS upload media/files ? Or should this be handled by managefiles:files
     extensionmenus: [ IS_AUTHENTICATED_REMEMBERED ] # allows you to see menu items added by extensions
     media_edit: [ ROLE_CHIEF_EDITOR ] # edit metadata for images etc.
     fetch_embed_data: [ ROLE_EDITOR ] # get embed (meta)data for urls via the back-end (needed to embed youtube etc.)
     list_files:config: [ ROLE_ADMIN ] # should probably not be used?
     list_files:files: [ ROLE_EDITOR ] # get list of files (images?) available for use as site-content
     list_files:themes: [ ROLE_ADMIN ] # should probably not be used?
+    api:get: [ ROLE_WEBSERVICE ] # allow read access to Bolt's RESTful and GraphQL API
+    api:post: [ ROLE_WEBSERVICE ] # allow write access to Bolt's RESTful and GraphQL API
+    api:delete: [ ROLE_WEBSERVICE ] # allow delete access to Bolt's RESTful and GraphQL API
 
 # For content type related actions, permissions can be set individually for
 # each content type. For this, we define three groups of permission sets.
@@ -104,7 +107,7 @@ contenttype-base:
     change-ownership: [ ROLE_CHIEF_EDITOR ]
     view: [ ROLE_CHIEF_EDITOR ] # = show in menu, show listings, open 'edit' view without actually being able to edit, any of the other permissions always imply 'view'
 
-# these permissions are used as a default for contenttypes, they are added to the base permissions 
+# these permissions are used as a default for contenttypes, they are added to the base permissions
 # you can override these settings per contenttype by adding it to the `contenttypes:` array
 contenttype-default:
     edit: [ ROLE_EDITOR, CONTENT_OWNER ]
@@ -140,7 +143,7 @@ contenttypes:
 #        edit: [ ROLE_EDITOR, CONTENT_OWNER ]
 #        create: [ ROLE_EDITOR ]
 #        change-ownership: [ CONTENT_OWNER ]
-#        view: [ ROLE_EDITOR ] 
+#        view: [ ROLE_EDITOR ]
 #    homepage: # singleton
 #        view: [ ROLE_EDITOR ]
 #        edit: [ ROLE_EDITOR ]

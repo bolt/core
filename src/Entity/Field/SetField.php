@@ -42,6 +42,8 @@ class SetField extends Field implements FieldInterface, FieldParentInterface, Li
 
         /** @var Field $field */
         foreach ($fields as $field) {
+            // todo: This should be able to handle an array of fields
+            // in key-value format, not just Field.php types.
             $field->setParent($this);
             $value[$field->getName()] = $field;
         }
