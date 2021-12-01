@@ -98,3 +98,25 @@
         {{- datetime|date('c') -}}
     </abbr>
 {% endapply %}{% endmacro %}
+
+{#
+ Variables
+    'prefix': Is the prefix string
+    'id':     Is a string
+#}
+{% macro generatePrefix(prefix, id) %}{% apply spaceless %}
+    {% if prefix and not (prefix starts with '<p' or prefix starts with '<span' or prefix starts with '<div') %}
+        <div id="{{ id }} ~ '_prefix'" class="form--helper">{{ prefix|markdown }}</div>
+    {% endif %}
+{% endapply %}{% endmacro %}
+
+{#
+ Variables
+    'postfix': Is the postfix string
+    'id':      Is a string
+#}
+{% macro generatePostfix(postfix, id) %}{% apply spaceless %}
+    {% if postfix and not (postfix starts with '<p' or postfix starts with '<span' or postfix starts with '<div') %}
+        <div id="{{ id }} ~ '_postfix'" class="form--helper">{{ postfix|markdown }}</div>
+    {% endif %}
+{% endapply %}{% endmacro %}
