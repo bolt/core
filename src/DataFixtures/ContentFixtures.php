@@ -367,6 +367,14 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 }
 
                 break;
+            case 'geolocation':
+                $data = ['selected' => 'latlong', 'zoom' => '7', 'search' => ''];
+                $coordinates = $this->faker->localCoordinates();
+                $data['lat'] = $coordinates['latitude'];
+                $data['long'] =$coordinates['longitude'];
+                $data = [json_encode($data)];
+
+                break;
             default:
                 $data = [$this->faker->sentence(6, true)];
         }
