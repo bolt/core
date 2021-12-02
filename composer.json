@@ -55,7 +55,7 @@
         "symfony/framework-bundle": "^5.3",
         "symfony/http-client": "^5.3",
         "symfony/mailer": "^5.3",
-        "symfony/mime": "5.3",
+        "symfony/mime": "^5.3",
         "symfony/monolog-bridge": "^5.3",
         "symfony/monolog-bundle": "^3.7",
         "symfony/password-hasher": "^5.3",
