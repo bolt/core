@@ -9,10 +9,13 @@ use Bolt\Entity\Field\NumberField;
 use Bolt\Utils\ContentHelper;
 use Carbon\Carbon;
 use Iterator;
+use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
+use Twig\TwigFunction;
 
 /**
  * Bolt specific Twig functions and filters that provide array manipulation.
@@ -29,12 +32,16 @@ final class ArrayExtension extends AbstractExtension
 
     /** @var string */
     private $defaultLocale;
+    
+    /** @var RequestStack */
+    private $requestStack;
 
-    public function __construct(ContentHelper $contentHelper, LocaleExtension $localeExtension, string $defaultLocale)
+    public function __construct(ContentHelper $contentHelper, LocaleExtension $localeExtension, string $defaultLocale, RequestStack $requestStack)
     {
         $this->contentHelper = $contentHelper;
         $this->localeExtension = $localeExtension;
         $this->defaultLocale = $defaultLocale;
+        $this->requestStack = $requestStack;
     }
 
     /**
@@ -48,6 +55,16 @@ final class ArrayExtension extends AbstractExtension
             new TwigFilter('order', [$this, 'order'], $env),
             new TwigFilter('shuffle', [$this, 'shuffle']),
             new TwigFilter('length', [$this, 'length'], $env),
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getFunctions(): array
+    {
+        return [
+            new TwigFunction('paginate', [$this, 'paginate']),
         ];
     }
 
@@ -102,6 +119,32 @@ final class ArrayExtension extends AbstractExtension
             return $this->orderHelper($a, $b, $orderOnSecondary, $orderAscendingSecondary, $locale);
         });
 
+        return $array;
+    }
+
+    /**
+     * Paginate filter results so you wont have random amounts of pages in random pages
+     */
+    public function paginate($array, int $pageSize = 10): Pagerfanta
+    {
+        if ($array instanceof Pagerfanta) {
+            return $array;
+        }
+        $array = new Pagerfanta(new ArrayAdapter($array));
+        $array->setMaxPerPage($pageSize);
+
+        $currentPage = array_merge(
+            $this->requestStack->getCurrentRequest()->get('_route_params'),
+            $this->requestStack->getCurrentRequest()->query->all()
+        );
+        //Set the default page to 1 if the page is not set
+        if (array_key_exists('page', $currentPage)) {
+            $array->setCurrentPage((int) $currentPage["page"]);
+        } else {
+            $array->setCurrentPage(1);
+        }
+
+        $array->getNbResults();
         return $array;
     }
 
