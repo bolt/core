@@ -1,3 +1,5 @@
+{% import '_macro/_macro.html.twig' as macro %}
+
 {% for taxonomy in record.definition.taxonomy %}
 
         {% set definition = config.get('taxonomies/' ~ taxonomy) %}
@@ -7,6 +9,11 @@
             {% set value = taxonomy_values(record.taxonomies, definition) %}
 
             <div class="form-group is-normal">
+
+                {# Print prefix #}
+                {% if definition['prefix']|default() is not empty %}
+                    {{ macro.generatePrefix(definition['prefix'], taxonomy) }}
+                {% endif %}
 
                 {% include '@bolt/_partials/fields/_label.html.twig' with {
                     'id': 'taxonomy-' ~ definition.slug,
@@ -25,6 +32,11 @@
                             :allowempty="{{ definition.required ? 'false' : 'true' }}"
                     ></editor-select>
                 </div>
+
+                {# Print postfix #}
+                {% if definition['postfix']|default() is not empty %}
+                    {{ macro.generatePostfix(definition['postfix'], taxonomy) }}
+                {% endif %}
 
             </div>
 

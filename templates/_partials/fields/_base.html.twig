@@ -1,3 +1,5 @@
+{% import '_macro/_macro.html.twig' as macro %}
+
 {%- apply spaceless -%}
 
 {# This template fragment is used to "extend" the different fields, used in
@@ -120,17 +122,6 @@
 {# Set the locale #}
 {% set localize = field.definition.localize|default %}
 
-{# Set the prefix and postfix attributes #}
-{% set prefix = prefix|default(field.definition.prefix|default) %}
-{% if prefix and not (prefix starts with '<p' or prefix starts with '<span' or prefix starts with '<div') %}
-    {% set prefix = '<div id="' ~ id ~ '_prefix" class="form--helper">' ~ prefix|markdown ~ '</div>' %}
-{% endif %}
-
-{% set postfix = postfix|default(field.definition.postfix|default) %}
-{% if postfix and not (postfix starts with '<p' or postfix starts with '<span' or postfix starts with '<div') %}
-    {% set postfix = '<div id="' ~ id ~ '_postfix" class="form--helper">' ~ postfix|markdown ~ '</div>' %}
-{% endif %}
-
 {%- endapply -%}
 
 <!-- field "{{ label }}" (type: {{ type }}{% if variant != 'normal' %}, variant: {{ variant }}{% endif %}) -->
@@ -139,7 +130,10 @@
     id="field--{{ id }}"
 >
 
-{{ prefix|raw }}
+{# Print prefix #}
+{% if field.definition['prefix']|default() is not empty %}
+    {{ macro.generatePrefix(field.definition['prefix']|default(), id) }}
+{% endif %}
 
 {% if variant == 'inline' %}<div class="row"><div class="col-3">{% endif %}
 
@@ -158,7 +152,10 @@
 
 {% if variant == 'inline' %}</div></div>{% endif %}
 
-{{ postfix|raw }}
+{# Print postfix #}
+{% if field.definition['postfix']|default() is not empty %}
+    {{ macro.generatePostfix(field.definition['postfix']|default(), id) }}
+{% endif %}
 
 {{ separator|raw }}
 </div>
