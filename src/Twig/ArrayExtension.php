@@ -124,7 +124,6 @@ final class ArrayExtension extends AbstractExtension
 
     /**
      * Paginate filter results so you wont have random amounts of pages in random pages
-     * @var Pagerfanta|array $array
      */
     public function paginate($array, int $pageSize = 10): Pagerfanta
     {
