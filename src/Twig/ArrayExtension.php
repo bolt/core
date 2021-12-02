@@ -10,13 +10,12 @@ use Bolt\Utils\ContentHelper;
 use Carbon\Carbon;
 use Iterator;
 use Pagerfanta\Adapter\ArrayAdapter;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Pagerfanta\Pagerfanta;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
-
 
 /**
  * Bolt specific Twig functions and filters that provide array manipulation.
@@ -35,7 +34,7 @@ final class ArrayExtension extends AbstractExtension
     private $defaultLocale;
     
     /** @var RequestStack */
-    private $requestStack;    
+    private $requestStack;
 
     public function __construct(ContentHelper $contentHelper, LocaleExtension $localeExtension, string $defaultLocale, RequestStack $requestStack)
     {
@@ -140,10 +139,9 @@ final class ArrayExtension extends AbstractExtension
             $this->requestStack->getCurrentRequest()->query->all()
         );
         //Set the default page to 1 if the page is not set
-        if (array_key_exists('page', $currentPage)){
+        if (array_key_exists('page', $currentPage)) {
             $array->setCurrentPage((int) $currentPage["page"]);
-        }
-        else {
+        } else {
             $array->setCurrentPage(1);
         }
 
