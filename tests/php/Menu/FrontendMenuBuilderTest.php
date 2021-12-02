@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bolt\Tests\Menu;
 
 use Bolt\Collection\DeepCollection;
