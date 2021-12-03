@@ -14,7 +14,6 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
-use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 /**
  * @Security("is_granted('fetch_embed_data')")
@@ -26,9 +25,8 @@ class EmbedController implements AsyncZoneInterface
     /** @var Request */
     private $request;
 
-    public function __construct(CsrfTokenManagerInterface $csrfTokenManager, RequestStack $requestStack)
+    public function __construct(RequestStack $requestStack)
     {
-        $this->csrfTokenManager = $csrfTokenManager;
         $this->request = $requestStack->getCurrentRequest();
     }
 

@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-describe('Edit user successfully', () => {
+describe('Edit user successfully, Edit users incorrectly', () => {
     it('checks that an admin can edit users', () => {
         cy.login();
         cy.visit('/bolt/users');
@@ -23,9 +23,25 @@ describe('Edit user successfully', () => {
         cy.url().should('contain', 'bolt/users');
         cy.get('table:nth-child(1) > tbody > tr:nth-child(6)').children('td').eq(1).should('contain', 'Tom Doe CHANGED');
     })
-});
 
-describe('Edit user with incorrect display name, password and email', () => {
+    it('checks that a user can change their display name', () => {
+        cy.visit('/bolt/login');
+        cy.get('input[name="login[username]"]').type('jane_chief');
+        cy.get('input[name="login[password]"]').type('jane%1' + '{enter}');
+        cy.visit('/bolt/profile-edit')
+
+        cy.get('#user_displayName').clear();
+        cy.get('#user_displayName').type('Administrator');
+        cy.get('#editcontent > button').scrollIntoView();
+        cy.get('#editcontent > button').click();
+
+        cy.wait(500);
+
+        cy.get('div[class="toast fade show"]').children('.toast-body').should('contain', 'User Profile has been updated!')
+        cy.get('#user_displayName').invoke('val').should('contain', 'Administrator');
+        cy.visit('/bolt/logout');
+    })
+
     it('checks that an admin can\'t edit a user with incorrect details', () => {
         cy.login();
         cy.visit('/bolt/user-edit/2');
@@ -45,9 +61,7 @@ describe('Edit user with incorrect display name, password and email', () => {
         cy.get('.field-error').eq(2).children('.help-block').children('.list-unstyled').children('li').should('contain', 'Invalid email');
         cy.get('.form-group').eq(2).children('div').eq(1).should('contain', 'Suggested secure password');
     })
-});
 
-describe('Edit my user with incorrect display name', () => {
     it('checks that a user can\'t edit their profile with an incorrect display name', () => {
         cy.visit('/bolt/login');
         cy.get('input[name="login[username]"]').type('jane_chief');
@@ -72,24 +86,5 @@ describe('Edit my user with incorrect display name', () => {
         cy.get('.field-error').eq(0).children('.help-block').children('.list-unstyled').children('li').should('contain', 'Invalid display name');
         cy.visit('/bolt/logout')
     })
-});
 
-describe('Edit my user to change display name', () => {
-    it('checks that a user can change their display name', () => {
-        cy.visit('/bolt/login');
-        cy.get('input[name="login[username]"]').type('jane_chief');
-        cy.get('input[name="login[password]"]').type('jane%1' + '{enter}');
-        cy.visit('/bolt/profile-edit')
-
-        cy.get('#user_displayName').clear();
-        cy.get('#user_displayName').type('Administrator');
-        cy.get('#editcontent > button').scrollIntoView();
-        cy.get('#editcontent > button').click();
-
-        cy.wait(500);
-
-        cy.get('div[class="toast fade show"]').children('.toast-body').should('contain', 'User Profile has been updated!')
-        cy.get('#user_displayName').invoke('val').should('contain', 'Administrator');
-        cy.visit('/bolt/logout');
-    })
 });

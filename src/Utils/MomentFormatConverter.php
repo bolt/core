@@ -18,7 +18,7 @@ class MomentFormatConverter
      *
      * @var array
      */
-    private static $formatConvertRules = [
+    protected static $formatConvertRules = [
         // year
         'yyyy' => 'YYYY',
         'yy' => 'YY',

@@ -43,10 +43,14 @@ services:
       - /etc/nginx/conf.d/entrypoint.sh
 
   node:
-    image: node:latest
+    image: node:16.13.0
     volumes:
       - ./:/home/node/app
     working_dir: /home/node/app
+    command:
+      - ./node_modules/.bin/encore
+      - dev
+      - --watch
 
   padm:
     image: phpmyadmin/phpmyadmin

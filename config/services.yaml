@@ -90,6 +90,18 @@ services:
         tags:
             - { name: knp_menu.menu_builder, method: createAdminMenu, alias: admin_menu } # The alias is what is used to retrieve the menu
 
+    Bolt\Cache\RelatedOptionsUtilityCacher:
+        decorates: Bolt\Utils\RelatedOptionsUtility
+
+    Bolt\Cache\CanonicalCacher:
+        decorates: Bolt\Canonical
+
+    Bolt\Cache\SelectOptionsCacher:
+        decorates: Bolt\Twig\FieldExtension
+
+    Bolt\Cache\ContentToArrayCacher:
+        decorates: Bolt\Twig\JsonExtension
+
     Bolt\Menu\BackendMenuBuilderInterface: '@Bolt\Menu\BackendMenu'
 
     Bolt\Menu\FrontendMenuBuilder: ~
@@ -142,3 +154,7 @@ services:
         class: Jasny\Twig\ArrayExtension
         tags:
             - { name: twig.extension }
+
+    Bolt\Api\ContentDataPersister:
+        decorates: 'api_platform.doctrine.orm.data_persister'
+    

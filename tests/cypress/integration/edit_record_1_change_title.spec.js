@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-describe('As an Admin I want to change title of a record', () => {
+describe('As an Admin I want to change the title and the locale of a record', () => {
     it("checks if an admin can change a record's title", () => {
         cy.login();
         cy.visit('/bolt/edit/30');
@@ -15,9 +15,7 @@ describe('As an Admin I want to change title of a record', () => {
         cy.wait(1000);
         cy.get('input[id="field-title"]').should('have.value', 'Changed title');
     })
-});
 
-describe('As an Admin I want to change title of a record in another language', () => {
     it("checks if an admin can change a record's title in another language", () => {
         cy.login();
         cy.visit('/bolt/edit/1');

@@ -8,10 +8,7 @@ use Bolt\Configuration\Config;
 use Bolt\Entity\Content;
 use Bolt\Entity\Relation;
 use Bolt\Repository\RelationRepository;
-use Bolt\Storage\Query;
-use Bolt\Utils\ContentHelper;
-use Symfony\Contracts\Cache\ItemInterface;
-use Symfony\Contracts\Cache\TagAwareCacheInterface;
+use Bolt\Utils\RelatedOptionsUtility;
 use Tightenco\Collect\Support\Collection;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
@@ -25,26 +22,22 @@ class RelatedExtension extends AbstractExtension
     /** @var Config */
     private $config;
 
-    /** @var Query */
-    private $query;
-
-    /** @var ContentHelper */
-    private $contentHelper;
-
     /** @var Notifications */
     private $notifications;
 
-    /** @var TagAwareCacheInterface */
-    private $cache;
+    /** @var RelatedOptionsUtility */
+    private $optionsUtility;
 
-    public function __construct(RelationRepository $relationRepository, Config $config, Query $query, ContentHelper $contentHelper, Notifications $notifications, TagAwareCacheInterface $cache)
+    public function __construct(
+        RelationRepository $relationRepository,
+        Config $config,
+        Notifications $notifications,
+        RelatedOptionsUtility $optionsUtility)
     {
         $this->relationRepository = $relationRepository;
         $this->config = $config;
-        $this->query = $query;
-        $this->contentHelper = $contentHelper;
         $this->notifications = $notifications;
-        $this->cache = $cache;
+        $this->optionsUtility = $optionsUtility;
     }
 
     /**
@@ -155,46 +148,9 @@ class RelatedExtension extends AbstractExtension
             $order = $contentType->get('order');
         }
 
-        $cacheKey = 'relatedOptions_' . md5($contentTypeSlug . $order . $format . (string) $required . $maxAmount);
-
-        $options = $this->cache->get($cacheKey, function (ItemInterface $item) use ($contentTypeSlug, $order, $format, $required, $maxAmount) {
-            $item->tag($contentTypeSlug);
-
-            return $this->getRelatedOptionsCache($contentTypeSlug, $order, $format, $required, $maxAmount);
-        });
+        $options = $this->optionsUtility->fetchRelatedOptions($contentTypeSlug, $order, $format, $required, $maxAmount);
 
         return new Collection($options);
-    }
-
-    public function getRelatedOptionsCache(string $contentTypeSlug, string $order, string $format, bool $required, int $maxAmount): array
-    {
-        $pager = $this->query->getContent($contentTypeSlug, ['order' => $order])
-            ->setMaxPerPage($maxAmount)
-            ->setCurrentPage(1);
-
-        $records = iterator_to_array($pager->getCurrentPageResults());
-
-        $options = [];
-
-        // We need to add this as a 'dummy' option for when the user is allowed
-        // not to pick an option. This is needed, because otherwise the `select`
-        // would default to the first one.
-        if ($required === false) {
-            $options[] = [
-                'key' => '',
-                'value' => '',
-            ];
-        }
-
-        /** @var Content $record */
-        foreach ($records as $record) {
-            $options[] = [
-                'key' => $record->getId(),
-                'value' => $this->contentHelper->get($record, $format),
-            ];
-        }
-
-        return $options;
     }
 
     public function getRelatedValues(Content $source, string $contentType): Collection

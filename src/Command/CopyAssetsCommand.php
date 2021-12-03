@@ -77,7 +77,6 @@ class CopyAssetsCommand extends Command
             try {
                 $this->filesystem->remove($targetDir);
                 $this->hardCopy($originDir, $targetDir);
-
                 $rows[] = [sprintf('<fg=green;options=bold>%s</>', "\xE2\x9C\x94"), $message, 'copied'];
             } catch (\Throwable $e) {
                 $exitCode = 1;
@@ -85,14 +84,12 @@ class CopyAssetsCommand extends Command
             }
         }
 
-        if (! empty($rows)) {
-            $io->table(['', 'Folder', 'Method / Error'], $rows);
-        }
+        $io->table(['', 'Folder', 'Method / Error'], $rows);
 
         if ($exitCode !== 0) {
             $io->error('Some errors occurred while installing assets.');
         } else {
-            $io->success(! empty($rows) ? 'All assets were successfully installed.' : 'No assets were provided by any bundle.');
+            $io->success('All assets were successfully installed.');
         }
 
         return $exitCode;

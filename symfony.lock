@@ -449,12 +449,6 @@
     "phpdocumentor/type-resolver": {
         "version": "1.0.1"
     },
-    "phpspec/php-diff": {
-        "version": "v1.1.0"
-    },
-    "phpspec/phpspec": {
-        "version": "6.1.1"
-    },
     "phpspec/prophecy": {
         "version": "v1.10.2"
     },

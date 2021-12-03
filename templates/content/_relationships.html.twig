@@ -1,3 +1,4 @@
+{% import '_macro/_macro.html.twig' as macro %}
 
 {% for contentType, relation in record.definition.relations %}
 
@@ -5,6 +6,11 @@
     {% set value = record|related_values(contentType) %}
 
     <div class="form-group is-normal">
+
+        {# Print prefix #}
+        {% if relation['prefix']|default() is not empty %}
+            {{ macro.generatePrefix(relation['prefix']|default, contentType) }}
+        {% endif %}
 
         {% include '@bolt/_partials/fields/_label.html.twig' with {
             'id': 'relationship-' ~ contentType,
@@ -24,6 +30,11 @@
                     :searchable=true
             ></editor-select>
         </div>
+
+        {# Print postfix #}
+        {% if relation['postfix']|default() is not empty %}
+            {{ macro.generatePostfix(relation['postfix']|default, contentType) }}
+        {% endif %}
 
     </div>
 

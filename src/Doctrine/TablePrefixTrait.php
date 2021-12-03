@@ -54,6 +54,6 @@ trait TablePrefixTrait
      */
     protected function getTablePrefix(): string
     {
-        return current($this->tablePrefixes) ?? '';
+        return current($this->tablePrefixes);
     }
 }

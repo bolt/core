@@ -28,9 +28,7 @@ describe('View users and permissions', () => {
         cy.get('table').eq(0).find('tbody').find('tr').find('td').eq(4).find('small').find('code').should('contain', '127.0.0.1');
         cy.get('table').eq(0).find('tbody').find('tr').find('td').eq(5).should('contain', 'Options');
     })
-});
 
-describe('View current sessions', () => {
     it('checks that an admin can view the currently running sessions', () => {
         cy.login();
         cy.visit('/bolt/users');

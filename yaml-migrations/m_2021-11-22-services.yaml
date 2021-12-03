@@ -1,0 +1,15 @@
+# Adding the new services for Bolt 5.1.0
+# See: https://github.com/bolt/core/pull/2980
+file: services.yaml
+since: 5.1.0
+
+add:
+    services:
+        Bolt\Cache\RelatedOptionsUtilityCacher:
+            decorates: Bolt\Utils\RelatedOptionsUtility
+        Bolt\Cache\CanonicalCacher:
+            decorates: Bolt\Canonical
+        Bolt\Cache\SelectOptionsCacher:
+            decorates: Bolt\Twig\FieldExtension
+        Bolt\Cache\ContentToArrayCacher:
+            decorates: Bolt\Twig\JsonExtension

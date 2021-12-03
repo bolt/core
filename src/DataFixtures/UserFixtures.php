@@ -10,12 +10,12 @@ use Bolt\Enum\UserStatus;
 use Bolt\Repository\UserRepository;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserFixtures extends BaseFixture implements FixtureGroupInterface
 {
-    /** @var UserPasswordEncoderInterface */
-    private $passwordEncoder;
+    /** @var UserPasswordHasherInterface */
+    private $passwordHasher;
 
     /** @var UserRepository */
     private $users;
@@ -26,9 +26,9 @@ class UserFixtures extends BaseFixture implements FixtureGroupInterface
     /** @var array */
     private $allUsers = [];
 
-    public function __construct(UserPasswordEncoderInterface $passwordEncoder, UserRepository $users)
+    public function __construct(UserPasswordHasherInterface $passwordHasher, UserRepository $users)
     {
-        $this->passwordEncoder = $passwordEncoder;
+        $this->passwordHasher = $passwordHasher;
 
         // If ran with `--append` we append users, and use random passwords for them
         if ($this->getOption('--append')) {
@@ -62,7 +62,7 @@ class UserFixtures extends BaseFixture implements FixtureGroupInterface
             $user = new User();
             $user->setDisplayName($userData['displayname']);
             $user->setUsername($userData['username']);
-            $user->setPassword($this->passwordEncoder->encodePassword($user, $userData['password']));
+            $user->setPassword($this->passwordHasher->hashPassword($user, $userData['password']));
             $user->setEmail($userData['email']);
             $user->setRoles($userData['roles']);
             $user->setLocale('en');

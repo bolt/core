@@ -250,7 +250,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
 
                             try {
                                 return $this->faker->{$match};
-                            } catch (\Throwable $e) {
+                            } finally {
                             }
 
                             return '(unknown)';
@@ -376,6 +376,15 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 if (isset($field['values']) && ($field['values'] instanceof ContentType)) {
                     $data = [\array_rand($field['values']->all())];
                 }
+
+                break;
+            case 'geolocation':
+                $data = ['selected' => 'latlong', 'zoom' => '7', 'search' => ''];
+                $coordinates = $this->faker->localCoordinates();
+                $data['lat'] = $coordinates['latitude'];
+                $data['long'] =$coordinates['longitude'];
+                $data = [json_encode($data)];
+
 
                 break;
             default:

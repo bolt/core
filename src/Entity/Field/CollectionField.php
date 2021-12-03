@@ -56,12 +56,14 @@ class CollectionField extends Field implements FieldInterface, FieldParentInterf
     }
 
     /**
-     * @var FieldInterface[]
+     * @param FieldInterface[] $fields
      */
     public function setValue($fields): Field
     {
         /** @var Field $field */
         foreach ($fields as $field) {
+            // todo: This should be able to handle an array of fields
+            // in key-value format, not just Field.php types.
             $field->setParent($this);
         }
 

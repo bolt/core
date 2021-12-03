@@ -16,9 +16,6 @@ use Bolt\Storage\Query;
 use Bolt\Utils\ContentHelper;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
-use Symfony\Component\Stopwatch\Stopwatch;
-use Symfony\Contracts\Cache\ItemInterface;
-use Symfony\Contracts\Cache\TagAwareCacheInterface;
 use Tightenco\Collect\Support\Collection;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
@@ -42,28 +39,19 @@ class FieldExtension extends AbstractExtension
     /** @var Query */
     private $query;
 
-    /** @var Stopwatch */
-    private $stopwatch;
-
-    /** @var TagAwareCacheInterface */
-    private $cache;
 
     public function __construct(
         Notifications $notifications,
         ContentRepository $contentRepository,
         Config $config,
         ContentHelper $contentHelper,
-        Query $query,
-        Stopwatch $stopwatch,
-        TagAwareCacheInterface $cache)
+        Query $query)
     {
         $this->notifications = $notifications;
         $this->contentRepository = $contentRepository;
         $this->config = $config;
         $this->contentHelper = $contentHelper;
         $this->query = $query;
-        $this->stopwatch = $stopwatch;
-        $this->cache = $cache;
     }
 
     /**
@@ -121,7 +109,7 @@ class FieldExtension extends AbstractExtension
 
     public function getType(Field $field): string
     {
-        return $field->getType() ?? $field->getDefinition()->get('type');
+        return $field->getType();
     }
 
     /**
@@ -131,7 +119,7 @@ class FieldExtension extends AbstractExtension
     {
         $definition = $field->getDefinition();
 
-        if ($definition->get('type') !== 'select' || ! $field->isContentSelect() || ($field->isContentSelect() && $definition->get('mode') === 'format')) {
+        if ($definition->get('type') !== 'select' || ! $field->isContentSelect() || $definition->get('mode') === 'format') {
             return $this->notifications->warning(
                 'Incorrect usage of `selected`-filter',
                 'The `selected`-filter can only be applied to a field of `type: select`, and it must be used as a selector for other content, and without `mode: format`.'
@@ -268,10 +256,14 @@ class FieldExtension extends AbstractExtension
 
         $options = [];
 
-        if (! $field->getDefinition()->get('required')) {
+        // We need to add this as a 'dummy' option for when the user is allowed
+        // not to pick an option. This is needed, because otherwise the `select`
+        // would default to the one.
+        if (! $field->getDefinition()->get('required', true)) {
             $options[] = [
                 'key' => '',
                 'value' => '',
+                'selected' => false,
             ];
         }
 
@@ -288,50 +280,30 @@ class FieldExtension extends AbstractExtension
             'order' => $order,
         ];
 
-        $options = $this->selectOptionsContentTypeCache($contentTypeSlug, $params, $field, $format);
+        $options = $this->selectOptionsHelper($contentTypeSlug, $params, $field, $format);
 
         return new Collection($options);
     }
 
-    private function selectOptionsContentTypeCache(string $contentTypeSlug, array $params, Field $field, string $format)
+    /**
+     * Decorated by `\Bolt\Cache\SelectOptionsCacher`
+     */
+    public function selectOptionsHelper(string $contentTypeSlug, array $params, Field $field, string $format): array
     {
-        $cacheKey = 'selectOptions_' . md5($contentTypeSlug . implode('-', $params));
+        /** @var Content[] $records */
+        $records = iterator_to_array($this->query->getContent($contentTypeSlug, $params)->getCurrentPageResults());
 
-        $this->stopwatch->start('selectOptions');
+        $options = [];
 
-        $options = $this->cache->get($cacheKey, function (ItemInterface $item) use ($contentTypeSlug, $params, $field, $format) {
-            $item->tag($contentTypeSlug);
-
-            /** @var Content[] $records */
-            $records = iterator_to_array($this->query->getContent($contentTypeSlug, $params)->getCurrentPageResults());
-
-            $options = [];
-
-            // We need to add this as a 'dummy' option for when the user is allowed
-            // not to pick an option. This is needed, because otherwise the `select`
-            // would default to the one.
-            if (! $field->getDefinition()->get('required', true)) {
-                $options[] = [
-                    'key' => '',
-                    'value' => '',
-                    'selected' => false,
-                ];
+        foreach ($records as $record) {
+            if ($field->getDefinition()->get('mode') === 'format') {
+                $formattedKey = $this->contentHelper->get($record, $field->getDefinition()->get('format'));
             }
-
-            foreach ($records as $record) {
-                if ($field->getDefinition()->get('mode') === 'format') {
-                    $formattedKey = $this->contentHelper->get($record, $field->getDefinition()->get('format'));
-                }
-                $options[] = [
-                    'key' => $formattedKey ?? $record->getId(),
-                    'value' => $this->contentHelper->get($record, $format),
-                ];
-            }
-
-            return $options;
-        });
-
-        $this->stopwatch->stop('selectOptions');
+            $options[] = [
+                'key' => $formattedKey ?? $record->getId(),
+                'value' => $this->contentHelper->get($record, $format),
+            ];
+        }
 
         return $options;
     }
