@@ -597,9 +597,14 @@ class SelectQuery implements QueryInterface
     private function getRegularFieldWhereExpression(Filter $filter, string $valueAlias): string
     {
         if ($this->utils->isFieldType($this, $filter->getKey(), SelectField::TYPE) && $this->utils->hasJsonSearch()) {
-            // todo: Instead of using only the 1st param, make sure that the whole expression works.
-            // this is the case for things like multiselect: abc || def
-            return sprintf("JSON_SEARCH(%s, 'one', :%s) != ''", $valueAlias, key($filter->getParameters()));
+            $expressions = preg_split('/\s?(AND|OR)\s?/', $filter->getExpression());
+
+            $newExpressions = array_map(function($expression) use ($valueAlias) {
+                preg_match('/:\w+/', $expression, $parameter);
+                return sprintf("JSON_SEARCH(%s, 'one', %s) != ''", $valueAlias, $parameter[0]);
+            }, $expressions);
+
+            return str_replace($expressions, $newExpressions, $filter->getExpression());
         }
 
         $originalLeftExpression = 'content.' . $filter->getKey();
