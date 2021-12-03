@@ -256,10 +256,14 @@ class FieldExtension extends AbstractExtension
 
         $options = [];
 
-        if (! $field->getDefinition()->get('required')) {
+        // We need to add this as a 'dummy' option for when the user is allowed
+        // not to pick an option. This is needed, because otherwise the `select`
+        // would default to the one.
+        if (! $field->getDefinition()->get('required', true)) {
             $options[] = [
                 'key' => '',
                 'value' => '',
+                'selected' => false,
             ];
         }
 

@@ -103,15 +103,22 @@ export default {
         },
     },
     mounted() {
-        const _values = this.value.map ? this.value : [this.value];
+        const _values = !this.value ? [] : this.value.map ? this.value : [this.value];
         const _options = this.options;
 
-        let filterSelectedItems = _values.map(value => {
-            const item = _options.filter(opt => opt.key === value);
-            if (item) {
-                return item[0];
-            }
-        });
+        /**
+         * Filter method is necessary for required fields because the empty option is not
+         * set. If the field is empty, "filterSelectedItems" will contain an undefined
+         * element and "select" will not be filled with the first available option.
+         */
+        let filterSelectedItems = _values
+            .map(value => {
+                const item = _options.filter(opt => opt.key === value);
+                if (item.length > 0) {
+                    return item[0];
+                }
+            })
+            .filter(item => undefined !== item);
 
         if (filterSelectedItems.length === 0) {
             filterSelectedItems = [_options[0]];
