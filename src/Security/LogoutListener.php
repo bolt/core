@@ -9,6 +9,7 @@ use Bolt\Entity\UserAuthToken;
 use Bolt\Log\LoggerTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -18,12 +19,12 @@ class LogoutListener implements LogoutHandlerInterface
 {
     use LoggerTrait;
 
-    /** @var SessionInterface */
-    private $session;
+    /** @var RequestStack */
+    private $requestStack;
 
-    public function __construct(SessionInterface $session)
+    public function __construct(RequestStack $requestStack)
     {
-        $this->session = $session;
+        $this->requestStack = $requestStack;
     }
 
     public function logout(Request $request, Response $response, TokenInterface $token): void
@@ -35,7 +36,7 @@ class LogoutListener implements LogoutHandlerInterface
             return;
         }
 
-        $this->session->invalidate();
+        $this->requestStack->getSession()->invalidate();
 
         $this->logger->notice('User \'{username}\' logged out (manually, auth_token: {token_id}, {ip})', [
             'id' => $user->getId(),

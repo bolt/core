@@ -57,7 +57,7 @@ HELP
      * This method is executed after initialize(). It usually contains the logic
      * to execute to complete this command task.
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         // If we just need to see if tables exist, exit quickly.
         if ($input->getOption('tablesInitialised')) {

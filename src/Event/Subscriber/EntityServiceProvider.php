@@ -60,7 +60,7 @@ class EntityServiceProvider implements EventSubscriberInterface
         Field::setTwig($this->twig);
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             KernelEvents::REQUEST => ['run'],

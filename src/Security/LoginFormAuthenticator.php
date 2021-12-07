@@ -11,6 +11,7 @@ use Bolt\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\RouterInterface;
@@ -50,8 +51,8 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     /** @var Security */
     private $security;
 
-    /** @var SessionInterface */
-    private $session;
+    /** @var RequestStack */
+    private $requestStack;
 
     public function __construct(
         UserRepository $userRepository,
@@ -60,7 +61,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         UserPasswordHasherInterface $passwordHasher,
         EntityManagerInterface $em,
         Security $security,
-        SessionInterface $session
+        RequestStack $requestStack
     ) {
         $this->userRepository = $userRepository;
         $this->router = $router;
@@ -68,7 +69,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         $this->passwordHasher = $passwordHasher;
         $this->em = $em;
         $this->security = $security;
-        $this->session = $session;
+        $this->requestStack = $requestStack;
     }
 
     protected function getLoginUrl(): string
@@ -140,7 +141,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         $this->em->persist($user);
         $this->em->flush();
 
-        $this->session->set('user_auth_token_id', $userAuthToken->getId());
+        $this->requestStack->getSession()->set('user_auth_token_id', $userAuthToken->getId());
 
         $userArr = [
             'id' => $user->getId(),

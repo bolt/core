@@ -18,7 +18,7 @@ class TokenDeauthenticatedSubscriber implements EventSubscriberInterface
         ]);
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             TokenDeauthenticatedEvent::class => 'onTokenDeauthenticated',

@@ -9,7 +9,7 @@ use Tightenco\Collect\Support\Collection;
 
 class TaxonomyType extends DeepCollection
 {
-    public function __call($name, $arguments)
+    public function __call($name, $arguments): mixed
     {
         return $this->get($name);
     }
