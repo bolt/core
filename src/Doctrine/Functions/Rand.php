@@ -13,7 +13,7 @@ class Rand extends FunctionNode
     /** @var SimpleArithmeticExpression */
     private $expression = null;
 
-    public function getSql(\Doctrine\ORM\Query\SqlWalker $sqlWalker)
+    public function getSql(\Doctrine\ORM\Query\SqlWalker $sqlWalker): string
     {
         // value is one if SQLite. See Bolt\Storage\Directive\RandomDirectiveHandler
         if (property_exists($this->expression, 'value') && $this->expression->value === '1') {

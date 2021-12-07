@@ -17,6 +17,7 @@ use Symfony\Component\Filesystem\Exception\IOException;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -33,20 +34,20 @@ class FilemanagerController extends TwigAwareController implements BackendZoneIn
     /** @var MediaRepository */
     private $mediaRepository;
 
-    /** @var SessionInterface */
-    private $session;
+    /** @var RequestStack */
+    protected $requestStack;
 
     private const PAGESIZE = 60;
 
     /** @var Filesystem */
     private $filesystem;
 
-    public function __construct(FileLocations $fileLocations, MediaRepository $mediaRepository, SessionInterface $session, Filesystem $filesystem)
+    public function __construct(FileLocations $fileLocations, MediaRepository $mediaRepository, RequestStack $requestStack, Filesystem $filesystem)
     {
         $this->fileLocations = $fileLocations;
         $this->mediaRepository = $mediaRepository;
-        $this->session = $session;
         $this->filesystem = $filesystem;
+        $this->requestStack = $requestStack;
     }
 
     /**
@@ -54,6 +55,8 @@ class FilemanagerController extends TwigAwareController implements BackendZoneIn
      */
     public function filemanager(string $location): Response
     {
+        $session = $this->requestStack->getSession();
+
         $this->denyAccessUnlessGranted('managefiles:' . $location);
 
         $path = $this->getFromRequest('path', '');
@@ -66,7 +69,7 @@ class FilemanagerController extends TwigAwareController implements BackendZoneIn
 
         if ($this->getFromRequest('view')) {
             $view = $this->getFromRequest('view') === 'cards' ? 'cards' : 'list';
-            $this->session->set('filemanager_view', $view);
+            $session->set('filemanager_view', $view);
         } else {
             $view = $this->getFromRequest('filemanager_view', 'list');
         }

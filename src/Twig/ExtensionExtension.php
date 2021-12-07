@@ -23,7 +23,7 @@ class ExtensionExtension extends AbstractExtension
         $this->registry = $registry;
     }
 
-    public function getTests()
+    public function getTests(): array
     {
         return [
             new TwigTest('extension', [$this, 'extensionExists']),

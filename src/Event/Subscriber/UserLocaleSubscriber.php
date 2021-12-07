@@ -7,6 +7,7 @@ namespace Bolt\Event\Subscriber;
 use Bolt\Entity\User;
 use Bolt\Event\UserEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
@@ -18,20 +19,20 @@ use Symfony\Component\Security\Http\SecurityEvents;
  */
 class UserLocaleSubscriber implements EventSubscriberInterface
 {
-    /** @var SessionInterface */
-    private $session;
-
     /** @var string */
     private $defaultLocale;
 
     /** @var Security */
     private $security;
 
-    public function __construct(SessionInterface $session, string $defaultLocale, Security $security)
+    /** @var RequestStack */
+    private $requestStack;
+
+    public function __construct(RequestStack $requestStack, string $defaultLocale, Security $security)
     {
-        $this->session = $session;
         $this->defaultLocale = $defaultLocale;
         $this->security = $security;
+        $this->requestStack = $requestStack;
     }
 
     public function onInteractiveLogin(InteractiveLoginEvent $event): void
@@ -51,10 +52,10 @@ class UserLocaleSubscriber implements EventSubscriberInterface
 
     private function updateBackendLocale(User $user): void
     {
-        $this->session->set('_backend_locale', $user->getLocale() ?? $this->defaultLocale);
+        $this->requestStack->getSession()->set('_backend_locale', $user->getLocale() ?? $this->defaultLocale);
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             SecurityEvents::INTERACTIVE_LOGIN => 'onInteractiveLogin',
