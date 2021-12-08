@@ -77,6 +77,11 @@ class OrderDirective
      */
     private function setOrderBy(QueryInterface $query, string $order, string $direction, string $locale): void
     {
+        $field = 'name';
+        if (false !== $pos = mb_strpos($order, '.')) {
+            $field = mb_substr($order, $pos + 1);
+            $order = mb_substr($order, 0, $pos);
+        }
         if (in_array($order, $query->getCoreFields(), true)) {
             $query->getQueryBuilder()->addOrderBy('content.' . $order, $direction);
         } elseif ($order === 'author') {
@@ -92,7 +97,7 @@ class OrderDirective
                 ->leftJoin('content.taxonomies', $taxonomy)
                 ->andWhere($taxonomy . '.type = :' . $taxonomySlug)
                 ->setParameter($taxonomySlug, $order)
-                ->addOrderBy($taxonomy . '.name', $direction);
+                ->addOrderBy($taxonomy . '.' . $field, $direction);
         } elseif ($this->isActualField($query, $order)) {
             $fieldsAlias = 'fields_order_' . $query->getIndex();
             $fieldAlias = 'order_' . $query->getIndex();

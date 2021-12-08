@@ -531,23 +531,30 @@ class ContentExtension extends AbstractExtension
         return new Collection($options);
     }
 
-    public function taxonomyValues(\Doctrine\Common\Collections\Collection $current, Collection $taxonomy): Collection
+    /**
+     * @return array<int, Collection>
+     */
+    public function taxonomyValues(\Doctrine\Common\Collections\Collection $current, Collection $taxonomy): array
     {
         $values = [];
+        $orders = [];
 
         foreach ($current as $value) {
             $values[$value->getType()][] = $value->getSlug();
+            $orders[$value->getType()][] = $taxonomy['has_sortorder'] ? $value->getSortorder() : 0;
         }
 
         if ($taxonomy['slug']) {
             $values = $values[$taxonomy['slug']] ?? [];
+            $orders = $orders[$taxonomy['slug']] ?? [];
         }
 
         if (empty($values) && $taxonomy['required']) {
             $values[] = key($taxonomy['options']);
+            $orders = array_fill(0, count($values), 0);
         }
 
-        return new Collection($values);
+        return [new Collection($values), new Collection($orders)];
     }
 
     public function icon(?Content $record = null, string $icon = 'question-circle'): string
