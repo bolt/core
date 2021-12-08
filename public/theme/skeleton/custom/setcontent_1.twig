@@ -197,13 +197,47 @@
             {% setcontent showcases = 'showcases' printquery %}
             {% set showcases = showcases|order('-floatfield') %}
 
-            Results: <span id="results-nine">{{ showcases|length > 0 ? 'yes' }}</span>
+            Results: <span id="results-thirteen">{{ showcases|length > 0 ? 'yes' }}</span>
             <ul>
                 {% for showcase in showcases %}
                     <li>showcase {{ showcase.id }}: {{ showcase.floatfield }}
                         <span class="s{{ loop.index }}">{{ _self.issmaller(showcase.floatfield, last|default()) }}</span>
                     </li>
                     {% set last = showcase.floatfield %}
+                {% endfor %}
+            </ul>
+        </section>
+
+        <section id="fourteen">
+            <h1>Fourteen</h1>
+            {% setcontent pages = 'pages' orderby 'groups.sortorder' printquery %}
+        
+            Results: <span id="results-fourteen">{{ pages|length > 0 ? 'yes' }}</span>
+            <ul>
+                {% for page in pages %}
+                {% set sortorder = (((page|taxonomies).groups)|first).sortorder %}
+                <li>page {{ page.id }}: {{ sortorder }}
+                    <span class="s{{ loop.index }}">{{ _self.isbigger(sortorder, last|default(0)) }}</span>
+                </li>
+                {% set last = sortorder %}
+                
+                {% endfor %}
+            </ul>
+        </section>
+
+        <section id="fifteen">
+            <h1>Fifteen</h1>
+            {% setcontent pages = 'pages' orderby 'groups' printquery %}
+        
+            Results: <span id="results-fifteen">{{ pages|length > 0 ? 'yes' }}</span>
+            <ul>
+                {% for page in pages %}
+                {% set tax = (((page|taxonomies).groups)|first).name %}
+                <li>page {{ page.id }}: {{ tax }}
+                    <span class="s{{ loop.index }}">{{ _self.isbigger(tax, last|default(0)) }}</span>
+                </li>
+                {% set last = tax %}
+        
                 {% endfor %}
             </ul>
         </section>

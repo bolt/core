@@ -15,6 +15,12 @@ describe('As a user I want to see the results of Setcontent', () => {
         cy.get('main').should('not.contain', '[no]');
     })
 
+    it('checks that the Setcontent order by taxonomy sortorder', () => {
+        cy.visit('/page/setcontent-test-page');
+        cy.get('#results-fourteen').should('contain', 'yes');
+        cy.get('#results-fifteen').should('contain', 'yes');
+    })
+
     it('checks that the Setcontent is visible on a translated page as a user', () => {
         cy.visit('/nl/page/setcontent-test-page');
         cy.get('#results-one').should('contain', 'yes');
