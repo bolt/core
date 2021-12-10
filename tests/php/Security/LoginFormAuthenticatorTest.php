@@ -11,6 +11,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\RouterInterface;
@@ -61,7 +62,7 @@ class LoginFormAuthenticatorTest extends TestCase
         $this->getTestObj(null, null, $csrfTokenManager, null, null, null)->getUser(self::TEST_TOKEN, $this->createMock(UserProviderInterface::class));
     }
 
-    private function getTestObj(?UserRepository $userRepository, ?RouterInterface $router, ?CsrfTokenManagerInterface $csrfTokenManager, ?UserPasswordHasherInterface $passwordHasher, ?Security $security, ?SessionInterface $session): LoginFormAuthenticator
+    private function getTestObj(?UserRepository $userRepository, ?RouterInterface $router, ?CsrfTokenManagerInterface $csrfTokenManager, ?UserPasswordHasherInterface $passwordHasher, ?Security $security, ?RequestStack $requestStack): LoginFormAuthenticator
     {
         return new LoginFormAuthenticator(
             $userRepository ?? $this->createMock(UserRepository::class),
@@ -70,7 +71,7 @@ class LoginFormAuthenticatorTest extends TestCase
             $passwordHasher ?? $this->createMock(UserPasswordHasherInterface::class),
             $em ?? $this->createMock(EntityManagerInterface::class),
             $security ?? $this->createMock(Security::class),
-            $session ?? $this->createMock(SessionInterface::class)
+            $requestStack ?? $this->createMock(RequestStack::class)
         );
     }
 }
