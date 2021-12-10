@@ -252,6 +252,11 @@ class FieldExtension extends AbstractExtension
 
     private function selectOptionsContentType(Field $field): Collection
     {
+        // If the given "values" is not a string like `pages/{title}`, we can't parse it
+        if ($field->getDefinition()->get('values') == null) {
+            return new Collection([]);
+        }
+        
         [ $contentTypeSlug, $format ] = explode('/', $field->getDefinition()->get('values'));
 
         $options = [];
