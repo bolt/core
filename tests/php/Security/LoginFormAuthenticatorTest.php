@@ -64,13 +64,9 @@ class LoginFormAuthenticatorTest extends TestCase
     private function getTestObj(?UserRepository $userRepository, ?RouterInterface $router, ?CsrfTokenManagerInterface $csrfTokenManager, ?UserPasswordHasherInterface $passwordHasher, ?Security $security, ?SessionInterface $session): LoginFormAuthenticator
     {
         return new LoginFormAuthenticator(
+            $security ?? $this->createMock(Security::class),
             $userRepository ?? $this->createMock(UserRepository::class),
             $router ?? $this->createMock(RouterInterface::class),
-            $csrfTokenManager ?? $this->createMock(CsrfTokenManagerInterface::class),
-            $passwordHasher ?? $this->createMock(UserPasswordHasherInterface::class),
-            $em ?? $this->createMock(EntityManagerInterface::class),
-            $security ?? $this->createMock(Security::class),
-            $session ?? $this->createMock(SessionInterface::class)
         );
     }
 }
