@@ -85,6 +85,10 @@ class ImageField extends Field implements FieldInterface, MediaAwareInterface, C
 
     public function setLinkedMedia(MediaRepository $mediaRepository): void
     {
+        if (! $this->get('filename')) {
+            return;
+        }
+        
         $media = $mediaRepository->findOneByFullFilename($this->get('filename'));
 
         if ($media) {
