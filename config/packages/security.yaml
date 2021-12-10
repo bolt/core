@@ -8,6 +8,7 @@ security:
         ROLE_USER: []
         ROLE_WEBSERVICE: []
 
+    enable_authenticator_manager: true
     encoders:
         Bolt\Entity\User: auto
 
@@ -28,16 +29,13 @@ security:
         
         main:
             pattern: ^/
-            anonymous: true
             user_checker: Bolt\Security\UserChecker
             switch_user: { role: CAN_SWITCH_USER }
 
-            guard:
-                authenticators:
-                    - Bolt\Security\LoginFormAuthenticator
+            custom_authenticators:
+                - Bolt\Security\LoginFormAuthenticator
 
             logout:
-                handler: Bolt\Security\LogoutListener
                 path: bolt_logout
                 target: bolt_login
                 invalidate_session: false
