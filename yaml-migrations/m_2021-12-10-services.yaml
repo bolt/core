@@ -1,0 +1,8 @@
+# See: https://github.com/bolt/core/pull/3005
+
+file: services.yaml
+since: 5.1.0
+
+add:
+    services:
+        Symfony\Bridge\Twig\Extension\AssetExtension: '@twig.extension.assets'

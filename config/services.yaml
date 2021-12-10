@@ -90,6 +90,8 @@ services:
         tags:
             - { name: knp_menu.menu_builder, method: createAdminMenu, alias: admin_menu } # The alias is what is used to retrieve the menu
 
+    Symfony\Bridge\Twig\Extension\AssetExtension: '@twig.extension.assets'
+
     Bolt\Cache\RelatedOptionsUtilityCacher:
         decorates: Bolt\Utils\RelatedOptionsUtility
 
