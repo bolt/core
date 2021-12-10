@@ -66,7 +66,7 @@ class LoginFormAuthenticatorTest extends TestCase
         return new LoginFormAuthenticator(
             $security ?? $this->createMock(Security::class),
             $userRepository ?? $this->createMock(UserRepository::class),
-            $router ?? $this->createMock(RouterInterface::class),
+            $router ?? $this->createMock(RouterInterface::class)
         );
     }
 }
