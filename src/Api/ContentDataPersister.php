@@ -27,7 +27,7 @@ class ContentDataPersister implements ContextAwareDataPersisterInterface
         return $this->decorated->supports($data, $context);
     }
 
-    public function persist($data, array $context = [])
+    public function persist($data, array $context = []): void
     {
         if ($data instanceof Content) {
             $contentTypes = $this->config->get('contenttypes');
@@ -51,7 +51,7 @@ class ContentDataPersister implements ContextAwareDataPersisterInterface
         $this->decorated->persist($data, $context);
     }
 
-    public function remove($data, array $context = [])
+    public function remove($data, array $context = []): void
     {
         $this->decorated->persist($data, $context);
     }

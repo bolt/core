@@ -15,7 +15,7 @@ class PasswordWithPreviewType extends PasswordType
     /**
      * {@inheritdoc}
      */
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'password_with_preview';
     }
