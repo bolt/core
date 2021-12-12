@@ -11,7 +11,7 @@ add:
                 custom_authenticators:
                     - Bolt\Security\LoginFormAuthenticator
 
-delete:
+remove:
     security:
         firewalls:
             main:
