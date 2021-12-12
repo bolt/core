@@ -30,7 +30,7 @@ services:
             $publicFolder: '%bolt.public_folder%'
             $tablePrefix: '%bolt.table_prefix%'
             $rememberLifetime: '%bolt.remember_lifetime%'
-            
+
     _instanceof:
         Bolt\Menu\ExtensionBackendMenuInterface:
             tags: [ 'bolt.extension_backend_menu' ]
@@ -78,17 +78,20 @@ services:
     Bolt\Event\Listener\UserAvatarLoadListener:
         tags:
             - { name: doctrine.event_listener, event: postLoad }
-            
+
     Bolt\Extension\RoutesLoader:
         tags: [routing.loader]
 
     # menus
     Bolt\Menu\BackendMenuBuilder:
-        arguments: 
+        arguments:
             - "@knp_menu.factory"
             - !tagged_iterator bolt.extension_backend_menu
         tags:
-            - { name: knp_menu.menu_builder, method: createAdminMenu, alias: admin_menu } # The alias is what is used to retrieve the menu
+            -
+                name: knp_menu.menu_builder
+                method: createAdminMenu
+                alias: admin_menu # The alias is what is used to retrieve the menu
 
     Symfony\Bridge\Twig\Extension\AssetExtension: '@twig.extension.assets'
 
@@ -129,12 +132,18 @@ services:
     # Validation: specify Bolt\Validator\ContentValidator as validator
     Bolt\Validator\ContentValidatorInterface: '@Bolt\Validator\ContentValidator'
 
+    Bolt\Utils\Sanitiser:
+        public: true
+
     Doctrine\ORM\Query\Expr: ~
 
     monolog.processor.request:
         class: Bolt\Log\RequestProcessor
         tags:
-            - { name: monolog.processor, method: processRecord, handler: db }
+            -
+                handler: db
+                method: processRecord
+                name: monolog.processor
 
     Symfony\Component\ErrorHandler\ErrorRenderer\ErrorRendererInterface: '@error_handler.error_renderer.html'
 
@@ -159,4 +168,3 @@ services:
 
     Bolt\Api\ContentDataPersister:
         decorates: 'api_platform.doctrine.orm.data_persister'
-    
