@@ -1,0 +1,13 @@
+# See: https://github.com/bolt/core/pull/3007
+
+file: packages/security.yaml
+since: 5.1.0
+
+remove:
+    security:
+        firewalls:
+            main:
+                anonymous: ~
+                guard: ~
+                logout:
+                    handler: ~

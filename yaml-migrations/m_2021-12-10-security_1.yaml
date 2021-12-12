@@ -1,0 +1,12 @@
+# See: https://github.com/bolt/core/pull/3007
+
+file: packages/security.yaml
+since: 5.1.0
+
+add:
+    security:
+        enable_authenticator_manager: true
+        firewalls:
+            main:
+                custom_authenticators:
+                    - Bolt\Security\LoginFormAuthenticator
