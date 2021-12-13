@@ -10,3 +10,4 @@ add:
             main:
                 custom_authenticators:
                     - Bolt\Security\LoginFormAuthenticator
+                entry_point: Bolt\Security\AuthenticationEntryPointRedirector
