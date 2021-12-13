@@ -24,6 +24,7 @@ class CorePostUpdateScript extends Script
         self::run('php bin/console extensions:configure --with-config --ansi');
         self::run('php bin/console cache:clear --no-warmup');
         self::run('php bin/console assets:install --symlink --relative public');
+        self::run('php bin/console doctrine:migrations:migrate --no-interaction');
 
         $res = self::run('php bin/console doctrine:migrations:up-to-date');
 
