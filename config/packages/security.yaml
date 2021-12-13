@@ -31,6 +31,7 @@ security:
             pattern: ^/
             user_checker: Bolt\Security\UserChecker
             switch_user: { role: CAN_SWITCH_USER }
+            entry_point: Bolt\Security\AuthenticationEntryPointRedirector
 
             custom_authenticators:
                 - Bolt\Security\LoginFormAuthenticator
