@@ -41,6 +41,11 @@ parameters:
             message: '#Property Bolt\\Entity\\(.*)::\$id is never written, only read#'
             path: %currentWorkingDirectory%/src/Entity/*
 
+        # False positive: Call to an undefined method Symfony\Component\HttpFoundation\Session\SessionInterface::getFlashBag().
+        -
+            message: '#Symfony\\Component\\HttpFoundation\\Session\\SessionInterface::getFlashBag#'
+            path: %currentWorkingDirectory%/src/Security/AuthenticationEntryPointRedirector
+
 includes:
 	- vendor/phpstan/phpstan-symfony/extension.neon
 	- vendor/phpstan/phpstan-doctrine/extension.neon
