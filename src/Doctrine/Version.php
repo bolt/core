@@ -87,11 +87,20 @@ class Version
     {
         try {
             $query = $this->connection->createQueryBuilder();
+            // MySQL & SQLite
             $query
-                ->select('CAST(1.1 AS int)');
+                ->select('CAST(1.1 AS DECIMAL)');
             $query->execute();
         } catch (\Throwable $e) {
-            return false;
+            try {
+                $query = $this->connection->createQueryBuilder();
+                // Postgree
+                $query
+                    ->select('CAST(1.1 AS DOUBLE)');
+                $query->execute();
+            } catch (\Throwable $e) {
+                return false;
+            }
         }
 
         return true;
