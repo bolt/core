@@ -89,14 +89,10 @@ export default {
     computed: {
         sanitized() {
             let filtered;
-            console.log(this.name)
-            console.log(this.selected)
             if (this.selected === null) {
                 return JSON.stringify([]);
             } else if (this.selected.map) {
                 filtered = this.selected.map(item => item.key);
-                // console.log(this.name);
-                // console.log(filtered)
                 return JSON.stringify(filtered);
             } else {
                 return JSON.stringify([this.selected.key]);
@@ -127,13 +123,9 @@ export default {
         if (filterSelectedItems.length === 0) {
             filterSelectedItems = [{key: '', value: ''}];
         }
-        // console.log(filterSelectedItems)
         this.selected = filterSelectedItems;
     },
     methods: {
-        log(item) {
-            console.log(item);
-        },
         formatRaw,
         addTag(newTag) {
             const tag = {
