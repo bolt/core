@@ -25,26 +25,8 @@ class LoginFormAuthenticator extends AbstractAuthenticator implements Authentica
     /** @var Security */
     private $security;
 
-    /** @var RequestStack */
-    private $requestStack;
-
-    public function __construct(
-        UserRepository $userRepository,
-        RouterInterface $router,
-        CsrfTokenManagerInterface $csrfTokenManager,
-        UserPasswordHasherInterface $passwordHasher,
-        EntityManagerInterface $em,
-        Security $security,
-        RequestStack $requestStack
-    ) {
-        $this->userRepository = $userRepository;
-        $this->router = $router;
-        $this->csrfTokenManager = $csrfTokenManager;
-        $this->passwordHasher = $passwordHasher;
-        $this->em = $em;
-        $this->security = $security;
-        $this->requestStack = $requestStack;
-    }
+    /** @var RouterInterface */
+    private $router;
 
     public function __construct(Security $security, UserRepository $userRepository, RouterInterface $router)
     {
@@ -85,44 +67,6 @@ class LoginFormAuthenticator extends AbstractAuthenticator implements Authentica
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
-        /**
-         * @var PasswordAuthenticatedUserInterface $user
-         */
-        return empty($credentials['password']) ? false : $this->passwordHasher->isPasswordValid($user, $credentials['password']);
-    }
-
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey): ?RedirectResponse
-    {
-        $user = $token->getUser();
-
-        if (! $user instanceof User) {
-            return null;
-        }
-
-        $user->setLastseenAt(new \DateTime());
-        $user->setLastIp($request->getClientIp());
-        /** @var Parser $uaParser */
-        $uaParser = Parser::create();
-        $parsedUserAgent = $uaParser->parse($request->headers->get('User-Agent'))->toString();
-        $sessionLifetime = $request->getSession()->getMetadataBag()->getLifetime();
-        $expirationTime = (new \DateTime())->modify('+' . $sessionLifetime . ' second');
-        $userAuthToken = UserAuthTokenRepository::factory($user, $parsedUserAgent, $expirationTime);
-        $user->setUserAuthToken($userAuthToken);
-
-        $this->em->persist($user);
-        $this->em->flush();
-
-        $this->requestStack->getSession()->set('user_auth_token_id', $userAuthToken->getId());
-
-        $userArr = [
-            'id' => $user->getId(),
-            'username' => $user->getUsername(),
-            'token_id' => $userAuthToken->getId(),
-            'user_agent' => $parsedUserAgent,
-            'ip' => $request->getClientIp(),
-        ];
-        $this->logger->notice('User \'{username}\' logged in (manually, auth_token: {token_id}, {user_agent}, {ip})', $userArr);
-
         // @todo: Allow different roles to redirect to different pages on success.
         if ($request->get('_target_path', false)) {
             $fallback = $request->get('_target_path');
