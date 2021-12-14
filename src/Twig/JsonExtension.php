@@ -37,7 +37,7 @@ class JsonExtension extends AbstractExtension
     /**
      * {@inheritdoc}
      */
-    public function getFilters()
+    public function getFilters(): array
     {
         return [
             new TwigFilter('normalize_records', [$this, 'normalizeRecords']),
@@ -49,7 +49,7 @@ class JsonExtension extends AbstractExtension
     /**
      * {@inheritdoc}
      */
-    public function getTests()
+    public function getTests(): array
     {
         return [
             new TwigTest('json', [$this, 'testJson']),

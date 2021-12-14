@@ -13,7 +13,7 @@ class ContentOwnerVoter extends Voter
 {
     public const OWNER = 'CONTENT_OWNER';
 
-    protected function supports(string $attribute, $subject)
+    protected function supports(string $attribute, $subject): bool
     {
         // only vote on `Content`
         return $attribute === self::OWNER && $subject instanceof Content;
