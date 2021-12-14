@@ -17,7 +17,7 @@ export default {
     },
     computed: {
         slim() {
-            return store.getters['general/slimSidebar'] ? this.$store.getters['general/slimSidebar'] : false;
+            return store.getters['general/slimSidebar'] ? store.getters['general/slimSidebar'] : false;
         },
     },
     watch: {
@@ -29,7 +29,7 @@ export default {
     },
     methods: {
         slimSidebar(arg) {
-            this.$store.dispatch('general/slimSidebar', arg);
+            store.dispatch('general/slimSidebar', arg);
         },
     },
 };

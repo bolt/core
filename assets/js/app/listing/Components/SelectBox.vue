@@ -18,7 +18,7 @@
                         track-by="key"
                         :options="options"
                     >
-                        <template slot="option" slot-scope="props">
+                        <template v-slot:option="props">
                             <span :class="props.option.class"></span>
                             <span>
                                 {{ props.option.value }}
@@ -48,6 +48,7 @@
 
 <script>
 import Multiselect from 'vue-multiselect';
+import store from '../store';
 
 export default {
     name: 'ListingSelectedBox',
@@ -99,13 +100,13 @@ export default {
             return '';
         },
         selectedCount() {
-            return this.$store.getters['selecting/selectedCount'];
+            return store.getters['selecting/selectedCount'];
         },
         selected() {
-            return this.$store.getters['selecting/selected'];
+            return store.getters['selecting/selected'];
         },
         order() {
-            return this.$store.getters['listing/getOrder'];
+            return store.getters['listing/getOrder'];
         },
     },
 };
