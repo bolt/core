@@ -6,7 +6,6 @@
                 class="form-control"
                 type="password"
                 :name="name"
-                :id="id"
                 :value="value"
                 :required="required"
                 :readonly="readonly"

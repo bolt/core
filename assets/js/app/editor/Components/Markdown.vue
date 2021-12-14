@@ -1,18 +1,14 @@
 <template>
     <div>
-        <vue-simplemde :id="name" v-model="val" :name="name" :configs="config"></vue-simplemde>
+        <markdown :id="name" v-model="val" :name="name" :configs="config" />
     </div>
 </template>
 
 <script>
-import VueSimplemde from 'vue-simplemde';
 import { formatStrip } from '../../../filters/string';
 
 export default {
     name: 'EditorMarkdown',
-    components: {
-        VueSimplemde,
-    },
     props: {
         value: String,
         name: String,
@@ -25,14 +21,15 @@ export default {
                 status: false,
                 toggleFullScreen: true,
             },
-        };
+        }
+    },
+    computed: {
+        compiledMarkdown() {
+            return marked(formatStrip(this.value));
+        }
     },
     mounted() {
         this.val = formatStrip(this.value);
     },
 };
 </script>
-
-<style scoped>
-@import '~simplemde/dist/simplemde.min.css';
-</style>
