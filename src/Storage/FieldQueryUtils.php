@@ -53,7 +53,7 @@ class FieldQueryUtils
 
     public function getNumericCastExpression(string $left): string
     {
-        $expression = (new Expr())->substring($left, 3, (new Expr())->length($left))->__toString();
+        $expression = (new Expr())->substring($left, 3, (new Expr())->length($left)->__toString() . ' - 4')->__toString();
 
         return 'CAST(' . $expression . ' as decimal)';
     }

@@ -8,7 +8,7 @@ describe('As a chief editor I should be able to clear cache', () => {
 
         cy.get('a[href="/bolt/menu/maintenance"]').click();
         cy.url().should('contain', '/bolt/menu/maintenance');
-        cy.get('.menupage').find('ul').find('li').its('length').should('eq', 2);
+        cy.get('.menupage').find('ul').find('li').its('length').should('eq', 7);
         cy.get('.menupage').find('ul').find('li').eq(1).click();
         cy.url().should('contain', '/bolt/about');
 

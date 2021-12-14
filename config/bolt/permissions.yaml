@@ -7,7 +7,7 @@
 # List of roles that are presented in the list of options when editing a user.
 # Roles that are not in this list are left 'as is' when editing users.
 # Note: ROLE_USER is assigned to Bolt Entity Users if no roles have been set.
-assignable_roles: [ROLE_DEVELOPER, ROLE_ADMIN, ROLE_CHIEF_EDITOR, ROLE_EDITOR, ROLE_USER]
+assignable_roles: [ROLE_DEVELOPER, ROLE_ADMIN, ROLE_CHIEF_EDITOR, ROLE_EDITOR, ROLE_USER, ROLE_WEBSERVICE]
 
 # These permissions are the 'global' permissions; these are not tied
 # to any content types, but rather apply to global, non-content activity in

@@ -386,7 +386,14 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
 
         if (isset($formData['taxonomy'])) {
             foreach ($formData['taxonomy'] as $fieldName => $taxonomy) {
-                $this->updateTaxonomy($content, $fieldName, $taxonomy);
+                if (false !== mb_strpos($fieldName, 'sortorder')) {
+                    continue;
+                }
+                $order = 0;
+                if (isset($formData['taxonomy'][$fieldName . '-sortorder'])) {
+                    $order = intval($formData['taxonomy'][$fieldName . '-sortorder']);
+                }
+                $this->updateTaxonomy($content, $fieldName, $taxonomy, $order);
             }
         }
 
@@ -540,7 +547,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         }
     }
 
-    public function updateTaxonomy(Content $content, string $key, $taxonomy): void
+    public function updateTaxonomy(Content $content, string $key, $taxonomy, int $order): void
     {
         $taxonomy = (new Collection(Json::findArray($taxonomy)))->filter();
 
@@ -559,6 +566,8 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
             if ($taxonomy === null) {
                 $taxonomy = $this->taxonomyRepository->factory($key, (string) $slug);
             }
+
+            $taxonomy->setSortorder($order);
 
             $content->addTaxonomy($taxonomy);
         }
