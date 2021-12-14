@@ -55,6 +55,7 @@ export default {
     data: function() {
         let counter = 0;
         let containerFiles = this.files;
+        console.log(this.files)
         containerFiles.forEach(function(file, index, theContainerFilesArray) {
             theContainerFilesArray[index].id = index;
             counter++;

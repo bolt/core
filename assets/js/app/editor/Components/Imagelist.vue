@@ -34,7 +34,6 @@
             <i class="fas fa-fw fa-plus"></i>
             {{ labels.add_new_image }}
         </button>
-        <p>HEY HO LETS GO</p>
     </div>
 </template>
 
@@ -56,12 +55,7 @@ export default {
         limit: Number,
         readonly: Boolean,
     },
-
-    setup(props) {
-        console.log("hello vue 3 world");
-    },
     data: function() {
-        console.log("IMAGELIST STUFFy");
         let counter = 0;
         console.log(this.images)
         let containerImages = this.images;

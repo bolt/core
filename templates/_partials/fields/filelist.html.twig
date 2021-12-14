@@ -27,7 +27,7 @@
     }|json_encode %}
     {% set limit = field.definition.get('limit')|default(200) %}
 
-    <editor-file
+    <editor-file-list
         :files='{{ field.jsonvalue }}'
         :name='{{ name|json_encode }}'
         :directory='{{ directory|json_encode }}'
@@ -38,5 +38,5 @@
         :attributes-link='{{ path('bolt_media_new')|json_encode }}'
         :limit='{{ limit|json_encode }}'
         :readonly='{{ readonly|json_encode }}'
-    ></editor-file>
+    ></editor-file-list>
 {% endblock %}
