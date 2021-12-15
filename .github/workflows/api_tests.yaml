@@ -1,0 +1,40 @@
+name: API tests
+
+on:
+    pull_request:
+
+jobs:
+    apicurltests:
+        strategy:
+            matrix:
+                php-version: [ '7.2', '8.0' ]
+        name: curl tests
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - uses: shivammathur/setup-php@v2
+              with:
+                  # test the lowest version, to make sure checks pass on it
+                  php-version: ${{ matrix.php-version }}
+                  extensions: json, mbstring, pdo, curl, pdo_sqlite
+                  coverage: none
+            - name: Initialise
+              run: |
+                  sudo composer self-update -q	
+            - name: Install dependencies
+              run: |
+                  sudo COMPOSER_MEMORY_LIMIT=-1 COMPOSER_PROCESS_TIMEOUT=60 composer update --prefer-dist --no-progress
+            - name: Initialise the database
+              run: |
+                sudo chmod -R 777 config/ public/files/ public/theme/ public/thumbs/ var/
+                ./bin/console doctrine:database:create
+                ./bin/console doctrine:schema:create
+              ./bin/console server:start 127.0.0.1:8088
+            - name: create api user
+              run: php bin/console bolt:add-user apiuser apiuser%1 api@example.org API --roles=ROLE_WEBSERVICE
+            - name: check API user gets content
+              run: curl -fkI -u apiuser:apiuser%1 https://localhost:8088/api/contents
+            - name: check API user gets fields
+              run: curl -fkI -u apiuser:apiuser%1 https://localhost:8088/api/fields
+            - name: check API user gets relations
+              run: curl -fkI -u apiuser:apiuser%1 https://localhost:8088/api/relations
