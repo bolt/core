@@ -23,7 +23,9 @@ jobs:
                   sudo composer self-update -q	
             - name: Install dependencies
               run: |
-                  sudo COMPOSER_MEMORY_LIMIT=-1 COMPOSER_PROCESS_TIMEOUT=60 composer update --prefer-dist --no-progress	
+                  sudo COMPOSER_MEMORY_LIMIT=-1 COMPOSER_PROCESS_TIMEOUT=60 composer update --prefer-dist --no-progress
+            - name: Initialise the database
+              run: make db-create
             - name: create api user
               run: php bin/console bolt:add-user apiuser apiuser%1 api@example.org API --roles=ROLE_WEBSERVICE
             - name: check authorisation blocks unauthorised
