@@ -27,7 +27,8 @@ jobs:
             - name: create api user
               run: php bin/console bolt:add-user apiuser apiuser%1 api@example.org API --roles=ROLE_WEBSERVICE
             - name: check authorisation blocks unauthorised
-              run: [[ $(curl --write-out "%{http_code}\n" --silent --output /dev/null "https://localhost:8001/api/contents/") == 401 ]] && echo "OK"
+              run: |
+                [[ $(curl --write-out "%{http_code}\n" --silent --output /dev/null "https://localhost:8001/api/contents/") == 401 ]] && echo "OK"
             - name: check API user gets content
               run: curl -fkI -u apiuser:apiuser%1 https://localhost:8001/api/contents
             - name: check API user gets fields
