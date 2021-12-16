@@ -1,6 +1,60 @@
 Changelog
 =========
 
+## 5.1.0
+
+Released: 2021-12-16
+
+### 👑 Highlighted new features
+
+- Role-based API support for `POST`, `PUT` and `DELETE` operations (I-Valchev, [#2648](https://github.com/bolt/core/pull/2648))
+- PHP 8.1 compatibility (bobdenotter, [#3008](https://github.com/bolt/core/pull/3008))
+
+### 🔐 Security related changes
+
+- Implement the new Symfony Security Component (I-Valchev, [#3007](https://github.com/bolt/core/pull/3007))
+
+### 📦 Additions and new features
+
+- Add new paginate function for arrays (Joossensei, [#2994](https://github.com/bolt/core/pull/2994))
+- Fix deprecation notices especially at the level of the return types (bobdenotter, [#3011](https://github.com/bolt/core/pull/3011))
+- Add the yaml migrations for the new security component (I-Valchev, [#3010](https://github.com/bolt/core/pull/3010))
+- Fix deprecation notices especially at the level of the return types (abdellahramadan, [#3000](https://github.com/bolt/core/pull/3000))
+- Allow prefix and postfix text on relationships and taxonomies input field (nestordedios, [#2990](https://github.com/bolt/core/pull/2990))
+- PHPSpec 🔥 (bobdenotter, [#2988](https://github.com/bolt/core/pull/2988))
+- Date issues in Bolt 5 (Joossensei, [#2986](https://github.com/bolt/core/pull/2986))
+- Allow symfony/flex v2 (bobvandevijver, [#2984](https://github.com/bolt/core/pull/2984))
+- Allow passing in string in `getTitle`, to give friendlier notice  (bobdenotter, [#2982](https://github.com/bolt/core/pull/2982))
+- Check on null value added to calling setCurrentLocale to prevent null value parameter (nicodeboer, [#2981](https://github.com/bolt/core/pull/2981))
+- Improve caching (bobdenotter, [#2980](https://github.com/bolt/core/pull/2980))
+- Fix the date format expected for params like 'today' (Joossensei, [#2974](https://github.com/bolt/core/pull/2974))
+- Remove some of the describe from Cypress / Fix some common Cypress errors (Joossensei, [#2968](https://github.com/bolt/core/pull/2968))
+- chore(local-stack): improve make targets and avoid node17 issues for docker (jbarbin, [#2955](https://github.com/bolt/core/pull/2955))
+- [issue-2901] fix(fixtures): non existent data mapped for fields of type select (jbarbin, [#2954](https://github.com/bolt/core/pull/2954))
+- Bumping versions of Glide and PHPStan (bobdenotter, [#2953](https://github.com/bolt/core/pull/2953))
+
+### 🤖 Tests
+
+- Add curl API tests (I-Valchev, [#3018](https://github.com/bolt/core/pull/3018))
+- Fix php unit relation test (I-Valchev, [#3015](https://github.com/bolt/core/pull/3015))
+- Remove PHPSpec (because it's black magic) (bobdenotter, [#2985](https://github.com/bolt/core/pull/2985))
+
+### ⚙️ Code Quality / Developer Experience
+
+- Cleanup `todo` comments (I-Valchev, [#2999](https://github.com/bolt/core/pull/2999))
+- Fix phpunit FrontendMenu test (I-Valchev, [#2992](https://github.com/bolt/core/pull/2992))
+- Add caching decorated services (I-Valchev, [#2987](https://github.com/bolt/core/pull/2987))
+
+### 🐛 Bug fixes
+
+- Port the has sortorder for taxonomies 3001 (#3016) (I-Valchev, [#3017](https://github.com/bolt/core/pull/3017))
+- Redirect to login page if unauthenticated (I-Valchev, [#3014](https://github.com/bolt/core/pull/3014))
+- Fallback to Symfony's default public path for bundles (I-Valchev, [#3005](https://github.com/bolt/core/pull/3005))
+- Don't set "linked media", if we don't have a proper filename (bobdenotter, [#3004](https://github.com/bolt/core/pull/3004))
+- Allow Select fields with `JSON_SEARCH` to filter multiple values (I-Valchev, [#2995](https://github.com/bolt/core/pull/2995))
+- Create meaningful fixtures for geolocation fields (I-Valchev, [#2991](https://github.com/bolt/core/pull/2991))
+
+
 ## 5.0.7
 
 Released: 2021-11-26
