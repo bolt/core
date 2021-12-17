@@ -520,6 +520,14 @@ class Content
 
     public function setFieldValue(string $fieldName, $value, ?string $locale = null): void
     {
+        if ( $fieldName === 'collection' ) {
+         foreach ($value as $name) {
+             $field = $this->getField($name);
+             dd($value);
+
+         }
+        }
+
         if (! $this->hasField($fieldName)) {
             $this->addFieldByName($fieldName);
         }
