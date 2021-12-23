@@ -16,6 +16,7 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Badge\CsrfTokenBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordCredentials;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
+use Symfony\Component\Security\Http\Authenticator\Passport\PassportInterface;
 
 class LoginFormAuthenticator extends AbstractAuthenticator implements AuthenticatorInterface
 {
@@ -40,7 +41,7 @@ class LoginFormAuthenticator extends AbstractAuthenticator implements Authentica
         return $request->attributes->get('_route') === 'bolt_login' && $request->isMethod('POST');
     }
 
-    public function authenticate(Request $request)
+    public function authenticate(Request $request): PassportInterface
     {
         /** @var array $login_form */
         $login_form = $request->request->get('login');
