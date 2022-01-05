@@ -1,6 +1,17 @@
 Changelog
 =========
 
+## 5.1.1
+
+Released: 2021-12-16
+
+### 🐛 Bug fixes
+
+- Make `LoginFormAuthenticator` compatible with Symfony 5.3 (I-Valchev, [#3028](https://github.com/bolt/core/pull/3028))
+- Fix boolean logic in `CorePostUpdateScript.php` 🤦 (bobdenotter, [#3034](https://github.com/bolt/core/pull/3034))
+- Composer 2.2 compatibility fix (bobdenotter, [#3029](https://github.com/bolt/core/pull/3029))
+
+
 ## 5.1.0
 
 Released: 2021-12-16
