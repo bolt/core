@@ -28,7 +28,7 @@ class CorePostUpdateScript extends Script
 
         $res = self::run('php bin/console doctrine:migrations:up-to-date');
 
-        if (! $res) {
+        if ($res) {
             $migrate = 'Database is out-of-date. To update the database, run `php bin/console doctrine:migrations:migrate`.';
             $migrate .= ' You are strongly advised to backup your database before migrating.';
 

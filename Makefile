@@ -5,9 +5,9 @@ SHELL = bash
 COMPOSER ?= COMPOSER_MEMORY_LIMIT=-1 composer
 
 .PHONY: help install server server-stop cache csclear cscheck csfix csfix-tests stancheck test \
- full-test db-create db-update db-reset \
+ full-test db-update db-reset \
 docker-install docker-install-deps docker-start docker-assets-serve \
-docker-update docker-cache docker-csclear docker-cscheck docker-csfix docker-stancheck docker-db-create docker-db-reset \
+docker-update docker-cache docker-csclear docker-cscheck docker-csfix docker-stancheck docker-db-reset \
 docker-db-update docker-npm-fix-env docker-test docker-server-stop docker-full-test \
 docker-command docker-console
 
@@ -18,7 +18,7 @@ help:
 
 start: ## to run the install scripts and start the server
 	make install
-	make db-create
+	make db-reset
 	make server
 
 install: ## to install all project dependencies (Composer and NPM)
@@ -65,15 +65,8 @@ full-test: ## to run full tests
 	make cscheck
 	make test
 
-db-create: ## to create database and load fixtures
-	bin/console doctrine:database:create --if-not-exists
-	bin/console doctrine:schema:create -q
-	bin/console doctrine:migrations:sync-metadata-storage -q
-	bin/console doctrine:migrations:version --add --all -n -q
-	bin/console doctrine:fixtures:load -n -q
-
 db-update: ## to update schema database
-	bin/console doctrine:schema:update -v --dump-sql --force --complete
+	bin/console doctrine:schema:update --complete --force
 	bin/console doctrine:migrations:sync-metadata-storage -q
 	bin/console doctrine:migrations:version --add --all -n -q
 
@@ -84,7 +77,7 @@ db-reset: ## to delete database and load fixtures
 	bin/console doctrine:migrations:version --add --all -n -q
 	bin/console doctrine:fixtures:load -n
 
-db-reset-without-images:
+db-reset-without-images: ## to delete database and load fixtures, but no images
 	bin/console doctrine:schema:drop --force --full-database
 	bin/console doctrine:schema:create -q
 	bin/console doctrine:migrations:sync-metadata-storage -q
@@ -135,11 +128,6 @@ docker-csfix: ## to fix coding style with docker
 
 docker-stancheck: ## to run phpstane with docker
 	docker-compose exec -T php sh -c "vendor/bin/phpstan analyse -c phpstan.neon src"
-
-docker-db-create: ## to create database and load fixtures with docker
-	docker-compose exec -T php sh -c "bin/console doctrine:database:create --if-not-exists"
-	docker-compose exec -T php sh -c "bin/console doctrine:schema:create"
-	docker-compose exec -T php sh -c "bin/console doctrine:fixtures:load -n"
 
 docker-db-reset: ## to delete database with docker
 	docker-compose exec -T php sh -c "bin/console doctrine:schema:drop --force --full-database"
