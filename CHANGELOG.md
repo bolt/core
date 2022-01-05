@@ -3,7 +3,7 @@ Changelog
 
 ## 5.1.1
 
-Released: 2021-12-16
+Released: 2021-01-05
 
 ### 🐛 Bug fixes
 
