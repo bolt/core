@@ -247,7 +247,12 @@ class User implements UserInterface, \Serializable, PasswordAuthenticatedUserInt
      */
     public function serialize(): string
     {
-        return serialize([$this->id, $this->username, $this->password]);
+        return serialize($this->__serialize());
+    }
+    
+    public function __serialize(): array
+    {
+        return [$this->id, $this->username, $this->password];
     }
 
     /**
@@ -255,8 +260,13 @@ class User implements UserInterface, \Serializable, PasswordAuthenticatedUserInt
      */
     public function unserialize($serialized): void
     {
+        $this->__unserialize(unserialize($serialized, ['allowed_classes' => false]));
+    }
+    
+    public function __unserialize(array $data): void
+    {
         // add $this->salt too if you don't use Bcrypt or Argon2i
-        [$this->id, $this->username, $this->password] = unserialize($serialized, ['allowed_classes' => false]);
+        [$this->id, $this->username, $this->password] = $data;
     }
 
     public function getLastseenAt(): ?\DateTimeInterface
