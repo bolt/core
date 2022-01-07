@@ -44,7 +44,7 @@ class SelectField extends Field implements FieldInterface, RawPersistable, \Iter
     {
         $value = parent::getValue();
 
-        if (empty($value) && $this->getDefinition()->get('required')) {
+        if (empty($value) && !$this->allowEmpty()) {
             $value = $this->getDefinition()->get('values');
 
             // Pick the first key from Collection, or the full value as string, like `entries/id,title`

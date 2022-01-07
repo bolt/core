@@ -169,7 +169,7 @@ class FieldExtension extends AbstractExtension
 
         $options = [];
 
-        if ($definition->get('required') === false) {
+        if ($field->allowEmpty()) {
             $options = [[
                 'key' => '',
                 'value' => '(choose a template)',
@@ -227,7 +227,7 @@ class FieldExtension extends AbstractExtension
         // We need to add this as a 'dummy' option for when the user is allowed
         // not to pick an option. This is needed, because otherwise the `select`
         // would default to the one.
-        if (! $field->getDefinition()->get('required', true)) {
+        if ($field->allowEmpty()) {
             $options[] = [
                 'key' => '',
                 'value' => '',
@@ -259,7 +259,7 @@ class FieldExtension extends AbstractExtension
         // We need to add this as a 'dummy' option for when the user is allowed
         // not to pick an option. This is needed, because otherwise the `select`
         // would default to the one.
-        if (! $field->getDefinition()->get('required', true)) {
+        if ($field->allowEmpty()) {
             $options[] = [
                 'key' => '',
                 'value' => '',

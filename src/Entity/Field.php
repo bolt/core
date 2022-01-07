@@ -16,7 +16,7 @@ use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\SerializedName;
-use Tightenco\Collect\Support\Collection as LaravelCollection;
+use Tightenco\Collect\Support\Collection;
 use Twig\Environment;
 use Twig\Markup;
 
@@ -155,7 +155,7 @@ class Field implements FieldInterface, TranslatableInterface
         }
     }
 
-    public function setDefinition($name, LaravelCollection $definition): void
+    public function setDefinition($name, Collection $definition): void
     {
         $this->fieldTypeDefinition = FieldType::mock($name, $definition);
     }
@@ -177,7 +177,7 @@ class Field implements FieldInterface, TranslatableInterface
         $default = $this->getDefaultValue();
 
         if ($this->isNew() && $default !== null) {
-            if (! $default instanceof LaravelCollection) {
+            if (! $default instanceof Collection) {
                 throw new \RuntimeException('Default value of field ' . $this->getName() . ' is ' . gettype($default) . ' but it should be an array.');
             }
 
@@ -439,4 +439,40 @@ class Field implements FieldInterface, TranslatableInterface
     {
         self::$twig = $twig;
     }
+
+    public function allowEmpty(): bool
+    {
+        return self::definitionAllowsEmpty($this->getDefinition());
+    }
+
+    public static function definitionAllowsEmpty(Collection $definition): bool
+    {
+        return self::settingsAllowEmpty(
+            $definition->get('allow_empty', null),
+            $definition->get('required', null)
+        );
+    }
+
+    /**
+     * True if settings allow empty value.
+     *
+     * Settings priority:
+     * - allow_empty
+     * - required
+     *
+     * Defaults to true.
+     */
+    public static function settingsAllowEmpty(?bool $allowEmpty, ?bool $required): bool
+    {
+        if (!is_null($allowEmpty)) {
+            return boolval($allowEmpty);
+        }
+
+        if (!is_null($required)) {
+            return !boolval($required);
+        }
+
+        return true;
+    }
+
 }

@@ -36,6 +36,5 @@
         :autocomplete="{{ autocomplete }}"
         :readonly="{{ readonly|json_encode }}"
         :errormessage='{{ errormessage|json_encode }}'
-        :allowempty="{{ required ? 'false' : 'true' }}"
     ></editor-select>
 {% endblock %}
