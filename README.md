@@ -1,7 +1,7 @@
 
 <h1 align="center">
   <br>
-  <a href="https://boltcms.io/"><img src="https://boltcms.io/theme/boltcms-2021/img/logo.svg" alt="newsinproduct" width="350">
+  <a href="https://boltcms.io/"><img src="https://boltcms.io/theme/boltcms-2021/img/logo.svg" alt="Bolt logo" width="350">
   <br>
   </a>
 </h1>
