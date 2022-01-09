@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Command;
 
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -49,6 +50,7 @@ HELP
 
         $io->note('If you wish to continue with SQLite, you can answer \'Y\' to the next question. If you\'d like to use MySQL or PostgreSQL, answer \'n\', configure `.env.local`, and then continue the setup.');
 
+        /** @var QuestionHelper $helper */
         $helper = $this->getHelper('question');
         $question = new ConfirmationQuestion('Do you want to continue the setup now? (Y/n)', true);
 
