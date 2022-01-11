@@ -55,15 +55,15 @@ if (document.getElementById(id)) {
     app.component('EditorPassword', Password);
     app.component('EditorHtml', Html);
     app.component('EditorImage', Image);
-    app.component('EditorImageList', Imagelist); // b0rk
+    app.component('EditorImageList', Imagelist);
     app.component('EditorFile', File);
-    app.component('EditorFileList', Filelist); // same b0rk as imagelist
+    app.component('EditorFileList', Filelist);
     app.component('EditorMarkdown', Markdown);
     app.component('EditorNumber', Number);
     app.component('EditorSelect', Select);
     app.component('EditorSlug', Slug);
     app.component('EditorText', Text);
-    app.component('EditorTextarea', Textarea);
+    // app.component('EditorTextarea', Textarea);
     app.component('EditorCollection', Collection); // b0rk
     app.component('EditorLanguage', Language);
     app.component('ThemeSelect', ThemeSelect); 

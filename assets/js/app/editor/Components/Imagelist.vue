@@ -57,7 +57,6 @@ export default {
     },
     data: function() {
         let counter = 0;
-        console.log(this.images)
         let containerImages = this.images;
         containerImages.forEach(function(file, index, theContainerImagesArray) {
             theContainerImagesArray[index].id = index;

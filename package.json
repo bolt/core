@@ -54,6 +54,7 @@
         "tiny-emitter": "^2.1.0",
         "tinycolor2": "^1.4.2",
         "vue": "^3.2",
+        "vue-easymde": "^2.0.0",
         "vue-flatpickr-component": "^9.0.5",
         "vue-multiselect": "^3.0.0-alpha.2",
         "vue-template-compiler": "^2.6.14",

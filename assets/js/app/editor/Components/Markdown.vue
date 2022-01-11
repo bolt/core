@@ -1,37 +1,23 @@
 <template>
     <div>
-        <textarea
-            :id="id"
-            v-model="val"
-            class="form-control field--textarea"
-            :name="name"
-            :rows="rows"
-            :required="required"
-            :readonly="readonly"
-            :data-errormessage="errormessage"
-            :placeholder="placeholder"
-            :style="{ height: styleHeight }"
-            :maxlength="maxlength"
-            :title="name"
+        <vue-easymde 
+            :id="name" 
+            v-model="val" 
+            :name="name" 
             :configs="config"
-        ></textarea>
+        ></vue-easymde>
     </div>
 </template>
 
 <script>
-import { formatStrip } from '../../../filters/string';
-import EditorTextarea from './Textarea';
+import VueEasymde from "vue-easymde";
 
 export default {
     name: 'EditorMarkdown',
     components: {
-        EditorTextarea,
+        VueEasymde
     },
-    props: {
-        value: String,
-        name: String,
-    },
-    data: () => {
+    data(){
         return {
             val: null,
             config: {
@@ -41,13 +27,9 @@ export default {
             },
         }
     },
-    computed: {
-        compiledMarkdown() {
-            return marked(formatStrip(this.value));
-        }
-    },
-    mounted() {
-        this.val = formatStrip(this.value);
-    },
-};
+}
 </script>
+
+<style>
+    @import "~easymde/dist/easymde.min.css";
+</style>
