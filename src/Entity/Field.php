@@ -474,5 +474,4 @@ class Field implements FieldInterface, TranslatableInterface
 
         return true;
     }
-
 }
