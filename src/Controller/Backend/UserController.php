@@ -35,7 +35,17 @@ class UserController extends TwigAwareController implements BackendZoneInterface
      */
     public function users(Query $query): Response
     {
-        $users = new ArrayAdapter($this->users->findBy([], ['username' => 'ASC'], 1000));
+        $order = 'username';
+        if ($this->request->get('sortBy')) {
+            $order = $this->getFromRequest('sortBy');
+        }
+
+        $like = '';
+        if ($this->request->get('filter')) {
+            $like = '%' . $this->getFromRequest('filter') . '%';
+        }
+
+        $users = new ArrayAdapter($this->users->findUsers($like, $order));
         $currentPage = (int) $this->getFromRequest('page', '1');
         $users = new Pagerfanta($users);
         $users->setMaxPerPage(self::PAGESIZE)
@@ -45,6 +55,8 @@ class UserController extends TwigAwareController implements BackendZoneInterface
             'title' => 'controller.user.title',
             'subtitle' => 'controller.user.subtitle',
             'users' => $users,
+            'sortBy' => $this->getFromRequest('sortBy'),
+            'filterValue' => $this->getFromRequest('filter'),
         ];
 
         return $this->render('@bolt/users/listing.html.twig', $twigVars);

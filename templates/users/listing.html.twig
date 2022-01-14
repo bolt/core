@@ -146,4 +146,76 @@
 {# The 'aside' section is the right sidebar of the page. If omitted, 'main' will take up the full width. #}
 {% block aside %}
     {{ widgets('users_aside_top') }}
+
+    {% if config.get('general/user_show_sort&filter') %}
+        {% set filterOptions = {
+            'id': "id",
+            'displayName': "displayName",
+            'username': "username",
+            'roles': "roles",
+            'lastseenAt': "lastseenAt",
+            'lastIp': "lastIp"
+        } %}
+
+        <div class="card mb-3">
+            <div class="card-header">
+                {{ macro.icon('star') }} {{ title|trans }}
+            </div>
+            <div class="card-body">
+                <p>
+                    {% if is_granted('user:add') %}
+                    <a class="btn btn-secondary" href="{{ path('bolt_user_add') }}" data-patience="virtue">
+                        {{ macro.icon('user-plus') }} {{ __('action.add_user') }}
+                    </a>
+                    <a
+                        class="btn btn-tertiary"
+                        href="{{ path('bolt_file_edit', {'location': 'config', 'file': '/bolt/permissions.yaml'}) }}"
+                        data-patience="virtue"
+                    >
+                        {{ macro.icon('user-cog') }} {{ __('action.edit_permissions') }}
+                    </a>
+                    {% endif %}
+                </p>
+                <form>
+                    <div class="form-group">
+                        <p>
+                            <strong>{{ 'listing.title_sortby'|trans }}</strong>:
+                            <select class="form-control" name="sortBy" title="{{ 'listing.title_sortby'|trans }}">
+                                <option value="" {% if sortBy is empty %}selected{% endif %}>
+                                    {{ 'listing.option_select_sortby'|trans }}
+                                </option>
+                                {% for key, filterOption in filterOptions %}
+                                    <option value="{{ key }}" {% if sortBy == key %}selected{% endif %}>
+                                        {{ filterOption }}
+                                    </option>
+                                    <option value="-{{ key }}" {% if sortBy == '-' ~ key %}selected{% endif %}>
+                                        -{{ filterOption }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </p>
+
+                        <p>
+                            <strong>{{ 'listing.title_filterby'|trans }}</strong>:
+                            <input
+                                class="form-control"
+                                type="text"
+                                name="filter"
+                                id="content-filter"
+                                value="{{ filterValue }}"
+                                placeholder="{{ 'listing.placeholder_filter'|trans }}"
+                                title="{{ 'listing.placeholder_filter'|trans }}"
+                            />
+                        </p>
+                    </div>
+
+                    {{ macro.button('listing.button_filter', 'filter', 'secondary mb-0', {'type': 'submit'}) }}
+
+                    {% if sortBy is not empty or filterValue is not empty %}
+                        {{ macro.buttonlink('listing.button_clear', path('bolt_users'),  'times', 'tertiary mb-0') }}
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    {% endif %}
 {% endblock %}

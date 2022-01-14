@@ -6,10 +6,14 @@ namespace Bolt\Repository;
 
 use Bolt\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr;
 use Doctrine\Persistence\ManagerRegistry;
 
 class UserRepository extends ServiceEntityRepository
 {
+    /** @var string[] */
+    private $userColumns = ['id', 'displayName', 'username', 'roles', 'email', 'lastIp'];
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, User::class);
@@ -46,6 +50,25 @@ class UserRepository extends ServiceEntityRepository
         return $user instanceof User ? $user : null;
     }
 
+    public function findUsers(string $like, string $orderBy = null)
+    {
+        $alias = 'user';
+        $qb = $this->createQueryBuilder($alias);
+
+        if ($like) {
+            foreach ($this->userColumns as $col) {
+                $qb
+                    ->orWhere(
+                        $qb->expr()->like(sprintf('%s.%s', $alias, $col), sprintf(':%s', $col))
+                    )
+                    ->setParameter($col, $like);
+            }
+        }
+        $qb->orderBy($this->createSortBy($orderBy, $alias));
+
+        return $qb->getQuery()->getResult();
+    }
+
     public function getFirstAdminUser(): ?User
     {
         $qb = $this->createQueryBuilder('user');
@@ -70,5 +93,17 @@ class UserRepository extends ServiceEntityRepository
         $user->setEmail($email);
 
         return $user;
+    }
+
+    private function createSortBy($order, $alias): Expr\OrderBy
+    {
+        if (mb_strpos($order, '-') === 0) {
+            $direction = 'DESC';
+            $order = sprintf('%s.%s', $alias, mb_substr($order, 1));
+        } else {
+            $direction = 'ASC';
+            $order = sprintf('%s.%s', $alias, $order);
+        }
+        return new Expr\OrderBy($order, $direction);
     }
 }
