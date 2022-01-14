@@ -238,3 +238,6 @@ reset_password_settings:
     mail_name: "Bolt CMS"
     mail_subject: "Your password reset request"
     mail_template: "reset_password/email.html.twig"
+
+# Adds sorting and filtering users in backend
+user_show_sort&filter: true
