@@ -2679,5 +2679,11 @@
         <target>Remember me? (%duration% days)</target>
       </segment>
     </unit>
+    <unit id="eJG2.4P" name="listing.current_sessions_header">
+      <segment>
+        <source>listing.current_sessions_header</source>
+        <target>Current sessions</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

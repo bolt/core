@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="nl" trgLang="nl">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="nl">
   <file id="messages.nl">
     <unit id="tbB2gib" name="not_available">
       <notes>
@@ -181,7 +181,7 @@
         <target>Copyright</target>
       </segment>
     </unit>
-    <unit id="IaF1MjB" name="label.remembermeduration">
+    <unit id="2hoKa1k" name="label.remembermeduration">
       <notes>
         <note>templates/security/login.twig:80</note>
       </notes>
@@ -1287,13 +1287,13 @@
     <unit id="Iy4HXCU" name="controller.user.title">
       <segment>
         <source>controller.user.title</source>
-        <target><![CDATA[Users & Permissions]]></target>
+        <target><![CDATA[Gebruikers & permissies]]></target>
       </segment>
     </unit>
     <unit id="HBwIQ9b" name="controller.user.subtitle">
       <segment>
         <source>controller.user.subtitle</source>
-        <target>To edit users and their permissions</target>
+        <target><![CDATA[Gebruikers & permissies bewerken]]></target>
       </segment>
     </unit>
     <unit id="0Gyf5xr" name="controller.database.check_title">
@@ -1792,6 +1792,18 @@
       <segment>
         <source>placeholder.password</source>
         <target>je wachtwoord</target>
+      </segment>
+    </unit>
+    <unit id="z8r0TY6" name="action.edit_permissions">
+      <segment>
+        <source>action.edit_permissions</source>
+        <target>Bewerk permissies</target>
+      </segment>
+    </unit>
+    <unit id="eJG2.4P" name="listing.current_sessions_header">
+      <segment>
+        <source>listing.current_sessions_header</source>
+        <target>Huidige sessies</target>
       </segment>
     </unit>
   </file>
