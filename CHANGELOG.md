@@ -1,6 +1,24 @@
 Changelog
 =========
 
+## 5.1.2
+
+Released: TBD
+
+### 🛠️ Miscellaneous
+
+- Users overview page Dutch translations (nestordedios, [#3049](https://github.com/bolt/core/pull/3049))
+- Fix wrong subtask called in Makefile for Docker (fsidobre, [#3048](https://github.com/bolt/core/pull/3048))
+- Update `package-lock.json` (Joossensei, [#3045](https://github.com/bolt/core/pull/3045))
+- Fix Romanian transliteration (bobdenotter, [#3043](https://github.com/bolt/core/pull/3043))
+- Minor cleanup on `services.yaml` (bobdenotter, [#3035](https://github.com/bolt/core/pull/3035))
+
+### ⚙️ Code Quality / Developer Experience
+
+- Typehint `QuestionHelper` (make PhpStan happy) (bobdenotter, [#3044](https://github.com/bolt/core/pull/3044))
+- Fixing logo alt (bobdenotter, [#3042](https://github.com/bolt/core/pull/3042))
+
+
 ## 5.1.1
 
 Released: 2021-01-05
