@@ -3,20 +3,29 @@ Changelog
 
 ## 5.1.2
 
-Released: TBD
+Released: 2021-01-19
+
+### 🐛 Bug fixes
+
+- Bugfix Fix `maximum_listing_select` in `config.yaml` for Relation (ionutlip, [#3052](https://github.com/bolt/core/pull/3052))
+- Fix wrong subtask called in Makefile for Docker (fsidobre, [#3048](https://github.com/bolt/core/pull/3048))
+- Fix date format to save PM time (fsidobre, [#3046](https://github.com/bolt/core/pull/3046))
+- Fix Romanian transliteration (bobdenotter, [#3043](https://github.com/bolt/core/pull/3043))
 
 ### 🛠️ Miscellaneous
 
 - Users overview page Dutch translations (nestordedios, [#3049](https://github.com/bolt/core/pull/3049))
-- Fix wrong subtask called in Makefile for Docker (fsidobre, [#3048](https://github.com/bolt/core/pull/3048))
 - Update `package-lock.json` (Joossensei, [#3045](https://github.com/bolt/core/pull/3045))
-- Fix Romanian transliteration (bobdenotter, [#3043](https://github.com/bolt/core/pull/3043))
+- New feature: Allow empty value for select form controls, based on user setting. (vlad-ghita, [#3041](https://github.com/bolt/core/pull/3041))
+- Update serializable interface (bobvandevijver, [#3039](https://github.com/bolt/core/pull/3039))
+- Prepare release 5.1.1 (bobdenotter, [#3036](https://github.com/bolt/core/pull/3036))
 - Minor cleanup on `services.yaml` (bobdenotter, [#3035](https://github.com/bolt/core/pull/3035))
 
 ### ⚙️ Code Quality / Developer Experience
 
 - Typehint `QuestionHelper` (make PhpStan happy) (bobdenotter, [#3044](https://github.com/bolt/core/pull/3044))
 - Fixing logo alt (bobdenotter, [#3042](https://github.com/bolt/core/pull/3042))
+
 
 
 ## 5.1.1
