@@ -3,7 +3,6 @@
         <multiselect
             ref="vselect"
             v-model="selected"
-            :allow-empty="allowempty"
             :limit="1000"
             :multiple="multiple"
             :options="options"
@@ -73,7 +72,6 @@ export default {
         options: Array,
         optionslimit: Number,
         multiple: Boolean,
-        allowempty: Boolean,
         taggable: Boolean,
         readonly: Boolean,
         classname: String,

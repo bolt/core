@@ -39,7 +39,6 @@
                             :options="{{ options }}"
                             :multiple="{{ definition.multiple ? 'true' : 'false' }}"
                             :taggable="{{ (definition.behaves_like == 'tags') ? 'true' : 'false' }}"
-                            :allowempty="{{ definition.required ? 'false' : 'true' }}"
                     ></editor-select>
                 {% if definition.has_sortorder %}
                     </div>

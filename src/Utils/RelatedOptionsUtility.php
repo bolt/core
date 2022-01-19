@@ -3,6 +3,7 @@
 namespace Bolt\Utils;
 
 use Bolt\Entity\Content;
+use Bolt\Entity\Field;
 use Bolt\Storage\Query;
 
 /**
@@ -27,7 +28,7 @@ class RelatedOptionsUtility
     /**
      * Decorated by `Bolt\Cache\RelatedOptionsUtilityCacher`
      */
-    public function fetchRelatedOptions(string $contentTypeSlug, string $order, string $format, bool $required, int $maxAmount): array
+    public function fetchRelatedOptions(string $contentTypeSlug, string $order, string $format, bool $required, ?bool $allowEmpty, int $maxAmount): array
     {
         $pager = $this->query->getContent($contentTypeSlug, ['order' => $order])
             ->setMaxPerPage($maxAmount)
@@ -40,7 +41,7 @@ class RelatedOptionsUtility
         // We need to add this as a 'dummy' option for when the user is allowed
         // not to pick an option. This is needed, because otherwise the `select`
         // would default to the first one.
-        if ($required === false) {
+        if (Field::settingsAllowEmpty($allowEmpty, $required)) {
             $options[] = [
                 'key' => '',
                 'value' => '',
