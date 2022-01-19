@@ -8,6 +8,7 @@ jobs:
         strategy:
             matrix:
                 php-version: [ '7.2', '8.0' ]
+            fail-fast: false
         name: PHPUnit 
         runs-on: ubuntu-latest
         steps:
@@ -23,6 +24,6 @@ jobs:
                   sudo composer self-update -q	
             - name: Install dependencies
               run: |
-                  sudo COMPOSER_MEMORY_LIMIT=-1 COMPOSER_PROCESS_TIMEOUT=60 composer update --prefer-dist --no-progress	
+                  sudo COMPOSER_MEMORY_LIMIT=-1 COMPOSER_PROCESS_TIMEOUT=60 composer update --prefer-dist --no-progress	--no-scripts
             - name: run PHP Unit
               run: ./vendor/bin/phpunit
