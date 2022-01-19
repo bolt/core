@@ -8,6 +8,7 @@ jobs:
         strategy:
             matrix:
                 php-version: [ '7.2', '8.0' ]
+            fail-fast: false
         name: PHPUnit 
         runs-on: ubuntu-latest
         steps:
