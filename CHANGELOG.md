@@ -27,7 +27,6 @@ Released: 2021-01-19
 - Fixing logo alt (bobdenotter, [#3042](https://github.com/bolt/core/pull/3042))
 
 
-
 ## 5.1.1
 
 Released: 2021-01-05

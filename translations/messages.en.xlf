@@ -2685,5 +2685,29 @@
         <target>Current sessions</target>
       </segment>
     </unit>
+    <unit id="a_COwtV" name="image.button_upload_options">
+      <segment>
+        <source>image.button_upload_options</source>
+        <target>Upload Options</target>
+      </segment>
+    </unit>
+    <unit id="NF.vvAN" name="You have to login in order to access this page.">
+      <segment>
+        <source>You have to login in order to access this page.</source>
+        <target>You have to login in order to access this page.</target>
+      </segment>
+    </unit>
+    <unit id="hKmDb7q" name="Share secure preview link">
+      <segment>
+        <source>Share secure preview link</source>
+        <target>Share secure preview link</target>
+      </segment>
+    </unit>
+    <unit id="a_CQgly" name="Order">
+      <segment>
+        <source>Order</source>
+        <target>Order</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
