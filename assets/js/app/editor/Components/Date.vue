@@ -105,7 +105,7 @@ export default {
                 wrap: true,
                 altFormat: 'F j, Y',
                 altInput: true,
-                dateFormat: 'Y-m-d h:i',
+                dateFormat: 'Y-m-d H:i',
                 enableTime: false,
             },
         };
