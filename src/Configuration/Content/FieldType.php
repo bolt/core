@@ -49,11 +49,11 @@ class FieldType extends Collection
             'pattern' => false,
             'hidden' => false,
             'default_locale' => 'en',
-            // 10 rows by default
             'height' => '10',
             'icon' => '',
             'maxlength' => '',
             'autocomplete' => true,
+            'values' => [],
         ]);
     }
 
