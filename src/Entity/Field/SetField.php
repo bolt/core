@@ -38,14 +38,39 @@ class SetField extends Field implements FieldInterface, FieldParentInterface, Li
 
         $definedFields = array_flip($this->getDefinition()->get('fields', new Collection())->keys()->toArray());
 
+//        dump($definedFields);
         $value = [];
 
-        /** @var Field $field */
-        foreach ($fields as $field) {
+        foreach ($fields as $key => $field) {
             // todo: This should be able to handle an array of fields
             // in key-value format, not just Field.php types.
-            $field->setParent($this);
-            $value[$field->getName()] = $field;
+
+            dump($fields);
+
+            // If the input is a Field instead of a value just parse it like normal
+            if ($field instanceof Field) {
+                $field->setParent($this);
+                $value[$field->getName()] = $field;
+
+                break;
+            }
+
+            // Create the Field var
+            $newField = new Field();
+
+            // Set the set as parent
+            $newField->setParent($this);
+
+            // Create the field with the key as name
+            $newField->setDefinition($key, $this->getDefinition()->get('fields')[$key]);
+
+            dump($newField);
+
+            // Should set the value of the newly created field
+            $newField->setValue($field);
+            // Next step
+            dump($newField);
+//            $value[$newField->getName()] = $newField;
         }
 
         // Sorts the fields in the order specified in the definition
