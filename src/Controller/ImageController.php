@@ -115,7 +115,6 @@ class ImageController
 
     private function buildResponse(string $filename): Response
     {
-
         $filepath = $this->getPath(null, false, $filename);
 
         if (! (new Filesystem())->exists($filepath)) {
