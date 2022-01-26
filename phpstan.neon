@@ -36,11 +36,6 @@ parameters:
             message: "#Offset '.*' ([a-z ]*)on array#"
             path: %currentWorkingDirectory%/src/Log/LogHandler.php
 
-        # False positive: `id` on Entities
-        -
-            message: '#Property Bolt\\Entity\\(.*)::\$id is never written, only read#'
-            path: %currentWorkingDirectory%/src/Entity/*
-
 includes:
 	- vendor/phpstan/phpstan-symfony/extension.neon
 	- vendor/phpstan/phpstan-doctrine/extension.neon
