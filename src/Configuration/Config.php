@@ -195,7 +195,7 @@ class Config
                 $value = $_ENV[$matches[1]];
             }
 
-            if (!empty($value) && getenv($matches[1])) {
+            if (empty($value) && getenv($matches[1])) {
                 $value = getenv($matches[1]);
             }
         }
