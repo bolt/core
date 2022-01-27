@@ -507,7 +507,7 @@ class ContentExtension extends AbstractExtension
         // We need to add this as a 'dummy' option for when the user is allowed
         // not to pick an option. This is needed, because otherwise the `select`
         // would default to the first option.
-        if ($taxonomy['required'] === false) {
+        if (Field::definitionAllowsEmpty($taxonomy)) {
             $options[] = [
                 'key' => '',
                 'value' => '',
@@ -549,7 +549,7 @@ class ContentExtension extends AbstractExtension
             $orders = $orders[$taxonomy['slug']] ?? [];
         }
 
-        if (empty($values) && $taxonomy['required']) {
+        if (empty($values) && !Field::definitionAllowsEmpty($taxonomy)) {
             $values[] = key($taxonomy['options']);
             $orders = array_fill(0, count($values), 0);
         }

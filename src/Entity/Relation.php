@@ -15,7 +15,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     normalizationContext={"groups"={"get_relation"}},
  *     collectionOperations={
  *          "get"={"security"="is_granted('api:get')"},
- *          "post"={"security"="is_granted(‘api:post’)"}
+ *          "post"={"security"="is_granted('api:post')"}
  *     },
  *     itemOperations={
  *          "get"={"security"="is_granted('api:get')"},

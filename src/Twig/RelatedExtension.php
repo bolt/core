@@ -138,9 +138,9 @@ class RelatedExtension extends AbstractExtension
         return null;
     }
 
-    public function getRelatedOptions(string $contentTypeSlug, ?string $order = null, string $format = '', ?bool $required = false): Collection
+    public function getRelatedOptions(string $contentTypeSlug, ?string $order = null, string $format = '', ?bool $required = false, ?bool $allowEmpty = false): Collection
     {
-        $maxAmount = $this->config->get('maximum_listing_select', 1000);
+        $maxAmount = $this->config->get('general/maximum_listing_select', 1000);
 
         $contentType = $this->config->getContentType($contentTypeSlug);
 
@@ -148,7 +148,7 @@ class RelatedExtension extends AbstractExtension
             $order = $contentType->get('order');
         }
 
-        $options = $this->optionsUtility->fetchRelatedOptions($contentTypeSlug, $order, $format, $required, $maxAmount);
+        $options = $this->optionsUtility->fetchRelatedOptions($contentTypeSlug, $order, $format, $required, $allowEmpty, $maxAmount);
 
         return new Collection($options);
     }

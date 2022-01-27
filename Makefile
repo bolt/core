@@ -88,7 +88,7 @@ db-reset-without-images: ## to delete database and load fixtures, but no images
 docker-install: ## to install project with docker
 	make docker-start
 	make docker-install-deps
-	make docker-db-create
+	make docker-db-reset
 
 docker-install-deps: ## to install all assets with docker
 	docker-compose exec -T php sh -c "$(COMPOSER) install"
