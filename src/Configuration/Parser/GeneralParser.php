@@ -119,6 +119,7 @@ class GeneralParser extends BaseParser
                 'extensions_allowed' => ['png', 'jpeg', 'jpg', 'gif'],
                 'default_avatar' => '',
             ],
+            'user_show_sort&filter' => false
         ];
     }
 }
