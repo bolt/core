@@ -33,8 +33,8 @@ jobs:
             - name: create api user
               run: php bin/console bolt:add-user apiuser apiuser%1 api@example.org API --roles=ROLE_WEBSERVICE
             - name: check API user gets content
-              run: curl -fkI -u apiuser:apiuser%1 https://localhost:8088/api/contents
+              run: curl -fkI -u apiuser:apiuser%1 http://localhost:8088/api/contents
             - name: check API user gets fields
-              run: curl -fkI -u apiuser:apiuser%1 https://localhost:8088/api/fields
+              run: curl -fkI -u apiuser:apiuser%1 http://localhost:8088/api/fields
             - name: check API user gets relations
-              run: curl -fkI -u apiuser:apiuser%1 https://localhost:8088/api/relations
+              run: curl -fkI -u apiuser:apiuser%1 http://localhost:8088/api/relations
