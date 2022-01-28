@@ -41,7 +41,7 @@ class ImageController
     public function thumbnail(string $paramString, string $filename)
     {
         if (! $this->isImage($filename)) {
-            throw new NotFoundHttpException('Thumbnail not found');
+            return $this->sendErrorImage();
         }
 
         $this->parseParameters($paramString);
@@ -118,7 +118,9 @@ class ImageController
         $filepath = $this->getPath(null, false, $filename);
 
         if (! (new Filesystem())->exists($filepath)) {
-            throw new NotFoundHttpException(sprintf("The file '%s' does not exist.", $filepath));
+            // $notice = sprintf("The file '%s' does not exist.", $filepath);
+
+            return $this->sendErrorImage();
         }
 
         // In case we're trying to "thumbnail" an svg, just return the whole thing.
@@ -204,5 +206,14 @@ class ImageController
             default:
                 return $fit;
         }
+    }
+
+    public function sendErrorImage(): Response
+    {
+        $image404Path = dirname(dirname(__DIR__)) . '/assets/static/images/404-image.png';
+        $response = new Response(file_get_contents($image404Path));
+        $response->headers->set('Content-Type', 'image/png');
+
+        return $response;
     }
 }
