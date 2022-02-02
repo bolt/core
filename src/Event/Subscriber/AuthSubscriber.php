@@ -3,6 +3,7 @@
 namespace Bolt\Event\Subscriber;
 
 use Bolt\Entity\User;
+use Bolt\Entity\UserAuthToken;
 use Bolt\Log\LoggerTrait;
 use Bolt\Repository\UserAuthTokenRepository;
 use Doctrine\ORM\EntityManagerInterface;
