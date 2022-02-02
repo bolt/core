@@ -3,7 +3,6 @@
 namespace Bolt\Event\Subscriber;
 
 use Bolt\Entity\User;
-use Bolt\Entity\UserAuthToken;
 use Bolt\Log\LoggerTrait;
 use Bolt\Repository\UserAuthTokenRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -35,11 +34,6 @@ class AuthSubscriber implements EventSubscriberInterface
         /** @var User $user */
         $user = $event->getAuthenticationToken()->getUser();
         $request = $this->requestStack->getCurrentRequest();
-        
-        $existingUserAuthToken = $this->em->getRepository(UserAuthToken::class)->findOneBy(['user' => $user]);
-        $this->em->remove($existingUserAuthToken);
-        $this->em->flush();
-
         $user->setLastseenAt(new \DateTime());
         $user->setLastIp($request->getClientIp());
         /** @var Parser $uaParser */
