@@ -26,15 +26,15 @@ jobs:
                   sudo COMPOSER_MEMORY_LIMIT=-1 COMPOSER_PROCESS_TIMEOUT=60 composer update --prefer-dist --no-progress
             - name: Initialise the database
               run: |
-                sudo chmod -R 777 config/ public/files/ public/theme/ public/thumbs/ var/
-                ./bin/console doctrine:database:create
-                ./bin/console doctrine:schema:create
-              ./bin/console server:start 127.0.0.1:8088
+                  sudo chmod -R 777 config/ public/files/ public/theme/ public/thumbs/ var/
+                  ./bin/console doctrine:database:create
+                  ./bin/console doctrine:schema:create
+                  ./bin/console server:start 127.0.0.1:8088
             - name: create api user
               run: php bin/console bolt:add-user apiuser apiuser%1 api@example.org API --roles=ROLE_WEBSERVICE
             - name: check API user gets content
-              run: curl -fkI -u apiuser:apiuser%1 https://localhost:8088/api/contents
+              run: curl -fkI -u apiuser:apiuser%1 http://localhost:8088/api/contents
             - name: check API user gets fields
-              run: curl -fkI -u apiuser:apiuser%1 https://localhost:8088/api/fields
+              run: curl -fkI -u apiuser:apiuser%1 http://localhost:8088/api/fields
             - name: check API user gets relations
-              run: curl -fkI -u apiuser:apiuser%1 https://localhost:8088/api/relations
+              run: curl -fkI -u apiuser:apiuser%1 http://localhost:8088/api/relations
