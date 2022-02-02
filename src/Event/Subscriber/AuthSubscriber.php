@@ -53,6 +53,8 @@ class AuthSubscriber implements EventSubscriberInterface
 
     public function onLogout(LogoutEvent $event): void
     {
+        if (is_null($event->getToken())) return;
+        
         /** @var User $user */
         $user = $event->getToken()->getUser();
 
