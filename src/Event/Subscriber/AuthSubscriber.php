@@ -34,6 +34,10 @@ class AuthSubscriber implements EventSubscriberInterface
         /** @var User $user */
         $user = $event->getAuthenticationToken()->getUser();
         $request = $this->requestStack->getCurrentRequest();
+        
+        $existingUserAuthToken = $this->em->getRepository(UserAuthToken::class)->findOneBy(['user' => $user]);
+        $this->em->remove($existingUserAuthToken);
+        $this->em->flush();
 
         $user->setLastseenAt(new \DateTime());
         $user->setLastIp($request->getClientIp());
@@ -53,7 +57,9 @@ class AuthSubscriber implements EventSubscriberInterface
 
     public function onLogout(LogoutEvent $event): void
     {
-        if (is_null($event->getToken())) return;
+        if (is_null($event->getToken())) {
+            return;
+        }
         
         /** @var User $user */
         $user = $event->getToken()->getUser();
