@@ -15,7 +15,7 @@ caching:
     selectoptions: 1800
     content_array: 1800
     frontend_menu: 3600
-    backend_menu: 1800
+    backend_menu: 0
 
 # The theme to use.
 #
