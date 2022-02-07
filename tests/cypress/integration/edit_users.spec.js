@@ -5,9 +5,9 @@ describe('Edit user successfully, Edit users incorrectly', () => {
         cy.login();
         cy.visit('/bolt/users');
 
-        cy.get('table:nth-child(1) > tbody > tr:nth-child(6) > td:nth-child(7)').click();
+        cy.get('table:nth-child(1) > tbody > tr:nth-child(6) > td:nth-child(7)').click({ force: true });
         cy.wait(100);
-        cy.get('table:nth-child(1) > tbody > tr:nth-child(6) > td:nth-child(7) > div > div > a:nth-child(1)').click();
+        cy.get('table:nth-child(1) > tbody > tr:nth-child(6) > td:nth-child(7) > div > div > a:nth-child(1)').invoke('removeAttr', 'target').click({ force: true });
         cy.wait(1000);
 
         cy.visit('/bolt/user-edit/4');
@@ -28,7 +28,7 @@ describe('Edit user successfully, Edit users incorrectly', () => {
         cy.visit('/bolt/login');
         cy.get('input[name="login[username]"]').type('jane_chief');
         cy.get('input[name="login[password]"]').type('jane%1' + '{enter}');
-        cy.visit('/bolt/profile-edit')
+        cy.visit('/bolt/profile-edit');
 
         cy.get('#user_displayName').clear();
         cy.get('#user_displayName').type('Administrator');
@@ -75,7 +75,7 @@ describe('Edit user successfully, Edit users incorrectly', () => {
 
         cy.wait(500);
 
-        cy.get('h1').should('contain', 'Jane Doe');
+        cy.get('h1').should('contain', 'Administrator');
         cy.get('#user_username').invoke('val').should('contain', 'jane_chief');
 
         cy.get('#user_displayName').clear();
