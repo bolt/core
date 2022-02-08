@@ -34,7 +34,7 @@ describe('Create/delete user', () => {
         cy.get('table').eq(0).find('tbody').find('tr').eq(5).find('td').eq(1).find('small').find('a').should('contain', '@');
         cy.get('table').eq(0).find('tbody').find('tr').eq(5).find('td').eq(1).should('contain', 'Test user');
 
-        cy.get('table').eq(0).find('tbody').find('tr').eq(5).find('td').eq(5).click();
+        cy.get('table').eq(0).find('tbody').find('tr').eq(5).find('td').eq(5).click({ force: true });
         cy.wait(100);
         cy.get('table').eq(0).find('tbody').find('tr').eq(5).find('td').eq(5).find('.btn-hidden-danger').click();
         cy.wait(1000);
