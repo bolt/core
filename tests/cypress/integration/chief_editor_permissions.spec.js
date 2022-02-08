@@ -3,6 +3,13 @@
 describe('Check permissions of a chief_editor', () => {
     it('checks all permissions of a chief editor', () => {
         cy.login('jane_chief', 'jane%1');
+
+        // TODO Wait for cache fix
+        cy.visit('/bolt/clearcache');
+        cy.wait(1000);
+        cy.visit('/bolt');
+
+
         cy.url().should('contain', '/bolt/');
         cy.get('ul[class="admin__sidebar--menu"]').find('li').eq(10).trigger('mouseover');
 
