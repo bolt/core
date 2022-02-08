@@ -16,5 +16,5 @@ describe('As a user I want to see taxonomies in records and listings', () => {
         cy.findByText('love').click();
         cy.visit('/categories/movies');
         cy.get('article').its('length').should('be.gte', 3);
-    })
+    });
 });
