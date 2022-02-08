@@ -12,6 +12,7 @@ describe('As a user I want to see taxonomies in records and listings', () => {
         cy.login();
         cy.visit('/entry/this-is-a-record-in-the-entries-contenttype');
         cy.get('.title').should('have.length', 1);
+        cy.scrollIntoView();
         cy.findByText('movies').click();
         cy.visit('/categories/movies');
         cy.get('article').its('length').should('be.gte', 3);
