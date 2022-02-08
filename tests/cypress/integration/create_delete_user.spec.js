@@ -5,7 +5,7 @@ describe('Create/delete user', () => {
         cy.login();
 
         //CACHE CLEAR
-        cy.visit('/bolt/cacheclear');
+        cy.visit('/bolt/clearcache');
 
         cy.visit('/bolt/users');
         cy.get('main > p > a').eq(0).scrollIntoView();
