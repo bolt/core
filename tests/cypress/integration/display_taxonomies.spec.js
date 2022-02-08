@@ -6,7 +6,7 @@ describe('As a user I want to see taxonomies in records and listings', () => {
         cy.get('.title').should('have.length', 1);
         cy.get('.taxonomy-categories').its('length').should('eq', 2);
         cy.get('.taxonomy-tags').its('length').should('eq', 4);
-    })
+    });
 
     it('checks if there is a listing of a taxonomy', () => {
         cy.login();
