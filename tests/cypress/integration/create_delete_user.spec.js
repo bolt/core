@@ -3,6 +3,10 @@
 describe('Create/delete user', () => {
     it('checks that an admin can create and delete users', () => {
         cy.login();
+
+        //CACHE CLEAR
+        cy.visit('/bolt/cacheclear');
+
         cy.visit('/bolt/users');
         cy.get('main > p > a').eq(0).scrollIntoView();
         cy.get('main > p > a').eq(0).click();
