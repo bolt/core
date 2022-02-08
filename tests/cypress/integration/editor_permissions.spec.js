@@ -1,6 +1,15 @@
 /// <reference types="cypress" />
 
 describe('Check all editors privileges', () => {
+
+    // TODO Another cache clear
+    before( () => {
+        cy.login();
+        cy.visit('/bolt/clearcache');
+        cy.wait(1000);
+        cy.visit('/bolt/logout');
+    });
+
     it('checks if an editor can access Configuration', () => {
         cy.login('john_editor', 'john%1');
         cy.url().should('contain', '/bolt/');
