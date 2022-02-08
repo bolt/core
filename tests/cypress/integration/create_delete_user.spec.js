@@ -46,5 +46,5 @@ describe('Create/delete user', () => {
         cy.get('table').eq(0).find('tbody').find('tr').its('length').should('eq', 6);
         cy.get('table').eq(0).find('tbody').find('tr').eq(5).find('td').eq(0).should('not.contain', 'test_user');
         cy.get('table').eq(0).find('tbody').find('tr').eq(5).find('td').eq(1).should('not.contain', 'Test user');
-    })
+    });
 });
