@@ -16,10 +16,6 @@ describe('Create/delete user', () => {
         cy.get('input[name="user[plainPassword]"]').type('test%1');
         cy.get('input[name="user[email]"]').type('test_user@example.org');
 
-        cy.get('#multiselect-user_locale > div > div.multiselect__select').scrollIntoView();
-        cy.get('#multiselect-user_locale > div > div.multiselect__select').click();
-        cy.get('#multiselect-user_locale > div > div.multiselect__content-wrapper > ul > li:nth-child(1)').scrollIntoView();
-        cy.get('#multiselect-user_locale > div > div.multiselect__content-wrapper > ul > li:nth-child(1)').click();
         cy.get('#multiselect-user_roles > div > div.multiselect__select').scrollIntoView();
         cy.get('#multiselect-user_roles > div > div.multiselect__select').click();
         cy.get('#multiselect-user_roles > div > div.multiselect__content-wrapper > ul > li:nth-child(1) > span').scrollIntoView();
@@ -35,7 +31,7 @@ describe('Create/delete user', () => {
         cy.get('table').eq(0).find('tbody').find('tr').eq(5).find('td').eq(1).should('contain', 'Test user');
 
         cy.get('table').eq(0).find('tbody').find('tr').eq(5).find('td').eq(5).click();
-        cy.wait(100); 
+        cy.wait(100);
         cy.get('table').eq(0).find('tbody').find('tr').eq(5).find('td').eq(5).find('.btn-hidden-danger').click();
         cy.wait(1000);
         cy.get('.bootbox-body').should('contain', 'Are you sure you wish to delete this content?');
