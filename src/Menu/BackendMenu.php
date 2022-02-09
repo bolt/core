@@ -40,8 +40,7 @@ final class BackendMenu implements BackendMenuBuilderInterface
         Stopwatch $stopwatch,
         Config $config,
         Security $security
-    )
-    {
+    ) {
         $this->cache = $cache;
         $this->menuBuilder = $menuBuilder;
         $this->requestStack = $requestStack;
