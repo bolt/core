@@ -47,6 +47,7 @@ services:
     volumes:
       - ./:/home/node/app
     working_dir: /home/node/app
+    user: node
     command:
       - ./node_modules/.bin/encore
       - dev
