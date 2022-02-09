@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Menu;
 
 use Bolt\Configuration\Config;
+use Bolt\Entity\User;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Contracts\Cache\CacheInterface;
@@ -28,13 +29,24 @@ final class BackendMenu implements BackendMenuBuilderInterface
     /** @var Config */
     private $config;
 
-    public function __construct(BackendMenuBuilder $menuBuilder, TagAwareCacheInterface $cache, RequestStack $requestStack, Stopwatch $stopwatch, Config $config)
+    /** @var User */
+    private $user;
+
+    public function __construct(
+        BackendMenuBuilder $menuBuilder,
+        TagAwareCacheInterface $cache,
+        RequestStack $requestStack,
+        Stopwatch $stopwatch,
+        Config $config,
+        User $user
+    )
     {
         $this->cache = $cache;
         $this->menuBuilder = $menuBuilder;
         $this->requestStack = $requestStack;
         $this->stopwatch = $stopwatch;
         $this->config = $config;
+        $this->user = $user;
     }
 
     public function buildAdminMenu(): array
@@ -42,7 +54,8 @@ final class BackendMenu implements BackendMenuBuilderInterface
         $this->stopwatch->start('bolt.backendMenu');
 
         $locale = $this->requestStack->getCurrentRequest()->getLocale();
-        $cacheKey = 'bolt.backendMenu_' . $locale;
+        $username = $this->user->getUsername();
+        $cacheKey = 'bolt.backendMenu_' . $locale . '_' . $username;
 
         $menu = $this->cache->get($cacheKey, function (ItemInterface $item) {
             $item->expiresAfter($this->config->get('general/caching/backend_menu'));
