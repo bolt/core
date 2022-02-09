@@ -7,6 +7,7 @@ namespace Bolt\Menu;
 use Bolt\Configuration\Config;
 use Bolt\Entity\User;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
@@ -29,8 +30,8 @@ final class BackendMenu implements BackendMenuBuilderInterface
     /** @var Config */
     private $config;
 
-    /** @var User */
-    private $user;
+    /** @var Security */
+    private $security;
 
     public function __construct(
         BackendMenuBuilder $menuBuilder,
@@ -38,7 +39,7 @@ final class BackendMenu implements BackendMenuBuilderInterface
         RequestStack $requestStack,
         Stopwatch $stopwatch,
         Config $config,
-        User $user
+        Security $security
     )
     {
         $this->cache = $cache;
@@ -46,7 +47,7 @@ final class BackendMenu implements BackendMenuBuilderInterface
         $this->requestStack = $requestStack;
         $this->stopwatch = $stopwatch;
         $this->config = $config;
-        $this->user = $user;
+        $this->security = $security;
     }
 
     public function buildAdminMenu(): array
@@ -54,7 +55,11 @@ final class BackendMenu implements BackendMenuBuilderInterface
         $this->stopwatch->start('bolt.backendMenu');
 
         $locale = $this->requestStack->getCurrentRequest()->getLocale();
-        $username = $this->user->getUsername();
+
+        /** @var User $user */
+        $user = $this->security->getUser();
+        $username = $user->getUsername();
+
         $cacheKey = 'bolt.backendMenu_' . $locale . '_' . $username;
 
         $menu = $this->cache->get($cacheKey, function (ItemInterface $item) {
