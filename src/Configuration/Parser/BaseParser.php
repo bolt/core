@@ -77,7 +77,7 @@ abstract class BaseParser
     {
         $projectConfigDir = $_ENV['BOLT_CONFIG_FOLDER'] ?? 'bolt';
 
-        if (empty($value) && getenv('BOLT_CONFIG_FOLDER')) {
+        if (empty($projectConfigDir) && getenv('BOLT_CONFIG_FOLDER')) {
             $projectConfigDir = getenv('BOLT_CONFIG_FOLDER');
         }
 
