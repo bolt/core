@@ -75,11 +75,13 @@ abstract class BaseParser
 
     protected function getProjectConfigDir(): string
     {
-        $projectConfigDir = $_ENV['BOLT_CONFIG_FOLDER'] ?? 'bolt';
+        $projectConfigDir = $_ENV['BOLT_CONFIG_FOLDER'] ?? null;
 
         if (empty($projectConfigDir) && getenv('BOLT_CONFIG_FOLDER')) {
             $projectConfigDir = getenv('BOLT_CONFIG_FOLDER');
         }
+
+        $projectConfigDir = $projectConfigDir ?? 'bolt';
 
         return '/config/' . $projectConfigDir;
     }
