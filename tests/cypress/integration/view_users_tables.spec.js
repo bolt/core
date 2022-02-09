@@ -3,6 +3,11 @@
 describe('View users and permissions', () => {
     it('checks that an admin can view users and permission', () => {
         cy.login();
+
+        //Clear cache
+        cy.visit('/bolt/clearcache');
+        cy.visit('/bolt');
+
         cy.get('a[href="/bolt/menu/configuration"]').click();
 
         cy.wait(1000);
