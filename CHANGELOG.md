@@ -1,6 +1,35 @@
 Changelog
 =========
 
+## 5.1.3
+
+Released: 2021-02-10
+
+### 🐛 Bug fixes
+
+- Fix configuration values not resolving correctly (ionutlip, [#3068](https://github.com/bolt/core/pull/3068))
+- Set default `values` in FieldType (bobdenotter, [#3058](https://github.com/bolt/core/pull/3058))
+
+### 🛠️ Miscellaneous
+
+- Add a username to the `backendmenu` cache key (Joossensei, [#3087](https://github.com/bolt/core/pull/3087))
+- Update cypress tests again (Joossensei, [#3084](https://github.com/bolt/core/pull/3084))
+- Update `AuthSubscriber.php` to prevent logout error (matesko, [#3074](https://github.com/bolt/core/pull/3074))
+- Avoid running node service as `root` user (fsidobre, [#3073](https://github.com/bolt/core/pull/3073))
+- Tweaking Cypress `defaultCommandTimeout` (bobdenotter, [#3070](https://github.com/bolt/core/pull/3070))
+- Add the possibility to sort and filter users in the backend (damien-jourdan, [#3066](https://github.com/bolt/core/pull/3066))
+- Show "404" image for missing thumbnails (bobdenotter, [#3064](https://github.com/bolt/core/pull/3064))
+- Update `Relation.php` (Joossensei, [#3060](https://github.com/bolt/core/pull/3060))
+- Bugfix Fix autocomplete for Relation  (ionutlip, [#3055](https://github.com/bolt/core/pull/3055))
+
+### ⚙️ Code Quality / Developer Experience
+
+- Bump nanoid from 3.1.30 to 3.2.0 (dependabot[bot], [#3077](https://github.com/bolt/core/pull/3077))
+- Bump node-fetch from 2.6.6 to 2.6.7 (dependabot[bot], [#3076](https://github.com/bolt/core/pull/3076))
+- Update `api_tests.yaml` (bobdenotter, [#3069](https://github.com/bolt/core/pull/3069))
+- Remove ignore of false positive in PHPStan (bobdenotter, [#3061](https://github.com/bolt/core/pull/3061))
+
+
 ## 5.1.2
 
 Released: 2021-01-19
