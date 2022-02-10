@@ -38,14 +38,11 @@ class SetField extends Field implements FieldInterface, FieldParentInterface, Li
 
         $definedFields = array_flip($this->getDefinition()->get('fields', new Collection())->keys()->toArray());
 
-//        dump($definedFields);
         $value = [];
 
         foreach ($fields as $key => $field) {
             // todo: This should be able to handle an array of fields
             // in key-value format, not just Field.php types.
-
-            dump($fields);
 
             // If the input is a Field instead of a value just parse it like normal
             if ($field instanceof Field) {
@@ -55,26 +52,33 @@ class SetField extends Field implements FieldInterface, FieldParentInterface, Li
                 break;
             }
 
+            $record = $this->getContent();
+
             // Create the Field var
             $newField = new Field();
+
+            // Use the current content
+            $newField->setContent($this->getContent());
 
             // Set the set as parent
             $newField->setParent($this);
 
             // Create the field with the key as name
-            $newField->setDefinition($key, $this->getDefinition()->get('fields')[$key]);
-
-            dump($newField);
+            $newField->setName($key);
 
             // Should set the value of the newly created field
             $newField->setValue($field);
-            // Next step
-            dump($newField);
-//            $value[$newField->getName()] = $newField;
+
+            // Add the field to the record
+            $record->addField($newField);
+
+            $value[$newField->getName()] = $newField;
         }
 
         // Sorts the fields in the order specified in the definition
         $value = array_merge(array_flip(array_intersect(array_keys($definedFields), array_keys($value))), $value);
+
+        dd($value);
 
         $this->fields = $value;
 
