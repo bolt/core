@@ -12,6 +12,8 @@ Released: 2021-02-10
 
 ### 🛠️ Miscellaneous
 
+- Make it possible for GlobalVoter.php to vote on non-bolt users. (simongroenewolt, [#3081](https://github.com/bolt/core/pull/3081))
+- Adds the ability to change dynamic the bolt configuration directory (ionutlip, [#3086](https://github.com/bolt/core/pull/3086))
 - Add a username to the `backendmenu` cache key (Joossensei, [#3087](https://github.com/bolt/core/pull/3087))
 - Update cypress tests again (Joossensei, [#3084](https://github.com/bolt/core/pull/3084))
 - Update `AuthSubscriber.php` to prevent logout error (matesko, [#3074](https://github.com/bolt/core/pull/3074))
