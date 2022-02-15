@@ -37,14 +37,14 @@
             </div>
             <div class="card details">
                 <!-- The actual field -->
-                <div :is="compile(element.content)" class="card-body"></div>
+                <div :is="currentComponent" class="card-body"></div>
             </div>
         </div>
 
         <div class="row">
             <div class="col-12">
-                <p v-if="templates.length > 1" class="mt-4 mb-1">{{ labels.add_collection_item }}:</p>
-                <div v-if="templates.length > 1" class="dropdown">
+                <p v-if="getObjLength(fields) > 1" class="mt-4 mb-1">{{ labels.add_collection_item }}:</p>
+                <div v-if="getObjLength(fields) > 1" class="dropdown">
                     <button
                         :id="name + '-dropdownMenuButton'"
                         :disabled="!allowMore"
@@ -58,14 +58,14 @@
                     </button>
                     <div class="dropdown-menu" :aria-labelledby="name + '-dropdownMenuButton'">
                         <a
-                            v-for="template in templates"
-                            :key="template.label"
+                            v-for="field in fields"
+                            :key="field.type"
                             class="dropdown-item"
-                            :data-template="template.label"
-                            @click="addCollectionItem($event)"
+                            :data-field="field.type"
+                            @click="addCollectionItem(field.slug)"
                         >
-                            <i :class="[template.icon, 'fas fa-fw']" />
-                            {{ template.label }}
+                            <i :class="[field.icon, 'fas fa-fw']" />
+                            {{ field.label }}
                         </a>
                     </div>
                 </div>
@@ -73,10 +73,10 @@
                     v-else
                     type="button"
                     class="btn btn-secondary btn-small"
-                    :data-template="templates[0].label"
-                    @click="addCollectionItem($event)"
+                    :data-field="fields[0].slug"
+                    @click="addCollectionItem(fields.slug)"
                 >
-                    <i :class="[templates[0].icon, 'fas fa-fw']" />
+                    <i :class="[fields[0].icon, 'fas fa-fw']" />
                     {{ labels.add_collection_item }}
                 </button>
             </div>
@@ -86,16 +86,58 @@
 
 <script>
 import { compile } from 'vue';
+/*
+Editor Components for rendering
+ */
+import Text from './Text';
+import Slug from './Slug';
+import Date from './Date';
+import Select from './Select';
+import Number from './Number';
+import Html from './Html';
+import Markdown from './Markdown';
+import Textarea from './Textarea';
+import Embed from './Embed';
+import Image from './Image';
+import Imagelist from './Imagelist';
+import Email from './Email';
+import Password from './Password';
+import ThemeSelect from './ThemeSelect';
+import Language from './Language';
+import File from './File';
+import Filelist from './Filelist';
+import Checkbox from './Checkbox';
+
 import $ from 'jquery';
-var uniqid = require('locutus/php/misc/uniqid');
+
 export default {
     name: 'EditorCollection',
+    components: {
+        Text,
+        Slug,
+        Date,
+        Select,
+        Number,
+        Html,
+        Markdown,
+        Textarea,
+        Embed,
+        Image,
+        Imagelist,
+        Email,
+        Password,
+        ThemeSelect,
+        Language,
+        File,
+        Filelist,
+        Checkbox,
+    },
     props: {
         name: {
             type: String,
             required: true,
         },
-        templates: {
+        fields: {
             type: Array,
             required: true,
         },
@@ -107,7 +149,6 @@ export default {
             required: true,
         },
         limit: {
-            type: Number,
             required: true,
         },
         variant: {
@@ -116,12 +157,13 @@ export default {
         },
     },
     data() {
-        let templateSelectOptions = [];
+        let fieldSelectOptions = [];
         return {
+            currentComponent: '',
             elements: this.existingFields,
-            counter: this.existingFields.length,
-            templateSelectName: 'templateSelect' + this.id,
-            templateSelectOptions: templateSelectOptions,
+            counter: this.getObjLength(this.existingFields),
+            fieldSelectName: 'fieldSelect' + this.id,
+            fieldSelectOptions: fieldSelectOptions,
             selector: {
                 collectionContainer: '#' + this.name,
                 item: ' .collection-item',
@@ -136,9 +178,9 @@ export default {
     },
     computed: {
         initialSelectValue() {
-            return this.templateSelectOptions[0].key;
+            return this.fieldSelectOptions[0].key;
         },
-        allowMore: function() {
+        allowMore: function () {
             return this.counter < this.limit;
         },
     },
@@ -152,12 +194,12 @@ export default {
          */
         window
             .$(document)
-            .on('click', vueThis.selector.collectionContainer + ' .collection-item .summary', function(e) {
+            .on('click', vueThis.selector.collectionContainer + ' .collection-item .summary', function (e) {
                 e.preventDefault();
                 let thisCollectionItem = vueThis.getCollectionItemFromPressedButton(this);
                 thisCollectionItem.toggleClass('collapsed');
             });
-        window.$(document).on('click', vueThis.selector.collectionContainer + vueThis.selector.remove, function(e) {
+        window.$(document).on('click', vueThis.selector.collectionContainer + vueThis.selector.remove, function (e) {
             e.preventDefault();
             e.stopPropagation();
             let collectionContainer = window.$(this).closest(vueThis.selector.collectionContainer);
@@ -165,7 +207,7 @@ export default {
             vueThis.setAllButtonsStates(collectionContainer);
             vueThis.counter--;
         });
-        window.$(document).on('click', vueThis.selector.collectionContainer + vueThis.selector.moveUp, function(e) {
+        window.$(document).on('click', vueThis.selector.collectionContainer + vueThis.selector.moveUp, function (e) {
             e.preventDefault();
             e.stopPropagation();
             let thisCollectionItem = vueThis.getCollectionItemFromPressedButton(this);
@@ -174,7 +216,7 @@ export default {
             vueThis.setButtonsState(thisCollectionItem);
             vueThis.setButtonsState(prevCollectionitem);
         });
-        window.$(document).on('click', vueThis.selector.collectionContainer + vueThis.selector.moveDown, function(e) {
+        window.$(document).on('click', vueThis.selector.collectionContainer + vueThis.selector.moveDown, function (e) {
             e.preventDefault();
             e.stopPropagation();
             let thisCollectionItem = vueThis.getCollectionItemFromPressedButton(this);
@@ -183,14 +225,14 @@ export default {
             vueThis.setButtonsState(thisCollectionItem);
             vueThis.setButtonsState(nextCollectionItem);
         });
-        window.$(document).on('click', vueThis.selector.collectionContainer + vueThis.selector.expandAll, function(e) {
+        window.$(document).on('click', vueThis.selector.collectionContainer + vueThis.selector.expandAll, function (e) {
             e.preventDefault();
             const collection = $(e.target).closest(vueThis.selector.collectionContainer);
             collection.find('.collection-item').removeClass('collapsed');
         });
         window
             .$(document)
-            .on('click', vueThis.selector.collectionContainer + vueThis.selector.collapseAll, function(e) {
+            .on('click', vueThis.selector.collectionContainer + vueThis.selector.collapseAll, function (e) {
                 e.preventDefault();
                 const collection = $(e.target).closest(vueThis.selector.collectionContainer);
                 collection.find('.collection-item').addClass('collapsed');
@@ -198,11 +240,11 @@ export default {
         /**
          * Update the title dynamically.
          */
-        $(document).ready(function() {
-            $.each(window.$(vueThis.selector.collectionContainer + vueThis.selector.item), function() {
+        $(document).ready(function () {
+            $.each(window.$(vueThis.selector.collectionContainer + vueThis.selector.item), function () {
                 updateTitle(this);
             });
-            window.$(vueThis.selector.collectionContainer).on('keyup change', vueThis.selector.item, function() {
+            window.$(vueThis.selector.collectionContainer).on('keyup change', vueThis.selector.item, function () {
                 updateTitle(this);
             });
         });
@@ -211,12 +253,8 @@ export default {
          * with the value of the first text-based field.
          */
         function updateTitle(item) {
-            const label = $(item)
-                .find('.collection-item-title')
-                .first();
-            const input = $(item)
-                .find('textarea,input[type="text"]')
-                .first();
+            const label = $(item).find('.collection-item-title').first();
+            const input = $(item).find('textarea,input[type="text"]').first();
             // We use this 'innerText' trick to ensure the title is plain text.
             var title = document.createElement('span');
             title.innerHTML = $(input).val() ? $(input).val() : label.attr('data-label');
@@ -238,34 +276,32 @@ export default {
         this.setAllButtonsStates(window.$(this.$refs.collectionContainer));
     },
     methods: {
+        getObjLength(obj) {
+            return Object.keys(obj).length;
+        },
+        log(item) {
+            console.log(item);
+        },
         compile(element) {
             return compile(element);
         },
         setAllButtonsStates(collectionContainer) {
             let vueThis = this;
-            collectionContainer.children(vueThis.selector.item).each(function() {
+            collectionContainer.children(vueThis.selector.item).each(function () {
                 vueThis.setButtonsState(window.$(this));
             });
         },
         setButtonsState(item) {
             //by default, enable
-            item.find(this.selector.moveUp)
-                .first()
-                .removeAttr('disabled');
-            item.find(this.selector.moveDown)
-                .first()
-                .removeAttr('disabled');
+            item.find(this.selector.moveUp).first().removeAttr('disabled');
+            item.find(this.selector.moveDown).first().removeAttr('disabled');
             if (!this.getPreviousCollectionItem(item)) {
                 // first in collection
-                item.find(this.selector.moveUp)
-                    .first()
-                    .attr('disabled', 'disabled');
+                item.find(this.selector.moveUp).first().attr('disabled', 'disabled');
             }
             if (!this.getNextCollectionItem(item)) {
                 // last in collection
-                item.find(this.selector.moveDown)
-                    .first()
-                    .attr('disabled', 'disabled');
+                item.find(this.selector.moveDown).first().attr('disabled', 'disabled');
             }
         },
         getPreviousCollectionItem(item) {
@@ -275,26 +311,96 @@ export default {
             return item.next('.collection-item').length === 0 ? false : item.next('.collection-item');
         },
         getCollectionItemFromPressedButton(button) {
-            return window
-                .$(button)
-                .closest('.collection-item')
-                .last();
+            return window.$(button).closest('.collection-item').last();
         },
-        addCollectionItem(event) {
-            // duplicate template without reference
-            let template = $.extend(true, {}, this.getSelectedTemplate(event));
-            const realhash = uniqid();
-            template.content = template.content.replace(new RegExp(template.hash, 'g'), realhash);
-            template.hash = realhash;
-            this.elements.push(template);
+        addCollectionItem(fieldName) {
+            console.log(this.fields);
             this.counter++;
+
+            // Create switch case for every field type
+            switch (fieldName) {
+                case 'text':
+                    var component = Text;
+                    break;
+                case 'slug':
+                    this.elements.push(Slug);
+                    this.currentComponent = Slug;
+                    break;
+                case 'date':
+                    this.elements.push(Date);
+                    this.currentComponent = Date;
+                    break;
+                case 'select':
+                    this.elements.push(Select);
+                    this.currentComponent = Select;
+                    break;
+                case 'number':
+                    this.elements.push(Number);
+                    this.currentComponent = Number;
+                    break;
+                case 'html':
+                    this.elements.push(Html);
+                    this.currentComponent = Html;
+                    break;
+                case 'markdown':
+                    this.elements.push(Markdown);
+                    this.currentComponent = Markdown;
+                    break;
+                case 'textarea':
+                    this.elements.push(Textarea);
+                    this.currentComponent = Textarea;
+                    break;
+                case 'embed':
+                    this.elements.push(Embed);
+                    this.currentComponent = Embed;
+                    break;
+                case 'image':
+                    this.elements.push(Image);
+                    this.currentComponent = Image;
+                    break;
+                case 'imagelist':
+                    this.elements.push(Imagelist);
+                    this.currentComponent = Imagelist;
+                    break;
+                case 'email':
+                    this.elements.push(Email);
+                    this.currentComponent = Email;
+                    break;
+                case 'password':
+                    this.elements.push(Password);
+                    this.currentComponent = Password;
+                    break;
+                case 'themeSelect':
+                    this.elements.push(ThemeSelect);
+                    this.currentComponent = ThemeSelect;
+                    break;
+                case 'language':
+                    this.elements.push(Language);
+                    this.currentComponent = Language;
+                    break;
+                case 'file':
+                    this.elements.push(File);
+                    this.currentComponent = File;
+                    break;
+                case 'filelist':
+                    this.elements.push(Filelist);
+                    this.currentComponent = Filelist;
+                    break;
+                case 'checkbox':
+                    this.elements.push(Checkbox);
+                    this.currentComponent = Checkbox;
+                    break;
+            }
+            this.currentComponent(component);
+            this.elements.push(component);
+            return this.currentComponent;
         },
-        getSelectedTemplate(event) {
-            const target = $(event.target).attr('data-template')
+        getSelectedField(event) {
+            const target = $(event.target).attr('data-field')
                 ? $(event.target)
-                : $(event.target).closest('[data-template]');
-            let selectValue = target.attr('data-template');
-            return this.templates.find(template => template.label === selectValue);
+                : $(event.target).closest('[data-field]');
+            let selectValue = target.attr('data-field');
+            return this.fields.find((field) => field.label === selectValue);
         },
     },
 };

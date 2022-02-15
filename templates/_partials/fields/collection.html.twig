@@ -14,19 +14,13 @@
     {# get the html for all collection field already in the database #}
     {% set existing_fields %}{{ macro.generate_collection_fields(field, field.value, record, false) }}{% endset %}
 
-    {# get the html template for the collection fields defined in the field definition #}
-    {% set templated_fields = "" %}
-    {% if field.templates is defined %}
-        {% set templated_fields %}{{  macro.generate_collection_fields(field, field.templates, record, true) }}{% endset %}
-    {% endif %}
-
     {% if variant == 'normal' %}
         {% set variant = field.definition.get('default_state')|default('collapsed') %}
     {% endif %}
 
     <editor-collection
       :existing-fields='{{ existing_fields }}'
-      :templates='{{ templated_fields }}'
+      :fields='{{ field.definition.fields }}'
       :labels='{{ labels | json_encode }}'
       :limit='{{ limit | json_encode }}'
       :name="{{  field.name | json_encode }}"
