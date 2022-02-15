@@ -17,7 +17,7 @@
             >
                 <span class="sr-only">Toggle Dropdown</span>
             </button>
-            <div class="edit-actions__dropdown dropdown-menu dropdown-menu-right" style="width: 320px;">
+            <div class="edit-actions__dropdown dropdown-menu dropdown-menu-right" style="width: 320px">
                 <a
                     v-if="record.status === 'published'"
                     class="dropdown-item"
@@ -116,15 +116,15 @@ export default {
         // console.log(this.labels);
     },
     methods: {
-        trim(s,len) {
-			if(!len) len = 50;
-			if(s.length < len) return s;
-		},
+        trim(s, len) {
+            if (!len) len = 50;
+            if (s.length < len) return s;
+        },
         asdatetime(string) {
             if (string) {
                 return DateTime.fromISO(String(string)).toLocaleString(DateTime.DATETIME_MED);
             }
-        }
-    }
+        },
+    },
 };
 </script>

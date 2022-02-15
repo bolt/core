@@ -6,7 +6,7 @@
 
 <script>
 import trumbowyg from 'vue-trumbowyg';
-import { formatStrip } from '../../../filters/string'
+import { formatStrip } from '../../../filters/string';
 import 'trumbowyg/dist/ui/trumbowyg.css';
 
 export default {

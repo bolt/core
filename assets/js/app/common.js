@@ -5,7 +5,7 @@ import { Popover } from 'bootstrap';
 import { version } from '../version';
 window.assetsVersion = version;
 
-$(document).ready(function() {
+$(document).ready(function () {
     // add a js class to indicate we have JS enabled. Might need a change to either modernizr or somethng comparable
     $('html').addClass('js');
 
@@ -17,16 +17,12 @@ $(document).ready(function() {
      */
     $('.admin__sidebar').addClass('admin__sidebar--is-collapsed');
 
-    $('.admin-sidebar-toggler').on('click', function() {
+    $('.admin-sidebar-toggler').on('click', function () {
         if ($('.admin__sidebar').hasClass('admin__sidebar--is-collapsed')) {
-            $('.admin__sidebar')
-                .addClass('admin__sidebar--is-expanded')
-                .removeClass('admin__sidebar--is-collapsed');
+            $('.admin__sidebar').addClass('admin__sidebar--is-expanded').removeClass('admin__sidebar--is-collapsed');
             $(this).toggleClass('is-active');
         } else {
-            $('.admin__sidebar')
-                .addClass('admin__sidebar--is-collapsed')
-                .removeClass('admin__sidebar--is-expanded');
+            $('.admin__sidebar').addClass('admin__sidebar--is-collapsed').removeClass('admin__sidebar--is-expanded');
             $(this).toggleClass('is-active');
         }
     });
@@ -46,7 +42,7 @@ $(document).ready(function() {
         }, 50);
     }
 
-    $('a[data-toggle="pill"]').on('click', function() {
+    $('a[data-toggle="pill"]').on('click', function () {
         let newUrl;
         const hash = $(this).attr('href');
         newUrl = url.split('#')[0] + hash;
@@ -56,14 +52,14 @@ $(document).ready(function() {
     /*
      ** Convert all ISO dates with class .datetime-relative to relative time
      */
-    $('.datetime-relative').each(function() {
+    $('.datetime-relative').each(function () {
         $(this).text(DateTime.fromISO($(this).text()).toRelative());
     });
 
     /*
      ** Initialise all popover elements
      */
-    
+
     var popoverEl = document.getElementsByClassName('.fa.fa-info-circle');
     if (popoverEl > 0) {
         new Popover(popoverEl);
@@ -71,8 +67,8 @@ $(document).ready(function() {
     /*
      ** When a field from another group is invalid, show it.
      */
-    $('#editor button[type="submit"]').click(function() {
-        $('input:invalid').each(function() {
+    $('#editor button[type="submit"]').click(function () {
+        $('input:invalid').each(function () {
             // Find the tab-pane that this element is inside, and get the id
             var $closest = $(this).closest('.tab-pane');
             var id = $closest.attr('id');
@@ -89,20 +85,15 @@ $(document).ready(function() {
      ** Simulates disabled behavior for elements with data-readonly attribute.
      * This is needed, because a disabled input cannot be required.
      */
-    $('[data-readonly]').on('keydown paste', function(e) {
+    $('[data-readonly]').on('keydown paste', function (e) {
         e.preventDefault();
     });
     /* Part of the code above, however make sure flatpickr is not readonly
      * and that its validation works.
      */
-    $('.editor--date')
-        .siblings()
-        .prop('readonly', false)
-        .attr('data-readonly', 'readonly');
-    $('.editor--date').on('change', e => {
-        const target = $(e.target)
-            .parent()
-            .find('input[data-readonly="readonly"]');
+    $('.editor--date').siblings().prop('readonly', false).attr('data-readonly', 'readonly');
+    $('.editor--date').on('change', (e) => {
+        const target = $(e.target).parent().find('input[data-readonly="readonly"]');
         if (target.val()) {
             target[0].setCustomValidity('');
         } else {
@@ -128,15 +119,12 @@ $(document).ready(function() {
     $('[data-errormessage]').on('input', handleInput);
 
     /* Set the errormessage on the correct editor--date field */
-    $('.editor--date').each(function() {
+    $('.editor--date').each(function () {
         let siblings = $(this).siblings();
         const errormessage = $(this).attr('data-errormessage');
 
-        siblings.each(function() {
-            $(this)
-                .attr('data-errormessage', errormessage)
-                .on('invalid', handleInvalid)
-                .on('input', handleInput);
+        siblings.each(function () {
+            $(this).attr('data-errormessage', errormessage).on('invalid', handleInvalid).on('input', handleInput);
         });
     });
     /* End of custom error message */
@@ -144,7 +132,7 @@ $(document).ready(function() {
     /*
      ** Copy text to clipboard. Used in filemanager actions.
      */
-    $('[data-copy-to-clipboard]').on('click', function(e) {
+    $('[data-copy-to-clipboard]').on('click', function (e) {
         const target = $(e.target);
 
         var input = document.createElement('input');
@@ -155,10 +143,7 @@ $(document).ready(function() {
         input.focus();
         input.select();
         document.execCommand('copy');
-        target
-            .parent()
-            .find('#copy')
-            .remove();
+        target.parent().find('#copy').remove();
     });
     /* End of copy text to clipboard */
 });

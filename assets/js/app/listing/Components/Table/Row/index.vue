@@ -21,7 +21,7 @@
             <div v-if="size === 'normal' && record.extras.image" class="listing__row--item is-thumbnail">
                 <img
                     :src="record.extras.image.thumbnail"
-                    style="width: 108px;"
+                    style="width: 108px"
                     loading="lazy"
                     :alt="record.extras.image.alt"
                 />
@@ -83,10 +83,10 @@ export default {
         },
     },
     methods: {
-        trim(s,len) {
-			if(!len) len = 50;
-			if(s.length < len) return s;
-		},
+        trim(s, len) {
+            if (!len) len = 50;
+            if (s.length < len) return s;
+        },
 
         raw(string) {
             if (string) {

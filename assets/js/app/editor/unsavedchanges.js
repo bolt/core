@@ -2,7 +2,7 @@ import $ from 'jquery';
 
 export default {
     warnFor(element) {
-        const warn = function(event) {
+        const warn = function (event) {
             // The confirmation message is as fallback. Modern browser show their own messages.
             const confirmationMessage =
                 'It looks like you have been editing something. ' +
@@ -12,13 +12,13 @@ export default {
             return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
         };
 
-        const getFormData = function(element) {
+        const getFormData = function (element) {
             return $(element).serialize();
         };
 
         const originalData = getFormData(element);
 
-        $(window).on('beforeunload', function(event) {
+        $(window).on('beforeunload', function (event) {
             const currentData = getFormData(element);
 
             if (originalData === currentData) {
@@ -29,7 +29,7 @@ export default {
         });
 
         // Warning off if we are saving the content
-        $(element).on('submit', function() {
+        $(element).on('submit', function () {
             $(window).off('beforeunload');
         });
     },

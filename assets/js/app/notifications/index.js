@@ -1,5 +1,5 @@
 import $ from 'jquery';
 
-$(document).ready(function() {
+$(document).ready(function () {
     $('.toast').toast('show');
 });

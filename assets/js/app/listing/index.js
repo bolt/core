@@ -27,15 +27,15 @@ const listing = {
                 'listing-table': Table,
                 'listing-select-box': SelectBox,
             },
-        }
-    }
-}
+        };
+    },
+};
 
 if (document.getElementById(id)) {
     const app = createApp(listing);
-    app.component('ListingRecords', Records)
-    app.component('ListingFilter', Filter)
-    app.component('ListingTable', Table)
-    app.component('ListingSelectBox', SelectBox)
+    app.component('ListingRecords', Records);
+    app.component('ListingFilter', Filter);
+    app.component('ListingTable', Table);
+    app.component('ListingSelectBox', SelectBox);
     app.mount('#' + id);
 }

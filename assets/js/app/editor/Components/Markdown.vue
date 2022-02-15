@@ -1,23 +1,18 @@
 <template>
     <div>
-        <vue-easymde 
-            :id="name" 
-            v-model="val" 
-            :name="name" 
-            :configs="config"
-        ></vue-easymde>
+        <vue-easymde :id="name" v-model="val" :name="name" :configs="config"></vue-easymde>
     </div>
 </template>
 
 <script>
-import VueEasymde from "vue-easymde";
+import VueEasymde from 'vue-easymde';
 
 export default {
     name: 'EditorMarkdown',
     components: {
-        VueEasymde
+        VueEasymde,
     },
-    data(){
+    data() {
         return {
             val: null,
             config: {
@@ -25,11 +20,11 @@ export default {
                 status: false,
                 toggleFullScreen: true,
             },
-        }
+        };
     },
-}
+};
 </script>
 
 <style>
-    @import "~easymde/dist/easymde.min.css";
+@import '~easymde/dist/easymde.min.css';
 </style>

@@ -31,7 +31,7 @@ export default {
             if (string) {
                 return DateTime.fromISO(String(string)).toLocaleString();
             }
-        }
-    }
+        },
+    },
 };
 </script>

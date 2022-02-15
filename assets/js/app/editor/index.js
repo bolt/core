@@ -35,15 +35,15 @@ const editorPage = {
             store,
             el: editorSelector,
             name: 'BoltEditor',
-            mounted: function() {
+            mounted: function () {
                 // Wait 2 seconds, so that Vue is initialised properly without triggering change events.
-                setTimeout(function() {
+                setTimeout(function () {
                     UnsavedChangesWarning.warnFor(editorSelector + ' form');
                 }, 2000);
             },
-        }
-    }
-}
+        };
+    },
+};
 
 const app = createApp(editorPage);
 
@@ -63,9 +63,9 @@ if (document.getElementById(id)) {
     app.component('EditorSelect', Select);
     app.component('EditorSlug', Slug);
     app.component('EditorText', Text);
-    // app.component('EditorTextarea', Textarea);
-    app.component('EditorCollection', Collection); // b0rk
+    app.component('EditorTextarea', Textarea);
+    app.component('EditorCollection', Collection);
     app.component('EditorLanguage', Language);
-    app.component('ThemeSelect', ThemeSelect); 
+    app.component('ThemeSelect', ThemeSelect);
     app.mount(editorSelector);
 }

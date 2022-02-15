@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import store from '../../../store'
+import store from '../../../store';
 
 export default {
     name: 'Checkbox',
@@ -33,9 +33,7 @@ export default {
             this.selected = this.selectAll;
         },
         selected() {
-            this.selected
-                ? store.dispatch('selecting/select', this.id)
-                : store.dispatch('selecting/deSelect', this.id);
+            this.selected ? store.dispatch('selecting/select', this.id) : store.dispatch('selecting/deSelect', this.id);
         },
         sorting() {
             if (this.sorting) this.selected = false;

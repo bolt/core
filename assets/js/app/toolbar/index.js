@@ -21,11 +21,10 @@ const toolbar = {
             components: {
                 'admin-toolbar': Toolbar,
             },
-        }
-    }
+        };
+    },
 };
 const app = createApp(toolbar);
 
-app.component('admin-toolbar', Toolbar)
-app.mount('#' + id)
-
+app.component('AdminToolbar', Toolbar);
+app.mount('#' + id);

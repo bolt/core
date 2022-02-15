@@ -315,11 +315,10 @@ function formatSlugify(string) {
 
         string = opt.lowercase ? string.toLowerCase() : string;
         return string.replace(/[^\w-]+/g, '');
-
     }
 }
 
-function formatStrip(string){
+function formatStrip(string) {
     if (string) {
         return string.replace(/(^")|("$)/g, '');
     }
@@ -334,7 +333,7 @@ function formatRaw(string) {
 }
 
 function formatUppercase(string) {
-    if (string) return string.toUpperCase();  
+    if (string) return string.toUpperCase();
 }
 
 function formatTrim(string, length) {
@@ -345,4 +344,4 @@ function formatTrim(string, length) {
     return string.length > length ? string.substring(0, length - 1) + '…' : string;
 }
 
-export {formatRaw, formatSlugify, formatUppercase, formatTrim, formatStrip}
+export { formatRaw, formatSlugify, formatUppercase, formatTrim, formatStrip };

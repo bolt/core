@@ -61,7 +61,7 @@ export default {
         },
     },
     mounted() {
-        emitter.on('generate-from-title', data => (this.generate = data));
+        emitter.on('generate-from-title', (data) => (this.generate = data));
     },
 };
 </script>
