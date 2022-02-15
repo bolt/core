@@ -19,7 +19,7 @@
   border-color: var(--#{$color});
   // hover
   &.hover,
-  &:hover  {
+  &:hover {
     background-color: var(--#{$color}-600);
     border-color: var(--#{$color}-600);
   }
