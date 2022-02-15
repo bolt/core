@@ -53,6 +53,7 @@
 <script>
 import field from '../mixins/value';
 var emitter = require('tiny-emitter/instance');
+import $ from 'jquery';
 
 export default {
     name: 'EditorSlug',
@@ -82,6 +83,7 @@ export default {
     mounted() {
         setTimeout(() => {
             let title = '';
+            // eslint-disable-next-line no-unused-vars
             this.generate.split(',').forEach((element) => {
                 title = title + $("input[name='fields[${element}]']").value;
             });

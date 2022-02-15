@@ -14,6 +14,7 @@ import store from '../../store';
 export default {
     name: 'ListingTable',
     components: {
+        // eslint-disable-next-line vue/no-unused-components
         draggable: draggable,
         'table-row': Row,
     },

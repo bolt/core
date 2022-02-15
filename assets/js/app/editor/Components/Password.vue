@@ -29,6 +29,7 @@
 
 <script>
 import ProgressBar from './ProgressBar';
+import $ from 'jquery';
 
 export default {
     name: 'EditorPassword',

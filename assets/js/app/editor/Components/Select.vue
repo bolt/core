@@ -133,7 +133,9 @@ export default {
                 value: newTag,
                 selected: true,
             };
+            // eslint-disable-next-line vue/no-mutating-props
             this.options.push(tag);
+            // eslint-disable-next-line vue/no-mutating-props
             this.value.push(tag);
             this.selected.push(tag);
         },

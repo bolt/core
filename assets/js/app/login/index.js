@@ -1,5 +1,4 @@
 import { createApp } from 'vue';
-import Vue from 'vue';
 import Password from '../editor/Components/Password';
 import Text from '../editor/Components/Text';
 

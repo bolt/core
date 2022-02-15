@@ -1,5 +1,3 @@
-import Vue from 'vue';
-
 function formatSlugify(string) {
     if (string) {
         // based on https://gist.github.com/sgmurphy/3095196
