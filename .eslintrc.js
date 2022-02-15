@@ -13,7 +13,6 @@ module.exports = {
     "plugin:vue/recommended",
     "plugin:prettier/recommended",
     "prettier",
-    "prettier/vue",
   ],
   rules: {
     "no-console": ["error", {allow: ["error", "warn"]}],
