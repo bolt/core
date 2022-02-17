@@ -29,7 +29,7 @@ class HomepageController extends TwigAwareController implements FrontendZoneInte
         }
 
         $homepageTokens = explode('/', $homepage);
-        $contentType = $this->config->get('contenttypes/' . $homepageTokens[0]);
+        $contentType = $this->config->getContentType($homepageTokens[0]);
 
         if (! $contentType) {
             $message = sprintf('Homepage is set to `%s`, but that ContentType is not defined', $homepage);
