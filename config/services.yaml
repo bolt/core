@@ -168,3 +168,5 @@ services:
 
     Bolt\Api\ContentDataPersister:
         decorates: 'api_platform.doctrine.orm.data_persister'
+
+    Symfony\Component\DependencyInjection\ContainerInterface: '@service_container'

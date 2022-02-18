@@ -1,0 +1,9 @@
+# See: https://github.com/bolt/core/pull/3023
+
+file: framework.yaml
+since: 5.1.4
+
+add:
+    framework:
+        session:
+            storage_factory_id: session.storage.factory.native

@@ -9,7 +9,8 @@ security:
         ROLE_WEBSERVICE: []
 
     enable_authenticator_manager: true
-    encoders:
+
+    password_hashers:
         Bolt\Entity\User: auto
 
     providers:
