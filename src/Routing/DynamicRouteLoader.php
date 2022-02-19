@@ -26,7 +26,6 @@ class DynamicRouteLoader implements RouteLoaderInterface
     private $locales;
 
     /**
-     * @param Config $config
      * @param string $locales '|' separated string of locales, see services.yaml
      */
     public function __construct(Config $config, string $locales)
