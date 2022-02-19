@@ -24,6 +24,7 @@ use Bolt\Repository\FieldRepository;
 use Bolt\Repository\MediaRepository;
 use Bolt\Repository\RelationRepository;
 use Bolt\Repository\TaxonomyRepository;
+use Bolt\Routing\DynamicRouteLoader;
 use Bolt\Security\ContentVoter;
 use Bolt\Utils\TranslationsManager;
 use Bolt\Validator\ContentValidatorInterface;
@@ -133,25 +134,15 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
     }
 
     /**
-     * @Route(
-     *     "/edit/{_locale}/{contentTypeSlug}/{slugOrId}",
-     *     name="bolt_edit_content_slug",
-     *     requirements={"contentTypeSlug"="%bolt.requirement.contenttypes%"},
-     *     methods={"GET"})
-     * @Route(
-     *     "/edit/{contentTypeSlug}/{slugOrId}",
-     *     name="bolt_edit_content_slug",
-     *     requirements={"contentTypeSlug"="%bolt.requirement.contenttypes%"},
-     *     methods={"GET"})
+     * @see DynamicRouteLoader for content type based routes to this method.
+     *
      * @Route(
      *     "/edit/{slugOrId}",
      *     name="bolt_edit_content_slug",
-     *     requirements={"contentTypeSlug"="%bolt.requirement.contenttypes%"},
      *     methods={"GET"})
      * @Route(
      *     "/edit/{_locale}/{slugOrId}",
      *     name="bolt_edit_content_slug",
-     *     requirements={"contentTypeSlug"="%bolt.requirement.contenttypes%"},
      *     methods={"GET"})
      */
     public function editFromSlug(?string $contentTypeSlug = null, $slugOrId): Response

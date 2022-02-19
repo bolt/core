@@ -7,6 +7,7 @@ namespace Bolt\Controller\Frontend;
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Repository\ContentRepository;
+use Bolt\Routing\DynamicRouteLoader;
 use Bolt\Utils\ContentHelper;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -26,16 +27,7 @@ class DetailController extends TwigAwareController implements FrontendZoneInterf
     }
 
     /**
-     * @Route(
-     *     "/{contentTypeSlug}/{slugOrId}",
-     *     name="record",
-     *     requirements={"contentTypeSlug"="%bolt.requirement.contenttypes%"},
-     *     methods={"GET|POST"})
-     * @Route(
-     *     "/{_locale}/{contentTypeSlug}/{slugOrId}",
-     *     name="record_locale",
-     *     requirements={"contentTypeSlug"="%bolt.requirement.contenttypes%", "_locale": "%app_locales%"},
-     *     methods={"GET|POST"})
+     * @see DynamicRouteLoader for routes to this method.
      *
      * @param string|int $slugOrId
      */

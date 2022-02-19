@@ -8,24 +8,14 @@ use Bolt\Configuration\Content\TaxonomyType;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\Content;
 use Bolt\Repository\ContentRepository;
+use Bolt\Routing\DynamicRouteLoader;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class TaxonomyController extends TwigAwareController implements FrontendZoneInterface
 {
     /**
-     * @Route(
-     *     "/{taxonomyslug}/{slug}",
-     *     name="taxonomy",
-     *     requirements={"taxonomyslug"="%bolt.requirement.taxonomies%"},
-     *     methods={"GET|POST"}
-     * )
-     * @Route(
-     *     "/{_locale}/{taxonomyslug}/{slug}",
-     *     name="taxonomy_locale",
-     *     requirements={"taxonomyslug"="%bolt.requirement.taxonomies%", "_locale": "%app_locales%"},
-     *     methods={"GET|POST"}
-     * )
+     * @see DynamicRouteLoader for routes to this method.
      */
     public function listing(ContentRepository $contentRepository, string $taxonomyslug, string $slug): Response
     {

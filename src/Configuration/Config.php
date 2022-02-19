@@ -82,7 +82,7 @@ class Config
                 $this->cache->delete(self::CACHE_KEY);
                 [$data] = $this->getCache();
 
-                // Clear the entire cache in order to re-generate %bolt.requirement.contenttypes%
+                // Clear the entire cache in order to re-generate routing table
                 $this->clearCacheController->clearcache($this->kernel);
             }
         }
