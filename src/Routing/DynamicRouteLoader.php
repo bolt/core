@@ -193,7 +193,7 @@ class DynamicRouteLoader implements RouteLoaderInterface
                 '/{taxonomyslug}/{slug}',
                 $contentEditControllerDefaults,
                 [
-                    ['contentTypeSlug' => $contentTypeSlugs]
+                    'contentTypeSlug' => $contentTypeSlugs
                 ])
             )->setMethods(['GET', 'POST'])
         );
