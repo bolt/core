@@ -4,22 +4,6 @@
 # The Homepage content type is a singleton: There can be only one record of this
 # content type.
 
-
-dummies:
-    name: dummies
-    type: templateselect
-    filter: '/^[^_].*twig$/'
-    singular_name: Dummy
-    fields:
-        title:
-            type: text
-            
-        # animals:
-        #     type: select
-        #     values: [cat, dog, elephant]
-        # cat_images:
-        #     type: imagelist
-
 homepage:
     name: Homepage
     singular_name: Homepage
