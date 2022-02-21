@@ -14,7 +14,7 @@
                 </button>
             </div>
         </div>
-<!--    {{ log(elements) }}-->
+        {{ log(elements) }}
         <div
             v-for="element in elements"
             :key="element.hash"
@@ -57,18 +57,6 @@
             </div>
             <div class="card details">
                 <!-- The actual field -->
-                <editor-textarea
-                    :name="element.name"
-                    :rows="element.rows"
-                    :required="element.required"
-                    :readonly="element.readonly"
-                    :data-errormessage="element.errormessage"
-                    :placeholder="element.placeholder"
-                    :style="{ height: element.styleHeight }"
-                    :maxlength="element.maxlength"
-                    :title="element.label"
-                >
-                </editor-textarea>
             </div>
         </div>
 
@@ -90,9 +78,9 @@
                     <div class="dropdown-menu" :aria-labelledby="name + '-dropdownMenuButton'">
                         <a
                             v-for="field in fields"
-                            :key="field.type"
+                            :key="field.label"
                             class="dropdown-item"
-                            :data-field="field.type"
+                            :data-field="field.label"
                             @click="addCollectionItem($event)"
                         >
                             <i :class="[field.icon, 'fas fa-fw']" />
@@ -104,8 +92,8 @@
                     v-else
                     type="button"
                     class="btn btn-secondary btn-small"
-                    :data-field="fields[0].slug"
-                    @click="addCollectionItem(fields.type)"
+                    :data-field="fields[0].label"
+                    @click="addCollectionItem($event)"
                 >
                     <i :class="[fields[0].icon, 'fas fa-fw']" />
                     {{ labels.add_collection_item }}
@@ -116,16 +104,34 @@
 </template>
 
 <script>
-import {compile} from 'vue';
-/*
-Editor Components for rendering
- */
 import $ from 'jquery';
+import { compile } from 'vue';
+import { uniqid } from 'locutus/php/misc';
+
+/**
+ * Import all Editor Components
+ */
+
+import EditorCheckbox from './Checkbox';
+import EditorDate from './Date';
+import EditorEmbed from './Embed';
+import EditorEmail from './Email';
+import EditorPassword from './Password';
+import EditorHtml from './Html';
+import EditorImage from './Image';
+import EditorImageList from './Imagelist';
+import EditorFile from './File';
+import EditorFileList from './FileList';
+import EditorMarkdown from './Markdown';
+import EditorNumber from './Number';
+import EditorSelect from './Select';
+import EditorSlug from './Slug';
+import EditorText from './Text';
 import EditorTextarea from './Textarea';
+import EditorLanguage from './Language';
 
 export default {
     name: 'EditorCollection',
-    components: { EditorTextarea },
     props: {
         name: {
             type: String,
@@ -155,7 +161,7 @@ export default {
         console.log(this.existingFields);
         let fieldSelectOptions = [];
         return {
-            currentComponent: '',
+            content: this.existingFields[0],
             elements: this.existingFields,
             counter: this.getObjLength(this.existingFields),
             fieldSelectName: 'fieldSelect' + this.id,
@@ -244,6 +250,7 @@ export default {
                 updateTitle(this);
             });
         });
+
         /**
          * Pass a .collection-item element to update the title
          * with the value of the first text-based field.
@@ -256,6 +263,7 @@ export default {
             title.innerHTML = $(input).val() ? $(input).val() : label.attr('data-label');
             label.html(title.innerText);
         }
+
         /**
          * Open newly inserted collection items.
          */
@@ -310,20 +318,29 @@ export default {
             return window.$(button).closest('.collection-item').last();
         },
         addCollectionItem(event) {
-            this.counter++;
-            let field = this.getSelectedField(event);
+            let field = $.extend(true, {}, this.getSelectedField(event));
+            const realhash = uniqid();
+            field.content = field.content.replace(new RegExp(field.hash, 'g'), realhash);
+            field.hash = realhash;
+            console.log(field);
             this.elements.push(field);
+            this.counter++;
         },
         getSelectedField(event) {
             const target = $(event.target).attr('data-field')
                 ? $(event.target)
                 : $(event.target).closest('[data-field]');
+
+            console.log('WHAT IS THE TARGET');
+            console.log(target);
+
             let selectValue = target.attr('data-field');
             let objValues = Object.values(this.fields);
 
-            console.log(objValues.find((field) => field.type === selectValue));
+            console.log('DID WE FIND ANYTHING');
+            console.log(objValues.find((field) => field.label === selectValue));
 
-            return objValues.find((field) => field.type === selectValue);
+            return objValues.find((field) => field.label === selectValue);
         },
     },
 };
