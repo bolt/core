@@ -14,7 +14,7 @@
                 </button>
             </div>
         </div>
-
+<!--    {{ log(elements) }}-->
         <div
             v-for="element in elements"
             :key="element.hash"
@@ -32,12 +32,43 @@
                         {{ element.label }}
                     </div>
                     <!-- Navigation buttons -->
-                    <div :is="compile(element.buttons)"></div>
+                    <div class="btn-group ml-auto mr-2" role="group" aria-label="Collection buttons">
+                        <button class="action-move-up-collection-item btn btn-light btn-sm" style="white-space: nowrap">
+                            <i class="fas fa-fw fa-chevron-up"></i>
+                            {{ labels.collection_up }}
+                        </button>
+                        <button
+                            class="action-move-down-collection-item btn btn-light btn-sm"
+                            style="white-space: nowrap"
+                        >
+                            <i class="fas fa-fw fa-chevron-down"></i>
+                            {{ labels.collection_down }}
+                        </button>
+                        <button
+                            class="action-remove-collection-item btn btn-light-danger btn-sm"
+                            style="white-space: nowrap"
+                            data-confirmation="{{ labels.collection_delete_confirm }}"
+                        >
+                            <i class="fas fa-fw fa-trash"></i>
+                            {{ labels.collection_delete }}
+                        </button>
+                    </div>
                 </div>
             </div>
             <div class="card details">
                 <!-- The actual field -->
-                <div :is="currentComponent" class="card-body"></div>
+                <editor-textarea
+                    :name="element.name"
+                    :rows="element.rows"
+                    :required="element.required"
+                    :readonly="element.readonly"
+                    :data-errormessage="element.errormessage"
+                    :placeholder="element.placeholder"
+                    :style="{ height: element.styleHeight }"
+                    :maxlength="element.maxlength"
+                    :title="element.label"
+                >
+                </editor-textarea>
             </div>
         </div>
 
@@ -62,7 +93,7 @@
                             :key="field.type"
                             class="dropdown-item"
                             :data-field="field.type"
-                            @click="addCollectionItem(field.slug)"
+                            @click="addCollectionItem($event)"
                         >
                             <i :class="[field.icon, 'fas fa-fw']" />
                             {{ field.label }}
@@ -74,7 +105,7 @@
                     type="button"
                     class="btn btn-secondary btn-small"
                     :data-field="fields[0].slug"
-                    @click="addCollectionItem(fields.slug)"
+                    @click="addCollectionItem(fields.type)"
                 >
                     <i :class="[fields[0].icon, 'fas fa-fw']" />
                     {{ labels.add_collection_item }}
@@ -85,53 +116,16 @@
 </template>
 
 <script>
-import { compile } from 'vue';
+import {compile} from 'vue';
 /*
 Editor Components for rendering
  */
-import Text from './Text';
-import Slug from './Slug';
-import Date from './Date';
-import Select from './Select';
-import Number from './Number';
-import Html from './Html';
-import Markdown from './Markdown';
-import Textarea from './Textarea';
-import Embed from './Embed';
-import Image from './Image';
-import Imagelist from './Imagelist';
-import Email from './Email';
-import Password from './Password';
-import ThemeSelect from './ThemeSelect';
-import Language from './Language';
-import File from './File';
-import Filelist from './Filelist';
-import Checkbox from './Checkbox';
-
 import $ from 'jquery';
+import EditorTextarea from './Textarea';
 
 export default {
     name: 'EditorCollection',
-    components: {
-        Text,
-        Slug,
-        Date,
-        Select,
-        Number,
-        Html,
-        Markdown,
-        Textarea,
-        Embed,
-        Image,
-        Imagelist,
-        Email,
-        Password,
-        ThemeSelect,
-        Language,
-        File,
-        Filelist,
-        Checkbox,
-    },
+    components: { EditorTextarea },
     props: {
         name: {
             type: String,
@@ -149,6 +143,7 @@ export default {
             required: true,
         },
         limit: {
+            type: Number,
             required: true,
         },
         variant: {
@@ -157,6 +152,7 @@ export default {
         },
     },
     data() {
+        console.log(this.existingFields);
         let fieldSelectOptions = [];
         return {
             currentComponent: '',
@@ -313,94 +309,21 @@ export default {
         getCollectionItemFromPressedButton(button) {
             return window.$(button).closest('.collection-item').last();
         },
-        addCollectionItem(fieldName) {
-            console.log(this.fields);
+        addCollectionItem(event) {
             this.counter++;
-
-            // Create switch case for every field type
-            switch (fieldName) {
-                case 'text':
-                    var component = Text;
-                    break;
-                case 'slug':
-                    this.elements.push(Slug);
-                    this.currentComponent = Slug;
-                    break;
-                case 'date':
-                    this.elements.push(Date);
-                    this.currentComponent = Date;
-                    break;
-                case 'select':
-                    this.elements.push(Select);
-                    this.currentComponent = Select;
-                    break;
-                case 'number':
-                    this.elements.push(Number);
-                    this.currentComponent = Number;
-                    break;
-                case 'html':
-                    this.elements.push(Html);
-                    this.currentComponent = Html;
-                    break;
-                case 'markdown':
-                    this.elements.push(Markdown);
-                    this.currentComponent = Markdown;
-                    break;
-                case 'textarea':
-                    this.elements.push(Textarea);
-                    this.currentComponent = Textarea;
-                    break;
-                case 'embed':
-                    this.elements.push(Embed);
-                    this.currentComponent = Embed;
-                    break;
-                case 'image':
-                    this.elements.push(Image);
-                    this.currentComponent = Image;
-                    break;
-                case 'imagelist':
-                    this.elements.push(Imagelist);
-                    this.currentComponent = Imagelist;
-                    break;
-                case 'email':
-                    this.elements.push(Email);
-                    this.currentComponent = Email;
-                    break;
-                case 'password':
-                    this.elements.push(Password);
-                    this.currentComponent = Password;
-                    break;
-                case 'themeSelect':
-                    this.elements.push(ThemeSelect);
-                    this.currentComponent = ThemeSelect;
-                    break;
-                case 'language':
-                    this.elements.push(Language);
-                    this.currentComponent = Language;
-                    break;
-                case 'file':
-                    this.elements.push(File);
-                    this.currentComponent = File;
-                    break;
-                case 'filelist':
-                    this.elements.push(Filelist);
-                    this.currentComponent = Filelist;
-                    break;
-                case 'checkbox':
-                    this.elements.push(Checkbox);
-                    this.currentComponent = Checkbox;
-                    break;
-            }
-            this.currentComponent(component);
-            this.elements.push(component);
-            return this.currentComponent;
+            let field = this.getSelectedField(event);
+            this.elements.push(field);
         },
         getSelectedField(event) {
             const target = $(event.target).attr('data-field')
                 ? $(event.target)
                 : $(event.target).closest('[data-field]');
             let selectValue = target.attr('data-field');
-            return this.fields.find((field) => field.label === selectValue);
+            let objValues = Object.values(this.fields);
+
+            console.log(objValues.find((field) => field.type === selectValue));
+
+            return objValues.find((field) => field.type === selectValue);
         },
     },
 };

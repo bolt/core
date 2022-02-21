@@ -8,6 +8,10 @@
         'collapse_all': 'collection.collapse_all'|trans,
         'field_label': label,
         'select': 'collection.select'|trans,
+        'collection_up': 'collection.move_item_up'|trans,
+        'collection_down': 'collection.move_item_down'|trans,
+        'collection_delete': 'collection.remove_item'|trans,
+        'collection_delete_confirm': 'collection.confirm_delete'|trans
     } %}
     {% set limit = field.definition.get('limit')|default(200) %}
 
