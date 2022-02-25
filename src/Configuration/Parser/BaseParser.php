@@ -26,7 +26,7 @@ abstract class BaseParser
 
     public function __construct(string $projectDir, string $initialFilename)
     {
-        $this->fileLocator = new FileLocator([$projectDir . '/config/bolt']);
+        $this->fileLocator = new FileLocator([$projectDir . '/' . $this->getProjectConfigDir()]);
         $this->pathResolver = new PathResolver(dirname(dirname(dirname(__DIR__))));
         $this->initialFilename = $initialFilename;
     }
@@ -71,6 +71,17 @@ abstract class BaseParser
     public function getInitialFilename()
     {
         return $this->initialFilename;
+    }
+
+    protected function getProjectConfigDir(): string
+    {
+        $projectConfigDir = $_ENV['BOLT_CONFIG_FOLDER'] ?? null;
+
+        if (empty($projectConfigDir) && getenv('BOLT_CONFIG_FOLDER')) {
+            $projectConfigDir = getenv('BOLT_CONFIG_FOLDER');
+        }
+
+        return $projectConfigDir ?? 'config/bolt';
     }
 
     public function getFilenameLocalOverrides()

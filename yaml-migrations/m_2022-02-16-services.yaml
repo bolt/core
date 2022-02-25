@@ -1,0 +1,8 @@
+# See: https://github.com/bolt/core/pull/3023
+
+file: services.yaml
+since: 5.1.4
+
+add:
+    services:
+        Symfony\Component\DependencyInjection\ContainerInterface: '@service_container'
