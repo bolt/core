@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -187,7 +188,7 @@ class ResetPasswordController extends AbstractController
         return $this->redirectToRoute('bolt_check_email');
     }
 
-    protected function buildResetEmail($config, $user, $resetToken)
+    protected function buildResetEmail($config, $user, $resetToken): Email
     {
         return (new TemplatedEmail())
             ->from(new Address($config['mail_from'], $config['mail_name']))
