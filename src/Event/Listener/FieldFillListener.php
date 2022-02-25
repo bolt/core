@@ -6,6 +6,7 @@ namespace Bolt\Event\Listener;
 
 use Bolt\Configuration\Config;
 use Bolt\Configuration\Content\FieldType;
+use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Bolt\Entity\Field\CollectionField;
 use Bolt\Entity\Field\RawPersistable;
@@ -93,16 +94,37 @@ class FieldFillListener
     {
         $entity = $args->getEntity();
 
-        if ($entity instanceof Field) {
-            $this->fillField($entity);
-        }
+//        Disable indivitual 'filling' of fields
+//
+//        if ($entity instanceof Field) {
+//            $this->fillField($entity);
+//        }
+//
+//        if ($entity instanceof CollectionField) {
+//            $this->fillCollection($entity);
+//        }
+//
+//        if ($entity instanceof SetField) {
+//            $this->fillSet($entity);
+//        }
 
-        if ($entity instanceof CollectionField) {
-            $this->fillCollection($entity);
-        }
+//        instead only fill once, when content entity has been loaded
+//        note this functionality probably should be moved to the ContentFillListener, then the
+//        FieldFillListener can simply be removed. (However, note that the config-checker package will complain!)
+        if ($entity instanceof Content) {
+            foreach ($entity->getRawFields() as $rawField) {
+                if ($rawField instanceof Field) {
+                    $this->fillField($rawField);
+                }
 
-        if ($entity instanceof SetField) {
-            $this->fillSet($entity);
+                if ($rawField instanceof CollectionField) {
+                    $this->fillCollection($rawField);
+                }
+
+                if ($rawField instanceof SetField) {
+                    $this->fillSet($rawField);
+                }
+            }
         }
     }
 
