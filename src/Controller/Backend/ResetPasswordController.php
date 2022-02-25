@@ -146,7 +146,7 @@ class ResetPasswordController extends AbstractController
         ]);
     }
 
-    private function processSendingPasswordResetEmail(string $emailFormData, MailerInterface $mailer): RedirectResponse
+    protected function processSendingPasswordResetEmail(string $emailFormData, MailerInterface $mailer): RedirectResponse
     {
         $user = $this->getDoctrine()->getRepository(User::class)->findOneBy([
             'email' => $emailFormData,
@@ -180,7 +180,16 @@ class ResetPasswordController extends AbstractController
             return $this->redirectToRoute('bolt_check_email');
         }
 
-        $email = (new TemplatedEmail())
+        $email = $this->buildResetEmail($config, $user, $resetToken);
+
+        $mailer->send($email);
+
+        return $this->redirectToRoute('bolt_check_email');
+    }
+
+    protected function buildResetEmail($config, $user, $resetToken)
+    {
+        return (new TemplatedEmail())
             ->from(new Address($config['mail_from'], $config['mail_name']))
             ->to($user->getEmail())
             ->subject($config['mail_subject'])
@@ -189,9 +198,5 @@ class ResetPasswordController extends AbstractController
                 'resetToken' => $resetToken,
                 'tokenLifetime' => $this->resetPasswordHelper->getTokenLifetime(),
             ]);
-
-        $mailer->send($email);
-
-        return $this->redirectToRoute('bolt_check_email');
     }
 }
