@@ -144,45 +144,6 @@
     }
 
     /**
-     * Initialize the live editor button
-     *
-     * @static
-     * @function initLiveEditor
-     * @memberof Bolt.editcontent
-     */
-    function initLiveEditor() {}
-
-    /**
-     * Initialize delete button from the editcontent page.
-     *
-     * @static
-     * @function initDelete
-     * @memberof Bolt.editcontent
-     */
-    function initDelete() {
-        $('#sidebar_delete').bind('click', function() {
-            $('#content_edit_delete').trigger('click');
-        });
-
-        $('#content_edit_delete').bind('click', function(e) {
-            e.preventDefault();
-
-            let button = this;
-            bootbox.confirm(bolt.data('editcontent.delete'), function(confirmed) {
-                $('.alert').alert(); // Dismiss alert messages
-                if (confirmed === true) {
-                    let editForm = $('form[name="content_edit"]');
-
-                    // We don't care about changes, the delete is confirmed.
-                    window.onbeforeunload = null;
-
-                    bolt.actions.submit(editForm, button);
-                }
-            });
-        });
-    }
-
-    /**
      * Initialize "save and return to overview" button handlers.
      *
      * @static
