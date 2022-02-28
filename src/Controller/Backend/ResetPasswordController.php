@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Bolt\Controller\Backend;
 
 use Bolt\Configuration\Config;
+use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\User;
 use Bolt\Form\ChangePasswordFormType;
 use Bolt\Form\ResetPasswordRequestFormType;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,15 +26,12 @@ use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
 /**
  * @Route("/reset-password")
  */
-class ResetPasswordController extends AbstractController
+class ResetPasswordController extends TwigAwareController
 {
     use ResetPasswordControllerTrait;
 
     /** @var ResetPasswordHelperInterface */
     private $resetPasswordHelper;
-
-    /** @var Config */
-    private $config;
 
     /** @var TranslatorInterface */
     private $translator;
@@ -63,7 +60,9 @@ class ResetPasswordController extends AbstractController
             );
         }
 
-        return $this->render('reset_password/request.html.twig', [
+        $templates = $this->templateChooser->forResetPasswordRequest();
+
+        return $this->render($templates, [
             'requestForm' => $form->createView(),
         ]);
     }
@@ -80,7 +79,9 @@ class ResetPasswordController extends AbstractController
             return $this->redirectToRoute('bolt_forgot_password_request');
         }
 
-        return $this->render('reset_password/check_email.html.twig', [
+        $templates = $this->templateChooser->forResetPasswordCheckEmail();
+
+        return $this->render($templates, [
             'tokenLifetime' => $this->resetPasswordHelper->getTokenLifetime(),
         ]);
     }
@@ -142,7 +143,9 @@ class ResetPasswordController extends AbstractController
             return $this->redirectToRoute('bolt_login');
         }
 
-        return $this->render('reset_password/reset.html.twig', [
+        $templates = $this->templateChooser->forResetPasswordReset();
+
+        return $this->render($templates, [
             'resetForm' => $form->createView(),
         ]);
     }

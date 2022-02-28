@@ -34,8 +34,10 @@ class AuthenticationController extends TwigAwareController implements BackendZon
 
         // last authentication error (if any)
         $error = $authenticationUtils->getLastAuthenticationError();
+        
+        $templates = $this->templateChooser->forLogin();
 
-        return $this->render('@bolt/security/login.html.twig', [
+        return $this->render($templates, [
             'error' => $error,
             'loginForm' => $form->createView(),
         ]);
