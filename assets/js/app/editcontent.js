@@ -1,3 +1,8 @@
+import bootbox from 'bootbox';
+import { DateTime } from 'luxon';
+import $ from 'jquery';
+import Bolt from '../bolt';
+
 /**
  * Set up editcontent stuff
  *
@@ -7,11 +12,10 @@
  * @param {Object} bolt - The Bolt module.
  * @param {Object} $ - jQuery.
  * @param {Object} window - Global window object.
- * @param {Object} moment - Global moment object.
- * @param {Object} bootbox - Global bootbox object.
- * @param {Object|undefined} ckeditor - CKEDITOR global or undefined.
+ * @param {Object} DateTime - luxon.
+ * @param {Object} bootbox - bootbox object.
  */
-(function(bolt, $, window, moment, bootbox, ckeditor) {
+(function(bolt, $, window, DateTime, bootbox, ckeditor) {
     'use strict';
 
     /**
@@ -246,15 +250,6 @@
                                         // Either an input or a textarea, so set with val
                                         field.val(item);
                                     }
-
-                                    // If there is a CKEditor attached to our element, update it
-                                    if (ckeditor && ckeditor.instances[index]) {
-                                        ckeditor.instances[index].setData(item, {
-                                            callback: function() {
-                                                this.resetDirty();
-                                            },
-                                        });
-                                    }
                                 }
                             });
 
@@ -318,4 +313,4 @@
 
     // Apply mixin container.
     bolt.editcontent = editcontent;
-})(Bolt || {}, jQuery, window, moment, bootbox);
+})(Bolt || {}, $, window, DateTime, bootbox);
