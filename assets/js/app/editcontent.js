@@ -315,30 +315,6 @@
     }
 
     /**
-     * Initialize keyboard shortcuts:
-     * - Click 'save' in edit screen.
-     *
-     * @static
-     * @function initKeyboardShortcuts
-     * @memberof Bolt.editcontent
-     */
-    function initKeyboardShortcuts() {
-        if ($('#content_edit_save').is('*')) {
-            // Bind ctrl-s and meta-s for saving..
-            $('body, input').bind('keydown', 'ctrl+s meta+s', function(event) {
-                event.preventDefault();
-                watchChanges();
-                $('#content_edit_save').trigger('click');
-            });
-
-            // Initialize watching for changes on "the form".
-            window.setTimeout(function() {
-                watchChanges();
-            }, 1000);
-        }
-    }
-
-    /**
      * Initializes the mixin.
      *
      * @static
