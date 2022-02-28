@@ -324,18 +324,7 @@
      * @param {BindData} data - Editcontent configuration data
      */
     editcontent.init = function(data) {
-        initValidation();
         initSave(data);
-        initSaveReturnToOverview();
-        initSaveCreateNew();
-        initPreview();
-        initLiveEditor();
-        initDelete(data);
-        initTabGroups();
-        bolt.liveEditor.init(data);
-        window.setTimeout(function() {
-            initKeyboardShortcuts();
-        }, 1000);
     };
 
     // Apply mixin container.
