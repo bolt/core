@@ -119,17 +119,6 @@
     }
 
     /**
-     * Forget current state of content, because we're going to save and leave this page.
-     *
-     * @static
-     * @function unWatchChanges
-     * @memberof Bolt.editcontent
-     */
-    function unWatchChanges() {
-        window.onbeforeunload = null;
-    }
-
-    /**
      * Disable the "save" buttons, to indicate stuff is being done in the background.
      *
      * @static
