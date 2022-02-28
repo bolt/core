@@ -49,7 +49,7 @@
      * @returns {string|undefined}
      */
     function getComparable(item) {
-        var val;
+        let val;
 
         if (item.name) {
             val = $(item).val();
@@ -71,7 +71,7 @@
      * @returns {boolean}
      */
     function hasChanged() {
-        var changes = 0;
+        let changes = 0;
 
         $('form[name="content_edit"]')
             .find('input, textarea, select')
@@ -82,7 +82,7 @@
                             changes++;
                         }
                     } else {
-                        var val = getComparable(this);
+                        let val = getComparable(this);
                         if (val !== undefined && $(this).data('watch') !== val) {
                             changes++;
                         }
@@ -104,22 +104,15 @@
         $('form[name="content_edit"]')
             .find('input, textarea, select')
             .each(function() {
-                if (this.type === 'textarea' && $(this).hasClass('ckeditor')) {
-                    if (ckeditor.instances[this.id].checkDirty()) {
-                        ckeditor.instances[this.id].updateElement();
-                        ckeditor.instances[this.id].resetDirty();
-                    }
-                } else {
-                    var val = getComparable(this);
-                    if (val !== undefined) {
-                        $(this).data('watch', val);
-                    }
+                let val = getComparable(this);
+                if (val !== undefined) {
+                    $(this).data('watch', val);
                 }
             });
 
         // Initialize handler for 'closing window'
         window.onbeforeunload = function() {
-            if (hasChanged() || bolt.liveEditor.active) {
+            if (hasChanged()) {
                 return bolt.data('editcontent.msg.change_quit');
             }
         };
@@ -144,41 +137,10 @@
      * @memberof Bolt.editcontent
      */
     function indicateSavingAction() {
-        $('#sidebar_save, #content_edit_save, #live_editor_save').addClass('disabled');
-        $('#sidebar_save i, #content_edit_save i').addClass('fa-spin fa-spinner');
-        $('p.lastsaved').text(bolt.data('editcontent.msg.saving'));
-    }
-
-    /**
-     * Set validation handlers.
-     *
-     * @static
-     * @function initValidation
-     * @memberof Bolt.editcontent
-     */
-    function initValidation() {
-        var editForm = $('form[name="content_edit"]');
-
-        // Set handler to validate form submit.
-        editForm.attr('novalidate', 'novalidate').on('submit', function(event) {
-            var valid = bolt.validation.run(this);
-
-            $(this).data('valid', valid);
-            if (!valid) {
-                event.preventDefault();
-
-                return false;
-            }
-        });
-
-        // Basic custom validation handler.
-        editForm.on('boltvalidate', function() {
-            var valid = bolt.validation.run(this);
-
-            $(this).data('valid', valid);
-
-            return valid;
-        });
+        $('button[name="save"]')
+            .addClass('disabled')
+            .text(bolt.data('editcontent.msg.saving'));
+        $('button[name="save"] i, button[name="save"] i').addClass('fa-spin fa-spinner');
     }
 
     /**
@@ -190,7 +152,7 @@
      */
     function initTabGroups() {
         // Show selected tab.
-        var hash = window.location.hash,
+        let hash = window.location.hash,
             filerTabs = $('#filtertabs');
 
         if (hash) {
@@ -199,7 +161,7 @@
 
         // Set Tab change handler.
         filerTabs.find('a').click(function() {
-            var top;
+            let top;
 
             $(this).tab('show');
             top = $('body').scrollTop();
@@ -216,7 +178,7 @@
      * @memberof Bolt.editcontent
      */
     function initPreview() {
-        var editForm = $('form[name="content_edit"]');
+        let editForm = $('form[name="content_edit"]');
 
         // Enable the preview buttons, as they are useless without JavaScript
         editForm.find('#sidebar_preview').attr('disabled', false);
@@ -228,7 +190,7 @@
 
         // To preview the page, we set the target of the form to a new URL, and open it in a new window.
         $('#content_edit_preview').bind('click', function(e) {
-            var newAction = $(e.target).data('url');
+            let newAction = $(e.target).data('url');
 
             e.preventDefault();
             editForm
@@ -263,11 +225,11 @@
         $('#content_edit_delete').bind('click', function(e) {
             e.preventDefault();
 
-            var button = this;
+            let button = this;
             bootbox.confirm(bolt.data('editcontent.delete'), function(confirmed) {
                 $('.alert').alert(); // Dismiss alert messages
                 if (confirmed === true) {
-                    var editForm = $('form[name="content_edit"]');
+                    let editForm = $('form[name="content_edit"]');
 
                     // We don't care about changes, the delete is confirmed.
                     window.onbeforeunload = null;
@@ -341,7 +303,7 @@
         $('#content_edit_save').bind('click', function(e) {
             e.preventDefault();
 
-            var editForm = $('form[name="content_edit"]');
+            let editForm = $('form[name="content_edit"]');
 
             // Trigger form validation
             editForm.trigger('boltvalidate');
@@ -350,8 +312,8 @@
                 return false;
             }
 
-            var newrecord = data.newRecord,
-                savedon = data.savedon,
+            let newrecord = data.newRecord,
+                savedon = data.savedOn,
                 msgNotSaved = data.msgNotSaved;
 
             indicateSavingAction();
@@ -377,8 +339,8 @@
 
                 // Existing record. Do an 'ajaxy' post to update the record.
                 // Let the controller know we're calling AJAX and expecting to be returned JSON.
-                var button = $(e.target);
-                var postData =
+                let button = $(e.target);
+                let postData =
                     editForm.serialize() + '&' + encodeURI(button.attr('name')) + '=' + encodeURI(button.attr('value'));
                 $.post('', postData)
                     .done(function(data) {
@@ -397,7 +359,7 @@
                             .buicMoment()
                             .buicMoment('set', data.datechanged);
 
-                        var elSelected = $('#statusselect').find('option:selected');
+                        let elSelected = $('#statusselect').find('option:selected');
                         $('a#lastsavedstatus strong').html(
                             '<i class="fa fa-circle status-' + elSelected.val() + '"></i> ' + elSelected.text(),
                         );
@@ -421,7 +383,7 @@
                                     // so we're catching arrays and ignoring
                                     // them, someone else can fix this!
                                 } else {
-                                    var field = $(editForm.name).find('[name=' + index + ']');
+                                    let field = $(editForm.name).find('[name=' + index + ']');
 
                                     if (field.attr('type') === 'checkbox') {
                                         // A checkbox, so set with prop
@@ -444,7 +406,7 @@
 
                             // Update the "View saved version on site" link.
                             $('a[data-href-placeholder]').each(function() {
-                                var link = $(this)
+                                let link = $(this)
                                     .data('href-placeholder')
                                     .replace('__replaceme', data['slug']);
                                 $(this).attr('href', link);
@@ -458,8 +420,8 @@
                     .fail(function(data) {
                         bolt.events.fire('Bolt.Content.Save.Fail');
 
-                        var response = $.parseJSON(data.responseText);
-                        var message = '<b>' + msgNotSaved + '</b><br><small>' + response.error.message + '</small>';
+                        let response = $.parseJSON(data.responseText);
+                        let message = '<b>' + msgNotSaved + '</b><br><small>' + response.error.message + '</small>';
 
                         $('p.lastsaved')
                             .html(message)
