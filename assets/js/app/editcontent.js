@@ -329,4 +329,4 @@
 
     // Apply mixin container.
     bolt.editcontent = editcontent;
-})(Bolt || {}, jQuery, window, moment, bootbox, typeof CKEDITOR !== 'undefined' ? CKEDITOR : undefined);
+})(Bolt || {}, jQuery, window, moment, bootbox);
