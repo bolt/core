@@ -144,37 +144,6 @@
     }
 
     /**
-     * Initialize page preview button.
-     *
-     * @static
-     * @function initPreview
-     * @memberof Bolt.editcontent
-     */
-    function initPreview() {
-        let editForm = $('form[name="content_edit"]');
-
-        // Enable the preview buttons, as they are useless without JavaScript
-        editForm.find('#sidebar_preview').attr('disabled', false);
-        editForm.find('#content_edit_preview').attr('disabled', false);
-
-        $('#sidebar_preview').bind('click', function() {
-            $('#content_edit_preview').trigger('click');
-        });
-
-        // To preview the page, we set the target of the form to a new URL, and open it in a new window.
-        $('#content_edit_preview').bind('click', function(e) {
-            let newAction = $(e.target).data('url');
-
-            e.preventDefault();
-            editForm
-                .attr('action', newAction)
-                .attr('target', '_blank')
-                .submit();
-            editForm.attr('action', '').attr('target', '_self');
-        });
-    }
-
-    /**
      * Initialize the live editor button
      *
      * @static
