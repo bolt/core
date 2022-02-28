@@ -144,44 +144,6 @@
     }
 
     /**
-     * Initialize "save and return to overview" button handlers.
-     *
-     * @static
-     * @function initSaveReturnToOverview
-     * @memberof Bolt.editcontent
-     */
-    function initSaveReturnToOverview() {
-        $('#sidebar_save_return').bind('click', function() {
-            $('#content_edit_save_return').trigger('click');
-        });
-
-        $('#content_edit_save_return').bind('click', function() {
-            indicateSavingAction();
-            unWatchChanges();
-            // Note, no 'actions.submit' here, because we're using a plain "submit" in the form.
-        });
-    }
-
-    /**
-     * Initialize "save and create new" button handlers.
-     *
-     * @static
-     * @function initSaveCreateNew
-     * @memberof Bolt.editcontent
-     */
-    function initSaveCreateNew() {
-        $('#sidebar_save_create').bind('click', function() {
-            $('#content_edit_save_create').trigger('click');
-        });
-
-        $('#content_edit_save_create').bind('click', function() {
-            indicateSavingAction();
-            unWatchChanges();
-            bolt.actions.submit($('form[name="content_edit"]'), this);
-        });
-    }
-
-    /**
      * Initialize "save" button handlers.
      *
      * Clicking the button either triggers an "ajaxy" post, or a regular post which returns to this page.
