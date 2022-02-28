@@ -144,33 +144,6 @@
     }
 
     /**
-     * Initialize persistent tab groups.
-     *
-     * @static
-     * @function initTabGroups
-     * @memberof Bolt.editcontent
-     */
-    function initTabGroups() {
-        // Show selected tab.
-        let hash = window.location.hash,
-            filerTabs = $('#filtertabs');
-
-        if (hash) {
-            filerTabs.find('a[href="#tab-' + hash.replace(/^#/, '') + '"]').tab('show');
-        }
-
-        // Set Tab change handler.
-        filerTabs.find('a').click(function() {
-            let top;
-
-            $(this).tab('show');
-            top = $('body').scrollTop();
-            window.location.hash = this.hash.replace(/^#tab-/, '');
-            $('html,body').scrollTop(top);
-        });
-    }
-
-    /**
      * Initialize page preview button.
      *
      * @static
