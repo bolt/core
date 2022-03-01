@@ -4,13 +4,13 @@ let form = $('#editcontent');
 /**
  * Start of Ajaxy solution for saving
  */
-$('input[name="save"]').click(function() {
-    $.ajax({
-        type: 'POST',
+$('button[name="save"]').click(function() {
+    $.post({
         link: '/edit/' + form.data('record'),
         data: {
-            form: $(form).serialize(),
+            content: $(form).serialize(),
             ajax: 'true',
         },
-    }).then(console.log('AJAX SUCCESS'));
+        success: alert("SUCCESS"),
+    });
 });
