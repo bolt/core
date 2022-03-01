@@ -1,11 +1,13 @@
 import $ from 'jquery';
-
 let form = $('#editcontent');
 
-console.log(form.serialize());
-
-$.ajax({
-    type: 'POST',
-    url: '/edit/{id}',
-    data: ,
+/**
+ * Start of Ajaxy solution for saving
+ */
+$('input[name="save"]').click(function() {
+    $.ajax({
+        type: 'POST',
+        link: '/edit/' + form.data('record'),
+        data: $(form).serialize(),
+    }).then(console.log('AJAX SUCCESS'));
 });
