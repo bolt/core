@@ -18,7 +18,7 @@
   background-color: var(--#{$color});
   border-color: var(--#{$color});
   // hover
-  @include hover {
+  &:hover {
     background-color: var(--#{$color}-600);
     border-color: var(--#{$color}-600);
   }
@@ -52,7 +52,7 @@
   border-color: var(--#{$color});
 
   // hover
-  @include hover {
+  &:hover {
     background-color: var(--#{$color}-600);
     border-color: var(--#{$color}-600);
   }
