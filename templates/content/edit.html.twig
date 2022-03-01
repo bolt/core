@@ -52,7 +52,7 @@
         {%endfor%}
     {% endif %}
 
-    <form method="post" id="editcontent">
+    <form method="post" id="editcontent" data-record="{{ record.id }}">
         {{ widgets('editcontent_below_header') }}
 
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('editrecord') }}">
