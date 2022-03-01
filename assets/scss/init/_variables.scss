@@ -1,6 +1,9 @@
 //** Init | Variables
+// Colors variables
+$background: #fbfaf9;
+$primary: #255687;
 
-$body-bg: var(--background);
+$body-bg: $background;
 
 $letter-spacing: 0;
 
@@ -42,7 +45,7 @@ $btn-disabled-opacity:                  0.75;
 
 // Form controls
 $border-radius:                         0.15rem;
-$component-active-bg:                   var(--primary);
+$component-active-bg:                   $primary;
 $input-focus-border-color:              var(--primary-400);
 $custom-control-indicator-active-bg:    var(--primary-400);
 $custom-range-thumb-active-bg:          var(--primary-400);
@@ -103,7 +106,7 @@ $grid-breakpoints: (
 // This number determines of a button has white or black text (a11y)
 // 150: about equal to 3.0 color contrast ( WCAG2 for bold and texts above 18pts).
 // 117: for 4.5 color contrast (WCAG2 for normal text) (see ~bootstrap/_functions.scss for use in function)
-$yiq-contrasted-threshold:  150;
+$min-contrast-ratio:  150;
 
 // Variables overriding Bootstrap
 $toast-background-color: #fbfaf9;
