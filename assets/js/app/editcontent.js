@@ -8,6 +8,9 @@ $('input[name="save"]').click(function() {
     $.ajax({
         type: 'POST',
         link: '/edit/' + form.data('record'),
-        data: $(form).serialize(),
+        data: {
+            form: $(form).serialize(),
+            ajax: 'true',
+        },
     }).then(console.log('AJAX SUCCESS'));
 });
