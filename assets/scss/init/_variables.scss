@@ -91,6 +91,11 @@ $spacer: 1rem;
 // Pagination
 $pagination-focus-outline: solid 0.15rem;
 
+// Alerts
+//
+// Define alert colors, border radius, and padding.
+$alert-bg-level: 0; // Keep Bootstrap 4 variable to prevent breaking compilation when it's used
+
 // Grid
 $grid-breakpoints: (
   xxs: 0,
