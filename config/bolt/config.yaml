@@ -99,7 +99,7 @@ forbidden: [ blocks/403-forbidden, 'helpers/page_403.html.twig' ]
 # handled, and you'll have a bad time debugging it!
 internal_server_error: [ 'helpers/page_500.html.twig' ]
 
-# The default template and amount of records to use for listing-pages on the
+# The default template for record-pages on the
 # site.
 #
 # Can be overridden for each content type and for each record, if it has a
