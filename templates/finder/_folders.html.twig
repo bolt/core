@@ -12,7 +12,7 @@
         <tr>
             <td>
                 <b>
-                    <a href="{{ path('bolt_filemanager', {'location': location.key, 'path': parent }) }}">
+                    <a href="{{ path('bolt_filemanager', {'location': location.key, 'path': parent }) }}" class="text-decoration-none">
                         <i class="fas fa-folder-minus"></i>
                         ../
                     </a>
@@ -29,7 +29,7 @@
             <td>
                 <b>
                     {% if path != '/' %}<i class="folder-indent"></i>{% endif %}
-                    <a href="{{ path('bolt_filemanager', {'location': location.key, 'path': dirname }) }}">
+                    <a href="{{ path('bolt_filemanager', {'location': location.key, 'path': dirname }) }}" class="text-decoration-none">
                         <i class="fas fa-folder"></i>
                         {{ directory.getRelativePathname }}/
                     </a>
