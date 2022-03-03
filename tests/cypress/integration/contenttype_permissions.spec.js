@@ -59,7 +59,7 @@ describe('Create content as editor and delete it as chief editor', () => {
         cy.visit('/bolt/content/pages?page=3');
 
         cy.get('.listing__row.is-normal').eq(2).children('.listing__row--item.is-details').children('a').should('contain', 'Test heading -');
-        cy.get('button[data-toggle="dropdown"]').eq(3).click();
+        cy.get('button[data-bs-toggle="dropdown"]').eq(3).click();
         cy.get('.edit-actions__dropdown.dropdown-menu.dropdown-menu-right').eq(2).children('a').eq(4).click();
         cy.get('.btn.btn-primary.bootbox-accept').click();
 
@@ -74,12 +74,12 @@ describe('Change content post status as chief editor', () => {
 
         cy.visit('/bolt/content/pages');
 
-        cy.get('button[data-toggle="dropdown"]').eq(0).click();
+        cy.get('button[data-bs-toggle="dropdown"]').eq(0).click();
         cy.get('.edit-actions__dropdown.dropdown-menu.dropdown-menu-right').eq(0).children('a').eq(1).click({force: true});
 
         cy.get('.status.is-held').should('exist');
 
-        cy.get('button[data-toggle="dropdown"]').eq(0).click();
+        cy.get('button[data-bs-toggle="dropdown"]').eq(0).click();
         cy.get('.edit-actions__dropdown.dropdown-menu.dropdown-menu-right').eq(0).children('a').eq(0).click({force: true});
 
         cy.get('.listing--container').eq(0).children('.listing__row.is-normal').children('.listing__row--item.is-meta').children('.status.is-held').should('not.exist');
