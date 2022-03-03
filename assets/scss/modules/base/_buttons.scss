@@ -25,7 +25,7 @@ $theme-colors: (
 
 @each $color, $value in $theme-colors {
   .alert-#{$color} {
-    background-color: mix($white, map-get($theme-colors, $color), $alert-bg-level * 8%) !important;
+    background-color: shift-color($value, $alert-bg-level * 8%) !important;
   }
 
   .btn-#{$color} {
