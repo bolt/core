@@ -109,9 +109,9 @@ $grid-breakpoints: (
 );
 
 // This number determines of a button has white or black text (a11y)
-// 150: about equal to 3.0 color contrast ( WCAG2 for bold and texts above 18pts).
-// 117: for 4.5 color contrast (WCAG2 for normal text) (see ~bootstrap/_functions.scss for use in function)
-$min-contrast-ratio:  150;
+// The contrast ratio to reach against white, to determine if color changes from "light" to "dark". Acceptable values for WCAG 2.0 are 3, 4.5 and 7.
+// See https://www.w3.org/TR/WCAG20/#visual-audio-contrast-contrast
+$min-contrast-ratio:  4.5;
 
 // Variables overriding Bootstrap
 $toast-background-color: #fbfaf9;
