@@ -7,7 +7,7 @@
         <div key="row" class="listing__row" :class="`is-${size}`" @mouseleave="leave">
             <!-- column details / excerpt -->
             <div class="listing__row--item is-details">
-                <a class="listing__row--item-title" :href="record.extras.editLink" :title="slug">
+                <a class="listing__row--item-title text-decoration-none" :href="record.extras.editLink" :title="slug">
                     {{ record.extras.title | trim(62) | raw }}
                 </a>
                 <span v-if="record.extras.feature" class="badge" :class="`badge-${record.extras.feature}`">{{
