@@ -49,7 +49,7 @@
                             class="btn btn-sm btn-tertiary dropdown-toggle dropdown-toggle-split"
                             aria-expanded="false"
                             aria-haspopup="true"
-                            data-toggle="dropdown"
+                            data-bs-toggle="dropdown"
                             name="file-upload-dropdown"
                             type="button"
                             :disabled="readonly"

@@ -60,7 +60,7 @@
                             class="btn btn-sm btn-tertiary dropdown-toggle dropdown-toggle-split"
                             aria-expanded="false"
                             aria-haspopup="true"
-                            data-toggle="dropdown"
+                            data-bs-toggle="dropdown"
                             name="image-upload-dropdown"
                             type="button"
                             :disabled="readonly"

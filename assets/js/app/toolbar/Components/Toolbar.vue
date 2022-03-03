@@ -42,7 +42,7 @@
             <button
                 class="btn user profile__dropdown-toggler dropdown-toggle d-flex align-items-center"
                 type="button"
-                data-toggle="dropdown"
+                data-bs-toggle="dropdown"
                 data-display="static"
                 aria-haspopup="true"
                 aria-expanded="false"
