@@ -199,12 +199,15 @@ class Field implements FieldInterface, TranslatableInterface
 
         $result = [];
 
+        $currentLocale = $this->getCurrentLocale();
         foreach ($this->getTranslations() as $translation) {
             $locale = $translation->getLocale();
             $this->setCurrentLocale($locale);
             $value = $this->getParsedValue();
             $result[$locale] = $value;
         }
+        // restore current locale
+        $this->setCurrentLocale($currentLocale);
 
         return $result;
     }
