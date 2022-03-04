@@ -43,10 +43,17 @@
             'general.label.search': 'general.label.search'|trans,
         }|json_encode %}
 
+        {% set url_paths = {
+            'bolt_dashboard': path('bolt_dashboard'),
+            'bolt_logout': path('bolt_logout'),
+            'bolt_profile_edit': path('bolt_profile_edit'),
+        }|json_encode %}
+
         <admin-toolbar
             site-name="{{ config.get('general/sitename') }}"
             :menu="{{ admin_menu_json }}"
             :labels="{{ labels }}"
+            :url-paths="{{ url_paths }}"
             backend-prefix="{{ path('bolt_dashboard') }}"
             :avatar="{{ user_avatar|json_encode }}"
             :is-impersonator="{{ is_granted('IS_IMPERSONATOR')|json_encode }}"
