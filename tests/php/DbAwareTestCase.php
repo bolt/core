@@ -6,6 +6,7 @@ namespace Bolt\Tests;
 
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Console\Input\StringInput;
 
@@ -17,6 +18,9 @@ class DbAwareTestCase extends WebTestCase
     /** @var EntityManager */
     private $entityManager;
 
+    /** @var KernelBrowser $client */
+    protected $client;
+
     protected function getEm(): EntityManager
     {
         return $this->entityManager;
@@ -24,7 +28,8 @@ class DbAwareTestCase extends WebTestCase
 
     protected function setUp(): void
     {
-        $this->entityManager = static::createClient()->getContainer()
+        $this->client = static::createClient();
+        $this->entityManager = $this->client->getContainer()
             ->get('doctrine')
             ->getManager();
 
