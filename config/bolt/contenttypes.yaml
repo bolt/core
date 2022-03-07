@@ -440,6 +440,21 @@ tests:
     listing_template: listing.twig
     listing_records: 10
 
+# This contenttype is here to use for (automated) tests.
+simpletests:
+    name: Simple Tests
+    singular_name: Simple Test
+    title_format: "{id}: {title}"
+    fields:
+        title:
+            type: text
+            class: large
+            group: content
+            default: "Title of a test contenttype"
+        slug:
+            type: slug
+            uses: title
+
 validationdemos:
     name: Validation Demos
     slug: validationdemos
