@@ -2,7 +2,7 @@
 
 <div class="record-actions {% if hide_on_mobile|default(false) %}d-none d-xl-block{% endif %}">
     {% if is_granted('edit', record) %}
-        {{ macro.button('action.save', 'fa-save', 'success mb-0', {'type': 'submit', 'form': 'editcontent', 'data-patience': 'virtue', 'name': 'save'}) }}
+        {{ macro.button('action.save', 'fa-save', 'success mb-0', {'type': 'button', 'form': 'editcontent', 'data-patience': 'virtue', 'name': 'save'}) }}
     {% endif %}
 
     {% if record.id %}
