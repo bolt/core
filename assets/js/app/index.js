@@ -8,4 +8,4 @@ import './confirmation.js';
 import './patience-is-a-virtue.js';
 import './save-on-ctrl-s.js';
 import './common.js';
-import './editcontent';
+import './ajax-save';
