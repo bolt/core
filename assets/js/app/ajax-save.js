@@ -15,6 +15,6 @@ element.click(function() {
         link: '/edit/' + record_id,
         data: $(form).serialize(),
         beforeSend: patience_virtue(element),
-        complete: { renable },
+        complete: renable,
     });
 });
