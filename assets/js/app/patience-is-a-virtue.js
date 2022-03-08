@@ -1,10 +1,7 @@
 import $ from 'jquery';
 
-export function patience_virtue() {
-    const thisElement = $('a[data-patience], button[data-patience]');
+export function patience_virtue(thisElement) {
     const thisIcon = thisElement.find('i');
-
-    console.log(thisElement);
 
     // If we're handling a form, and the form's not valid, we can stop here
     if (thisElement.attr('form') && !$('#' + thisElement.attr('form'))[0].checkValidity()) {
@@ -15,9 +12,7 @@ export function patience_virtue() {
     const addedPadding = thisIcon.attr('class').match(/[mp][tblrxy]-[0-5]/i);
     const newClass = 'fas fa-w fa-cog fa-spin ' + (addedPadding ? addedPadding : '');
 
-    console.log(thisElement);
-
-    $(this).attr('data-original-class', thisIcon.attr('class'));
+    thisElement.attr('data-original-class', thisIcon.attr('class'));
     thisIcon.attr('class', newClass);
 
     window.setTimeout(function() {
