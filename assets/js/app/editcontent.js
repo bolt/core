@@ -1,5 +1,8 @@
 import $ from 'jquery';
 import { patience_virtue, renable } from './patience-is-a-virtue';
+
+let i = 0;
+
 let form = $('#editcontent');
 let record_id = form.data('record');
 
@@ -11,11 +14,8 @@ $('button[name="save"]').click(function() {
     $.ajax({
         type: 'POST',
         link: '/edit/' + record_id,
-        data: {
-            content: $(form).serialize(),
-            ajax: 'true',
-        },
+        data: $(form).serialize(),
         beforeSend: patience_virtue,
-        success: renable,
+        complete: renable,
     });
 });
