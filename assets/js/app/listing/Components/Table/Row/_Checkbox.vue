@@ -1,8 +1,8 @@
 <template>
     <div v-show="!sorting" key="checkbox" class="listing--checkbox">
-        <div class="custom-control custom-checkbox">
-            <input :id="`row-${id}`" v-model="selected" class="custom-control-input" type="checkbox" />
-            <label class="custom-control-label" :for="`row-${id}`" @click="selected != !selected"></label>
+        <div class="form-check">
+            <input :id="`row-${id}`" v-model="selected" class="form-check-input" type="checkbox" />
+            <label class="form-check-label" :for="`row-${id}`" @click="selected != !selected"></label>
         </div>
     </div>
 </template>

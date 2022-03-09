@@ -35,6 +35,10 @@
       &.control--left {
         margin-left: auto;
       }
+
+      &.control--checkbox {
+        padding: .5rem;
+      }
     }
 
     .custom-checkbox {
