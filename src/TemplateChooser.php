@@ -186,10 +186,10 @@ class TemplateChooser
         $templates = new Collection();
 
         // First candidate: Theme-specific config.
-        $templates->push($this->config->get('theme/reset_password/check_email_template'));
+        $templates->push($this->config->get('theme/reset_password_settings/check_email_template'));
 
         // Second candidate: global config.
-        $templates->push($this->config->get('general/reset_password/check_email_template'));
+        $templates->push($this->config->get('general/reset_password_settings/check_email_template'));
 
         // Third candidate: default value.
         $templates->push('@bolt/reset_password/check_email.html.twig');
@@ -202,10 +202,10 @@ class TemplateChooser
         $templates = new Collection();
 
         // First candidate: Theme-specific config.
-        $templates->push($this->config->get('theme/reset_password/request_template'));
+        $templates->push($this->config->get('theme/reset_password_settings/request_template'));
 
         // Second candidate: global config.
-        $templates->push($this->config->get('general/reset_password/request_template'));
+        $templates->push($this->config->get('general/reset_password_settings/request_template'));
 
         // Third candidate: default value.
         $templates->push('@bolt/reset_password/request.html.twig');
@@ -218,10 +218,10 @@ class TemplateChooser
         $templates = new Collection();
 
         // First candidate: Theme-specific config.
-        $templates->push($this->config->get('theme/reset_password/reset_template'));
+        $templates->push($this->config->get('theme/reset_password_settings/reset_template'));
 
         // Second candidate: global config.
-        $templates->push($this->config->get('general/reset_password/reset_template'));
+        $templates->push($this->config->get('general/reset_password_settings/reset_template'));
 
         // Third candidate: default value.
         $templates->push('@bolt/reset_password/reset.html.twig');
