@@ -2703,5 +2703,11 @@
         <target>Order</target>
       </segment>
     </unit>
+    <unit id="0" name="placeholder.email">
+      <segment>
+        <source>placeholder.email</source>
+        <target>your email</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
