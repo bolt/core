@@ -11,6 +11,7 @@ Released: 2022-03-13
 - Update `Date.vue` dateFormat to include seconds (simongroenewolt, [#3096](https://github.com/bolt/core/pull/3096))
 - Fix custom homepage setting: allow singular ContentType slugs (bobdenotter, [#3093](https://github.com/bolt/core/pull/3093))
 - Fixes parsing for editing Yaml files in the backend editor (Joossensei, [#3090](https://github.com/bolt/core/pull/3090))
+- Fix YAML migrations  (bobdenotter, [#3118](https://github.com/bolt/core/pull/3118))
 
 ### 🛠️ Miscellaneous
 
