@@ -6,4 +6,4 @@ since: 5.1.4
 remove:
     encoders:
         password_hashers:
-            Bolt\Entity\User: auto
+            Bolt\Entity\User: ~
