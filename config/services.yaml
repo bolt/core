@@ -170,3 +170,6 @@ services:
         decorates: 'api_platform.doctrine.orm.data_persister'
 
     Symfony\Component\DependencyInjection\ContainerInterface: '@service_container'
+
+    bolt.dynamic_route_loader:
+        class: Bolt\Routing\DynamicRouteLoader

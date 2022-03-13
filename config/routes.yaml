@@ -16,6 +16,14 @@ frontend:
   prefix: /
   type: annotation
 
+#
+# Special loader for dynamic routes based on names of content types and taxonomies.
+# Both for front-end and for the admin.
+#
+dynamic_routes:
+    resource: 'bolt.dynamic_route_loader::loadRoutes'
+    type: service
+
 # ------------------------------------------------------------------------------
 # Place your own routes here, that have a LOWER priority than the default routes.
 

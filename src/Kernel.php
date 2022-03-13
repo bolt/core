@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Bolt;
 
-use Bolt\Configuration\Parser\ContentTypesParser;
-use Bolt\Configuration\Parser\TaxonomyParser;
 use Bolt\Extension\ExtensionCompilerPass;
 use Bolt\Extension\ExtensionInterface;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
@@ -17,7 +15,6 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 use Symfony\Component\Yaml\Yaml;
-use Tightenco\Collect\Support\Collection;
 
 class Kernel extends BaseKernel
 {
@@ -74,8 +71,7 @@ class Kernel extends BaseKernel
         $loader->load($confDir . '/{services}_' . $this->environment . self::CONFIG_EXTS, 'glob');
 
         $this->setBoltParameters($container, $confDir);
-        $this->setContentTypeRequirements($container);
-        $this->setTaxonomyRequirements($container);
+        $container->setParameter('bolt.requirement.contenttypes', "Dummy value so Checks.php in bobdenotter/configuration-notices doesn't break");
     }
 
     protected function configureRoutes(RoutingConfigurator $routes): void
@@ -119,44 +115,6 @@ class Kernel extends BaseKernel
         }
 
         return $result;
-    }
-
-    /**
-     * Set the ContentType requirements that are used in Routing.
-     * Note: this functionality is partially duplicated in \Bolt\Configuration\Config.
-     *
-     * @throws \Exception
-     */
-    private function setContentTypeRequirements(ContainerBuilder $container): void
-    {
-        /** @var string $defaultLocale */
-        $defaultLocale = $container->getParameter('locale');
-        $ContentTypesParser = new ContentTypesParser($this->getProjectDir(), new Collection(), $defaultLocale);
-        $contentTypes = $ContentTypesParser->parse();
-
-        $pluralslugs = $contentTypes->pluck('slug')->implode('|');
-        $slugs = $contentTypes->pluck('slug')->concat($contentTypes->pluck('singular_slug'))->unique()->implode('|');
-
-        $container->setParameter('bolt.requirement.pluralcontenttypes', $pluralslugs);
-        $container->setParameter('bolt.requirement.contenttypes', $slugs);
-    }
-
-    /**
-     * Set the Taxonomy requirements that are used in Routing.
-     * Note: this functionality is partially duplicated in \Bolt\Configuration\Config.
-     *
-     * @throws \Exception
-     */
-    private function setTaxonomyRequirements(ContainerBuilder $container): void
-    {
-        $taxonomyParser = new TaxonomyParser($this->getProjectDir());
-        $taxonomies = $taxonomyParser->parse();
-
-        $pluralslugs = $taxonomies->pluck('slug')->implode('|');
-        $slugs = $taxonomies->pluck('slug')->concat($taxonomies->pluck('singular_slug'))->unique()->implode('|');
-
-        $container->setParameter('bolt.requirement.pluraltaxonomies', $pluralslugs);
-        $container->setParameter('bolt.requirement.taxonomies', $slugs);
     }
 
     /**

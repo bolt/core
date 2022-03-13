@@ -9,6 +9,7 @@ use Bolt\Configuration\Content\ContentType;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\Content;
 use Bolt\Repository\ContentRepository;
+use Bolt\Routing\DynamicRouteLoader;
 use Bolt\Storage\Query;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
@@ -28,16 +29,7 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
     }
 
     /**
-     * @Route(
-     *     "/{contentTypeSlug}",
-     *     name="listing",
-     *     requirements={"contentTypeSlug"="%bolt.requirement.contenttypes%"},
-     *     methods={"GET|POST"})
-     * @Route(
-     *     "/{_locale}/{contentTypeSlug}",
-     *     name="listing_locale",
-     *     requirements={"contentTypeSlug"="%bolt.requirement.contenttypes%", "_locale": "%app_locales%"},
-     *     methods={"GET|POST"})
+     * @see DynamicRouteLoader for routes to this method.
      */
     public function listing(ContentRepository $contentRepository, string $contentTypeSlug, ?string $_locale = null): Response
     {
