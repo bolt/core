@@ -1,9 +1,35 @@
 Changelog
 =========
 
+## 5.1.4
+
+Released: 2022-03-13
+
+### 🐛 Bug fixes
+
+- Fix Select field with empty value, for `required: false` and `allowempty: true` (jordanaubert, [#3116](https://github.com/bolt/core/pull/3116))
+- Update `Date.vue` dateFormat to include seconds (simongroenewolt, [#3096](https://github.com/bolt/core/pull/3096))
+- Fix custom homepage setting: allow singular ContentType slugs (bobdenotter, [#3093](https://github.com/bolt/core/pull/3093))
+- Fixes parsing for editing Yaml files in the backend editor (Joossensei, [#3090](https://github.com/bolt/core/pull/3090))
+
+### 🛠️ Miscellaneous
+
+- Set `api:get:` to `PUBLIC_ACCESS` for public access to the read-endpoint of the API (bobdenotter, [#3111](https://github.com/bolt/core/pull/3111))
+- Add map to htaccess (peterboorsma, [#3108](https://github.com/bolt/core/pull/3108))
+
+### ⚙️ Code Quality / Developer Experience
+
+- Tiny fix, as per PHPStan (bobdenotter, [#3109](https://github.com/bolt/core/pull/3109))
+- fix wrong copy paste in comments (dadaxr, [#3105](https://github.com/bolt/core/pull/3105))
+- Bump url-parse from 1.5.6 to 1.5.10 (dependabot[bot], [#3102](https://github.com/bolt/core/pull/3102))
+- Update cypress tests so it retries on failure (Joossensei, [#3099](https://github.com/bolt/core/pull/3099))
+- Refactoring deprecations in Symfony 5 -> 6 (bobdenotter, [#3091](https://github.com/bolt/core/pull/3091))
+- Prepare release 5.1.3 (bobdenotter, [#3088](https://github.com/bolt/core/pull/3088))
+
+
 ## 5.1.3
 
-Released: 2021-02-10
+Released: 2022-02-10
 
 ### 🐛 Bug fixes
 
@@ -34,7 +60,7 @@ Released: 2021-02-10
 
 ## 5.1.2
 
-Released: 2021-01-19
+Released: 2022-01-19
 
 ### 🐛 Bug fixes
 
@@ -60,7 +86,7 @@ Released: 2021-01-19
 
 ## 5.1.1
 
-Released: 2021-01-05
+Released: 2022-01-05
 
 ### 🐛 Bug fixes
 
