@@ -24,7 +24,6 @@ Released: 2022-03-13
 - Bump url-parse from 1.5.6 to 1.5.10 (dependabot[bot], [#3102](https://github.com/bolt/core/pull/3102))
 - Update cypress tests so it retries on failure (Joossensei, [#3099](https://github.com/bolt/core/pull/3099))
 - Refactoring deprecations in Symfony 5 -> 6 (bobdenotter, [#3091](https://github.com/bolt/core/pull/3091))
-- Prepare release 5.1.3 (bobdenotter, [#3088](https://github.com/bolt/core/pull/3088))
 
 
 ## 5.1.3
@@ -75,7 +74,6 @@ Released: 2022-01-19
 - Update `package-lock.json` (Joossensei, [#3045](https://github.com/bolt/core/pull/3045))
 - New feature: Allow empty value for select form controls, based on user setting. (vlad-ghita, [#3041](https://github.com/bolt/core/pull/3041))
 - Update serializable interface (bobvandevijver, [#3039](https://github.com/bolt/core/pull/3039))
-- Prepare release 5.1.1 (bobdenotter, [#3036](https://github.com/bolt/core/pull/3036))
 - Minor cleanup on `services.yaml` (bobdenotter, [#3035](https://github.com/bolt/core/pull/3035))
 
 ### ⚙️ Code Quality / Developer Experience
@@ -536,7 +534,6 @@ disclosing them to us responsibly! 👏🙏
 
 - Remove incorrect `PHPDoc @var` tag in RelationRepository (I-Valchev, [#2374](https://github.com/bolt/core/pull/2374))
 - Remove (abandoned) `sensiolabs/security-checker` (bobdenotter, [#2356](https://github.com/bolt/core/pull/2356))
-- Prepare Release 4.1.12 (bobdenotter, [#2339](https://github.com/bolt/core/pull/2339))
 
 
 ## 4.1.12
@@ -1055,7 +1052,6 @@ Released: 2020-08-24
 
 ### 🛠️ Miscellaneous
 
-- Prepare release 4.0.0-rc.36 (bobdenotter, [#1752](https://github.com/bolt/core/pull/1752))
 - Tweaking default Skeleton theme (bobdenotter, [#1751](https://github.com/bolt/core/pull/1751))
 - Remove the hover on the left-hand side logo (bobdenotter, [#1750](https://github.com/bolt/core/pull/1750))
 - Make relative dates work for fields that have an underscore in their name (bobdenotter, [#1748](https://github.com/bolt/core/pull/1748))
@@ -1277,7 +1273,6 @@ Released: 2020-06-29
 ### 🛠️ Miscellaneous
 
 - Better UI for dragging in multiselect (I-Valchev, [#1550](https://github.com/bolt/core/pull/1550))
-- Prepare release 4.0.0-rc.26 (bobdenotter, [#1539](https://github.com/bolt/core/pull/1539))
 
 ### 🤖 Tests
 
