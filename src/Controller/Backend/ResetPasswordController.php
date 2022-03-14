@@ -111,7 +111,7 @@ class ResetPasswordController extends TwigAwareController
         } catch (ResetPasswordExceptionInterface $e) {
             $this->addFlash('reset_password_error', sprintf(
                 $this->translator->trans('reset_password.problem_with_request'),
-                $e->getReason()
+                $this->translator->trans($e->getReason())
             ));
 
             return $this->redirectToRoute('bolt_forgot_password_request');
@@ -177,7 +177,7 @@ class ResetPasswordController extends TwigAwareController
             if ($config['show_already_requested_password_notice']) {
                 $this->addFlash('reset_password_error', sprintf(
                     $this->translator->trans('reset_password.problem_with_request'),
-                    $e->getReason()
+                    $this->translator->trans($e->getReason())
                 ));
             }
 
