@@ -3,7 +3,7 @@
 // Uses 'button-variant' mixin from core bootstrap with fixed colors.
 
 .btn-hidden-danger {
-  @include button-variant($tertiary, $tertiary, darken($danger, 7.5%), darken($danger, 10%), darken($danger, 10%), darken($danger, 12.5%));
+  @include button-variant($tertiary, $tertiary, $white, darken($danger, 7.5%), darken($danger, 10%), $white, darken($danger, 10%), darken($danger, 12.5%));
 }
 
 .btn-light-danger {
