@@ -53,6 +53,10 @@ trait CachingTrait
 
     public function setCacheTags(array $tags): void
     {
+        foreach ($tags as $key => $tag) {
+            $tags[$key] = preg_replace('/[^\pL\d,]+/u', '', $tag);
+        }
+
         $this->cacheTags = $tags;
     }
 
