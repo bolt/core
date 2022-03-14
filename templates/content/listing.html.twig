@@ -89,7 +89,7 @@
                                 <p>
                                     <strong>{{ taxonomyDefinition.singular_name }}:</strong>
                                     {% for key, value in taxonomyDefinition.options %}
-                                        <a class="badge badge-tertiary {% if taxonomy == taxonomyName and taxonomyValue == key %}selected{% endif %}"
+                                        <a class="badge badge-tertiary text-decoration-none {% if taxonomy == taxonomyName and taxonomyValue == key %}selected{% endif %}"
                                            href="?taxonomy={{ (taxonomyDefinition.slug ~ '=' ~ key)|url_encode }}">
                                             {{ value }}
                                         </a>
