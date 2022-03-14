@@ -47,7 +47,7 @@
                 aria-haspopup="true"
                 aria-expanded="false"
             >
-                <img v-if="avatar" :src="avatar" class="rounded-circle mr-2" alt="User avatar" />
+                <img v-if="avatar" :src="avatar" class="rounded-circle me-2" alt="User avatar" />
                 <i v-else class="fas fa-user"></i>{{ labels['general.greeting'] }}
                 <template v-if="isImpersonator">
                     &nbsp;<span style="font-style: italic;">({{ labels['general.is_impersonator'] }})</span>

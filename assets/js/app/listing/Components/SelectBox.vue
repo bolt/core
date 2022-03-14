@@ -2,7 +2,7 @@
     <transition name="card">
         <div v-if="selectedCount > 0" class="card mb-3">
             <div class="card-header">
-                <span class="is-primary mr-1">{{ selectedCount }}</span>
+                <span class="is-primary me-1">{{ selectedCount }}</span>
                 <template v-if="selectedCount === 1">{{ singular }}</template>
                 <template v-else>{{ plural }}</template>
                 {{ labels.selected }}
@@ -67,19 +67,19 @@ export default {
                     key: 'status/published',
                     value: this.labels.status_to_published,
                     selected: false,
-                    class: 'status mr-1 is-published',
+                    class: 'status me-1 is-published',
                 },
                 {
                     key: 'status/draft',
                     value: this.labels.status_to_draft,
                     selected: false,
-                    class: 'status mr-1 is-draft',
+                    class: 'status me-1 is-draft',
                 },
                 {
                     key: 'status/held',
                     value: this.labels.status_to_held,
                     selected: false,
-                    class: 'status mr-1 is-held',
+                    class: 'status me-1 is-held',
                 },
                 {
                     key: 'delete',

@@ -1,7 +1,7 @@
 
 <tr id="create-folder">
     <td>
-        <i class="fas fa-folder-plus mr-2"></i>
+        <i class="fas fa-folder-plus me-2"></i>
         <div id="editor"> {# #editor and #editcontent allow Vue here #}
             <form method="post" id="editcontent" action="{{ path('bolt_filemanager_create') }}">
                 {% embed '@bolt/_partials/fields/text.html.twig' with {
@@ -23,7 +23,7 @@
     </td>
     <td>
         <button type="submit" form="editcontent" class="btn btn-secondary btn-sm">
-            <i class="fas fa-folder-plus mr-2"></i>
+            <i class="fas fa-folder-plus me-2"></i>
             Create
         </button>
     </td>

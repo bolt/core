@@ -27,7 +27,7 @@
                                     :aria-label="labels.refresh"
                                     @click="updateEmbed"
                                 >
-                                    <i :class="(loading ? 'fa-spin' : '') + ' fas fa-sync mr-0'"></i>
+                                    <i :class="(loading ? 'fa-spin' : '') + ' fas fa-sync me-0'"></i>
                                 </button>
 
                                 <button
@@ -36,7 +36,7 @@
                                     :aria-label="labels.delete"
                                     @click="clearEmbed"
                                 >
-                                    <i class="fas fa-trash mr-0"></i>
+                                    <i class="fas fa-trash me-0"></i>
                                 </button>
                             </span>
                         </div>

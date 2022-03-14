@@ -19,11 +19,11 @@
             @tag="addTag"
         >
             <template v-if="name === 'status'" slot="singleLabel" slot-scope="props">
-                <span class="status mr-2" :class="`is-${props.option.key}`"></span>
+                <span class="status me-2" :class="`is-${props.option.key}`"></span>
                 {{ props.option.value | raw }}
             </template>
             <template v-if="name === 'status'" slot="option" slot-scope="props">
-                <span class="status mr-2" :class="`is-${props.option.key}`"></span>
+                <span class="status me-2" :class="`is-${props.option.key}`"></span>
                 {{ props.option.value | raw }}
             </template>
             <template v-if="name !== 'status'" slot="tag" slot-scope="props">

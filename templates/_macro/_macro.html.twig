@@ -15,7 +15,7 @@
 
     <button class="btn btn-{{ class }} {{ mb }}"
         {% for key,value in attr %} {{ key }}="{{value}}"{% endfor %}>
-        <i class="fas fa-fw fa-{{ icon }} mr-2"></i>
+        <i class="fas fa-fw fa-{{ icon }} me-2"></i>
         {{- label -}}
     </button>
 
@@ -33,7 +33,7 @@
 
     <a href="{{ link }}" class="btn btn-{{ class|split(' ')|join(' btn-') }} text-nowrap {{ mb }}"
         {% for key,value in attr %} {{ key }}="{{value}}"{% endfor %}>
-        <i class="fas fa-fw fa-{{ icon }} mr-1"></i>
+        <i class="fas fa-fw fa-{{ icon }} me-1"></i>
         {{- label -}}
     </a>
 

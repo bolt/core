@@ -35,7 +35,7 @@
                     />
                 </div>
                 <div class="btn-toolbar" role="toolbar">
-                    <div class="btn-group mr-2" role="group">
+                    <div class="btn-group me-2" role="group">
                         <button
                             class="btn btn-sm btn-tertiary"
                             type="button"
@@ -81,7 +81,7 @@
                         </div>
                     </div>
 
-                    <div class="btn-group mr-2" role="group">
+                    <div class="btn-group me-2" role="group">
                         <button
                             v-if="inFilelist == true"
                             class="btn btn-sm btn-tertiary"
