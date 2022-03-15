@@ -68,13 +68,13 @@
                         </a>
                     {% endif %}
                     {% if package|default() %}
-                        <a class="btn btn-hidden-danger btn-small ms-1 float-right" href=""
+                        <a class="btn btn-hidden-danger btn-small ms-1 float-end" href=""
                            data-confirmation="{{ 'extensions.message_not_implemented'|trans }}">
                             <i class="fas fa-trash-alt"></i>{{ 'extensions.button_remove'|trans }}
                         </a>
                     {% endif %}
 
-                    <a class="btn btn-tertiary btn-small float-right" href=""
+                    <a class="btn btn-tertiary btn-small float-end" href=""
                        data-confirmation="{{ 'extensions.message_not_implemented'|trans }}">
                         <i class="fas fa-ban"></i>{{ 'extensions.button_disable'|trans }}
                     </a>
