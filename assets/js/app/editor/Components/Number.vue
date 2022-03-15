@@ -26,7 +26,7 @@ export default {
         id: String,
         value: String,
         name: String,
-        step: Number,
+        step: Number | String,
         type: String,
         disabled: Boolean,
         required: Boolean,
