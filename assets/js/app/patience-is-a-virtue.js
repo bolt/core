@@ -19,7 +19,7 @@ export function renable() {
     $('*[data-original-class]').each(function() {
         const thisIcon = $(this).find('i');
 
-        $(this).attr('disabled', false);
+        $(this).removeAttr('disabled');
         thisIcon.attr('class', $(this).attr('data-original-class'));
     });
 }

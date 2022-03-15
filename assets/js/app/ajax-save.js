@@ -14,7 +14,14 @@ element.click(function() {
         type: 'POST',
         link: '/edit/' + record_id,
         data: $(form).serialize(),
-        beforeSend: patience_virtue(element),
-        complete: renable,
+        beforeSend: function() {
+            patience_virtue(element);
+        },
+        complete: function() {
+            renable();
+        },
+        error: function(jq, status, err) {
+            console.log(status, err);
+        },
     });
 });
