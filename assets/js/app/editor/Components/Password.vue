@@ -17,10 +17,10 @@
                 @input="measureStrength"
             />
 
-            <div class="input-group-append">
+            <div class="input-group-text p-0">
                 <i
                     ref="visibilityToggle"
-                    class="input-group-text toggle-password fas fa-eye"
+                    class="toggle-password fas fa-eye"
                     @click="togglePassword"
                 ></i>
             </div>
