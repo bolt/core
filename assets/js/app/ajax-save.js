@@ -40,7 +40,6 @@ $(document).ready(function () {
                 console.log(status, err);
             },
         });
-        console.log(dirty)
         if (dirty === true) {
             dirty = false;
         }
