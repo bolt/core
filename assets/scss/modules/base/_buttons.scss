@@ -24,9 +24,6 @@ $theme-colors: (
 );
 
 @each $color, $value in $theme-colors {
-  .alert-#{$color} {
-    background-color: shift-color($value, $alert-bg-level * 8%) !important;
-  }
 
   .btn-#{$color} {
     @include button-variant($value, $value);
