@@ -1,6 +1,6 @@
 # See: https://github.com/bolt/core/pull/3023
 
-file: api_platform.yaml
+file: packages/api_platform.yaml
 since: 5.1.4
 
 add:
