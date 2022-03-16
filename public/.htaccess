@@ -49,7 +49,7 @@ DirectoryIndex index.php
     RewriteRule ^index\.php(?:/(.*)|$) %{ENV:BASE}/$1 [R=301,L]
 
     # Deny access to any files in the theme folder, except for the listed extensions.
-    RewriteRule theme\/.+\.(?!(html?|css|js|jpe?g|png|gif|svg|pdf|avif|webp|mp3|mp?4a?v?|woff2?|txt|ico|zip|tgz|otf|ttf|eot|woff|woff2)$)[^\.]+?$ - [F]
+    RewriteRule theme\/.+\.(?!(html?|css|map|js|jpe?g|png|gif|svg|pdf|avif|webp|mp3|mp?4a?v?|woff2?|txt|ico|zip|tgz|otf|ttf|eot|woff|woff2)$)[^\.]+?$ - [F]
 
     # If the requested filename exists, simply serve it.
     # We only want to let Apache serve files and not directories.
