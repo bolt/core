@@ -13,7 +13,7 @@
   {% elseif not step|default %}
     {# default step values #}
     {% if mode == 'float' %}
-      {% set step = 0.5 %}
+      {% set step = "'any'" %}
     {% elseif mode == 'integer' %}
       {% set step = 1 %}
     {% else %}
