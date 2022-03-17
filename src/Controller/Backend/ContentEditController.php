@@ -476,6 +476,10 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
 
         $definition = empty($fieldDefinition) ? $content->getDefinition()->get('fields')->get($fieldName) : $fieldDefinition;
 
+        if (empty($definition)) {
+            throw new \Exception("Content type `{$content->getContentType()}` doesn't have field `{$fieldName}`.");
+        }
+
         if ($content->hasField($fieldName)) {
             $field = $content->getField($fieldName);
         }

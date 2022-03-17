@@ -5,16 +5,17 @@ declare(strict_types=1);
 namespace Bolt\Controller\Backend;
 
 use Bolt\Configuration\Config;
+use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\User;
 use Bolt\Form\ChangePasswordFormType;
 use Bolt\Form\ResetPasswordRequestFormType;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -25,15 +26,12 @@ use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
 /**
  * @Route("/reset-password")
  */
-class ResetPasswordController extends AbstractController
+class ResetPasswordController extends TwigAwareController
 {
     use ResetPasswordControllerTrait;
 
     /** @var ResetPasswordHelperInterface */
     private $resetPasswordHelper;
-
-    /** @var Config */
-    private $config;
 
     /** @var TranslatorInterface */
     private $translator;
@@ -62,7 +60,9 @@ class ResetPasswordController extends AbstractController
             );
         }
 
-        return $this->render('reset_password/request.html.twig', [
+        $templates = $this->templateChooser->forResetPasswordRequest();
+
+        return $this->render($templates, [
             'requestForm' => $form->createView(),
         ]);
     }
@@ -79,7 +79,9 @@ class ResetPasswordController extends AbstractController
             return $this->redirectToRoute('bolt_forgot_password_request');
         }
 
-        return $this->render('reset_password/check_email.html.twig', [
+        $templates = $this->templateChooser->forResetPasswordCheckEmail();
+
+        return $this->render($templates, [
             'tokenLifetime' => $this->resetPasswordHelper->getTokenLifetime(),
         ]);
     }
@@ -108,8 +110,8 @@ class ResetPasswordController extends AbstractController
             $user = $this->resetPasswordHelper->validateTokenAndFetchUser($token);
         } catch (ResetPasswordExceptionInterface $e) {
             $this->addFlash('reset_password_error', sprintf(
-                'There was a problem validating your reset request - %s',
-                $e->getReason()
+                $this->translator->trans('reset_password.problem_with_request'),
+                $this->translator->trans($e->getReason())
             ));
 
             return $this->redirectToRoute('bolt_forgot_password_request');
@@ -141,12 +143,14 @@ class ResetPasswordController extends AbstractController
             return $this->redirectToRoute('bolt_login');
         }
 
-        return $this->render('reset_password/reset.html.twig', [
+        $templates = $this->templateChooser->forResetPasswordReset();
+
+        return $this->render($templates, [
             'resetForm' => $form->createView(),
         ]);
     }
 
-    private function processSendingPasswordResetEmail(string $emailFormData, MailerInterface $mailer): RedirectResponse
+    protected function processSendingPasswordResetEmail(string $emailFormData, MailerInterface $mailer): RedirectResponse
     {
         $user = $this->getDoctrine()->getRepository(User::class)->findOneBy([
             'email' => $emailFormData,
@@ -173,14 +177,23 @@ class ResetPasswordController extends AbstractController
             if ($config['show_already_requested_password_notice']) {
                 $this->addFlash('reset_password_error', sprintf(
                     $this->translator->trans('reset_password.problem_with_request'),
-                    $e->getReason()
+                    $this->translator->trans($e->getReason())
                 ));
             }
 
             return $this->redirectToRoute('bolt_check_email');
         }
 
-        $email = (new TemplatedEmail())
+        $email = $this->buildResetEmail($config, $user, $resetToken);
+
+        $mailer->send($email);
+
+        return $this->redirectToRoute('bolt_check_email');
+    }
+
+    protected function buildResetEmail($config, $user, $resetToken): Email
+    {
+        return (new TemplatedEmail())
             ->from(new Address($config['mail_from'], $config['mail_name']))
             ->to($user->getEmail())
             ->subject($config['mail_subject'])
@@ -189,9 +202,5 @@ class ResetPasswordController extends AbstractController
                 'resetToken' => $resetToken,
                 'tokenLifetime' => $this->resetPasswordHelper->getTokenLifetime(),
             ]);
-
-        $mailer->send($email);
-
-        return $this->redirectToRoute('bolt_check_email');
     }
 }
