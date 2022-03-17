@@ -1,9 +1,9 @@
 <template>
     <div>
-        <div :class="['custom-control', 'custom-' + mode]">
+        <div :class="['custom-control', 'form-' + mode, 'form-check', mode == 'switch' ? 'form-switch' : '']">
             <input
                 :id="id"
-                class="custom-control-input"
+                class="form-check-input"
                 :name="name"
                 :checked="value"
                 type="checkbox"
