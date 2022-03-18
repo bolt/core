@@ -6,7 +6,7 @@
 
     {% set value = record|related_values(contentType) %}
 
-    <div class="mb-4 is-normal">
+    <div class="mb-4">
 
         {# Print prefix #}
         {% if relation['prefix']|default() is not empty %}
