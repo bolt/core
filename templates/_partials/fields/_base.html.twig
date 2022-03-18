@@ -126,7 +126,7 @@
 
 <!-- field "{{ label }}" (type: {{ type }}{% if variant != 'normal' %}, variant: {{ variant }}{% endif %}) -->
 <div
-    class="mb-4 {{ type_card ? 'form-card' }} {{ type_collection ? 'form-collection' }} {{ in_compound|default ? 'in-compound'}} is-{{ variant }}"
+    class="{{ id in ['field-createdAt', 'field-modifiedAt', 'field-id'] ? 'mb-2' : 'mb-4'}} {{ type_card ? 'form-card' }} {{ type_collection ? 'form-collection' }} {{ in_compound|default ? 'in-compound'}} is-{{ variant }}"
     id="field--{{ id }}"
 >
 
@@ -142,7 +142,6 @@
 {% endblock %}
 
 {% if variant == 'inline' %}</div><div class="col-9">{% endif %}
-
 {% block field %}
 
 {% endblock %}
