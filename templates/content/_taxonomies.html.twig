@@ -8,7 +8,7 @@
             {% set options = taxonomy_options(definition) %}
             {% set value = taxonomy_values(record.taxonomies, definition) %}
 
-            <div class="form-group is-normal">
+            <div class="mb-4 is-normal">
 
                 {# Print prefix #}
                 {% if definition['prefix']|default() is not empty %}
