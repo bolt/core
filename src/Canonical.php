@@ -55,6 +55,12 @@ class Canonical
         $this->init();
     }
 
+    public function initFromRequest(Request $request): void
+    {
+        $this->request = $request;
+        $this->init();
+    }
+
     public function init(): void
     {
         // Ensure in request cycle (even for override).
