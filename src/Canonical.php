@@ -24,7 +24,7 @@ class Canonical
     private $urlGenerator;
 
     /** @var Request */
-    private $request;
+    private $request = null;
 
     /** @var string */
     private $scheme = null;
@@ -44,27 +44,39 @@ class Canonical
     /** @var RouterInterface */
     private $router;
 
+    /** @var RequestStack */
+    private $requestStack;
+
     public function __construct(Config $config, UrlGeneratorInterface $urlGenerator, RequestStack $requestStack, RouterInterface $router, string $defaultLocale)
     {
         $this->config = $config;
         $this->urlGenerator = $urlGenerator;
-        $this->request = $requestStack->getCurrentRequest() ?? Request::createFromGlobals();
         $this->defaultLocale = $defaultLocale;
         $this->router = $router;
+        $this->requestStack = $requestStack;
+    }
 
-        $this->init();
+    public function getRequest(): Request
+    {
+        // always try to use current request
+        if ($this->request === null) {
+            $this->request = $this->requestStack->getCurrentRequest() ?? Request::createFromGlobals();
+            $this->init();
+        }
+
+        return $this->request;
     }
 
     public function init(): void
     {
         // Ensure in request cycle (even for override).
-        if ($this->request === null || $this->request->getHost() === '') {
+        if ($this->getRequest() === null || $this->getRequest()->getHost() === '') {
             return;
         }
 
-        $requestUrl = parse_url($this->request->getSchemeAndHttpHost());
+        $requestUrl = parse_url($this->getRequest()->getSchemeAndHttpHost());
 
-        $configCanonical = (string) $this->config->get('general/canonical', $this->request->getSchemeAndHttpHost());
+        $configCanonical = (string) $this->config->get('general/canonical', $this->getRequest()->getSchemeAndHttpHost());
 
         if (mb_strpos($configCanonical, 'http') !== 0) {
             $configCanonical = $requestUrl['scheme'] . '://' . $configCanonical;
@@ -83,7 +95,7 @@ class Canonical
     public function get(?string $route = null, array $params = [], bool $absolute = true): ?string
     {
         // Ensure request has been matched
-        if (! $this->request->attributes->get('_route')) {
+        if (! $this->getRequest()->attributes->get('_route')) {
             return null;
         }
 
@@ -153,8 +165,8 @@ class Canonical
     public function getPath(): string
     {
         if ($this->path === null) {
-            $route = $this->request->attributes->get('_route');
-            $params = $this->request->attributes->get('_route_params');
+            $route = $this->getRequest()->attributes->get('_route');
+            $params = $this->getRequest()->attributes->get('_route_params');
 
             $this->path = $this->generateLink($route, $params, false);
         }
@@ -164,10 +176,10 @@ class Canonical
 
     public function setPath(?string $route = null, array $params = []): void
     {
-        if (! $route && ! $this->request->attributes->has('_route')) {
+        if (! $route && ! $this->getRequest()->attributes->has('_route')) {
             return;
         } elseif (! $route) {
-            $route = $this->request->attributes->get('_route');
+            $route = $this->getRequest()->attributes->get('_route');
         }
 
         $this->path = $this->generateLink($route, $params, false);
@@ -207,7 +219,7 @@ class Canonical
             );
         } catch (InvalidParameterException | MissingMandatoryParametersException | RouteNotFoundException | \TypeError $e) {
             // Just use the current URL /shrug
-            return $canonical ? $this->request->getUri() : $this->request->getPathInfo();
+            return $canonical ? $this->getRequest()->getUri() : $this->getRequest()->getPathInfo();
         }
     }
 
