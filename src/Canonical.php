@@ -58,23 +58,29 @@ class Canonical
 
     public function getRequest(): Request
     {
-        // always try to use current request
         if ($this->request === null) {
-            $this->request = $this->requestStack->getCurrentRequest() ?? Request::createFromGlobals();
-            $this->init();
+            // Use default value.
+            $this->setRequest();
         }
 
         return $this->request;
     }
 
-    public function init(): void
+    public function setRequest(?Request $request = null): void
     {
-        // Ensure in request cycle (even for override).
-        if ($this->getRequest() === null || $this->getRequest()->getHost() === '') {
+        // Default to current request (if any).
+        if ($request === null) {
+            $request = $this->requestStack->getCurrentRequest() ?? Request::createFromGlobals();
+        }
+
+        $this->request = $request;
+
+        // Nothing to do if request is empty.
+        if ($this->request === null || $this->request->getHost() === '') {
             return;
         }
 
-        $requestUrl = parse_url($this->getRequest()->getSchemeAndHttpHost());
+        $requestUrl = parse_url($this->request->getSchemeAndHttpHost());
 
         $configCanonical = (string) $this->config->get('general/canonical', $this->getRequest()->getSchemeAndHttpHost());
 
