@@ -17,7 +17,7 @@
             >
                 <span class="sr-only">Toggle Dropdown</span>
             </button>
-            <div class="edit-actions__dropdown dropdown-menu dropdown-menu-right" style="width: 320px;">
+            <div class="edit-actions__dropdown dropdown-menu dropdown-menu-right" style="width: 320px">
                 <a
                     v-if="record.status === 'published'"
                     class="dropdown-item"
@@ -69,22 +69,22 @@
                 <span class="dropdown-item-text">
                     <i class="fas fa-link fa-w"></i>
                     {{ labels.slug }}:
-                    <code :title="slug">{{ slug | trim(24) }}</code>
+                    <code :title="slug">{{ trim(slug, 24) }}</code>
                 </span>
                 <span class="dropdown-item-text">
                     <i class="fas fa-asterisk fa-w"></i>
                     {{ labels.created_on }}:
-                    <strong>{{ record.createdAt | datetime }}</strong>
+                    <strong>{{ asdatetime(record.createdAt) }}</strong>
                 </span>
                 <span class="dropdown-item-text">
                     <i class="far fa-calendar-alt fa-w"></i>
                     {{ labels.published_on }}:
-                    <strong>{{ record.publishedAt | datetime }}</strong>
+                    <strong>{{ asdatetime(record.publishedAt) }}</strong>
                 </span>
                 <span class="dropdown-item-text">
                     <i class="fas fa-redo fa-w"></i>
                     {{ labels.last_modified_on }}:
-                    <strong>{{ record.modifiedAt | datetime }}</strong>
+                    <strong>{{ asdatetime(record.modifiedAt) }}</strong>
                 </span>
             </div>
         </div>
@@ -92,6 +92,7 @@
 </template>
 
 <script>
+import { DateTime } from 'luxon';
 export default {
     name: 'Actions',
     props: {
@@ -113,6 +114,17 @@ export default {
     },
     created() {
         // console.log(this.labels);
+    },
+    methods: {
+        trim(s, len) {
+            if (!len) len = 50;
+            if (s.length < len) return s;
+        },
+        asdatetime(string) {
+            if (string) {
+                return DateTime.fromISO(String(string)).toLocaleString(DateTime.DATETIME_MED);
+            }
+        },
     },
 };
 </script>

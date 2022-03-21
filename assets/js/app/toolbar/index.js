@@ -1,4 +1,4 @@
-import Vue from 'vue';
+import { createApp } from 'vue';
 /**
  * VueX Store
  */
@@ -12,14 +12,19 @@ import Toolbar from './Components/Toolbar.vue';
  * Register Components
  */
 const id = 'toolbar';
+const toolbar = {
+    data() {
+        return {
+            store,
+            el: '#' + id,
+            name: 'BoltToolbar',
+            components: {
+                'admin-toolbar': Toolbar,
+            },
+        };
+    },
+};
+const app = createApp(toolbar);
 
-if (document.getElementById(id)) {
-    new Vue({
-        store,
-        el: '#' + id,
-        name: 'BoltToolbar',
-        components: {
-            'admin-toolbar': Toolbar,
-        },
-    });
-}
+app.component('AdminToolbar', Toolbar);
+app.mount('#' + id);

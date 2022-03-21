@@ -17,7 +17,7 @@
                                 :required="required"
                                 :readonly="readonly"
                                 :data-errormessage="errormessage"
-                                :pattern="pattern"
+                                :pattern="pattern ? pattern : null"
                             />
                             <span class="input-group-append">
                                 <button
@@ -121,17 +121,17 @@ export default {
         name: String,
         authorurl: String,
         authorname: String,
-        height: Number | String, //String if not set
+        height: [Number, String], //String if not set
         html: String,
         thumbnail: String,
         title: String,
         url: String,
-        width: Number | String, //String if not set
+        width: [Number, String], //String if not set
         labels: Object,
         required: Boolean,
         readonly: Boolean,
-        errormessage: String | Boolean, //string if errormessage is set, and false otherwise
-        pattern: String | Boolean,
+        errormessage: [String, Boolean], //string if errormessage is set, and false otherwise
+        pattern: [String, Boolean],
     },
     data() {
         return {
@@ -147,14 +147,14 @@ export default {
         };
     },
     watch: {
-        urlData: function() {
+        urlData: function () {
             this.updateEmbed();
         },
     },
     mounted() {
         this.previewImage = this.thumbnail;
     },
-    created: function() {
+    created: function () {
         this.debouncedFetchEmbed = _.debounce(this.fetchEmbed, 500);
         if (this.urlData) {
             this.updateEmbed();
@@ -172,21 +172,21 @@ export default {
         });
     },
     methods: {
-        updateEmbed: function() {
+        updateEmbed: function () {
             this.loading = true;
             this.debouncedFetchEmbed();
         },
-        clearEmbed: function() {
+        clearEmbed: function () {
             this.urlData = '';
         },
-        fetchEmbed: function() {
+        fetchEmbed: function () {
             const body = new FormData();
             body.append('url', this.urlData);
             body.append('_csrf_token', document.getElementsByName('_csrf_token')[0].value);
 
             fetch(this.embedapi, { method: 'POST', body: body })
-                .then(response => response.json())
-                .then(json => {
+                .then((response) => response.json())
+                .then((json) => {
                     this.authorurlData = json.author_url;
                     this.authornameData = json.author_name;
                     this.heightData = json.height;
@@ -197,7 +197,7 @@ export default {
                     this.widthData = json.width;
                     this.previewImage = json.thumbnail_url;
                 })
-                .catch(err => {
+                .catch((err) => {
                     console.warn(err);
                 })
                 .finally(() => {

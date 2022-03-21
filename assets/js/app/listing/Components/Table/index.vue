@@ -1,20 +1,20 @@
 <template>
     <div class="listing__records">
-        <draggable v-model="records" handle=".listing__row--move" force-fallback="true">
-            <transition-group>
-                <table-row v-for="record in records" :key="record.id" :record="record" :labels="labels"></table-row>
-            </transition-group>
-        </draggable>
+        <transition-group>
+            <table-row v-for="record in records" :key="record.id" :record="record" :labels="labels"></table-row>
+        </transition-group>
     </div>
 </template>
 
 <script>
 import draggable from 'vuedraggable';
 import Row from './Row';
+import store from '../../store';
 
 export default {
     name: 'ListingTable',
     components: {
+        // eslint-disable-next-line vue/no-unused-components
         draggable: draggable,
         'table-row': Row,
     },
@@ -24,10 +24,10 @@ export default {
     computed: {
         records: {
             get() {
-                return this.$store.getters['listing/getRecords'];
+                return store.getters['listing/getRecords'];
             },
             set(val) {
-                this.$store.dispatch('listing/setRecords', val);
+                store.dispatch('listing/setRecords', val);
             },
         },
     },

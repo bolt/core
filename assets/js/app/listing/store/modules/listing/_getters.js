@@ -1,7 +1,7 @@
 const getters = {
-    getRecords: state => state.records,
+    getRecords: (state) => state.records,
     getOrder(state) {
-        return state.records.map(record => {
+        return state.records.map((record) => {
             return record.id;
         });
     },

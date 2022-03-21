@@ -1,6 +1,10 @@
 {% extends '@bolt/_partials/fields/_base.html.twig' %}
 
 {% block field %}
+    {% if height is not defined %}
+        {% set height = field.definition.height|default(5) %}
+    {% endif %}
+
     <editor-markdown
         :value='{{ value|json_encode }}'
         :name='{{ name|json_encode }}'

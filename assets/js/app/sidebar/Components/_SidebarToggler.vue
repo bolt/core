@@ -6,6 +6,8 @@
 </template>
 
 <script>
+import store from '../store';
+
 export default {
     name: 'SidebarFooter',
     props: {
@@ -15,7 +17,7 @@ export default {
     },
     computed: {
         slim() {
-            return this.$store.getters['general/slimSidebar'] ? this.$store.getters['general/slimSidebar'] : false;
+            return store.getters['general/slimSidebar'] ? store.getters['general/slimSidebar'] : false;
         },
     },
     watch: {
@@ -27,7 +29,7 @@ export default {
     },
     methods: {
         slimSidebar(arg) {
-            this.$store.dispatch('general/slimSidebar', arg);
+            store.dispatch('general/slimSidebar', arg);
         },
     },
 };

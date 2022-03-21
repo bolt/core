@@ -11,6 +11,7 @@
 <script>
 import Menu from './Menu';
 import SidebarToggler from './_SidebarToggler';
+import store from '../store';
 
 export default {
     name: 'Sidebar',
@@ -28,7 +29,7 @@ export default {
         const slim = JSON.parse(localStorage.getItem('slim-sidebar'));
 
         if (slim) {
-            this.$store.dispatch('general/slimSidebar', slim);
+            store.dispatch('general/slimSidebar', slim);
         }
     },
 };

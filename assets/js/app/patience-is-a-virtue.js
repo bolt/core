@@ -1,6 +1,6 @@
 import $ from 'jquery';
 
-$('a[data-patience], button[data-patience]').on('click', function() {
+$('a[data-patience], button[data-patience]').on('click', function () {
     const thisElement = $(this);
     const thisIcon = thisElement.find('i');
 
@@ -16,13 +16,13 @@ $('a[data-patience], button[data-patience]').on('click', function() {
     $(this).attr('data-original-class', thisIcon.attr('class'));
     thisIcon.attr('class', newClass);
 
-    window.setTimeout(function() {
+    window.setTimeout(function () {
         thisElement.attr('disabled', true);
     }, 50);
 });
 
-window.reEnablePatientButtons = function() {
-    $('*[data-original-class]').each(function() {
+window.reEnablePatientButtons = function () {
+    $('*[data-original-class]').each(function () {
         const thisIcon = $(this).find('i');
 
         $(this).attr('disabled', false);

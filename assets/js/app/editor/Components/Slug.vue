@@ -14,7 +14,7 @@
                 :readonly="readonly || !edit"
                 :required="required"
                 :data-errormessage="errormessage"
-                :pattern="pattern"
+                :pattern="pattern ? pattern : null"
                 :title="name"
             />
             <div class="input-group-append">
@@ -52,6 +52,8 @@
 
 <script>
 import field from '../mixins/value';
+var emitter = require('tiny-emitter/instance');
+import $ from 'jquery';
 
 export default {
     name: 'EditorSlug',
@@ -65,8 +67,8 @@ export default {
         labels: Object,
         required: Boolean,
         readonly: Boolean,
-        errormessage: String | Boolean, //string if errormessage is set, and false otherwise
-        pattern: String | Boolean,
+        errormessage: [String, Boolean], //string if errormessage is set, and false otherwise
+        pattern: [String, Boolean],
         localize: Boolean,
         isNew: Boolean,
     },
@@ -81,8 +83,9 @@ export default {
     mounted() {
         setTimeout(() => {
             let title = '';
-            this.generate.split(',').forEach(element => {
-                title = title + document.querySelector(`input[name='fields[${element}]']`).value;
+            // eslint-disable-next-line no-unused-vars
+            this.generate.split(',').forEach((element) => {
+                title = title + $("input[name='fields[${element}]']").value;
             });
             if (this.shouldGenerateFromTitle(title)) {
                 this.icon = 'unlock';
@@ -91,7 +94,7 @@ export default {
                 this.generateSlug();
             }
         }, 0);
-        this.$root.$on('slugify-from-title', () => this.generateSlug());
+        emitter.on('slugify-from-title', () => this.generateSlug());
     },
     methods: {
         shouldGenerateFromTitle(title) {
@@ -115,7 +118,7 @@ export default {
         },
         generateSlug() {
             let title = '';
-            this.generate.split(',').forEach(element => {
+            this.generate.split(',').forEach((element) => {
                 title = title + ' ' + document.querySelector(`input[name='fields[${element}]']`).value;
             });
 

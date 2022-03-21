@@ -1,6 +1,4 @@
-import Vue from 'vue';
-
-Vue.filter('slugify', string => {
+function formatSlugify(string) {
     if (string) {
         // based on https://gist.github.com/sgmurphy/3095196
         string = String(string);
@@ -17,7 +15,6 @@ Vue.filter('slugify', string => {
             Ã: 'A',
             Ä: 'A',
             Å: 'A',
-            Ă: 'A',
             Æ: 'AE',
             Ç: 'C',
             È: 'E',
@@ -37,8 +34,6 @@ Vue.filter('slugify', string => {
             Ö: 'O',
             Ő: 'O',
             Ø: 'O',
-            Ș: 'S',
-            Ț: 'T',
             Ù: 'U',
             Ú: 'U',
             Û: 'U',
@@ -53,7 +48,6 @@ Vue.filter('slugify', string => {
             ã: 'a',
             ä: 'a',
             å: 'a',
-            ă: 'a',
             æ: 'ae',
             ç: 'c',
             è: 'e',
@@ -73,8 +67,6 @@ Vue.filter('slugify', string => {
             ö: 'o',
             ő: 'o',
             ø: 'o',
-            ș: 's',
-            ț: 't',
             ù: 'u',
             ú: 'u',
             û: 'u',
@@ -322,30 +314,32 @@ Vue.filter('slugify', string => {
         string = opt.lowercase ? string.toLowerCase() : string;
         return string.replace(/[^\w-]+/g, '');
     }
-});
+}
 
-Vue.filter('strip', string => {
+function formatStrip(string) {
     if (string) {
         return string.replace(/(^")|("$)/g, '');
     }
-});
+}
 
-Vue.filter('raw', string => {
+function formatRaw(string) {
     if (string) {
         let node = document.createElement('textarea');
         node.innerHTML = string;
         return node.value;
     }
-});
+}
 
-Vue.filter('uppercase', string => {
+function formatUppercase(string) {
     if (string) return string.toUpperCase();
-});
+}
 
-Vue.filter('trim', (string, length) => {
+function formatTrim(string, length) {
     if (length == undefined) {
         length = 50;
     }
 
     return string.length > length ? string.substring(0, length - 1) + '…' : string;
-});
+}
+
+export { formatRaw, formatSlugify, formatUppercase, formatTrim, formatStrip };

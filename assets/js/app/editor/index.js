@@ -1,4 +1,4 @@
-import Vue from 'vue';
+import { createApp } from 'vue';
 /**
  * VueX Store
  */
@@ -27,40 +27,45 @@ import Collection from './Components/Collection';
 import Checkbox from './Components/Checkbox';
 import UnsavedChangesWarning from './unsavedchanges';
 
-Vue.component('editor-checkbox', Checkbox);
-Vue.component('editor-date', Date);
-Vue.component('editor-embed', Embed);
-Vue.component('editor-email', Email);
-Vue.component('editor-password', Password);
-Vue.component('editor-html', Html);
-Vue.component('editor-image', Image);
-Vue.component('editor-imagelist', Imagelist);
-Vue.component('editor-file', File);
-Vue.component('editor-filelist', Filelist);
-Vue.component('editor-markdown', Markdown);
-Vue.component('editor-number', Number);
-Vue.component('editor-select', Select);
-Vue.component('editor-slug', Slug);
-Vue.component('editor-text', Text);
-Vue.component('editor-textarea', Textarea);
-Vue.component('editor-collection', Collection);
-Vue.component('editor-set', Set);
-Vue.component('general-language', Language);
-Vue.component('theme-select', ThemeSelect);
-
 const id = 'editor';
 const editorSelector = '#' + id;
+const editorPage = {
+    data() {
+        return {
+            store,
+            el: editorSelector,
+            name: 'BoltEditor',
+            mounted: function () {
+                // Wait 2 seconds, so that Vue is initialised properly without triggering change events.
+                setTimeout(function () {
+                    UnsavedChangesWarning.warnFor(editorSelector + ' form');
+                }, 2000);
+            },
+        };
+    },
+};
+
+const app = createApp(editorPage);
 
 if (document.getElementById(id)) {
-    new Vue({
-        store,
-        el: editorSelector,
-        name: 'BoltEditor',
-        mounted: function() {
-            // Wait 2 seconds, so that Vue is initialised properly without triggering change events.
-            setTimeout(function() {
-                UnsavedChangesWarning.warnFor(editorSelector + ' form');
-            }, 2000);
-        },
-    });
+    app.component('EditorCheckbox', Checkbox);
+    app.component('EditorDate', Date);
+    app.component('EditorEmbed', Embed);
+    app.component('EditorEmail', Email);
+    app.component('EditorPassword', Password);
+    app.component('EditorHtml', Html);
+    app.component('EditorImage', Image);
+    app.component('EditorImageList', Imagelist);
+    app.component('EditorFile', File);
+    app.component('EditorFileList', Filelist);
+    app.component('EditorMarkdown', Markdown);
+    app.component('EditorNumber', Number);
+    app.component('EditorSelect', Select);
+    app.component('EditorSlug', Slug);
+    app.component('EditorText', Text);
+    app.component('EditorTextarea', Textarea);
+    app.component('EditorCollection', Collection);
+    app.component('EditorLanguage', Language);
+    app.component('ThemeSelect', ThemeSelect);
+    app.mount(editorSelector);
 }

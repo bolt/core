@@ -21,6 +21,7 @@
 
 <script>
 import field from '../mixins/value';
+var emitter = require('tiny-emitter/instance');
 
 export default {
     name: 'EditorText',
@@ -60,7 +61,7 @@ export default {
         },
     },
     mounted() {
-        this.$root.$on('generate-from-title', data => (this.generate = data));
+        emitter.on('generate-from-title', (data) => (this.generate = data));
     },
 };
 </script>

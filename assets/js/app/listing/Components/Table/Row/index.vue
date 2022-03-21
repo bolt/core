@@ -8,12 +8,12 @@
             <!-- column details / excerpt -->
             <div class="listing__row--item is-details">
                 <a class="listing__row--item-title" :href="record.extras.editLink" :title="slug">
-                    {{ record.extras.title | trim(62) | raw }}
+                    {{ trim(raw(record.extras.title, 62)) }}&nbsp;
                 </a>
                 <span v-if="record.extras.feature" class="badge" :class="`badge-${record.extras.feature}`">{{
                     record.extras.feature
                 }}</span>
-                <span class="listing__row--item-title-excerpt">{{ record.extras.excerpt | raw }}</span>
+                <span class="listing__row--item-title-excerpt">{{ raw(record.extras.excerpt) }}</span>
             </div>
             <!-- end column -->
 
@@ -21,7 +21,7 @@
             <div v-if="size === 'normal' && record.extras.image" class="listing__row--item is-thumbnail">
                 <img
                     :src="record.extras.image.thumbnail"
-                    style="width: 108px;"
+                    style="width: 108px"
                     loading="lazy"
                     :alt="record.extras.image.alt"
                 />
@@ -49,6 +49,7 @@ import type from '../../../mixins/type';
 import Checkbox from './_Checkbox';
 import Meta from './_Meta';
 import Actions from './_Actions';
+import store from '../../../store';
 import $ from 'jquery';
 
 export default {
@@ -75,13 +76,26 @@ export default {
             return this.record.fieldValues.slug[Object.keys(this.record.fieldValues.slug)[0]];
         },
         size() {
-            return this.$store.getters['general/getRowSize'];
+            return store.getters['general/getRowSize'];
         },
         sorting() {
-            return this.$store.getters['general/getSorting'];
+            return store.getters['general/getSorting'];
         },
     },
     methods: {
+        trim(s, len) {
+            if (!len) len = 50;
+            if (s.length < len) return s;
+        },
+
+        raw(string) {
+            if (string) {
+                let node = document.createElement('textarea');
+                node.innerHTML = string;
+                return node.value;
+            }
+        },
+
         leave() {
             // When we 'leave' the row, make sure we close the dropdown.
             $('.dropdown-toggle[aria-expanded="true"]').dropdown('toggle');

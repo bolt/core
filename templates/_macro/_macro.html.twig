@@ -78,16 +78,13 @@
             </div>
         {% endset %}
 
-        {# Set the buttons #}
-        {% set buttons %}{% include '@bolt/_partials/fields/_collection_buttons.html.twig' with { in_compound: true, 'hash': hash } %}{% endset %}
-
         {# Set the icon #}
         {% set icon = item_field.definition.icon %}
         {% if icon is empty%}{% set icon = 'fa-plus' %}{% endif %}
 
         {# set the label manually as set in _base.html.twig, to pass to Collection.vue for templates #}
         {% set label = item_field.definition.label|default(item_field.name|default('unnamed')|ucwords) %}
-        {% set fieldsHtml = fieldsHtml|merge([{'content': new_field, 'hash': hash, 'label': label, 'buttons': buttons, 'icon': icon}]) %}
+        {% set fieldsHtml = fieldsHtml|merge([{'content': new_field, 'hash': hash, 'label': label, 'icon': icon}]) %}
     {% endfor %}
     {{ fieldsHtml|json_encode }}
 {% endapply %}{% endmacro %}

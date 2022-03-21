@@ -4,6 +4,8 @@
             ref="vselect"
             v-model="selected"
             :limit="1000"
+            :value="value"
+            :name="name"
             :multiple="multiple"
             :options="options"
             :options-limit="optionslimit"
@@ -18,15 +20,15 @@
             track-by="key"
             @tag="addTag"
         >
-            <template v-if="name === 'status'" slot="singleLabel" slot-scope="props">
+            <template v-if="name === 'status'" #singleLabel="props">
                 <span class="status mr-2" :class="`is-${props.option.key}`"></span>
-                {{ props.option.value | raw }}
+                {{ formatRaw(props.option.value) }}
             </template>
-            <template v-if="name === 'status'" slot="option" slot-scope="props">
+            <template v-if="name === 'status'" #option="props">
                 <span class="status mr-2" :class="`is-${props.option.key}`"></span>
-                {{ props.option.value | raw }}
+                {{ formatRaw(props.option.value) }}
             </template>
-            <template v-if="name !== 'status'" slot="tag" slot-scope="props">
+            <template v-if="name !== 'status'" #tag="props">
                 <span :class="{ empty: props.option.value == '' }" @drop="drop($event)" @dragover="allowDrop($event)">
                     <span
                         :id="props.option.key"
@@ -58,6 +60,7 @@
 </template>
 
 <script>
+import { formatRaw } from '../../../filters/string';
 import Multiselect from 'vue-multiselect';
 import $ from 'jquery';
 
@@ -76,21 +79,20 @@ export default {
         readonly: Boolean,
         classname: String,
         autocomplete: Boolean,
-        errormessage: String | Boolean, //string if errormessage is set, and false otherwise
+        errormessage: [String, Boolean], //string if errormessage is set, and false otherwise
     },
     data: () => {
         return {
-            selected: [],
+            selected: [''],
         };
     },
     computed: {
         sanitized() {
             let filtered;
-
             if (this.selected === null) {
                 return JSON.stringify([]);
             } else if (this.selected.map) {
-                filtered = this.selected.map(item => item.key);
+                filtered = this.selected.map((item) => item.key);
                 return JSON.stringify(filtered);
             } else {
                 return JSON.stringify([this.selected.key]);
@@ -110,32 +112,34 @@ export default {
          * element and "select" will not be filled with the first available option.
          */
         let filterSelectedItems = _values
-            .map(value => {
-                const item = _options.filter(opt => opt.key === value);
+            .map((value) => {
+                const item = _options.filter((opt) => opt.key === value);
                 if (item.length > 0) {
                     return item[0];
                 }
             })
-            .filter(item => undefined !== item);
+            .filter((item) => undefined !== item);
 
         if (filterSelectedItems.length === 0) {
-            filterSelectedItems = [_options[0]];
+            filterSelectedItems = [{ key: '', value: '' }];
         }
-
         this.selected = filterSelectedItems;
     },
     methods: {
+        formatRaw,
         addTag(newTag) {
             const tag = {
                 key: newTag,
                 value: newTag,
                 selected: true,
             };
+            // eslint-disable-next-line vue/no-mutating-props
             this.options.push(tag);
+            // eslint-disable-next-line vue/no-mutating-props
             this.value.push(tag);
             this.selected.push(tag);
         },
-        removeElement: function(element) {
+        removeElement: function (element) {
             this.$refs.vselect.removeElement(element);
         },
         drop(e) {
@@ -149,8 +153,8 @@ export default {
              */
             const outgoingId = this.findDropElement(e.target).id;
 
-            const incomingElement = this.selected.find(el => '' + el.key === '' + incomingId);
-            const outgoingElement = this.selected.find(el => '' + el.key === '' + outgoingId);
+            const incomingElement = this.selected.find((el) => '' + el.key === '' + incomingId);
+            const outgoingElement = this.selected.find((el) => '' + el.key === '' + outgoingId);
 
             const incomingIndex = this.selected.indexOf(incomingElement);
             const outgoingIndex = this.selected.indexOf(outgoingElement);

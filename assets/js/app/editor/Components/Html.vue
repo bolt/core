@@ -6,6 +6,7 @@
 
 <script>
 import trumbowyg from 'vue-trumbowyg';
+import { formatStrip } from '../../../filters/string';
 import 'trumbowyg/dist/ui/trumbowyg.css';
 
 export default {
@@ -40,7 +41,7 @@ export default {
         };
     },
     mounted() {
-        this.val = this.$options.filters.strip(this.value);
+        this.val = formatStrip(this.value);
     },
 };
 </script>

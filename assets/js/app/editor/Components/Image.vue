@@ -218,7 +218,7 @@ export default {
             return this.csrfToken;
         },
         acceptedExtensions() {
-            return this.extensions.map(ext => '.' + ext).join();
+            return this.extensions.map((ext) => '.' + ext).join();
         },
         getPlaceholder() {
             if (this.placeholder) {
@@ -271,13 +271,13 @@ export default {
         selectServerFile() {
             let thisField = this;
             Axios.get(this.filelist)
-                .then(res => {
+                .then((res) => {
                     bootbox.prompt({
                         title: 'Select a file',
                         inputType: 'select',
                         name: 'image-selector',
                         inputOptions: this.filterServerFiles(res.data),
-                        callback: function(result) {
+                        callback: function (result) {
                             if (result) {
                                 thisField.filenameData = result;
                                 thisField.thumbnailData = `/thumbs/400×300/${result}`;
@@ -288,7 +288,7 @@ export default {
                     window.$('.bootbox-input').attr('name', 'bootbox-input');
                     window.reEnablePatientButtons();
                 })
-                .catch(err => {
+                .catch((err) => {
                     bootbox.alert(err.response.data + '<br>Image did not upload.');
                     console.warn(err);
                     window.reEnablePatientButtons();
@@ -316,7 +316,7 @@ export default {
         uploadFile(file) {
             const fd = new FormData();
             const config = {
-                onUploadProgress: progressEvent => {
+                onUploadProgress: (progressEvent) => {
                     const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
                     this.progress = percentCompleted;
                 },
@@ -327,13 +327,13 @@ export default {
             fd.append('image', file);
             fd.append('_csrf_token', this.token);
             Axios.post(this.directory, fd, config)
-                .then(res => {
+                .then((res) => {
                     this.filenameData = res.data;
                     this.thumbnailData = `/thumbs/400×300/${res.data}`;
                     this.previewData = `/thumbs/1000×1000/${res.data}`;
                     this.progress = 0;
                 })
-                .catch(err => {
+                .catch((err) => {
                     bootbox.alert(err.response.data.error.message);
                     console.warn(err.response.data.error.message);
                     this.progress = 0;
@@ -342,7 +342,7 @@ export default {
         uploadFileFromUrl() {
             let thisField = this;
             const config = {
-                onUploadProgress: progressEvent => {
+                onUploadProgress: (progressEvent) => {
                     const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
                     this.progress = percentCompleted;
                 },
@@ -352,19 +352,19 @@ export default {
             };
             bootbox.prompt({
                 title: 'Upload from URL',
-                callback: function(url) {
+                callback: function (url) {
                     if (url) {
                         const fd = new FormData();
                         fd.append('url', url);
                         fd.append('_csrf_token', thisField.token);
                         Axios.post(thisField.directoryurl, fd, config)
-                            .then(res => {
+                            .then((res) => {
                                 thisField.filenameData = res.data;
                                 thisField.thumbnailData = `/thumbs/400×300/${res.data}`;
                                 thisField.previewData = `/thumbs/1000×1000/${res.data}`;
                                 thisField.progress = 0;
                             })
-                            .catch(err => {
+                            .catch((err) => {
                                 bootbox.alert(err.response.data.error.message);
                                 console.warn(err.response.data.error.message);
                                 thisField.progress = 0;
@@ -377,7 +377,7 @@ export default {
         },
         filterServerFiles(files) {
             let self = this;
-            return files.filter(function(file) {
+            return files.filter(function (file) {
                 let ext = /(?:\.([^.]+))?$/.exec(file.text)[1];
                 return self.extensions.includes(ext);
             });

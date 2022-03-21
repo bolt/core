@@ -2,7 +2,6 @@
     <div>
         <div class="input-group">
             <input
-                :id="id"
                 ref="inputField"
                 class="form-control"
                 type="password"
@@ -11,7 +10,6 @@
                 :required="required"
                 :readonly="readonly"
                 :data-errormessage="errormessage"
-                :pattern="pattern"
                 :placeholder="placeholder"
                 autocomplete="new-password"
                 @input="measureStrength"
@@ -49,11 +47,10 @@ export default {
         required: Boolean,
         readonly: Boolean,
         errormessage: String | Boolean, //string if errormessage is set, and false otherwise
-        pattern: String | Boolean,
         placeholder: String | Boolean,
     },
 
-    mounted: function() {
+    mounted: function () {
         // this.val = this.$options.filters.strip(this.value);
         if (!this.hidden) {
             this.$refs.visibilityToggle.click();

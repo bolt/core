@@ -2,6 +2,7 @@
     <div class="editor-filelist">
         <div v-for="(child, index) in containerFiles" :key="child.id" class="form-fieldsgroup">
             <editor-file
+                :files="files"
                 :filename="child.filename"
                 :thumbnail="child.thumbnail"
                 :title="child.title"
@@ -37,8 +38,8 @@
 import File from './File';
 
 export default {
-    name: 'EditorFile',
-    components: { 'editor-file': File },
+    name: 'EditorFileList',
+    components: { EditorFile: File },
     props: {
         files: Array,
         directory: String,
@@ -51,10 +52,10 @@ export default {
         limit: Number,
         readonly: Boolean,
     },
-    data: function() {
+    data: function () {
         let counter = 0;
         let containerFiles = this.files;
-        containerFiles.forEach(function(file, index, theContainerFilesArray) {
+        containerFiles.forEach(function (file, index, theContainerFilesArray) {
             theContainerFilesArray[index].id = index;
             counter++;
         });
@@ -65,7 +66,7 @@ export default {
         };
     },
     computed: {
-        allowMore: function() {
+        allowMore: function () {
             if (this.readonly) {
                 return false;
             }

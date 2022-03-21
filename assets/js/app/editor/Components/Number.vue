@@ -10,7 +10,7 @@
             :required="required"
             :readonly="readonly"
             :data-errormessage="errormessage"
-            :pattern="pattern"
+            :pattern="pattern ? pattern : null"
             :placeholder="placeholder"
         />
     </div>
@@ -31,9 +31,9 @@ export default {
         disabled: Boolean,
         required: Boolean,
         readonly: Boolean,
-        errormessage: String | Boolean, //string if errormessage is set, and false otherwise
-        pattern: String | Boolean,
-        placeholder: String | Boolean,
+        errormessage: [String, Boolean], //string if errormessage is set, and false otherwise
+        pattern: [String, Boolean],
+        placeholder: [String, Boolean],
     },
 };
 </script>

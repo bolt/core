@@ -1,7 +1,9 @@
+import store from '../store';
+
 export default {
     computed: {
         type() {
-            return this.$store.getters['general/getType'];
+            return store.getters['general/getType'];
         },
     },
 };

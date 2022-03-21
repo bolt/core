@@ -8,17 +8,15 @@
         'collapse_all': 'collection.collapse_all'|trans,
         'field_label': label,
         'select': 'collection.select'|trans,
+        'collection_up': 'collection.move_item_up'|trans,
+        'collection_down': 'collection.move_item_down'|trans,
+        'collection_delete': 'collection.remove_item'|trans,
+        'collection_delete_confirm': 'collection.confirm_delete'|trans
     } %}
     {% set limit = field.definition.get('limit')|default(200) %}
 
     {# get the html for all collection field already in the database #}
     {% set existing_fields %}{{ macro.generate_collection_fields(field, field.value, record, false) }}{% endset %}
-
-    {# get the html template for the collection fields defined in the field definition #}
-    {% set templated_fields = "" %}
-    {% if field.templates is defined %}
-        {% set templated_fields %}{{  macro.generate_collection_fields(field, field.templates, record, true) }}{% endset %}
-    {% endif %}
 
     {% if variant == 'normal' %}
         {% set variant = field.definition.get('default_state')|default('collapsed') %}
@@ -26,7 +24,7 @@
 
     <editor-collection
       :existing-fields='{{ existing_fields }}'
-      :templates='{{ templated_fields }}'
+      :fields='{{ field.definition.fields }}'
       :labels='{{ labels | json_encode }}'
       :limit='{{ limit | json_encode }}'
       :name="{{  field.name | json_encode }}"

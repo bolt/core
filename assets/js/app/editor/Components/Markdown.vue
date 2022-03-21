@@ -1,22 +1,18 @@
 <template>
     <div>
-        <vue-simplemde :id="name" v-model="val" :name="name" :configs="config"></vue-simplemde>
+        <vue-easymde :id="name" v-model="val" :name="name" :configs="config"></vue-easymde>
     </div>
 </template>
 
 <script>
-import VueSimplemde from 'vue-simplemde';
+import VueEasymde from 'vue-easymde';
 
 export default {
     name: 'EditorMarkdown',
     components: {
-        VueSimplemde,
+        VueEasymde,
     },
-    props: {
-        value: String,
-        name: String,
-    },
-    data: () => {
+    data() {
         return {
             val: null,
             config: {
@@ -26,12 +22,9 @@ export default {
             },
         };
     },
-    mounted() {
-        this.val = this.$options.filters.strip(this.value);
-    },
 };
 </script>
 
-<style scoped>
-@import '~simplemde/dist/simplemde.min.css';
+<style>
+@import '~easymde/dist/easymde.min.css';
 </style>

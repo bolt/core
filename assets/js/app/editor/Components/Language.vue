@@ -11,14 +11,14 @@
             :limit="1"
             @input="switchLocale()"
         >
-            <template slot="singleLabel" slot-scope="props">
+            <template #default="props">
                 <span class="fp mr-1" :class="props.option.flag"></span>
                 <span>
                     {{ props.option.name }}
                     <small style="white-space: nowrap">({{ props.option.code }})</small>
                 </span>
             </template>
-            <template slot="option" slot-scope="props">
+            <template #item="props">
                 <span class="fp mr-1" :class="props.option.flag"></span>
                 <span>
                     {{ props.option.name }}
@@ -48,7 +48,7 @@ export default {
 
     mounted() {
         if (this.current) {
-            let current = this.locales.filter(locale => locale.code === this.current);
+            let current = this.locales.filter((locale) => locale.code === this.current);
             if (current.length > 0) {
                 this.locale = current[0];
             } else {

@@ -50,7 +50,7 @@
                 <img v-if="avatar" :src="avatar" class="rounded-circle mr-2" alt="User avatar" />
                 <i v-else class="fas fa-user"></i>{{ labels['general.greeting'] }}
                 <template v-if="isImpersonator">
-                    &nbsp;<span style="font-style: italic;">({{ labels['general.is_impersonator'] }})</span>
+                    &nbsp;<span style="font-style: italic">({{ labels['general.is_impersonator'] }})</span>
                 </template>
             </button>
             <div class="profile__dropdown dropdown-menu dropdown-menu-right">
@@ -88,7 +88,7 @@
 
 <script>
 const tinycolor = require('tinycolor2');
-
+import store from '../store';
 export default {
     name: 'Toolbar',
     props: {
@@ -107,7 +107,7 @@ export default {
             return color.isLight();
         },
         createMenu() {
-            return this.menu.filter(item => {
+            return this.menu.filter((item) => {
                 return (
                     (!item.singleton && item.singular_name) ||
                     (item.singleton && (item.submenu === null || item.submenu.length < 1))
@@ -115,12 +115,12 @@ export default {
             });
         },
         toolbarColor() {
-            return this.$store.getters['general/toolbarColor'];
+            return store.getters['general/toolbarColor'];
         },
     },
     created() {
         const color = getComputedStyle(document.body).getPropertyValue('--admin-toolbar');
-        this.$store.dispatch('general/toolbarColor', color);
+        store.dispatch('general/toolbarColor', color);
     },
 };
 </script>
