@@ -393,6 +393,15 @@ class ContentExtension extends AbstractExtension
         return null;
     }
 
+    public function getContentTypeOverviewLink(?Content $content): ?string
+    {
+        if (! $content instanceof Content || $content->getId() === null || ! $this->security->getUser() || ! $this->security->isGranted(ContentVoter::CONTENT_VIEW, $content)) {
+            return null;
+        }
+
+        return $this->generateLink('bolt_content_overview', ['contentType' => $content->getContentType()]);
+    }
+
     public function getEditLink(?Content $content): ?string
     {
         if (! $content instanceof Content || $content->getId() === null || ! $this->security->getUser() || ! $this->security->isGranted(ContentVoter::CONTENT_EDIT, $content)) {
