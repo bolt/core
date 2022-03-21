@@ -11,18 +11,21 @@ record_id = JSON.stringify(record_id);
  */
 $(document).ready(function () {
     let dirty = false;
-    form.on('change', function () {
+    form.on('change', function() {
         dirty = true;
     });
+    function checkDirty() {
+        if (dirty) {
+            // The confirmation message is as fallback. Modern browser show their own messages.
+            const confirmationMessage =
+                'It looks like you have been editing something. ' +
+                'If you leave before saving, your changes will be lost.';
 
-    if (dirty === true) {
-        // The confirmation message is as fallback. Modern browser show their own messages.
-        const confirmationMessage =
-            'It looks like you have been editing something. ' +
-            'If you leave before saving, your changes will be lost.';
+            (event || window.event).returnValue = confirmationMessage; //Gecko + IE
+            return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
+        }
 
-        (event || window.event).returnValue = confirmationMessage; //Gecko + IE
-        return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
+        return true;
     }
 
     element.on('click', function () {
@@ -40,7 +43,7 @@ $(document).ready(function () {
                 console.log(status, err);
             },
         });
-        if (dirty === true) {
+        if (checkDirty() === 0) {
             dirty = false;
         }
     });
