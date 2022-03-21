@@ -12,7 +12,7 @@
         {% if required %} <span class="required-label"></span> {% endif %}
 
         {% if info|default() %}
-            <i class="fa fa-info-circle" data-toggle="popover" data-trigger="hover" title="{{ label }}" data-html="true" data-content="{{ info }}"></i>
+            <i class="fa fa-info-circle" data-bs-toggle="popover" data-trigger="hover" title="{{ label }}" data-html="true" data-content="{{ info }}"></i>
         {% endif %}
     </label>
 {%- endif -%}
