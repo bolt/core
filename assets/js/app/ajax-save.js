@@ -9,42 +9,37 @@ record_id = JSON.stringify(record_id);
 /**
  * Start of Ajaxy solution for saving
  */
-$(document).ready(function () {
-    let dirty = false;
-    form.on('change', function() {
-        dirty = true;
+$(document).ready(function() {
+    var unsaved = false;
+
+    $(':input').change(function() {
+        //triggers change in all input fields including text type
+        unsaved = true;
     });
-    function checkDirty() {
-        if (dirty) {
-            // The confirmation message is as fallback. Modern browser show their own messages.
-            const confirmationMessage =
-                'It looks like you have been editing something. ' +
-                'If you leave before saving, your changes will be lost.';
 
-            (event || window.event).returnValue = confirmationMessage; //Gecko + IE
-            return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
+    function unloadPage() {
+        if (unsaved) {
+            return 'You have unsaved changes on this page. Do you want to leave this page and discard your changes or stay on this page?';
         }
-
-        return true;
     }
 
-    element.on('click', function () {
+    window.onbeforeunload = unloadPage;
+
+    element.on('click', function() {
         $.ajax({
             type: 'POST',
             link: '/edit/' + record_id,
             data: $(form).serialize(),
-            beforeSend: function () {
+            beforeSend: function() {
                 patience_virtue(element);
             },
-            complete: function () {
+            complete: function() {
                 renable();
             },
-            error: function (jq, status, err) {
+            error: function(jq, status, err) {
                 console.log(status, err);
             },
         });
-        if (checkDirty() === 0) {
-            dirty = false;
-        }
+        unsaved = false;
     });
 });

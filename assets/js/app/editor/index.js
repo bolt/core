@@ -25,7 +25,6 @@ import File from './Components/File';
 import Filelist from './Components/Filelist';
 import Collection from './Components/Collection';
 import Checkbox from './Components/Checkbox';
-import UnsavedChangesWarning from './unsavedchanges';
 
 Vue.component('editor-checkbox', Checkbox);
 Vue.component('editor-date', Date);
@@ -56,11 +55,5 @@ if (document.getElementById(id)) {
         store,
         el: editorSelector,
         name: 'BoltEditor',
-        mounted: function() {
-            // Wait 2 seconds, so that Vue is initialised properly without triggering change events.
-            setTimeout(function() {
-                UnsavedChangesWarning.warnFor(editorSelector + ' form');
-            }, 2000);
-        },
     });
 }
