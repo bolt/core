@@ -286,7 +286,7 @@ export default {
                         },
                     });
                     window.$('.bootbox-input').attr('name', 'bootbox-input');
-                    window.reEnablePatientButtons();
+                    window.renable();
                 })
                 .catch(err => {
                     bootbox.alert(err.response.data + '<br>Image did not upload.');
