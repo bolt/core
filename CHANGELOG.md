@@ -1,6 +1,26 @@
 Changelog
 =========
 
+## 5.1.5
+
+Released: 2022-03-22
+
+### 🐛 Bug fixes
+
+- Use `requestStack` to access current request when needed. (vlad-ghita, [#3132](https://github.com/bolt/core/pull/3132))
+- Update float field so it uses `step='any'` by default (Joossensei, [#3122](https://github.com/bolt/core/pull/3122))
+- Bugfix: verify setting correct tags for caching works correctly (bobdenotter, [#3119](https://github.com/bolt/core/pull/3119))
+
+### 📦 Additions and new features
+
+- Updates to allow custom theming for security area (vlad-ghita, [#3125](https://github.com/bolt/core/pull/3125))
+
+### 🛠️ Miscellaneous
+
+- Use routing to create the link to the ContentType overview (andysh-uk, [#3133](https://github.com/bolt/core/pull/3133))
+- Fix YAML migrations (bobdenotter, [#3118](https://github.com/bolt/core/pull/3118))
+
+
 ## 5.1.4
 
 Released: 2022-03-13
