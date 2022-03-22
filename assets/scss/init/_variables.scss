@@ -3,13 +3,41 @@
 $background: #fbfaf9;
 $primary: #255687;
 
-$body-bg: $background;
-
-$letter-spacing: 0;
+$primary: #1863af;
+$secondary: #1f8389;
+$tertiary: #667a81;
+$success: #4f8419;
+$info: #0f7a8b;
+$warning: #bf1722;
+$danger: #db2427;
+$light: #e0e0e0;
+$dark: #333;
+$disabled: #c8c8c8;
 
 $bolt-blue: #255687; // Nice and bright, pretty light
 $bolt-bluegray: #2f3e4d; // Nice dark and desaturated
 $bolt-saturated: #003e7c; // Very saturated. Use with care
+
+$body-bg: $background;
+
+$theme-colors: (
+  "primary":   $primary,
+  "secondary": $secondary,
+  "tertiary":  $tertiary,
+  "success":   $success,
+  "info":      $info,
+  "warning":   $warning,
+  "danger":    $danger,
+  "light":     $light,
+  "dark":      $dark,
+  "boltblue":  $bolt-blue,
+  "toast-success": #dce6d1,
+  "toast-danger": #f8d3d4,
+  "toast-info": #cfe4e8,
+  "toast-warning": #f2d1d3
+);
+
+$letter-spacing: 0;
 
 $big-z-index: 1000;
 
@@ -78,17 +106,6 @@ $btn-font-size: 14px;
 $btn-font-size-sm: 13px;
 $btn-padding-x: 0.6rem;
 
-$primary: #1863af;
-$secondary: #1f8389;
-$tertiary: #667a81;
-$success: #4f8419;
-$info: #0f7a8b;
-$warning: #bf1722;
-$danger: #db2427;
-$light: #e0e0e0;
-$dark: #333;
-$disabled: #c8c8c8;
-
 $spacer: 1rem;
 
 // Pagination
@@ -117,7 +134,14 @@ $grid-breakpoints: (
 $min-contrast-ratio:  4.5;
 
 // Variables overriding Bootstrap
-$toast-background-color: #fbfaf9;
+// Toasts
+$toast-max-width:                   250px;
+$toast-background-color:            #fbfaf9;
+$toast-border-radius:               .25rem;
+$toast-box-shadow:                  0 .25rem .75rem rgba(0,0,0,.1);
+
+//$toast-header-background-color:     #fbfaf9;
+$toast-header-border-color:         rgba(0, 0, 0, .05);
 
 :root {
   --body: #222; // Note: this value isn't actually used. @todo Find out where it's coming from.
