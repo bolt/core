@@ -10,19 +10,6 @@
   @include button-variant($light, $light, darken($danger, 7.5%), darken($danger, 10%), darken($danger, 10%), darken($danger, 12.5%));
 }
 
-$theme-colors: (
-  "primary":   $primary,
-  "secondary": $secondary,
-  "tertiary":  $tertiary,
-  "success":   $success,
-  "info":      $info,
-  "warning":   $warning,
-  "danger":    $danger,
-  "light":     $light,
-  "dark":      $dark,
-  "boltblue":  $bolt-blue,
-);
-
 @each $color, $value in $theme-colors {
 
   .btn-#{$color} {
