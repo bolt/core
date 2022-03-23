@@ -6,6 +6,7 @@ namespace Bolt\Event\Listener;
 
 use Bolt\Configuration\Config;
 use Bolt\Configuration\Content\FieldType;
+use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Bolt\Entity\Field\CollectionField;
 use Bolt\Entity\Field\RawPersistable;
@@ -104,6 +105,26 @@ class FieldFillListener
         if ($entity instanceof SetField) {
             $this->fillSet($entity);
         }
+
+//
+//        Comment the 3 ifs above, and uncomment code below to fix initialization of selects
+//
+
+//        if ($entity instanceof Content) {
+//            foreach ($entity->getRawFields() as $rawField) {
+//                if ($rawField instanceof Field) {
+//                    $this->fillField($rawField);
+//                }
+//
+//                if ($rawField instanceof CollectionField) {
+//                    $this->fillCollection($rawField);
+//                }
+//
+//                if ($rawField instanceof SetField) {
+//                    $this->fillSet($rawField);
+//                }
+//            }
+//        }
     }
 
     public function fillField(Field $field): void
