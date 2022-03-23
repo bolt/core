@@ -604,7 +604,7 @@ class SelectQuery implements QueryInterface
                 return sprintf("JSON_SEARCH(%s, 'one', %s) != ''", $valueAlias, $parameter[0]);
             }, $expressions);
 
-            return str_replace($expressions, $newExpressions, $filter->getExpression());
+            return str_replace(array_reverse($expressions), array_reverse($newExpressions), $filter->getExpression());
         }
 
         $originalLeftExpression = 'content.' . $filter->getKey();
