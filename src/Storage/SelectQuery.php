@@ -604,6 +604,7 @@ class SelectQuery implements QueryInterface
                 return sprintf("JSON_SEARCH(%s, 'one', %s) != ''", $valueAlias, $parameter[0]);
             }, $expressions);
 
+            // We reverse the arrays, to prevent mix-ups with `:foo_1` and `:foo_10`, etc. See PR #3137
             return str_replace(array_reverse($expressions), array_reverse($newExpressions), $filter->getExpression());
         }
 
