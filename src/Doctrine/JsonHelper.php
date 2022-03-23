@@ -31,7 +31,7 @@ class JsonHelper
             if ($version->getPlatform()['driver_name'] === 'pgsql') {
                 // PostgreSQL
                 $resultWhere = 'JSON_GET_TEXT(' . $where . ', 0)';
-            } else if ($version->getPlatform()['driver_name'] === 'mysql') {
+            } elseif ($version->getPlatform()['driver_name'] === 'mysql') {
                 // MySQL
                 $resultWhere = 'JSON_VALUE(' . $where . ", '$[0]')";
             } else {
