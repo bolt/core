@@ -55,9 +55,14 @@ final class BackendMenu implements BackendMenuBuilderInterface
 
         $locale = $this->requestStack->getCurrentRequest()->getLocale();
 
-        /** @var User $user */
+        /** @var User|null $user */
         $user = $this->security->getUser();
-        $username = $user->getUsername();
+
+        if ($user instanceof User) {
+            $username = $user->getUsername();
+        } else {
+            $username = '';
+        }
 
         $cacheKey = 'bolt.backendMenu_' . $locale . '_' . $username;
 

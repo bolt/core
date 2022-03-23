@@ -23,9 +23,12 @@
     <!-- Admin Toolbar -->
     <nav class="admin__toolbar" id="toolbar">
         {% set user_display_name = app.user.displayName|default('Unknown user') %}
-        {% set user_avatar = app.user.avatar|thumbnail(25, 25, 'crop')|default(null) %}
 
-        {% if user_avatar ends with 'placeholder.png' %}
+        {% if app.user.avatar is defined %}
+            {% set user_avatar = app.user.avatar|thumbnail(25, 25, 'crop')|default(null) %}
+        {% endif %}
+
+        {% if app.user.avatar is not defined or user_avatar ends with 'placeholder.png' %}
             {% set user_avatar = null %}
         {% endif %}
 

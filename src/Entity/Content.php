@@ -23,7 +23,7 @@ use Tightenco\Collect\Support\Collection as LaravelCollection;
 
 /**
  * @ApiResource(
- *     normalizationContext={"groups"={"get_content","get_definition"}},
+ *     normalizationContext={"groups"={"get_content"}},
  *     denormalizationContext={"groups"={"api_write"},"enable_max_depth"=true},
  *     collectionOperations={
  *          "get"={"security"="is_granted('api:get')"},
