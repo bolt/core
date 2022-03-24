@@ -36,6 +36,15 @@ $(document).ready(function() {
             complete: function() {
                 renable();
             },
+            success: function(data, textStatus) {
+                if (!record_id) {
+                    window.location.replace(data);
+                } else {
+                    $(document).ready(function() {
+                        $('.toast').toast('show');
+                    });
+                }
+            },
             error: function(jq, status, err) {
                 console.log(status, err);
             },
