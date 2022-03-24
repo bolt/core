@@ -31,20 +31,19 @@ class ContentEditControllerTest extends DbAwareTestCase
         $crawler = $this->client->request('GET', "/bolt/new/$contentTypeName");
         self::assertResponseIsSuccessful();
 
-        // the form containing the actual content has id 'editcontent'
-        // HOWEVER, it has almost no actual content, because we need javascript for that
+        // Note: the form has almost no actual content, because we need javascript for that
         $form = $crawler->filter('#editcontent')->form();
         $values = $form->getValues();
 
         // get csrf token from form -- lots of things are not in the form as they need javascript to run,
         // but the _csrf_token is present in the 'plain' html in the form
-        // NOTE ugly code because data was dumped using debugger and
+        // Note: ugly code because data was dumped using debugger
         $postContent = array (
             '_csrf_token' => $values["_csrf_token"],
             '_edit_locale' => 'en',
             'fields' =>
                 array (
-                    'first_field' => '["een"]',
+                    'first_field' => '["one"]',
                 ),
             'collections' =>
                 array (
@@ -54,7 +53,7 @@ class ContentEditControllerTest extends DbAwareTestCase
                                 array (
                                     '622e624a526f0' =>
                                         array (
-                                            'first_set_field' => '["beeldvullend"]',
+                                            'first_set_field' => '["option-one"]',
                                         ),
                                 ),
                             'order' =>
@@ -83,8 +82,7 @@ class ContentEditControllerTest extends DbAwareTestCase
         );
 
         // 'fake' page interaction by POSTing directly
-        $crawler = $this->client->request('POST', "/bolt/new/$contentTypeName", $postContent);
-
+        $this->client->request('POST', "/bolt/new/$contentTypeName", $postContent);
         self::assertResponseIsSuccessful();
 
         $contentCountAfter = $contentRepositoryBefore->count([]);
@@ -102,14 +100,13 @@ class ContentEditControllerTest extends DbAwareTestCase
         /** @var FieldExtension $fieldExtension */
         $fieldExtension = $container->get(FieldExtension::class);
 
-        /** @var Field $afbeeldingenTemplateField */
-        $afbeeldingenTemplateField = $record->getField('first_field');
-        $afbeeldingenTemplateFieldOptions = $fieldExtension->selectOptions($afbeeldingenTemplateField);
+        /** @var Field $firstField */
+        $firstField = $record->getField('first_field');
+        $firstFieldOptions = $fieldExtension->selectOptions($firstField);
         // when required=true
-        self::assertEquals(5, $afbeeldingenTemplateFieldOptions->count(), 'expected 5 select options for first_field (required=true)');
+        self::assertEquals(5, $firstFieldOptions->count(), 'expected 5 select options for first_field (required=true)');
         // when required=false
-//        self::assertEquals(6, $afbeeldingenTemplateFieldOptions->count(), 'expected 6 select options for first_field (required=false)');
-
+//        self::assertEquals(6, $firstFieldOptions->count(), 'expected 6 select options for first_field (required=false)');
 
         // check the select field
         /** @var Field\CollectionField $popupsField */
@@ -130,22 +127,4 @@ class ContentEditControllerTest extends DbAwareTestCase
             }
         }
     }
-
-    /*
-    public function testOpenExistingContentType(): void
-    {
-        // TODO insert content...
-        // ...and get id
-        $id = 123;
-
-        $admin = $this->getEm()->getRepository(User::class)->findOneByUsername('admin');
-        $this->client->loginUser($admin);
-
-        // test controller
-        $this->client->followRedirects(true);
-        $crawler = $this->client->request('GET', "/bolt/edit/$id");
-        self::assertResponseIsSuccessful();
-        self::assertSelectorExists('#field-id');
-    }
-    */
 }
