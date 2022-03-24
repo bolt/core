@@ -31,6 +31,7 @@ use Carbon\Carbon;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\ORMInvalidArgumentException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -244,7 +245,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         $event = new ContentEvent($content);
         $this->dispatcher->dispatch($event, ContentEvent::POST_SAVE);
 
-        return new RedirectResponse($url);
+        return new JsonResponse($url, 200);
     }
 
     /**
