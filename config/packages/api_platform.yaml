@@ -6,10 +6,10 @@ api_platform:
     mapping:
         paths: ['%kernel.project_dir%/src/Entity']
     formats:
-        jsonld:   ['application/ld+json']
         json:     ['application/json']
+        jsonld:   ['application/ld+json']
         jsonapi:  ['application/vnd.api+json']
-        html:     ['text/html']
+        # html:     ['text/html']
     defaults:
             pagination:
                 client_items_per_page: true

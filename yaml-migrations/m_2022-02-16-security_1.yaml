@@ -1,6 +1,6 @@
 # See: https://github.com/bolt/core/pull/3023
 
-file: security.yaml
+file: packages/security.yaml
 since: 5.1.4
 
 add:

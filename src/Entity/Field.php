@@ -199,12 +199,15 @@ class Field implements FieldInterface, TranslatableInterface
 
         $result = [];
 
+        $currentLocale = $this->getCurrentLocale();
         foreach ($this->getTranslations() as $translation) {
             $locale = $translation->getLocale();
             $this->setCurrentLocale($locale);
             $value = $this->getParsedValue();
             $result[$locale] = $value;
         }
+        // restore current locale
+        $this->setCurrentLocale($currentLocale);
 
         return $result;
     }
@@ -464,12 +467,12 @@ class Field implements FieldInterface, TranslatableInterface
      */
     public static function settingsAllowEmpty(?bool $allowEmpty, ?bool $required): bool
     {
-        if (!is_null($allowEmpty)) {
-            return boolval($allowEmpty);
+        if (null !== $allowEmpty) {
+            return $allowEmpty;
         }
 
-        if (!is_null($required)) {
-            return !boolval($required);
+        if (null !== $required) {
+            return !$required;
         }
 
         return true;

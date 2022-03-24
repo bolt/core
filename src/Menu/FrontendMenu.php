@@ -21,29 +21,29 @@ final class FrontendMenu implements FrontendMenuBuilderInterface
     /** @var FrontendMenuBuilder */
     private $menuBuilder;
 
-    /** @var Request */
-    private $request;
-
     /** @var Stopwatch */
     private $stopwatch;
 
     /** @var Config */
     private $config;
 
+    /** @var RequestStack */
+    private $requestStack;
+
     public function __construct(FrontendMenuBuilder $menuBuilder, TagAwareCacheInterface $cache, RequestStack $requestStack, Stopwatch $stopwatch, Config $config)
     {
         $this->cache = $cache;
         $this->menuBuilder = $menuBuilder;
-        $this->request = $requestStack->getCurrentRequest();
         $this->stopwatch = $stopwatch;
         $this->config = $config;
+        $this->requestStack = $requestStack;
     }
 
     public function buildMenu(Environment $twig, ?string $name = null): array
     {
         $this->stopwatch->start('bolt.frontendMenu');
 
-        $key = 'bolt.frontendMenu_' . ($name ?: 'main') . '_' . $this->request->getLocale();
+        $key = 'bolt.frontendMenu_' . ($name ?: 'main') . '_' . $this->requestStack->getCurrentRequest()->getLocale();
 
         $menu = $this->cache->get($key, function (ItemInterface $item) use ($name, $twig) {
             $item->expiresAfter($this->config->get('general/caching/frontend_menu'));

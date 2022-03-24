@@ -48,7 +48,7 @@ global:
     list_files:config: [ ROLE_ADMIN ] # should probably not be used?
     list_files:files: [ ROLE_EDITOR ] # get list of files (images?) available for use as site-content
     list_files:themes: [ ROLE_ADMIN ] # should probably not be used?
-    api:get: [ ROLE_WEBSERVICE ] # allow read access to Bolt's RESTful and GraphQL API
+    api:get: [ PUBLIC_ACCESS ] # allow read access to Bolt's RESTful and GraphQL API
     api:post: [ ROLE_WEBSERVICE ] # allow write access to Bolt's RESTful and GraphQL API
     api:delete: [ ROLE_WEBSERVICE ] # allow delete access to Bolt's RESTful and GraphQL API
 

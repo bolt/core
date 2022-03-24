@@ -5,7 +5,7 @@
         </div>
 
         <div v-if="isImpersonator" class="toolbar-impersonation">
-            <a :href="backendPrefix + '?_switch_user=_exit'" class="btn btn-warning">
+            <a :href="urlPaths['bolt_dashboard'] + '?_switch_user=_exit'" class="btn btn-warning">
                 <i class="fas fa-sign-out-alt fa-fw"></i>
                 {{ labels['action.stop_impersonating'] }}
             </a>
@@ -15,7 +15,7 @@
             <a href="/" target="_blank"> <i class="fas fa-sign-out-alt"></i>{{ labels['action.view_site'] }} </a>
         </div>
 
-        <form :action="backendPrefix" class="toolbar-item toolbar-item__filter input-group">
+        <form :action="urlPaths['bolt_dashboard']" class="toolbar-item toolbar-item__filter input-group">
             <label for="global-search" class="sr-only">{{ labels['general.label.search'] }}</label>
             <input
                 id="global-search"
@@ -56,13 +56,13 @@
             <div class="profile__dropdown dropdown-menu dropdown-menu-right">
                 <ul>
                     <li>
-                        <a :href="backendPrefix + 'profile-edit'">
+                        <a :href="urlPaths['bolt_profile_edit']">
                             <i class="fas fa-user-edit fa-fw"></i>
                             {{ labels['action.edit_profile'] }}
                         </a>
                     </li>
                     <li>
-                        <a :href="backendPrefix + 'logout'">
+                        <a :href="urlPaths['bolt_logout']">
                             <i class="fas fa-sign-out-alt fa-fw"></i>
                             {{ labels['action.logout'] }}
                         </a>
@@ -95,6 +95,7 @@ export default {
         siteName: String,
         menu: Array,
         labels: Object,
+        urlPaths: Object,
         backendPrefix: String,
         isImpersonator: Boolean,
         filterValue: String,

@@ -43,6 +43,7 @@ trait ContentExtrasTrait
             'name' => $this->getDefinition()->get('name'),
             'singular_name' => $this->getDefinition()->get('singular_name'),
             'feature' => $this->contentExtension->getSpecialFeature($content),
+            'contentTypeOverviewLink' => $this->contentExtension->getContentTypeOverviewLink($content),
         ]);
     }
 }
