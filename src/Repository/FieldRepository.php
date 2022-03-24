@@ -123,18 +123,6 @@ class FieldRepository extends ServiceEntityRepository
         return $field;
     }
 
-    public function findParents(Field $field)
-    {
-        $qb = $this->getQueryBuilder();
-
-        return $qb
-            ->andWhere('field.parent = :parentId')
-            ->setParameter('parentId', $field->getId())
-            ->orderBy('field.sortorder', 'ASC')
-            ->getQuery()
-            ->getResult();
-    }
-
     public static function getFieldClassname(string $type): ?string
     {
         // The classname we want
