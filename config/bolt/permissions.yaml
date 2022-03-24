@@ -10,8 +10,10 @@
 assignable_roles: [ROLE_DEVELOPER, ROLE_ADMIN, ROLE_CHIEF_EDITOR, ROLE_EDITOR, ROLE_USER, ROLE_WEBSERVICE]
 
 # These permissions are the 'global' permissions; these are not tied
-# to any content types, but rather apply to global, non-content activity in
-# Bolt's backend. Most of these permissions map directly to backend routes;
+# to any content types. Most of them apply to global, non-content activity 
+# in Bolt's backend but there are exceptions like the api:* permissions
+# used to manage access to the api-platform based requests.
+# Most of these permissions map directly to backend routes;
 # keep in mind, however, that routes do not always correspond to URL paths 1:1.
 # The default set defined here is appropriate for most sites, so most likely,
 # you will not have to change it.
@@ -46,7 +48,7 @@ global:
     list_files:config: [ ROLE_ADMIN ] # should probably not be used?
     list_files:files: [ ROLE_EDITOR ] # get list of files (images?) available for use as site-content
     list_files:themes: [ ROLE_ADMIN ] # should probably not be used?
-    api:get: [ ROLE_WEBSERVICE ] # allow read access to Bolt's RESTful and GraphQL API
+    api:get: [ PUBLIC_ACCESS ] # allow read access to Bolt's RESTful and GraphQL API
     api:post: [ ROLE_WEBSERVICE ] # allow write access to Bolt's RESTful and GraphQL API
     api:delete: [ ROLE_WEBSERVICE ] # allow delete access to Bolt's RESTful and GraphQL API
 

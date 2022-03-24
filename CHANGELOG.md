@@ -1,9 +1,86 @@
 Changelog
 =========
 
+## 5.1.5
+
+Released: 2022-03-22
+
+### 🐛 Bug fixes
+
+- Use `requestStack` to access current request when needed. (vlad-ghita, [#3132](https://github.com/bolt/core/pull/3132))
+- Update float field so it uses `step='any'` by default (Joossensei, [#3122](https://github.com/bolt/core/pull/3122))
+- Bugfix: verify setting correct tags for caching works correctly (bobdenotter, [#3119](https://github.com/bolt/core/pull/3119))
+
+### 📦 Additions and new features
+
+- Updates to allow custom theming for security area (vlad-ghita, [#3125](https://github.com/bolt/core/pull/3125))
+
+### 🛠️ Miscellaneous
+
+- Use routing to create the link to the ContentType overview (andysh-uk, [#3133](https://github.com/bolt/core/pull/3133))
+- Fix YAML migrations (bobdenotter, [#3118](https://github.com/bolt/core/pull/3118))
+
+
+## 5.1.4
+
+Released: 2022-03-13
+
+### 🐛 Bug fixes
+
+- Fix Select field with empty value, for `required: false` and `allowempty: true` (jordanaubert, [#3116](https://github.com/bolt/core/pull/3116))
+- Update `Date.vue` dateFormat to include seconds (simongroenewolt, [#3096](https://github.com/bolt/core/pull/3096))
+- Fix custom homepage setting: allow singular ContentType slugs (bobdenotter, [#3093](https://github.com/bolt/core/pull/3093))
+- Fixes parsing for editing Yaml files in the backend editor (Joossensei, [#3090](https://github.com/bolt/core/pull/3090))
+- Fix YAML migrations  (bobdenotter, [#3118](https://github.com/bolt/core/pull/3118))
+
+### 🛠️ Miscellaneous
+
+- Set `api:get:` to `PUBLIC_ACCESS` for public access to the read-endpoint of the API (bobdenotter, [#3111](https://github.com/bolt/core/pull/3111))
+- Add map to htaccess (peterboorsma, [#3108](https://github.com/bolt/core/pull/3108))
+
+### ⚙️ Code Quality / Developer Experience
+
+- Tiny fix, as per PHPStan (bobdenotter, [#3109](https://github.com/bolt/core/pull/3109))
+- fix wrong copy paste in comments (dadaxr, [#3105](https://github.com/bolt/core/pull/3105))
+- Bump url-parse from 1.5.6 to 1.5.10 (dependabot[bot], [#3102](https://github.com/bolt/core/pull/3102))
+- Update cypress tests so it retries on failure (Joossensei, [#3099](https://github.com/bolt/core/pull/3099))
+- Refactoring deprecations in Symfony 5 -> 6 (bobdenotter, [#3091](https://github.com/bolt/core/pull/3091))
+
+
+## 5.1.3
+
+Released: 2022-02-10
+
+### 🐛 Bug fixes
+
+- Fix configuration values not resolving correctly (ionutlip, [#3068](https://github.com/bolt/core/pull/3068))
+- Set default `values` in FieldType (bobdenotter, [#3058](https://github.com/bolt/core/pull/3058))
+
+### 🛠️ Miscellaneous
+
+- Make it possible for GlobalVoter.php to vote on non-bolt users. (simongroenewolt, [#3081](https://github.com/bolt/core/pull/3081))
+- Adds the ability to change dynamic the bolt configuration directory (ionutlip, [#3086](https://github.com/bolt/core/pull/3086))
+- Add a username to the `backendmenu` cache key (Joossensei, [#3087](https://github.com/bolt/core/pull/3087))
+- Update cypress tests again (Joossensei, [#3084](https://github.com/bolt/core/pull/3084))
+- Update `AuthSubscriber.php` to prevent logout error (matesko, [#3074](https://github.com/bolt/core/pull/3074))
+- Avoid running node service as `root` user (fsidobre, [#3073](https://github.com/bolt/core/pull/3073))
+- Tweaking Cypress `defaultCommandTimeout` (bobdenotter, [#3070](https://github.com/bolt/core/pull/3070))
+- Add the possibility to sort and filter users in the backend (damien-jourdan, [#3066](https://github.com/bolt/core/pull/3066))
+- Show "404" image for missing thumbnails (bobdenotter, [#3064](https://github.com/bolt/core/pull/3064))
+- Update `Relation.php` (Joossensei, [#3060](https://github.com/bolt/core/pull/3060))
+- Bugfix Fix autocomplete for Relation  (ionutlip, [#3055](https://github.com/bolt/core/pull/3055))
+
+### ⚙️ Code Quality / Developer Experience
+
+- Bump nanoid from 3.1.30 to 3.2.0 (dependabot[bot], [#3077](https://github.com/bolt/core/pull/3077))
+- Bump node-fetch from 2.6.6 to 2.6.7 (dependabot[bot], [#3076](https://github.com/bolt/core/pull/3076))
+- Update `api_tests.yaml` (bobdenotter, [#3069](https://github.com/bolt/core/pull/3069))
+- Remove ignore of false positive in PHPStan (bobdenotter, [#3061](https://github.com/bolt/core/pull/3061))
+
+
 ## 5.1.2
 
-Released: 2021-01-19
+Released: 2022-01-19
 
 ### 🐛 Bug fixes
 
@@ -18,7 +95,6 @@ Released: 2021-01-19
 - Update `package-lock.json` (Joossensei, [#3045](https://github.com/bolt/core/pull/3045))
 - New feature: Allow empty value for select form controls, based on user setting. (vlad-ghita, [#3041](https://github.com/bolt/core/pull/3041))
 - Update serializable interface (bobvandevijver, [#3039](https://github.com/bolt/core/pull/3039))
-- Prepare release 5.1.1 (bobdenotter, [#3036](https://github.com/bolt/core/pull/3036))
 - Minor cleanup on `services.yaml` (bobdenotter, [#3035](https://github.com/bolt/core/pull/3035))
 
 ### ⚙️ Code Quality / Developer Experience
@@ -29,7 +105,7 @@ Released: 2021-01-19
 
 ## 5.1.1
 
-Released: 2021-01-05
+Released: 2022-01-05
 
 ### 🐛 Bug fixes
 
@@ -479,7 +555,6 @@ disclosing them to us responsibly! 👏🙏
 
 - Remove incorrect `PHPDoc @var` tag in RelationRepository (I-Valchev, [#2374](https://github.com/bolt/core/pull/2374))
 - Remove (abandoned) `sensiolabs/security-checker` (bobdenotter, [#2356](https://github.com/bolt/core/pull/2356))
-- Prepare Release 4.1.12 (bobdenotter, [#2339](https://github.com/bolt/core/pull/2339))
 
 
 ## 4.1.12
@@ -998,7 +1073,6 @@ Released: 2020-08-24
 
 ### 🛠️ Miscellaneous
 
-- Prepare release 4.0.0-rc.36 (bobdenotter, [#1752](https://github.com/bolt/core/pull/1752))
 - Tweaking default Skeleton theme (bobdenotter, [#1751](https://github.com/bolt/core/pull/1751))
 - Remove the hover on the left-hand side logo (bobdenotter, [#1750](https://github.com/bolt/core/pull/1750))
 - Make relative dates work for fields that have an underscore in their name (bobdenotter, [#1748](https://github.com/bolt/core/pull/1748))
@@ -1220,7 +1294,6 @@ Released: 2020-06-29
 ### 🛠️ Miscellaneous
 
 - Better UI for dragging in multiselect (I-Valchev, [#1550](https://github.com/bolt/core/pull/1550))
-- Prepare release 4.0.0-rc.26 (bobdenotter, [#1539](https://github.com/bolt/core/pull/1539))
 
 ### 🤖 Tests
 

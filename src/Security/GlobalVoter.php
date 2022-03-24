@@ -45,12 +45,8 @@ class GlobalVoter extends Voter
     {
         $user = $token->getUser();
 
-        if (! $user instanceof User) {
-            // the user must be logged in; if not, deny access
-            return false;
-        }
-
-        if ($user->getStatus() !== UserStatus::ENABLED) {
+        // Deny if the user is a Bolt\Entity\User and not enabled
+        if ($user instanceof User && $user->getStatus() !== UserStatus::ENABLED) {
             return false;
         }
 

@@ -164,4 +164,68 @@ class TemplateChooser
 
         return $templates->unique()->filter()->toArray();
     }
+
+    public function forLogin(): array
+    {
+        $templates = new Collection();
+
+        // First candidate: Theme-specific config.
+        $templates->push($this->config->get('theme/login_template'));
+
+        // Second candidate: global config.
+        $templates->push($this->config->get('general/login_template'));
+
+        // Third candidate: default value.
+        $templates->push('@bolt/security/login.html.twig');
+
+        return $templates->unique()->filter()->toArray();
+    }
+
+    public function forResetPasswordCheckEmail(): array
+    {
+        $templates = new Collection();
+
+        // First candidate: Theme-specific config.
+        $templates->push($this->config->get('theme/reset_password_settings/check_email_template'));
+
+        // Second candidate: global config.
+        $templates->push($this->config->get('general/reset_password_settings/check_email_template'));
+
+        // Third candidate: default value.
+        $templates->push('@bolt/reset_password/check_email.html.twig');
+
+        return $templates->unique()->filter()->toArray();
+    }
+
+    public function forResetPasswordRequest(): array
+    {
+        $templates = new Collection();
+
+        // First candidate: Theme-specific config.
+        $templates->push($this->config->get('theme/reset_password_settings/request_template'));
+
+        // Second candidate: global config.
+        $templates->push($this->config->get('general/reset_password_settings/request_template'));
+
+        // Third candidate: default value.
+        $templates->push('@bolt/reset_password/request.html.twig');
+
+        return $templates->unique()->filter()->toArray();
+    }
+
+    public function forResetPasswordReset(): array
+    {
+        $templates = new Collection();
+
+        // First candidate: Theme-specific config.
+        $templates->push($this->config->get('theme/reset_password_settings/reset_template'));
+
+        // Second candidate: global config.
+        $templates->push($this->config->get('general/reset_password_settings/reset_template'));
+
+        // Third candidate: default value.
+        $templates->push('@bolt/reset_password/reset.html.twig');
+
+        return $templates->unique()->filter()->toArray();
+    }
 }

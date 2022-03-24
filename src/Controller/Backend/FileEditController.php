@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Yaml\Exception\ParseException;
-use Symfony\Component\Yaml\Parser;
+use Symfony\Component\Yaml\Yaml;
 use Webimpress\SafeWriter\Exception\ExceptionInterface;
 use Webimpress\SafeWriter\FileWriter;
 use Webmozart\PathUtil\Path;
@@ -219,10 +219,8 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
 
     private function verifyYaml(string $yaml): bool
     {
-        $yamlParser = new Parser();
-
         try {
-            $yamlParser->parse($yaml);
+            Yaml::parse($yaml, Yaml::PARSE_CUSTOM_TAGS);
         } catch (ParseException $e) {
             $this->addFlash('error', $e->getMessage());
 

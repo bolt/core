@@ -22,7 +22,7 @@ describe('As an Admin I want to use record listing', () => {
 
         cy.url().should('contain', '/bolt/content/entries?sortBy=author&filter=');
         cy.get('.listing__row--list').eq(0).find('li').eq(1).should('contain', 'Admin');
-        cy.get('.listing__row--list').eq(3).find('li').eq(1).should('not.contain', 'Admin');
+        cy.get('.listing__row--list').eq(5).find('li').eq(1).should('not.contain', 'Admin');
     })
 
     it('checks that an admin can filter content', () => {

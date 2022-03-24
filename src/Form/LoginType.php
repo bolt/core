@@ -68,7 +68,7 @@ class LoginType extends AbstractType
             $builder->add('remember_me', CheckboxType::class, [
                 'label' => 'label.remembermeduration',
                 'label_translation_parameters' => [
-                    '%duration%' => 0 + sprintf('%0.1f', $this->rememberLifetime / 3600 / 24),
+                    '%duration%' => (int) sprintf('%0.1f', $this->rememberLifetime / 3600 / 24),
                 ],
                 'required' => false,
                 'attr' => [

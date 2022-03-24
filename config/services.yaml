@@ -93,8 +93,6 @@ services:
                 method: createAdminMenu
                 alias: admin_menu # The alias is what is used to retrieve the menu
 
-    Symfony\Bridge\Twig\Extension\AssetExtension: '@twig.extension.assets'
-
     Bolt\Cache\RelatedOptionsUtilityCacher:
         decorates: Bolt\Utils\RelatedOptionsUtility
 
@@ -145,6 +143,10 @@ services:
                 method: processRecord
                 name: monolog.processor
 
+    Symfony\Bridge\Twig\Extension\AssetExtension: '@twig.extension.assets'
+
+    Symfony\Component\DependencyInjection\ContainerInterface: '@service_container'
+
     Symfony\Component\ErrorHandler\ErrorRenderer\ErrorRendererInterface: '@error_handler.error_renderer.html'
 
     Squirrel\TwigPhpSyntax\PhpSyntaxExtension: ~
@@ -168,3 +170,4 @@ services:
 
     Bolt\Api\ContentDataPersister:
         decorates: 'api_platform.doctrine.orm.data_persister'
+

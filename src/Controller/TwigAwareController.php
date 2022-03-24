@@ -87,26 +87,7 @@ class TwigAwareController extends AbstractController
             $parameters['theme'] = $this->config->get('theme');
         }
 
-        $this->setThemePackage();
-        $this->setTwigLoader();
-
-        // Resolve string|array of templates into the first one that is found.
-        if (is_array($template)) {
-            $templates = (new Collection($template))
-                ->map(function ($element): ?string {
-                    if ($element instanceof TemplateselectField) {
-                        return $element->__toString();
-                    }
-
-                    return $element;
-                })
-                ->filter()
-                ->toArray();
-            $template = $this->twig->resolveTemplate($templates);
-        }
-
-        // Render the template
-        $content = $this->twig->render($template, $parameters);
+        $content = $this->renderTemplate($template, $parameters);
 
         // Make sure we have a Response
         if ($response === null) {
@@ -222,6 +203,32 @@ class TwigAwareController extends AbstractController
         // set `files` package
         $filesPackage = new PathPackage('/files/', new EmptyVersionStrategy());
         $this->packages->addPackage('files', $filesPackage);
+    }
+
+    /**
+     * Renders a template, with theme support.
+     */
+    public function renderTemplate($template, array $parameters = []): string
+    {
+        $this->setThemePackage();
+        $this->setTwigLoader();
+
+        // Resolve string|array of templates into the first one that is found.
+        if (is_array($template)) {
+            $templates = (new Collection($template))
+                ->map(function ($element): ?string {
+                    if ($element instanceof TemplateselectField) {
+                        return $element->__toString();
+                    }
+
+                    return $element;
+                })
+                ->filter()
+                ->toArray();
+            $template = $this->twig->resolveTemplate($templates);
+        }
+
+        return $this->twig->render($template, $parameters);
     }
 
     public function createPager(Query $query, string $contentType, int $pageSize, string $order)

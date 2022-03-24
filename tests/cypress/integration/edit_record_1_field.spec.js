@@ -41,9 +41,9 @@ describe('As an Admin I want to be able to make use of the embed, infobox and im
         cy.visit('/bolt/edit/40');
         cy.get('a[id="media-tab"]').click();
 
-        cy.get("label[for=field-image]").should('contain', 'Image');
-        cy.get('input[name="fields[image][filename]"]').should('not.be.empty');
-        cy.get('input[name="fields[image][alt]"]').should('not.be.empty');
+        cy.get('label[for=field-image]').should('contain', 'Image');
+        cy.get('.form-control').eq(10).should('not.equal', '');
+        cy.get('.form-control').eq(11).should('not.equal', '');
 
         cy.get('button[class="btn btn-sm btn-hidden-danger"]').should('contain', 'Remove').eq(0).click();
         cy.get('input[name="fields[image][filename]"]').should('be.empty');
@@ -96,7 +96,7 @@ describe('As an Admin I want to be able to make use of the date & datetime field
         cy.get('.flatpickr-calendar.open input.cur-year').type('2019');
         cy.get('.flatpickr-calendar.open span[aria-label="March 15, 2019"]').click();
 
-        cy.get('input[name="fields[date]"]').should('have.value', '2019-03-15 00:00');
+        cy.get('input[name="fields[date]"]').should('have.value', '2019-03-15 00:00:00');
     })
 
     it('checks if an admin can use the datetime field with an AM time (with AM/PM selector)', () => {
@@ -119,7 +119,7 @@ describe('As an Admin I want to be able to make use of the date & datetime field
         });
         cy.get('.flatpickr-calendar.open span[aria-label="May 10, 2020"]').click();
 
-        cy.get('input[name="fields[datetime]"]').should('have.value', '2020-05-10 11:30');
+        cy.get('input[name="fields[datetime]"]').should('have.value', '2020-05-10 11:30:00');
     })
 
     it('checks if an admin can use the datetime field with a PM time (with AM/PM selector)', () => {
@@ -142,7 +142,7 @@ describe('As an Admin I want to be able to make use of the date & datetime field
         });
         cy.get('.flatpickr-calendar.open span[aria-label="July 20, 2020"]').click();
 
-        cy.get('input[name="fields[datetime]"]').should('have.value', '2020-07-20 22:30');
+        cy.get('input[name="fields[datetime]"]').should('have.value', '2020-07-20 22:30:00');
     })
 
     it('checks if an admin can use the datetime field with an AM time (without AM/PM selector)', () => {
@@ -159,7 +159,7 @@ describe('As an Admin I want to be able to make use of the date & datetime field
         cy.get('.flatpickr-calendar.open input.flatpickr-minute').type('15');
         cy.get('.flatpickr-calendar.open span[aria-label="janvier 28, 2020"]').click();
 
-        cy.get('input[name="fields[datetime]"]').should('have.value', '2020-01-28 10:15');
+        cy.get('input[name="fields[datetime]"]').should('have.value', '2020-01-28 10:15:00');
     })
 
     it('checks if an admin can use the datetime field with a PM time (without AM/PM selector)', () => {
@@ -176,6 +176,6 @@ describe('As an Admin I want to be able to make use of the date & datetime field
         cy.get('.flatpickr-calendar.open input.flatpickr-minute').type('30');
         cy.get('.flatpickr-calendar.open span[aria-label="juillet 20, 2020"]').click();
 
-        cy.get('input[name="fields[datetime]"]').should('have.value', '2020-07-20 22:30');
+        cy.get('input[name="fields[datetime]"]').should('have.value', '2020-07-20 22:30:00');
     })
 });

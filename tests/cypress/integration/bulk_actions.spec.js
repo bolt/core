@@ -6,7 +6,7 @@ describe('As an admin I should be able to run bulk actions', () => {
         cy.visit('/bolt/content/pages');
         cy.get("label[for='selectAll']").should('exist');
         cy.get(".listing__filter .custom-checkbox").click();
-        
+
         cy.get('.is-primary').should('contain', '8');
         //cy.get('div[class="card-header"]').should('contain', 'Pages Selected');
         cy.get('.admin__body--aside .card-body .multiselect').should('contain', 'Select option');
@@ -19,7 +19,7 @@ describe('As an admin I should be able to run bulk actions', () => {
         cy.get(".listing__filter .custom-checkbox").click();
         cy.get(".card-body .multiselect__select").click();
         cy.wait(100);
-        
+
         cy.get('.multiselect--active').should('contain', "Change status to 'publish'");
         cy.get('.multiselect--active').should('contain', "Change status to 'draft'");
         cy.get('.multiselect--active').should('contain', "Change status to 'held'");
@@ -31,6 +31,12 @@ describe('As an admin I should be able to run bulk actions', () => {
         cy.get('button[name="bulk-action"]').click();
         cy.url().should('contain', '/bolt/content/tests');
 
+        // TODO Disable server cache for bulk actions
+        cy.visit('/bolt/clearcache');
+        cy.wait(1000);
+
+        cy.visit('/bolt/content/tests');
+
         cy.get('.listing__records .is-meta .status.is-draft').its('length').should('eq', 8);
         cy.get('.listing__records .is-meta .status.is-published').should('not.exist');
         cy.get('.listing__records .is-meta .status.is-held').should('not.exist');
@@ -38,15 +44,20 @@ describe('As an admin I should be able to run bulk actions', () => {
         cy.get(".listing__filter .custom-checkbox").click();
         cy.get('.multiselect__select').click();
         cy.get('aside .card-body .multiselect__content-wrapper > ul > li:nth-child(1)').click();
-        
+
         cy.wait(100);
         cy.get('button[name="bulk-action"]').should('be.enabled');
         cy.get('button[name="bulk-action"]').click();
         cy.url().should('contain', '/bolt/content/tests');
 
+        // TODO Disable server cache for bulk actions
+        cy.visit('/bolt/clearcache');
+        cy.wait(1000);
+
+        cy.visit('/bolt/content/tests');
+
         cy.get('.listing__records .is-meta .status.is-published').its('length').should('eq', 8);
         cy.get('.listing__records .is-meta .status-is-draft').should('not.exist');
         cy.get('.listing__records .is-meta .status.is-held').should('not.exist');
-        cy.findByText("Status changed successfully");
     })
 });

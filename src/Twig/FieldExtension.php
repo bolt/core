@@ -267,9 +267,7 @@ class FieldExtension extends AbstractExtension
             ];
         }
 
-        if (! empty($field->getDefinition()->get('limit'))) {
-            $maxAmount = $field->getDefinition()->get('limit');
-        } else {
+        if (empty($maxAmount = $field->getDefinition()->get('limit'))) {
             $maxAmount = $this->config->get('general/maximum_listing_select', 200);
         }
 
@@ -280,7 +278,7 @@ class FieldExtension extends AbstractExtension
             'order' => $order,
         ];
 
-        $options = $this->selectOptionsHelper($contentTypeSlug, $params, $field, $format);
+        $options = array_merge($options, $this->selectOptionsHelper($contentTypeSlug, $params, $field, $format));
 
         return new Collection($options);
     }
