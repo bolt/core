@@ -20,7 +20,7 @@ class Version
     /** @var string */
     private $tablePrefix;
 
-    public function __construct(Connection $connection, string|array $tablePrefix = 'bolt')
+    public function __construct(Connection $connection, $tablePrefix = 'bolt')
     {
         $this->connection = $connection;
         $tablePrefix = is_array($tablePrefix) ? $tablePrefix['default'] : $tablePrefix;
