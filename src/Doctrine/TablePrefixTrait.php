@@ -21,7 +21,7 @@ trait TablePrefixTrait
     /** @var ManagerRegistry */
     private $registry;
 
-    protected function setTablePrefix(ObjectManager $manager, string|array $prefix)
+    protected function setTablePrefix(ObjectManager $manager, string $prefix)
     {
         $key = spl_object_hash($manager);
         $this->tablePrefixes[$key] = empty($prefix) ? '' : Str::ensureEndsWith($prefix, '_');
