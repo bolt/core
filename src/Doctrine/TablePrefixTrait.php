@@ -46,10 +46,10 @@ trait TablePrefixTrait
         return $this;
     }
 
-     protected function getTablePrefix(ObjectManager $manager): string
-     {
+    protected function getTablePrefix(ObjectManager $manager): string
+    {
         $key = spl_object_hash($manager);
 
         return $this->tablePrefixes[$key] ?? '';
-     }
+    }
 }
