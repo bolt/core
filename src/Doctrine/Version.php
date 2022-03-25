@@ -20,9 +20,10 @@ class Version
     /** @var string */
     private $tablePrefix;
 
-    public function __construct(Connection $connection, string $tablePrefix = 'bolt')
+    public function __construct(Connection $connection, $tablePrefix = 'bolt')
     {
         $this->connection = $connection;
+        $tablePrefix = is_array($tablePrefix) ? $tablePrefix['default'] : $tablePrefix;
         $this->tablePrefix = Str::ensureEndsWith($tablePrefix, '_');
     }
 
