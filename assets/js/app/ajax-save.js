@@ -6,7 +6,7 @@ let record_id = form.data('record');
 let element = $('button[name="save"]');
 
 let dom_element =
-    '<div class="admin__notifications"><div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="6000"><div id="toastTitle" class="toast-header alert-success" ><strong id="toastNotification" class="mr-auto"></strong><small id="toastType"></small><button class="ml-2 mb-1 close" aria-label="Close" data-dismiss="toast" type="button"><span aria-hidden="true">&times;</span></button></div><div id="toastBody" class="toast-body"></div></div></div>';
+    '<div class="admin__notifications"><div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="6000"><div id="toastTitle" ><strong id="toastNotification" class="mr-auto"></strong><small id="toastType"></small><button class="ml-2 mb-1 close" aria-label="Close" data-dismiss="toast" type="button"><span aria-hidden="true">&times;</span></button></div><div id="toastBody" class="toast-body"></div></div></div>';
 
 record_id = JSON.stringify(record_id);
 /**
@@ -28,8 +28,17 @@ $(document).ready(function() {
 
     window.onbeforeunload = unloadPage;
 
-    function showToast(toastType, toastMessage, toastStatus, notification, dom_element) {
+    function showToast(
+        toastType = 'Error',
+        toastMessage = 'Failed trying to save!',
+        toastStatus = 'warning',
+        notification = 'Notification',
+        dom_element = dom_element,
+    ) {
+        let typeClass = 'alert-' + toastStatus;
+
         $('.admin__notifications').replaceWith(dom_element);
+        $('#toastTitle').addClass(['toast-header', typeClass]);
         $('#toastNotification').append(notification);
         $('#toastType').append(toastType);
         $('#toastBody').append(toastMessage);
@@ -57,20 +66,22 @@ $(document).ready(function() {
             complete: function() {
                 renable();
             },
-            success: function(data) {
+            success: function(data, textStatus) {
                 if (!record_id) {
                     window.location.replace(data.url);
                 } else if (window.location.pathname === '/bolt/duplicate/' + duplicatie_id) {
                     window.location.replace(data.url);
-                } else {
+                } else if (textStatus === 'success') {
                     showToast(data.type, data.message, data.status, data.notification, dom_element);
                     $('div[class="admin__header--title-inner"]').html(data.title);
+                } else if (data.status !== 'success') {
+                    showToast();
                 }
             },
             error: function(jq, status, err) {
                 // eslint-disable-next-line no-console
                 console.log(status, err);
-                showToast('error', 'Failed saving', 'Failed', 'Error', dom_element);
+                showToast();
             },
         });
         unsaved = false;
