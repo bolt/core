@@ -51,7 +51,7 @@ $(document).ready(function() {
     }
     this.href = window.location.pathname;
 
-    let duplicatie_id = this.href.substring(this.href.lastIndexOf('/') + 1);
+    let duplicate_id = this.href.substring(this.href.lastIndexOf('/') + 1);
 
     let url = window.location.pathname;
 
@@ -69,7 +69,7 @@ $(document).ready(function() {
             success: function(data, textStatus) {
                 if (!record_id) {
                     window.location.replace(data.url);
-                } else if (window.location.pathname === '/bolt/duplicate/' + duplicatie_id) {
+                } else if (window.location.pathname === '/bolt/duplicate/' + duplicate_id) {
                     window.location.replace(data.url);
                 } else if (textStatus === 'success') {
                     showToast(data.type, data.message, data.status, data.notification, dom_element);
