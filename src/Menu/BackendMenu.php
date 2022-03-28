@@ -33,6 +33,9 @@ final class BackendMenu implements BackendMenuBuilderInterface
     /** @var Security */
     private $security;
 
+    /** @var string */
+    private $backendUrl = '/bolt';
+
     public function __construct(
         BackendMenuBuilder $menuBuilder,
         TagAwareCacheInterface $cache,
