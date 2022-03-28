@@ -40,11 +40,16 @@ $(document).ready(function() {
 
         setTimeout($('.toast').toast('hide'), 5000);
     }
+    this.href = window.location.pathname;
+
+    let duplicatie_id = this.href.substring(this.href.lastIndexOf('/') + 1);
+
+    let url = window.location.pathname;
 
     element.on('click', function() {
         $.ajax({
             type: 'POST',
-            link: '/edit/' + record_id,
+            link: url,
             data: $(form).serialize(),
             beforeSend: function() {
                 patience_virtue(element);
@@ -54,6 +59,8 @@ $(document).ready(function() {
             },
             success: function(data) {
                 if (!record_id) {
+                    window.location.replace(data.url);
+                } else if (window.location.pathname === '/bolt/duplicate/' + duplicatie_id) {
                     window.location.replace(data.url);
                 } else {
                     showToast(data.type, data.message, data.status, data.notification, dom_element);
