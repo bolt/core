@@ -5,17 +5,10 @@ let form = $('#editcontent');
 let record_id = form.data('record');
 let element = $('button[name="save"]');
 
-const toastSuccess =
-    '            <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="6000">\n' +
-    '                <div class="alert-success toast-header">\n' +
-    '                    <strong class="mr-auto"></strong>\n' +
-    '                    <small>Success</small>\n' +
-    '                    <button class="ml-2 mb-1 close" aria-label="Close" data-dismiss="toast" type="button">\n' +
-    '                        <span aria-hidden="true">&times;</span>\n' +
-    '                    </button>\n' +
-    '                </div>\n' +
-    '                <div class="toast-body">Content updated succesfully</div>\n' +
-    '            </div>';
+let dom_element =
+    '<div class="admin__notifications"><div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="6000"><div id="toastTitle" class="toast-header alert-success" ><strong id="toastNotification" class="mr-auto"></strong><small id="toastType"></small><button class="ml-2 mb-1 close" aria-label="Close" data-dismiss="toast" type="button"><span aria-hidden="true">&times;</span></button></div><div id="toastBody" class="toast-body"></div></div></div>';
+
+console.log($(dom_element).append('.admin__notifications'));
 
 record_id = JSON.stringify(record_id);
 /**
@@ -37,12 +30,18 @@ $(document).ready(function() {
 
     window.onbeforeunload = unloadPage;
 
-    function showToast(toastType) {
-        $(toastType).append('.admin__notifications');
-    }
+    function showToast(toastType, toastMessage, toastStatus, notification, dom_element) {
+        // Refactor this so it looks cleaner.
+        $('.admin__notifications').replaceWith(dom_element);
+        $('#toastNotification').append(notification);
+        $('#toastType').append(toastType);
+        $('#toastBody').append(toastMessage);
 
-    function hideToast(toastType) {
-        $(toastType).detach('.admin__notifications');
+        $(document).ready(function() {
+            $('.toast').toast('show');
+        });
+
+        setTimeout($('.toast').toast('hide'), 5000);
     }
 
     element.on('click', function() {
@@ -56,12 +55,11 @@ $(document).ready(function() {
             complete: function() {
                 renable();
             },
-            success: function(data, textStatus) {
+            success: function(data) {
                 if (!record_id) {
-                    window.location.replace(data);
+                    window.location.replace(data.url);
                 } else {
-                    showToast(toastSuccess);
-                    setTimeout(hideToast(toastSuccess), 5000);
+                    showToast(data.type, data.message, data.status, data.notification, dom_element);
                 }
             },
             error: function(jq, status, err) {

@@ -37,6 +37,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Tightenco\Collect\Support\Collection;
 
@@ -74,6 +75,9 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
     /** @var string */
     protected $defaultLocale;
 
+    /** @var TranslatorInterface */
+    private $translator;
+
     public function __construct(
         TaxonomyRepository $taxonomyRepository,
         RelationRepository $relationRepository,
@@ -83,7 +87,8 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         UrlGeneratorInterface $urlGenerator,
         ContentFillListener $contentFillListener,
         EventDispatcherInterface $dispatcher,
-        string $defaultLocale
+        string $defaultLocale,
+        TranslatorInterface $translator
     ) {
         $this->taxonomyRepository = $taxonomyRepository;
         $this->relationRepository = $relationRepository;
@@ -94,6 +99,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         $this->contentFillListener = $contentFillListener;
         $this->dispatcher = $dispatcher;
         $this->defaultLocale = $defaultLocale;
+        $this->translator = $translator;
     }
 
     /**
@@ -234,8 +240,6 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         $this->em->persist($content);
         $this->em->flush();
 
-        $this->addFlash('success', 'content.updated_successfully');
-
         $urlParams = [
             'id' => $content->getId(),
             'edit_locale' => $this->getEditLocale($content) ?: null,
@@ -245,7 +249,13 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         $event = new ContentEvent($content);
         $this->dispatcher->dispatch($event, ContentEvent::POST_SAVE);
 
-        return new JsonResponse($url, 200);
+        return new JsonResponse([
+            'url' => $url, 'status' => 'success',
+            'type' => $this->translator->trans('success', [], '', $this->translator->getLocale()),
+            'message' => $this->translator->trans('content.updated_successfully', [], '', $this->translator->getLocale()),
+            'notification' => $this->translator->trans('flash_messages.notification', [], '', $this->translator->getLocale())
+            ], 200
+        );
     }
 
     /**
