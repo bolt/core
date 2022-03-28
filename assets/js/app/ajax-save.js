@@ -8,8 +8,6 @@ let element = $('button[name="save"]');
 let dom_element =
     '<div class="admin__notifications"><div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="6000"><div id="toastTitle" class="toast-header alert-success" ><strong id="toastNotification" class="mr-auto"></strong><small id="toastType"></small><button class="ml-2 mb-1 close" aria-label="Close" data-dismiss="toast" type="button"><span aria-hidden="true">&times;</span></button></div><div id="toastBody" class="toast-body"></div></div></div>';
 
-console.log($(dom_element).append('.admin__notifications'));
-
 record_id = JSON.stringify(record_id);
 /**
  * Start of Ajaxy solution for saving
@@ -63,7 +61,9 @@ $(document).ready(function() {
                 }
             },
             error: function(jq, status, err) {
+                // eslint-disable-next-line no-console
                 console.log(status, err);
+                showToast('error', 'Failed saving', 'Failed', 'Error', dom_element);
             },
         });
         unsaved = false;
