@@ -52,8 +52,8 @@ describe('As an Admin I want to fill in an imagelist and filelist', () => {
         cy.get('.form-fieldsgroup:nth-child(1) > .editor__image .btn:nth-child(3)').click();
         cy.get('button[class="btn btn-success mb-0 "]').eq(1).click();
         //TODO: move checking for elements before saving changes(for some reason it doesn't work)
-        cy.get('.editor__imagelist').find('div[class="form-fieldsgroup"]').its('length').should('eq', 4);
-        cy.url().should('contain', '/bolt/edit/42?edit_locale=en#media');
+        cy.get('.editor__imagelist').find('div[class="form-fieldsgroup"]').its('length').should('eq', 5);
+        cy.url().should('contain', '/bolt/edit/42#media');
     })
 
     it('checks if an admin can fill in an filelist', () => {
@@ -103,7 +103,7 @@ describe('As an Admin I want to fill in an imagelist and filelist', () => {
         cy.get('button[class="btn btn-success mb-0 "]').eq(1).click();
         //TODO: move checking for elements before saving changes(for some reason it doesn't work)
         cy.get('.editor-filelist').find('div[class="form-fieldsgroup"]').its('length').should('eq', 4);
-        cy.url().should('contain', '/bolt/edit/42?edit_locale=en#files');
+        cy.url().should('contain', '/bolt/edit/42#files');
 
     })
 });
