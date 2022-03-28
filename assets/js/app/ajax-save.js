@@ -29,7 +29,6 @@ $(document).ready(function() {
     window.onbeforeunload = unloadPage;
 
     function showToast(toastType, toastMessage, toastStatus, notification, dom_element) {
-        // Refactor this so it looks cleaner.
         $('.admin__notifications').replaceWith(dom_element);
         $('#toastNotification').append(notification);
         $('#toastType').append(toastType);
@@ -58,6 +57,7 @@ $(document).ready(function() {
                     window.location.replace(data.url);
                 } else {
                     showToast(data.type, data.message, data.status, data.notification, dom_element);
+                    $('div[class="admin__header--title-inner"]').html(data.title);
                 }
             },
             error: function(jq, status, err) {

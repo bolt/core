@@ -252,11 +252,13 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         $locale = $originalAuthor->getLocale();
 
         return new JsonResponse([
-            'url' => $url, 'status' => 'success',
+            'url' => $url,
+            'status' => 'success',
             'type' => $this->translator->trans('success', [], null, $locale),
             'message' => $this->translator->trans('content.updated_successfully', [], null, $locale),
-            'notification' => $this->translator->trans('flash_messages.notification', [], null, $locale)
-            ], 200
+            'notification' => $this->translator->trans('flash_messages.notification', [], null, $locale),
+            'title' => $content->getExtras()['title'],
+        ], 200
         );
     }
 
