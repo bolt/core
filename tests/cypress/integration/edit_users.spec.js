@@ -42,7 +42,7 @@ describe('Edit user successfully, Edit users incorrectly', () => {
         cy.visit('/bolt/logout');
     })
 
-    it('checks that an admin can\'t edit a user with incorrect details', () => {
+    it("checks that an admin can't edit a user with incorrect details", () => {
         cy.login();
         cy.visit('/bolt/user-edit/2');
 
@@ -84,7 +84,6 @@ describe('Edit user successfully, Edit users incorrectly', () => {
         cy.get('#edituser > button').click();
 
         cy.get('.field-error').eq(0).children('.help-block').children('.list-unstyled').children('li').should('contain', 'Invalid display name');
-        cy.visit('/bolt/logout')
-    })
-
+        cy.visit('/bolt/logout');
+    });
 });
