@@ -1,7 +1,7 @@
 {% import '@bolt/_macro/_macro.html.twig' as macro %}
 
 {# DONT TOUCH THAT ID! #}
-{{ form_start(userForm, {'attr': {'id': 'editcontent'}}) }}
+{{ form_start(userForm, {'attr': {'id': 'edituser'}}) }}
 
     {# ===== USERNAME ===== #}
 
@@ -98,6 +98,7 @@
         'options' : localeOptions,
         'required': userForm.locale.vars.required,
         'multiple': userForm.locale.vars.multiple ? 'true' : 'false',
+        'form': 'edituser',
     } %}
     {% if form_errors(userForm.locale) is not empty %}
         <div class="field-error">{{ form_errors(userForm.locale) }}</div>
@@ -126,6 +127,7 @@
             'options' : roleOptions,
             'required': userForm.roles.vars.required,
             'multiple': userForm.roles.vars.multiple ? 'true' : 'false',
+            'form': 'edituser',
         } %}
         {% if form_errors(userForm.roles) is not empty %}
             <div class="field-error">{{ form_errors(userForm.roles) }}</div>
@@ -153,6 +155,7 @@
             'value': userForm.status.vars.value,
             'options': statusOptions,
             'required': userForm.status.vars.required ? 'true' : 'false',
+            'form': 'edituser',
         } %}
         {% if form_errors(userForm.status) is not empty %}
             <div class="field-error">{{ form_errors(userForm.status) }}</div>
@@ -192,5 +195,5 @@
     #}
 
     {# DONT TOUCH THAT ID! #}
-    {{ macro.button('action.save', 'fa-save', 'primary', {'type': 'submit', 'form': 'editcontent', 'name': 'save'}) }}
+    {{ macro.button('action.save', 'fa-save', 'primary', {'type': 'submit', 'form': 'edituser', 'name': 'save'}) }}
 {{ form_end(userForm) }}

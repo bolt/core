@@ -16,7 +16,7 @@
 {% block main %}
 
     <div>
-        <form method="post" id="editcontent" >
+        <form method="post" id="edituser" >
             <input type="hidden" name="_csrf_token" value="{{ csrf_token('profileedit') }}">
 
             {% include '@bolt/_partials/fields/text.html.twig' with {
@@ -90,7 +90,7 @@
             <theme-select></theme-select>
             #}
 
-            {{ macro.button('action.save', 'fa-save', 'primary', {'type': 'submit', 'form': 'editcontent', 'name': 'save'}) }}
+            {{ macro.button('action.save', 'fa-save', 'primary', {'type': 'submit', 'form': 'edituser', 'name': 'save'}) }}
 
 
         </form>
@@ -102,7 +102,7 @@
         <form class="ui form">
             <div class="card mb-3">
                 <div class="card-body">
-                    {{ macro.button('action.save', 'fa-save', 'primary', {'type': 'submit', 'form': 'editcontent'}) }}
+                    {{ macro.button('action.save', 'fa-save', 'primary', {'type': 'submit', 'form': 'edituser'}) }}
                 </div>
             </div>
         </form>
