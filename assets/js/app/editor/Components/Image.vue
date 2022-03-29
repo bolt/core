@@ -168,6 +168,7 @@ import baguetteBox from 'baguettebox.js';
 import field from '../mixins/value';
 import Axios from 'axios';
 import bootbox from 'bootbox';
+import { renable } from '../../patience-is-a-virtue';
 
 export default {
     name: 'EditorImage',
@@ -286,12 +287,12 @@ export default {
                         },
                     });
                     window.$('.bootbox-input').attr('name', 'bootbox-input');
-                    window.renable();
+                    renable();
                 })
                 .catch(err => {
                     bootbox.alert(err.response.data + '<br>Image did not upload.');
                     console.warn(err);
-                    window.reEnablePatientButtons();
+                    renable();
                 });
         },
         onDragEnter(e) {
