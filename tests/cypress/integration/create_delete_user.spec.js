@@ -25,8 +25,8 @@ describe('Create/delete user', () => {
         cy.get('#multiselect-user_roles > div > div.multiselect__content-wrapper > ul > li:nth-child(1) > span').scrollIntoView();
         cy.get('#multiselect-user_roles > div > div.multiselect__content-wrapper > ul > li:nth-child(1) > span').click();
 
-        cy.get('#editcontent > button').scrollIntoView();
-        cy.get('form[id="editcontent"]').submit();
+        cy.get('#edituser > button').scrollIntoView();
+        cy.get('form[id="edituser"]').submit();
 
         cy.visit('/bolt/users');
         cy.get('table').eq(0).find('tbody').find('tr').its('length').should('eq', 7);

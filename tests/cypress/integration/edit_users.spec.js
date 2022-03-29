@@ -16,9 +16,9 @@ describe('Edit user successfully, Edit users incorrectly', () => {
         cy.get('input[name="user[displayName]"]').type('Tom Doe CHANGED');
         cy.get('input[name="user[email]"]').clear();
         cy.get('input[name="user[email]"]').type('tom_admin_changed@example.org');
-        cy.get('#editcontent > button').scrollIntoView();
+        cy.get('#edituser > button').scrollIntoView();
         cy.wait(1000);
-        cy.get('#editcontent > button').click();
+        cy.get('#edituser > button').click();
 
         cy.url().should('contain', 'bolt/users');
         cy.get('table:nth-child(1) > tbody > tr:nth-child(6)').children('td').eq(1).should('contain', 'Tom Doe CHANGED');
@@ -32,8 +32,8 @@ describe('Edit user successfully, Edit users incorrectly', () => {
 
         cy.get('#user_displayName').clear();
         cy.get('#user_displayName').type('Administrator');
-        cy.get('#editcontent > button').scrollIntoView();
-        cy.get('#editcontent > button').click();
+        cy.get('#edituser > button').scrollIntoView();
+        cy.get('#edituser > button').click();
 
         cy.wait(500);
 
@@ -52,8 +52,8 @@ describe('Edit user successfully, Edit users incorrectly', () => {
         cy.get('input[name="user[email]"]').clear();
         cy.get('input[name="user[email]"]').type('smth@nth');
 
-        cy.get('#editcontent > button').scrollIntoView();
-        cy.get('#editcontent > button').click();
+        cy.get('#edituser > button').scrollIntoView();
+        cy.get('#edituser > button').click();
 
         cy.url().should('contain', '/bolt/user-edit/2');
         cy.get('.field-error').eq(0).children('.help-block').children('.list-unstyled').children('li').should('contain', 'Invalid display name');
@@ -80,8 +80,8 @@ describe('Edit user successfully, Edit users incorrectly', () => {
 
         cy.get('#user_displayName').clear();
         cy.get('#user_displayName').type('a');
-        cy.get('#editcontent > button').scrollIntoView();
-        cy.get('#editcontent > button').click();
+        cy.get('#edituser > button').scrollIntoView();
+        cy.get('#edituser > button').click();
 
         cy.get('.field-error').eq(0).children('.help-block').children('.list-unstyled').children('li').should('contain', 'Invalid display name');
         cy.visit('/bolt/logout')
