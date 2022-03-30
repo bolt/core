@@ -21,12 +21,12 @@ class CorePostUpdateScript extends Script
 
         parent::init('Running composer "post-update-cmd" scripts, for `bolt/core` installation');
 
-        self::run('php bin/console extensions:configure --with-config --ansi');
-        self::run('php bin/console cache:clear --no-warmup');
-        self::run('php bin/console assets:install --symlink --relative public');
-        self::run('php bin/console doctrine:migrations:migrate --no-interaction');
+        self::runConsole(['extensions:configure', '--with-config', '--ansi']);
+        self::runConsole(['cache:clear', '--no-warmup']);
+        self::runConsole(['assets:install', '--symlink', '--relative', 'public']);
+        self::runConsole(['doctrine:migrations:migrate', '--no-interaction']);
 
-        $res = self::run('php bin/console doctrine:migrations:up-to-date');
+        $res = self::runConsole(['doctrine:migrations:up-to-date']);
 
         if ($res) {
             $migrate = 'Database is out-of-date. To update the database, run `php bin/console doctrine:migrations:migrate`.';
@@ -35,6 +35,6 @@ class CorePostUpdateScript extends Script
             $symfonyStyle->warning($migrate);
         }
 
-        self::run('php bin/console bolt:info --ansi');
+        self::runConsole(['bolt:info', '--ansi']);
     }
 }

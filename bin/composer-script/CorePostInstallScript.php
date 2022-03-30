@@ -21,9 +21,9 @@ class CorePostInstallScript extends Script
 
         parent::init('Running composer "post-install-cmd" scripts, for `bolt/core` installation');
 
-        self::run('php bin/console extensions:configure --with-config --ansi');
-        self::run('php bin/console cache:clear --no-warmup');
-        self::run('php bin/console assets:install --symlink --relative public');
-        self::run('php bin/console bolt:info --ansi');
+        self::runConsole(['extensions:configure', '--with-config', '--ansi']);
+        self::runConsole(['cache:clear', '--no-warmup']);
+        self::runConsole(['assets:install', '--symlink', '--relative', 'public']);
+        self::runConsole(['bolt:info', '--ansi']);
     }
 }

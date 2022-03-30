@@ -17,10 +17,10 @@ class CreateProjectScript extends Script
 
         chdir(parent::getProjectFolder($event));
 
-        self::run('php bin/console bolt:reset-secret');
-        self::run('php bin/console bolt:copy-themes --ansi');
+        self::runConsole(['bolt:reset-secret']);
+        self::runConsole(['bolt:copy-themes', '--ansi']);
         if (self::isTtySupported()) {
-            self::run('php bin/console bolt:welcome --ansi');
+            self::runConsole(['bolt:welcome', '--ansi']);
         }
     }
 
