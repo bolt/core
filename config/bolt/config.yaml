@@ -45,7 +45,8 @@ date_format: 'F j, Y H:i'
 # You can set a preference to omit background images on the login screen.
 omit_backgrounds: true
 
-# If you're a party-pooper and dislike the `generator` meta tag, set to `true`
+# If you're a party-pooper who wants to hide the `generator` meta tag and
+# `x-powered-by` header, set these to true
 omit_meta_generator_tag: false
 
 headers:
@@ -109,8 +110,7 @@ forbidden: [ blocks/403-forbidden, 'helpers/page_403.html.twig' ]
 # handled, and you'll have a bad time debugging it!
 internal_server_error: [ 'helpers/page_500.html.twig' ]
 
-# The default template for record-pages on the
-# site.
+# The default template for record-pages on the site.
 #
 # Can be overridden for each content type and for each record, if it has a
 # templateselect field.
@@ -249,5 +249,5 @@ reset_password_settings:
     mail_subject: "Your password reset request"
     mail_template: "reset_password/email.html.twig"
 
-# Adds sorting and filtering users in backend
+# Adds sorting and filtering of users in backend
 user_show_sort&filter: true
