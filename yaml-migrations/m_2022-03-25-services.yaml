@@ -5,5 +5,7 @@ since: 5.1.6
 
 add:
     services:
+        bind:         
+            $publicFolder: '%bolt.public_folder%'
         Bolt\Cache\GetFormatCacher:
             decorates: Bolt\Utils\ContentHelper
