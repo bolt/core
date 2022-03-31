@@ -2703,10 +2703,16 @@
         <target>Order</target>
       </segment>
     </unit>
-    <unit id="0" name="placeholder.email">
+    <unit id="Y7ajNNN" name="placeholder.email">
       <segment>
         <source>placeholder.email</source>
         <target>your email</target>
+      </segment>
+    </unit>
+    <unit id="NF.vvAN" name="You have to login in order to access this page.">
+      <segment>
+        <source>You have to login in order to access this page.</source>
+        <target>You have to login in order to access this page.</target>
       </segment>
     </unit>
   </file>
