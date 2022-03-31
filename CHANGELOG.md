@@ -1,7 +1,7 @@
 Changelog
 =========
 
-## 5.1.6
+## 5.1.7
 
 Released: 2022-03-31
 
@@ -17,6 +17,8 @@ Released: 2022-03-31
 
 ### 🛠️ Miscellaneous
 
+- Update Dutch translations 🇳🇱 (bobdenotter, [#3156](https://github.com/bolt/core/pull/3156))
+- Translation of missing German translations 🇩🇪  (obsti8383, [#3152](https://github.com/bolt/core/pull/3152))
 - Add `cite` to `allowed_tags` (bobdenotter, [#3149](https://github.com/bolt/core/pull/3149))
 - Adding cache decorator for `Formatter` (bobdenotter, [#3143](https://github.com/bolt/core/pull/3143))
 
