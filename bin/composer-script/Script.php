@@ -32,6 +32,7 @@ class Script
 
     /**
      * Execute a command in the CLI, as a separate process.
+     * @deprecated since Bolt 5.1.6
      */
     public static function run(string $command): int
     {
@@ -47,6 +48,26 @@ class Script
         } catch (\TypeError $e) {
             $process = new Process([$command]);
         }
+
+        $process->setTty(self::isTtySupported());
+
+        return $process->run();
+    }
+
+    /**
+     * Execute a `bin/console` command in the CLI, as a separate process.
+     */
+    public static function runConsole(array $command): int
+    {
+        return self::runPHP(array_merge(['bin/console'], $command));
+    }
+
+    /**
+     * Execute a PHP script in the CLI, as a separate process.
+     */
+    public static function runPHP(array $command): int
+    {
+        $process = new Process($command);
 
         $process->setTty(self::isTtySupported());
 

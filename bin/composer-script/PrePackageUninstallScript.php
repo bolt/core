@@ -10,6 +10,6 @@ class PrePackageUninstallScript extends Script
     {
         parent::init('Running composer "pre-package-uninstall" scripts');
 
-        self::run('php bin/console extensions:configure --remove-services --ansi');
+        self::runConsole(['extensions:configure', '--remove-services', '--ansi']);
     }
 }
