@@ -133,14 +133,20 @@ $grid-breakpoints: (
 // See https://www.w3.org/TR/WCAG20/#visual-audio-contrast-contrast
 $min-contrast-ratio:  4.5;
 
+// Popovers
+
+$popover-header-padding-y:          .5rem;
+$popover-header-padding-x:          .75rem;
+
+$popover-body-padding-y:            .5rem;
+$popover-body-padding-x:            .75rem;
+
 // Variables overriding Bootstrap
 // Toasts
 $toast-max-width:                   250px;
 $toast-background-color:            #fbfaf9;
 $toast-border-radius:               .25rem;
 $toast-box-shadow:                  0 .25rem .75rem rgba(0,0,0,.1);
-
-//$toast-header-background-color:     #fbfaf9;
 $toast-header-border-color:         rgba(0, 0, 0, .05);
 
 :root {
