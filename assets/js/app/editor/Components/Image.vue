@@ -74,7 +74,11 @@
                                 type="button"
                                 :disabled="readonly"
                                 data-patience="virtue"
-                                @click="selectServerFile"
+                                data-bs-toggle="modal"
+                                data-bs-target="#resourcesModal"
+                                data-field-type="Image"
+                                :data-initiator="id"
+                                @click="selectServerFile($event)"
                             >
                                 <i class="fas fa-fw fa-th"></i>
                                 {{ labels.button_from_library }}
@@ -167,6 +171,9 @@ import noScroll from 'no-scroll';
 import baguetteBox from 'baguettebox.js';
 import field from '../mixins/value';
 import Axios from 'axios';
+// import '../../../jquery';
+// import 'popper.js';
+import { Modal } from 'bootstrap';
 import bootbox from 'bootbox';
 import { renable } from '../../patience-is-a-virtue';
 
@@ -269,30 +276,84 @@ export default {
         selectUploadFile() {
             this.$refs.selectFile.click();
         },
-        selectServerFile() {
+        generateModalContent(inputOptions) {
+            let modalContent = '<div class="row row-cols-1 row-cols-md-3 g-2">'
+            inputOptions.forEach((element, key) => {
+                modalContent += `
+                    <div class="col">
+                        <div class="card">
+                            <img src="/thumbs/140×73×crop/${element.value}" loading="lazy">
+                            <div class="card-body px-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="${element.value}" id="flexCheckDefault-${key}">
+                                    <label class="form-check-label d-inline fs-6" for="flexCheckDefault-${key}">
+                                        ${element.text}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            })
+            modalContent += `<\div>`
+            return modalContent;
+        },
+        resetModalContent() {
+            let defaultContent = `
+                <div class="modal-header">
+                    <h5 class="modal-title" id="resourcesModalLabel">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button id="modalSave" type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+                </div>
+            `
+            var resourcesModal = document.getElementById('resourcesModal')
+            resourcesModal.querySelector('.modal-content').innerHTML = defaultContent;
+        },
+        selectServerFile(event) {
             let thisField = this;
             Axios.get(this.filelist)
                 .then(res => {
-                    bootbox.prompt({
-                        title: 'Select a file',
-                        inputType: 'select',
-                        name: 'image-selector',
-                        inputOptions: this.filterServerFiles(res.data),
-                        callback: function(result) {
-                            if (result) {
-                                thisField.filenameData = result;
-                                thisField.thumbnailData = `/thumbs/400×300/${result}`;
-                                thisField.previewData = `/thumbs/1000×1000/${result}`;
-                            }
-                        },
-                    });
-                    window.$('.bootbox-input').attr('name', 'bootbox-input');
-                    renable();
+                    let inputOptions = this.filterServerFiles(res.data);
+
+                    var resourcesModal = document.getElementById('resourcesModal')
+                    var saveButton = document.getElementById('modalSave')
+                    var button = event.target;
+                    var title = button.getAttribute('data-field-type');
+                    var modalTitle = resourcesModal.querySelector('.modal-title')
+                    var modalBody = resourcesModal.querySelector('.modal-body')
+                    var modalBodyContent = this.generateModalContent(inputOptions)
+                    modalTitle.innerHTML = title;
+                    modalBody.innerHTML = modalBodyContent;
+
+                    saveButton.addEventListener('click', (event) => {
+                        var selectedImage = modalBody.querySelector('input[type=checkbox]:checked').value;
+                        thisField.filenameData = selectedImage;
+                        thisField.thumbnailData = `/thumbs/400×300/${selectedImage}`;
+                        thisField.previewData = `/thumbs/1000×1000/${selectedImage}`;
+                    }, {once : true})
+
+                    resourcesModal.addEventListener('hidden.bs.modal', () => {
+                        // Reset modal body content when the modal is closed
+                        this.resetModalContent();
+                    }, {once : true})
+
+                    $('.bootbox-input').attr('name', 'bootbox-input');
+                    window.reEnablePatientButtons();
                 })
                 .catch(err => {
-                    bootbox.alert(err.response.data + '<br>Image did not upload.');
-                    console.warn(err);
-                    renable();
+                    window.reEnablePatientButtons();
                 });
         },
         onDragEnter(e) {
