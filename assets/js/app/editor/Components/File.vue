@@ -63,7 +63,10 @@
                                 type="button"
                                 :readonly="readonly"
                                 data-patience="virtue"
-                                @click="selectServerFile"
+                                data-bs-toggle="modal"
+                                data-bs-target="#resourcesModal"
+                                data-field-type="File"
+                                @click="selectServerFile($event)"
                             >
                                 <i class="fas fa-fw fa-th"></i>
                                 {{ labels.button_from_library }}
@@ -210,22 +213,105 @@ export default {
         selectUploadFile() {
             this.$refs.selectFile.click();
         },
-        selectServerFile() {
+        generateModalContent(inputOptions) {
+            let fileIcons = {
+                "jpg": "fa-file-image",
+                "jpeg": "fa-file-image",
+                "png": "fa-file-image",
+                "webp": "fa-file-image",
+                "svg": "fa-file-image",
+                "gif": "fa-gif",
+                "pdf": "fa-file-pdf",
+                "doc": "fa-file-word",
+                "docx": "fa-file-word",
+                "txt": "fa-file-lines",
+                "csv": "fa-file-csv",
+                "xls": "fa-file-excel",
+                "xlsx": "fa-file-excel",
+                "pptx": "fa-file-powerpoint",
+                "html": "fa-file-code",
+                "mp3": "fa-file-music",
+                "mp4": "fa-file-video",
+                "mov": "fa-file-video",
+                "avi": "fa-file-video",
+                "webm": "fa-file-video",
+                "zip": "fa-file-zipper",
+                "rar": "fa-file-zipper",
+                "gz": "fa-file-zipper"
+            }
+            let modalContent = '<div class="row row-cols-1 row-cols-md-3 g-2">'
+            inputOptions.forEach((element, key) => {
+                let filenameExtension = element.text.split(".").pop().toLowerCase();
+                modalContent += `
+                    <div class="col">
+                        <div class="card h-100 pt-3">
+                            <i class="fas fa-solid ${fileIcons[filenameExtension] ?? 'fa-file'} fa-5x me-0 align-self-center"></i>
+                            <div class="card-body px-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="${element.value}" id="flexCheckDefault-${key}">
+                                    <label class="form-check-label d-inline fs-6" for="flexCheckDefault-${key}">
+                                        ${element.text}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            })
+            modalContent += `<\div>`
+            return modalContent;
+        },
+        resetModalContent() {
+            let defaultContent = `
+                <div class="modal-header">
+                    <h5 class="modal-title" id="resourcesModalLabel">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button id="modalSave" type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+                </div>
+            `
+            var resourcesModal = document.getElementById('resourcesModal')
+            resourcesModal.querySelector('.modal-content').innerHTML = defaultContent;
+        },
+        selectServerFile(event) {
             let thisField = this;
             Axios.get(this.filelist)
                 .then(res => {
-                    bootbox.prompt({
-                        title: 'Select a file',
-                        inputType: 'select',
-                        inputOptions: this.filterServerFiles(res.data),
-                        callback: function(result) {
-                            if (result) {
-                                thisField.filenameData = result;
-                            }
-                        },
-                    });
-                    window.$('.bootbox-input').attr('name', 'bootbox-input');
-                    renable();
+                    let inputOptions = this.filterServerFiles(res.data);
+
+                    var resourcesModal = document.getElementById('resourcesModal')
+                    var saveButton = document.getElementById('modalSave')
+                    var button = event.target;
+                    var title = button.getAttribute('data-field-type');
+                    var modalTitle = resourcesModal.querySelector('.modal-title')
+                    var modalBody = resourcesModal.querySelector('.modal-body')
+                    var modalBodyContent = this.generateModalContent(inputOptions)
+                    modalTitle.innerHTML = title;
+                    modalBody.innerHTML = modalBodyContent;
+
+                    saveButton.addEventListener('click', (event) => {
+                        var selectedImage = modalBody.querySelector('input[type=checkbox]:checked').value;
+                        thisField.filenameData = selectedImage;
+                    }, {once : true})
+
+                    resourcesModal.addEventListener('hidden.bs.modal', () => {
+                        // Reset modal body content when the modal is closed
+                        this.resetModalContent();
+                    }, {once : true})
+
+                    $('.bootbox-input').attr('name', 'bootbox-input');
+                    window.reEnablePatientButtons();
                 })
                 .catch(err => {
                     console.warn(err);
