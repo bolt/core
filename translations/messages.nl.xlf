@@ -2094,5 +2094,11 @@
         <target>Kies een afbeelding</target>
       </segment>
     </unit>
+    <unit id="ODb3pJA" name="modal.text.loading">
+      <segment>
+        <source>modal.text.loading</source>
+        <target>Loading...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
