@@ -284,7 +284,7 @@ export default {
             inputOptions.forEach((element, key) => {
                 modalContent += `
                     <div class="col">
-                        <div class="card">
+                        <div class="card h-100">
                             <img src="/thumbs/140×73×crop/${element.value}" loading="lazy">
                             <div class="card-body px-2">
                                 <div class="form-check">
