@@ -76,7 +76,7 @@
                                 data-patience="virtue"
                                 data-bs-toggle="modal"
                                 data-bs-target="#resourcesModal"
-                                data-field-type="Image"
+                                :data-modal-title="labels.modal_title_images"
                                 :data-initiator="id"
                                 @click="selectServerFile($event)"
                             >
@@ -343,7 +343,7 @@ export default {
                     var resourcesModal = document.getElementById('resourcesModal')
                     var saveButton = document.getElementById('modalSave')
                     var button = event.target;
-                    var title = button.getAttribute('data-field-type');
+                    var title = button.getAttribute('data-modal-title');
                     var modalTitle = resourcesModal.querySelector('.modal-title')
                     var modalBody = resourcesModal.querySelector('.modal-body')
                     var modalBodyContent = this.generateModalContent(inputOptions)
@@ -429,7 +429,7 @@ export default {
             var resourcesModal = document.getElementById('resourcesModal')
             var saveButton = document.getElementById('modalSave')
             var button = event.target;
-            var title = button.getAttribute('data-field-type');
+            var title = button.getAttribute('data-modal-title');
             var modalTitle = resourcesModal.querySelector('.modal-title')
             var modalBody = resourcesModal.querySelector('.modal-body')
             var modalBodyContent = this.generateUploadFromURLModalContent()
