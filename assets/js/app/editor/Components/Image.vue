@@ -89,7 +89,10 @@
                                 type="button"
                                 :disabled="readonly"
                                 data-patiance="virtue"
-                                @click="uploadFileFromUrl"
+                                data-bs-toggle="modal"
+                                data-bs-target="#resourcesModal"
+                                data-field-type="Upload from URL"
+                                @click="uploadFileFromUrl($event)"
                             >
                                 <i class="fas fa-fw fa-external-link-alt"></i>
                                 {{ labels.button_from_url }}
@@ -298,6 +301,16 @@ export default {
             modalContent += `<\div>`
             return modalContent;
         },
+        generateUploadFromURLModalContent() {
+            let modalContent = ''
+            modalContent += `
+                <form>
+                    <input class="form-control" autocomplete="off" type="text" name="from-url-input">
+                </form>
+            `
+            modalContent += `<\div>`
+            return modalContent;
+        },
         resetModalContent() {
             let defaultContent = `
                 <div class="modal-header">
@@ -412,12 +425,22 @@ export default {
                     'Content-Type': 'multipart/form-data',
                 },
             };
-            bootbox.prompt({
-                title: 'Upload from URL',
-                callback: function(url) {
-                    if (url) {
+
+            var resourcesModal = document.getElementById('resourcesModal')
+            var saveButton = document.getElementById('modalSave')
+            var button = event.target;
+            var title = button.getAttribute('data-field-type');
+            var modalTitle = resourcesModal.querySelector('.modal-title')
+            var modalBody = resourcesModal.querySelector('.modal-body')
+            var modalBodyContent = this.generateUploadFromURLModalContent()
+            modalTitle.innerHTML = title;
+            modalBody.innerHTML = modalBodyContent;
+
+            saveButton.addEventListener('click', (event) => {
+                var imageURL = modalBody.querySelector('input[name=from-url-input]').value;
+                    if (imageURL) {
                         const fd = new FormData();
-                        fd.append('url', url);
+                        fd.append('url', imageURL);
                         fd.append('_csrf_token', thisField.token);
                         Axios.post(thisField.directoryurl, fd, config)
                             .then(res => {
@@ -432,9 +455,14 @@ export default {
                                 thisField.progress = 0;
                             });
                     }
-                },
-            });
-            window.$('.bootbox-input').attr('name', 'bootbox-input');
+            }, {once : true})
+
+            resourcesModal.addEventListener('hidden.bs.modal', () => {
+                // Reset modal body content when the modal is closed
+                this.resetModalContent();
+            }, {once : true})
+
+            $('.bootbox-input').attr('name', 'bootbox-input');
             window.reEnablePatientButtons();
         },
         filterServerFiles(files) {
