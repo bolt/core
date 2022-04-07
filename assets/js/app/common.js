@@ -1,6 +1,7 @@
 import $ from 'jquery';
 import { DateTime } from 'luxon';
 import { Popover } from 'bootstrap'
+import { Tab } from 'bootstrap'
 
 import { version } from '../version';
 window.assetsVersion = version;
@@ -38,7 +39,9 @@ $(document).ready(function() {
     let url = location.href.replace(/\/$/, '');
     if (location.hash) {
         const hash = url.split('#');
-        $('a[href="#' + hash[1] + '"]').tab('show');
+        var triggerEl = document.querySelector('a[href="#' + hash[1] + '"]')
+        console.log('triggerEl', triggerEl)
+        Tab.getOrCreateInstance(triggerEl).show() // Select tab by name
         url = location.href.replace(/\/#/, '#');
         history.replaceState(null, null, url);
         setTimeout(() => {
@@ -46,7 +49,7 @@ $(document).ready(function() {
         }, 50);
     }
 
-    $('a[data-toggle="pill"]').on('click', function() {
+    $('a[data-bs-toggle="pill"]').on('click', function() {
         let newUrl;
         const hash = $(this).attr('href');
         newUrl = url.split('#')[0] + hash;
