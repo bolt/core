@@ -91,7 +91,7 @@
                                 data-patiance="virtue"
                                 data-bs-toggle="modal"
                                 data-bs-target="#resourcesModal"
-                                data-field-type="Upload from URL"
+                                :data-modal-title="labels.modal_title_upload_from_url"
                                 @click="uploadFileFromUrl($event)"
                             >
                                 <i class="fas fa-fw fa-external-link-alt"></i>
