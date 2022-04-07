@@ -2082,5 +2082,17 @@
         <target>Je moet ingelogd zijn om deze pagina te bekijken.</target>
       </segment>
     </unit>
+    <unit id="MjY7.cg" name="modal.title.file_field">
+      <segment>
+        <source>modal.title.file_field</source>
+        <target>Kies een bestand</target>
+      </segment>
+    </unit>
+    <unit id="0yPnNMd" name="modal.title.image_field">
+      <segment>
+        <source>modal.title.image_field</source>
+        <target>Kies een afbeelding</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

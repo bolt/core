@@ -2715,5 +2715,23 @@
         <target>You have to login in order to access this page.</target>
       </segment>
     </unit>
+    <unit id="MjY7.cg" name="modal.title.file_field">
+      <segment>
+        <source>modal.title.file_field</source>
+        <target>Select a file</target>
+      </segment>
+    </unit>
+    <unit id="0yPnNMd" name="modal.title.image_field">
+      <segment>
+        <source>modal.title.image_field</source>
+        <target>Select an image</target>
+      </segment>
+    </unit>
+    <unit id="KIN.Ehy" name="modal.title.upload_from_url">
+      <segment>
+        <source>modal.title.upload_from_url</source>
+        <target>Upload from URL</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -1486,5 +1486,17 @@
         <target>Estado.</target>
       </segment>
     </unit>
+    <unit id="MjY7.cg" name="modal.title.file_field">
+      <segment>
+        <source>modal.title.file_field</source>
+        <target>Elige un archivo</target>
+      </segment>
+    </unit>
+    <unit id="0yPnNMd" name="modal.title.image_field">
+      <segment>
+        <source>modal.title.image_field</source>
+        <target>Elige una imagen</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
