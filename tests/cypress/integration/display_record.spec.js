@@ -22,15 +22,15 @@ describe('As a user I want to display a single record', () => {
 
     it('checks for correct canonical URL', () => {
         cy.visit('/page/this-is-a-page');
-        cy.get("link[rel='canonical']").should('have.attr', 'href', Cypress.config().baseUrl + '/page/this-is-a-page');
+        cy.get("link[rel='canonical']").should('have.attr', 'href', 'https://example.org/page/this-is-a-page');
 
         cy.visit('/page/2');
-        cy.get("link[rel='canonical']").should('have.attr', 'href', Cypress.config().baseUrl + '/page/this-is-a-page');
+        cy.get("link[rel='canonical']").should('have.attr', 'href', 'https://example.org/page/this-is-a-page');
 
         cy.visit('/en/page/this-is-a-page');
-        cy.get("link[rel='canonical']").should('have.attr', 'href', Cypress.config().baseUrl + '/page/this-is-a-page');
+        cy.get("link[rel='canonical']").should('have.attr', 'href', 'https://example.org/page/this-is-a-page');
 
         cy.visit('/nl/page/2');
-        cy.get("link[rel='canonical']").should('have.attr', 'href', Cypress.config().baseUrl + '/nl/page/this-is-a-page');
+        cy.get("link[rel='canonical']").should('have.attr', 'href', 'https://example.org/nl/page/this-is-a-page');
     });
 });
