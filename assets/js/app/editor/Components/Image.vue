@@ -174,9 +174,7 @@ import noScroll from 'no-scroll';
 import baguetteBox from 'baguettebox.js';
 import field from '../mixins/value';
 import Axios from 'axios';
-// import '../../../jquery';
-// import 'popper.js';
-import { Modal } from 'bootstrap';
+import $ from 'jquery';
 import bootbox from 'bootbox';
 import { renable } from '../../patience-is-a-virtue';
 
@@ -280,7 +278,7 @@ export default {
             this.$refs.selectFile.click();
         },
         generateModalContent(inputOptions) {
-            let modalContent = '<div class="row row-cols-1 row-cols-md-3 g-2">'
+            let modalContent = '<div class="row row-cols-1 row-cols-md-3 g-2">';
             inputOptions.forEach((element, key) => {
                 modalContent += `
                     <div class="col">
@@ -296,19 +294,19 @@ export default {
                             </div>
                         </div>
                     </div>
-                `
-            })
-            modalContent += `<\div>`
+                `;
+            });
+            modalContent += `</div>`;
             return modalContent;
         },
         generateUploadFromURLModalContent() {
-            let modalContent = ''
+            let modalContent = '';
             modalContent += `
                 <form>
                     <input class="form-control" autocomplete="off" type="text" name="from-url-input">
                 </form>
-            `
-            modalContent += `<\div>`
+            `;
+            modalContent += `</div>`;
             return modalContent;
         },
         resetModalContent() {
@@ -330,8 +328,8 @@ export default {
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button id="modalSave" type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
                 </div>
-            `
-            var resourcesModal = document.getElementById('resourcesModal')
+            `;
+            var resourcesModal = document.getElementById('resourcesModal');
             resourcesModal.querySelector('.modal-content').innerHTML = defaultContent;
         },
         selectServerFile(event) {
@@ -340,33 +338,41 @@ export default {
                 .then(res => {
                     let inputOptions = this.filterServerFiles(res.data);
 
-                    var resourcesModal = document.getElementById('resourcesModal')
-                    var saveButton = document.getElementById('modalSave')
+                    var resourcesModal = document.getElementById('resourcesModal');
+                    var saveButton = document.getElementById('modalSave');
                     var button = event.target;
                     var title = button.getAttribute('data-modal-title');
-                    var modalTitle = resourcesModal.querySelector('.modal-title')
-                    var modalBody = resourcesModal.querySelector('.modal-body')
-                    var modalBodyContent = this.generateModalContent(inputOptions)
+                    var modalTitle = resourcesModal.querySelector('.modal-title');
+                    var modalBody = resourcesModal.querySelector('.modal-body');
+                    var modalBodyContent = this.generateModalContent(inputOptions);
                     modalTitle.innerHTML = title;
                     modalBody.innerHTML = modalBodyContent;
 
-                    saveButton.addEventListener('click', (event) => {
-                        var selectedImage = modalBody.querySelector('input[type=checkbox]:checked').value;
-                        thisField.filenameData = selectedImage;
-                        thisField.thumbnailData = `/thumbs/400×300/${selectedImage}`;
-                        thisField.previewData = `/thumbs/1000×1000/${selectedImage}`;
-                    }, {once : true})
+                    saveButton.addEventListener(
+                        'click',
+                        () => {
+                            var selectedImage = modalBody.querySelector('input[type=checkbox]:checked').value;
+                            thisField.filenameData = selectedImage;
+                            thisField.thumbnailData = `/thumbs/400×300/${selectedImage}`;
+                            thisField.previewData = `/thumbs/1000×1000/${selectedImage}`;
+                        },
+                        { once: true },
+                    );
 
-                    resourcesModal.addEventListener('hidden.bs.modal', () => {
-                        // Reset modal body content when the modal is closed
-                        this.resetModalContent();
-                    }, {once : true})
+                    resourcesModal.addEventListener(
+                        'hidden.bs.modal',
+                        () => {
+                            // Reset modal body content when the modal is closed
+                            this.resetModalContent();
+                        },
+                        { once: true },
+                    );
 
                     $('.bootbox-input').attr('name', 'bootbox-input');
                     window.reEnablePatientButtons();
                 })
-                .catch(err => {
-                    window.reEnablePatientButtons();
+                .catch(() => {
+                    renable();
                 });
         },
         onDragEnter(e) {
@@ -426,18 +432,20 @@ export default {
                 },
             };
 
-            var resourcesModal = document.getElementById('resourcesModal')
-            var saveButton = document.getElementById('modalSave')
+            var resourcesModal = document.getElementById('resourcesModal');
+            var saveButton = document.getElementById('modalSave');
             var button = event.target;
             var title = button.getAttribute('data-modal-title');
-            var modalTitle = resourcesModal.querySelector('.modal-title')
-            var modalBody = resourcesModal.querySelector('.modal-body')
-            var modalBodyContent = this.generateUploadFromURLModalContent()
+            var modalTitle = resourcesModal.querySelector('.modal-title');
+            var modalBody = resourcesModal.querySelector('.modal-body');
+            var modalBodyContent = this.generateUploadFromURLModalContent();
             modalTitle.innerHTML = title;
             modalBody.innerHTML = modalBodyContent;
 
-            saveButton.addEventListener('click', (event) => {
-                var imageURL = modalBody.querySelector('input[name=from-url-input]').value;
+            saveButton.addEventListener(
+                'click',
+                () => {
+                    var imageURL = modalBody.querySelector('input[name=from-url-input]').value;
                     if (imageURL) {
                         const fd = new FormData();
                         fd.append('url', imageURL);
@@ -455,12 +463,18 @@ export default {
                                 thisField.progress = 0;
                             });
                     }
-            }, {once : true})
+                },
+                { once: true },
+            );
 
-            resourcesModal.addEventListener('hidden.bs.modal', () => {
-                // Reset modal body content when the modal is closed
-                this.resetModalContent();
-            }, {once : true})
+            resourcesModal.addEventListener(
+                'hidden.bs.modal',
+                () => {
+                    // Reset modal body content when the modal is closed
+                    this.resetModalContent();
+                },
+                { once: true },
+            );
 
             $('.bootbox-input').attr('name', 'bootbox-input');
             window.reEnablePatientButtons();

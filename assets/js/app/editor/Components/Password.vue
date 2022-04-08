@@ -18,11 +18,7 @@
             />
 
             <div class="input-group-text p-0">
-                <i
-                    ref="visibilityToggle"
-                    class="toggle-password fas fa-eye"
-                    @click="togglePassword"
-                ></i>
+                <i ref="visibilityToggle" class="toggle-password fas fa-eye" @click="togglePassword"></i>
             </div>
         </div>
         <progress-bar v-if="strength" ref="progressBar" :max="4" height="4px"></progress-bar>

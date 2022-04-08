@@ -63,7 +63,7 @@ headers:
 # canonical, so its clear which is the primary address of the site.
 #
 # If you include `https://`, it will be included in the canonical urls.
-#canonical: example.org
+canonical: example.org
 
 # If you want to override the canonical template, from the theme:
 #canonical_template: 'partials/_canonical.html.twig'

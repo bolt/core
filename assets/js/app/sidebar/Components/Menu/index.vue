@@ -7,7 +7,12 @@
             <a v-else-if="item.singleton" class="admin__sidebar--link text-decoration-none" :href="singleton(item)">
                 <i class="fas me-2 link--icon" :class="item.icon"></i><span class="link--text">{{ item.name }}</span>
             </a>
-            <a v-else class="admin__sidebar--link text-decoration-none" :class="{ 'has-menu': item.submenu !== null }" :href="item.link">
+            <a
+                v-else
+                class="admin__sidebar--link text-decoration-none"
+                :class="{ 'has-menu': item.submenu !== null }"
+                :href="item.link"
+            >
                 <i class="fas me-2 link--icon" :class="item.icon"></i><span class="link--text">{{ item.name }}</span>
                 <template v-if="item.submenu !== null">
                     <i class="fas fa-caret-right link--caret"></i>

@@ -147,6 +147,7 @@ import field from '../mixins/value';
 import Axios from 'axios';
 import bootbox from 'bootbox';
 import { renable } from '../../patience-is-a-virtue';
+import $ from 'jquery';
 
 export default {
     name: 'EditorFile',
@@ -215,40 +216,46 @@ export default {
         },
         generateModalContent(inputOptions) {
             let fileIcons = {
-                "jpg": "fa-file-image",
-                "jpeg": "fa-file-image",
-                "png": "fa-file-image",
-                "webp": "fa-file-image",
-                "svg": "fa-file-image",
-                "gif": "fa-file-image",
-                "pdf": "fa-file-pdf",
-                "doc": "fa-file-word",
-                "docx": "fa-file-word",
-                "txt": "fa-file-alt",
-                "csv": "fa-file-csv",
-                "xls": "fa-file-excel",
-                "xlsx": "fa-file-excel",
-                "pptx": "fa-file-powerpoint",
-                "html": "fa-file-code",
-                "mp3": "fa-music",
-                "mp4": "fa-video",
-                "mov": "fa-video",
-                "avi": "fa-video",
-                "webm": "fa-video",
-                "zip": "fa-file-archive",
-                "rar": "fa-file-archive",
-                "gz": "fa-file-archive"
-            }
-            let modalContent = '<div class="row row-cols-1 row-cols-md-3 g-2">'
+                jpg: 'fa-file-image',
+                jpeg: 'fa-file-image',
+                png: 'fa-file-image',
+                webp: 'fa-file-image',
+                svg: 'fa-file-image',
+                gif: 'fa-file-image',
+                pdf: 'fa-file-pdf',
+                doc: 'fa-file-word',
+                docx: 'fa-file-word',
+                txt: 'fa-file-alt',
+                csv: 'fa-file-csv',
+                xls: 'fa-file-excel',
+                xlsx: 'fa-file-excel',
+                pptx: 'fa-file-powerpoint',
+                html: 'fa-file-code',
+                mp3: 'fa-music',
+                mp4: 'fa-video',
+                mov: 'fa-video',
+                avi: 'fa-video',
+                webm: 'fa-video',
+                zip: 'fa-file-archive',
+                rar: 'fa-file-archive',
+                gz: 'fa-file-archive',
+            };
+            let modalContent = '<div class="row row-cols-1 row-cols-md-3 g-2">';
             inputOptions.forEach((element, key) => {
-                let filenameExtension = element.text.split(".").pop().toLowerCase();
+                let filenameExtension = element.text
+                    .split('.')
+                    .pop()
+                    .toLowerCase();
                 modalContent += `
                     <div class="col">
                         <div class="card h-100 pt-3">
-                            <i class="fas fa-solid ${fileIcons[filenameExtension] ?? 'fa-file'} fa-5x me-0 align-self-center"></i>
+                            <i class="fas fa-solid ${fileIcons[filenameExtension] ??
+                                'fa-file'} fa-5x me-0 align-self-center"></i>
                             <div class="card-body px-2">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="${element.value}" id="flexCheckDefault-${key}">
+                                    <input class="form-check-input" type="checkbox" value="${
+                                        element.value
+                                    }" id="flexCheckDefault-${key}">
                                     <label class="form-check-label d-inline fs-6" for="flexCheckDefault-${key}">
                                         ${element.text}
                                     </label>
@@ -256,9 +263,9 @@ export default {
                             </div>
                         </div>
                     </div>
-                `
-            })
-            modalContent += `<\div>`
+                `;
+            });
+            modalContent += `</div>`;
             return modalContent;
         },
         resetModalContent() {
@@ -280,8 +287,8 @@ export default {
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button id="modalSave" type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
                 </div>
-            `
-            var resourcesModal = document.getElementById('resourcesModal')
+            `;
+            var resourcesModal = document.getElementById('resourcesModal');
             resourcesModal.querySelector('.modal-content').innerHTML = defaultContent;
         },
         selectServerFile(event) {
@@ -290,25 +297,33 @@ export default {
                 .then(res => {
                     let inputOptions = this.filterServerFiles(res.data);
 
-                    var resourcesModal = document.getElementById('resourcesModal')
-                    var saveButton = document.getElementById('modalSave')
+                    var resourcesModal = document.getElementById('resourcesModal');
+                    var saveButton = document.getElementById('modalSave');
                     var button = event.target;
                     var title = button.getAttribute('data-modal-title');
-                    var modalTitle = resourcesModal.querySelector('.modal-title')
-                    var modalBody = resourcesModal.querySelector('.modal-body')
-                    var modalBodyContent = this.generateModalContent(inputOptions)
+                    var modalTitle = resourcesModal.querySelector('.modal-title');
+                    var modalBody = resourcesModal.querySelector('.modal-body');
+                    var modalBodyContent = this.generateModalContent(inputOptions);
                     modalTitle.innerHTML = title;
                     modalBody.innerHTML = modalBodyContent;
 
-                    saveButton.addEventListener('click', (event) => {
-                        var selectedImage = modalBody.querySelector('input[type=checkbox]:checked').value;
-                        thisField.filenameData = selectedImage;
-                    }, {once : true})
+                    saveButton.addEventListener(
+                        'click',
+                        () => {
+                            var selectedImage = modalBody.querySelector('input[type=checkbox]:checked').value;
+                            thisField.filenameData = selectedImage;
+                        },
+                        { once: true },
+                    );
 
-                    resourcesModal.addEventListener('hidden.bs.modal', () => {
-                        // Reset modal body content when the modal is closed
-                        this.resetModalContent();
-                    }, {once : true})
+                    resourcesModal.addEventListener(
+                        'hidden.bs.modal',
+                        () => {
+                            // Reset modal body content when the modal is closed
+                            this.resetModalContent();
+                        },
+                        { once: true },
+                    );
 
                     $('.bootbox-input').attr('name', 'bootbox-input');
                     window.reEnablePatientButtons();

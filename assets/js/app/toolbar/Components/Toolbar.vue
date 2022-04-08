@@ -12,7 +12,9 @@
         </div>
 
         <div class="toolbar-item toolbar-item__site">
-            <a href="/" class="text-decoration-none" target="_blank"> <i class="fas fa-sign-out-alt"></i>{{ labels['action.view_site'] }} </a>
+            <a href="/" class="text-decoration-none" target="_blank">
+                <i class="fas fa-sign-out-alt"></i>{{ labels['action.view_site'] }}
+            </a>
         </div>
 
         <form :action="urlPaths['bolt_dashboard']" class="toolbar-item toolbar-item__filter input-group">

@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import { DateTime } from 'luxon';
-import { Popover } from 'bootstrap'
-import { Tab } from 'bootstrap'
+import { Popover } from 'bootstrap';
+import { Tab } from 'bootstrap';
 
 import { version } from '../version';
 window.assetsVersion = version;
@@ -39,9 +39,8 @@ $(document).ready(function() {
     let url = location.href.replace(/\/$/, '');
     if (location.hash) {
         const hash = url.split('#');
-        var triggerEl = document.querySelector('a[href="#' + hash[1] + '"]')
-        console.log('triggerEl', triggerEl)
-        Tab.getOrCreateInstance(triggerEl).show() // Select tab by name
+        var triggerEl = document.querySelector('a[href="#' + hash[1] + '"]');
+        Tab.getOrCreateInstance(triggerEl).show(); // Select tab by name
         url = location.href.replace(/\/#/, '#');
         history.replaceState(null, null, url);
         setTimeout(() => {
@@ -66,11 +65,10 @@ $(document).ready(function() {
     /*
      ** Initialise all popover elements
      */
-    var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
-    var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
-        return new Popover(popoverTriggerEl)
-    })
-
+    var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+    popoverTriggerList.map(function(popoverTriggerEl) {
+        return new Popover(popoverTriggerEl);
+    });
 
     /*
      ** When a field from another group is invalid, show it.
