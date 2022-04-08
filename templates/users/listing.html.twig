@@ -30,7 +30,7 @@
             <th scope="row">{{ iteratedUser.id }}</th>
             <td>
                 {{ iteratedUser.username }}
-                {% if iteratedUser.status === 'disabled' %}<span class="badge badge-danger">{{ __('listing.disabled') }}</span>{% endif %}
+                {% if iteratedUser.status === 'disabled' %}<span class="badge bg-danger">{{ __('listing.disabled') }}</span>{% endif %}
             </td>
             <td>
                 {{ iteratedUser.displayName }} /
