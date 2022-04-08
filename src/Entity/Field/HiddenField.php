@@ -24,4 +24,9 @@ class HiddenField extends Field implements FieldInterface, ScalarCastable, RawPe
 
         return parent::setValue($value);
     }
+
+    public function getValue(): ?array
+    {
+        return [$this->getDefinition()->get('default', null)];
+    }
 }
