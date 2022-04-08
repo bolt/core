@@ -27,6 +27,7 @@
         "url": "git://github.com/bolt/core.git"
     },
     "dependencies": {
+        "@popperjs/core": "^2.11.5",
         "@vue/cli-service": "^4.5.13",
         "axios": "^0.21.1",
         "baguettebox.js": "^1.11.1",
