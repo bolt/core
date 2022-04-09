@@ -364,12 +364,13 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
             }
 
             $label = $contentType->get('show_in_menu') ?: $t->trans('caption.other_content');
-            $icon = $icon ?? $contentType->get('icon_many');
 
             if (! $menu->getChild($label)) {
                 // Add the top level item
 
+                $icon = $contentType->get('icon_many');
                 $slug = $slugify->slugify($label);
+
                 $menu->addChild($label, [
                     'uri' => $this->urlGenerator->generate('bolt_menupage', ['slug' => $slug]),
                     'extras' => [
