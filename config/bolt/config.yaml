@@ -10,13 +10,14 @@ secret: '%env(APP_SECRET)%'
 # Set the caching configuration for various areas of Bolt.
 # The expires_after is counted in seconds.
 #caching:
-#    related_options: 60
-#    canonical: 60
-#    formatter: 60
-#    selectoptions: 60
-#    content_array: 60
-#    frontend_menu: 60
-#    backend_menu: 60
+#    related_options: 3600
+#    canonical: 1800
+#    formatter: 180
+#    selectoptions: 3600
+#    content_array: 180
+#    frontend_menu: 3600
+#    backend_menu: 3600
+#    files_index: 3600
 
 caching:
     related_options: ~
@@ -26,6 +27,7 @@ caching:
     content_array: ~
     frontend_menu: ~
     backend_menu: ~
+    files_index: ~
     
 # The theme to use.
 #

@@ -109,6 +109,9 @@ services:
     Bolt\Cache\GetFormatCacher:
         decorates: Bolt\Utils\ContentHelper
 
+    Bolt\Cache\FilesIndexCacher:
+        decorates: Bolt\Utils\FilesIndex
+
     Bolt\Menu\BackendMenuBuilderInterface: '@Bolt\Menu\BackendMenu'
 
     Bolt\Menu\FrontendMenuBuilder: ~
