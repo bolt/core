@@ -1,0 +1,10 @@
+# Adding the new services for Bolt 5.1.8
+# See: https://github.com/bolt/core/pull/3174
+
+file: services.yaml
+since: 5.1.8
+
+add:
+    services:
+        Bolt\Cache\FilesIndexCacher:
+            decorates: Bolt\Utils\FilesIndex
