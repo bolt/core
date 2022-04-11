@@ -7,5 +7,6 @@
     "baseUrl": "http://127.0.0.1:8088",
     "projectId": "54gs3j",
     "defaultCommandTimeout": 8000,
-    "retries": 2
+    "retries": 2,
+    "scrollBehavior": false
 }
