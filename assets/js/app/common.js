@@ -80,7 +80,7 @@ $(document).ready(function() {
             var id = $closest.attr('id');
 
             // Find the link that corresponds to the pane and have it show
-            $('.nav a[href="#' + id + '"]').tab('show');
+            // $('.nav a[href="#' + id + '"]').tab('show');
 
             // Only want to do it once
             return false;
