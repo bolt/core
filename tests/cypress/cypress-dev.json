@@ -4,7 +4,7 @@
     "screenshotsFolder": "tests/cypress/evidence/screenshots",
     "videosFolder": "tests/cypress/evidence/videos",
     "supportFile": "tests/cypress/support/index.js",
-    "baseUrl": "https://localhost:8002",
+    "baseUrl": "https://127.0.0.1:8001",
     "viewportWidth": 1920,
     "viewportHeight": 1080,
     "retries": 0,
