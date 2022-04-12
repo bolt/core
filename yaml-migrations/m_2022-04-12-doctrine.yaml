@@ -1,0 +1,11 @@
+# Adding JSON_UNQUOTE, see https://github.com/bolt/core/pull/3135
+
+file: packages/doctrine.yaml
+since: 5.1.8
+
+add:
+    doctrine:
+        orm:
+            dql:
+                string_functions:
+                    JSON_UNQUOTE: Bolt\Doctrine\Functions\JsonUnquote
