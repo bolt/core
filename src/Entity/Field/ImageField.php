@@ -64,7 +64,18 @@ class ImageField extends Field implements FieldInterface, MediaAwareInterface, C
         $thumbPackage = new PathPackage('/thumbs/', new EmptyVersionStrategy());
         $thumbnailHelper = new ThumbnailHelper();
 
-        $path = $thumbnailHelper->path($this->get('filename'), 400, 400);
+        $fieldDefinition = $this->getDefinition();
+        $path = isset($fieldDefinition['thumbnails'])
+            ? $thumbnailHelper->path(
+                $this->get('filename'),
+                isset($fieldDefinition['thumbnails']['size']) ? $fieldDefinition['thumbnails']['size'][0] : 400,
+                isset($fieldDefinition['thumbnails']['size']) ? $fieldDefinition['thumbnails']['size'][1] : 400,
+                null,
+                null,
+                isset($fieldDefinition['thumbnails']['cropping']) ? $fieldDefinition['thumbnails']['cropping'] : null
+            )
+            : $thumbnailHelper->path($this->get('filename'), 400, 400);
+
         $value['thumbnail'] = $thumbPackage->getUrl($path);
 
         return $value;
@@ -88,7 +99,7 @@ class ImageField extends Field implements FieldInterface, MediaAwareInterface, C
         if (! $this->get('filename')) {
             return;
         }
-        
+
         $media = $mediaRepository->findOneByFullFilename($this->get('filename'));
 
         if ($media) {

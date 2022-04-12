@@ -592,3 +592,20 @@ validationdemos:
 #            filter: '*_xyz.twig'
 #    taxonomy: [ tags ]
 #    records_per_page: 20
+#
+# Image field thumbnails
+#
+# To customise the thumbnail URL generated for a field from the getValue() function (or field.value) in Twig,
+# add a "thumbnails" node to your field definition.
+#
+#contenttypexyz:
+#    name: ContentType Xyz
+#    slug: contenttypexyz
+#    fields:
+#        image:
+#            type: image
+#            thumbnails:
+#                size: [120,120]
+#                cropping: crop
+#    taxonomy: [ tags ]
+#    records_per_page: 20
