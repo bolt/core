@@ -81,11 +81,5 @@ export default {
             return this.$store.getters['general/getSorting'];
         },
     },
-    methods: {
-        leave() {
-            // When we 'leave' the row, make sure we close the dropdown.
-            $('.dropdown-toggle[aria-expanded="true"]').dropdown('toggle');
-        },
-    },
 };
 </script>
