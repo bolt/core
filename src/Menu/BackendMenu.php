@@ -33,13 +33,17 @@ final class BackendMenu implements BackendMenuBuilderInterface
     /** @var Security */
     private $security;
 
+    /** @var string */
+    private $backendUrl = '/bolt';
+
     public function __construct(
         BackendMenuBuilder $menuBuilder,
         TagAwareCacheInterface $cache,
         RequestStack $requestStack,
         Stopwatch $stopwatch,
         Config $config,
-        Security $security
+        Security $security,
+        string $backendUrl = 'bolt'
     ) {
         $this->cache = $cache;
         $this->menuBuilder = $menuBuilder;
@@ -47,6 +51,7 @@ final class BackendMenu implements BackendMenuBuilderInterface
         $this->stopwatch = $stopwatch;
         $this->config = $config;
         $this->security = $security;
+        $this->backendUrl = preg_replace('/[^\pL\d,]+/u', '', $backendUrl);
     }
 
     public function buildAdminMenu(): array
@@ -55,11 +60,16 @@ final class BackendMenu implements BackendMenuBuilderInterface
 
         $locale = $this->requestStack->getCurrentRequest()->getLocale();
 
-        /** @var User $user */
+        /** @var User|null $user */
         $user = $this->security->getUser();
-        $username = $user->getUsername();
 
-        $cacheKey = 'bolt.backendMenu_' . $locale . '_' . $username;
+        if ($user instanceof User) {
+            $username = $user->getUsername();
+        } else {
+            $username = '';
+        }
+
+        $cacheKey = 'bolt.backendMenu_' . $locale . '_' . $this->backendUrl . '_' . $username;
 
         $menu = $this->cache->get($cacheKey, function (ItemInterface $item) {
             $item->expiresAfter($this->config->get('general/caching/backend_menu'));

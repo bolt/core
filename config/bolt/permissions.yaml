@@ -39,7 +39,7 @@ global:
     maintenance-mode: [ ROLE_EDITOR ] # view the frontend when in maintenance mode
     systemlog: [ ROLE_ADMIN ]
     api_admin: [ ROLE_ADMIN ] # WARNING: this only shows/hides api in the bolt admin, it doesn't protect the /api route(s)
-    bulk_operations: [ ROLE_EDITOR ]
+    bulk_operations: [ ROLE_CHIEF_EDITOR ]
     kitchensink: [ ROLE_ADMIN ]
     upload: [ ROLE_EDITOR ] # TODO PERMISSIONS upload media/files ? Or should this be handled by managefiles:files
     extensionmenus: [ IS_AUTHENTICATED_REMEMBERED ] # allows you to see menu items added by extensions

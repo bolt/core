@@ -194,13 +194,15 @@ class ContentHelper
                     return '(recursion)';
                 }
 
-                if (array_key_exists($match[1], $record->getExtras())) {
+                $extras = $record->getExtras();
+
+                if (array_key_exists($match[1], $extras)) {
                     // If it's the icon, return an html element
                     if ($match[1] === 'icon') {
-                        return sprintf("<i class='fas %s'></i>", $record->getExtras()[$match[1]]);
+                        return sprintf("<i class='fas %s'></i>", $extras[$match[1]]);
                     }
 
-                    return $record->getExtras()[$match[1]];
+                    return $extras[$match[1]];
                 }
 
                 return '(unknown)';

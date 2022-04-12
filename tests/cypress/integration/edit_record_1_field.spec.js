@@ -61,8 +61,8 @@ describe('As an Admin I want to be able to make use of the date & datetime field
         cy.get('#multiselect-user_locale > div > div.multiselect__select').click();
         cy.contains('French (français, fr)').click();
 
-        cy.get('#editcontent > button').scrollIntoView();
-        cy.get('form[id="editcontent"]').submit();
+        cy.get('#edituser > button').scrollIntoView();
+        cy.get('form[id="edituser"]').submit();
 
         cy.visit('/bolt/logout');
     })
@@ -78,8 +78,8 @@ describe('As an Admin I want to be able to make use of the date & datetime field
         cy.get('#multiselect-user_locale > div > div.multiselect__select').click();
         cy.contains('English (English, en)').click();
 
-        cy.get('#editcontent > button').scrollIntoView();
-        cy.get('form[id="editcontent"]').submit();
+        cy.get('#edituser > button').scrollIntoView();
+        cy.get('form[id="edituser"]').submit();
 
         cy.visit('/bolt/logout');
     })

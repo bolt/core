@@ -9,14 +9,24 @@ secret: '%env(APP_SECRET)%'
 
 # Set the caching configuration for various areas of Bolt.
 # The expires_after is counted in seconds.
-caching:
-    related_options: 1800
-    canonical: 10
-    selectoptions: 1800
-    content_array: 1800
-    frontend_menu: 3600
-    backend_menu: 1800
+#caching:
+#    related_options: 60
+#    canonical: 60
+#    formatter: 60
+#    selectoptions: 60
+#    content_array: 60
+#    frontend_menu: 60
+#    backend_menu: 60
 
+caching:
+    related_options: ~
+    canonical: ~
+    formatter: ~
+    selectoptions: ~
+    content_array: ~
+    frontend_menu: ~
+    backend_menu: ~
+    
 # The theme to use.
 #
 # Dont edit the provided templates directly, because they _will_ get updated
@@ -35,7 +45,8 @@ date_format: 'F j, Y H:i'
 # You can set a preference to omit background images on the login screen.
 omit_backgrounds: true
 
-# If you're a party-pooper and dislike the `generator` meta tag, set to `true`
+# If you're a party-pooper who wants to hide the `generator` meta tag and
+# `x-powered-by` header, set these to true
 omit_meta_generator_tag: false
 
 headers:
@@ -99,8 +110,7 @@ forbidden: [ blocks/403-forbidden, 'helpers/page_403.html.twig' ]
 # handled, and you'll have a bad time debugging it!
 internal_server_error: [ 'helpers/page_500.html.twig' ]
 
-# The default template for record-pages on the
-# site.
+# The default template for record-pages on the site.
 #
 # Can be overridden for each content type and for each record, if it has a
 # templateselect field.
@@ -186,7 +196,7 @@ filepermissions:
 # the allowed tags. For example, if you set `images: true`, the `<img>` tag
 # will be allowed, regardless of it being in the `allowed_tags` setting.
 htmlcleaner:
-    allowed_tags: [ div, span, p, br, hr, s, u, strong, em, i, b, li, ul, ol, mark, blockquote, pre, code, tt, h1, h2, h3, h4, h5, h6, dd, dl, dt, table, tbody, thead, tfoot, th, td, tr, a, img, address, abbr, iframe, caption, sub, sup, figure, figcaption, article, section, small ]
+    allowed_tags: [ div, span, p, br, hr, s, u, strong, em, i, b, li, ul, ol, mark, blockquote, cite, pre, code, tt, h1, h2, h3, h4, h5, h6, dd, dl, dt, table, tbody, thead, tfoot, th, td, tr, a, img, address, abbr, iframe, caption, sub, sup, figure, figcaption, article, section, small ]
     allowed_attributes: [ id, class, style, name, value, href, src, alt, title, width, height, frameborder, allowfullscreen, scrolling, target, colspan, rowspan, rel, download, hreflang ]
     allowed_frame_targets: [ _blank, _self, _parent, _top ]
 
@@ -239,5 +249,5 @@ reset_password_settings:
     mail_subject: "Your password reset request"
     mail_template: "reset_password/email.html.twig"
 
-# Adds sorting and filtering users in backend
+# Adds sorting and filtering of users in backend
 user_show_sort&filter: true

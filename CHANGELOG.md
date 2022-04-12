@@ -1,6 +1,34 @@
 Changelog
 =========
 
+## 5.1.7
+
+Released: 2022-03-31
+
+### 🐛 Bug fixes
+
+- Update User Edit Form so it has a unique ID (Joossensei, [#3150](https://github.com/bolt/core/pull/3150))
+- Fix `number` field template so it works within Collections. (dadaxr, [#3146](https://github.com/bolt/core/pull/3146))
+- Ensure correct links in menu, when changing `backend_url` in `services.yaml` (bobdenotter, [#3145](https://github.com/bolt/core/pull/3145))
+- Handle multiple `EntityManager` prefixes (matesko, [#3142](https://github.com/bolt/core/pull/3142))
+- Handle 'double wrapped' database connections (simongroenewolt, [#3139](https://github.com/bolt/core/pull/3139))
+- Reverse search and replace arrays in `str_replace` (HeinDR, [#3137](https://github.com/bolt/core/pull/3137))
+- Don't break `/bolt/api/` if it's set to public and it's accessed in a browser (bobdenotter, [#3136](https://github.com/bolt/core/pull/3136))
+
+### 🛠️ Miscellaneous
+
+- Update Dutch translations 🇳🇱 (bobdenotter, [#3156](https://github.com/bolt/core/pull/3156))
+- Translation of missing German translations 🇩🇪  (obsti8383, [#3152](https://github.com/bolt/core/pull/3152))
+- Add `cite` to `allowed_tags` (bobdenotter, [#3149](https://github.com/bolt/core/pull/3149))
+- Adding cache decorator for `Formatter` (bobdenotter, [#3143](https://github.com/bolt/core/pull/3143))
+
+### ⚙️ Code Quality / Developer Experience
+
+- Let's make it work on both Composer 2.3.x as well as 2.2.x (bobdenotter, [#3154](https://github.com/bolt/core/pull/3154))
+- Refactor Composer scripts to work with Composer 2.3.0 (bobdenotter, [#3151](https://github.com/bolt/core/pull/3151))
+- Remove unused `findParents` method (bobdenotter, [#3141](https://github.com/bolt/core/pull/3141))
+
+
 ## 5.1.5
 
 Released: 2022-03-22

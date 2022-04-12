@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\ComposerScripts;
 
+use Composer\Composer;
 use Composer\Script\Event;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
@@ -31,21 +32,32 @@ class Script
     }
 
     /**
-     * Execute a command in the CLI, as a separate process.
+     * Execute a `bin/console` command in the CLI, as a separate process.
      */
-    public static function run(string $command): int
+    public static function runConsole(array $command): int
     {
-        // Depending on the context, we're using either Symfony/Process 2.8.52 (bundled with composer 2.1.x)
-        // or Symfony/Process 5.3.x (if we're using our own). The signature of the Constructor changed
-        // from: `public function __construct(string $commandline, …)`
-        // to:   `public function __construct(array $command, …)`
-        // We'll have to attempt one, and otherwise fall back to the other.
+        return self::runPHP(array_merge(['bin/console'], $command));
+    }
 
-        try {
+    /**
+     * Execute a PHP script in the CLI, as a separate process.
+     *
+     * Depending on the context, we're using either Symfony/Process 2.8.52
+     * (bundled with composer up until 2.2.x) or Symfony/Process 5.4.x (if we're
+     * using our own, or if the GLOBAL composer is 2.3.x and up). The signature
+     * of the constructor changed
+     * from: `public function __construct(string $commandline, …)`
+     * to:   `public function __construct(array $command, …)`
+     */
+    public static function runPHP(array $command): int
+    {
+        if (version_compare(Composer::getVersion(), '2.3.0', '<')) {
+            // Composer 2.2.x or lower
             /* @phpstan-ignore-next-line */
+            $process = new Process(implode(' ', $command));
+        } else {
+            // Composer 2.3.0 or higher
             $process = new Process($command);
-        } catch (\TypeError $e) {
-            $process = new Process([$command]);
         }
 
         $process->setTty(self::isTtySupported());

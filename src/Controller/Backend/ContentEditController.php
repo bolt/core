@@ -31,12 +31,14 @@ use Carbon\Carbon;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\ORMInvalidArgumentException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Tightenco\Collect\Support\Collection;
 
 /**
@@ -73,6 +75,9 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
     /** @var string */
     protected $defaultLocale;
 
+    /** @var TranslatorInterface */
+    private $translator;
+
     public function __construct(
         TaxonomyRepository $taxonomyRepository,
         RelationRepository $relationRepository,
@@ -82,7 +87,8 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         UrlGeneratorInterface $urlGenerator,
         ContentFillListener $contentFillListener,
         EventDispatcherInterface $dispatcher,
-        string $defaultLocale
+        string $defaultLocale,
+        TranslatorInterface $translator
     ) {
         $this->taxonomyRepository = $taxonomyRepository;
         $this->relationRepository = $relationRepository;
@@ -93,6 +99,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         $this->contentFillListener = $contentFillListener;
         $this->dispatcher = $dispatcher;
         $this->defaultLocale = $defaultLocale;
+        $this->translator = $translator;
     }
 
     /**
@@ -233,8 +240,6 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         $this->em->persist($content);
         $this->em->flush();
 
-        $this->addFlash('success', 'content.updated_successfully');
-
         $urlParams = [
             'id' => $content->getId(),
             'edit_locale' => $this->getEditLocale($content) ?: null,
@@ -244,7 +249,17 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         $event = new ContentEvent($content);
         $this->dispatcher->dispatch($event, ContentEvent::POST_SAVE);
 
-        return new RedirectResponse($url);
+        $locale = $originalAuthor->getLocale();
+
+        return new JsonResponse([
+            'url' => $url,
+            'status' => 'success',
+            'type' => $this->translator->trans('success', [], null, $locale),
+            'message' => $this->translator->trans('content.updated_successfully', [], null, $locale),
+            'notification' => $this->translator->trans('flash_messages.notification', [], null, $locale),
+            'title' => $content->getExtras()['title'],
+        ], 200
+        );
     }
 
     /**

@@ -1442,5 +1442,389 @@
         <target>Keine Ergebnisse gefunden. Erweitern Sie die Filterkriterien oder fügen Sie weitere Inhalte hinzu.</target>
       </segment>
     </unit>
+    <unit id="OEqzPDO" name="listing_table.actions.select_all">
+      <segment>
+        <source>listing_table.actions.select_all</source>
+        <target>Alle auswählen</target>
+      </segment>
+    </unit>
+    <unit id="a_COwtV" name="image.button_upload_options">
+      <segment>
+        <source>image.button_upload_options</source>
+        <target>Upload Optionen</target>
+      </segment>
+    </unit>
+    <unit id="kciiidS" name="image.button_from_url">
+      <segment>
+        <source>image.button_from_url</source>
+        <target>Von einer URL</target>
+      </segment>
+    </unit>
+    <unit id="H9knE.O" name="collection.expand_all">
+      <segment>
+        <source>collection.expand_all</source>
+        <target>Alles einblenden</target>
+      </segment>
+    </unit>
+    <unit id="JjvI6hp" name="collection.collapse_all">
+      <segment>
+        <source>collection.collapse_all</source>
+        <target>Alles ausblenden</target>
+      </segment>
+    </unit>
+    <unit id="RBJ0NMl" name="collection.select">
+      <segment>
+        <source>collection.select</source>
+        <target>Auswählen ...</target>
+      </segment>
+    </unit>
+    <unit id="wG04eAa" name="image.image_preview">
+      <segment>
+        <source>image.image_preview</source>
+        <target>Bildvorschau anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="CvNi3GD" name="action.refresh">
+      <segment>
+        <source>action.refresh</source>
+        <target>Neu laden</target>
+      </segment>
+    </unit>
+    <unit id="U6qdalg" name="reset_password.check_email_sent_header">
+      <segment>
+        <source>reset_password.check_email_sent_header</source>
+        <target>Passwort Reset Email versendet</target>
+      </segment>
+    </unit>
+    <unit id="y.dIywE" name="reset_password.request_header">
+      <segment>
+        <source>reset_password.request_header</source>
+        <target>Passwort zurücksetzen</target>
+      </segment>
+    </unit>
+    <unit id="SxW1D3L" name="reset_password.check_email_sent_text_1">
+      <segment>
+        <source>reset_password.check_email_sent_text_1</source>
+        <target>Es wurde eine Email versandt, die einen Link enthält, auf den Sie klicken können, um Ihr Passwort zurückzusetzen. Dieser Link wird in %Stunden% Stunde(n) ablaufen.</target>
+      </segment>
+    </unit>
+    <unit id="z25k4DS" name="reset_password.check_email_sent_text_2">
+      <segment>
+        <source>reset_password.check_email_sent_text_2</source>
+        <target>Wenn Sie keine E-Mail erhalten, überprüfen Sie bitte Ihren Spam-Ordner oder versuchen Sie es erneut.</target>
+      </segment>
+    </unit>
+    <unit id="gVc0Uf4" name="reset_password.reset_header">
+      <segment>
+        <source>reset_password.reset_header</source>
+        <target>Setze dein Passwort zurück</target>
+      </segment>
+    </unit>
+    <unit id="QpUMHfK" name="reset_password.reset_btn">
+      <segment>
+        <source>reset_password.reset_btn</source>
+        <target>Passwort zurücksetzen</target>
+      </segment>
+    </unit>
+    <unit id="SwOgM7K" name="reset_password.request_description">
+      <segment>
+        <source>reset_password.request_description</source>
+        <target>Geben Sie Ihre E-Mail-Adresse ein und wir senden Ihnen einen Link zum Zurücksetzen Ihres Passworts.</target>
+      </segment>
+    </unit>
+    <unit id="RX0Iuzi" name="reset_password.request_send">
+      <segment>
+        <source>reset_password.request_send</source>
+        <target>Absenden</target>
+      </segment>
+    </unit>
+    <unit id="k9hekeu" name="reset_password.back-to-login">
+      <segment>
+        <source>reset_password.back-to-login</source>
+        <target>Zurück zum Login</target>
+      </segment>
+    </unit>
+    <unit id="dp42qbF" name="reset_password.email_title">
+      <segment>
+        <source>reset_password.email_title</source>
+        <target>Hallo!</target>
+      </segment>
+    </unit>
+    <unit id="xS2vvXw" name="reset_password.email_description">
+      <segment>
+        <source>reset_password.email_description</source>
+        <target>Um Ihr Passwort zurückzusetzen, besuchen Sie bitte den folgenden Link</target>
+      </segment>
+    </unit>
+    <unit id="apkSD11" name="reset_password.email_expire">
+      <segment>
+        <source>reset_password.email_expire</source>
+        <target>Dieser Link wird in %hours% Stunde(n) ablaufen.</target>
+      </segment>
+    </unit>
+    <unit id="_gg3hPE" name="reset_password.email_thanks">
+      <segment>
+        <source>reset_password.email_thanks</source>
+        <target>Danke!</target>
+      </segment>
+    </unit>
+    <unit id="LfwezhR" name="extensions.title_dependencies">
+      <segment>
+        <source>extensions.title_dependencies</source>
+        <target>Abhängigkeiten</target>
+      </segment>
+    </unit>
+    <unit id="60xy4WG" name="extensions.no_dependencies">
+      <segment>
+        <source>extensions.no_dependencies</source>
+        <target>Keine bekannten Abhängigkeiten</target>
+      </segment>
+    </unit>
+    <unit id="piuatxC" name="extensions.info_not_installed">
+      <segment>
+        <source>extensions.info_not_installed</source>
+        <target>Dies ist ein lokales Paket, das nicht über Composer installiert ist.</target>
+      </segment>
+    </unit>
+    <unit id="3j1gEmk" name="extensions.title_class">
+      <segment>
+        <source>extensions.title_class</source>
+        <target>Klassenname:</target>
+      </segment>
+    </unit>
+    <unit id="qlucRr7" name="maintenance.activated_warning">
+      <segment>
+        <source>maintenance.activated_warning</source>
+        <target>Maintenance Modus ist aktiviert</target>
+      </segment>
+    </unit>
+    <unit id="80JoLd0" name="title.login">
+      <segment>
+        <source>title.login</source>
+        <target>In Bolt anmelden</target>
+      </segment>
+    </unit>
+    <unit id="beqzCkE" name="login.header_login">
+      <segment>
+        <source>login.header_login</source>
+        <target>Bolt » Login</target>
+      </segment>
+    </unit>
+    <unit id="gLN0C81" name="action.log_in">
+      <segment>
+        <source>action.log_in</source>
+        <target>Einloggen</target>
+      </segment>
+    </unit>
+    <unit id="i37ZNqN" name="login.forgotpassword">
+      <segment>
+        <source>login.forgotpassword</source>
+        <target>Passwort vergessen</target>
+      </segment>
+    </unit>
+    <unit id="QcN1pi8" name="files_cards.copy_to_clipboard">
+      <segment>
+        <source>files_cards.copy_to_clipboard</source>
+        <target>Link zu Datei kopieren</target>
+      </segment>
+    </unit>
+    <unit id="8JeahIj" name="files_cards.message_no_files">
+      <segment>
+        <source>files_cards.message_no_files</source>
+        <target>In diesem Ordner sind keine Dateien vorhanden. Wählen Sie auf der rechten Seite einen Ordner aus, zu dem Sie navigieren möchten.</target>
+      </segment>
+    </unit>
+    <unit id="f.rvF6y" name="action.new">
+      <segment>
+        <source>action.new</source>
+        <target>Neu</target>
+      </segment>
+    </unit>
+    <unit id="a6Xhtq0" name="folder.create_new">
+      <segment>
+        <source>folder.create_new</source>
+        <target>Neuer Ordner</target>
+      </segment>
+    </unit>
+    <unit id="9UKAP.V" name="listing_details_box.showing_records">
+      <segment>
+        <source>listing_details_box.showing_records</source>
+        <target>Anzeige Records %current% von %total%</target>
+      </segment>
+    </unit>
+    <unit id="UrywY0R" name="listing_details_box.name">
+      <segment>
+        <source>listing_details_box.name</source>
+        <target>Name: %name% (singular: %singularName%)</target>
+      </segment>
+    </unit>
+    <unit id=".l3zbrq" name="listing_details_box.slug">
+      <segment>
+        <source>listing_details_box.slug</source>
+        <target>Slug: %slug% (Singular: %singularSlug%)</target>
+      </segment>
+    </unit>
+    <unit id="eJ9YbdG" name="listing_details_box.record_template">
+      <segment>
+        <source>listing_details_box.record_template</source>
+        <target>Record template: %template%</target>
+      </segment>
+    </unit>
+    <unit id="tsc7_G3" name="listing_details_box.listing_template">
+      <segment>
+        <source>listing_details_box.listing_template</source>
+        <target>Listing template: %template% (%listingRecords% Einträge)</target>
+      </segment>
+    </unit>
+    <unit id="pPz9Ocx" name="listing_details_box.locales">
+      <segment>
+        <source>listing_details_box.locales</source>
+        <target>Lokalisierungen: %locales%</target>
+      </segment>
+    </unit>
+    <unit id="EvAqL__" name="caption.duplicate">
+      <segment>
+        <source>caption.duplicate</source>
+        <target>Kopieren</target>
+      </segment>
+    </unit>
+    <unit id="pXtciRI" name="content.edit_missing_definition">
+      <segment>
+        <source>content.edit_missing_definition</source>
+        <target>Die Definition für diesen ContentType fehlt! Die Bearbeitung dieses Datensatzes wird nicht wie erwartet funktionieren. Bitte überprüfen Sie Ihre contenttypes.yaml, um sicherzustellen, dass sie %contenttype% enthält.</target>
+      </segment>
+    </unit>
+    <unit id="qoZwSEY" name="action.preview_secure_share">
+      <segment>
+        <source>action.preview_secure_share</source>
+        <target>Sicheren Vorschau-Link teilen</target>
+      </segment>
+    </unit>
+    <unit id="SGlj7K2" name="view_locales.badge_empty">
+      <segment>
+        <source>view_locales.badge_empty</source>
+        <target>Leer</target>
+      </segment>
+    </unit>
+    <unit id="a_CQgly" name="Order">
+      <segment>
+        <source>Order</source>
+        <target>Bestellung</target>
+      </segment>
+    </unit>
+    <unit id="zYeSeNJ" name="action.stop_impersonating">
+      <segment>
+        <source>action.stop_impersonating</source>
+        <target>Impersonierung beenden</target>
+      </segment>
+    </unit>
+    <unit id="OYUVA5." name="general.label.search">
+      <segment>
+        <source>general.label.search</source>
+        <target>Suche</target>
+      </segment>
+    </unit>
+    <unit id="hiE9jap" name="password.suggested">
+      <segment>
+        <source>password.suggested</source>
+        <target><![CDATA[<![CDATA[Vorgeschlagenes sicheres Passwort: <code>%password%</code>]]]]><![CDATA[>]]></target>
+      </segment>
+    </unit>
+    <unit id="nWMH_Nr" name="label.avatar">
+      <segment>
+        <source>label.avatar</source>
+        <target>Avatar</target>
+      </segment>
+    </unit>
+    <unit id="eJG2.4P" name="listing.current_sessions_header">
+      <segment>
+        <source>listing.current_sessions_header</source>
+        <target>Aktuelle Sitzungen</target>
+      </segment>
+    </unit>
+    <unit id="GUQYLn2" name="reset_password.no_token">
+      <segment>
+        <source>reset_password.no_token</source>
+        <target>In der URL oder in der Sitzung wurde kein Token zum Zurücksetzen des Passworts gefunden.</target>
+      </segment>
+    </unit>
+    <unit id="5Xr92sQ" name="reset_password.problem_with_request">
+      <segment>
+        <source>reset_password.problem_with_request</source>
+        <target>Es gab ein Problem bei der Bearbeitung Ihrer Anfrage zum Zurücksetzen des Passworts - %s</target>
+      </segment>
+    </unit>
+    <unit id="SjuOnue" name="reset_password.reset_successful">
+      <segment>
+        <source>reset_password.reset_successful</source>
+        <target>Passwort Reset war erfolgreich.</target>
+      </segment>
+    </unit>
+    <unit id="harDiJR" name="reset_password.enter_pwd">
+      <segment>
+        <source>reset_password.enter_pwd</source>
+        <target>Bitte ein Passwort eingeben</target>
+      </segment>
+    </unit>
+    <unit id="1JZeWxG" name="reset_password.minimum_length">
+      <segment>
+        <source>reset_password.minimum_length</source>
+        <target>Ihr Passwort sollte mindestens %s Zeichen lang sein</target>
+      </segment>
+    </unit>
+    <unit id="Tg5zdeo" name="reset_password.not_matching_pwds">
+      <segment>
+        <source>reset_password.not_matching_pwds</source>
+        <target>Die Passwortfelder stimmen nicht überein.</target>
+      </segment>
+    </unit>
+    <unit id="2SSLP1K" name="form.empty_username_email">
+      <segment>
+        <source>form.empty_username_email</source>
+        <target>Bitte Usernamen oder Email-Adresse eingeben</target>
+      </segment>
+    </unit>
+    <unit id="5Qf_RiO" name="form.empty_password">
+      <segment>
+        <source>form.empty_password</source>
+        <target>Bitte Passwort eingeben</target>
+      </segment>
+    </unit>
+    <unit id="f8zXapF" name="form.empty_email">
+      <segment>
+        <source>form.empty_email</source>
+        <target>Bitte Email-Adresse eingeben</target>
+      </segment>
+    </unit>
+    <unit id="Y7ajNNN" name="placeholder.email">
+      <segment>
+        <source>placeholder.email</source>
+        <target>Ihre Email-Adresse</target>
+      </segment>
+    </unit>
+    <unit id="KshyLfh" name="caption.other_content">
+      <segment>
+        <source>caption.other_content</source>
+        <target>Andere Inhalte</target>
+      </segment>
+    </unit>
+    <unit id="RMPnq6o" name="label.username_or_email">
+      <segment>
+        <source>label.username_or_email</source>
+        <target>Username oder Email</target>
+      </segment>
+    </unit>
+    <unit id="2hoKa1k" name="label.remembermeduration">
+      <segment>
+        <source>label.remembermeduration</source>
+        <target>Angemeldet bleiben? (%duration% Tage)</target>
+      </segment>
+    </unit>
+    <unit id="z_tOHwq" name="placeholder.username_or_email">
+      <segment>
+        <source>placeholder.username_or_email</source>
+        <target>Usernamen oder Email eingeben</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

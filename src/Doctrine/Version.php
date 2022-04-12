@@ -20,31 +20,53 @@ class Version
     /** @var string */
     private $tablePrefix;
 
-    public function __construct(Connection $connection, string $tablePrefix = 'bolt')
+    public function __construct(Connection $connection, $tablePrefix = 'bolt')
     {
         $this->connection = $connection;
+        $tablePrefix = is_array($tablePrefix) ? $tablePrefix['default'] : $tablePrefix;
         $this->tablePrefix = Str::ensureEndsWith($tablePrefix, '_');
     }
 
+    /**
+     * @throws \Exception
+     */
     public function getPlatform(): array
     {
-        /** @var PDOConnection $wrapped */
         $wrapped = $this->connection->getWrappedConnection();
 
-        [$client_version] = explode(' - ', $wrapped->getAttribute(\PDO::ATTR_CLIENT_VERSION));
-
-        try {
-            $status = $wrapped->getAttribute(\PDO::ATTR_CONNECTION_STATUS);
-        } catch (\PDOException $e) {
-            $status = '';
+        // if the wrapped connection has itself a wrapped connection, use that one, etc.
+        // This is the case in phpunit tests that use the dama/doctrine-test-bundle functionality
+        while (true) {
+            if (method_exists($wrapped, 'getWrappedConnection')) {
+                $nextLevel = $wrapped->getWrappedConnection();
+                if ($nextLevel) {
+                    $wrapped = $nextLevel;
+                } else {
+                    break;
+                }
+            } else {
+                break;
+            }
         }
 
-        return [
-            'client_version' => $client_version,
-            'driver_name' => $wrapped->getAttribute(\PDO::ATTR_DRIVER_NAME),
-            'connection_status' => $status,
-            'server_version' => $wrapped->getAttribute(\PDO::ATTR_SERVER_VERSION),
-        ];
+        if ($wrapped instanceof \PDO) {
+            [$client_version] = explode(' - ', $wrapped->getAttribute(\PDO::ATTR_CLIENT_VERSION));
+
+            try {
+                $status = $wrapped->getAttribute(\PDO::ATTR_CONNECTION_STATUS);
+            } catch (\PDOException $e) {
+                $status = '';
+            }
+
+            return [
+                'client_version' => $client_version,
+                'driver_name' => $wrapped->getAttribute(\PDO::ATTR_DRIVER_NAME),
+                'connection_status' => $status,
+                'server_version' => $wrapped->getAttribute(\PDO::ATTR_SERVER_VERSION),
+            ];
+        }
+
+        throw new \Exception("Wrapped connection is not an instanceof \PDO");
     }
 
     public function tableContentExists(): bool

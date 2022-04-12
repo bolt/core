@@ -24,7 +24,9 @@
 
 {% block title %}
     {{ icon(record) }}
-    {{ displayTitle|excerpt(50) }}
+    <div class="admin__header--title-inner" style="display: inline">
+        {{ displayTitle|excerpt(50) }}
+    </div>
 {% endblock %}
 
 {% block vue_id 'editor' %}
@@ -52,7 +54,7 @@
         {%endfor%}
     {% endif %}
 
-    <form method="post" id="editcontent">
+    <form method="post" id="editcontent" data-record="{{ record.id }}">
         {{ widgets('editcontent_below_header') }}
 
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('editrecord') }}">

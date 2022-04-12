@@ -19,7 +19,8 @@ class TablePrefix
 
     public function loadClassMetadata(LoadClassMetadataEventArgs $eventArgs): void
     {
-        if ($tablePrefix = $this->getTablePrefix()) {
+        $entityManager = $eventArgs->getEntityManager();
+        if ($tablePrefix = $this->getTablePrefix($entityManager)) {
             $classMetadata = $eventArgs->getClassMetadata();
 
             if (! $classMetadata->isInheritanceTypeSingleTable()

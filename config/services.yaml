@@ -29,6 +29,7 @@ services:
             $projectDir: '%kernel.project_dir%'
             $publicFolder: '%bolt.public_folder%'
             $tablePrefix: '%bolt.table_prefix%'
+            $backendUrl: '%bolt.backend_url%'
             $rememberLifetime: '%bolt.remember_lifetime%'
 
     _instanceof:
@@ -104,6 +105,9 @@ services:
 
     Bolt\Cache\ContentToArrayCacher:
         decorates: Bolt\Twig\JsonExtension
+
+    Bolt\Cache\GetFormatCacher:
+        decorates: Bolt\Utils\ContentHelper
 
     Bolt\Menu\BackendMenuBuilderInterface: '@Bolt\Menu\BackendMenu'
 

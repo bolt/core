@@ -368,12 +368,14 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
             if (! $menu->getChild($label)) {
                 // Add the top level item
 
+                $icon = $contentType->get('icon_many');
                 $slug = $slugify->slugify($label);
+
                 $menu->addChild($label, [
                     'uri' => $this->urlGenerator->generate('bolt_menupage', ['slug' => $slug]),
                     'extras' => [
                         'name' => $label,
-                        'icon' => "fa-map-signs",
+                        'icon' => $icon,
                         'slug' => $slug,
                     ],
                 ]);

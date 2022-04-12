@@ -72,6 +72,7 @@
                 <button
                     v-else
                     type="button"
+                    :disabled="!allowMore"
                     class="btn btn-secondary btn-small"
                     :data-template="templates[0].label"
                     @click="addCollectionItem($event)"

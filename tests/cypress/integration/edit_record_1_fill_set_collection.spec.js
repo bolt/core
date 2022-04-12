@@ -22,7 +22,7 @@ describe('As an Admin I want to fill in a Set and an Collection', () => {
         cy.get('button[class="btn btn-success mb-0 "]').eq(1).scrollIntoView();
         cy.get('button[class="btn btn-success mb-0 "]').eq(1).click();
 
-        cy.url().should('contain', '/bolt/edit/43?edit_locale=en#sets');
+        cy.url().should('contain', '/bolt/edit/43#sets');
         cy.get('input[name="sets[set][title]"]').should('have.value', 'Foo');
         cy.get('textarea[name="sets[set][textarea]"]').should('have.value', 'Bar');
 
@@ -42,7 +42,7 @@ describe('As an Admin I want to fill in a Set and an Collection', () => {
         cy.get("#field--field-collection > div > div > div> div.dropdown.show > div > a:nth-child(2)").click();
 
         cy.get('.action-move-up-collection-item').eq(0).should('be.disabled');
-        cy.get('.action-move-down-collection-item').eq(2).should('be.disabled');
+        cy.get('.action-move-down-collection-item').should('be.enabled');
 
         cy.get('button[id="collection-dropdownMenuButton"]').scrollIntoView();
         cy.get('button[id="collection-dropdownMenuButton"]').click();
@@ -60,30 +60,22 @@ describe('As an Admin I want to fill in a Set and an Collection', () => {
 
         cy.get('button[class="btn btn-success mb-0 "]').eq(1).scrollIntoView();
         cy.get('button[class="btn btn-success mb-0 "]').eq(1).click();
-        cy.url().should('contain', '/bolt/edit/43?edit_locale=en#collections');
-
-        cy.get(".collection-item:nth-child(4) input[type='text']").should('have.value', 'Hey, Bolt');
-        cy.get('textarea[name="collections[collection][textarea][4]"]').should('have.value', 'Bye, Bolt');
-        cy.get('.collection-item:nth-child(4) .collection-item-title').should('contain', 'Hey, Bolt');
-        cy.get('.collection-item:nth-child(5) .collection-item-title').should('contain', 'Bye, Bolt');
+        cy.url().should('contain', '/bolt/edit/43#collections');
 
         cy.get('#collections textarea').eq(1).clear();
         cy.get(".collection-item input[type='text']").eq(1).clear();
 
+        //TODO: Find out where the additional first element comes from within CSS
         cy.get('.collection-item:nth-child(4) .collection-item-title').should('contain', 'Set');
         cy.get('.collection-item:nth-child(5) .collection-item-title').should('contain', 'Textarea');
 
-        cy.get('.collection-item:nth-child(4) .action-remove-collection-item').scrollIntoView();
-        cy.get('.collection-item:nth-child(4) .action-remove-collection-item').click({force: true});
-        cy.get('.modal-dialog').should('contain', 'Are you sure you wish to delete this collection item?');
-        cy.get('button[class="btn btn-primary bootbox-accept"]').click({force: true});
+        cy.get('.collection-item:nth-child(5) .action-remove-collection-item').scrollIntoView();
+        cy.get('.collection-item:nth-child(5) .action-remove-collection-item').click({force: true});
 
         cy.wait(1000);
 
         cy.get('.collection-item:nth-child(4) .action-remove-collection-item').scrollIntoView();
         cy.get('.collection-item:nth-child(4) .action-remove-collection-item').click({force: true});
-        cy.get('.modal-dialog').should('contain', 'Are you sure you wish to delete this collection item?');
-        cy.get('button[class="btn btn-primary bootbox-accept"]').click({force: true, multiple: true});
 
         cy.wait(1000);
 
@@ -94,5 +86,5 @@ describe('As an Admin I want to fill in a Set and an Collection', () => {
         cy.get('.collection-item').its('length').should('eq', 2);
         cy.get('.collection-item-title').should('not.contain', 'Hey, Bolt');
         cy.get('.collection-item-title').should('not.contain', 'Bye, Bolt');
-    })
+    });
 });

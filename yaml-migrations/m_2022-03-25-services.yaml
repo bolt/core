@@ -1,0 +1,12 @@
+# Adding the new services for Bolt 5.1.6
+# See: https://github.com/bolt/core/pull/3143
+file: services.yaml
+since: 5.1.6
+
+add:
+    services:
+        _defaults:
+            bind:         
+                $backendUrl: '%bolt.backend_url%'
+        Bolt\Cache\GetFormatCacher:
+            decorates: Bolt\Utils\ContentHelper
