@@ -12,8 +12,8 @@ describe('As an Admin I want to fill in an imagelist and filelist', () => {
         cy.get('button[class="btn dropdown-item"]').find('i[class="fas fa-fw fa-th"]').eq(1).click();
 
         cy.get('div[class="modal-dialog"]').its('length').should('eq', 1);
-        cy.get('select[name="bootbox-input"]').select('kitten.jpg');
-        cy.get('div[class="modal-dialog"]').find('button[class="btn btn-primary bootbox-accept"]').click();
+        cy.get('div[class="modal-dialog"]').find('input[value="kitten.jpg"]').click({ force: true });
+        cy.get('button[id="modalSave"]').trigger('mouseover').click({ force: true, scrollBehavior: true });
         cy.wait(1000);
 
         cy.get('input[name="fields[imagelist][0][filename]"]').should('have.value', 'kitten.jpg');
