@@ -1,8 +1,8 @@
 {
     "integrationFolder": "tests/cypress/integration",
     "pluginsFile": "tests/cypress/plugins/index.js",
-    "screenshotsFolder": "tests/cypress/screenshots",
-    "videosFolder": "tests/cypress/videos",
+    "screenshotsFolder": "tests/cypress/evidence/screenshots",
+    "videosFolder": "tests/cypress/evidence/videos",
     "supportFile": "tests/cypress/support/index.js",
     "baseUrl": "https://127.0.0.1:8001",
     "viewportWidth": 1920,
