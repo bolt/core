@@ -58,7 +58,11 @@
                 <a
                     class="dropdown-item"
                     :href="record.extras.deleteLink"
-                    data-confirmation="Are you sure you wish to delete this Content?"
+                    data-modal-title="Are you sure you wish to delete this Content?"
+                    data-modal-button-deny="Cancel"
+                    data-modal-button-accept="OK"
+                    data-bs-toggle="modal"
+                    data-bs-target="#resourcesModal"
                 >
                     <i class="fas fa-w fa-trash"></i>
                     {{ labels.delete }} {{ record.extras.singular_name }}

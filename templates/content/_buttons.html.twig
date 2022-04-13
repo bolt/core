@@ -51,7 +51,14 @@
                 <a href="/{{ record.contentType }}/{{ record.id }}" class="btn btn-tertiary btn-sm" target="_blank">{{ macro.icon('fa-sign-out-alt') }} {{ __('action.view_saved') }}</a>
             {% endif %}
             {% if record.extras.deleteLink is defined %}
-            <a href="{{ record.extras.deleteLink }}" class='action-remove-collection-item btn btn-sm btn-hidden-danger' data-confirmation="{{ 'action.confirm_delete'|trans }}">
+            <a href="{{ record.extras.deleteLink }}"
+               class='action-remove-collection-item btn btn-sm btn-hidden-danger'
+               data-modal-title="{{ 'action.confirm_delete'|trans }}"
+               data-modal-button-deny="Cancel"
+               data-modal-button-accept="OK"
+               data-bs-toggle="modal"
+               data-bs-target="#resourcesModal"
+            >
                 {{ macro.icon('trash') }}{{ 'action.delete'|trans }}
             </a>
             {% endif %}

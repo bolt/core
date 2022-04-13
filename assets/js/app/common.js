@@ -165,4 +165,68 @@ $(document).ready(function() {
             .remove();
     });
     /* End of copy text to clipboard */
+
+    /*
+     ** Modals content
+     */
+
+    // Reset the content of a modal to it's default
+    function resetModalContent() {
+        let defaultContent = `
+                <div class="modal-header">
+                    <h5 class="modal-title" id="resourcesModalLabel">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="modalButtonDeny" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button id="modalButtonAccept" type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+                </div>
+            `;
+        var resourcesModal = document.getElementById('resourcesModal');
+        resourcesModal.querySelector('.modal-content').innerHTML = defaultContent;
+    }
+
+    $('[data-bs-toggle="modal"]').on('click', function(event) {
+        var resourcesModal = document.getElementById('resourcesModal');
+        var saveButton = document.getElementById('modalButtonAccept');
+        var title = event.target.getAttribute('data-modal-title');
+        var modalTitle = resourcesModal.querySelector('.modal-title');
+        var modalBody = resourcesModal.querySelector('.modal-body');
+        var targetURL = event.target.getAttribute('href');
+        modalTitle.innerHTML = title;
+
+        if (targetURL != null && modalBody != null) {
+            modalBody.remove();
+        }
+
+        saveButton.addEventListener(
+            'click',
+            () => {
+                // When the modal is accepted navigate to the URL of the target element
+                if (targetURL) {
+                    window.location.href = targetURL;
+                }
+            },
+            { once: true },
+        );
+
+        resourcesModal.addEventListener(
+            'hidden.bs.modal',
+            () => {
+                // Reset modal body content when the modal is closed
+                resetModalContent();
+            },
+            { once: true },
+        );
+    });
+    /* End of Modals content */
 });

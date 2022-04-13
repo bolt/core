@@ -326,7 +326,7 @@ export default {
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button id="modalSave" type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+                    <button id="modalButtonAccept" type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
                 </div>
             `;
             var resourcesModal = document.getElementById('resourcesModal');
@@ -339,7 +339,7 @@ export default {
                     let inputOptions = this.filterServerFiles(res.data);
 
                     var resourcesModal = document.getElementById('resourcesModal');
-                    var saveButton = document.getElementById('modalSave');
+                    var saveButton = document.getElementById('modalButtonAccept');
                     var button = event.target;
                     var title = button.getAttribute('data-modal-title');
                     var modalTitle = resourcesModal.querySelector('.modal-title');
@@ -433,7 +433,7 @@ export default {
             };
 
             var resourcesModal = document.getElementById('resourcesModal');
-            var saveButton = document.getElementById('modalSave');
+            var saveButton = document.getElementById('modalButtonAccept');
             var button = event.target;
             var title = button.getAttribute('data-modal-title');
             var modalTitle = resourcesModal.querySelector('.modal-title');
