@@ -49,7 +49,6 @@ import type from '../../../mixins/type';
 import Checkbox from './_Checkbox';
 import Meta from './_Meta';
 import Actions from './_Actions';
-import $ from 'jquery';
 
 export default {
     name: 'TableRow',
