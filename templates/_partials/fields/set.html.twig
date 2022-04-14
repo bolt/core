@@ -9,9 +9,10 @@
 {% block field %}
     <div class="form-set-fields form-{{ name }}">
         {% for setChild in field.valueForEditor %}
+            {% set setChildType = setChild.definition.get('type')|default(setChild.type) %}
             {% set includeLookup = [
-                '@bolt/_partials/fields/' ~ setChild.type ~ '.html.twig',
-                '@' ~ setChild.type ~ '/' ~ setChild.type ~ '.html.twig',
+                '@bolt/_partials/fields/' ~ setChildType ~ '.html.twig',
+                '@' ~ setChildType ~ '/' ~ setChildType ~ '.html.twig',
                 '@bolt/_partials/fields/generic.html.twig'
             ] %}
             {% if in_compound is defined %}
