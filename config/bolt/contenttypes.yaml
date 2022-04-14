@@ -438,6 +438,29 @@ tests:
     listing_template: listing.twig
     listing_records: 10
 
+# This contenttype is here to use for (automated) tests.
+complexnestedtype:
+    name: complexnestedtype
+    singular_name: complexnestedtype
+    fields:
+        first_field:
+            type: select
+            values: [ 'one', 'two', 'three', 'four', 'five' ]
+            #            required: false
+            required: true
+            default: 'een'
+        second_field:
+            type: collection
+            fields:
+                first_collection_field:
+                    type: set
+                    fields:
+                        first_set_field:
+                            type: select
+                            values: [ 'option-one', 'option-two' ]
+                            required: true
+                            default: 'option-one'
+
 validationdemos:
     name: Validation Demos
     slug: validationdemos

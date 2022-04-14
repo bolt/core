@@ -46,7 +46,8 @@ describe('Check all editors privileges', () => {
         cy.login('john_editor', 'john%1');
         cy.url().should('contain', '/bolt/');
         // cy.get('ul[class="admin__sidebar--menu"]').find('li').eq(11).trigger('mouseover');
-        cy.get('body').find('span').eq(58).should('contain', "Uploaded files");
+        // cy.get('body').find('span').eq(58).should('contain', "Uploaded files");
+        cy.get('a[href="/bolt/menu/filemanagement"]').contains('Uploaded files');
 
         cy.get('a[href="/bolt/menu/filemanagement"]').click();
         cy.url().should('contain', '/bolt/menu/filemanagement');
