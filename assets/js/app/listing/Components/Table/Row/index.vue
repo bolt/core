@@ -4,7 +4,7 @@
         <row-checkbox v-if="type !== 'dashboard'" :id="record.id" key="select"></row-checkbox>
 
         <!-- row -->
-        <div key="row" class="listing__row" :class="`is-${size}`" @mouseleave="leave">
+        <div key="row" class="listing__row" :class="`is-${size}`">
             <!-- column details / excerpt -->
             <div class="listing__row--item is-details">
                 <a class="listing__row--item-title text-decoration-none" :href="record.extras.editLink" :title="slug">
