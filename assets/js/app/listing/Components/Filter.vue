@@ -4,7 +4,7 @@
             <!-- Check all checkbox -->
             <li v-if="type !== 'dashboard'" class="control--checkbox">
                 <div v-if="!sorting" class="form-check">
-                    <input id="selectAll" :value="selectAll" class="form-check-input" type="checkbox" />
+                    <input id="selectAll" :value="selectAll" class="form-check-input" type="checkbox" @click="enableSelectAll(!selectAll)"/>
                     <label class="form-check-label form-label" for="selectAll" @click="enableSelectAll(!selectAll)">
                         <span class="sr-only">{{ labels.select_all }}</span>
                     </label>
