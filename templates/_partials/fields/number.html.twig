@@ -8,9 +8,9 @@
   {% endif %}
 
   {# set min & max #}
-  {% if not min|default and max|default %}
-    {% set min = field.definition.min|default(0) %}
-    {% set max = field.definition.max|default(100) %}
+  {% if not min|default or max|default %}
+    {% set min = 0 %}
+    {% set max = 1000 %}
   {% endif %}
 
   {# set step #}
