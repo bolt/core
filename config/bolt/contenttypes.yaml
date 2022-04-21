@@ -242,6 +242,8 @@ showcases:
             type: number
             mode: integer
             step: 1
+            min: 0
+            max: 100
         floatfield:
             type: number
             mode: float
