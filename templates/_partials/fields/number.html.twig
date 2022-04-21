@@ -7,6 +7,12 @@
     {% set mode = field.definition.mode|default('float') %}
   {% endif %}
 
+  {# set min & max #}
+  {% if not min|default and max|default %}
+    {% set min = field.definition.min|default(0) %}
+    {% set max = field.definition.max|default(100) %}
+  {% endif %}
+
   {# set step #}
   {% if not step|default and field.definition['step'] is defined %}
     {% set step = field.definition.step %}
@@ -27,6 +33,8 @@
     name="{{ name }}"
     value="{{ value }}"
     :step="{{ step|raw }}"
+    :min="{{ min }}"
+    :max="{{ max }}"
     :required="{{ required|json_encode }}"
     :readonly="{{ readonly|json_encode }}"
     :errormessage="{{ errormessage|json_encode }}"

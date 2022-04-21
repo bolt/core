@@ -7,6 +7,8 @@
             class="form-control"
             type="number"
             :step="step"
+            :min="min"
+            :max="max"
             :required="required"
             :readonly="readonly"
             :data-errormessage="errormessage"
@@ -27,6 +29,8 @@ export default {
         value: String,
         name: String,
         step: Number | String,
+        min: Number,
+        max: Number,
         type: String,
         disabled: Boolean,
         required: Boolean,
