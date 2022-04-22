@@ -61,7 +61,7 @@ describe('Create content as editor and delete it as chief editor', () => {
         cy.get('.listing__row.is-normal').eq(2).children('.listing__row--item.is-details').children('a').should('contain', 'Test heading -');
         cy.get('button[data-bs-toggle="dropdown"]').eq(3).click();
         cy.get('.edit-actions__dropdown.dropdown-menu.dropdown-menu-right').eq(2).children('a').eq(4).click();
-        cy.get('.btn.btn-primary.bootbox-accept').click();
+        cy.get('button[data-bs-dismiss="modal"]').click({ multiple: true });
 
         cy.visit('/bolt/content/pages?page=3');
         cy.get('.listing--container').its('length').should('eq', 2);
