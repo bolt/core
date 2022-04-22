@@ -8,6 +8,5 @@
     "projectId": "54gs3j",
     "defaultCommandTimeout": 8000,
     "retries": 2,
-    "scrollBehavior": false,
-    "force": true
+    "scrollBehavior": false
 }
