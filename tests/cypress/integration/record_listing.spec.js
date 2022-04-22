@@ -17,7 +17,7 @@ describe('As an Admin I want to use record listing', () => {
         cy.get('.admin__header--title').should('contain', 'Entries');
         cy.get('div[class="card-header"]').should('contain', 'Contentlisting');
 
-        cy.get('select[name="sortBy"]').select('author');
+        cy.get('select[name="sortBy"]').select('author', { force: true });
         cy.get('button[class="btn btn-secondary mb-0 "]').should('contain', 'Filter').click();
 
         cy.url().should('contain', '/bolt/content/entries?sortBy=author&filter=');
@@ -31,7 +31,7 @@ describe('As an Admin I want to use record listing', () => {
 
         cy.get('div[class="card-header"]').should('contain', 'Contentlisting');
 
-        cy.get('#content-filter').type('a');
+        cy.get('#content-filter').type('a', { force: true });
         cy.get('button[class="btn btn-secondary mb-0 "]').should('contain', 'Filter').click();
 
         cy.url().should('contain', '/bolt/content/entries?sortBy=&filter=a');
@@ -81,7 +81,7 @@ describe('As an Admin I want to use record listing', () => {
         cy.get('button[name="save"]').eq(1).scrollIntoView();
         cy.get('button[name="save"]').eq(1).click();
 
-        cy.get('a[href="/bolt/content/tests"]').trigger('mouseover');
+        cy.get('a[href="/bolt/content/tests"]').trigger('mouseover', { force: true });
         cy.get('ul[class="admin__sidebar--menu"]').find('li').eq(3).find('a').find('ul[class="link--menu"]').find('li').its('length').should('eq', 6);
         cy.get('#bolt--sidebar ul li:nth-child(8) ul > li:nth-child(1) > a').find('span').should('contain', 'New');
         cy.get('#bolt--sidebar ul li:nth-child(8) ul > li:nth-child(2) > a').find('span').should('contain', 'Title of the test');
