@@ -5,7 +5,7 @@ describe('As an admin I should be able to run bulk actions', () => {
         cy.login();
         cy.visit('/bolt/content/pages');
         cy.get("label[for='selectAll']").should('exist');
-        cy.get(".listing__filter .custom-checkbox").click();
+        cy.get(".listing__filter .form-check-input").click();
 
         cy.get('.is-primary').should('contain', '8');
         //cy.get('div[class="card-header"]').should('contain', 'Pages Selected');
@@ -16,7 +16,7 @@ describe('As an admin I should be able to run bulk actions', () => {
     it('checks if an admin can make multiple changes at once', () => {
         cy.login();
         cy.visit('/bolt/content/tests');
-        cy.get(".listing__filter .custom-checkbox").click();
+        cy.get(".listing__filter .form-check-input").click();
         cy.get(".card-body .multiselect__select").click();
         cy.wait(100);
 
@@ -41,7 +41,7 @@ describe('As an admin I should be able to run bulk actions', () => {
         cy.get('.listing__records .is-meta .status.is-published').should('not.exist');
         cy.get('.listing__records .is-meta .status.is-held').should('not.exist');
 
-        cy.get(".listing__filter .custom-checkbox").click();
+        cy.get(".listing__filter .form-check-input").click();
         cy.get('.multiselect__select').click();
         cy.get('aside .card-body .multiselect__content-wrapper > ul > li:nth-child(1)').click();
 
