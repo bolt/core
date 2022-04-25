@@ -14,15 +14,22 @@ Usage
   
   To start a server on this port you can use this command inside your project folder:
   ```
-  php -S localhost:8088
+  php -S localhost:8000
   ```
 
-  To run all tests use:
+  ### To run all tests use:
   ```
   npm run cypress:dev
   ```
+  This one will run all the tests that are located in tests/cypress/integration. 
+  Once this is finished it will show a table on the command line which looks like this:
   
-  To run a specific test use:
+  ![Screenshot 2022-04-25 at 13 49 42](https://user-images.githubusercontent.com/40595903/165083309-004f8c80-0d15-4400-9107-876d4c07e615.png)
+  
+  This shows all the tests that have been run and gives an overview of which failed and which succeeded. At the bottom you have a summary of how many tests failed.
+
+  
+  ### To run a specific test use:
   ```
   npm run cypress:dev -- --spec "./tests/cypress/integration/your_test.spec.js"
   ```
@@ -30,6 +37,35 @@ Usage
   If you want to run the test on the same project make sure to run `make db-reset` otherwise it will fail on a few tests that depend on the standard fixtures.
   
   You can add additional options to the run command by typing `--` and the option you want after it. A list of all options is available [here](https://docs.cypress.io/guides/guides/command-line#Commands).
+  
+Evidence
+---
+  Once you've run any of these commands you can take a look at some 'evidence' cypress makes when running the tests.
+  These are videos and screenshots of what it did during the test. These videos can be really informing about what failed and why.
+  
+  #### Here you have an example of an screenshot of a failed test:
+  
+  ![As an Admin I am able to use the files section -- checks if an admin can cancel deleting files in the Files section (failed)](https://user-images.githubusercontent.com/40595903/165084073-c2becad6-b2db-4c48-bfce-e5f14e18ce05.png)
+  
+  #### And here is an example of an video of a test:
+
+  https://user-images.githubusercontent.com/40595903/165084182-b749f781-266f-46b7-a821-1e145991bbc2.mp4
+  
+ #### All of these images and videos are available in `tests/cypress/evidence`. 
+  
+  The tests that are run via **GitHub** also provide these videos and screenshots but you can find them by going to the test tab on a pull request:
+  
+  <img width="1431" alt="Screenshot 2022-04-25 at 13 58 10" src="https://user-images.githubusercontent.com/40595903/165084804-c350f108-9682-4eeb-af22-9ace48d92a68.png">
+  
+  After going there you need to click on "> Cypress tests":
+  
+  <img width="1439" alt="Screenshot 2022-04-25 at 14 00 16" src="https://user-images.githubusercontent.com/40595903/165085204-a86cd0ef-82ac-4895-9d23-9beef208d3b0.png">
+
+ And then (this only shows up when the test has failed) scroll down to Artifacts and download `cypress-evidence`:
+ 
+ <img width="1055" alt="Screenshot 2022-04-25 at 14 03 36" src="https://user-images.githubusercontent.com/40595903/165085478-fd176fc1-fb68-481c-90fe-2490ad660331.png">
+
+  
     
 Writing / editing tests
 ---
