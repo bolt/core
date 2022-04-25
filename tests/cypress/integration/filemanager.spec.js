@@ -37,7 +37,7 @@ describe('As an Admin I am able to use the files section', () => {
 
         cy.get('.modal-dialog').should('have.length', 1);
         cy.get('.modal-title').should('contain', 'Are you sure you wish to delete this file?');
-        cy.get('#modalButtonAccept').click();
+        cy.get('#modalButtonDeny').click();
 
         cy.get('.toast-body').should('not.exist');
         cy.get('#files-list tr').should('contain', '_a-sunrise.jpeg');
