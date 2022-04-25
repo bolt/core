@@ -32,9 +32,9 @@ describe('As an Admin I want to fill in an imagelist and filelist', () => {
         cy.get('button[id="modalButtonAccept"]').scrollIntoView().trigger('mouseover', { force: true }).click({ force: true });
         cy.wait(1000);
 
-        cy.get('input[name="fields[imagelist][4][filename]"]').should('have.value', 'joey.jpg');
-        cy.get('input[name="fields[imagelist][4][alt]"]').clear({ force: true });
-        cy.get('input[name="fields[imagelist][4][alt]"]').type('Image of a joey', { force: true });
+        cy.get('input[name="fields[imagelist][5][filename]"]').should('have.value', 'joey.jpg');
+        cy.get('input[name="fields[imagelist][5][alt]"]').clear({ force: true });
+        cy.get('input[name="fields[imagelist][5][alt]"]').type('Image of a joey', { force: true });
 
         cy.get('button[class="btn btn-sm btn-tertiary"]').find('i[class="fas fa-fw fa-chevron-down"]').eq(0).scrollIntoView();
         cy.get('button[class="btn btn-sm btn-tertiary"]').find('i[class="fas fa-fw fa-chevron-down"]').eq(0).click({ force: true}) ;
