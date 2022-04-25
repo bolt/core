@@ -19,9 +19,9 @@ describe('As an Admin I am able to use the files section', () => {
         cy.get('button[class="btn btn-sm btn-secondary edit-actions__dropdown-toggler dropdown-toggle dropdown-toggle-split"]').eq(1).click();
         cy.get('a[class="dropdown-item delete"]').eq(1).click();
 
-        // cy.get('.modal-dialog').should('have.length', 1);
-        // cy.get('.modal-dialog').should('contain', 'Are you sure you wish to delete this file?');
-        // cy.get('button[class="btn btn-primary bootbox-accept"]').click();
+        cy.get('.modal-dialog').should('have.length', 1);
+        cy.get('.modal-title').should('contain', 'Are you sure you wish to delete this file?');
+        cy.get('#modalButtonAccept').click();
 
         cy.get('.toast-body').should('contain', 'File deleted successfully');
         cy.get('#files-list tr').should('not.contain', '_b-penguin.jpeg');
@@ -35,9 +35,9 @@ describe('As an Admin I am able to use the files section', () => {
         cy.get('button[class="btn btn-sm btn-secondary edit-actions__dropdown-toggler dropdown-toggle dropdown-toggle-split"]').eq(0).click();
         cy.get('a[class="dropdown-item delete"]').eq(0).click();
 
-        // cy.get('.modal-dialog').should('have.length', 1);
-        // cy.get('.modal-dialog').should('contain', 'Are you sure you wish to delete this file?');
-        // cy.get('button[class="btn btn-secondary btn-default bootbox-cancel"]').click();
+        cy.get('.modal-dialog').should('have.length', 1);
+        cy.get('.modal-title').should('contain', 'Are you sure you wish to delete this file?');
+        cy.get('#modalButtonAccept').click();
 
         cy.get('.toast-body').should('not.exist');
         cy.get('#files-list tr').should('contain', '_a-sunrise.jpeg');
@@ -65,15 +65,15 @@ describe('As an Admin I am able to use the files section', () => {
         cy.get('#files-list tr').should('contain', '_a-sunrise (2).jpeg');
 
         //cleanup
-        // cy.get('button[class="btn btn-sm btn-secondary edit-actions__dropdown-toggler dropdown-toggle dropdown-toggle-split"]').eq(0).click();
-        // cy.get('a[class="dropdown-item delete"]').eq(0).click();
-        // cy.get('.modal-dialog').should('have.length', 1);
-        // cy.get('button[class="btn btn-primary bootbox-accept"]').click();
-        //
-        // cy.get('button[class="btn btn-sm btn-secondary edit-actions__dropdown-toggler dropdown-toggle dropdown-toggle-split"]').eq(0).click();
-        // cy.get('a[class="dropdown-item delete"]').eq(0).click();
-        // cy.get('.modal-dialog').should('have.length', 1);
-        // cy.get('button[class="btn btn-primary bootbox-accept"]').click();
+        cy.get('button[class="btn btn-sm btn-secondary edit-actions__dropdown-toggler dropdown-toggle dropdown-toggle-split"]').eq(0).click();
+        cy.get('a[class="dropdown-item delete"]').eq(0).click();
+        cy.get('.modal-dialog').should('have.length', 1);
+        cy.get('#modalButtonAccept').click();
+
+        cy.get('button[class="btn btn-sm btn-secondary edit-actions__dropdown-toggler dropdown-toggle dropdown-toggle-split"]').eq(0).click();
+        cy.get('a[class="dropdown-item delete"]').eq(0).click();
+        cy.get('.modal-dialog').should('have.length', 1);
+        cy.get('#modalButtonAccept').click();
     })
 
     it('checks if an admin can create and delete folders in the Files section', () => {
@@ -93,7 +93,8 @@ describe('As an Admin I am able to use the files section', () => {
 
         cy.get('a[class="btn btn-danger btn-sm btn-mb-0 text-nowrap "]').eq(0).click();
         cy.wait(1000);
-        cy.get('button[class="btn btn-primary bootbox-accept"]').click();
+        cy.get('.modal-dialog').should('have.length', 1);
+        cy.get('#modalButtonAccept').click();
 
         cy.get('.toast-body').should('contain', 'Folder deleted successfully');
         cy.get('a').should('not.contain', 'a-new-folder/');

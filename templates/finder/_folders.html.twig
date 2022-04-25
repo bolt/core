@@ -36,7 +36,14 @@
                 </b>
             </td>
             <td>
-                {{ macro.buttonlink('action.delete', path('bolt_filemanager_delete', {'path': dirname, 'location': location.key, '_csrf_token': csrf_token('filemanager-delete')}), 'trash', 'danger sm mb-0', {'data-confirmation': 'action.confirm_delete'|trans }) }}
+                {{ macro.buttonlink('action.delete', path('bolt_filemanager_delete', {'path': dirname, 'location': location.key, '_csrf_token': csrf_token('filemanager-delete')}), 'trash', 'danger sm mb-0', {
+                    'data-modal-title': 'action.confirm_delete'|trans,
+                    'data-modal-body': 'action.confirm_delete'|trans,
+                    'data-modal-button-deny': 'Cancel',
+                    'data-modal-button-accept': 'OK',
+                    'data-bs-toggle': 'modal',
+                    'data-bs-target': '#resourcesModal'
+                }) }}
             </td>
         </tr>
     {% endfor %}

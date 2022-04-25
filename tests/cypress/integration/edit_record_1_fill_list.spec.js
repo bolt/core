@@ -13,7 +13,7 @@ describe('As an Admin I want to fill in an imagelist and filelist', () => {
 
         cy.get('div[class="modal-dialog"]').its('length').should('eq', 1);
         cy.get('div[class="modal-dialog"]').find('input[value="kitten2.jpg"]').click({ force: true });
-        cy.get('button[id="modalButtonAccept"]').trigger('mouseover').scrollIntoView().click({ force: true });
+        cy.get('button[id="modalButtonAccept"]').trigger('mouseover', { force: true }).scrollIntoView().click({ force: true });
         cy.wait(1000);
 
         cy.get('input[name="fields[imagelist][0][filename]"]').should('have.value', 'kitten2.jpg');
@@ -29,7 +29,7 @@ describe('As an Admin I want to fill in an imagelist and filelist', () => {
 
         cy.get('div[class="modal-dialog"]').its('length').should('eq', 1);
         cy.get('div[class="modal-dialog"]').find('input[value="joey.jpg"]').click({ force: true });
-        cy.get('button[id="modalButtonAccept"]').trigger('mouseover').scrollIntoView().click({ force: true });
+        cy.get('button[id="modalButtonAccept"]').trigger('mouseover', { force: true }).scrollIntoView().click({ force: true });
         cy.wait(1000);
 
         cy.get('input[name="fields[imagelist][4][filename]"]').should('have.value', 'joey.jpg');
@@ -68,7 +68,7 @@ describe('As an Admin I want to fill in an imagelist and filelist', () => {
 
         cy.get('div[class="modal-dialog"]').its('length').should('eq', 1);
         cy.get('div[class="modal-dialog"]').find('input[value="bolt4.pdf"]').click({ force: true });
-        cy.get('button[id="modalButtonAccept"]').trigger('mouseover').scrollIntoView().click({ force: true });
+        cy.get('button[id="modalButtonAccept"]').trigger('mouseover', { force: true }).scrollIntoView().click({ force: true });
         cy.wait(1000);
 
         cy.get('input[name="fields[filelist][0][filename]"]').should('have.value', 'bolt4.pdf');
@@ -83,7 +83,7 @@ describe('As an Admin I want to fill in an imagelist and filelist', () => {
 
         cy.get('div[class="modal-dialog"]').its('length').should('eq', 1);
         cy.get('div[class="modal-dialog"]').find('input[value="joey.jpg"]').click({ force: true });
-        cy.get('button[id="modalButtonAccept"]').trigger('mouseover').scrollIntoView().click({ force: true });
+        cy.get('button[id="modalButtonAccept"]').trigger('mouseover', { force: true }).scrollIntoView().click({ force: true });
         cy.wait(1000);
 
         cy.get('input[name="fields[filelist][4][filename]"]').should('have.value', 'joey.jpg');

@@ -39,7 +39,7 @@ $(document).ready(function() {
     let url = location.href.replace(/\/$/, '');
     if (location.hash) {
         const hash = url.split('#');
-        var triggerEl = document.querySelector('a[href="#' + hash[1] + '"]');
+        let triggerEl = document.querySelector('a[href="#' + hash[1] + '"]');
         Tab.getOrCreateInstance(triggerEl).show(); // Select tab by name
         url = location.href.replace(/\/#/, '#');
         history.replaceState(null, null, url);
@@ -65,7 +65,7 @@ $(document).ready(function() {
     /*
      ** Initialise all popover elements
      */
-    var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+    let popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
     popoverTriggerList.map(function(popoverTriggerEl) {
         return new Popover(popoverTriggerEl);
     });
@@ -76,11 +76,11 @@ $(document).ready(function() {
     $('#editor button[type="submit"]').click(function() {
         $('input:invalid').each(function() {
             // Find the tab-pane that this element is inside, and get the id
-            var $closest = $(this).closest('.tab-pane');
-            var id = $closest.attr('id');
+            let $closest = $(this).closest('.tab-pane');
+            let id = $closest.attr('id');
             if (id != null) {
                 // Find the link that corresponds to the pane and have it show
-                var triggerEl = document.querySelector('.nav a[href="#' + id + '"]');
+                let triggerEl = document.querySelector('.nav a[href="#' + id + '"]');
                 Tab.getOrCreateInstance(triggerEl).show(); // Select tab by name
             }
 
@@ -151,7 +151,7 @@ $(document).ready(function() {
     $('[data-copy-to-clipboard]').on('click', function(e) {
         const target = $(e.target);
 
-        var input = document.createElement('input');
+        let input = document.createElement('input');
         input.setAttribute('id', 'copy');
 
         target.parent().append(input);
@@ -191,18 +191,33 @@ $(document).ready(function() {
                     <button id="modalButtonAccept" type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
                 </div>
             `;
-        var resourcesModal = document.getElementById('resourcesModal');
+        let resourcesModal = document.getElementById('resourcesModal');
         resourcesModal.querySelector('.modal-content').innerHTML = defaultContent;
     }
 
     $('[data-bs-toggle="modal"]').on('click', function(event) {
-        var resourcesModal = document.getElementById('resourcesModal');
-        var saveButton = document.getElementById('modalButtonAccept');
-        var title = event.target.getAttribute('data-modal-title');
-        var modalTitle = resourcesModal.querySelector('.modal-title');
-        var modalBody = resourcesModal.querySelector('.modal-body');
-        var targetURL = event.target.getAttribute('href');
-        modalTitle.innerHTML = title;
+        let resourcesModal = document.getElementById('resourcesModal');
+
+        let saveButton = document.getElementById('modalButtonAccept');
+        let save = event.target.getAttribute('data-modal-button-accept');
+
+        let denyButton = document.getElementById('modalButtonDeny');
+        let deny = event.target.getAttribute('data-modal-button-deny');
+
+        let title = event.target.getAttribute('data-modal-title');
+        let modalTitle = resourcesModal.querySelector('.modal-title');
+
+        let modalBody = resourcesModal.querySelector('.modal-body');
+        let body = event.target.getAttribute('data-modal-body');
+
+        let targetURL = event.target.getAttribute('href');
+
+        if ((saveButton || denyButton || modalTitle || modalBody != null) && (save || deny || title || body != null)) {
+            modalTitle.innerHTML = title;
+            modalBody.innerHTML = body;
+            saveButton.innerHTML = save;
+            denyButton.innerHTML = deny;
+        }
 
         if (targetURL != null && modalBody != null) {
             modalBody.remove();

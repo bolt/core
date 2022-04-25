@@ -8,7 +8,14 @@
         <i class="fas fa-fw fa-chevron-down"></i>
         {{ 'collection.move_item_down'|trans }}
     </button>
-    <button class='action-remove-collection-item btn btn-light-danger btn-sm' style="white-space: nowrap" data-confirmation="{{ 'collection.confirm_delete'|trans }}">
+    <button class='action-remove-collection-item btn btn-light-danger btn-sm'
+            style="white-space: nowrap"
+            data-modal-title="{{ 'collection.confirm_delete'|trans }}"
+            data-modal-body="{{ 'collection.confirm_delete'|trans }}"
+            data-modal-button-deny="Cancel"
+            data-modal-button-accept="Delete"
+            data-bs-toggle="modal"
+            data-bs-target="#resourcesModal">
         <i class="fas fa-fw fa-trash"></i>
         {{ 'collection.remove_item'|trans }}
     </button>
