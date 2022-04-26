@@ -53,7 +53,7 @@ describe('As an Admin I want to fill in an imagelist and filelist', { retries: 0
         cy.get('button[class="btn btn-success mb-0 "]').eq(1).click({ force: true}) ;
         //TODO: move checking for elements before saving changes(for some reason it doesn't work)
         cy.get('.editor__imagelist').find('div[class="form-fieldsgroup"]').its('length').should('eq', 5);
-        cy.url().should('contain', '/bolt/edit/42#media');
+        cy.url().should('contain', '/bolt/edit/42');
     })
 
     it('checks if an admin can fill in an filelist', () => {
@@ -67,7 +67,7 @@ describe('As an Admin I want to fill in an imagelist and filelist', { retries: 0
         cy.get('button[class="btn dropdown-item"]').find('i[class="fas fa-fw fa-th"]').eq(6).click({ force: true}) ;
 
         cy.get('div[class="modal-dialog"]').its('length').should('eq', 1);
-        cy.wait(1000);
+        cy.wait(10000);
         cy.get('div[class="modal-dialog"]').find('input[value="bolt4.pdf"]').click({ force: true });
         cy.get('button[id="modalButtonAccept"]').click({ force: true });
         cy.wait(1000);
@@ -104,7 +104,7 @@ describe('As an Admin I want to fill in an imagelist and filelist', { retries: 0
         cy.get('button[class="btn btn-success mb-0 "]').eq(1).click({ force: true}) ;
         //TODO: move checking for elements before saving changes(for some reason it doesn't work)
         cy.get('.editor-filelist').find('div[class="form-fieldsgroup"]').its('length').should('eq', 4);
-        cy.url().should('contain', '/bolt/edit/42#files');
+        cy.url().should('contain', '/bolt/edit/42');
 
     })
 });
