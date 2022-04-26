@@ -52,6 +52,7 @@ jobs:
                     ./bin/console doctrine:migrations:sync-metadata-storage -q
                     ./bin/console doctrine:migrations:version --add --all -n -q
                     ./bin/console doctrine:fixtures:load --group=without-images -n
+                    ./bin/console server:start 127.0.0.1:8088
                     # test if web server works
                     sleep 3
                     wget "http://127.0.0.1:8088/bolt/login"
