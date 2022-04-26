@@ -46,8 +46,8 @@ describe('As an Admin I want to fill in an imagelist and filelist', { retries: 0
         cy.get('input[name="fields[imagelist][0][filename]"]').should('have.value', 'kitten2.jpg');
         cy.get('input[name="fields[imagelist][0][alt]"]').should('have.value', 'Image of a kitten');
 
-        cy.get('div[class="btn-group me-2"]').eq(3).find('button[disabled="disabled"]');
-        cy.get('div[class="btn-group me-2"]').eq(11).find('button[disabled="disabled"]');
+        cy.get('div[class="btn-group me-2"]').eq(5).find('button[disabled="disabled"]');
+        cy.get('div[class="btn-group me-2"]').eq(13).find('button[disabled="disabled"]');
 
         cy.get('.form-fieldsgroup:nth-child(1) > .editor__image .btn:nth-child(3)').click({ force: true}) ;
         cy.get('button[class="btn btn-success mb-0 "]').eq(1).click({ force: true}) ;
@@ -96,8 +96,8 @@ describe('As an Admin I want to fill in an imagelist and filelist', { retries: 0
         cy.get('.form-fieldsgroup:nth-child(2) > .editor__file .btn-group:nth-child(2) > .btn:nth-child(1) > .fas').click({ force: true}) ;
         cy.get('input[name="fields[filelist][1][filename]"]').should('have.value', 'bolt4.pdf');
 
-        cy.get('div[class="btn-group me-2"]').eq(13).find('button[disabled="disabled"]');
-        cy.get('div[class="btn-group me-2"]').eq(21).find('button[disabled="disabled"]');
+        cy.get('div[class="btn-group me-2"]').eq(15).find('button[disabled="disabled"]');
+        cy.get('div[class="btn-group me-2"]').eq(23).find('button[disabled="disabled"]');
 
         cy.get('.form-fieldsgroup:nth-child(1) > .editor__file .btn-hidden-danger').click({ force: true}) ;
         cy.get('button[class="btn btn-tertiary"]').eq(0).should('be.enabled');
