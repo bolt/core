@@ -38,12 +38,12 @@ describe('As an Admin I want to fill in an imagelist and filelist', { retries: 0
 
         cy.get('button[class="btn btn-sm btn-tertiary"]').find('i[class="fas fa-fw fa-chevron-down"]').eq(0).scrollIntoView();
         cy.get('button[class="btn btn-sm btn-tertiary"]').find('i[class="fas fa-fw fa-chevron-down"]').eq(0).click({ force: true}) ;
-        cy.get('input[name="fields[imagelist][2][filename]"]').should('have.value', 'kitten.jpg');
-        cy.get('input[name="fields[imagelist][2][alt]"]').should('have.value', 'Image of a kitten');
+        cy.get('input[name="fields[imagelist][1][filename]"]').should('have.value', 'kitten2.jpg');
+        cy.get('input[name="fields[imagelist][1][alt]"]').should('have.value', 'Image of a kitten');
 
         cy.get('button[class="btn btn-sm btn-tertiary"]').find('i[class="fas fa-fw fa-chevron-up"]').eq(1).scrollIntoView();
         cy.get('button[class="btn btn-sm btn-tertiary"]').find('i[class="fas fa-fw fa-chevron-up"]').eq(1).click({ force: true}) ;
-        cy.get('input[name="fields[imagelist][2][filename]"]').should('have.value', 'kitten.jpg');
+        cy.get('input[name="fields[imagelist][2][filename]"]').should('have.value', 'kitten.jpg2');
         cy.get('input[name="fields[imagelist][2][alt]"]').should('have.value', 'Image of a kitten');
 
         cy.get('div[class="btn-group mr-2"]').eq(3).find('button[disabled="disabled"]');
