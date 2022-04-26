@@ -4,7 +4,7 @@ describe('As an Admin I want to fill in an imagelist and filelist', { retries: 0
     it('checks if an admin can fill in an imagelist', () => {
         cy.login();
         cy.visit('/bolt/edit/42');
-        cy.get('a[id="media-tab"]').click({ force: true }) ;
+        cy.get('a[id="media-tab"]').click({ force: true });
         cy.get("label[for='field-imagelist']").should('contain', 'Imagelist');
 
         cy.get('button[name="image-upload-dropdown"]').eq(1).scrollIntoView();
@@ -67,6 +67,7 @@ describe('As an Admin I want to fill in an imagelist and filelist', { retries: 0
         cy.get('button[class="btn dropdown-item"]').find('i[class="fas fa-fw fa-th"]').eq(6).click({ force: true}) ;
 
         cy.get('div[class="modal-dialog"]').its('length').should('eq', 1);
+        cy.wait(1000);
         cy.get('div[class="modal-dialog"]').find('input[value="bolt4.pdf"]').click({ force: true });
         cy.get('button[id="modalButtonAccept"]').click({ force: true });
         cy.wait(1000);
