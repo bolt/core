@@ -38,8 +38,8 @@ describe('As an Admin I want to fill in an imagelist and filelist', () => {
 
         cy.get('button[class="btn btn-sm btn-tertiary"]').find('i[class="fas fa-fw fa-chevron-down"]').eq(0).scrollIntoView();
         cy.get('button[class="btn btn-sm btn-tertiary"]').find('i[class="fas fa-fw fa-chevron-down"]').eq(0).click({ force: true}) ;
-        cy.get('input[name="fields[imagelist][1][filename]"]').should('have.value', 'kitten.jpg');
-        cy.get('input[name="fields[imagelist][1][alt]"]').should('have.value', 'Image of a kitten');
+        cy.get('input[name="fields[imagelist][0][filename]"]').should('have.value', 'kitten.jpg');
+        cy.get('input[name="fields[imagelist][0][alt]"]').should('have.value', 'Image of a kitten');
 
         cy.get('button[class="btn btn-sm btn-tertiary"]').find('i[class="fas fa-fw fa-chevron-up"]').eq(1).scrollIntoView();
         cy.get('button[class="btn btn-sm btn-tertiary"]').find('i[class="fas fa-fw fa-chevron-up"]').eq(1).click({ force: true}) ;
@@ -71,7 +71,7 @@ describe('As an Admin I want to fill in an imagelist and filelist', () => {
         cy.get('button[id="modalButtonAccept"]').scrollIntoView().trigger('mouseover', { force: true }).click({ force: true });
         cy.wait(1000);
 
-        cy.get('input[name="fields[filelist][0][filename]"]').should('have.value', 'bolt4.pdf');
+        cy.get('input[name="fields[filelist][1][filename]"]').should('have.value', 'bolt4.pdf');
 
         cy.get('button[class="btn btn-tertiary"]').eq(1).click({ force: true}) ;
         cy.get('.editor-filelist').find('div[class="form-fieldsgroup"]').its('length').should('eq', 5);
@@ -93,7 +93,7 @@ describe('As an Admin I want to fill in an imagelist and filelist', () => {
         cy.get('input[name="fields[filelist][1][filename]"]').should('have.value', 'bolt4.pdf');
 
         cy.get('.form-fieldsgroup:nth-child(2) > .editor__file .btn-group:nth-child(2) > .btn:nth-child(1) > .fas').click({ force: true}) ;
-        cy.get('input[name="fields[filelist][0][filename]"]').should('have.value', 'bolt4.pdf');
+        cy.get('input[name="fields[filelist][1][filename]"]').should('have.value', 'bolt4.pdf');
 
         cy.get('div[class="btn-group mr-2"]').eq(13).find('button[disabled="disabled"]');
         cy.get('div[class="btn-group mr-2"]').eq(21).find('button[disabled="disabled"]');
