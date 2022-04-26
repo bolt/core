@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-describe('As an Admin I want to fill in an imagelist and filelist', () => {
+describe('As an Admin I want to fill in an imagelist and filelist', { retries: 0 }, () => {
     it('checks if an admin can fill in an imagelist', () => {
         cy.login();
         cy.visit('/bolt/edit/42');
