@@ -68,7 +68,7 @@ describe('As an Admin I want to fill in an imagelist and filelist', { retries: 0
 
         cy.get('div[class="modal-dialog"]').its('length').should('eq', 1);
         cy.get('div[class="modal-dialog"]').find('input[value="bolt4.pdf"]').click({ force: true });
-        cy.get('button[id="modalButtonAccept"]').scrollIntoView().trigger('mouseover', { force: true }).click({ force: true });
+        cy.get('button[id="modalButtonAccept"]').click({ force: true });
         cy.wait(1000);
 
         cy.get('input[name="fields[filelist][1][filename]"]').should('have.value', 'bolt4.pdf');
