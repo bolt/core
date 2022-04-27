@@ -33,7 +33,7 @@ class JsonHelper
                 $resultWhere = 'JSON_GET_TEXT(' . $where . ', 0)';
             } elseif ($version->getPlatform()['driver_name'] === 'mysql') {
                 // MySQL
-                $resultWhere = 'JSON_UNQUOTE(JSON_EXTRACT(' . $where . ", '$[0]'))";
+                $resultWhere = 'CAST(JSON_UNQUOTE(JSON_EXTRACT(' . $where . ", '$[0]')) AS CHAR)";
             } else {
                 // SQLite
                 $resultWhere = 'JSON_EXTRACT(' . $where . ", '$[0]')";
