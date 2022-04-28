@@ -325,7 +325,7 @@ export default {
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button id="modalButtonDeny" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button id="modalButtonAccept" type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
                 </div>
             `;

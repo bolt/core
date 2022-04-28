@@ -67,6 +67,9 @@ describe('As an Admin I want to fill in an imagelist and filelist', { retries: 0
         cy.get('button[class="btn dropdown-item"]').find('i[class="fas fa-fw fa-th"]').eq(6).click({ force: true}) ;
 
         // I dont get why Cypress is like this
+
+        cy.visit('/bolt/async/list_files?location=files');
+
         cy.get('div[class="modal-dialog"]').its('length').should('eq', 1);
         cy.wait(10000);
         cy.get('div[class="modal-dialog"]').find('input[value="bolt4.pdf"]').click({ force: true });
