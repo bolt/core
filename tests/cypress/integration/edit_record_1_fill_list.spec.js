@@ -54,7 +54,7 @@ describe('As an Admin I want to fill in an imagelist and filelist', { retries: 0
         //TODO: move checking for elements before saving changes(for some reason it doesn't work)
         cy.get('.editor__imagelist').find('div[class="form-fieldsgroup"]').its('length').should('eq', 5);
         cy.url().should('contain', '/bolt/edit/42');
-    })
+    });
 
     it('checks if an admin can fill in an filelist', () => {
         cy.login();
@@ -68,7 +68,7 @@ describe('As an Admin I want to fill in an imagelist and filelist', { retries: 0
 
         // I dont get why Cypress is like this
 
-        cy.visit('/bolt/async/list_files?location=files');
+        cy.visit('/bolt/async/list_files?location=files', { failOnStatusCode: false });
 
         cy.get('div[class="modal-dialog"]').its('length').should('eq', 1);
         cy.wait(10000);
