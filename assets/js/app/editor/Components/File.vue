@@ -189,6 +189,7 @@ export default {
             return this.csrfToken;
         },
         acceptedExtensions() {
+            console.log(this.extensions);
             return this.extensions.map(ext => '.' + ext).join();
         },
         getPlaceholder() {
@@ -284,14 +285,15 @@ export default {
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button id="modalButtonAccept" type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+                    <button id="modalButtonDeny" type="button" class="btn btn-secondary" data-modal-button-deny="Close" data-bs-dismiss="modal"></button>
+                    <button id="modalButtonAccept" type="button" class="btn btn-primary" data-modal-button-accept="Select file" data-bs-dismiss="modal"></button>
                 </div>
             `;
             var resourcesModal = document.getElementById('resourcesModal');
             resourcesModal.querySelector('.modal-content').innerHTML = defaultContent;
         },
         selectServerFile(event) {
+            alert("selectServer Test");
             let thisField = this;
             Axios.get(this.filelist)
                 .then(res => {
@@ -378,7 +380,7 @@ export default {
                     } else if (responseData.error && responseData.error.message) {
                         errorMessage = responseData.error.message;
                     }
-                    bootbox.alert(errorMessage + '<br>File did not upload.');
+                    window.alert(errorMessage + '<br>File did not upload.');
                     console.warn(err);
                     this.progress = 0;
                 });
