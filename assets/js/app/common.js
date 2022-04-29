@@ -2,7 +2,7 @@ import $ from 'jquery';
 import { DateTime } from 'luxon';
 import { Popover } from 'bootstrap';
 import { Tab } from 'bootstrap';
-import  { resetModalContent } from "./modal";
+import { resetModalContent } from './modal';
 
 import { version } from '../version';
 window.assetsVersion = version;
@@ -177,10 +177,6 @@ $(document).ready(function() {
         let resourcesModal = document.getElementById('resourcesModal');
 
         let saveButton = document.getElementById('modalButtonAccept');
-        let save = event.target.getAttribute('data-modal-button-accept');
-
-        let denyButton = document.getElementById('modalButtonDeny');
-        let deny = event.target.getAttribute('data-modal-button-deny');
 
         let title = event.target.getAttribute('data-modal-title');
         let modalTitle = resourcesModal.querySelector('.modal-title');

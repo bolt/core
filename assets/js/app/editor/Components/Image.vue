@@ -177,7 +177,7 @@ import Axios from 'axios';
 import $ from 'jquery';
 import bootbox from 'bootbox';
 import { renable } from '../../patience-is-a-virtue';
-import { resetModalContent } from "../../modal";
+import { resetModalContent } from '../../modal';
 
 export default {
     name: 'EditorImage',
@@ -329,7 +329,7 @@ export default {
                     saveButton.addEventListener(
                         'click',
                         () => {
-                            if(modalBody.querySelector('input[type=checkbox]:checked')) {
+                            if (modalBody.querySelector('input[type=checkbox]:checked')) {
                                 var selectedImage = modalBody.querySelector('input[type=checkbox]:checked').value;
                                 thisField.filenameData = selectedImage;
                                 thisField.thumbnailData = `/thumbs/400×300/${selectedImage}`;

@@ -147,7 +147,7 @@ import field from '../mixins/value';
 import Axios from 'axios';
 import { renable } from '../../patience-is-a-virtue';
 import $ from 'jquery';
-import { resetModalContent } from '../../modal'
+import { resetModalContent } from '../../modal';
 
 export default {
     name: 'EditorFile',
@@ -287,7 +287,7 @@ export default {
                     saveButton.addEventListener(
                         'click',
                         () => {
-                            if(modalBody.querySelector('input[type=checkbox]:checked')) {
+                            if (modalBody.querySelector('input[type=checkbox]:checked')) {
                                 var selectedImage = modalBody.querySelector('input[type=checkbox]:checked').value;
                                 thisField.filenameData = selectedImage;
                             }
