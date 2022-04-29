@@ -188,7 +188,6 @@ export default {
             return this.csrfToken;
         },
         acceptedExtensions() {
-            console.log(this.extensions);
             return this.extensions.map(ext => '.' + ext).join();
         },
         getPlaceholder() {
@@ -292,7 +291,6 @@ export default {
             resourcesModal.querySelector('.modal-content').innerHTML = defaultContent;
         },
         selectServerFile(event) {
-            alert("selectServer Test");
             let thisField = this;
             Axios.get(this.filelist)
                 .then(res => {
