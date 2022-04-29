@@ -62,12 +62,11 @@ describe('As an Admin I want to fill in an imagelist and filelist', { retries: 0
         cy.get('a[id="files-tab"]').click({ force: true}) ;
         cy.get("label[for='field-filelist']").should('contain', 'Filelist');
 
-        cy.get('button[name="file-upload-dropdown"]').eq(1).scrollIntoView();
-        cy.get('button[name="file-upload-dropdown"]').eq(1).click({ force: true}) ;
+        cy.get('button[name="file-upload-dropdown"]').eq(2).scrollIntoView();
+        cy.get('button[name="file-upload-dropdown"]').eq(2).click({ force: true}) ;
         cy.get('button[class="btn dropdown-item"]').find('i[class="fas fa-fw fa-th"]').eq(6).click({ force: true}) ;
 
         cy.get('div[class="modal-dialog"]').its('length').should('eq', 1);
-        cy.wait(10000);
         cy.get('div[class="modal-dialog"]').find('input[value="bolt4.pdf"]').click({ force: true });
         cy.get('button[id="modalButtonAccept"]').click({ force: true });
         cy.wait(1000);
