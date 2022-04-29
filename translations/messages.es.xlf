@@ -1498,5 +1498,17 @@
         <target>Elige una imagen</target>
       </segment>
     </unit>
+    <unit id="VlfWDQr" name="modal.button_save">
+      <segment>
+        <source>modal.button_save</source>
+        <target>Guardar</target>
+      </segment>
+    </unit>
+    <unit id="ct_I4w3" name="modal.button_deny">
+      <segment>
+        <source>modal.button_deny</source>
+        <target>Cerrar</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

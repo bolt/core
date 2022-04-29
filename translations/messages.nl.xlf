@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="nl" trgLang="nl">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="nl">
   <file id="messages.nl">
     <unit id="tbB2gib" name="not_available">
       <notes>
@@ -2098,6 +2098,24 @@
       <segment>
         <source>modal.text.loading</source>
         <target>Loading...</target>
+      </segment>
+    </unit>
+    <unit id="VlfWDQr" name="modal.button_save">
+      <segment>
+        <source>modal.button_save</source>
+        <target>Opslaan</target>
+      </segment>
+    </unit>
+    <unit id="ct_I4w3" name="modal.button_deny">
+      <segment>
+        <source>modal.button_deny</source>
+        <target>Sluiten</target>
+      </segment>
+    </unit>
+    <unit id="JpJFIFq" name="collection.confirm_delete">
+      <segment>
+        <source>collection.confirm_delete</source>
+        <target>collection.confirm_delete</target>
       </segment>
     </unit>
   </file>

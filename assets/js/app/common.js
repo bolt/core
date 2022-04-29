@@ -2,6 +2,7 @@ import $ from 'jquery';
 import { DateTime } from 'luxon';
 import { Popover } from 'bootstrap';
 import { Tab } from 'bootstrap';
+import  { resetModalContent } from "./modal";
 
 import { version } from '../version';
 window.assetsVersion = version;
@@ -171,29 +172,6 @@ $(document).ready(function() {
      */
 
     // Reset the content of a modal to it's default
-    function resetModalContent() {
-        let defaultContent = `
-                <div class="modal-header">
-                    <h5 class="modal-title" id="resourcesModalLabel">
-                        <div class="spinner-border" role="status">
-                            <span class="visually-hidden">Loading...</span>
-                        </div>
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="spinner-border" role="status">
-                        <span class="visually-hidden">Loading...</span>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button id="modalButtonDeny" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button id="modalButtonAccept" type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
-                </div>
-            `;
-        let resourcesModal = document.getElementById('resourcesModal');
-        resourcesModal.querySelector('.modal-content').innerHTML = defaultContent;
-    }
 
     $('[data-bs-toggle="modal"]').on('click', function(event) {
         let resourcesModal = document.getElementById('resourcesModal');
@@ -212,15 +190,8 @@ $(document).ready(function() {
 
         let targetURL = event.target.getAttribute('href');
 
-        if ((saveButton || denyButton || modalTitle || modalBody != null) && (save || deny || title || body != null)) {
-            modalTitle.innerHTML = title;
-            modalBody.innerHTML = body;
-            saveButton.innerHTML = save;
-            denyButton.innerHTML = deny;
-        } else {
-            saveButton.innerHTML = 'Save changes';
-            denyButton.innerHTML = 'Close';
-        }
+        modalTitle.innerHTML = title;
+        modalBody.innerHTML = body;
 
         if (targetURL != null && modalBody != null) {
             modalBody.remove();

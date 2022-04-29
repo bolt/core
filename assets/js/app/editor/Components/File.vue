@@ -147,6 +147,7 @@ import field from '../mixins/value';
 import Axios from 'axios';
 import { renable } from '../../patience-is-a-virtue';
 import $ from 'jquery';
+import { resetModalContent } from '../../modal'
 
 export default {
     name: 'EditorFile',
@@ -267,29 +268,6 @@ export default {
             modalContent += `</div>`;
             return modalContent;
         },
-        resetModalContent() {
-            let defaultContent = `
-                <div class="modal-header">
-                    <h5 class="modal-title" id="resourcesModalLabel">
-                        <div class="spinner-border" role="status">
-                            <span class="visually-hidden">Loading...</span>
-                        </div>
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="spinner-border" role="status">
-                        <span class="visually-hidden">Loading...</span>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button id="modalButtonDeny" type="button" class="btn btn-secondary" data-modal-button-deny="Close" data-bs-dismiss="modal"></button>
-                    <button id="modalButtonAccept" type="button" class="btn btn-primary" data-modal-button-accept="Select file" data-bs-dismiss="modal"></button>
-                </div>
-            `;
-            var resourcesModal = document.getElementById('resourcesModal');
-            resourcesModal.querySelector('.modal-content').innerHTML = defaultContent;
-        },
         selectServerFile(event) {
             let thisField = this;
             Axios.get(this.filelist)
@@ -309,8 +287,10 @@ export default {
                     saveButton.addEventListener(
                         'click',
                         () => {
-                            var selectedImage = modalBody.querySelector('input[type=checkbox]:checked').value;
-                            thisField.filenameData = selectedImage;
+                            if(modalBody.querySelector('input[type=checkbox]:checked')) {
+                                var selectedImage = modalBody.querySelector('input[type=checkbox]:checked').value;
+                                thisField.filenameData = selectedImage;
+                            }
                         },
                         { once: true },
                     );
@@ -319,7 +299,7 @@ export default {
                         'hidden.bs.modal',
                         () => {
                             // Reset modal body content when the modal is closed
-                            this.resetModalContent();
+                            resetModalContent(this.labels);
                         },
                         { once: true },
                     );
