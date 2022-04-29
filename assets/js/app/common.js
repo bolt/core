@@ -208,7 +208,7 @@ $(document).ready(function() {
             'hidden.bs.modal',
             () => {
                 // Reset modal body content when the modal is closed
-                resetModalContent();
+                resetModalContent('');
             },
             { once: true },
         );
