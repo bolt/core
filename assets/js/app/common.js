@@ -217,6 +217,9 @@ $(document).ready(function() {
             modalBody.innerHTML = body;
             saveButton.innerHTML = save;
             denyButton.innerHTML = deny;
+        } else {
+            saveButton.innerHTML = 'Save changes';
+            denyButton.innerHTML = 'Close';
         }
 
         if (targetURL != null && modalBody != null) {

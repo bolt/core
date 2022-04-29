@@ -325,7 +325,7 @@ export default {
                     );
 
                     $('.bootbox-input').attr('name', 'bootbox-input');
-                    window.reEnablePatientButtons();
+                    renable();
                 })
                 .catch(err => {
                     console.warn(err);
