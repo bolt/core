@@ -14,8 +14,8 @@ export function resetModalContent(labels) {
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button data-modal-button-deny="`+ labels.modal_button_deny + `" id="modalButtonDeny" type="button" class="btn btn-secondary" data-bs-dismiss="modal">`+ labels.modal_button_deny +`</button>
-                    <button data-modal-button-accept="`+ labels.modal_button_save +`" id="modalButtonAccept" type="button" class="btn btn-primary" data-bs-dismiss="modal">`+ labels.modal_button_save +`</button>
+                    <button data-modal-button-deny="`+ labels['modal_button_deny'] + `" id="modalButtonDeny" type="button" class="btn btn-secondary" data-bs-dismiss="modal">`+ labels.modal_button_deny +`</button>
+                    <button data-modal-button-accept="`+ labels['modal_button_save'] +`" id="modalButtonAccept" type="button" class="btn btn-primary" data-bs-dismiss="modal">`+ labels.modal_button_save +`</button>
                 </div>
             `;
     var resourcesModal = document.getElementById('resourcesModal');
