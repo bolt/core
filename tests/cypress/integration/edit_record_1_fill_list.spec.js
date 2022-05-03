@@ -7,18 +7,17 @@ describe('As an Admin I want to fill in an imagelist and filelist', { retries: 0
         cy.get('a[id="media-tab"]').click({ force: true });
         cy.get("label[for='field-imagelist']").should('contain', 'Imagelist');
 
-        cy.get('button[name="image-upload-dropdown"]').eq(1).scrollIntoView();
-        cy.get('button[name="image-upload-dropdown"]').eq(1).click({ force: true }) ;
-        cy.get('button[class="btn dropdown-item"]').find('i[class="fas fa-fw fa-th"]').eq(1).click({ force: true }) ;
+        cy.get('.editor__imagelist button[name="image-upload-dropdown"]').eq(1).scrollIntoView();
+        cy.get('.editor__imagelist button[name="image-upload-dropdown"]').eq(1).click({ force: true }) ;
+        cy.get('.editor__imagelist button[class="btn dropdown-item"]').find('i[class="fas fa-fw fa-th"]').eq(1).click({ force: true }) ;
 
         cy.get('div[class="modal-dialog"]').its('length').should('eq', 1);
         cy.get('div[class="modal-dialog"]').find('input[value="kitten2.jpg"]').click({ force: true });
         cy.get('button[id="modalButtonAccept"]').scrollIntoView().trigger('mouseover', { force: true }).click({ force: true });
-        cy.wait(1000);
 
-        cy.get('input[name="fields[imagelist][0][filename]"]').should('have.value', 'kitten2.jpg');
-        cy.get('input[name="fields[imagelist][0][alt]"]').clear({ force: true });
-        cy.get('input[name="fields[imagelist][0][alt]"]').type('Image of a kitten', { force: true });
+        cy.get('input[name="fields[imagelist][1][filename]"]').should('have.value', 'kitten2.jpg');
+        cy.get('input[name="fields[imagelist][1][alt]"]').clear({ force: true });
+        cy.get('input[name="fields[imagelist][1][alt]"]').type('Image of a kitten', { force: true });
 
         cy.get('button[class="btn btn-tertiary"]').eq(0).click({ force: true}) ;
         cy.get('.editor__imagelist').find('div[class="form-fieldsgroup"]').its('length').should('eq', 5);
@@ -36,10 +35,15 @@ describe('As an Admin I want to fill in an imagelist and filelist', { retries: 0
         cy.get('input[name="fields[imagelist][3][alt]"]').clear({ force: true });
         cy.get('input[name="fields[imagelist][3][alt]"]').type('Image of a joey', { force: true });
 
+        cy.wait(2000);
+
         cy.get('button[class="btn btn-sm btn-tertiary"]').find('i[class="fas fa-fw fa-chevron-down"]').eq(0).scrollIntoView();
         cy.get('button[class="btn btn-sm btn-tertiary"]').find('i[class="fas fa-fw fa-chevron-down"]').eq(0).click({ force: true}) ;
+        cy.wait(2000);
+
         cy.get('input[name="fields[imagelist][1][filename]"]').should('have.value', 'kitten2.jpg');
         cy.get('input[name="fields[imagelist][1][alt]"]').should('have.value', 'Image of a kitten');
+        cy.wait(2000);
 
         cy.get('button[class="btn btn-sm btn-tertiary"]').find('i[class="fas fa-fw fa-chevron-up"]').eq(1).scrollIntoView();
         cy.get('button[class="btn btn-sm btn-tertiary"]').find('i[class="fas fa-fw fa-chevron-up"]').eq(1).click({ force: true}) ;
