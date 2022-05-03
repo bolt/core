@@ -4,11 +4,10 @@
         {% for message in messages %}
             <!-- Then put toasts within -->
             <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="6000">
-                <div class="alert-{{ type }} toast-header">
-                    <strong class="mr-auto">{{ 'flash_messages.notification'|trans }}</strong>
+                <div class="bg-toast-{{ type }} toast-header">
+                    <strong class="me-auto">{{ 'flash_messages.notification'|trans }}</strong>
                     <small>{{ type|trans }}</small>
-                    <button class="ml-2 mb-1 close" aria-label="Close" data-dismiss="toast" type="button">
-                        <span aria-hidden="true">&times;</span>
+                    <button class="ms-2 mb-1 btn-close" aria-label="Close" data-bs-dismiss="toast" type="button">
                     </button>
                 </div>
                 <div class="toast-body">{{ message|trans|raw }}</div>

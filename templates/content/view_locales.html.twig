@@ -96,13 +96,13 @@
             {% set translated = field|translate(locale) %}
             <td>
                 {% if not field.definition.localize %}
-                    <span class="badge badge-info">{{ 'view_locales.badge_default'|trans }}</span>
+                    <span class="badge bg-info">{{ 'view_locales.badge_default'|trans }}</span>
                 {% elseif localizedValues[locale] is not defined %}
-                    <span class="badge badge-danger">{{ 'view_locales.badge_missing'|trans }}</span>
+                    <span class="badge bg-danger">{{ 'view_locales.badge_missing'|trans }}</span>
                 {% elseif localizedValues[locale] is defined and translated.twigvalue is empty %}
-                    <span class="badge badge-warning">{{ 'view_locales.badge_empty'|trans }}</span>
+                    <span class="badge bg-warning">{{ 'view_locales.badge_empty'|trans }}</span>
                 {% else %}
-                    <span class="badge badge-success">{{ 'view_locales.badge_ok'|trans }}</span>
+                    <span class="badge bg-success">{{ 'view_locales.badge_ok'|trans }}</span>
                 {% endif %}
             </td>
         {% endfor %}

@@ -4,10 +4,10 @@
         <row-checkbox v-if="type !== 'dashboard'" :id="record.id" key="select"></row-checkbox>
 
         <!-- row -->
-        <div key="row" class="listing__row" :class="`is-${size}`" @mouseleave="leave">
+        <div key="row" class="listing__row" :class="`is-${size}`">
             <!-- column details / excerpt -->
             <div class="listing__row--item is-details">
-                <a class="listing__row--item-title" :href="record.extras.editLink" :title="slug">
+                <a class="listing__row--item-title text-decoration-none" :href="record.extras.editLink" :title="slug">
                     {{ record.extras.title | trim(62) | raw }}
                 </a>
                 <span v-if="record.extras.feature" class="badge" :class="`badge-${record.extras.feature}`">{{
@@ -49,7 +49,6 @@ import type from '../../../mixins/type';
 import Checkbox from './_Checkbox';
 import Meta from './_Meta';
 import Actions from './_Actions';
-import $ from 'jquery';
 
 export default {
     name: 'TableRow',
@@ -79,12 +78,6 @@ export default {
         },
         sorting() {
             return this.$store.getters['general/getSorting'];
-        },
-    },
-    methods: {
-        leave() {
-            // When we 'leave' the row, make sure we close the dropdown.
-            $('.dropdown-toggle[aria-expanded="true"]').dropdown('toggle');
         },
     },
 };

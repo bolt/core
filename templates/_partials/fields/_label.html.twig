@@ -3,16 +3,16 @@
 {%- if type|default() != 'checkbox' -%}
 
     {%- if localize|default() -%}
-        <span style="color: #999; font-size: 140%; line-height: 0;" class="{% if type|default() != 'collection' %}float-right{% endif %}" title="{{ __('label.translatable') }}">{{ macro.icon('language') }}</span>
+        <span style="color: #999; font-size: 140%; line-height: 0;" class="{% if type|default() != 'collection' %}float-end{% endif %}" title="{{ __('label.translatable') }}">{{ macro.icon('language') }}</span>
     {%- endif -%}
 
-    <label for="{{ id }}" class="editor--label{% if type|default() == 'collection' %} sr-only{% endif %}">
+    <label for="{{ id }}" class="form-label editor--label{% if type|default() == 'collection' %} sr-only{% endif %}">
 
         {{- label -}}:
         {% if required %} <span class="required-label"></span> {% endif %}
 
         {% if info|default() %}
-            <i class="fa fa-info-circle" data-toggle="popover" data-trigger="hover" title="{{ label }}" data-html="true" data-content="{{ info }}"></i>
+            <i class="fa fa-info-circle" data-bs-toggle="popover" data-bs-trigger="hover" title="{{ label }}" data-bs-html="true" data-bs-content="{{ info }}"></i>
         {% endif %}
     </label>
 {%- endif -%}

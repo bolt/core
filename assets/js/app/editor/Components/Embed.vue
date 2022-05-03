@@ -4,8 +4,8 @@
         <div :id="name" class="editor__embed" :name="name">
             <div class="row">
                 <div class="col-8">
-                    <div class="form-group">
-                        <label for="embed-url">{{ labels.content_url }}</label>
+                    <div class="mb-4">
+                        <label class="form-label" for="embed-url">{{ labels.content_url }}</label>
                         <div class="input-group">
                             <input
                                 v-model="urlData"
@@ -27,7 +27,7 @@
                                     :aria-label="labels.refresh"
                                     @click="updateEmbed"
                                 >
-                                    <i :class="(loading ? 'fa-spin' : '') + ' fas fa-sync mr-0'"></i>
+                                    <i :class="(loading ? 'fa-spin' : '') + ' fas fa-sync me-0'"></i>
                                 </button>
 
                                 <button
@@ -36,15 +36,15 @@
                                     :aria-label="labels.delete"
                                     @click="clearEmbed"
                                 >
-                                    <i class="fas fa-trash mr-0"></i>
+                                    <i class="fas fa-trash me-0"></i>
                                 </button>
                             </span>
                         </div>
                     </div>
-                    <div class="form-group form-inline">
-                        <label for="embed-width-size">{{ labels.label_size }}</label>
+                    <div class="mb-4 d-flex align-items-center">
+                        <label class="form-label" for="embed-width-size">{{ labels.label_size }}</label>
                         <input
-                            class="form-control col-2 offset-1"
+                            class="form-control w-auto col-2 offset-1"
                             :name="name + '[width]'"
                             type="number"
                             :value="widthData"
@@ -54,7 +54,7 @@
                         ×
                         <label for="embed-height-size" class="sr-only">{{ labels.label_height }}</label>
                         <input
-                            class="form-control col-2"
+                            class="form-control w-auto col-2"
                             :name="name + '[height]'"
                             type="number"
                             :value="heightData"
@@ -63,8 +63,8 @@
                         />
                         <label>{{ labels.label_pixel }}</label>
                     </div>
-                    <div class="form-group">
-                        <label>{{ labels.label_matched_embed }}</label>
+                    <div class="mb-4">
+                        <label class="form-label">{{ labels.label_matched_embed }}</label>
                         <input
                             class="form-control title"
                             :name="name + '[title]'"
@@ -92,7 +92,7 @@
                     </div>
                 </div>
                 <div class="col-4">
-                    <label>{{ labels.label_preview }}</label>
+                    <label class="form-label">{{ labels.label_preview }}</label>
                     <div class="editor__image--preview">
                         <a
                             v-if="previewImage !== null && previewImage !== ''"

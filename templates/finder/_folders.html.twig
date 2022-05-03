@@ -12,7 +12,7 @@
         <tr>
             <td>
                 <b>
-                    <a href="{{ path('bolt_filemanager', {'location': location.key, 'path': parent }) }}">
+                    <a href="{{ path('bolt_filemanager', {'location': location.key, 'path': parent }) }}" class="text-decoration-none">
                         <i class="fas fa-folder-minus"></i>
                         ../
                     </a>
@@ -29,14 +29,21 @@
             <td>
                 <b>
                     {% if path != '/' %}<i class="folder-indent"></i>{% endif %}
-                    <a href="{{ path('bolt_filemanager', {'location': location.key, 'path': dirname }) }}">
+                    <a href="{{ path('bolt_filemanager', {'location': location.key, 'path': dirname }) }}" class="text-decoration-none">
                         <i class="fas fa-folder"></i>
                         {{ directory.getRelativePathname }}/
                     </a>
                 </b>
             </td>
             <td>
-                {{ macro.buttonlink('action.delete', path('bolt_filemanager_delete', {'path': dirname, 'location': location.key, '_csrf_token': csrf_token('filemanager-delete')}), 'trash', 'danger sm mb-0', {'data-confirmation': 'action.confirm_delete'|trans }) }}
+                {{ macro.buttonlink('action.delete', path('bolt_filemanager_delete', {'path': dirname, 'location': location.key, '_csrf_token': csrf_token('filemanager-delete')}), 'trash', 'danger sm mb-0', {
+                    'data-modal-title': 'action.confirm_delete'|trans,
+                    'data-modal-body': 'action.confirm_delete'|trans,
+                    'data-modal-button-deny': 'Cancel',
+                    'data-modal-button-accept': 'OK',
+                    'data-bs-toggle': 'modal',
+                    'data-bs-target': '#resourcesModal'
+                }) }}
             </td>
         </tr>
     {% endfor %}

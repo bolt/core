@@ -7,7 +7,7 @@ describe('As an Admin I want to fill in a Set and an Collection', () => {
         cy.get('.editor__tabbar').should('contain', 'Sets');
 
         cy.get('a[id="sets-tab"]').click();
-        cy.url().should('contain', '/bolt/edit/43#sets');
+        cy.url().should('contain', '/bolt/edit/43');
 
         cy.get("#sets label[for='field-set-title']").should('contain', 'Title');
         cy.get('input[name="sets[set][title]"]').its('length').should('eq', 1);
@@ -22,10 +22,9 @@ describe('As an Admin I want to fill in a Set and an Collection', () => {
         cy.get('button[class="btn btn-success mb-0 "]').eq(1).scrollIntoView();
         cy.get('button[class="btn btn-success mb-0 "]').eq(1).click();
 
-        cy.url().should('contain', '/bolt/edit/43#sets');
+        cy.url().should('contain', '/bolt/edit/43');
         cy.get('input[name="sets[set][title]"]').should('have.value', 'Foo');
         cy.get('textarea[name="sets[set][textarea]"]').should('have.value', 'Bar');
-
     })
 
     it('checks if an admin can fill in a collection', () => {
@@ -34,19 +33,19 @@ describe('As an Admin I want to fill in a Set and an Collection', () => {
         cy.get('.editor__tabbar').should('contain', 'Collections');
 
         cy.get('a[id="collections-tab"]').click();
-        cy.url().should('contain', '/bolt/edit/43#collections');
+        cy.url().should('contain', '/bolt/edit/43');
         cy.get("label[for='field-collection']").should('contain', "Collection:");
 
         cy.get('button[id="collection-dropdownMenuButton"]').scrollIntoView();
         cy.get('button[id="collection-dropdownMenuButton"]').click();
-        cy.get("#field--field-collection > div > div > div> div.dropdown.show > div > a:nth-child(2)").click();
+        cy.get("#field--field-collection > div > div > div > div.dropdown > div > a:nth-child(2)").click();
 
         cy.get('.action-move-up-collection-item').eq(0).should('be.disabled');
         cy.get('.action-move-down-collection-item').should('be.enabled');
 
         cy.get('button[id="collection-dropdownMenuButton"]').scrollIntoView();
         cy.get('button[id="collection-dropdownMenuButton"]').click();
-        cy.get("#field--field-collection > div > div > div> div.dropdown.show > div > a:nth-child(1)").click();
+        cy.get("#field--field-collection > div > div > div > div.dropdown > div > a:nth-child(1)").click();
 
         cy.get('.collection-item').its('length').should('eq', 4);
         cy.get('#collections textarea').eq(1).clear();
@@ -59,8 +58,8 @@ describe('As an Admin I want to fill in a Set and an Collection', () => {
         cy.get('div[data-label="Set inside Collection"]').should('exist');
 
         cy.get('button[class="btn btn-success mb-0 "]').eq(1).scrollIntoView();
-        cy.get('button[class="btn btn-success mb-0 "]').eq(1).click();
-        cy.url().should('contain', '/bolt/edit/43#collections');
+        cy.get('button[class="btn btn-success mb-0 "]').eq(1).click({ force: true });
+        cy.url().should('contain', '/bolt/edit/43');
 
         cy.get('#collections textarea').eq(1).clear();
         cy.get(".collection-item input[type='text']").eq(1).clear();

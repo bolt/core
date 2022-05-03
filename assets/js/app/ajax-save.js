@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import { patience_virtue, renable } from './patience-is-a-virtue';
+import { Toast } from 'bootstrap';
 
 let form = $('#editcontent');
 let record_id = form.data('record');
@@ -44,10 +45,15 @@ $(document).ready(function() {
         $('#toastBody').append(toastMessage);
 
         $(document).ready(function() {
-            $('.toast').toast('show');
-        });
+            let toastElList = [].slice.call(document.querySelectorAll('.toast'));
+            let toastList = toastElList.map(function(toastEl) {
+                return new Toast(toastEl, []);
+            });
 
-        setTimeout($('.toast').toast('hide'), 5000);
+            toastList.forEach(function(toast) {
+                toast.show();
+            });
+        });
     }
     this.href = window.location.pathname;
 

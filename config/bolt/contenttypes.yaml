@@ -217,11 +217,17 @@ showcases:
             extensions: [ gif, jpg, png ]
             alt: true
             placeholder: https://source.unsplash.com/1280x768/?animal,koala,kitten,puppy,cute/__random__
+        image_another:
+            type: image
+            extensions: [ gif, jpg, png ]
+            alt: true
+            placeholder: https://source.unsplash.com/1280x768/?animal,koala,kitten,puppy,cute/__random__
         imagelist:
             type: imagelist
         file:
             type: file
             group: Files
+            extensions: [pdf, png, csv, xlsx, txt, gif, doc, docx, pptx, mp3, mp4, zip]
         filelist:
             type: filelist
             limit: 5
@@ -261,6 +267,9 @@ showcases:
             postfix: "Select an entry"
             autocomplete: true
             order: -id
+        author:
+            type: text
+            label: Author
         hiddenfield:
             type: hidden
             group: internal

@@ -35,7 +35,7 @@
                     />
                 </div>
                 <div class="btn-toolbar" role="toolbar">
-                    <div class="btn-group mr-2" role="group">
+                    <div class="btn-group me-2" role="group">
                         <button
                             class="btn btn-sm btn-tertiary"
                             type="button"
@@ -49,7 +49,7 @@
                             class="btn btn-sm btn-tertiary dropdown-toggle dropdown-toggle-split"
                             aria-expanded="false"
                             aria-haspopup="true"
-                            data-toggle="dropdown"
+                            data-bs-toggle="dropdown"
                             name="file-upload-dropdown"
                             type="button"
                             :disabled="readonly"
@@ -63,7 +63,10 @@
                                 type="button"
                                 :readonly="readonly"
                                 data-patience="virtue"
-                                @click="selectServerFile"
+                                data-bs-toggle="modal"
+                                data-bs-target="#resourcesModal"
+                                :data-modal-title="labels.modal_title_files"
+                                @click="selectServerFile($event)"
                             >
                                 <i class="fas fa-fw fa-th"></i>
                                 {{ labels.button_from_library }}
@@ -81,7 +84,7 @@
                         </div>
                     </div>
 
-                    <div class="btn-group mr-2" role="group">
+                    <div class="btn-group me-2" role="group">
                         <button
                             v-if="inFilelist == true"
                             class="btn btn-sm btn-tertiary"
@@ -142,8 +145,9 @@
 <script>
 import field from '../mixins/value';
 import Axios from 'axios';
-import bootbox from 'bootbox';
 import { renable } from '../../patience-is-a-virtue';
+import $ from 'jquery';
+import { resetModalContent } from '../../modal';
 
 export default {
     name: 'EditorFile',
@@ -210,21 +214,97 @@ export default {
         selectUploadFile() {
             this.$refs.selectFile.click();
         },
-        selectServerFile() {
+        generateModalContent(inputOptions) {
+            let fileIcons = {
+                jpg: 'fa-file-image',
+                jpeg: 'fa-file-image',
+                png: 'fa-file-image',
+                webp: 'fa-file-image',
+                svg: 'fa-file-image',
+                gif: 'fa-file-image',
+                pdf: 'fa-file-pdf',
+                doc: 'fa-file-word',
+                docx: 'fa-file-word',
+                txt: 'fa-file-alt',
+                csv: 'fa-file-csv',
+                xls: 'fa-file-excel',
+                xlsx: 'fa-file-excel',
+                pptx: 'fa-file-powerpoint',
+                html: 'fa-file-code',
+                mp3: 'fa-music',
+                mp4: 'fa-video',
+                mov: 'fa-video',
+                avi: 'fa-video',
+                webm: 'fa-video',
+                zip: 'fa-file-archive',
+                rar: 'fa-file-archive',
+                gz: 'fa-file-archive',
+            };
+            let modalContent = '<div class="row row-cols-1 row-cols-md-3 g-2">';
+            inputOptions.forEach((element, key) => {
+                let filenameExtension = element.text
+                    .split('.')
+                    .pop()
+                    .toLowerCase();
+                modalContent += `
+                    <div class="col">
+                        <div class="card h-100 pt-3">
+                            <i class="fas fa-solid ${fileIcons[filenameExtension] ??
+                                'fa-file'} fa-5x me-0 align-self-center"></i>
+                            <div class="card-body px-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="${
+                                        element.value
+                                    }" id="flexCheckDefault-${key}">
+                                    <label class="form-check-label d-inline fs-6" for="flexCheckDefault-${key}">
+                                        ${element.text}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            modalContent += `</div>`;
+            return modalContent;
+        },
+        selectServerFile(event) {
             let thisField = this;
             Axios.get(this.filelist)
                 .then(res => {
-                    bootbox.prompt({
-                        title: 'Select a file',
-                        inputType: 'select',
-                        inputOptions: this.filterServerFiles(res.data),
-                        callback: function(result) {
-                            if (result) {
-                                thisField.filenameData = result;
+                    let inputOptions = this.filterServerFiles(res.data);
+
+                    var resourcesModal = document.getElementById('resourcesModal');
+                    var saveButton = document.getElementById('modalButtonAccept');
+                    var button = event.target;
+                    var title = button.getAttribute('data-modal-title');
+                    var modalTitle = resourcesModal.querySelector('.modal-title');
+                    var modalBody = resourcesModal.querySelector('.modal-body');
+                    var modalBodyContent = this.generateModalContent(inputOptions);
+                    modalTitle.innerHTML = title;
+                    modalBody.innerHTML = modalBodyContent;
+
+                    saveButton.addEventListener(
+                        'click',
+                        () => {
+                            if (modalBody.querySelector('input[type=checkbox]:checked')) {
+                                var selectedImage = modalBody.querySelector('input[type=checkbox]:checked').value;
+                                thisField.filenameData = selectedImage;
                             }
                         },
-                    });
-                    window.$('.bootbox-input').attr('name', 'bootbox-input');
+                        { once: true },
+                    );
+
+                    resourcesModal.addEventListener(
+                        'hidden.bs.modal',
+                        () => {
+                            // Reset modal body content when the modal is closed
+                            resetModalContent(this.labels);
+                        },
+                        { once: true },
+                    );
+
+                    $('.bootbox-input').attr('name', 'bootbox-input');
                     renable();
                 })
                 .catch(err => {
@@ -277,7 +357,7 @@ export default {
                     } else if (responseData.error && responseData.error.message) {
                         errorMessage = responseData.error.message;
                     }
-                    bootbox.alert(errorMessage + '<br>File did not upload.');
+                    window.alert(errorMessage + '<br>File did not upload.');
                     console.warn(err);
                     this.progress = 0;
                 });

@@ -64,7 +64,7 @@
                 </a>
             </p>
             <form>
-                <div class="form-group">
+                <div class="mb-4">
                     <p>
                         <strong>{{ 'listing.title_sortby'|trans }}</strong>:
                         <select class="form-control" name="sortBy" title="{{ 'listing.title_sortby'|trans }}">
@@ -89,7 +89,7 @@
                                 <p>
                                     <strong>{{ taxonomyDefinition.singular_name }}:</strong>
                                     {% for key, value in taxonomyDefinition.options %}
-                                        <a class="badge badge-tertiary {% if taxonomy == taxonomyName and taxonomyValue == key %}selected{% endif %}"
+                                        <a class="badge badge-tertiary text-decoration-none {% if taxonomy == taxonomyName and taxonomyValue == key %}selected{% endif %}"
                                            href="?taxonomy={{ (taxonomyDefinition.slug ~ '=' ~ key)|url_encode }}">
                                             {{ value }}
                                         </a>

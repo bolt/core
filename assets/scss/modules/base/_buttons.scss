@@ -3,31 +3,14 @@
 // Uses 'button-variant' mixin from core bootstrap with fixed colors.
 
 .btn-hidden-danger {
-  @include button-variant($tertiary, $tertiary, darken($danger, 7.5%), darken($danger, 10%), darken($danger, 10%), darken($danger, 12.5%));
+  @include button-variant($tertiary, $tertiary, $white, darken($danger, 7.5%), darken($danger, 10%), $white, darken($danger, 10%), darken($danger, 12.5%));
 }
 
 .btn-light-danger {
-  @include button-variant($light, $light, darken($danger, 7.5%), darken($danger, 10%), darken($danger, 10%), darken($danger, 12.5%));
+  @include button-variant($light, $light, $gray-900, darken($danger, 7.5%), darken($danger, 10%), $white);
 }
 
-$theme-colors: (
-  "primary":   $primary,
-  "secondary": $secondary,
-  "tertiary":  $tertiary,
-  "success":   $success,
-  "info":      $info,
-  "warning":   $warning,
-  "danger":    $danger,
-  "light":     $light,
-  "dark":      $dark,
-  "boltblue":  $bolt-blue,
-);
-
 @each $color, $value in $theme-colors {
-  .alert-#{$color} {
-    background-color: theme-color-level($color, $alert-bg-level) !important;
-  }
-
   .btn-#{$color} {
     @include button-variant($value, $value);
   }

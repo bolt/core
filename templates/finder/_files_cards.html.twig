@@ -25,18 +25,18 @@
 
         {% endif %}
 
-    <div class="col-6 col-sm-4 col-xl-3 pr-0 pb-3">
+    <div class="col-6 col-sm-4 col-xl-3 pe-0 pb-3">
         <div class="card">
             {%- if thumbnail -%}
                 <a class="lightbox" href="{{ filename|thumbnail(width = 1000, height = 1000, location = location.key) }}">
                     <img class="card-img-top" src="{{ thumbnail }}" loading="lazy">
                 </a>
             {% else %}
-                <img class="card-img-top" src="{{ asset('assets/images/placeholder.png', 'public') }}" loading="lazy">
+                <img class="card-img-top text" src="{{ asset('assets/images/placeholder.png', 'public') }}" loading="lazy">
             {%- endif -%}
 
             <div class="card-body p-2">
-                <a href="{{ link }}" style="font-size: 85%;">{{ file.getRelativePathname|excerpt(15) }}</a>
+                <a href="{{ link }}" class="text-decoration-none" style="font-size: 85%;">{{ file.getRelativePathname|excerpt(15) }}</a>
 
                 {% include '@bolt/finder/_files_actions.html.twig' %}
             </div>

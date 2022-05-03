@@ -6,9 +6,9 @@ html {
 
 html,
 body {
-  margin: 0;
   color: var(--body);
   background: var(--background);
+  font-family: $font-family-base;
 }
 
 body {

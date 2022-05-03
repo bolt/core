@@ -21,6 +21,12 @@ To start a server on this port you can use this command inside your project fold
 php -S localhost:8088 -t public
 ```
 
+Or, if you're using the Symfony CLI: 
+
+```
+symfony serve -d --port=8088
+```
+
 ### To run all tests use:
 ```
 npm run cypress:dev
@@ -40,8 +46,8 @@ succeeded. At the bottom you have a summary of how many tests failed.
 npm run cypress:dev -- --spec "./tests/cypress/integration/your_test.spec.js"
 ```
 
-If you want to run the test on the same project make sure to run `make db-reset` otherwise it will 
-fail on a few tests that depend on the standard fixtures.
+If you want to run the test on the same project make sure to run `make db-reset-without-images`, 
+because otherwise it might fail on a few tests that depend on the standard fixtures.
 
 You can add additional options to the run command by typing `--` and the option you want after it. 
 A list of all options is available [here][options].

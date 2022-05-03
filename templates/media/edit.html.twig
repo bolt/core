@@ -63,7 +63,7 @@
     <div class="media my-4">
         {% set crop = 'crop-' ~ media.cropX|default(50) ~ '-' ~ media.cropy|default(50) ~ '-' ~ media.cropZoom|default(1.3)  %}
         {% set thumbnail = thumbnail(image = media.filename, width = 300, height = 300, location = media.location, path = media.path, fit = crop) %}
-        <img class="mr-3" src="{{ thumbnail }}" alt="Cropping example">
+        <img class="me-3" src="{{ thumbnail }}" alt="Cropping example">
 
         <div>
         {% include '@bolt/_partials/fields/text.html.twig' with {
@@ -108,7 +108,7 @@
         <form>
             <div class="form-group">
                 <button type="submit" class="btn btn-success mb-3" form="editcontent">
-                    <i class="fas fa-save mr-2"></i> {{ 'action.save'|trans }}
+                    <i class="fas fa-save me-2"></i> {{ 'action.save'|trans }}
                 </button>
 
                 <p>{{ 'label.predominant_colors__in_image'|trans }}:

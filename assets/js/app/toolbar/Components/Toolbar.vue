@@ -12,7 +12,9 @@
         </div>
 
         <div class="toolbar-item toolbar-item__site">
-            <a href="/" target="_blank"> <i class="fas fa-sign-out-alt"></i>{{ labels['action.view_site'] }} </a>
+            <a href="/" class="text-decoration-none" target="_blank">
+                <i class="fas fa-sign-out-alt"></i>{{ labels['action.view_site'] }}
+            </a>
         </div>
 
         <form :action="urlPaths['bolt_dashboard']" class="toolbar-item toolbar-item__filter input-group">
@@ -42,12 +44,12 @@
             <button
                 class="btn user profile__dropdown-toggler dropdown-toggle d-flex align-items-center"
                 type="button"
-                data-toggle="dropdown"
+                data-bs-toggle="dropdown"
                 data-display="static"
                 aria-haspopup="true"
                 aria-expanded="false"
             >
-                <img v-if="avatar" :src="avatar" class="rounded-circle mr-2" alt="User avatar" />
+                <img v-if="avatar" :src="avatar" class="rounded-circle me-2" alt="User avatar" />
                 <i v-else class="fas fa-user"></i>{{ labels['general.greeting'] }}
                 <template v-if="isImpersonator">
                     &nbsp;<span style="font-style: italic;">({{ labels['general.is_impersonator'] }})</span>
@@ -56,26 +58,26 @@
             <div class="profile__dropdown dropdown-menu dropdown-menu-right">
                 <ul>
                     <li>
-                        <a :href="urlPaths['bolt_profile_edit']">
+                        <a :href="urlPaths['bolt_profile_edit']" class="text-decoration-none">
                             <i class="fas fa-user-edit fa-fw"></i>
                             {{ labels['action.edit_profile'] }}
                         </a>
                     </li>
                     <li>
-                        <a :href="urlPaths['bolt_logout']">
+                        <a :href="urlPaths['bolt_logout']" class="text-decoration-none">
                             <i class="fas fa-sign-out-alt fa-fw"></i>
                             {{ labels['action.logout'] }}
                         </a>
                     </li>
                     <hr />
                     <li>
-                        <a href="https://boltcms.io/" target="_blank">
+                        <a href="https://boltcms.io/" class="text-decoration-none" target="_blank">
                             <i class="fas fa-globe-americas fa-fw"></i>
                             {{ labels['about.visit_bolt'] }}
                         </a>
                     </li>
                     <li>
-                        <a href="https://docs.bolt.cm/" target="_blank">
+                        <a href="https://docs.bolt.cm/" class="text-decoration-none" target="_blank">
                             <i class="fas fa-book fa-fw"></i>
                             {{ labels['about.bolt_documentation'] }}
                         </a>

@@ -4,14 +4,10 @@ describe('View users and permissions', () => {
     it('checks that an admin can view users and permission', () => {
         cy.login();
 
-        //Clear cache
-        cy.visit('/bolt/clearcache');
-        cy.visit('/bolt');
-
-        cy.get('a[href="/bolt/menu/configuration"]').click();
+        cy.get('a[href="/bolt/menu/configuration"]').click({force: true});
 
         cy.wait(1000);
-        cy.get('.menupage').find('ul').find('li').eq(0).click();
+        cy.get('div[class="menupage"]').find('ul').find('li').eq(0).click();
         cy.wait(1000);
         cy.url().should('contain', '/bolt/users');
 

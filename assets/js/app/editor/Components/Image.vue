@@ -46,7 +46,7 @@
                     />
                 </div>
                 <div class="btn-toolbar" role="toolbar">
-                    <div class="btn-group mr-2" role="group">
+                    <div class="btn-group me-2" role="group">
                         <button
                             class="btn btn-sm btn-tertiary"
                             type="button"
@@ -60,7 +60,7 @@
                             class="btn btn-sm btn-tertiary dropdown-toggle dropdown-toggle-split"
                             aria-expanded="false"
                             aria-haspopup="true"
-                            data-toggle="dropdown"
+                            data-bs-toggle="dropdown"
                             name="image-upload-dropdown"
                             type="button"
                             :disabled="readonly"
@@ -74,7 +74,11 @@
                                 type="button"
                                 :disabled="readonly"
                                 data-patience="virtue"
-                                @click="selectServerFile"
+                                data-bs-toggle="modal"
+                                data-bs-target="#resourcesModal"
+                                :data-modal-title="labels.modal_title_images"
+                                :data-initiator="id"
+                                @click="selectServerFile($event)"
                             >
                                 <i class="fas fa-fw fa-th"></i>
                                 {{ labels.button_from_library }}
@@ -85,7 +89,10 @@
                                 type="button"
                                 :disabled="readonly"
                                 data-patiance="virtue"
-                                @click="uploadFileFromUrl"
+                                data-bs-toggle="modal"
+                                data-bs-target="#resourcesModal"
+                                :data-modal-title="labels.modal_title_upload_from_url"
+                                @click="uploadFileFromUrl($event)"
                             >
                                 <i class="fas fa-fw fa-external-link-alt"></i>
                                 {{ labels.button_from_url }}
@@ -103,7 +110,7 @@
                         </div>
                     </div>
 
-                    <div class="btn-group mr-2" role="group">
+                    <div class="btn-group me-2" role="group">
                         <button
                             v-if="inImagelist"
                             class="btn btn-sm btn-tertiary"
@@ -167,8 +174,10 @@ import noScroll from 'no-scroll';
 import baguetteBox from 'baguettebox.js';
 import field from '../mixins/value';
 import Axios from 'axios';
+import $ from 'jquery';
 import bootbox from 'bootbox';
 import { renable } from '../../patience-is-a-virtue';
+import { resetModalContent } from '../../modal';
 
 export default {
     name: 'EditorImage',
@@ -269,29 +278,80 @@ export default {
         selectUploadFile() {
             this.$refs.selectFile.click();
         },
-        selectServerFile() {
+        generateModalContent(inputOptions) {
+            let modalContent = '<div class="row row-cols-1 row-cols-md-3 g-2">';
+            inputOptions.forEach((element, key) => {
+                modalContent += `
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="/thumbs/140×73×crop/${element.value}" loading="lazy">
+                            <div class="card-body px-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="${element.value}" id="flexCheckDefault-${key}">
+                                    <label class="form-check-label d-inline fs-6" for="flexCheckDefault-${key}">
+                                        ${element.text}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            modalContent += `</div>`;
+            return modalContent;
+        },
+        generateUploadFromURLModalContent() {
+            let modalContent = '';
+            modalContent += `
+                <form>
+                    <input class="form-control" autocomplete="off" type="text" name="from-url-input">
+                </form>
+            `;
+            modalContent += `</div>`;
+            return modalContent;
+        },
+        selectServerFile(event) {
             let thisField = this;
             Axios.get(this.filelist)
                 .then(res => {
-                    bootbox.prompt({
-                        title: 'Select a file',
-                        inputType: 'select',
-                        name: 'image-selector',
-                        inputOptions: this.filterServerFiles(res.data),
-                        callback: function(result) {
-                            if (result) {
-                                thisField.filenameData = result;
-                                thisField.thumbnailData = `/thumbs/400×300/${result}`;
-                                thisField.previewData = `/thumbs/1000×1000/${result}`;
+                    let inputOptions = this.filterServerFiles(res.data);
+
+                    var resourcesModal = document.getElementById('resourcesModal');
+                    var saveButton = document.getElementById('modalButtonAccept');
+                    var button = event.target;
+                    var title = button.getAttribute('data-modal-title');
+                    var modalTitle = resourcesModal.querySelector('.modal-title');
+                    var modalBody = resourcesModal.querySelector('.modal-body');
+                    var modalBodyContent = this.generateModalContent(inputOptions);
+                    modalTitle.innerHTML = title;
+                    modalBody.innerHTML = modalBodyContent;
+
+                    saveButton.addEventListener(
+                        'click',
+                        () => {
+                            if (modalBody.querySelector('input[type=checkbox]:checked')) {
+                                var selectedImage = modalBody.querySelector('input[type=checkbox]:checked').value;
+                                thisField.filenameData = selectedImage;
+                                thisField.thumbnailData = `/thumbs/400×300/${selectedImage}`;
+                                thisField.previewData = `/thumbs/1000×1000/${selectedImage}`;
                             }
                         },
-                    });
-                    window.$('.bootbox-input').attr('name', 'bootbox-input');
+                        { once: true },
+                    );
+
+                    resourcesModal.addEventListener(
+                        'hidden.bs.modal',
+                        () => {
+                            // Reset modal body content when the modal is closed
+                            resetModalContent(this.labels);
+                        },
+                        { once: true },
+                    );
+
+                    $('.bootbox-input').attr('name', 'bootbox-input');
                     renable();
                 })
-                .catch(err => {
-                    bootbox.alert(err.response.data + '<br>Image did not upload.');
-                    console.warn(err);
+                .catch(() => {
                     renable();
                 });
         },
@@ -351,12 +411,24 @@ export default {
                     'Content-Type': 'multipart/form-data',
                 },
             };
-            bootbox.prompt({
-                title: 'Upload from URL',
-                callback: function(url) {
-                    if (url) {
+
+            var resourcesModal = document.getElementById('resourcesModal');
+            var saveButton = document.getElementById('modalButtonAccept');
+            var button = event.target;
+            var title = button.getAttribute('data-modal-title');
+            var modalTitle = resourcesModal.querySelector('.modal-title');
+            var modalBody = resourcesModal.querySelector('.modal-body');
+            var modalBodyContent = this.generateUploadFromURLModalContent();
+            modalTitle.innerHTML = title;
+            modalBody.innerHTML = modalBodyContent;
+
+            saveButton.addEventListener(
+                'click',
+                () => {
+                    var imageURL = modalBody.querySelector('input[name=from-url-input]').value;
+                    if (imageURL) {
                         const fd = new FormData();
-                        fd.append('url', url);
+                        fd.append('url', imageURL);
                         fd.append('_csrf_token', thisField.token);
                         Axios.post(thisField.directoryurl, fd, config)
                             .then(res => {
@@ -372,8 +444,19 @@ export default {
                             });
                     }
                 },
-            });
-            window.$('.bootbox-input').attr('name', 'bootbox-input');
+                { once: true },
+            );
+
+            resourcesModal.addEventListener(
+                'hidden.bs.modal',
+                () => {
+                    // Reset modal body content when the modal is closed
+                    this.resetModalContent();
+                },
+                { once: true },
+            );
+
+            $('.bootbox-input').attr('name', 'bootbox-input');
             window.reEnablePatientButtons();
         },
         filterServerFiles(files) {

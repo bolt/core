@@ -35,11 +35,11 @@
         </td>
         <td>
             <div class="dropdown">
-                <button class="btn btn-tertiary btn-sm dropdown-toggle" type="button" id="dropdownMenuButtonRequest-{{ loop.index0 }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button class="btn btn-tertiary btn-sm dropdown-toggle" type="button" id="dropdownMenuButtonRequest-{{ loop.index0 }}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {{ macro.icon('cog') }} {{ __('label.request') }}
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: 400px; font-size: 80%;">
-                    <ul class="pl-4 pr-3 my-0">
+                    <ul class="ps-4 pe-3 my-0">
                         {% for key, line in item.extra %}
                             <li><strong>{{ key }}:</strong> <code>{{ line|join(', ') }}</code></li>
                         {% endfor %}
@@ -49,11 +49,11 @@
         </td>
         <td>
             <div class="dropdown">
-                <button class="btn btn-tertiary btn-sm dropdown-toggle" type="button" id="dropdownMenuButtonTrace-{{ loop.index0 }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button class="btn btn-tertiary btn-sm dropdown-toggle" type="button" id="dropdownMenuButtonTrace-{{ loop.index0 }}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {{ macro.icon('road') }} {{ __('label.trace') }}
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: 500px; font-size: 80%;">
-                    <ul class="pl-4 pr-3 my-0">
+                    <ul class="ps-4 pe-3 my-0">
                         {% for key, line in item.location %}
                             <li><strong>{{ key }}:</strong> <code>{{ line|join(', ') }}</code></li>
                         {% endfor %}
@@ -67,11 +67,11 @@
         <td>
             {% if item.context is iterable %}
             <div class="dropdown">
-                <button class="btn btn-tertiary btn-sm dropdown-toggle" type="button" id="dropdownMenuButtonContext-{{ loop.index0 }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button class="btn btn-tertiary btn-sm dropdown-toggle" type="button" id="dropdownMenuButtonContext-{{ loop.index0 }}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {{ macro.icon('project-diagram') }} {{ __('label.context') }}
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: 500px; font-size: 80%;">
-                    <ul class="pl-4 pr-3 my-0">
+                    <ul class="ps-4 pe-3 my-0">
                         {% for key, line in item.context %}
                             <li><strong>{{ key }}:</strong> <code>{{ line|join(', ') }}</code></li>
                         {% endfor %}

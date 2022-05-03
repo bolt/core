@@ -21,8 +21,8 @@
   }
 
   &--upload {
-    @include sr-only;
-    @include sr-only-focusable;
+    @include visually-hidden;
+    @include visually-hidden-focusable;
   }
 
   &--dropzone {

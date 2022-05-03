@@ -64,7 +64,7 @@ describe('Edit user successfully, Edit users incorrectly', () => {
         // cy.get('.field-error').eq(0).children('.help-block').children('.list-unstyled').children('li').should('contain', 'Invalid display name');
         // cy.get('.field-error').eq(1).children('.help-block').children('.list-unstyled').children('li').should('contain', 'Invalid password. The password should contain at least 6 characters.');
         // cy.get('.field-error').eq(2).children('.help-block').children('.list-unstyled').children('li').should('contain', 'Invalid email');
-        cy.get('.form-group').eq(2).children('div').eq(1).should('contain', 'Suggested secure password');
+        cy.get('#field--user_plainPassword').children('div').eq(1).should('contain', 'Suggested secure password');
     })
 
     it('checks that a user can\'t edit their profile with an incorrect display name', () => {

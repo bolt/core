@@ -1,12 +1,43 @@
 //** Init | Variables
+// Colors variables
+$background: #fbfaf9;
+$primary: #255687;
 
-$body-bg: var(--background);
-
-$letter-spacing: 0;
+$primary: #1863af;
+$secondary: #1f8389;
+$tertiary: #667a81;
+$success: #4f8419;
+$info: #0f7a8b;
+$warning: #bf1722;
+$danger: #db2427;
+$light: #e0e0e0;
+$dark: #333;
+$disabled: #c8c8c8;
 
 $bolt-blue: #255687; // Nice and bright, pretty light
 $bolt-bluegray: #2f3e4d; // Nice dark and desaturated
 $bolt-saturated: #003e7c; // Very saturated. Use with care
+
+$body-bg: $background;
+
+$theme-colors: (
+  "primary":   $primary,
+  "secondary": $secondary,
+  "tertiary":  $tertiary,
+  "success":   $success,
+  "info":      $info,
+  "warning":   $warning,
+  "danger":    $danger,
+  "light":     $light,
+  "dark":      $dark,
+  "boltblue":  $bolt-blue,
+  "toast-success": #dce6d1,
+  "toast-danger": #f8d3d4,
+  "toast-info": #cfe4e8,
+  "toast-warning": #f2d1d3
+);
+
+$letter-spacing: 0;
 
 $big-z-index: 1000;
 
@@ -39,15 +70,18 @@ $link-hover-color:          var(--primary-600);
 
 //buttons
 $btn-disabled-opacity:                  0.75;
+$btn-hover-bg-shade-amount:             10%;
+//$btn-hover-bg-tint-amount:              50%;
 
 // Form controls
 $border-radius:                         0.15rem;
-$component-active-bg:                   var(--primary);
+$component-active-bg:                   $primary;
 $input-focus-border-color:              var(--primary-400);
 $custom-control-indicator-active-bg:    var(--primary-400);
 $custom-range-thumb-active-bg:          var(--primary-400);
 $form-group-margin-bottom:              2rem;
 
+$input-bg:                              var(--foreground);
 $input-disabled-bg:                     #f0f3f6;
 $input-disabled-color:                  #6f6f6f;
 $input-placeholder-color:               #aaa;
@@ -72,21 +106,15 @@ $btn-font-size: 14px;
 $btn-font-size-sm: 13px;
 $btn-padding-x: 0.6rem;
 
-$primary: #1863af;
-$secondary: #1f8389;
-$tertiary: #667a81;
-$success: #4f8419;
-$info: #0f7a8b;
-$warning: #bf1722;
-$danger: #db2427;
-$light: #e0e0e0;
-$dark: #333;
-$disabled: #c8c8c8;
-
 $spacer: 1rem;
 
 // Pagination
 $pagination-focus-outline: solid 0.15rem;
+
+// Alerts
+//
+// Define alert colors, border radius, and padding.
+$alert-bg-level: 0; // Keep Bootstrap 4 variable to prevent breaking compilation when it's used
 
 // Grid
 $grid-breakpoints: (
@@ -101,12 +129,25 @@ $grid-breakpoints: (
 );
 
 // This number determines of a button has white or black text (a11y)
-// 150: about equal to 3.0 color contrast ( WCAG2 for bold and texts above 18pts).
-// 117: for 4.5 color contrast (WCAG2 for normal text) (see ~bootstrap/_functions.scss for use in function)
-$yiq-contrasted-threshold:  150;
+// The contrast ratio to reach against white, to determine if color changes from "light" to "dark". Acceptable values for WCAG 2.0 are 3, 4.5 and 7.
+// See https://www.w3.org/TR/WCAG20/#visual-audio-contrast-contrast
+$min-contrast-ratio:  4.5;
+
+// Popovers
+
+$popover-header-padding-y:          0.5rem;
+$popover-header-padding-x:          0.75rem;
+
+$popover-body-padding-y:            0.5rem;
+$popover-body-padding-x:            0.75rem;
 
 // Variables overriding Bootstrap
-$toast-background-color: #fbfaf9;
+// Toasts
+$toast-max-width:                   250px;
+$toast-background-color:            #fbfaf9;
+$toast-border-radius:               0.25rem;
+$toast-box-shadow:                  0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
+$toast-header-border-color:         rgba(0, 0, 0, 0.05);
 
 :root {
   --body: #222; // Note: this value isn't actually used. @todo Find out where it's coming from.

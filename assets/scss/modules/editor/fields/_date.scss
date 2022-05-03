@@ -2,7 +2,7 @@
 
 .editor--date {
   &.form-control[readonly] {
-    background-color: var(--foreground);
+    background-color: $input-disabled-bg;
   }
 
   &.form-control:disabled {
