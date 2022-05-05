@@ -62,8 +62,8 @@ class RelatedOptionsUtility
             ];
 
             // Generate URL for related record if the link_to_record option is defined in relations in the contenttypes.yaml
-            if(isset($fromContentTypeRelationDefinition['link_to_record'])) {
-                if($fromContentTypeRelationDefinition['link_to_record']) {
+            if (isset($fromContentTypeRelationDefinition['link_to_record'])) {
+                if ($fromContentTypeRelationDefinition['link_to_record']) {
                     $options[$key]["link_to_record_url"] = $this->router->generate('bolt_content_edit', ['id' => $record->getId()]);
                 }
             }
