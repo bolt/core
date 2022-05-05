@@ -43,6 +43,13 @@
                         </div>
                         <!-- eslint-disable-next-line vue/no-v-html -->
                         <span v-html="props.option.value"></span>
+
+                        <div v-if="props.option.link_to_record_url" class="multiselect__tag__edit">
+                            <a :href="props.option.link_to_record_url" target="_blank" rel="noopener noreferrer">
+                                <i class="far fa-edit me-0"></i>
+                            </a>
+                        </div>
+
                         <i
                             tabindex="1"
                             class="multiselect__tag-icon"
