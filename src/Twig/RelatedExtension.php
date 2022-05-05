@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Twig;
 
 use Bolt\Configuration\Config;
+use Bolt\Configuration\Content\ContentType;
 use Bolt\Entity\Content;
 use Bolt\Entity\Relation;
 use Bolt\Repository\RelationRepository;
@@ -138,17 +139,17 @@ class RelatedExtension extends AbstractExtension
         return null;
     }
 
-    public function getRelatedOptions(string $contentTypeSlug, ?string $order = null, string $format = '', ?bool $required = false, ?bool $allowEmpty = false): Collection
+    public function getRelatedOptions(ContentType $fromContentType, string $toContentTypeSlug, ?string $order = null, string $format = '', ?bool $required = false, ?bool $allowEmpty = false, bool $linkToRecord = false): Collection
     {
         $maxAmount = $this->config->get('general/maximum_listing_select', 1000);
 
-        $contentType = $this->config->getContentType($contentTypeSlug);
+        $contentType = $this->config->getContentType($toContentTypeSlug);
 
         if (! $order) {
             $order = $contentType->get('order');
         }
 
-        $options = $this->optionsUtility->fetchRelatedOptions($contentTypeSlug, $order, $format, $required, $allowEmpty, $maxAmount);
+        $options = $this->optionsUtility->fetchRelatedOptions($fromContentType, $toContentTypeSlug, $order, $format, $required, $allowEmpty, $maxAmount, $linkToRecord);
 
         return new Collection($options);
     }
