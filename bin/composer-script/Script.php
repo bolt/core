@@ -51,7 +51,7 @@ class Script
      */
     public static function runPHP(array $command): int
     {
-        if (version_compare(Composer::getVersion(), '2.3.0', '<')) {
+        if (version_compare(Composer::getVersion(), '2.3-dev', '<')) {
             // Composer 2.2.x or lower
             /* @phpstan-ignore-next-line */
             $process = new Process(implode(' ', $command));
