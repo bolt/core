@@ -42,11 +42,11 @@ class TimedPublishSubscriber implements EventSubscriberInterface
         // Publish timed Content records when 'publish_at' has passed and Depublish published Content
         // records when 'depublish_at' has passed. Note: Placeholders in DBAL don't work for tablenames.
         $queryPublish = sprintf(
-            'update %scontent SET status = "published", published_at = :now  WHERE status = "timed" AND published_at < :now',
+            'update %scontent SET status = \'published\', published_at = :now  WHERE status = \'timed\' AND published_at < :now',
             $this->tablePrefix
         );
         $queryDepublish = sprintf(
-            'update %scontent SET status = "held", depublished_at = :now WHERE status = "published" AND depublished_at < :now',
+            'update %scontent SET status = \'held\', depublished_at = :now WHERE status = \'published\' AND depublished_at < :now',
             $this->tablePrefix
         );
 
