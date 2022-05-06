@@ -569,7 +569,7 @@ class ContentExtension extends AbstractExtension
     public function icon(?Content $record = null, string $icon = 'question-circle'): string
     {
         if ($record instanceof Content) {
-            $icon = $record->getIcon();
+            $icon = $record->getContentTypeIcon();
         }
 
         $icon = str_replace('fa-', '', $icon);
