@@ -114,7 +114,7 @@ class Version
 
             $actVersion = $matches[0];
 
-            $isMariaDb = is_int(stripos($serverVersion, "maria"));
+            $isMariaDb = is_int(mb_stripos($serverVersion, "maria"));
             $minVersion = $isMariaDb
                 ? "10.2.7"  // taken from MariaDb1027Platform docs
                 : "5.7.9" // taken from MySQL57Platform docs
