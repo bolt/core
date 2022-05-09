@@ -443,13 +443,13 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
 
                 $collection = $this->getFieldToUpdate($content, $collectionName, $collectionDefinition);
 
+                $newFields = [];
                 foreach ($collectionItems as $name => $instances) {
                     // order field is only used to determine the order in which fields are submitted
                     if ($name === 'order') {
                         continue;
                     }
 
-                    $newFields = [];
                     foreach ($instances as $orderId => $value) {
                         $order = $orderArray[$orderId];
                         $fieldDefinition = $collection->getDefinition()->get('fields')->get($name);
@@ -462,8 +462,8 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
                         $this->updateField($field, $value, $locale);
                         $tm->applyTranslations($field, $collectionName, $orderId);
                     }
-                    $collection->setValue($newFields);
                 }
+                $collection->setValue($newFields);
             }
         }
     }
