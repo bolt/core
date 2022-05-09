@@ -3,9 +3,8 @@
 {% set fromContentType = record.definition %}
 
 {% for toContentTypeSlug, relation in record.definition.relations %}
-{#    {% dump(relation) %}#}
-    {% set options = related_options(fromContentType, toContentTypeSlug, relation.order|default(), relation.format|default(), relation.required, relation.allow_empty, relation.link_to_record|default(false), ) %}
 
+    {% set options = related_options(fromContentType, toContentTypeSlug, relation.order|default(), relation.format|default(), relation.required, relation.allow_empty, relation.link_to_record|default(false), ) %}
     {% set value = record|related_values(toContentTypeSlug) %}
 
     <div class="mb-4">
