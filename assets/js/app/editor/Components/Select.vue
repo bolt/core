@@ -26,6 +26,16 @@
                 <span class="status me-2" :class="`is-${props.option.key}`"></span>
                 {{ props.option.value | raw }}
             </template>
+
+            <template v-if="props.option.link_to_record_url" slot="singleLabel" slot-scope="props">
+                <span v-html="props.option.value"></span>
+                <div class="multiselect__tag__edit">
+                    <a :href="props.option.link_to_record_url" target="_blank" rel="noopener noreferrer">
+                        <i class="far fa-edit me-0"></i>
+                    </a>
+                </div>
+            </template>
+
             <template v-if="name !== 'status'" slot="tag" slot-scope="props">
                 <span :class="{ empty: props.option.value == '' }" @drop="drop($event)" @dragover="allowDrop($event)">
                     <span
