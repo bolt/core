@@ -8,10 +8,8 @@ use Bolt\Entity\User;
 use Bolt\Event\UserEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Security;
-use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
-use Symfony\Component\Security\Http\SecurityEvents;
+use Symfony\Component\Security\Http\Event\LoginSuccessEvent;
 
 /**
  * Stores the locale of the user in the session after the
@@ -35,10 +33,10 @@ class UserLocaleSubscriber implements EventSubscriberInterface
         $this->requestStack = $requestStack;
     }
 
-    public function onInteractiveLogin(InteractiveLoginEvent $event): void
+    public function onLoginSuccess(LoginSuccessEvent $event): void
     {
         /** @var User $user */
-        $user = $event->getAuthenticationToken()->getUser();
+        $user = $event->getUser();
         $this->updateBackendLocale($user);
     }
 
@@ -58,7 +56,7 @@ class UserLocaleSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            SecurityEvents::INTERACTIVE_LOGIN => 'onInteractiveLogin',
+            LoginSuccessEvent::class => 'onLoginSuccess',
             UserEvent::ON_POST_SAVE => 'onUserEdit',
         ];
     }
