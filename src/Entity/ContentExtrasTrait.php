@@ -39,7 +39,7 @@ trait ContentExtrasTrait
             'statusLink' => $this->contentExtension->getStatusLink($content),
             'deleteLink' => $this->contentExtension->getDeleteLink($content),
             'duplicateLink' => $this->contentExtension->getDuplicateLink($content),
-            'icon' => $this->getIcon(),
+            'icon' => $this->getContentTypeIcon(),
             'name' => $this->getDefinition()->get('name'),
             'singular_name' => $this->getDefinition()->get('singular_name'),
             'feature' => $this->contentExtension->getSpecialFeature($content),
