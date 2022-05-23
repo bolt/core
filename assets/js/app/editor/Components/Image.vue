@@ -78,6 +78,7 @@
                                 data-bs-target="#resourcesModal"
                                 :data-modal-title="labels.modal_title_images"
                                 :data-initiator="id"
+                                data-modal-dialog-class="modal-xl"
                                 @click="selectServerFile($event)"
                             >
                                 <i class="fas fa-fw fa-th"></i>
@@ -279,12 +280,12 @@ export default {
             this.$refs.selectFile.click();
         },
         generateModalContent(inputOptions) {
-            let modalContent = '<div class="row row-cols-1 row-cols-md-3 g-2">';
+            let modalContent = '<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-2">';
             inputOptions.forEach((element, key) => {
                 modalContent += `
                     <div class="col">
                         <div class="card h-100">
-                            <img src="/thumbs/140×73×crop/${element.value}" loading="lazy">
+                            <img src="/thumbs/523×294×crop/${element.value}" loading="lazy">
                             <div class="card-body px-2">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="${element.value}" id="flexCheckDefault-${key}">
@@ -320,9 +321,12 @@ export default {
                     var saveButton = document.getElementById('modalButtonAccept');
                     var button = event.target;
                     var title = button.getAttribute('data-modal-title');
+                    var modalDialog = resourcesModal.querySelector('.modal-dialog');
                     var modalTitle = resourcesModal.querySelector('.modal-title');
                     var modalBody = resourcesModal.querySelector('.modal-body');
                     var modalBodyContent = this.generateModalContent(inputOptions);
+
+                    modalDialog.classList.add(button.getAttribute('data-modal-dialog-class'));
                     modalTitle.innerHTML = title;
                     modalBody.innerHTML = modalBodyContent;
 
