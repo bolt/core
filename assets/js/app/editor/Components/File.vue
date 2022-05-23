@@ -241,7 +241,7 @@ export default {
                 rar: 'fa-file-archive',
                 gz: 'fa-file-archive',
             };
-            let modalContent = '<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-2">';
+            let modalContent = '<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-2">';
             inputOptions.forEach((element, key) => {
                 let filenameExtension = element.text
                     .split('.')
@@ -253,11 +253,11 @@ export default {
                             <i class="fas fa-solid ${fileIcons[filenameExtension] ??
                                 'fa-file'} fa-5x me-0 align-self-center"></i>
                             <div class="card-body px-2">
-                                <div class="form-check">
+                                <div class="form-check ps-0">
                                     <input class="form-check-input" type="checkbox" value="${
                                         element.value
                                     }" id="flexCheckDefault-${key}">
-                                    <label class="form-check-label d-inline fs-6 fw-normal" for="flexCheckDefault-${key}">
+                                    <label class="form-check-label d-inline fs-6 fw-normal d-block" for="flexCheckDefault-${key}">
                                         ${element.text}
                                     </label>
                                 </div>
@@ -279,10 +279,11 @@ export default {
                     var saveButton = document.getElementById('modalButtonAccept');
                     var button = event.target;
                     var title = button.getAttribute('data-modal-title');
+                    var modalDialog = resourcesModal.querySelector('.modal-dialog');
                     var modalTitle = resourcesModal.querySelector('.modal-title');
                     var modalBody = resourcesModal.querySelector('.modal-body');
                     var modalBodyContent = this.generateModalContent(inputOptions);
-                    
+
                     modalDialog.classList.add(button.getAttribute('data-modal-dialog-class'));
                     modalTitle.innerHTML = title;
                     modalBody.innerHTML = modalBodyContent;

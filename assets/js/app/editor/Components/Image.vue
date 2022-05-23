@@ -280,16 +280,16 @@ export default {
             this.$refs.selectFile.click();
         },
         generateModalContent(inputOptions) {
-            let modalContent = '<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-2">';
+            let modalContent = '<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-2">';
             inputOptions.forEach((element, key) => {
                 modalContent += `
                     <div class="col">
                         <div class="card h-100">
                             <img src="/thumbs/523×294×crop/${element.value}" loading="lazy">
                             <div class="card-body px-2">
-                                <div class="form-check">
+                                <div class="form-check ps-0">
                                     <input class="form-check-input" type="checkbox" value="${element.value}" id="flexCheckDefault-${key}">
-                                    <label class="form-check-label d-inline fs-6 fw-normal" for="flexCheckDefault-${key}">
+                                    <label class="form-check-label d-inline fs-6 fw-normal d-block" for="flexCheckDefault-${key}">
                                         ${element.text}
                                     </label>
                                 </div>
