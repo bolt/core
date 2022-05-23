@@ -2,6 +2,7 @@
 
 namespace Bolt\Cache;
 
+use Bolt\Configuration\Content\ContentType;
 use Bolt\Utils\RelatedOptionsUtility;
 
 class RelatedOptionsUtilityCacher extends RelatedOptionsUtility implements CachingInterface
@@ -10,10 +11,10 @@ class RelatedOptionsUtilityCacher extends RelatedOptionsUtility implements Cachi
 
     public const CACHE_CONFIG_KEY = 'related_options';
 
-    public function fetchRelatedOptions(string $contentTypeSlug, string $order, string $format, bool $required, ?bool $allowEmpty, int $maxAmount): array
+    public function fetchRelatedOptions(ContentType $fromContentType, string $contentTypeSlug, string $order, string $format, bool $required, ?bool $allowEmpty, int $maxAmount, bool $linkToRecord): array
     {
         $this->setCacheKey([$contentTypeSlug, $order, $format, (string) $required, $maxAmount]);
 
-        return $this->execute([parent::class, __FUNCTION__], [$contentTypeSlug, $order, $format, $required, $allowEmpty, $maxAmount]);
+        return $this->execute([parent::class, __FUNCTION__], [$fromContentType, $contentTypeSlug, $order, $format, $required, $allowEmpty, $maxAmount, $linkToRecord]);
     }
 }

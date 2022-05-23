@@ -310,6 +310,7 @@ showcases:
             multiple: true
             order: title
             label: Select zero or more pages
+            link_to_record: true
     taxonomy: [ categories, tags ]
     show_on_dashboard: true
     default_status: published

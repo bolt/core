@@ -215,6 +215,15 @@ fieldset[disabled] .multiselect {
   color: $vue-multiselect-tag-icon-color-hover;
 }
 
+.multiselect__tag__edit {
+  display: inline-block;
+  margin-left: 0.22rem;
+
+  i {
+    font-weight: bold;
+  }
+}
+
 .multiselect__current {
   line-height: list.slash($vue-multiselect-min-height, 2);
   min-height: $vue-multiselect-min-height;
