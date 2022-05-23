@@ -288,7 +288,7 @@ export default {
                             <div class="card-body px-2">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="${element.value}" id="flexCheckDefault-${key}">
-                                    <label class="form-check-label d-inline fs-6" for="flexCheckDefault-${key}">
+                                    <label class="form-check-label d-inline fs-6 fw-normal" for="flexCheckDefault-${key}">
                                         ${element.text}
                                     </label>
                                 </div>
