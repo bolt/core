@@ -9,9 +9,11 @@
     left: 1.5em;
     border-color: transparent;
     border-radius: 0;
+
     &:hover {
       cursor: pointer;
     }
+
     &:checked {
       border: 2px solid rgba(24, 99, 175, 0.3);
       background-color: rgba(24, 99, 175, 0.3);
