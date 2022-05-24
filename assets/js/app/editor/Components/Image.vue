@@ -352,7 +352,7 @@ export default {
 
                     renable();
                 })
-                .catch(() => {
+                .catch(err => {
                     window.alert(err.response.data + '<br>Image did not upload.');
                     renable();
                 });
