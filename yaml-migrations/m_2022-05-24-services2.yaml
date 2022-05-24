@@ -1,0 +1,11 @@
+# Updating FieldFillListener for Bolt 5.2.0
+# See: https://github.com/bolt/core/pull/3101
+
+file: services.yaml
+since: 5.1.99
+
+add:
+    services:
+        Bolt\Event\Listener\FieldFillListener:
+            tags:
+                - { name: doctrine.event_listener, event: preUpdate }
