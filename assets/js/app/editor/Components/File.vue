@@ -147,7 +147,6 @@
 import field from '../mixins/value';
 import Axios from 'axios';
 import { renable } from '../../patience-is-a-virtue';
-import $ from 'jquery';
 import { resetModalContent } from '../../modal';
 
 export default {
