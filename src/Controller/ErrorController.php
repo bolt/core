@@ -178,7 +178,7 @@ class ErrorController extends SymfonyErrorController implements ErrorZoneInterfa
             return false;
         }
 
-        return $this->config->get('general/maintenance_mode', false);
+        return filter_var($this->config->get('general/maintenance_mode', false), FILTER_VALIDATE_BOOLEAN);
     }
 
     private function attemptToRender(string $item): ?Response
