@@ -176,7 +176,6 @@ import baguetteBox from 'baguettebox.js';
 import field from '../mixins/value';
 import Axios from 'axios';
 import $ from 'jquery';
-import bootbox from 'bootbox';
 import { renable } from '../../patience-is-a-virtue';
 import { resetModalContent } from '../../modal';
 
@@ -352,10 +351,10 @@ export default {
                         { once: true },
                     );
 
-                    $('.bootbox-input').attr('name', 'bootbox-input');
                     renable();
                 })
                 .catch(() => {
+                    window.alert(err.response.data + '<br>Image did not upload.');
                     renable();
                 });
         },
@@ -399,7 +398,7 @@ export default {
                     this.progress = 0;
                 })
                 .catch(err => {
-                    bootbox.alert(err.response.data.error.message);
+                    window.alert(err.response.data.error.message);
                     console.warn(err.response.data.error.message);
                     this.progress = 0;
                 });
@@ -442,7 +441,7 @@ export default {
                                 thisField.progress = 0;
                             })
                             .catch(err => {
-                                bootbox.alert(err.response.data.error.message);
+                                window.alert(err.response.data.error.message);
                                 console.warn(err.response.data.error.message);
                                 thisField.progress = 0;
                             });
@@ -460,7 +459,6 @@ export default {
                 { once: true },
             );
 
-            $('.bootbox-input').attr('name', 'bootbox-input');
             window.reEnablePatientButtons();
         },
         filterServerFiles(files) {

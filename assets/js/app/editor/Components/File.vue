@@ -308,7 +308,6 @@ export default {
                         { once: true },
                     );
 
-                    $('.bootbox-input').attr('name', 'bootbox-input');
                     renable();
                 })
                 .catch(err => {
