@@ -175,7 +175,6 @@ import noScroll from 'no-scroll';
 import baguetteBox from 'baguettebox.js';
 import field from '../mixins/value';
 import Axios from 'axios';
-import $ from 'jquery';
 import { renable } from '../../patience-is-a-virtue';
 import { resetModalContent } from '../../modal';
 
