@@ -11,6 +11,7 @@ describe('As an Admin I want to fill in an imagelist', { retries: 0 }, () => {
         cy.get('.editor__imagelist button[name="image-upload-dropdown"]').eq(1).click({ force: true }) ;
         cy.get('.editor__imagelist button[class="btn dropdown-item"]').find('i[class="fas fa-fw fa-th"]').eq(1).click({ force: true }) ;
 
+        cy.wait(500);
         cy.get('div[class="modal-dialog"]').its('length').should('eq', 1);
         cy.get('div[class="modal-dialog"]').find('input[value="kitten2.jpg"]').click({ force: true });
         cy.get('button[id="modalButtonAccept"]').scrollIntoView().trigger('mouseover', { force: true }).click({ force: true });
