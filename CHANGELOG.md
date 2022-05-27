@@ -15,6 +15,8 @@ Released: 2022-05-24
 
 ### 🐛 Bug fixes
 
+- Ensure `PublishedAt` gets set correctly when publishing a Record (bobdenotter, [#3211](https://github.com/bolt/core/pull/3211))
+- Fixed partial broken UserLocaleSubscriber (UtechtDustin, [#3204](https://github.com/bolt/core/pull/3204))
 - Separate methods for Pager from `pagerParams`. (vlad-ghita, [#3205](https://github.com/bolt/core/pull/3205))
 - Maintain Field order. (vlad-ghita, [#3201](https://github.com/bolt/core/pull/3201))
 - Fix setting new Fields on Collection. (vlad-ghita, [#3200](https://github.com/bolt/core/pull/3200))
@@ -34,7 +36,6 @@ Released: 2022-05-24
 ### 🛠️ Miscellaneous
 
 - Improve Image and Files modals (nestordedios, [#3208](https://github.com/bolt/core/pull/3208))
-- Render .webp images (xxxLOGIATxxx, [#3182](https://github.com/bolt/core/pull/3182))
 - Allow a "thumbnails" property to be configured against a ContentType Field (andysh-uk, [#3179](https://github.com/bolt/core/pull/3179))
 - Prepare release 5.1.7 (bobdenotter, [#3157](https://github.com/bolt/core/pull/3157))
 - Use JSON_VALUE on MySQL platforms (andysh-uk, [#3135](https://github.com/bolt/core/pull/3135))
