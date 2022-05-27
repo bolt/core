@@ -39,7 +39,7 @@ Released: 2022-05-24
 - Allow a "thumbnails" property to be configured against a ContentType Field (andysh-uk, [#3179](https://github.com/bolt/core/pull/3179))
 - Prepare release 5.1.7 (bobdenotter, [#3157](https://github.com/bolt/core/pull/3157))
 - Use JSON_VALUE on MySQL platforms (andysh-uk, [#3135](https://github.com/bolt/core/pull/3135))
-- Remove bootbox [#3209](https://github.com/bolt/core/pull/3209))
+- Remove bootbox (nestordedios, [#3209](https://github.com/bolt/core/pull/3209))
 
 ### ⚙️ Code Quality / Developer Experience
 
