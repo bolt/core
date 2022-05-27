@@ -358,14 +358,13 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         }
         $this->contentFillListener->fillContent($content);
 
-        // @todo dumb status validation, to be replaced with Symfony Form validation
+        $content->setPublishedAt(! empty($formData['publishedAt']) ? new Carbon($formData['publishedAt']) : null);
+        $content->setDepublishedAt(! empty($formData['depublishedAt']) ? new Carbon($formData['depublishedAt']) : null);
+
         $status = Json::findScalar($formData['status']);
         if (in_array($status, Statuses::all(), true) === true) {
             $content->setStatus($status);
         }
-
-        $content->setPublishedAt(! empty($formData['publishedAt']) ? new Carbon($formData['publishedAt']) : null);
-        $content->setDepublishedAt(! empty($formData['depublishedAt']) ? new Carbon($formData['depublishedAt']) : null);
 
         if (isset($formData['fields'])) {
             foreach ($formData['fields'] as $fieldName => $fieldValue) {
