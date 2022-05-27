@@ -392,6 +392,10 @@ class Content
             $this->status = $status;
         }
 
+        if (! $this->getPublishedAt() && $status == Statuses::PUBLISHED) {
+            $this->setPublishedAt(new \DateTime());
+        }
+
         return $this;
     }
 
