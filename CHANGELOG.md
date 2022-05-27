@@ -1,6 +1,36 @@
 Changelog
 =========
 
+## 5.1.8
+
+Released: 2022-05-30
+
+### 🐛 Bug fixes
+
+- Ensure `PublishedAt` gets set correctly when publishing a Record (bobdenotter, [#3211](https://github.com/bolt/core/pull/3211))
+- Cast the config maintenance value to boolean (Spomsoree, [#3206](https://github.com/bolt/core/pull/3206))
+- Separate methods for Pager from `pagerParams`. (vlad-ghita, [#3205](https://github.com/bolt/core/pull/3205))
+- Fixed partial broken UserLocaleSubscriber (UtechtDustin, [#3204](https://github.com/bolt/core/pull/3204))
+- Maintain Field order. (vlad-ghita, [#3201](https://github.com/bolt/core/pull/3201))
+- Fix setting new Fields on Collection. (vlad-ghita, [#3200](https://github.com/bolt/core/pull/3200))
+- Use single quotes for query string literals (LimpSquid, [#3199](https://github.com/bolt/core/pull/3199))
+- Renamed the Icon method in the Content class (Spomsoree, [#3198](https://github.com/bolt/core/pull/3198))
+- Detect JSON for non-specialized MySQL platform instances. (vlad-ghita, [#3197](https://github.com/bolt/core/pull/3197))
+- Fix version compare for `composer self-update` versions. (vnagara, [#3196](https://github.com/bolt/core/pull/3196))
+- Add “edit” link icon to related content in select/multiselect lists (nestordedios, [#3195](https://github.com/bolt/core/pull/3195))
+- Fixing potential bug, exposed by PHPStan `1.6.x` update (bobdenotter, [#3194](https://github.com/bolt/core/pull/3194))
+- Fix: MySQL was returning case sensitive results. (codemis, [#3188](https://github.com/bolt/core/pull/3188))
+- Update Number Field (`type: number`) to include the min and max (Joossensei, [#3185](https://github.com/bolt/core/pull/3185))
+- Fixed the custom Field Type inside Sets (Spomsoree, [#3180](https://github.com/bolt/core/pull/3180))
+- Allow a “thumbnails” property to be configured against a ContentType Field (andysh-uk, [#3179](https://github.com/bolt/core/pull/3179))
+- Parent menu items in Backend use correct icon (david-saisondor, [#3170](https://github.com/bolt/core/pull/3170))
+- Fix Collection Field, so it now takes the `limit` into account for containing fields (david-saisondor, [#3163](https://github.com/bolt/core/pull/3163))
+- Use JSON_VALUE on MySQL platforms (andysh-uk, [#3135](https://github.com/bolt/core/pull/3135))
+- change initialization of fields on `postLoad` Doctrine event (simongroenewolt, [#3101](https://github.com/bolt/core/pull/3101))
+- Make `type: hidden` Field usable (david-saisondor, [#3173](https://github.com/bolt/core/pull/3173))
+- Make top level menu icon in Backend customizable (david-saisondor, [#3167](https://github.com/bolt/core/pull/3167))
+
+
 ## 5.1.7
 
 Released: 2022-03-31
