@@ -131,15 +131,27 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
 
                 foreach ($contentType['taxonomy'] as $taxonomySlug) {
                     if ($taxonomySlug === 'categories') {
-                        $taxonomyAmount = 2;
+                        if (isset($preset['taxonomy:categories'])) {
+                            // preset categories
+                            foreach ($preset['taxonomy:categories'] as $taxonomyCategoryLabel) {
+                                $taxonomy = $this->getReference('taxonomy_categories_' . $taxonomyCategoryLabel);
+                                $content->addTaxonomy($taxonomy);
+                            }
+                            // add no additional random categories
+                            $taxonomyAmount = 0;
+                        } else {
+                            $taxonomyAmount = 2;
+                        }
                     } elseif ($taxonomySlug === 'tags') {
                         $taxonomyAmount = 4;
                     } else {
                         $taxonomyAmount = 1;
                     }
 
-                    foreach ($this->getRandomTaxonomies($taxonomySlug, $taxonomyAmount) as $taxonomy) {
-                        $content->addTaxonomy($taxonomy);
+                    if ($taxonomyAmount > 0) {
+                        foreach ($this->getRandomTaxonomies($taxonomySlug, $taxonomyAmount) as $taxonomy) {
+                            $content->addTaxonomy($taxonomy);
+                        }
                     }
                 }
 
@@ -399,6 +411,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
         $records['entries'][] = [
             'title' => 'This is a record in the "Entries" ContentType',
             'slug' => 'This is a record in the "Entries" ContentType',
+            'taxonomy:categories' => ['love', 'books'],
         ];
         $records['blocks'][] = [
             'title' => 'About This Site',
