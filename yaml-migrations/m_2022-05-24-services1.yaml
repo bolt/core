@@ -1,0 +1,9 @@
+# Updating FieldFillListener for Bolt 5.2.0
+# See: https://github.com/bolt/core/pull/3101
+
+file: services.yaml
+since: 5.1.8
+
+remove:
+    services:
+        Bolt\Event\Listener\FieldFillListener: ~
