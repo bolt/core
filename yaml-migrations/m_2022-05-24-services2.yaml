@@ -2,7 +2,7 @@
 # See: https://github.com/bolt/core/pull/3101
 
 file: services.yaml
-since: 5.1.99
+since: 5.1.8
 
 add:
     services:
