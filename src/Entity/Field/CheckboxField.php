@@ -17,6 +17,11 @@ class CheckboxField extends Field implements FieldInterface, ScalarCastable, Raw
 
     public function setValue($value): Field
     {
+        // Make sure we don't have arrays
+        if (is_array($value)) {
+            $value = current($value);
+        }
+
         switch ($value) {
             // String values come from the ContentEditController.
             case 'true':
