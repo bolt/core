@@ -1,0 +1,110 @@
+{% extends 'partials/_master.twig' %}
+
+{% macro isbigger(a, b) %}
+    {% if a >= b %}[yes]{% else %}[no]{% endif %}
+{% endmacro %}
+
+{% macro issmaller(a, b) %}
+    {% if a <= b or (b == null) %}[yes]{% else %}[no]{% endif %}
+{% endmacro %}
+
+{% macro contains(needle, haystack) %}
+    {% if needle|lower in haystack|lower %}[yes]{% else %}[no]{% endif %}
+{% endmacro %}
+
+{% block main %}
+
+    <main>
+        <section id="one">
+            <h1>One: Test for <code>0</code></h1>
+            {% setcontent pages = "pages" where {'checkbox': 0 } limit 2%}
+            Results: <span id="results-one">{{ pages|length == 2 and pages.currentPage == 1 ? 'yes' }}</span><br>
+            <ul>
+            {% for page in pages %}
+                <li>
+                    {{ page.checkbox }} {{ page.id }} . {{ page|title }}
+                    <span class="s{{ loop.index }}">{{ _self.issmaller(page.publishedAt, last|default()) }}</span>
+                </li>
+                {% set last = page.publishedAt %}
+            {% endfor %}
+            </ul>
+        </section>
+
+        <section id="two">
+            <h1>Two: Test for <code>'0'</code></h1>
+            {% setcontent pages = "pages" where {'checkbox': '0' } limit 2%}
+            Results: <span id="results-two">{{ pages|length == 2 and pages.currentPage == 1 ? 'yes' }}</span><br>
+            <ul>
+                {% for page in pages %}
+                    <li>
+                        {{ page.checkbox }} {{ page.id }} . {{ page|title }}
+                        <span class="s{{ loop.index }}">{{ _self.issmaller(page.publishedAt, last|default()) }}</span>
+                    </li>
+                    {% set last = page.publishedAt %}
+                {% endfor %}
+            </ul>
+        </section>
+
+        <section id="three">
+            <h1>Three: Test for <code>false</code></h1>
+            {% setcontent pages = "pages" where {'checkbox': false } limit 2%}
+            Results: <span id="results-three">{{ pages|length == 2 and pages.currentPage == 1 ? 'yes' }}</span><br>
+            <ul>
+                {% for page in pages %}
+                    <li>
+                        {{ page.checkbox }} {{ page.id }} . {{ page|title }}
+                        <span class="s{{ loop.index }}">{{ _self.issmaller(page.publishedAt, last|default()) }}</span>
+                    </li>
+                    {% set last = page.publishedAt %}
+                {% endfor %}
+            </ul>
+        </section>
+
+
+        <section id="Four">
+            <h1>Four: Test for <code>1</code></h1>
+            {% setcontent pages = "pages" where {'checkbox': 1 } limit 2%}
+            Results: <span id="results-four">{{ pages|length == 2 and pages.currentPage == 1 ? 'yes' }}</span><br>
+            <ul>
+                {% for page in pages %}
+                    <li>
+                        {{ page.checkbox }} {{ page.id }} . {{ page|title }}
+                        <span class="s{{ loop.index }}">{{ _self.issmaller(page.publishedAt, last|default()) }}</span>
+                    </li>
+                    {% set last = page.publishedAt %}
+                {% endfor %}
+            </ul>
+        </section>
+
+        <section id="Five">
+            <h1>Five: Test for <code>'1'</code></h1>
+            {% setcontent pages = "pages" where {'checkbox': '1' } limit 2%}
+            Results: <span id="results-five">{{ pages|length == 2 and pages.currentPage == 1 ? 'yes' }}</span><br>
+            <ul>
+                {% for page in pages %}
+                    <li>
+                        {{ page.checkbox }} {{ page.id }} . {{ page|title }}
+                        <span class="s{{ loop.index }}">{{ _self.issmaller(page.publishedAt, last|default()) }}</span>
+                    </li>
+                    {% set last = page.publishedAt %}
+                {% endfor %}
+            </ul>
+        </section>
+
+        <section id="six">
+            <h1>Six: Test for <code>true</code></h1>
+            {% setcontent pages = "pages" where {'checkbox': true } limit 2%}
+            Results: <span id="results-five">{{ pages|length == 2 and pages.currentPage == 1 ? 'yes' }}</span><br>
+            <ul>
+                {% for page in pages %}
+                    <li>
+                        {{ page.checkbox }} {{ page.id }} . {{ page|title }}
+                        <span class="s{{ loop.index }}">{{ _self.issmaller(page.publishedAt, last|default()) }}</span>
+                    </li>
+                    {% set last = page.publishedAt %}
+                {% endfor %}
+            </ul>
+        </section>
+
+    </main>
+{% endblock main %}
