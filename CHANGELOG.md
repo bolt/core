@@ -1,12 +1,13 @@
 Changelog
 =========
 
-## 5.1.8
+## 5.1.9
 
-Released: 2022-05-30
+Released: 2022-05-31 (replaces 5.1.8)
 
 ### 🐛 Bug fixes
 
+- Fix `where` with Checkbox Fields. Hopefully this time for good (bobdenotter, [#3214](https://github.com/bolt/core/pull/3214))
 - Ensure `PublishedAt` gets set correctly when publishing a Record (bobdenotter, [#3211](https://github.com/bolt/core/pull/3211))
 - Cast the config maintenance value to boolean (Spomsoree, [#3206](https://github.com/bolt/core/pull/3206))
 - Separate methods for Pager from `pagerParams`. (vlad-ghita, [#3205](https://github.com/bolt/core/pull/3205))

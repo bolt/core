@@ -260,7 +260,7 @@ class SelectQuery implements QueryInterface
                 $regular = $this->getRegularFieldExpression($filter);
                 $anythingExpr->addMultiple([$core, $reference, $taxonomy, $regular]);
                 $expr = $expr->add($anythingExpr);
-            } elseif ($this->utils->isFieldType($this, $filter->getKey(),CheckboxField::TYPE)) {
+            } elseif ($this->utils->isFieldType($this, $filter->getKey(), CheckboxField::TYPE)) {
                 $expr = $expr->add($this->getCheckboxFieldExpression($filter));
             } else {
                 // This means the name / value in the `where` is stored in the `bolt_field` table
