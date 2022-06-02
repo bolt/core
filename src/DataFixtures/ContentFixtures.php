@@ -348,7 +348,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
 
                 break;
             case 'checkbox':
-                $data = [$this->faker->numberBetween(0, 1)];
+                $data = [$this->faker->boolean()];
 
                 break;
             case 'data':
@@ -491,6 +491,17 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 'heading' => 'Setcontent test page',
                 'slug' => 'Setcontent test page',
                 'template' => 'custom/setcontent_1.twig',
+            ];
+        }
+
+        // Only add this fixture if the file exists: It does in the "Git Clone", but not in the
+        // "Composer create-project".
+        $file = dirname(dirname(__DIR__)) . '/public/theme/skeleton/custom/setwherecheckbox_1.twig';
+        if (file_exists($file)) {
+            $records['pages'][] = [
+                'heading' => 'SetContent Where Checkbox test page',
+                'slug' => 'Setwherecheckbox test page',
+                'template' => 'custom/setwherecheckbox_1.twig',
             ];
         }
 

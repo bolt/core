@@ -3,7 +3,7 @@ Changelog
 
 ## 5.2.0 Beta 1
 
-Released: 2022-05-24
+Released: 2022-06-XX
 
 ### 📦 Additions and new features
 
@@ -18,34 +18,36 @@ Released: 2022-05-24
 - Ensure `PublishedAt` gets set correctly when publishing a Record (bobdenotter, [#3211](https://github.com/bolt/core/pull/3211))
 - Fixed partial broken UserLocaleSubscriber (UtechtDustin, [#3204](https://github.com/bolt/core/pull/3204))
 - Separate methods for Pager from `pagerParams`. (vlad-ghita, [#3205](https://github.com/bolt/core/pull/3205))
+
+## 5.1.9
+
+Released: 2022-05-31 (replaces 5.1.8)
+
+### 🐛 Bug fixes
+
+- Fix `where` with Checkbox Fields. Hopefully this time for good (bobdenotter, [#3214](https://github.com/bolt/core/pull/3214))
+- Ensure `PublishedAt` gets set correctly when publishing a Record (bobdenotter, [#3211](https://github.com/bolt/core/pull/3211))
+- Cast the config maintenance value to boolean (Spomsoree, [#3206](https://github.com/bolt/core/pull/3206))
+- Separate methods for Pager from `pagerParams`. (vlad-ghita, [#3205](https://github.com/bolt/core/pull/3205))
+- Fixed partial broken UserLocaleSubscriber (UtechtDustin, [#3204](https://github.com/bolt/core/pull/3204))
 - Maintain Field order. (vlad-ghita, [#3201](https://github.com/bolt/core/pull/3201))
 - Fix setting new Fields on Collection. (vlad-ghita, [#3200](https://github.com/bolt/core/pull/3200))
 - Use single quotes for query string literals (LimpSquid, [#3199](https://github.com/bolt/core/pull/3199))
 - Renamed the Icon method in the Content class (Spomsoree, [#3198](https://github.com/bolt/core/pull/3198))
 - Detect JSON for non-specialized MySQL platform instances. (vlad-ghita, [#3197](https://github.com/bolt/core/pull/3197))
 - Fix version compare for `composer self-update` versions. (vnagara, [#3196](https://github.com/bolt/core/pull/3196))
+- Add “edit” link icon to related content in select/multiselect lists (nestordedios, [#3195](https://github.com/bolt/core/pull/3195))
 - Fixing potential bug, exposed by PHPStan `1.6.x` update (bobdenotter, [#3194](https://github.com/bolt/core/pull/3194))
 - Fix: MySQL was returning case sensitive results. (codemis, [#3188](https://github.com/bolt/core/pull/3188))
 - Update Number Field (`type: number`) to include the min and max (Joossensei, [#3185](https://github.com/bolt/core/pull/3185))
 - Fixed the custom Field Type inside Sets (Spomsoree, [#3180](https://github.com/bolt/core/pull/3180))
+- Allow a “thumbnails” property to be configured against a ContentType Field (andysh-uk, [#3179](https://github.com/bolt/core/pull/3179))
 - Parent menu items in Backend use correct icon (david-saisondor, [#3170](https://github.com/bolt/core/pull/3170))
 - Fix Collection Field, so it now takes the `limit` into account for containing fields (david-saisondor, [#3163](https://github.com/bolt/core/pull/3163))
-- Change initialization of fields on `postLoad` Doctrine event (simongroenewolt, [#3101](https://github.com/bolt/core/pull/3101))
-- Cast the config maintenance value to boolean (Spomsoree, [#3206](https://github.com/bolt/core/pull/3206))
-
-### 🛠️ Miscellaneous
-
-- Improve Image and Files modals (nestordedios, [#3208](https://github.com/bolt/core/pull/3208))
-- Allow a "thumbnails" property to be configured against a ContentType Field (andysh-uk, [#3179](https://github.com/bolt/core/pull/3179))
-- Prepare release 5.1.7 (bobdenotter, [#3157](https://github.com/bolt/core/pull/3157))
 - Use JSON_VALUE on MySQL platforms (andysh-uk, [#3135](https://github.com/bolt/core/pull/3135))
-- Remove bootbox (nestordedios, [#3209](https://github.com/bolt/core/pull/3209))
-
-### ⚙️ Code Quality / Developer Experience
-
-- Updating Cypress README (bobdenotter, [#3193](https://github.com/bolt/core/pull/3193))
-- Update Cypress readme (Joossensei, [#3187](https://github.com/bolt/core/pull/3187))
-- Add videos to Cypress evidence (Joossensei, [#3177](https://github.com/bolt/core/pull/3177))
+- change initialization of fields on `postLoad` Doctrine event (simongroenewolt, [#3101](https://github.com/bolt/core/pull/3101))
+- Make `type: hidden` Field usable (david-saisondor, [#3173](https://github.com/bolt/core/pull/3173))
+- Make top level menu icon in Backend customizable (david-saisondor, [#3167](https://github.com/bolt/core/pull/3167))
 
 
 ## 5.1.7
@@ -291,7 +293,7 @@ Released: 2021-10-24
 - Fix setPath: Don't override existing `$route`, if we already have one (bobdenotter, [#2876](https://github.com/bolt/core/pull/2876))
 - Fix dependency resolution blockage (bobdenotter, [#2875](https://github.com/bolt/core/pull/2875))
 
-## 5.0.4 
+## 5.0.4
 
 Released: 2021-10-22
 
@@ -358,7 +360,7 @@ Released: 2021-09-17
 Released: 2021-08-30
 
 Really, too much to list. This is a major upgrade, and consists of about 2400 commits since 4.0.
-This blog post lists some relevant details: 
+This blog post lists some relevant details:
 
 https://boltcms.io/newsitem/big-announcement-bolt-5-0-on-the-horizon
 
@@ -601,10 +603,10 @@ Released: 2021-02-26
 
 Released: 2021-02-14
 
-This release includes two security-related fixes. Our thanks go out to 
-[Silvia Väli, Clarified Security](https://clarifiedsecurity.com/silvia-vali/) 
-and [Romain Richard](https://github.com/bigz) for identifying these issues and 
-disclosing them to us responsibly! 👏🙏 
+This release includes two security-related fixes. Our thanks go out to
+[Silvia Väli, Clarified Security](https://clarifiedsecurity.com/silvia-vali/)
+and [Romain Richard](https://github.com/bigz) for identifying these issues and
+disclosing them to us responsibly! 👏🙏
 
 ### 🐛 Bug fixes
 
@@ -712,7 +714,7 @@ Released: 2020-12-14
 - Allow omitting of `generator` meta tag and `x-powered-by` header (bobdenotter, [#2195](https://github.com/bolt/core/pull/2195))
 
 
-## 4.1.8 
+## 4.1.8
 
 Released: 2020-11-29
 
@@ -926,7 +928,7 @@ Released: 2020-09-30
 - [CI] Move ECS from Travis to Github Actions (TomasVotruba, [#1912](https://github.com/bolt/core/pull/1912))
 - Cleanup, this is handled in ENV / Doctrine (bobdenotter, [#1908](https://github.com/bolt/core/pull/1908))
 
-## Major release 4.0.0 
+## Major release 4.0.0
 
 Released: 2020-09-24
 

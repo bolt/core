@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Storage;
 
 use Bolt\Doctrine\Version;
+use Doctrine\DBAL\Platforms\SqlitePlatform;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query\Expr;
 
@@ -56,5 +57,10 @@ class FieldQueryUtils
         $expression = (new Expr())->substring($left, 3, (new Expr())->length($left)->__toString() . ' - 4')->__toString();
 
         return 'CAST(' . $expression . ' as decimal)';
+    }
+
+    public function isSqlite(): bool
+    {
+        return ($this->em->getConnection()->getDatabasePlatform() instanceof SqlitePlatform);
     }
 }
