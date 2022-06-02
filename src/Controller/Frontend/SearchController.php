@@ -21,7 +21,7 @@ class SearchController extends TwigAwareController implements FrontendZoneInterf
     {
         $page = (int) $this->getFromRequest('page', '1');
         $searchTerm = $this->getFromRequestArray(['searchTerm', 'search', 'q'], '');
-        $amountPerPage = (int) $this->config->get('general/listing_records');
+        $amountPerPage = (int) $this->config->get('general/search_results_records');
 
         // Just the ContentTypes that have `searchable: true`
         $contentTypes = $this->config->get('contenttypes')->where('searchable', true);
