@@ -165,14 +165,9 @@ class ContentVoter extends Voter
 
     private function isGrantedAny($attributes, $subject = null): bool
     {
-
         foreach ($attributes as $attribute) {
-
             if ($this->security->isGranted($attribute, $subject)) {
-                dump("JA = " . $attribute);
                 return true;
-            } else {
-                dump("Nee = " . $attribute);
             }
         }
 
