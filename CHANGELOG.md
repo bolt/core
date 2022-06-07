@@ -1,7 +1,7 @@
 Changelog
 =========
 
-## 5.2.0 Beta 1
+## 5.2.0 Beta 2
 
 Released: 2022-06-XX
 
