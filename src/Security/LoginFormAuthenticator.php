@@ -47,9 +47,9 @@ class LoginFormAuthenticator extends AbstractAuthenticator implements Authentica
         $login_form = $request->request->get('login');
 
         $credentials = [
-            'username' => $login_form['username'],
-            'password' => $login_form['password'],
-            'csrf_token' => $login_form['_token'],
+            'username' => $login_form['username'] ?? '',
+            'password' => $login_form['password'] ?? '',
+            'csrf_token' => $login_form['_token'] ?? '',
         ];
 
         $request->getSession()->set(
