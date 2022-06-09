@@ -409,19 +409,6 @@ export default {
                         );
                     });
 
-                    saveButton.addEventListener(
-                        'click',
-                        () => {
-                            if (modalBody.querySelector('input[type=checkbox]:checked')) {
-                                var selectedImage = modalBody.querySelector('input[type=checkbox]:checked').value;
-                                thisField.filenameData = selectedImage;
-                                thisField.thumbnailData = `/thumbs/400×300/${selectedImage}`;
-                                thisField.previewData = `/thumbs/1000×1000/${selectedImage}`;
-                            }
-                        },
-                        { once: true },
-                    );
-
                     resourcesModal.addEventListener(
                         'hidden.bs.modal',
                         () => {
