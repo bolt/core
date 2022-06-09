@@ -367,24 +367,24 @@ export default {
                     this.files = inputOptions;
 
                     var resourcesModal = document.getElementById('resourcesModal');
-                    var resourcesModall = document.querySelector('#resourcesModal')
-                    var resourcesModalObject = Modal.getOrCreateInstance(resourcesModall) // Returns a Bootstrap modal instance
-                    var saveButton = document.getElementById('modalButtonAccept');
+                    var bootstrapResourcesModal = document.querySelector('#resourcesModal')
+                    var resourcesModalObject = Modal.getOrCreateInstance(bootstrapResourcesModal) // Returns a Bootstrap modal instance
                     var button = event.target;
                     var title = button.getAttribute('data-modal-title');
                     var modalDialog = resourcesModal.querySelector('.modal-dialog');
                     var modalTitle = resourcesModal.querySelector('.modal-title');
                     var modalBody = resourcesModal.querySelector('.modal-body');
+                    var modalFooter = resourcesModal.querySelector('.modal-footer')
                     var modalBodyContent = this.generateModalContent(inputOptions);
 
                     modalDialog.classList.add(button.getAttribute('data-modal-dialog-class'));
                     modalTitle.innerHTML = title;
                     modalBody.innerHTML = modalBodyContent;
+                    modalFooter.remove();
 
                     var directoryLinks = resourcesModal.querySelectorAll('.directory');
 
                     directoryLinks.forEach(link => {
-                        console.log('link.href', link.href);
                         link.addEventListener(
                             'click',
                             (e) => {
@@ -398,9 +398,7 @@ export default {
                     });
 
                     var cards = modalBody.querySelectorAll('.form-check-input')
-                    console.log('cards', cards)
                     cards.forEach(card => {
-                        console.log('card', card)
                         card.addEventListener(
                             'click',
                             (e) => {
@@ -427,7 +425,6 @@ export default {
                     renable();
                 })
                 .catch(err => {
-                    console.log('err', err);
                     window.alert(err.response.data + '<br>Image did not upload.');
                     renable();
                 });
@@ -438,33 +435,18 @@ export default {
                 .then(res => {
                     let inputOptions = this.filterServerFiles(res.data);
                     let folderPath = '';
-                    // console.log('inputOptions', inputOptions[0].value)
+
+                    // Generate current folder path to add to modal title
                     folderPath = inputOptions[0].value.split('/');
                     folderPath.pop();
                     folderPath = folderPath.join('/');
 
-                    // if(inputOptions[0].group == 'directories') {
-                    //     folderPath = inputOptions[0].value.split('/');
-                    //     folderPath.pop();
-                    //     folderPath = folderPath.join('/');
-                    // } else {
-                    //     folderPath = inputOptions[0].value;
-                    // }
-                    // console.log('this.filelist', this.filelist);
-                    // let folderPath = inputOptions[0].value;
-                    // // folderPath = folderPath.split('/').pop().join('/');
-                    console.log('folderPath', folderPath);
-
                     var resourcesModal = document.getElementById('resourcesModal');
-                    // var resourcesModalObject = new bootstrap.Modal.getInstance(resourcesModal);
-
-                    var resourcesModall = document.querySelector('#resourcesModal')
-                    var resourcesModalObject = Modal.getOrCreateInstance(resourcesModall) // Returns a Bootstrap modal instance
-
+                    var bootstrapResourcesModal = document.querySelector('#resourcesModal')
+                    var resourcesModalObject = Modal.getOrCreateInstance(bootstrapResourcesModal) // Returns a Bootstrap modal instance
                     var modalTitle = resourcesModal.querySelector('.modal-title');
                     var modalBody = resourcesModal.querySelector('.modal-body');
                     var modalBodyContent = this.generateModalContent(inputOptions);
-                    console.log('modalTitle', modalTitle.textContent);
 
                     modalTitle.innerHTML = "Select an image: <i class=\"fas fa-solid fa-folder-tree\"></i>" + folderPath ;
                     modalBody.innerHTML = modalBodyContent;
@@ -479,7 +461,6 @@ export default {
                                 this.filelist = link.href;
                                 thisField.filelist = link.href;
                                 this.navigateDirectory(e);
-                                return false;
                             }
                         );
                     });
@@ -495,7 +476,6 @@ export default {
                     });
                 })
                 .catch(err => {
-                    console.log('err', err)
                     window.alert(err.response.data + '<br>Image did not upload.');
                     renable();
                 });
