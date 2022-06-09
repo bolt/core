@@ -30,3 +30,9 @@
     text-overflow: ellipsis;
   }
 }
+
+#resourcesModal {
+  .card {
+    min-height: 209px;
+  }
+}
