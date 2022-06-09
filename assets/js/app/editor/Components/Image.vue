@@ -364,7 +364,6 @@ export default {
             Axios.get(this.filelist)
                 .then(res => {
                     let inputOptions = this.filterServerFiles(res.data);
-                    this.files = inputOptions;
 
                     var resourcesModal = document.getElementById('resourcesModal');
                     var bootstrapResourcesModal = document.querySelector('#resourcesModal')
