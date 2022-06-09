@@ -1,8 +1,6 @@
 export function resetModalContent(labels) {
     var resourcesModal = document.getElementById('resourcesModal');
     if (labels.modal_button_deny && labels.modal_button_save) {
-        let deny_button = labels.modal_button_deny;
-        let save_button = labels.modal_button_save;
         let defaultContent =
             `
                 <div class="modal-header">
@@ -21,8 +19,6 @@ export function resetModalContent(labels) {
             `;
         resourcesModal.querySelector('.modal-content').innerHTML = defaultContent;
     } else {
-        let deny_button = 'Close';
-        let save_button = 'Save';
         let defaultContent =
             `
                 <div class="modal-header">
