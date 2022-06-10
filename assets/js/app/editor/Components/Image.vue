@@ -175,10 +175,9 @@ import noScroll from 'no-scroll';
 import baguetteBox from 'baguettebox.js';
 import field from '../mixins/value';
 import Axios from 'axios';
-import {Modal} from 'bootstrap'
+import { Modal } from 'bootstrap';
 import { renable } from '../../patience-is-a-virtue';
 import { resetModalContent } from '../../modal';
-import bootstrapModal from "bootstrap/js/src/base-component";
 
 export default {
     name: 'EditorImage',
@@ -285,7 +284,7 @@ export default {
             let folderPath = inputOptions[0].value;
             let modalContent = '<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-2">';
             // If we are deep in the directory, add an arrow to navigate back to previous folder
-            if(folderPath.includes('/')) {
+            if (folderPath.includes('/')) {
                 let pathChunks = inputOptions[0].value.split('/');
                 pathChunks.pop();
                 pathChunks.pop();
@@ -309,7 +308,7 @@ export default {
                     </div>`;
             }
             inputOptions.forEach((element, key) => {
-                if(element.group == "directories") {
+                if (element.group == 'directories') {
                     filePath = element.value;
                     baseAsyncUrl = `/bolt/async/list_files?location=files/${filePath}&type=images`;
                     // let directoryPath = '/bolt/async/list_files?location=files/' + element.value + '&type=images';
@@ -366,14 +365,14 @@ export default {
                     let inputOptions = this.filterServerFiles(res.data);
 
                     var resourcesModal = document.getElementById('resourcesModal');
-                    var bootstrapResourcesModal = document.querySelector('#resourcesModal')
-                    var resourcesModalObject = Modal.getOrCreateInstance(bootstrapResourcesModal) // Returns a Bootstrap modal instance
+                    var bootstrapResourcesModal = document.querySelector('#resourcesModal');
+                    var resourcesModalObject = Modal.getOrCreateInstance(bootstrapResourcesModal); // Returns a Bootstrap modal instance
                     var button = event.target;
                     var title = button.getAttribute('data-modal-title');
                     var modalDialog = resourcesModal.querySelector('.modal-dialog');
                     var modalTitle = resourcesModal.querySelector('.modal-title');
                     var modalBody = resourcesModal.querySelector('.modal-body');
-                    var modalFooter = resourcesModal.querySelector('.modal-footer')
+                    var modalFooter = resourcesModal.querySelector('.modal-footer');
                     var modalBodyContent = this.generateModalContent(inputOptions);
 
                     modalDialog.classList.add(button.getAttribute('data-modal-dialog-class'));
@@ -384,26 +383,20 @@ export default {
                     var directoryLinks = resourcesModal.querySelectorAll('.directory');
 
                     directoryLinks.forEach(link => {
-                        link.addEventListener(
-                            'click',
-                            (e) => {
-                                e.preventDefault();
-                                this.filelist = link.href;
-                                thisField.filelist = link.href;
-                                this.navigateDirectory(e, modalTitle);
-                                // return false;
-                            }
-                        );
+                        link.addEventListener('click', e => {
+                            e.preventDefault();
+                            this.filelist = link.href;
+                            thisField.filelist = link.href;
+                            this.navigateDirectory();
+                            // return false;
+                        });
                     });
 
-                    var cards = modalBody.querySelectorAll('.form-check-input')
+                    var cards = modalBody.querySelectorAll('.form-check-input');
                     cards.forEach(card => {
-                        card.addEventListener(
-                            'click',
-                            (e) => {
-                                resourcesModalObject.hide();
-                            }
-                        );
+                        card.addEventListener('click', () => {
+                            resourcesModalObject.hide();
+                        });
                     });
 
                     resourcesModal.addEventListener(
@@ -428,7 +421,7 @@ export default {
                     renable();
                 });
         },
-        navigateDirectory(event, modalTitle) {
+        navigateDirectory() {
             let thisField = this;
             Axios.get(this.filelist)
                 .then(res => {
@@ -441,37 +434,31 @@ export default {
                     folderPath = folderPath.join('/');
 
                     var resourcesModal = document.getElementById('resourcesModal');
-                    var bootstrapResourcesModal = document.querySelector('#resourcesModal')
-                    var resourcesModalObject = Modal.getOrCreateInstance(bootstrapResourcesModal) // Returns a Bootstrap modal instance
+                    var bootstrapResourcesModal = document.querySelector('#resourcesModal');
+                    var resourcesModalObject = Modal.getOrCreateInstance(bootstrapResourcesModal); // Returns a Bootstrap modal instance
                     var modalTitle = resourcesModal.querySelector('.modal-title');
                     var modalBody = resourcesModal.querySelector('.modal-body');
                     var modalBodyContent = this.generateModalContent(inputOptions);
 
-                    modalTitle.innerHTML = "Select an image: <i class=\"fas fa-solid fa-folder-tree\"></i>" + folderPath ;
+                    modalTitle.innerHTML = 'Select an image: <i class="fas fa-solid fa-folder-tree"></i>' + folderPath;
                     modalBody.innerHTML = modalBodyContent;
 
                     var directoryLinks = resourcesModal.querySelectorAll('.directory');
 
                     directoryLinks.forEach(link => {
-                        link.addEventListener(
-                            'click',
-                            (e) => {
-                                e.preventDefault();
-                                this.filelist = link.href;
-                                thisField.filelist = link.href;
-                                this.navigateDirectory(e);
-                            }
-                        );
+                        link.addEventListener('click', e => {
+                            e.preventDefault();
+                            this.filelist = link.href;
+                            thisField.filelist = link.href;
+                            this.navigateDirectory(e);
+                        });
                     });
 
-                    var cards = modalBody.querySelectorAll('.form-check-input')
+                    var cards = modalBody.querySelectorAll('.form-check-input');
                     cards.forEach(card => {
-                        card.addEventListener(
-                            'click',
-                            (e) => {
-                                resourcesModalObject.hide();
-                            }
-                        );
+                        card.addEventListener('click', () => {
+                            resourcesModalObject.hide();
+                        });
                     });
                 })
                 .catch(err => {
@@ -587,7 +574,7 @@ export default {
             return files.filter(function(file) {
                 let ext = /(?:\.([^.]+))?$/.exec(file.text)[1];
                 // If it's a directory, return the directory
-                if(file.group == "directories") {
+                if (file.group == 'directories') {
                     return file;
                 }
                 return self.extensions.includes(ext);

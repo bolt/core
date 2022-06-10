@@ -148,7 +148,7 @@ import field from '../mixins/value';
 import Axios from 'axios';
 import { renable } from '../../patience-is-a-virtue';
 import { resetModalContent } from '../../modal';
-import {Modal} from "bootstrap";
+import { Modal } from 'bootstrap';
 
 export default {
     name: 'EditorFile',
@@ -246,7 +246,7 @@ export default {
             };
             let modalContent = '<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-2">';
             // If we are deep in the directory, add an arrow to navigate back to previous folder
-            if(folderPath.includes('/')) {
+            if (folderPath.includes('/')) {
                 let pathChunks = inputOptions[0].value.split('/');
                 pathChunks.pop();
                 pathChunks.pop();
@@ -274,7 +274,7 @@ export default {
                     .split('.')
                     .pop()
                     .toLowerCase();
-                if(element.group == "directories") {
+                if (element.group == 'directories') {
                     filePath = element.value;
                     baseAsyncUrl = `/bolt/async/list_files?location=files/${filePath}&type=files`;
                     modalContent += `
@@ -298,13 +298,14 @@ export default {
                     modalContent += `
                         <div class="col">
                             <div class="card h-100">
-                                <i class="d-flex align-items-center justify-content-center w-100 flex-grow-1 text-decoration-none fas fa-solid ${fileIcons[filenameExtension] ??
-                            'fa-file'} fa-5x me-0 align-self-center"></i>
+                                <i class="d-flex align-items-center justify-content-center w-100 flex-grow-1 text-decoration-none fas fa-solid ${fileIcons[
+                                    filenameExtension
+                                ] ?? 'fa-file'} fa-5x me-0 align-self-center"></i>
                                 <div class="card-body px-2 flex-grow-0 border-top border-very-light-border">
                                     <div class="form-check ps-0">
                                         <input class="form-check-input" type="checkbox" value="${
-                                element.value
-                            }" id="flexCheckDefault-${key}">
+                                            element.value
+                                        }" id="flexCheckDefault-${key}">
                                         <label class="form-check-label d-inline fs-6 fw-normal d-block" for="flexCheckDefault-${key}">
                                             ${element.text}
                                         </label>
@@ -325,14 +326,14 @@ export default {
                     let inputOptions = this.filterServerFiles(res.data);
 
                     var resourcesModal = document.getElementById('resourcesModal');
-                    var bootstrapResourcesModal = document.querySelector('#resourcesModal')
-                    var resourcesModalObject = Modal.getOrCreateInstance(bootstrapResourcesModal) // Returns a Bootstrap modal instance
+                    var bootstrapResourcesModal = document.querySelector('#resourcesModal');
+                    var resourcesModalObject = Modal.getOrCreateInstance(bootstrapResourcesModal); // Returns a Bootstrap modal instance
                     var button = event.target;
                     var title = button.getAttribute('data-modal-title');
                     var modalDialog = resourcesModal.querySelector('.modal-dialog');
                     var modalTitle = resourcesModal.querySelector('.modal-title');
                     var modalBody = resourcesModal.querySelector('.modal-body');
-                    var modalFooter = resourcesModal.querySelector('.modal-footer')
+                    var modalFooter = resourcesModal.querySelector('.modal-footer');
                     var modalBodyContent = this.generateModalContent(inputOptions);
 
                     modalDialog.classList.add(button.getAttribute('data-modal-dialog-class'));
@@ -343,25 +344,19 @@ export default {
                     var directoryLinks = resourcesModal.querySelectorAll('.directory');
 
                     directoryLinks.forEach(link => {
-                        link.addEventListener(
-                            'click',
-                            (e) => {
-                                e.preventDefault();
-                                this.filelist = link.href;
-                                thisField.filelist = link.href;
-                                this.navigateDirectory(e, modalTitle);
-                            }
-                        );
+                        link.addEventListener('click', e => {
+                            e.preventDefault();
+                            this.filelist = link.href;
+                            thisField.filelist = link.href;
+                            this.navigateDirectory(modalTitle);
+                        });
                     });
 
-                    var cards = modalBody.querySelectorAll('.form-check-input')
+                    var cards = modalBody.querySelectorAll('.form-check-input');
                     cards.forEach(card => {
-                        card.addEventListener(
-                            'click',
-                            (e) => {
-                                resourcesModalObject.hide();
-                            }
-                        );
+                        card.addEventListener('click', () => {
+                            resourcesModalObject.hide();
+                        });
                     });
 
                     resourcesModal.addEventListener(
@@ -384,7 +379,7 @@ export default {
                     renable();
                 });
         },
-        navigateDirectory(event, modalTitle) {
+        navigateDirectory() {
             let thisField = this;
             Axios.get(this.filelist)
                 .then(res => {
@@ -397,37 +392,31 @@ export default {
                     folderPath = folderPath.join('/');
 
                     var resourcesModal = document.getElementById('resourcesModal');
-                    var bootstrapResourcesModal = document.querySelector('#resourcesModal')
-                    var resourcesModalObject = Modal.getOrCreateInstance(bootstrapResourcesModal) // Returns a Bootstrap modal instance
+                    var bootstrapResourcesModal = document.querySelector('#resourcesModal');
+                    var resourcesModalObject = Modal.getOrCreateInstance(bootstrapResourcesModal); // Returns a Bootstrap modal instance
                     var modalTitle = resourcesModal.querySelector('.modal-title');
                     var modalBody = resourcesModal.querySelector('.modal-body');
                     var modalBodyContent = this.generateModalContent(inputOptions);
 
-                    modalTitle.innerHTML = "Select a file: <i class=\"fas fa-solid fa-folder-tree\"></i>" + folderPath ;
+                    modalTitle.innerHTML = 'Select a file: <i class="fas fa-solid fa-folder-tree"></i>' + folderPath;
                     modalBody.innerHTML = modalBodyContent;
 
                     var directoryLinks = resourcesModal.querySelectorAll('.directory');
 
                     directoryLinks.forEach(link => {
-                        link.addEventListener(
-                            'click',
-                            (e) => {
-                                e.preventDefault();
-                                this.filelist = link.href;
-                                thisField.filelist = link.href;
-                                this.navigateDirectory(e);
-                            }
-                        );
+                        link.addEventListener('click', e => {
+                            e.preventDefault();
+                            this.filelist = link.href;
+                            thisField.filelist = link.href;
+                            this.navigateDirectory(e);
+                        });
                     });
 
-                    var cards = modalBody.querySelectorAll('.form-check-input')
+                    var cards = modalBody.querySelectorAll('.form-check-input');
                     cards.forEach(card => {
-                        card.addEventListener(
-                            'click',
-                            (e) => {
-                                resourcesModalObject.hide();
-                            }
-                        );
+                        card.addEventListener('click', () => {
+                            resourcesModalObject.hide();
+                        });
                     });
                 })
                 .catch(err => {
@@ -490,7 +479,7 @@ export default {
             return files.filter(function(file) {
                 let ext = /(?:\.([^.]+))?$/.exec(file.text)[1];
                 // If it's a directory, return the directory
-                if(file.group == "directories") {
+                if (file.group == 'directories') {
                     return file;
                 }
                 return self.extensions.includes(ext);
