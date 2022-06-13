@@ -114,12 +114,16 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
 
         $content->setAuthor($user);
         $content->setContentType($contentType);
+
         // content now has a contentType -> permission check possible
         $this->denyAccessUnlessGranted(ContentVoter::CONTENT_CREATE, $content);
 
         $this->contentFillListener->fillContent($content);
 
         if ($this->request->getMethod() === 'POST') {
+            $content->setPublishedAt(null);
+            $content->setDepublishedAt(null);
+
             return $this->save($content);
         }
 
@@ -131,7 +135,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
      */
     public function edit(Content $content): Response
     {
-        $this->denyAccessUnlessGranted(ContentVoter::CONTENT_VIEW, $content);
+        $this->denyAccessUnlessGranted(ContentVoter::CONTENT_EDIT, $content);
 
         $event = new ContentEvent($content);
         $this->dispatcher->dispatch($event, ContentEvent::ON_EDIT);
@@ -139,46 +143,6 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         return $this->renderEditor($content);
     }
 
-    /**
-     * @Route(
-     *     "/edit/{_locale}/{contentTypeSlug}/{slugOrId}",
-     *     name="bolt_edit_content_slug",
-     *     requirements={"contentTypeSlug"="%bolt.requirement.contenttypes%"},
-     *     methods={"GET"})
-     * @Route(
-     *     "/edit/{contentTypeSlug}/{slugOrId}",
-     *     name="bolt_edit_content_slug",
-     *     requirements={"contentTypeSlug"="%bolt.requirement.contenttypes%"},
-     *     methods={"GET"})
-     * @Route(
-     *     "/edit/{slugOrId}",
-     *     name="bolt_edit_content_slug",
-     *     requirements={"contentTypeSlug"="%bolt.requirement.contenttypes%"},
-     *     methods={"GET"})
-     * @Route(
-     *     "/edit/{_locale}/{slugOrId}",
-     *     name="bolt_edit_content_slug",
-     *     requirements={"contentTypeSlug"="%bolt.requirement.contenttypes%"},
-     *     methods={"GET"})
-     */
-    public function editFromSlug(?string $contentTypeSlug = null, $slugOrId): Response
-    {
-        $contentType = ContentType::factory($contentTypeSlug, $this->config->get('contenttypes'));
-        $record = $this->contentRepository->findOneBySlug($slugOrId, $contentType);
-
-        if (! $record && is_numeric($slugOrId)) {
-            $record = $this->contentRepository->findOneBy(['id' => (int) $slugOrId]);
-        }
-
-        if (! $record) {
-            throw new NotFoundHttpException('Content not found');
-        }
-
-        return $this->redirectToRoute('bolt_content_edit', [
-            'id' => $record->getId(),
-            'edit_locale' => $this->request->getLocale(),
-        ]);
-    }
 
     /**
      * @Route("/edit/{id}", name="bolt_content_edit_post", methods={"POST"}, requirements={"id": "\d+"})
@@ -206,16 +170,20 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         // check again on new/updated content, this is needed in case the save action is used to create a new item
         $this->denyAccessUnlessGranted(ContentVoter::CONTENT_EDIT, $content);
 
-        // check for status (and owner, but that hasn't been implemented in the forms yet) changes
+        // check for status changes
         if ($originalContent !== null) {
-            // deny if we detect any of these status fields being changed
-            if (
-                $originalStatus !== $content->getStatus() ||
-                Date::datesDiffer($originalPublishedAt, $content->getPublishedAt()) ||
-                Date::datesDiffer($originalDepublishedAt, $content->getDepublishedAt())
+            // deny if we detect the status field being changed
+            if ($originalStatus !== $content->getStatus() ) {
+                $this->denyAccessUnlessGranted(ContentVoter::CONTENT_CHANGE_STATUS, $content);
+            }
+
+            // deny if we detect the publication dates field being changed
+            if (($originalPublishedAt !== null && Date::datesDiffer($originalPublishedAt, $content->getPublishedAt())) ||
+                ($originalDepublishedAt !== null && Date::datesDiffer($originalDepublishedAt, $content->getDepublishedAt()))
             ) {
                 $this->denyAccessUnlessGranted(ContentVoter::CONTENT_CHANGE_STATUS, $content);
             }
+
             // deny if owner changes
             if ($originalAuthor !== $content->getAuthor()) {
                 $this->denyAccessUnlessGranted(ContentVoter::CONTENT_CHANGE_OWNERSHIP, $content);
