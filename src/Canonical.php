@@ -105,9 +105,7 @@ class Canonical
             return null;
         }
 
-        if ($route) {
-            $this->setPath($route, $params);
-        }
+        $this->setPath($route, $params);
 
         if (! $absolute) {
             return $this->getPath();
