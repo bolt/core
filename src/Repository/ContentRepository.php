@@ -67,6 +67,16 @@ class ContentRepository extends ServiceEntityRepository
 
     public function findLatest(Collection $contentTypes, int $page = 1, int $amount = 6): Pagerfanta
     {
+        $qb = $this->findLatestQb($contentTypes, $amount);
+
+        return $this->createPaginator($qb->getQuery(), $page, $amount);
+    }
+
+    /**
+     * Builds the query to find the latest records.
+     */
+    protected function findLatestQb(Collection $contentTypes, int $amount): QueryBuilder
+    {
         $qb = $this->getQueryBuilder()
             ->addSelect('a')
             ->leftJoin('content.author', 'a')
@@ -83,7 +93,7 @@ class ContentRepository extends ServiceEntityRepository
 
         $qb->setMaxResults($amount);
 
-        return $this->createPaginator($qb->getQuery(), $page, $amount);
+        return $qb;
     }
 
     public function searchNaive(string $searchTerm, int $page, int $amountPerPage, Collection $contentTypes, bool $onlyPublished = true): Pagerfanta
@@ -200,7 +210,7 @@ class ContentRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
-    private function createPaginator(Query $query, int $page, int $amountPerPage): Pagerfanta
+    protected function createPaginator(Query $query, int $page, int $amountPerPage): Pagerfanta
     {
         $paginator = new Pagerfanta(new DoctrineORMAdapter($query, true, true));
         $paginator->setMaxPerPage($amountPerPage);
