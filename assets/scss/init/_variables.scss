@@ -13,6 +13,7 @@ $danger: #db2427;
 $light: #e0e0e0;
 $dark: #333;
 $disabled: #c8c8c8;
+$veryLightBorder: #e8e8e8;
 
 $bolt-blue: #255687; // Nice and bright, pretty light
 $bolt-bluegray: #2f3e4d; // Nice dark and desaturated
@@ -31,6 +32,7 @@ $theme-colors: (
   "light":     $light,
   "dark":      $dark,
   "boltblue":  $bolt-blue,
+  'very-light-border': $veryLightBorder,
   "toast-success": #dce6d1,
   "toast-danger": #f8d3d4,
   "toast-info": #cfe4e8,

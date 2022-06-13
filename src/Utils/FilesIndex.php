@@ -27,6 +27,14 @@ class FilesIndex
 
         $files = [];
 
+        foreach (self::findDirectories($path) as $dir) {
+            $files[] = [
+                'group' => 'directories',
+                'value' => Path::makeRelative($dir->getRealPath(), $basePath),
+                'text' => $dir->getFilename(),
+            ];
+        }
+
         foreach (self::findFiles($path, $glob) as $file) {
             $files[] = [
                 'group' => basename($basePath),
@@ -41,11 +49,20 @@ class FilesIndex
     private function findFiles(string $path, string $glob = null): Finder
     {
         $finder = new Finder();
-        $finder->in($path)->depth('< 5')->sortByType()->files();
+        $finder->in($path)->depth('0')->sortByType()->files();
 
         if ($glob) {
             $finder->name($glob);
         }
+
+        return $finder;
+    }
+
+
+    private function findDirectories(string $path): Finder
+    {
+        $finder = new Finder();
+        $finder->in($path)->depth('0')->sortByType()->directories();
 
         return $finder;
     }
