@@ -2,23 +2,15 @@
 
 {% block field %}
 
-  {% set mode = field.definition.mode|default('float') %}
+  {# ---
+  Removed `mode`
+  Note: The difference between `float` and `integer` is useless,
+        because with `any` it still steps with `1`,  whereas you'd
+        rather want to step with `0.01` for floats.
+  --- #}
   {% set min = field.definition.min %}
   {% set max = field.definition.max %}
-
-  {% if not step|default and field.definition['step'] is defined %}
-    {% set step = field.definition.step %}
-  {% elseif not step|default %}
-    {# default step values #}
-    {% if mode == 'float' %}
-      {% set step = "'any'" %}
-    {% elseif mode == 'integer' %}
-      {% set step = 1 %}
-    {% else %}
-      {# field mode unknown #}
-      {% set step = 1 %}
-    {% endif %}
-  {% endif %}
+  {% set step = field.definition['step']|default(1) %}
 
   <editor-number
     :id='{{ id|json_encode }}'
