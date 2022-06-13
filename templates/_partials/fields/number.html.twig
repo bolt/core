@@ -2,14 +2,12 @@
 
 {% block field %}
 
-  {% if not mode|default %}
-    {% set mode = field.definition.mode|default('float') %}
-  {% endif %}
-
   {% set min = field.definition.min %}
   {% set max = field.definition.max %}
+  {% set mode = field.definition.mode|default('float') %}
   {% set step = field.definition['step']|default(1) %}
 
+  {# --- if the mode is `float` and `step` is not set, use the magical 'any' --- #}
   {% if mode == 'float' %}
     {% set step = field.definition['step']|default("'any'") %}
   {% endif %}
