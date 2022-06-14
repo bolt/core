@@ -178,8 +178,8 @@ final class ArrayExtension extends AbstractExtension
      */
     private function orderHelper(Content $a, Content $b, string $orderOn, bool $orderAscending, string $locale): int
     {
-        $aVal = $this->contentHelper->get($a, sprintf('{%s}', $orderOn), $locale);
-        $bVal = $this->contentHelper->get($b, sprintf('{%s}', $orderOn), $locale);
+        $aVal = mb_strtolower($this->contentHelper->get($a, sprintf('{%s}', $orderOn), $locale));
+        $bVal = mb_strtolower($this->contentHelper->get($b, sprintf('{%s}', $orderOn), $locale));
 
         // If the values look like dates, convert them to proper date objects.
         if ($a->getDefinition()->get('fields')->get($orderOn, null) &&
