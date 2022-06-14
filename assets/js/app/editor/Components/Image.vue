@@ -355,7 +355,6 @@ export default {
                     <input class="form-control" autocomplete="off" type="text" name="from-url-input">
                 </form>
             `;
-            modalContent += `</div>`;
             return modalContent;
         },
         selectServerFile(event) {
@@ -562,12 +561,12 @@ export default {
                 'hidden.bs.modal',
                 () => {
                     // Reset modal body content when the modal is closed
-                    this.resetModalContent();
+                    resetModalContent(this.labels);
                 },
                 { once: true },
             );
 
-            window.reEnablePatientButtons();
+            renable();
         },
         filterServerFiles(files) {
             let self = this;
