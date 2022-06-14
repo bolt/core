@@ -533,7 +533,7 @@ export default {
 
             setTimeout(() => {
                 modalBody.innerHTML = modalBodyContent;
-            }, 1)
+            }, 1);
 
             saveButton.addEventListener(
                 'click',
