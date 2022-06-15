@@ -9,7 +9,6 @@
             {% set value = taxonomy_values(record.taxonomies, definition) %}
 
             <div class="mb-4">
-
                 {# Print prefix #}
                 {% if definition['prefix']|default() is not empty %}
                     {{ macro.generatePrefix(definition['prefix'], taxonomy) }}
@@ -40,6 +39,7 @@
                             :multiple="{{ definition.multiple ? 'true' : 'false' }}"
                             :taggable="{{ (definition.behaves_like == 'tags') ? 'true' : 'false' }}"
                     ></editor-select>
+                    </div>
                 {% if definition.has_sortorder %}
                     </div>
                     <div class="col-3">
