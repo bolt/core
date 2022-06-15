@@ -531,7 +531,10 @@ export default {
             var modalBody = resourcesModal.querySelector('.modal-body');
             var modalBodyContent = this.generateUploadFromURLModalContent();
             modalTitle.innerHTML = title;
-            modalBody.innerHTML = modalBodyContent;
+
+            setTimeout(() => {
+                modalBody.innerHTML = modalBodyContent;
+            }, 1);
 
             saveButton.addEventListener(
                 'click',
