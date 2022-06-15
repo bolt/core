@@ -735,6 +735,11 @@ class Content
             $dateTime->setTimezone($utc);
         }
 
+        // Prevent dates before the year 0, because MySQL chokes on those
+        if ((int) $dateTime->format("Y") < 1) {
+            $dateTime->setDate(0, 1, 1);
+        }
+
         return $dateTime;
     }
 
