@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Webmozart\PathUtil\Path;
+use Symfony\Component\Filesystem\Path;
 
 /**
  * @ORM\Entity(repositoryClass="Bolt\Repository\MediaRepository")

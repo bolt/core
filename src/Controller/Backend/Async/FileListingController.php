@@ -7,13 +7,13 @@ namespace Bolt\Controller\Backend\Async;
 use Bolt\Configuration\Config;
 use Bolt\Utils\FilesIndex;
 use Bolt\Utils\PathCanonicalize;
+use Symfony\Component\Filesystem\Path;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
-use Webmozart\PathUtil\Path;
 
 class FileListingController implements AsyncZoneInterface
 {

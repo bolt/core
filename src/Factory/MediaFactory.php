@@ -12,11 +12,11 @@ use Bolt\Repository\MediaRepository;
 use Carbon\Carbon;
 use PHPExif\Exif;
 use PHPExif\Reader\Reader;
+use Symfony\Component\Filesystem\Path;
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\HttpKernel\Exception\UnsupportedMediaTypeHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Tightenco\Collect\Support\Collection;
-use Webmozart\PathUtil\Path;
 
 class MediaFactory
 {

@@ -11,12 +11,12 @@ use Bolt\Entity\Media;
 use Bolt\Factory\MediaFactory;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\Filesystem\Path;
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Webmozart\PathUtil\Path;
 
 /**
  * @Security("is_granted('media_edit')")
@@ -100,7 +100,7 @@ class MediaEditController extends TwigAwareController implements BackendZoneInte
         $filename = $basepath . $file;
 
         $relPath = Path::getDirectory('/' . $file);
-        $relName = Path::getFilename($file);
+        $relName = basename($file);
 
         $file = new SplFileInfo($filename, $relPath, $relName);
 

@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Bolt\Log;
 
 use Bolt\Entity\User;
+use Symfony\Component\Filesystem\Path;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Security\Core\Security;
-use Webmozart\PathUtil\Path;
 
 class RequestProcessor
 {
