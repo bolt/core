@@ -46,7 +46,7 @@ trait ConfigTrait
 
         foreach ($filenames as $filename) {
             if (is_readable($filename)) {
-                $config = array_merge($config, $yamlParser->parseFile($filename));
+                $config = array_merge($config, $yamlParser->parseFile($filename) ?? [] );
             }
         }
 
