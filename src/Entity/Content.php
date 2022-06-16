@@ -740,7 +740,6 @@ class Content
             $dateTime = null;
         }
 
-
         return $dateTime;
     }
 
