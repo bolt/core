@@ -1,6 +1,25 @@
 Changelog
 =========
 
+## 5.1.10
+
+Released: 2022-06-17
+
+### 🐛 Bug fixes
+
+- Remove old `conflict` (bobdenotter, [#3236](https://github.com/bolt/core/pull/3236))
+- Don't break when login-form is sent incomplete (bobdenotter, [#3221](https://github.com/bolt/core/pull/3221))
+- Fix error thrown by extensions with no config options defined ([#3242](https://github.com/bolt/core/pull/3242))
+- Fix number field ([#3231](https://github.com/bolt/core/pull/3231))
+- Increase textarea field font-size ([#3239](https://github.com/bolt/core/pull/3239))
+- Ensure the |order filter sorts case insentitive. ([#3235](https://github.com/bolt/core/pull/3235))
+- Update ECS to version `10.3` ([#3232](https://github.com/bolt/core/pull/3232))
+- Ensure correct canonical ([#3229](https://github.com/bolt/core/pull/3229))
+- Fixed the config used for search result limits ([#3219](https://github.com/bolt/core/pull/3219))
+- Add helper to prepare QueryBuilder when fetching latest records. ([#3218](https://github.com/bolt/core/pull/3218))
+- Prevent negative dates ("Before year 0") in Content ([#3240](https://github.com/bolt/core/pull/3240))
+- Get correct relative file path, when files/ is a symlink ([#3245](https://github.com/bolt/core/pull/3245))
+
 ## 5.1.9
 
 Released: 2022-05-31 (replaces 5.1.8)
@@ -275,7 +294,7 @@ Released: 2021-10-24
 - Fix setPath: Don't override existing `$route`, if we already have one (bobdenotter, [#2876](https://github.com/bolt/core/pull/2876))
 - Fix dependency resolution blockage (bobdenotter, [#2875](https://github.com/bolt/core/pull/2875))
 
-## 5.0.4 
+## 5.0.4
 
 Released: 2021-10-22
 
@@ -342,7 +361,7 @@ Released: 2021-09-17
 Released: 2021-08-30
 
 Really, too much to list. This is a major upgrade, and consists of about 2400 commits since 4.0.
-This blog post lists some relevant details: 
+This blog post lists some relevant details:
 
 https://boltcms.io/newsitem/big-announcement-bolt-5-0-on-the-horizon
 
@@ -585,10 +604,10 @@ Released: 2021-02-26
 
 Released: 2021-02-14
 
-This release includes two security-related fixes. Our thanks go out to 
-[Silvia Väli, Clarified Security](https://clarifiedsecurity.com/silvia-vali/) 
-and [Romain Richard](https://github.com/bigz) for identifying these issues and 
-disclosing them to us responsibly! 👏🙏 
+This release includes two security-related fixes. Our thanks go out to
+[Silvia Väli, Clarified Security](https://clarifiedsecurity.com/silvia-vali/)
+and [Romain Richard](https://github.com/bigz) for identifying these issues and
+disclosing them to us responsibly! 👏🙏
 
 ### 🐛 Bug fixes
 
@@ -696,7 +715,7 @@ Released: 2020-12-14
 - Allow omitting of `generator` meta tag and `x-powered-by` header (bobdenotter, [#2195](https://github.com/bolt/core/pull/2195))
 
 
-## 4.1.8 
+## 4.1.8
 
 Released: 2020-11-29
 
@@ -910,7 +929,7 @@ Released: 2020-09-30
 - [CI] Move ECS from Travis to Github Actions (TomasVotruba, [#1912](https://github.com/bolt/core/pull/1912))
 - Cleanup, this is handled in ENV / Doctrine (bobdenotter, [#1908](https://github.com/bolt/core/pull/1908))
 
-## Major release 4.0.0 
+## Major release 4.0.0
 
 Released: 2020-09-24
 
