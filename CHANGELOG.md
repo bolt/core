@@ -10,15 +10,15 @@ Released: 2022-06-17
 - Remove old `conflict` (bobdenotter, [#3236](https://github.com/bolt/core/pull/3236))
 - Don't break when login-form is sent incomplete (bobdenotter, [#3221](https://github.com/bolt/core/pull/3221))
 - Fix error thrown by extensions with no config options defined ([#3242](https://github.com/bolt/core/pull/3242))
-- Fix number field ([#3231](https://github.com/bolt/core/pull/3231))
-- Increase textarea field font-size ([#3239](https://github.com/bolt/core/pull/3239))
-- Ensure the |order filter sorts case insentitive. ([#3235](https://github.com/bolt/core/pull/3235))
+- Fix `type: number` field ([#3231](https://github.com/bolt/core/pull/3231))
+- Increase `type: textarea` field font-size ([#3239](https://github.com/bolt/core/pull/3239))
+- Ensure the `|order` filter sorts case insentitive. ([#3235](https://github.com/bolt/core/pull/3235))
 - Update ECS to version `10.3` ([#3232](https://github.com/bolt/core/pull/3232))
-- Ensure correct canonical ([#3229](https://github.com/bolt/core/pull/3229))
+- Ensure correct Canonical ([#3229](https://github.com/bolt/core/pull/3229))
 - Fixed the config used for search result limits ([#3219](https://github.com/bolt/core/pull/3219))
-- Add helper to prepare QueryBuilder when fetching latest records. ([#3218](https://github.com/bolt/core/pull/3218))
+- Add helper to prepare `QueryBuilder` when fetching latest records. ([#3218](https://github.com/bolt/core/pull/3218))
 - Prevent negative dates ("Before year 0") in Content ([#3240](https://github.com/bolt/core/pull/3240))
-- Get correct relative file path, when files/ is a symlink ([#3245](https://github.com/bolt/core/pull/3245))
+- Get correct relative file path, when `files/` is a symlink ([#3245](https://github.com/bolt/core/pull/3245))
 
 ## 5.1.9
 
