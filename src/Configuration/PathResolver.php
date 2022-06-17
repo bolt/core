@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Bolt\Configuration;
 
 use Bolt\Exception\ConfigurationException;
+use Symfony\Component\Filesystem\Path;
 use Tightenco\Collect\Support\Collection;
-use Webmozart\PathUtil\Path;
 
 /**
  * A class to resolve and manage paths. Paths defined here are allowed to have variables within them.

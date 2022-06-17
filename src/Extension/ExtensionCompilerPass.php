@@ -9,8 +9,8 @@ use Composer\Package\PackageInterface;
 use ComposerPackages\Types;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\Filesystem\Path;
 use Symfony\Component\Yaml\Yaml;
-use Webmozart\PathUtil\Path;
 
 class ExtensionCompilerPass implements CompilerPassInterface
 {

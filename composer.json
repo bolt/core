@@ -83,7 +83,6 @@
         "twig/twig": "^3.3",
         "ua-parser/uap-php": "^3.9",
         "webimpress/safe-writer": "^2.1",
-        "webmozart/path-util": "^2.3",
         "webonyx/graphql-php": "^14.9",
         "xemlock/htmlpurifier-html5": "^0.1.11"
     },
