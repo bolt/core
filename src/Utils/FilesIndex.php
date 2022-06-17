@@ -5,7 +5,6 @@ namespace Bolt\Utils;
 use Bolt\Configuration\Config;
 use Symfony\Component\Finder\Finder;
 use Tightenco\Collect\Support\Collection;
-use Webmozart\PathUtil\Path;
 
 class FilesIndex
 {
@@ -30,7 +29,7 @@ class FilesIndex
         foreach (self::findFiles($path, $glob) as $file) {
             $files[] = [
                 'group' => basename($basePath),
-                'value' => Path::makeRelative($file->getRealPath(), $basePath),
+                'value' => $file->getRelativePathname(),
                 'text' => $file->getFilename(),
             ];
         }
