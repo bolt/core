@@ -105,10 +105,14 @@ class Canonical
             return null;
         }
 
-        $this->setPath($route, $params);
+        $path = $this->getPath();
+
+        if ($route) {
+            $path = $this->returnPath($route, $params);
+        }
 
         if (! $absolute) {
-            return $this->getPath();
+            return $path;
         }
 
         return sprintf(
@@ -116,7 +120,7 @@ class Canonical
             $this->getScheme(),
             $this->getHost(),
             ($this->getPort() ? ':' . $this->getPort() : ''),
-            $this->getPath()
+            $path
         );
     }
 
@@ -180,13 +184,18 @@ class Canonical
 
     public function setPath(?string $route = null, array $params = []): void
     {
+        $this->path = $this->returnPath($route, $params);
+    }
+
+    public function returnPath(?string $route = null, array $params = []): string
+    {
         if (! $route && ! $this->getRequest()->attributes->has('_route')) {
-            return;
+            return '';
         } elseif (! $route) {
             $route = $this->getRequest()->attributes->get('_route');
         }
 
-        $this->path = $this->generateLink($route, $params, false);
+        return $this->generateLink($route, $params, false);
     }
 
     /**
