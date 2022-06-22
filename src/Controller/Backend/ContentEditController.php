@@ -219,15 +219,23 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
 
         $locale = $originalAuthor->getLocale();
 
-        return new JsonResponse([
-            'url' => $url,
-            'status' => 'success',
-            'type' => $this->translator->trans('success', [], null, $locale),
-            'message' => $this->translator->trans('content.updated_successfully', [], null, $locale),
-            'notification' => $this->translator->trans('flash_messages.notification', [], null, $locale),
-            'title' => $content->getExtras()['title'],
-        ], 200
-        );
+        // If we're "Saving Ajaxy"
+        if ($this->request->isXmlHttpRequest()) {
+            return new JsonResponse([
+                'url' => $url,
+                'status' => 'success',
+                'type' => $this->translator->trans('success', [], null, $locale),
+                'message' => $this->translator->trans('content.updated_successfully', [], null, $locale),
+                'notification' => $this->translator->trans('flash_messages.notification', [], null, $locale),
+                'title' => $content->getExtras()['title'],
+            ], 200
+            );
+        }
+
+        // Otherwise, treat it as a normal POST-request cycle..
+        $this->addFlash('success', 'content.updated_successfully');
+
+        return new RedirectResponse($url);
     }
 
     /**
