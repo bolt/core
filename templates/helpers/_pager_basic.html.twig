@@ -6,6 +6,8 @@ Predefined variables:
  - `routeParams`: Parameters to pass in to `{{ path() }}` to create the correct url
  - `surround`: The amount of items to show around the 'current' one. "3" by default.
  - `class`: The main CSS class to apply to the pager. "pagination" by default
+ - `previous_link_class`: The CSS class to apply to the previous link in the pagination. "previous" by default.
+ - `next_link_class`: The CSS class to apply to the next link in the pagination. "next" by default.
 
 #}
 
@@ -25,7 +27,7 @@ Predefined variables:
 
         {# Previous Button #}
         {% set p = routeParams|merge({page: records.hasPreviousPage ? records.previousPage : 1 }) %}
-        {% with {'path': path(route, p), 'label': 'pager.previous'|trans, 'enabled': records.hasPreviousPage } only %}
+        {% with {'path': path(route, p), 'label': 'pager.previous'|trans, 'enabled': records.hasPreviousPage, 'class': previous_link_class } only %}
             {{ block('item') }}
         {% endwith %}
 
@@ -61,7 +63,7 @@ Predefined variables:
         {% endif %}
 
         {% set p = routeParams|merge({page: records.hasNextPage ? records.nextPage : records.nbPages }) %}
-        {% with {'path': path(route, p), 'label': 'pager.next'|trans, 'enabled': records.hasNextPage } only %}
+        {% with {'path': path(route, p), 'label': 'pager.next'|trans, 'enabled': records.hasNextPage, 'class': next_link_class } only %}
             {{ block('item') }}
         {% endwith %}
     </ul>
