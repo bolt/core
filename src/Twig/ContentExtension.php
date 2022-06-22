@@ -500,7 +500,7 @@ class ContentExtension extends AbstractExtension
         return new Collection($taxonomies);
     }
 
-    public function pager(Environment $twig, ?Pagerfanta $records = null, string $template = '@bolt/helpers/_pager_basic.html.twig', string $class = 'pagination', int $surround = 3)
+    public function pager(Environment $twig, ?Pagerfanta $records = null, string $template = '@bolt/helpers/_pager_basic.html.twig', string $class = 'pagination', string $previousLinkClass = 'previous', string $nextLinkClass = 'next', int $surround = 3)
     {
         $params = array_merge(
             $this->requestStack->getCurrentRequest()->get('_route_params'),
@@ -515,6 +515,8 @@ class ContentExtension extends AbstractExtension
             'records' => $records,
             'surround' => $surround,
             'class' => $class,
+            'previous_link_class' => $previousLinkClass,
+            'next_link_class' => $nextLinkClass,
             'route' => $this->requestStack->getCurrentRequest()->get('_route'),
             'routeParams' => $params,
         ];
