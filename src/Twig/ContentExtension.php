@@ -12,6 +12,7 @@ use Bolt\Entity\Field;
 use Bolt\Entity\Field\Excerptable;
 use Bolt\Entity\Field\ImageField;
 use Bolt\Entity\Field\ImagelistField;
+use Bolt\Entity\ListFieldInterface;
 use Bolt\Entity\Taxonomy;
 use Bolt\Enum\Statuses;
 use Bolt\Log\LoggerTrait;
@@ -224,14 +225,26 @@ class ContentExtension extends AbstractExtension
         }
 
         foreach ($content->getFields() as $field) {
-            if ($field instanceof ImageField && $field->get('filename')) {
-                return $onlyValues ? $field->getValue() : $field;
-            }
+            $image = $this->findOneImage($field);
 
-            if ($field instanceof ImagelistField) {
-                $firstImage = current($field->getValue());
-                if ($firstImage && $firstImage->get('filename')) {
-                    return $onlyValues ? $firstImage->getValue() : $firstImage;
+            if ($image !== null) {
+                return $onlyValues ? $image->getValue() : $image;
+            }
+        }
+
+        return null;
+    }
+
+    private function findOneImage(Field $field): ?ImageField
+    {
+        if ($field instanceof ImageField && $field->get('filename')) {
+            return $field;
+        }
+
+        if ($field instanceof ListFieldInterface) {
+            foreach ($field->getValue() as $subField) {
+                if ($this->findOneImage($subField)) {
+                    return $subField;
                 }
             }
         }
