@@ -399,6 +399,13 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
 
 
                 break;
+            case 'seo':
+                $data = ['keywords' => '', 'shortlink' => '', 'canonical' => '', 'robots' => '', 'og' => ''];
+                $data['title'] = $this->faker->sentence(4, true);
+                $data['description'] = $this->faker->sentence(120, true);
+                $data = [json_encode($data)];
+
+                break;
             default:
                 $data = [$this->faker->sentence(6, true)];
         }
