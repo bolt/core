@@ -38,7 +38,7 @@ class FilesIndex
         foreach (self::findFiles($path, $glob) as $file) {
             $files[] = [
                 'group' => basename($basePath),
-                'value' => Path::makeRelative($file->getRealPath(), $basePath),
+                'value' => $file->getRelativePathname(),
                 'text' => $file->getFilename(),
             ];
         }
@@ -57,7 +57,6 @@ class FilesIndex
 
         return $finder;
     }
-
 
     private function findDirectories(string $path): Finder
     {
