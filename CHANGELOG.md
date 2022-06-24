@@ -12,13 +12,17 @@ Released: 2022-06-XX
 - Make top level menu icon in Backend customizable (david-saisondor, [#3167](https://github.com/bolt/core/pull/3167))
 - Make saving Ajaxy (Joossensei, [#3144](https://github.com/bolt/core/pull/3144))
 - Bootstrap upgrade from v4 to v5 (nestordedios, [#3129](https://github.com/bolt/core/pull/3129))
+- Add a flag `ajaxy_saving: true` to Config to turn Ajaxy saving on or off [#3253](https://github.com/bolt/core/pull/3253)
+- Add Fixtures for SEO field [#3254](https://github.com/bolt/core/pull/3254)
+- Added `prev` and `next` classes to Paginator [#3255](https://github.com/bolt/core/pull/3255)
 
 ### 🐛 Bug fixes
 
 - Ensure `PublishedAt` gets set correctly when publishing a Record (bobdenotter, [#3211](https://github.com/bolt/core/pull/3211))
-- Fixed partial broken UserLocaleSubscriber (UtechtDustin, [#3204](https://github.com/bolt/core/pull/3204))
+- Fixed partial broken `UserLocaleSubscriber` (UtechtDustin, [#3204](https://github.com/bolt/core/pull/3204))
 - Separate methods for Pager from `pagerParams`. (vlad-ghita, [#3205](https://github.com/bolt/core/pull/3205))
-
+- Add `isTranslatable` condition in `get`-method [#3250](https://github.com/bolt/core/pull/3250)
+- Additional fix for `type: number` field, set default to `min: 0`. [#3252](https://github.com/bolt/core/pull/3252)
 
 ## 5.1.10
 
