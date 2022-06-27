@@ -77,7 +77,7 @@ class Sanitiser
     /**
      * Handles the creation of non-supported HTML elements by HTMLPurifier out of the box
      */
-    private function createNonSupportedElements(?\HTMLPurifier_Definition $definition, array $allowedTags)
+    private function createNonSupportedElements(\HTMLPurifier_HTMLDefinition $definition, array $allowedTags)
     {
         if (array_search('svg', $allowedTags)) {
             $definition->addElement('svg', 'Block', 'Flow', 'Common');
