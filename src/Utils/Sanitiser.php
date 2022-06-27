@@ -79,7 +79,7 @@ class Sanitiser
      */
     private function createNonSupportedElements(?\HTMLPurifier_Definition $definition, array $allowedTags)
     {
-        if(array_search('svg', $allowedTags)){
+        if (array_search('svg', $allowedTags)) {
             $definition->addElement('svg', 'Block', 'Flow', 'Common');
         }
     }
