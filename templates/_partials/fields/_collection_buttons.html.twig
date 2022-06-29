@@ -2,11 +2,11 @@
     <div class="btn-group ms-auto me-2" role="group" aria-label="Collection buttons">
     <button class='action-move-up-collection-item btn btn-light btn-sm' style="white-space: nowrap" {% if is_first is defined and is_first %} disabled {% endif %}>
         <i class="fas fa-fw fa-chevron-up"></i>
-        {{ 'collection.move_item_up'|trans }}
+        <span class="d-none d-sm-inline-block">{{ 'collection.move_item_up'|trans }}</span>
     </button>
     <button class='action-move-down-collection-item btn btn-light btn-sm' style="white-space: nowrap" {% if is_last is defined and is_last %} disabled {% endif %}>
         <i class="fas fa-fw fa-chevron-down"></i>
-        {{ 'collection.move_item_down'|trans }}
+        <span class="d-none d-sm-inline-block">{{ 'collection.move_item_down'|trans }}</span>
     </button>
     <button class='action-remove-collection-item btn btn-light-danger btn-sm'
             style="white-space: nowrap"
@@ -16,8 +16,8 @@
             data-modal-button-accept="Delete"
             data-bs-toggle="modal"
             data-bs-target="#resourcesModal">
-        <i class="fas fa-fw fa-trash"></i>
-        {{ 'collection.remove_item'|trans }}
+        <i class="fas fa-fw fa-trash me-xs-0 me-md-1"></i>
+        <span class="d-none d-sm-inline-block">{{ 'collection.remove_item'|trans }}</span>
     </button>
     </div>
 {% endif %}
