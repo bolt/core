@@ -24,13 +24,13 @@ $(document).ready(function() {
             $('.admin__sidebar')
                 .addClass('admin__sidebar--is-expanded')
                 .removeClass('admin__sidebar--is-collapsed')
-                .removeClass('d-xs-none');
+                .removeClass('d-none');
             $(this).toggleClass('is-active');
         } else {
             $('.admin__sidebar')
                 .addClass('admin__sidebar--is-collapsed')
                 .removeClass('admin__sidebar--is-expanded')
-                .removeClass('d-xs-none');
+                .removeClass('d-none');
             $(this).toggleClass('is-active');
         }
     });
