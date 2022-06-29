@@ -35,7 +35,7 @@ $(document).ready(function() {
 
     /*
      ** Hash on tabs functionality
-     ** When there is a Bootstrap data-toggle="pill" element, append the hash to the link
+     ** When there is a Bootstrap data-toggle="tab" element, append the hash to the link
      */
     let url = location.href.replace(/\/$/, '');
     if (location.hash) {
@@ -49,7 +49,7 @@ $(document).ready(function() {
         }, 50);
     }
 
-    $('a[data-bs-toggle="pill"]').on('click', function() {
+    $('a[data-bs-toggle="tab"]').on('click', function() {
         let newUrl;
         const hash = $(this).attr('href');
         newUrl = url.split('#')[0] + hash;
