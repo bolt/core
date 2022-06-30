@@ -164,9 +164,9 @@ export default {
             let collectionContainer = window.$(this).closest(vueThis.selector.collectionContainer);
             let button = this;
 
-            $("#modalButtonAccept").on('click', function(){
+            $('#modalButtonAccept').on('click', function() {
                 vueThis.getCollectionItemFromPressedButton(button).remove();
-            })
+            });
             vueThis.setAllButtonsStates(collectionContainer);
             vueThis.counter--;
         });
