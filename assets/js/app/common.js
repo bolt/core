@@ -3,7 +3,7 @@ import { DateTime } from 'luxon';
 import { Popover } from 'bootstrap';
 import { Tab } from 'bootstrap';
 import { resetModalContent } from './modal';
-import ClipboardJS from "clipboard";
+import ClipboardJS from 'clipboard';
 
 import { version } from '../version';
 window.assetsVersion = version;
