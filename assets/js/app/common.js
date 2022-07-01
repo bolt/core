@@ -180,13 +180,12 @@ $(document).ready(function() {
 
         let saveButton = document.getElementById('modalButtonAccept');
 
-        let title = event.target.getAttribute('data-modal-title');
+        let title = event.currentTarget.getAttribute('data-modal-title');
         let modalTitle = resourcesModal.querySelector('.modal-title');
 
         let modalBody = resourcesModal.querySelector('.modal-body');
-        let body = event.target.getAttribute('data-modal-body');
-
-        let targetURL = event.target.getAttribute('href');
+        let body = event.currentTarget.getAttribute('data-modal-body');
+        let targetURL = event.currentTarget.getAttribute('href');
 
         modalTitle.innerHTML = title;
         modalBody.innerHTML = body;
