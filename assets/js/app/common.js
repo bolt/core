@@ -175,7 +175,7 @@ $(document).ready(function() {
 
     // Reset the content of a modal to it's default
 
-    $('[data-bs-toggle="modal"]').on('click', function(event) {
+    window.$(document).on('click', '[data-bs-toggle="modal"]', function(event) {
         let resourcesModal = document.getElementById('resourcesModal');
 
         let saveButton = document.getElementById('modalButtonAccept');
