@@ -3,6 +3,7 @@ import { DateTime } from 'luxon';
 import { Popover } from 'bootstrap';
 import { Tab } from 'bootstrap';
 import { resetModalContent } from './modal';
+import ClipboardJS from 'clipboard';
 
 import { version } from '../version';
 window.assetsVersion = version;
@@ -151,22 +152,7 @@ $(document).ready(function() {
     /*
      ** Copy text to clipboard. Used in filemanager actions.
      */
-    $('[data-copy-to-clipboard]').on('click', function(e) {
-        const target = $(e.target);
-
-        let input = document.createElement('input');
-        input.setAttribute('id', 'copy');
-
-        target.parent().append(input);
-        input.value = target.attr('data-copy-to-clipboard');
-        input.focus();
-        input.select();
-        document.execCommand('copy');
-        target
-            .parent()
-            .find('#copy')
-            .remove();
-    });
+    new ClipboardJS('*[data-clipboard-text]');
     /* End of copy text to clipboard */
 
     /*
