@@ -1,12 +1,14 @@
 Changelog
 =========
 
-## 5.2.0 Beta 1
+## 5.2.0 Beta 2
 
-Released: 2022-06-XX
+Released: 2022-07-05
 
 ### 📦 Additions and new features
 
+- Filter `|image` looks in all possible fields [#3259](https://github.com/bolt/core/pull/3259))
+- Add non-supported SVG HTML element to HTML Sanitiser [#3257](https://github.com/bolt/core/pull/3257))
 - Add "edit" link icon to related content in select/multiselect lists (nestordedios, [#3195](https://github.com/bolt/core/pull/3195))
 - Make `type: hidden` Field usable (david-saisondor, [#3173](https://github.com/bolt/core/pull/3173))
 - Make top level menu icon in Backend customizable (david-saisondor, [#3167](https://github.com/bolt/core/pull/3167))
@@ -18,6 +20,11 @@ Released: 2022-06-XX
 
 ### 🐛 Bug fixes
 
+- Fix loading of modal text when removing Collection item [#3267](https://github.com/bolt/core/pull/3267))
+- Remove Collection item if the user acknowledges [#3265](https://github.com/bolt/core/pull/3265))
+- Replace manual copy to clipboard with tiny library [#3263](https://github.com/bolt/core/pull/3263))
+- Enable the hash functionality for tabs instead of pills [#3262](https://github.com/bolt/core/pull/3262))
+- Improve responsiveness for Collections on smaller screens [#3260](https://github.com/bolt/core/pull/3260))
 - Ensure `PublishedAt` gets set correctly when publishing a Record (bobdenotter, [#3211](https://github.com/bolt/core/pull/3211))
 - Fixed partial broken `UserLocaleSubscriber` (UtechtDustin, [#3204](https://github.com/bolt/core/pull/3204))
 - Separate methods for Pager from `pagerParams`. (vlad-ghita, [#3205](https://github.com/bolt/core/pull/3205))
