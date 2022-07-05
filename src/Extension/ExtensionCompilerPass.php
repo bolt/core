@@ -31,16 +31,18 @@ class ExtensionCompilerPass implements CompilerPassInterface
         $registry->addMethodCall('addCompilerPass', [$packages]);
 
         // Rebuild our own `packages/bolt.yaml` file.
-        $this->buildServices($packages);
+        $this->buildServices($packages, $container);
     }
 
-    public function buildServices(array $packages): void
+    public function buildServices(array $packages, ContainerBuilder $container): void
     {
+        $bindings = $container->getDefinition('Bolt\Configuration\Config')->getBindings();
         $services = [
             'services' => [
                 '_defaults' => [
                     'autowire' => true,
                     'autoconfigure' => true,
+                    'bind' => array_map([$this, 'getBindingValues'], $bindings),
                 ],
             ],
         ];
@@ -104,5 +106,10 @@ class ExtensionCompilerPass implements CompilerPassInterface
 
         // We add the `/foo` to make the path start with `../`
         return Path::makeRelative(dirname($reflection->getFileName()), $this->projectDir . '/foo');
+    }
+
+    private function getBindingValues($binding)
+    {
+        return $binding->getValues()[0];
     }
 }

@@ -4,6 +4,7 @@ services:
     _defaults:
         autowire: true
         autoconfigure: true
+        bind: { $locales: '%app_locales%', $defaultLocale: '%locale%', $emailSender: '%app.notifications.email_sender%', $projectDir: '%kernel.project_dir%', $publicFolder: '%bolt.public_folder%', $tablePrefix: '%bolt.table_prefix%', $backendUrl: '%bolt.backend_url%', $rememberLifetime: '%bolt.remember_lifetime%' }
     AcmeCorp\ReferenceExtension\:
         resource: '../vendor/acmecorp/reference-extension/src/*'
         exclude: '../vendor/acmecorp/reference-extension/src/{Entity,Exception}'
