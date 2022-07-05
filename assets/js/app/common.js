@@ -161,18 +161,17 @@ $(document).ready(function() {
 
     // Reset the content of a modal to it's default
 
-    $('[data-bs-toggle="modal"]').on('click', function(event) {
+    window.$(document).on('click', '[data-bs-toggle="modal"]', function(event) {
         let resourcesModal = document.getElementById('resourcesModal');
 
         let saveButton = document.getElementById('modalButtonAccept');
 
-        let title = event.target.getAttribute('data-modal-title');
+        let title = event.currentTarget.getAttribute('data-modal-title');
         let modalTitle = resourcesModal.querySelector('.modal-title');
 
         let modalBody = resourcesModal.querySelector('.modal-body');
-        let body = event.target.getAttribute('data-modal-body');
-
-        let targetURL = event.target.getAttribute('href');
+        let body = event.currentTarget.getAttribute('data-modal-body');
+        let targetURL = event.currentTarget.getAttribute('href');
 
         modalTitle.innerHTML = title;
         modalBody.innerHTML = body;
