@@ -25,7 +25,7 @@
             {{ 'files_cards.action_view_original'|trans }}
         </a>
 
-        <span class="dropdown-item" style="cursor: pointer;" data-copy-to-clipboard="{{ url('homepage') ~ original|replace({'/files': 'files'}) }}">
+        <span class="dropdown-item" style="cursor: pointer;" data-clipboard-text="{{ url('homepage') ~ original|replace({'/files': 'files'}) }}">
             <i class="fas fa-clipboard-check"></i> {{ 'files_cards.copy_to_clipboard'|trans }}
         </span>
 

@@ -3,6 +3,7 @@ import { DateTime } from 'luxon';
 import { Popover } from 'bootstrap';
 import { Tab } from 'bootstrap';
 import { resetModalContent } from './modal';
+import ClipboardJS from 'clipboard';
 
 import { version } from '../version';
 window.assetsVersion = version;
@@ -23,19 +24,21 @@ $(document).ready(function() {
         if ($('.admin__sidebar').hasClass('admin__sidebar--is-collapsed')) {
             $('.admin__sidebar')
                 .addClass('admin__sidebar--is-expanded')
-                .removeClass('admin__sidebar--is-collapsed');
+                .removeClass('admin__sidebar--is-collapsed')
+                .removeClass('d-none');
             $(this).toggleClass('is-active');
         } else {
             $('.admin__sidebar')
                 .addClass('admin__sidebar--is-collapsed')
-                .removeClass('admin__sidebar--is-expanded');
+                .removeClass('admin__sidebar--is-expanded')
+                .removeClass('d-none');
             $(this).toggleClass('is-active');
         }
     });
 
     /*
      ** Hash on tabs functionality
-     ** When there is a Bootstrap data-toggle="pill" element, append the hash to the link
+     ** When there is a Bootstrap data-toggle="tab" element, append the hash to the link
      */
     let url = location.href.replace(/\/$/, '');
     if (location.hash) {
@@ -49,7 +52,7 @@ $(document).ready(function() {
         }, 50);
     }
 
-    $('a[data-bs-toggle="pill"]').on('click', function() {
+    $('a[data-bs-toggle="tab"]').on('click', function() {
         let newUrl;
         const hash = $(this).attr('href');
         newUrl = url.split('#')[0] + hash;
@@ -149,22 +152,7 @@ $(document).ready(function() {
     /*
      ** Copy text to clipboard. Used in filemanager actions.
      */
-    $('[data-copy-to-clipboard]').on('click', function(e) {
-        const target = $(e.target);
-
-        let input = document.createElement('input');
-        input.setAttribute('id', 'copy');
-
-        target.parent().append(input);
-        input.value = target.attr('data-copy-to-clipboard');
-        input.focus();
-        input.select();
-        document.execCommand('copy');
-        target
-            .parent()
-            .find('#copy')
-            .remove();
-    });
+    new ClipboardJS('*[data-clipboard-text]');
     /* End of copy text to clipboard */
 
     /*
@@ -173,18 +161,17 @@ $(document).ready(function() {
 
     // Reset the content of a modal to it's default
 
-    $('[data-bs-toggle="modal"]').on('click', function(event) {
+    window.$(document).on('click', '[data-bs-toggle="modal"]', function(event) {
         let resourcesModal = document.getElementById('resourcesModal');
 
         let saveButton = document.getElementById('modalButtonAccept');
 
-        let title = event.target.getAttribute('data-modal-title');
+        let title = event.currentTarget.getAttribute('data-modal-title');
         let modalTitle = resourcesModal.querySelector('.modal-title');
 
         let modalBody = resourcesModal.querySelector('.modal-body');
-        let body = event.target.getAttribute('data-modal-body');
-
-        let targetURL = event.target.getAttribute('href');
+        let body = event.currentTarget.getAttribute('data-modal-body');
+        let targetURL = event.currentTarget.getAttribute('href');
 
         modalTitle.innerHTML = title;
         modalBody.innerHTML = body;

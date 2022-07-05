@@ -60,6 +60,10 @@ class Sanitiser
         // Allow src tag in iframe for embed fields
         $definition->addAttribute('iframe', 'src', 'Text');
 
+        // Create non supported elements
+        $this->createNonSupportedElements($definition, explode(',',$allowedTags));
+
+
         $this->purifier = new \HTMLPurifier($purifierConfig);
 
         return $this->purifier;
@@ -68,5 +72,15 @@ class Sanitiser
     public function clean(string $html): string
     {
         return $this->getPurifier()->purify($html);
+    }
+
+    /**
+     * Handles the creation of non-supported HTML elements by HTMLPurifier out of the box
+     */
+    private function createNonSupportedElements(\HTMLPurifier_HTMLDefinition $definition, array $allowedTags)
+    {
+        if (array_search('svg', $allowedTags)) {
+            $definition->addElement('svg', 'Block', 'Flow', 'Common');
+        }
     }
 }
