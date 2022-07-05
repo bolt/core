@@ -67,4 +67,12 @@ class FieldFillListener
     {
         return preg_replace('/([{}])[\x{200B}-\x{200D}\x{FEFF}]([{}])/u', '$1$2', $string);
     }
+
+    /**
+     * @deprecated since Bolt 5.1.9
+     */
+    public function postLoad(LifecycleEventArgs $args): void
+    {
+
+    }
 }
