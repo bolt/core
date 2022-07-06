@@ -280,7 +280,7 @@ export default {
         },
         generateModalContent(inputOptions) {
             let filePath = '';
-            let baseAsyncUrl = `/bolt/async/list_files?location=files/${filePath}&type=images`;
+            let baseAsyncUrl = `/bolt/async/list_files?location=${filePath}&type=images`;
             let folderPath = inputOptions[0].value;
             let modalContent = '<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-2">';
             // If we are deep in the directory, add an arrow to navigate back to previous folder
@@ -289,9 +289,10 @@ export default {
                 pathChunks.pop();
                 pathChunks.pop();
                 filePath = pathChunks.join('/');
-                baseAsyncUrl = `/bolt/async/list_files?location=files/${filePath}&type=images`;
+                baseAsyncUrl = `/bolt/async/list_files?location=${filePath}&type=images`;
 
-                modalContent += `
+                if(filePath != '') {
+                    modalContent += `
                     <div class="col">
                         <div class="card h-100">
                             <a href="${baseAsyncUrl}" class="directory d-flex justify-content-center w-100 flex-grow-1 text-decoration-none align-self-center">
@@ -306,11 +307,12 @@ export default {
                             </div>
                         </div>
                     </div>`;
+                }
             }
             inputOptions.forEach((element, key) => {
                 if (element.group == 'directories') {
                     filePath = element.value;
-                    baseAsyncUrl = `/bolt/async/list_files?location=files/${filePath}&type=images`;
+                    baseAsyncUrl = `/bolt/async/list_files?location=${filePath}&type=images`;
                     // let directoryPath = '/bolt/async/list_files?location=files/' + element.value + '&type=images';
                     modalContent += `
                     <div class="col">
@@ -331,7 +333,7 @@ export default {
                     modalContent += `
                     <div class="col">
                         <div class="card h-100">
-                            <img src="/thumbs/523×294×crop/${element.value}" loading="lazy">
+                            <img src="/thumbs/523×294×crop/${element.value.replace('files/', '')}" loading="lazy">
                             <div class="card-body px-2 flex-grow-0 border-top border-very-light-border">
                                 <div class="form-check ps-0">
                                     <input class="form-check-input" type="checkbox" value="${element.value}" id="flexCheckDefault-${key}">
