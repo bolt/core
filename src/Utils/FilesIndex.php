@@ -30,7 +30,7 @@ class FilesIndex
         foreach (self::findDirectories($path) as $dir) {
             $files[] = [
                 'group' => 'directories',
-                'value' => Path::makeRelative($dir->getRealPath(), $basePath),
+                'value' => $dir->getPathname(),
                 'text' => $dir->getFilename(),
             ];
         }
@@ -38,7 +38,7 @@ class FilesIndex
         foreach (self::findFiles($path, $glob) as $file) {
             $files[] = [
                 'group' => basename($basePath),
-                'value' => $file->getRelativePathname(),
+                'value' => $path . '/' . $file->getRelativePathname(),
                 'text' => $file->getFilename(),
             ];
         }
