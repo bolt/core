@@ -291,7 +291,7 @@ export default {
                 filePath = pathChunks.join('/');
                 baseAsyncUrl = `/bolt/async/list_files?location=${filePath}&type=images`;
 
-                if(filePath != '') {
+                if (filePath != '') {
                     modalContent += `
                     <div class="col">
                         <div class="card h-100">
@@ -336,7 +336,9 @@ export default {
                             <img src="/thumbs/523×294×crop/${element.value.replace('files/', '')}" loading="lazy">
                             <div class="card-body px-2 flex-grow-0 border-top border-very-light-border">
                                 <div class="form-check ps-0">
-                                    <input class="form-check-input" type="checkbox" value="${element.value}" id="flexCheckDefault-${key}">
+                                    <input class="form-check-input" type="checkbox" value="${
+                                        element.value
+                                    }" id="flexCheckDefault-${key}">
                                     <label class="form-check-label d-inline fs-6 fw-normal d-block" for="flexCheckDefault-${key}">
                                         ${element.text}
                                     </label>
