@@ -405,9 +405,9 @@ export default {
                         () => {
                             if (modalBody.querySelector('input[type=checkbox]:checked')) {
                                 var selectedImage = modalBody.querySelector('input[type=checkbox]:checked').value;
-                                thisField.filenameData = selectedImage;
-                                thisField.thumbnailData = `/thumbs/400×300/${selectedImage}`;
-                                thisField.previewData = `/thumbs/1000×1000/${selectedImage}`;
+                                thisField.filenameData = selectedImage.replace('files/', '');
+                                thisField.thumbnailData = `/thumbs/400×300/${selectedImage.replace('files/', '')}`;
+                                thisField.previewData = `/thumbs/1000×1000/${selectedImage.replace('files/', '')}`;
                             }
                             // Reset modal body content when the modal is closed
                             resetModalContent(this.labels);
