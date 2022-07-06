@@ -300,7 +300,7 @@ export default {
                             </a>
                             <div class="card-body px-2 flex-grow-0 border-top border-very-light-border">
                                 <div class="form-check ps-0">
-                                    <span class="form-check-label d-inline fs-6 fw-normal d-block"">
+                                    <span class="form-check-label d-inline fs-6 fw-normal d-block">
                                         ../${filePath}
                                     </span>
                                 </div>
@@ -322,7 +322,7 @@ export default {
                             </a>
                             <div class="card-body px-2 flex-grow-0 border-top border-very-light-border">
                                 <div class="form-check ps-0">
-                                    <span class="form-check-label d-inline fs-6 fw-normal d-block"">
+                                    <span class="form-check-label d-inline fs-6 fw-normal d-block">
                                         /${element.text}
                                     </span>
                                 </div>
