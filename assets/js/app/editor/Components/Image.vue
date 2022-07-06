@@ -280,7 +280,7 @@ export default {
         },
         generateModalContent(inputOptions) {
             let filePath = '';
-            let baseAsyncUrl = `/bolt/async/list_files?location=files/${filePath}&type=images`;
+            let baseAsyncUrl = `/bolt/async/list_files?location=${filePath}&type=images`;
             let folderPath = inputOptions[0].value;
             let modalContent = '<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-2">';
             // If we are deep in the directory, add an arrow to navigate back to previous folder
@@ -289,9 +289,10 @@ export default {
                 pathChunks.pop();
                 pathChunks.pop();
                 filePath = pathChunks.join('/');
-                baseAsyncUrl = `/bolt/async/list_files?location=files/${filePath}&type=images`;
+                baseAsyncUrl = `/bolt/async/list_files?location=${filePath}&type=images`;
 
-                modalContent += `
+                if (filePath != '') {
+                    modalContent += `
                     <div class="col">
                         <div class="card h-100">
                             <a href="${baseAsyncUrl}" class="directory d-flex justify-content-center w-100 flex-grow-1 text-decoration-none align-self-center">
@@ -299,18 +300,19 @@ export default {
                             </a>
                             <div class="card-body px-2 flex-grow-0 border-top border-very-light-border">
                                 <div class="form-check ps-0">
-                                    <span class="form-check-label d-inline fs-6 fw-normal d-block"">
+                                    <span class="form-check-label d-inline fs-6 fw-normal d-block">
                                         ../${filePath}
                                     </span>
                                 </div>
                             </div>
                         </div>
                     </div>`;
+                }
             }
             inputOptions.forEach((element, key) => {
                 if (element.group == 'directories') {
                     filePath = element.value;
-                    baseAsyncUrl = `/bolt/async/list_files?location=files/${filePath}&type=images`;
+                    baseAsyncUrl = `/bolt/async/list_files?location=${filePath}&type=images`;
                     // let directoryPath = '/bolt/async/list_files?location=files/' + element.value + '&type=images';
                     modalContent += `
                     <div class="col">
@@ -320,7 +322,7 @@ export default {
                             </a>
                             <div class="card-body px-2 flex-grow-0 border-top border-very-light-border">
                                 <div class="form-check ps-0">
-                                    <span class="form-check-label d-inline fs-6 fw-normal d-block"">
+                                    <span class="form-check-label d-inline fs-6 fw-normal d-block">
                                         /${element.text}
                                     </span>
                                 </div>
@@ -331,10 +333,12 @@ export default {
                     modalContent += `
                     <div class="col">
                         <div class="card h-100">
-                            <img src="/thumbs/523×294×crop/${element.value}" loading="lazy">
+                            <img src="/thumbs/523×294×crop/${element.value.replace('files/', '')}" loading="lazy">
                             <div class="card-body px-2 flex-grow-0 border-top border-very-light-border">
                                 <div class="form-check ps-0">
-                                    <input class="form-check-input" type="checkbox" value="${element.value}" id="flexCheckDefault-${key}">
+                                    <input class="form-check-input" type="checkbox" value="${
+                                        element.value
+                                    }" id="flexCheckDefault-${key}">
                                     <label class="form-check-label d-inline fs-6 fw-normal d-block" for="flexCheckDefault-${key}">
                                         ${element.text}
                                     </label>
@@ -403,9 +407,9 @@ export default {
                         () => {
                             if (modalBody.querySelector('input[type=checkbox]:checked')) {
                                 var selectedImage = modalBody.querySelector('input[type=checkbox]:checked').value;
-                                thisField.filenameData = selectedImage;
-                                thisField.thumbnailData = `/thumbs/400×300/${selectedImage}`;
-                                thisField.previewData = `/thumbs/1000×1000/${selectedImage}`;
+                                thisField.filenameData = selectedImage.replace('files/', '');
+                                thisField.thumbnailData = `/thumbs/400×300/${selectedImage.replace('files/', '')}`;
+                                thisField.previewData = `/thumbs/1000×1000/${selectedImage.replace('files/', '')}`;
                             }
                             // Reset modal body content when the modal is closed
                             resetModalContent(this.labels);

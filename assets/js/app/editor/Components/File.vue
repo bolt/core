@@ -251,9 +251,9 @@ export default {
                 pathChunks.pop();
                 pathChunks.pop();
                 filePath = pathChunks.join('/');
-                baseAsyncUrl = `/bolt/async/list_files?location=files/${filePath}&type=files`;
-
-                modalContent += `
+                baseAsyncUrl = `/bolt/async/list_files?location=${filePath}&type=files`;
+                if (filePath != '') {
+                    modalContent += `
                     <div class="col">
                         <div class="card h-100">
                             <a href="${baseAsyncUrl}" class="directory d-flex align-items-center justify-content-center w-100 flex-grow-1 text-decoration-none">
@@ -268,6 +268,7 @@ export default {
                             </div>
                         </div>
                     </div>`;
+                }
             }
             inputOptions.forEach((element, key) => {
                 let filenameExtension = element.text
@@ -276,7 +277,7 @@ export default {
                     .toLowerCase();
                 if (element.group == 'directories') {
                     filePath = element.value;
-                    baseAsyncUrl = `/bolt/async/list_files?location=files/${filePath}&type=files`;
+                    baseAsyncUrl = `/bolt/async/list_files?location=${filePath}&type=files`;
                     modalContent += `
                         <div class="col">
                             <div class="card h-100">
@@ -364,7 +365,7 @@ export default {
                         () => {
                             if (modalBody.querySelector('input[type=checkbox]:checked')) {
                                 var selectedFile = modalBody.querySelector('input[type=checkbox]:checked').value;
-                                thisField.filenameData = selectedFile;
+                                thisField.filenameData = selectedFile.replace('files/', '');
                             }
                             // Reset modal body content when the modal is closed
                             resetModalContent(this.labels);
