@@ -252,7 +252,7 @@ export default {
                 pathChunks.pop();
                 filePath = pathChunks.join('/');
                 baseAsyncUrl = `/bolt/async/list_files?location=${filePath}&type=files`;
-                if(filePath != '') {
+                if (filePath != '') {
                     modalContent += `
                     <div class="col">
                         <div class="card h-100">
