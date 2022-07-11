@@ -235,7 +235,7 @@ class ContentExtension extends AbstractExtension
         return null;
     }
 
-    private function findOneImage(Field $field): ?ImageField
+    private function findOneImage(Field $field)
     {
         if ($field instanceof ImageField && $field->get('filename')) {
             return $field;
