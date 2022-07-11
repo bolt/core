@@ -1,6 +1,15 @@
 Changelog
 =========
 
+## 5.1.12
+
+Released: 2022-07-11
+
+### 🐛 Bug fixes
+
+- Tiny fix for the |image-filter [#3276](https://github.com/bolt/core/pull/3276)
+
+
 ## 5.1.11
 
 Released: 2022-07-05
