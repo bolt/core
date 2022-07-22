@@ -1,5 +1,11 @@
 {% extends '@bolt/_partials/fields/_base.html.twig' %}
 
+{% block postfix %}
+    {% if not hidePostfix|default(false) %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}
+
 {% block field %}
     {# set mode #}
     {% if not mode|default %}
