@@ -7,6 +7,12 @@
      - multiple: A boolean to set whether or not we allow multiple selections
  #}
 
+{% block label %}
+    {% if not hideLabel|default(false) %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}
+
 {% if options is not defined %}
     {% set options = select_options(field) %}
 {% endif %}
