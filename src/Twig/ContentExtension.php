@@ -503,7 +503,7 @@ class ContentExtension extends AbstractExtension
     public function pager(Environment $twig, ?Pagerfanta $records = null, string $template = '@bolt/helpers/_pager_basic.html.twig', string $class = 'pagination', string $previousLinkClass = 'previous', string $nextLinkClass = 'next', int $surround = 3)
     {
         $params = array_merge(
-            $this->requestStack->getCurrentRequest()->get('_route_params'),
+            (array)$this->requestStack->getCurrentRequest()->get('_route_params', []),
             $this->requestStack->getCurrentRequest()->query->all()
         );
 
