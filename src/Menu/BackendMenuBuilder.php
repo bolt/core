@@ -6,6 +6,7 @@ namespace Bolt\Menu;
 
 use Bolt\Configuration\Config;
 use Bolt\Configuration\Content\ContentType;
+use Bolt\Entity\Content;
 use Bolt\Repository\ContentRepository;
 use Bolt\Security\ContentVoter;
 use Bolt\Twig\ContentExtension;
@@ -400,6 +401,7 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
 
         $result = [];
 
+        /** @var Content $record */
         foreach ($records as $record) {
             try {
                 $additionalResult = [
@@ -407,7 +409,7 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
                     'name' => $this->contentExtension->getTitle($record),
                     'link' => $this->contentExtension->getLink($record),
                     'editLink' => $this->contentExtension->getEditLink($record),
-                    'icon' => $record->getIcon(),
+                    'icon' => $record->getContentTypeIcon(),
                 ];
 
                 $result[] = $additionalResult;
