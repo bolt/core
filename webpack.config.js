@@ -36,7 +36,7 @@ Encore.addPlugin(
     .cleanupOutputBeforeBuild()
     .disableSingleRuntimeChunk()
     .enableSourceMaps(!Encore.isProduction())
-    .enableVersioning(false)
+    .enableVersioning(true)
 
     .addEntry('bolt', './assets/js/bolt.js')
     .addEntry('zxcvbn', './assets/js/zxcvbn.js')

@@ -112,7 +112,7 @@
     "scripts": {
         "start": "encore dev-server --port=8234 --progress",
         "build": "npm run genversion && encore production --progress",
-        "postbuild": "rm public/assets/fonts/*.ttf; rm public/assets/fonts/*.eot; rm public/assets/fonts/*.woff; rm public/assets/images/fa-*.svg;",
+        "postbuild": "rm public/assets/fonts/*.ttf; rm public/assets/fonts/*.eot; rm public/assets/fonts/*.woff; rm public/assets/images/fa-*.svg; cp public/assets/images/bolt_logo_dashboard.*.svg public/assets/images/bolt_logo_dashboard.svg",
         "build:stats": "encore production --progress --json > webpack_stats.json",
         "serve": "encore dev --watch",
         "lint": "eslint --ext .js,.vue, assets",
