@@ -4,7 +4,7 @@ $fp-path: '/assets/icons/flags/';
 $fp-enable-4x3: true;
 $fp-enable-1x1: false;
 
-@import 'flagpack/src/flagpack.scss';
+@import 'flagpack-dart-sass/src/flagpack.scss';
 
 .flag {
   background-size: contain;
