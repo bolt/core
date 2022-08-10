@@ -151,10 +151,12 @@
 
 {% if variant == 'inline' %}</div></div>{% endif %}
 
-{# Print postfix #}
-{% if field.definition['postfix']|default() is not empty %}
-    {{ macro.generatePostfix(field.definition['postfix']|default(), id) }}
-{% endif %}
+{% block postfix %}
+    {# Print postfix #}
+    {% if field.definition['postfix']|default() is not empty %}
+        {{ macro.generatePostfix(field.definition['postfix']|default(), id) }}
+    {% endif %}
+{% endblock %}
 
 {{ separator|raw }}
 </div>
