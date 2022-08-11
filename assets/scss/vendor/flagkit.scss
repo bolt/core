@@ -16,3 +16,8 @@ $fp-enable-1x1: false;
   vertical-align: sub;
   line-height: 1em;
 }
+
+// This conflicts with Font Awesome, otherwise
+.fa {
+  background-image: none;
+}
