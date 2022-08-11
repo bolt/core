@@ -13,6 +13,42 @@ use Tightenco\Collect\Support\Collection;
 
 class ContentEditControllerTest extends DbAwareTestCase
 {
+    // This test fails with the following error. Something with the manifest missing is blocking it.
+    // I don't think it's correct that a _unit_ test relies on the frontend assets being present 🤔💭
+
+    /*
+Run ./vendor/bin/phpunit
+PHPUnit 8.5.28 #StandWithUkraine
+
+..............................F................................  63 / 190 ( 33%)
+............................................................... 126 / 190 ( 66%)
+............................................................... 189 / 190 ( 99%)
+.                                                               190 / 190 (100%)
+
+Time: 3.76 seconds, Memory: 126.50 MB
+
+There was 1 failure:
+
+1) Bolt\Tests\Controller\Backend\ContentEditControllerTest::testCreateNewComplexNestedContent
+Failed asserting that the Response is successful.
+HTTP/1.1 500 Internal Server Error
+Cache-Control:          max-age=0, must-revalidate, private
+Content-Type:           text/html; charset=UTF-8
+Date:                   Wed, 10 Aug 2022 14:43:48 GMT
+Expires:                Wed, 10 Aug 2022 14:43:48 GMT
+Link:                   <http://localhost/api/docs.jsonld>; rel="http://www.w3.org/ns/hydra/core#apiDocumentation"
+X-Debug-Exception:      An%20exception%20has%20been%20thrown%20during%20the%20rendering%20of%20a%20template%20%28%22Asset%20manifest%20file%20%22%2Fhome%2Frunner%2Fwork%2Fcore%2Fcore%2Fpublic%2Fassets%2Fmanifest.json%22%20does%20not%20exist.%20Did%20you%20forget%20to%20build%20the%20assets%20with%20npm%20or%20yarn%3F%22%29.
+X-Debug-Exception-File: %2Fhome%2Frunner%2Fwork%2Fcore%2Fcore%2Ftemplates%2F_partials%2Ffavicon.html.twig:1
+X-Robots-Tag:           noindex
+
+<!-- An exception has been thrown during the rendering of a template (&quot;Asset manifest file &quot;/home/runner/work/core/core/public/assets/manifest.json&quot; does not exist. Did you forget to build the assets with npm or yarn?&quot;). (500 Internal Server Error) -->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="robots" content="noindex,nofollow" />
+*/
+
     public function testCreateNewComplexNestedContent(): void
     {
         // (2) use self::$container to access the service container
