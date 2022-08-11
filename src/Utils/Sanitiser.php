@@ -63,7 +63,6 @@ class Sanitiser
         // Create non supported elements
         $this->createNonSupportedElements($definition, explode(',',$allowedTags));
 
-
         $this->purifier = new \HTMLPurifier($purifierConfig);
 
         return $this->purifier;

@@ -55,7 +55,7 @@ class FieldType extends Collection
             'autocomplete' => true,
             'values' => [],
             'min' => 0,
-            'max' => 1000,
+            'max' => 100000,
         ]);
     }
 

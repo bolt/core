@@ -31,6 +31,30 @@ Released: 2022-07-05
 - Add `isTranslatable` condition in `get`-method [#3250](https://github.com/bolt/core/pull/3250)
 - Additional fix for `type: number` field, set default to `min: 0`. [#3252](https://github.com/bolt/core/pull/3252)
 
+
+## 5.1.12
+
+Released: 2022-07-11
+
+### 🐛 Bug fixes
+
+- Tiny fix for the |image-filter [#3276](https://github.com/bolt/core/pull/3276)
+
+
+## 5.1.11
+
+Released: 2022-07-05
+
+### 🐛 Bug fixes
+
+- Add non-supported SVG HTML element to HTML Sanitiser [#3257](https://github.com/bolt/core/pull/3257)
+- `|image`-filter looks in all possible fields [#3259](https://github.com/bolt/core/pull/3259)
+- Feature/prev and next class [#3255](https://github.com/bolt/core/pull/3255)
+- Additional fix for `type: number` field, set default to `min: 0`. [#3252](https://github.com/bolt/core/pull/3252)
+- Fix the Canonical even Better! [#3248](https://github.com/bolt/core/pull/3248)
+- Create an empty stub for postLoad to make updating smoother [#3270](https://github.com/bolt/core/pull/3270)
+
+
 ## 5.1.10
 
 Released: 2022-06-17
