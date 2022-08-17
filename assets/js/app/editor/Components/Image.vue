@@ -34,16 +34,36 @@
                     />
                 </div>
                 <div v-if="includeAlt" class="input-group mb-3">
-                    <input
-                        v-model="altData"
-                        :title="name + ' alt'"
-                        class="form-control"
-                        :name="name + '[alt]'"
-                        type="text"
-                        :readonly="readonly"
-                        :pattern="pattern"
-                        :placeholder="getPlaceholder"
-                    />
+                    <div class="col-sm-2">
+                        <label>Alt:</label>
+                    </div>
+                    <div class="col-sm-10">
+                        <input
+                            v-model="altData"
+                            :title="name + ' alt'"
+                            class="form-control"
+                            :name="name + '[alt]'"
+                            type="text"
+                            :readonly="readonly"
+                            :pattern="pattern"
+                            :placeholder="getPlaceholder"
+                        />
+                    </div>
+                </div>
+                <div v-for="(extraFieldProps, extraField) in extraFields" :key="extraField" class="input-group mb-3">
+                    <div class="col-sm-2">
+                        <label>{{ extraFieldProps.label }}:</label>
+                    </div>
+                    <div class="col-sm-10">
+                        <input
+                            v-model="extraData[extraField]"
+                            :title="name + ' ' + extraField"
+                            class="form-control"
+                            :name="name + '[' + extraField + ']'"
+                            type="text"
+                            :placeholder="extraFieldProps.placeholder"
+                        />
+                    </div>
                 </div>
                 <div class="btn-toolbar" role="toolbar">
                     <div class="btn-group me-2" role="group">
@@ -205,6 +225,8 @@ export default {
         errormessage: String | Boolean, //string if errormessage is set, and false otherwise
         pattern: String | Boolean,
         placeholder: String | Boolean,
+        extraFields: Array,
+        extraData: Array,
     },
     data() {
         return {
