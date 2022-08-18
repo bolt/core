@@ -16,6 +16,7 @@ use Sirius\Upload\Result\Collection;
 use Sirius\Upload\Result\ResultInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Path;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\FileBag;
@@ -27,7 +28,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
 use Throwable;
-use Webmozart\PathUtil\Path;
 
 /**
  * @Security("is_granted('upload')")
@@ -153,9 +153,7 @@ class UploadController extends AbstractController implements AsyncZoneInterface
 
         $uploadHandler->addRule(
             'extension',
-            [
-                'allowed' => $acceptedFileTypes,
-            ],
+            ['allowed' => $acceptedFileTypes],
             'The file for field \'{label}\' was <u>not</u> uploaded. It should be a valid file type. Allowed are <code>' . implode('</code>, <code>', $acceptedFileTypes) . '.',
             'Upload file'
         );
@@ -164,6 +162,13 @@ class UploadController extends AbstractController implements AsyncZoneInterface
             'size',
             ['size' => $maxSize],
             'The file for field \'{label}\' was <u>not</u> uploaded. The upload can have a maximum filesize of <b>' . $this->textExtension->formatBytes($maxSize) . '</b>.',
+            'Upload file'
+        );
+
+        $uploadHandler->addRule(
+            'callback',
+            ['callback' => [$this, 'checkJavascript']],
+            'It is not allowed to upload SVG\'s with embedded Javascript.',
             'Upload file'
         );
 
@@ -223,4 +228,16 @@ class UploadController extends AbstractController implements AsyncZoneInterface
 
         return $filename . '.' . $extension;
     }
+
+    public function checkJavascript($file)
+    {
+        if (Path::getExtension($file['name']) != 'svg') {
+            return true;
+        }
+
+        $svgFile = preg_replace('/\s+/', '', mb_strtolower(file_get_contents($file['tmp_name'])));
+
+        return (mb_strpos($svgFile, '<script') === false);
+    }
 }
+
