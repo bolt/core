@@ -167,7 +167,7 @@ class UploadController extends AbstractController implements AsyncZoneInterface
 
         $uploadHandler->addRule(
             'callback',
-            ['callback' => [$this, 'checkJavascript']],
+            ['callback' => [$this, 'checkJavascriptInSVG']],
             'It is not allowed to upload SVG\'s with embedded Javascript.',
             'Upload file'
         );
@@ -229,15 +229,19 @@ class UploadController extends AbstractController implements AsyncZoneInterface
         return $filename . '.' . $extension;
     }
 
-    public function checkJavascript($file)
+    public function checkJavascriptInSVG($file)
     {
         if (Path::getExtension($file['name']) != 'svg') {
             return true;
         }
 
-        $svgFile = preg_replace('/\s+/', '', mb_strtolower(file_get_contents($file['tmp_name'])));
+        $svgFile = file_get_contents($file['tmp_name']);
 
-        return (mb_strpos($svgFile, '<script') === false);
+        if (preg_match('/(?:<[^>]+\s)(on\S+)=["\']?((?:.(?!["\']?\s+(?:\S+)=|[>"\']))+.)["\']?/i', $svgFile)) {
+            return false;
+        }
+
+        return (mb_strpos(preg_replace('/\s+/', '', mb_strtolower($svgFile)), '<script') === false);
     }
 }
 
