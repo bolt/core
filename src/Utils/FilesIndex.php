@@ -17,7 +17,7 @@ class FilesIndex
         $this->config = $config;
     }
 
-    public function get(string $path, string $type, string $baseFilePath): Collection
+    public function get(string $path, string $type, string $baseUrlPath, string $baseFilePath): Collection
     {
         if ($type === 'images') {
             $glob = sprintf('*.{%s}', $this->config->getMediaTypes()->implode(','));
@@ -32,6 +32,7 @@ class FilesIndex
                 'group' => 'directories',
                 'value' => $dir->getPathname(),
                 'text' => $dir->getFilename(),
+                'base_url_path' => $baseUrlPath
             ];
         }
 
@@ -40,6 +41,7 @@ class FilesIndex
                 'group' => basename($baseFilePath),
                 'value' => $path . '/' . $file->getRelativePathname(),
                 'text' => $file->getFilename(),
+                'base_url_path' => $baseUrlPath
             ];
         }
 
