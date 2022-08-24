@@ -29,6 +29,11 @@
         'modal_button_deny': 'modal.button_deny'|trans
     }|json_encode %}
 
+    {% set extraData = {} %}
+    {% for extraKey, extraFieldProps in field.definition.get('extra') %}
+        {% set extraData = extraData|merge({ (extraKey): attribute(field, extraKey) }) %}
+    {% endfor %}
+
     <editor-image
         :id='{{ id|json_encode }}'
         :name='{{ name|json_encode }}'
@@ -48,5 +53,7 @@
         :placeholder='{{ placeholder|json_encode }}'
         :alt='{{ field.get('alt')|json_encode }}'
         :include-alt='{{ field.includeAlt|json_encode }}'
+        :extra-fields='{{ field.definition.get('extra')|json_encode }}'
+        :extra-data='{{ extraData|json_encode }}'
     ></editor-image>
 {% endblock %}

@@ -21,6 +21,12 @@ homepage:
                 in the webbrowser, edit <code>sitename:</code> in the configuration file.
         image:
             type: image
+            extra:
+                title:
+                    label: The Title
+                    placeholder: This is the placeholder for the title
+                caption:
+                    label: Caption
         teaser:
             type: html
             localize: true
