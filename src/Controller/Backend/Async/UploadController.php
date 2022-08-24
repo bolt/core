@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Backend\Async;
 
+use Bolt\Common\Str;
 use Bolt\Configuration\Config;
 use Bolt\Controller\CsrfTrait;
 use Bolt\Factory\MediaFactory;
@@ -141,7 +142,17 @@ class UploadController extends AbstractController implements AsyncZoneInterface
         $locationName = $this->request->query->get('location', '');
         $path = $this->request->query->get('path', '');
 
+        $basepath = $this->config->getPath($locationName);
         $target = $this->config->getPath($locationName, true, $path);
+
+        // Make sure we don't move it out of the root.
+        if (Str::startsWith(path::makeRelative($target, $basepath), '../')) {
+            return new JsonResponse([
+                'error' => [
+                    'message' => "You are not allowed to do that.",
+                ],
+            ], Response::HTTP_BAD_REQUEST);
+        }
 
         $uploadHandler = new Handler($target, [
             Handler::OPTION_AUTOCONFIRM => true,
