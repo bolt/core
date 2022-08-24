@@ -15,7 +15,6 @@ Released: 2022-08-24
 - Fix some NPM bitrot [#3286](https://github.com/bolt/core/pull/3286))
 - Made the checkbox template recognise a false string as a value [#3279](https://github.com/bolt/core/pull/3279))
 - The services_bolt.yaml file now keeps the binds after regenerating it [#3277](https://github.com/bolt/core/pull/3277))
-- Allow image/files modals to be populated from dynamic backend URLs [#3300](https://github.com/bolt/core/pull/3300))
 
 
 ## 5.2.0 Beta 2
