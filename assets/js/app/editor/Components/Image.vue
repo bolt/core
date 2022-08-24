@@ -280,8 +280,8 @@ export default {
         },
         generateModalContent(inputOptions) {
             let filePath = '';
-            let baseAsyncUrl = `/bolt/async/list_files?location=${filePath}&type=images`;
             let folderPath = inputOptions[0].value;
+            let baseAsyncPath = inputOptions[0].base_url_path;
             let modalContent = '<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-2">';
             // If we are deep in the directory, add an arrow to navigate back to previous folder
             if (folderPath.includes('/')) {
@@ -289,7 +289,7 @@ export default {
                 pathChunks.pop();
                 pathChunks.pop();
                 filePath = pathChunks.join('/');
-                baseAsyncUrl = `/bolt/async/list_files?location=${filePath}&type=images`;
+                let baseAsyncUrl = `${baseAsyncPath}?location=${filePath}&type=images`;
 
                 if (filePath != '') {
                     modalContent += `
@@ -312,7 +312,7 @@ export default {
             inputOptions.forEach((element, key) => {
                 if (element.group == 'directories') {
                     filePath = element.value;
-                    baseAsyncUrl = `/bolt/async/list_files?location=${filePath}&type=images`;
+                    let baseAsyncUrl = `${baseAsyncPath}?location=${filePath}&type=images`;
                     // let directoryPath = '/bolt/async/list_files?location=files/' + element.value + '&type=images';
                     modalContent += `
                     <div class="col">

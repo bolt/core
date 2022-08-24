@@ -2115,7 +2115,7 @@
     <unit id="JpJFIFq" name="collection.confirm_delete">
       <segment>
         <source>collection.confirm_delete</source>
-        <target>collection.confirm_delete</target>
+        <target>Weet je zeker dat je dit collectie item wilt verwijderen?</target>
       </segment>
     </unit>
   </file>

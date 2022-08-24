@@ -217,8 +217,8 @@ export default {
         },
         generateModalContent(inputOptions) {
             let filePath = '';
-            let baseAsyncUrl = `/bolt/async/list_files?location=files/${filePath}&type=files`;
             let folderPath = inputOptions[0].value;
+            let baseAsyncPath = inputOptions[0].base_url_path;
             let fileIcons = {
                 jpg: 'fa-file-image',
                 jpeg: 'fa-file-image',
@@ -251,7 +251,7 @@ export default {
                 pathChunks.pop();
                 pathChunks.pop();
                 filePath = pathChunks.join('/');
-                baseAsyncUrl = `/bolt/async/list_files?location=${filePath}&type=files`;
+                let baseAsyncUrl = `${baseAsyncPath}?location=${filePath}&type=files`;
                 if (filePath != '') {
                     modalContent += `
                     <div class="col">
@@ -277,7 +277,7 @@ export default {
                     .toLowerCase();
                 if (element.group == 'directories') {
                     filePath = element.value;
-                    baseAsyncUrl = `/bolt/async/list_files?location=${filePath}&type=files`;
+                    let baseAsyncUrl = `${baseAsyncPath}?location=${filePath}&type=files`;
                     modalContent += `
                         <div class="col">
                             <div class="card h-100">

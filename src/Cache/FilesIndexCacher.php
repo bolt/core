@@ -11,11 +11,11 @@ class FilesIndexCacher extends FilesIndex implements CachingInterface
 
     public const CACHE_CONFIG_KEY = 'files_index';
 
-    public function get(string $path, string $type, string $basePath): Collection
+    public function get(string $path, string $type, string $baseUrlPath, string $baseFilePath): Collection
     {
         $this->setCacheTags(['fileslisting']);
         $this->setCacheKey([$path, $type]);
 
-        return $this->execute([parent::class, __FUNCTION__], [$path, $type, $basePath]);
+        return $this->execute([parent::class, __FUNCTION__], [$path, $type, $baseUrlPath, $baseFilePath]);
     }
 }
