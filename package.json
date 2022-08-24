@@ -1,6 +1,6 @@
 {
     "name": "bolt",
-    "version": "5.1.99.2",
+    "version": "5.1.99.3",
     "homepage": "https://boltcms.io",
     "author": "Bob den Otter <bob@twokings.nl> (https://boltcms.io)",
     "license": "MIT",
@@ -73,7 +73,7 @@
         "@testing-library/cypress": "^7.0.6",
         "@vue/test-utils": "^1.2.2",
         "ajv-keywords": "^3.5.2",
-        "autoprefixer": "^9.8.6",
+        "autoprefixer": "^10.4.5",
         "babel-core": "^7.0.0-bridge.0",
         "babel-eslint": "^10.1.0",
         "babel-jest": "^25.5.1",
@@ -112,7 +112,7 @@
     "scripts": {
         "start": "encore dev-server --port=8234 --progress",
         "build": "npm run genversion && encore production --progress",
-        "postbuild": "rm public/assets/fonts/*.ttf; rm public/assets/fonts/*.eot; rm public/assets/fonts/*.woff; rm public/assets/images/fa-*.svg; cp public/assets/images/bolt_logo_dashboard.*.svg public/assets/images/bolt_logo_dashboard.svg",
+        "postbuild": "rm public/assets/fonts/*.ttf; rm public/assets/fonts/*.eot; rm public/assets/fonts/*.woff; rm public/assets/images/fa-*.svg",
         "build:stats": "encore production --progress --json > webpack_stats.json",
         "serve": "encore dev --watch",
         "lint": "eslint --ext .js,.vue, assets",

@@ -1,6 +1,23 @@
 Changelog
 =========
 
+## 5.2.0 Beta 3
+
+Released: 2022-08-24
+
+- Add extra fields option for `image` and `imagelist` fields [#3292](https://github.com/bolt/core/pull/3292))
+- Allow image/files modals to be populated from dynamic backend URLs [#3300](https://github.com/bolt/core/pull/3300))
+- Proper default for `$filter` [#3296](https://github.com/bolt/core/pull/3296))
+- Ensure uploaded SVG files have no embedded Javascript [#3294](https://github.com/bolt/core/pull/3294))
+- Prevent renaming or moving of files on edit [#3295](https://github.com/bolt/core/pull/3295))
+- Prevent injection when filtering records [#3293](https://github.com/bolt/core/pull/3293))
+- Fix icons in ContentTypes in Menu [#3287](https://github.com/bolt/core/pull/3287))
+- Fix some NPM bitrot [#3286](https://github.com/bolt/core/pull/3286))
+- Made the checkbox template recognise a false string as a value [#3279](https://github.com/bolt/core/pull/3279))
+- The services_bolt.yaml file now keeps the binds after regenerating it [#3277](https://github.com/bolt/core/pull/3277))
+- Allow image/files modals to be populated from dynamic backend URLs [#3300](https://github.com/bolt/core/pull/3300))
+
+
 ## 5.2.0 Beta 2
 
 Released: 2022-07-05
