@@ -1,13 +1,35 @@
 Changelog
 =========
 
+## 5.1.13
+
+Released: 2022-08-26
+
+This release includes three security-related fixes. Our thanks go out to Eitan 
+Shav at [WhiteSource](https://whitesourcesoftware.com) and David Müller of 
+[lutrasecurity.com](https://lutrasecurity.com/) for identifying these issues and
+disclosing them to us responsibly! 👏🙏
+
+### 🐛 Bug fixes
+
+- Fix setcontent with `where { }` clause filtering on a foreign `id` in MySQL (bobdenotter, [#3302](https://github.com/bolt/core/pull/3302))
+- Proper default for `$filter` (bobdenotter, [#3296](https://github.com/bolt/core/pull/3296))
+- Fix icons in ContentTypes in Menu (bobdenotter, [#3287](https://github.com/bolt/core/pull/3287))
+
+### 🔐 Security related changes
+
+- Prevent renaming or moving of files on edit (bobdenotter, [#3295](https://github.com/bolt/core/pull/3295))
+- Ensure uploaded SVG files have no embedded Javascript (bobdenotter, [#3294](https://github.com/bolt/core/pull/3294))
+- Prevent injection when filtering records (bobdenotter, [#3293](https://github.com/bolt/core/pull/3293))
+
+
 ## 5.1.12
 
 Released: 2022-07-11
 
 ### 🐛 Bug fixes
 
-- Tiny fix for the |image-filter [#3276](https://github.com/bolt/core/pull/3276)
+- Tiny fix for the `|image`-filter [#3276](https://github.com/bolt/core/pull/3276)
 
 
 ## 5.1.11
