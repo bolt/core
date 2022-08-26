@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Backend\Async;
 
+use Bolt\Common\Str;
 use Bolt\Configuration\Config;
 use Bolt\Controller\CsrfTrait;
 use Bolt\Factory\MediaFactory;
@@ -141,7 +142,17 @@ class UploadController extends AbstractController implements AsyncZoneInterface
         $locationName = $this->request->query->get('location', '');
         $path = $this->request->query->get('path', '');
 
+        $basepath = $this->config->getPath($locationName);
         $target = $this->config->getPath($locationName, true, $path);
+
+        // Make sure we don't move it out of the root.
+        if (Str::startsWith(path::makeRelative($target, $basepath), '../')) {
+            return new JsonResponse([
+                'error' => [
+                    'message' => "You are not allowed to do that.",
+                ],
+            ], Response::HTTP_BAD_REQUEST);
+        }
 
         $uploadHandler = new Handler($target, [
             Handler::OPTION_AUTOCONFIRM => true,
@@ -153,9 +164,7 @@ class UploadController extends AbstractController implements AsyncZoneInterface
 
         $uploadHandler->addRule(
             'extension',
-            [
-                'allowed' => $acceptedFileTypes,
-            ],
+            ['allowed' => $acceptedFileTypes],
             'The file for field \'{label}\' was <u>not</u> uploaded. It should be a valid file type. Allowed are <code>' . implode('</code>, <code>', $acceptedFileTypes) . '.',
             'Upload file'
         );
@@ -164,6 +173,13 @@ class UploadController extends AbstractController implements AsyncZoneInterface
             'size',
             ['size' => $maxSize],
             'The file for field \'{label}\' was <u>not</u> uploaded. The upload can have a maximum filesize of <b>' . $this->textExtension->formatBytes($maxSize) . '</b>.',
+            'Upload file'
+        );
+
+        $uploadHandler->addRule(
+            'callback',
+            ['callback' => [$this, 'checkJavascriptInSVG']],
+            'It is not allowed to upload SVG\'s with embedded Javascript.',
             'Upload file'
         );
 
@@ -223,4 +239,20 @@ class UploadController extends AbstractController implements AsyncZoneInterface
 
         return $filename . '.' . $extension;
     }
+
+    public function checkJavascriptInSVG($file)
+    {
+        if (Path::getExtension($file['name']) != 'svg') {
+            return true;
+        }
+
+        $svgFile = file_get_contents($file['tmp_name']);
+
+        if (preg_match('/(?:<[^>]+\s)(on\S+)=["\']?((?:.(?!["\']?\s+(?:\S+)=|[>"\']))+.)["\']?/i', $svgFile)) {
+            return false;
+        }
+
+        return (mb_strpos(preg_replace('/\s+/', '', mb_strtolower($svgFile)), '<script') === false);
+    }
 }
+

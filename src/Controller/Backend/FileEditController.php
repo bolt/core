@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Backend;
 
+use Bolt\Common\Str;
 use Bolt\Controller\CsrfTrait;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Repository\MediaRepository;
@@ -82,7 +83,14 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
         $extension = Path::getExtension($file);
 
         $basepath = $this->config->getPath($locationName);
-        $filename = Path::canonicalize($basepath . '/' . $file);
+        $filename = $this->config->getPath($basepath, true, $file);
+
+        // Make sure we don't rename the file to something that we're not allowed to, or move it out of the root
+        if ((! $this->config->getFileTypes()->contains($extension)) ||
+            (Str::startsWith(path::makeRelative($filename, $basepath), '../'))) {
+            $this->addFlash('warning', "You are not allowed to do that.");
+            return $this->redirectToRoute('bolt_dashboard');
+        }
 
         $url = $urlGenerator->generate('bolt_file_edit', [
             'location' => $locationName,

@@ -623,7 +623,7 @@ class SelectQuery implements QueryInterface
 
             $newExpressions = array_map(function($expression) use ($valueAlias) {
                 preg_match('/:\w+/', $expression, $parameter);
-                return sprintf("JSON_SEARCH(%s, 'one', %s) != ''", $valueAlias, $parameter[0]);
+                return sprintf("JSON_EXTRACT(%s, 'one', %s) != ''", $valueAlias, $parameter[0]);
             }, $expressions);
 
             // We reverse the arrays, to prevent mix-ups with `:foo_1` and `:foo_10`, etc. See PR #3137

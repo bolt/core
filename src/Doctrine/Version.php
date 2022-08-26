@@ -159,7 +159,7 @@ class Version
         try {
             $query = $this->connection->createQueryBuilder();
             $query
-                ->select('JSON_SEARCH("{}", "one", "")');
+                ->select('JSON_EXTRACT("{}", "one", "")');
             $query->execute();
         } catch (\Throwable $e) {
             return false;
