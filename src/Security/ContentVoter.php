@@ -158,9 +158,6 @@ class ContentVoter extends Voter
 
         // apparently there was no match -> deny!
         return false;
-
-        // Or do we always want to have a 'complete' setup, and throw an error here?
-        // throw new \LogicException('This code should not be reached!');
     }
 
     private function isGrantedAny($attributes, $subject = null): bool

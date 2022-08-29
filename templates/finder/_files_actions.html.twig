@@ -1,9 +1,9 @@
-<div class="btn-group float-right">
+<div class="btn-group float-end">
     <button
             class="btn btn-sm btn-secondary edit-actions__dropdown-toggler dropdown-toggle dropdown-toggle-split"
             aria-expanded="false"
             aria-haspopup="true"
-            data-toggle="dropdown"
+            data-bs-toggle="dropdown"
             type="button"
     >
         <i class="fas fa-question-circle"></i>
@@ -25,7 +25,7 @@
             {{ 'files_cards.action_view_original'|trans }}
         </a>
 
-        <span class="dropdown-item" style="cursor: pointer;" data-copy-to-clipboard="{{ url('homepage') ~ original|replace({'/files': 'files'}) }}">
+        <span class="dropdown-item" style="cursor: pointer;" data-clipboard-text="{{ url('homepage') ~ original|replace({'/files': 'files'}) }}">
             <i class="fas fa-clipboard-check"></i> {{ 'files_cards.copy_to_clipboard'|trans }}
         </span>
 
@@ -36,10 +36,15 @@
             {{ 'files_cards.action_duplicate'|trans }} {{ file.getRelativePathname|excerpt(22) }}
         </a>
 
-        <a class="dropdown-item delete" ,
+        <a class="dropdown-item delete"
            href="{{ path('bolt_file_delete',
                {'location': location.key|default('files'), 'path': path ~ file.getRelativePathname, '_csrf_token': csrf_token('file-delete')}) }}"
-           data-confirmation="{{ 'file.delete_confirm'|trans }}">
+           data-modal-title="{{ 'file.delete_confirm'|trans }}"
+           data-modal-body="{{ 'file.delete_confirm'|trans }}"
+           data-modal-button-deny="Cancel"
+           data-modal-button-accept="OK"
+           data-bs-toggle="modal"
+           data-bs-target="#resourcesModal">
             <i class="fas fa-w fa-trash"></i>
             {{ 'files_cards.action_delete'|trans }} {{ file.getRelativePathname|excerpt(22) }}
         </a>

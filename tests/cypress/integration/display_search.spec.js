@@ -2,9 +2,8 @@
 
 describe('As a user I want to display search results', () => {
     it('checks that search results are displayed as a user', () => {
-        
         cy.visit('/');
-        cy.get('input[type="search"]').type('consequatur');
+        cy.get('input[type="search"]').scrollIntoView().type('consequatur');
         cy.get('button[type="submit"]').click();
 
         cy.url().should('include', '/search');
@@ -21,7 +20,7 @@ describe('As a user I want to display search results', () => {
         cy.get('article').should('not.exist');
 
         cy.get('input[name="searchTerm"]').eq(0).clear();
-        cy.get('input[name="searchTerm"]').eq(0).type(' '); 
+        cy.get('input[name="searchTerm"]').eq(0).type(' ');
         cy.get('button[type="submit"]').eq(0).click();
 
         cy.url().should('include', '/search');

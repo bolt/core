@@ -4,18 +4,18 @@
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
 
-$vue-multiselect-padding-x : $custom-select-padding-x !default;
-$vue-multiselect-padding-y : $custom-select-padding-y !default;
-$vue-multiselect-min-height : $custom-select-height !default;
+$vue-multiselect-padding-x : $input-padding-x !default;
+$vue-multiselect-padding-y : $input-padding-y !default;
+$vue-multiselect-min-height : $input-height !default;
 $vue-multiselect-border-radius : $border-radius !default;
-$vue-multiselect-border-color : $custom-select-border-color !default;
+$vue-multiselect-border-color : $input-border-color !default;
 $vue-multiselect-border-width : 1px !default;
 $vue-multiselect-disabled-opacity : $btn-disabled-opacity !default;
 $vue-multiselect-placeholder-color : $text-muted !default;
-$vue-multiselect-bg : $custom-select-bg !default;
-$vue-multiselect-color : $custom-select-color !default;
-$vue-multiselect-disabled-bg : $custom-select-disabled-bg !default;
-$vue-multiselect-disabled-color : $custom-select-disabled-color !default;
+$vue-multiselect-bg : $input-bg !default;
+$vue-multiselect-color : $input-color !default;
+$vue-multiselect-disabled-bg : $gray-200 !default;
+$vue-multiselect-disabled-color : $gray-600 !default;
 
 $vue-multiselect-option-selected-bg : var(--shade-200) !default;
 $vue-multiselect-option-selected-color : var(--body) !default;
@@ -213,6 +213,15 @@ fieldset[disabled] .multiselect {
 .multiselect__tag-icon:focus::after,
 .multiselect__tag-icon:hover::after {
   color: $vue-multiselect-tag-icon-color-hover;
+}
+
+.multiselect__tag__edit {
+  display: inline-block;
+  margin-left: 0.22rem;
+
+  i {
+    font-weight: bold;
+  }
 }
 
 .multiselect__current {

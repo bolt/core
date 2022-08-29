@@ -21,6 +21,12 @@ homepage:
                 in the webbrowser, edit <code>sitename:</code> in the configuration file.
         image:
             type: image
+            extra:
+                title:
+                    label: The Title
+                    placeholder: This is the placeholder for the title
+                caption:
+                    label: Caption
         teaser:
             type: html
             localize: true
@@ -217,11 +223,17 @@ showcases:
             extensions: [ gif, jpg, png ]
             alt: true
             placeholder: https://source.unsplash.com/1280x768/?animal,koala,kitten,puppy,cute/__random__
+        image_another:
+            type: image
+            extensions: [ gif, jpg, png ]
+            alt: true
+            placeholder: https://source.unsplash.com/1280x768/?animal,koala,kitten,puppy,cute/__random__
         imagelist:
             type: imagelist
         file:
             type: file
             group: Files
+            extensions: [pdf, png, csv, xlsx, txt, gif, doc, docx, pptx, mp3, mp4, zip]
         filelist:
             type: filelist
             limit: 5
@@ -242,6 +254,8 @@ showcases:
             type: number
             mode: integer
             step: 1
+            min: 0
+            max: 1000
         floatfield:
             type: number
             mode: float
@@ -259,6 +273,9 @@ showcases:
             postfix: "Select an entry"
             autocomplete: true
             order: -id
+        author:
+            type: text
+            label: Author
         hiddenfield:
             type: hidden
             group: internal
@@ -299,6 +316,7 @@ showcases:
             multiple: true
             order: title
             label: Select zero or more pages
+            link_to_record: true
     taxonomy: [ categories, tags ]
     show_on_dashboard: true
     default_status: published
@@ -437,6 +455,41 @@ tests:
     record_template: custom/test.twig
     listing_template: listing.twig
     listing_records: 10
+
+# This contenttype is here to use for (automated) tests.
+simpletests:
+    name: simpletests
+    singular_name: Simple Test
+    title_format: "{id}: {title}"
+    fields:
+        title:
+            type: text
+            default: "Title of a test contenttype"
+        slug:
+            type: slug
+
+
+complexnestedtype:
+    name: complexnestedtype
+    singular_name: complexnestedtype
+    fields:
+        first_field:
+            type: select
+            values: [ 'one', 'two', 'three', 'four', 'five' ]
+            #            required: false
+            required: true
+            default: 'een'
+        second_field:
+            type: collection
+            fields:
+                first_collection_field:
+                    type: set
+                    fields:
+                        first_set_field:
+                            type: select
+                            values: [ 'option-one', 'option-two' ]
+                            required: true
+                            default: 'option-one'
 
 validationdemos:
     name: Validation Demos
@@ -590,5 +643,22 @@ validationdemos:
 #        template:
 #            type: templateselect
 #            filter: '*_xyz.twig'
+#    taxonomy: [ tags ]
+#    records_per_page: 20
+#
+# Image field thumbnails
+#
+# To customise the thumbnail URL generated for a field from the getValue() function (or field.value) in Twig,
+# add a "thumbnails" node to your field definition.
+#
+#contenttypexyz:
+#    name: ContentType Xyz
+#    slug: contenttypexyz
+#    fields:
+#        image:
+#            type: image
+#            thumbnails:
+#                size: [120,120]
+#                cropping: crop
 #    taxonomy: [ tags ]
 #    records_per_page: 20

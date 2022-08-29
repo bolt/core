@@ -1,6 +1,148 @@
 Changelog
 =========
 
+## 5.2.0 Beta 3
+
+Released: 2022-08-24
+
+- Add extra fields option for `image` and `imagelist` fields [#3292](https://github.com/bolt/core/pull/3292))
+- Allow image/files modals to be populated from dynamic backend URLs [#3300](https://github.com/bolt/core/pull/3300))
+- Proper default for `$filter` [#3296](https://github.com/bolt/core/pull/3296))
+- Ensure uploaded SVG files have no embedded Javascript [#3294](https://github.com/bolt/core/pull/3294))
+- Prevent renaming or moving of files on edit [#3295](https://github.com/bolt/core/pull/3295))
+- Prevent injection when filtering records [#3293](https://github.com/bolt/core/pull/3293))
+- Fix icons in ContentTypes in Menu [#3287](https://github.com/bolt/core/pull/3287))
+- Fix some NPM bitrot [#3286](https://github.com/bolt/core/pull/3286))
+- Made the checkbox template recognise a false string as a value [#3279](https://github.com/bolt/core/pull/3279))
+- The services_bolt.yaml file now keeps the binds after regenerating it [#3277](https://github.com/bolt/core/pull/3277))
+
+
+## 5.2.0 Beta 2
+
+Released: 2022-07-05
+
+### 📦 Additions and new features
+
+- Filter `|image` looks in all possible fields [#3259](https://github.com/bolt/core/pull/3259))
+- Add non-supported SVG HTML element to HTML Sanitiser [#3257](https://github.com/bolt/core/pull/3257))
+- Add "edit" link icon to related content in select/multiselect lists (nestordedios, [#3195](https://github.com/bolt/core/pull/3195))
+- Make `type: hidden` Field usable (david-saisondor, [#3173](https://github.com/bolt/core/pull/3173))
+- Make top level menu icon in Backend customizable (david-saisondor, [#3167](https://github.com/bolt/core/pull/3167))
+- Make saving Ajaxy (Joossensei, [#3144](https://github.com/bolt/core/pull/3144))
+- Bootstrap upgrade from v4 to v5 (nestordedios, [#3129](https://github.com/bolt/core/pull/3129))
+- Add a flag `ajaxy_saving: true` to Config to turn Ajaxy saving on or off [#3253](https://github.com/bolt/core/pull/3253)
+- Add Fixtures for SEO field [#3254](https://github.com/bolt/core/pull/3254)
+- Added `prev` and `next` classes to Paginator [#3255](https://github.com/bolt/core/pull/3255)
+
+### 🐛 Bug fixes
+
+- Fix loading of modal text when removing Collection item [#3267](https://github.com/bolt/core/pull/3267))
+- Remove Collection item if the user acknowledges [#3265](https://github.com/bolt/core/pull/3265))
+- Replace manual copy to clipboard with tiny library [#3263](https://github.com/bolt/core/pull/3263))
+- Enable the hash functionality for tabs instead of pills [#3262](https://github.com/bolt/core/pull/3262))
+- Improve responsiveness for Collections on smaller screens [#3260](https://github.com/bolt/core/pull/3260))
+- Ensure `PublishedAt` gets set correctly when publishing a Record (bobdenotter, [#3211](https://github.com/bolt/core/pull/3211))
+- Fixed partial broken `UserLocaleSubscriber` (UtechtDustin, [#3204](https://github.com/bolt/core/pull/3204))
+- Separate methods for Pager from `pagerParams`. (vlad-ghita, [#3205](https://github.com/bolt/core/pull/3205))
+- Add `isTranslatable` condition in `get`-method [#3250](https://github.com/bolt/core/pull/3250)
+- Additional fix for `type: number` field, set default to `min: 0`. [#3252](https://github.com/bolt/core/pull/3252)
+
+
+## 5.1.13
+
+Released: 2022-08-26
+
+This release includes three security-related fixes. Our thanks go out to Eitan
+Shav at [WhiteSource](https://whitesourcesoftware.com) and David Müller of
+[lutrasecurity.com](https://lutrasecurity.com/) for identifying these issues and
+disclosing them to us responsibly! 👏🙏
+
+### 🐛 Bug fixes
+
+- Fix setcontent with `where { }` clause filtering on a foreign `id` in MySQL (bobdenotter, [#3302](https://github.com/bolt/core/pull/3302))
+- Proper default for `$filter` (bobdenotter, [#3296](https://github.com/bolt/core/pull/3296))
+- Fix icons in ContentTypes in Menu (bobdenotter, [#3287](https://github.com/bolt/core/pull/3287))
+
+### 🔐 Security related changes
+
+- Prevent renaming or moving of files on edit (bobdenotter, [#3295](https://github.com/bolt/core/pull/3295))
+- Ensure uploaded SVG files have no embedded Javascript (bobdenotter, [#3294](https://github.com/bolt/core/pull/3294))
+- Prevent injection when filtering records (bobdenotter, [#3293](https://github.com/bolt/core/pull/3293))
+
+
+## 5.1.12
+
+Released: 2022-07-11
+
+### 🐛 Bug fixes
+
+- Tiny fix for the `|image`-filter [#3276](https://github.com/bolt/core/pull/3276)
+
+
+## 5.1.11
+
+Released: 2022-07-05
+
+### 🐛 Bug fixes
+
+- Add non-supported SVG HTML element to HTML Sanitiser [#3257](https://github.com/bolt/core/pull/3257)
+- `|image`-filter looks in all possible fields [#3259](https://github.com/bolt/core/pull/3259)
+- Feature/prev and next class [#3255](https://github.com/bolt/core/pull/3255)
+- Additional fix for `type: number` field, set default to `min: 0`. [#3252](https://github.com/bolt/core/pull/3252)
+- Fix the Canonical even Better! [#3248](https://github.com/bolt/core/pull/3248)
+- Create an empty stub for postLoad to make updating smoother [#3270](https://github.com/bolt/core/pull/3270)
+
+
+## 5.1.10
+
+Released: 2022-06-17
+
+### 🐛 Bug fixes
+
+- Remove old `conflict` (bobdenotter, [#3236](https://github.com/bolt/core/pull/3236))
+- Don't break when login-form is sent incomplete (bobdenotter, [#3221](https://github.com/bolt/core/pull/3221))
+- Fix error thrown by extensions with no config options defined ([#3242](https://github.com/bolt/core/pull/3242))
+- Fix `type: number` field ([#3231](https://github.com/bolt/core/pull/3231))
+- Increase `type: textarea` field font-size ([#3239](https://github.com/bolt/core/pull/3239))
+- Ensure the `|order` filter sorts case insentitive. ([#3235](https://github.com/bolt/core/pull/3235))
+- Update ECS to version `10.3` ([#3232](https://github.com/bolt/core/pull/3232))
+- Ensure correct Canonical ([#3229](https://github.com/bolt/core/pull/3229), [#3248](https://github.com/bolt/core/pull/3248))
+- Fixed the config used for search result limits ([#3219](https://github.com/bolt/core/pull/3219))
+- Add helper to prepare `QueryBuilder` when fetching latest records. ([#3218](https://github.com/bolt/core/pull/3218))
+- Prevent negative dates ("Before year 0") in Content ([#3240](https://github.com/bolt/core/pull/3240))
+- Get correct relative file path, when `files/` is a symlink ([#3245](https://github.com/bolt/core/pull/3245))
+
+## 5.1.9
+
+Released: 2022-05-31 (replaces 5.1.8)
+
+### 🐛 Bug fixes
+
+- Fix `where` with Checkbox Fields. Hopefully this time for good (bobdenotter, [#3214](https://github.com/bolt/core/pull/3214))
+- Ensure `PublishedAt` gets set correctly when publishing a Record (bobdenotter, [#3211](https://github.com/bolt/core/pull/3211))
+- Cast the config maintenance value to boolean (Spomsoree, [#3206](https://github.com/bolt/core/pull/3206))
+- Separate methods for Pager from `pagerParams`. (vlad-ghita, [#3205](https://github.com/bolt/core/pull/3205))
+- Fixed partial broken UserLocaleSubscriber (UtechtDustin, [#3204](https://github.com/bolt/core/pull/3204))
+- Maintain Field order. (vlad-ghita, [#3201](https://github.com/bolt/core/pull/3201))
+- Fix setting new Fields on Collection. (vlad-ghita, [#3200](https://github.com/bolt/core/pull/3200))
+- Use single quotes for query string literals (LimpSquid, [#3199](https://github.com/bolt/core/pull/3199))
+- Renamed the Icon method in the Content class (Spomsoree, [#3198](https://github.com/bolt/core/pull/3198))
+- Detect JSON for non-specialized MySQL platform instances. (vlad-ghita, [#3197](https://github.com/bolt/core/pull/3197))
+- Fix version compare for `composer self-update` versions. (vnagara, [#3196](https://github.com/bolt/core/pull/3196))
+- Add “edit” link icon to related content in select/multiselect lists (nestordedios, [#3195](https://github.com/bolt/core/pull/3195))
+- Fixing potential bug, exposed by PHPStan `1.6.x` update (bobdenotter, [#3194](https://github.com/bolt/core/pull/3194))
+- Fix: MySQL was returning case sensitive results. (codemis, [#3188](https://github.com/bolt/core/pull/3188))
+- Update Number Field (`type: number`) to include the min and max (Joossensei, [#3185](https://github.com/bolt/core/pull/3185))
+- Fixed the custom Field Type inside Sets (Spomsoree, [#3180](https://github.com/bolt/core/pull/3180))
+- Allow a “thumbnails” property to be configured against a ContentType Field (andysh-uk, [#3179](https://github.com/bolt/core/pull/3179))
+- Parent menu items in Backend use correct icon (david-saisondor, [#3170](https://github.com/bolt/core/pull/3170))
+- Fix Collection Field, so it now takes the `limit` into account for containing fields (david-saisondor, [#3163](https://github.com/bolt/core/pull/3163))
+- Use JSON_VALUE on MySQL platforms (andysh-uk, [#3135](https://github.com/bolt/core/pull/3135))
+- change initialization of fields on `postLoad` Doctrine event (simongroenewolt, [#3101](https://github.com/bolt/core/pull/3101))
+- Make `type: hidden` Field usable (david-saisondor, [#3173](https://github.com/bolt/core/pull/3173))
+- Make top level menu icon in Backend customizable (david-saisondor, [#3167](https://github.com/bolt/core/pull/3167))
+
+
 ## 5.1.7
 
 Released: 2022-03-31
@@ -244,7 +386,7 @@ Released: 2021-10-24
 - Fix setPath: Don't override existing `$route`, if we already have one (bobdenotter, [#2876](https://github.com/bolt/core/pull/2876))
 - Fix dependency resolution blockage (bobdenotter, [#2875](https://github.com/bolt/core/pull/2875))
 
-## 5.0.4 
+## 5.0.4
 
 Released: 2021-10-22
 
@@ -311,7 +453,7 @@ Released: 2021-09-17
 Released: 2021-08-30
 
 Really, too much to list. This is a major upgrade, and consists of about 2400 commits since 4.0.
-This blog post lists some relevant details: 
+This blog post lists some relevant details:
 
 https://boltcms.io/newsitem/big-announcement-bolt-5-0-on-the-horizon
 
@@ -554,10 +696,10 @@ Released: 2021-02-26
 
 Released: 2021-02-14
 
-This release includes two security-related fixes. Our thanks go out to 
-[Silvia Väli, Clarified Security](https://clarifiedsecurity.com/silvia-vali/) 
-and [Romain Richard](https://github.com/bigz) for identifying these issues and 
-disclosing them to us responsibly! 👏🙏 
+This release includes two security-related fixes. Our thanks go out to
+[Silvia Väli, Clarified Security](https://clarifiedsecurity.com/silvia-vali/)
+and [Romain Richard](https://github.com/bigz) for identifying these issues and
+disclosing them to us responsibly! 👏🙏
 
 ### 🐛 Bug fixes
 
@@ -665,7 +807,7 @@ Released: 2020-12-14
 - Allow omitting of `generator` meta tag and `x-powered-by` header (bobdenotter, [#2195](https://github.com/bolt/core/pull/2195))
 
 
-## 4.1.8 
+## 4.1.8
 
 Released: 2020-11-29
 
@@ -879,7 +1021,7 @@ Released: 2020-09-30
 - [CI] Move ECS from Travis to Github Actions (TomasVotruba, [#1912](https://github.com/bolt/core/pull/1912))
 - Cleanup, this is handled in ENV / Doctrine (bobdenotter, [#1908](https://github.com/bolt/core/pull/1908))
 
-## Major release 4.0.0 
+## Major release 4.0.0
 
 Released: 2020-09-24
 

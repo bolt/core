@@ -16,6 +16,7 @@ use Bolt\Storage\Query;
 use Bolt\Utils\ContentHelper;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Tightenco\Collect\Support\Collection;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
@@ -39,19 +40,24 @@ class FieldExtension extends AbstractExtension
     /** @var Query */
     private $query;
 
+    /** @var UrlGeneratorInterface */
+    private $router;
+
 
     public function __construct(
         Notifications $notifications,
         ContentRepository $contentRepository,
         Config $config,
         ContentHelper $contentHelper,
-        Query $query)
+        Query $query,
+        UrlGeneratorInterface $router)
     {
         $this->notifications = $notifications;
         $this->contentRepository = $contentRepository;
         $this->config = $config;
         $this->contentHelper = $contentHelper;
         $this->query = $query;
+        $this->router = $router;
     }
 
     /**
@@ -293,14 +299,19 @@ class FieldExtension extends AbstractExtension
 
         $options = [];
 
-        foreach ($records as $record) {
+        foreach ($records as $key => $record) {
             if ($field->getDefinition()->get('mode') === 'format') {
                 $formattedKey = $this->contentHelper->get($record, $field->getDefinition()->get('format'));
             }
-            $options[] = [
+            $options[$key] = [
                 'key' => $formattedKey ?? $record->getId(),
                 'value' => $this->contentHelper->get($record, $format),
             ];
+
+            // Generate URL for related record if the link_to_record option is defined in relations in the contenttypes.yaml
+            if ($field->getDefinition()->get('link_to_record')) {
+                $options[$key]["link_to_record_url"] = $this->router->generate('bolt_content_edit', ['id' => $record->getId()]);
+            }
         }
 
         return $options;

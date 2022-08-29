@@ -60,6 +60,6 @@ class FrontendMenuExtension extends AbstractExtension
     {
         $uri = $item['uri'] ?? '';
 
-        return $uri === $this->requestStack->getCurrentRequest()->getRequestUri();
+        return $uri === $this->requestStack->getCurrentRequest()->getPathInfo();
     }
 }

@@ -1,5 +1,5 @@
 # All route definitions, used by Bolt: Bolt Control Panel ("backend"), Async and
-# Thumbs, unless overridden in `../routing.yml` or another location.
+# Thumbs, unless overridden in `../routes.yaml` or another location.
 
 # The Bolt Control Panel ("backend"). It's common to modify the `prefix` so the
 # Control Panel can be accessed at a custom URL.

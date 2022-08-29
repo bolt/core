@@ -1,9 +1,9 @@
 //** Bootstrap
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
+//@import "~bootstrap/scss/maps"; -- Only when updating to Bootstrap 5.2
 @import "~bootstrap/scss/mixins";
-
-// @import "~bootstrap/scss/root";
+@import "~bootstrap/scss/root";
 @import "~bootstrap/scss/reboot";
 @import "~bootstrap/scss/type";
 @import "~bootstrap/scss/grid";
@@ -14,17 +14,20 @@
 @import "~bootstrap/scss/transitions";
 @import "~bootstrap/scss/dropdown";
 @import "~bootstrap/scss/button-group";
-@import "~bootstrap/scss/input-group";
-@import "~bootstrap/scss/custom-forms";
+//@import "~bootstrap/scss/input-group";
+//@import "~bootstrap/scss/custom-forms";
 @import "~bootstrap/scss/card";
 @import "~bootstrap/scss/alert";
-@import "~bootstrap/scss/media";
+//@import "~bootstrap/scss/media";
 @import "~bootstrap/scss/modal";
 @import "~bootstrap/scss/close";
 @import "~bootstrap/scss/progress";
+@import "~bootstrap/scss/spinners";
 @import "~bootstrap/scss/pagination";
 @import "~bootstrap/scss/nav";
 @import "~bootstrap/scss/tooltip";
+@import "~bootstrap/scss/helpers";
 @import "~bootstrap/scss/toasts";
 @import "~bootstrap/scss/utilities";
-@import "~bootstrap/scss/print";
+@import "~bootstrap/scss/utilities/api";
+//@import "~bootstrap/scss/print";

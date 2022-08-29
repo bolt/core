@@ -9,7 +9,9 @@
             <li v-if="size === 'normal'">
                 <i class="fas" :class="record.extras.icon"></i>
                 <template v-if="type === 'dashboard'">
-                    <a :href="`${record.extras.contentTypeOverviewLink}`">{{ record.extras.singular_name }}</a>
+                    <a :href="`${record.extras.contentTypeOverviewLink}`" class="text-decoration-none">{{
+                        record.extras.singular_name
+                    }}</a>
                 </template>
                 <template v-else>{{ record.extras.singular_name }}</template> № {{ record.id }}
             </li>

@@ -48,8 +48,9 @@ jobs:
                     npm run build
                     sudo chmod -R 777 config/ public/files/ public/theme/ public/thumbs/ var/
                     # prepare web server for e2e tests
-                    ./bin/console doctrine:database:create
-                    ./bin/console doctrine:schema:create
+                    ./bin/console doctrine:schema:create -q
+                    ./bin/console doctrine:migrations:sync-metadata-storage -q
+                    ./bin/console doctrine:migrations:version --add --all -n -q
                     ./bin/console doctrine:fixtures:load --group=without-images -n
                     ./bin/console server:start 127.0.0.1:8088
                     # test if web server works
@@ -66,5 +67,5 @@ jobs:
             -   uses: actions/upload-artifact@v1
                 if: failure()
                 with:
-                    name: cypress-screenshots
-                    path: tests/cypress/screenshots
+                    name: cypress-evidence
+                    path: tests/cypress/evidence

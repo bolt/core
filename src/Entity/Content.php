@@ -358,7 +358,7 @@ class Content
         return $this->getDefinition()->get('locales')->first();
     }
 
-    public function getIcon(): ?string
+    public function getContentTypeIcon(): ?string
     {
         if ($this->getDefinition() === null) {
             throw new \RuntimeException('Content not fully initialized');
@@ -390,6 +390,10 @@ class Content
     {
         if (Statuses::isValid($status)) {
             $this->status = $status;
+        }
+
+        if (! $this->getPublishedAt() && $status == Statuses::PUBLISHED) {
+            $this->setPublishedAt(new \DateTime());
         }
 
         return $this;
@@ -729,6 +733,11 @@ class Content
         if ($dateTime instanceof \DateTime && $dateTime->getTimezone()->getName() !== 'UTC') {
             $utc = new DateTimeZone('UTC');
             $dateTime->setTimezone($utc);
+        }
+
+        // Prevent dates before the year `0000`, because MySQL chokes on those
+        if ($dateTime instanceof \DateTime && (int) $dateTime->format("Y") < 1) {
+            $dateTime = null;
         }
 
         return $dateTime;

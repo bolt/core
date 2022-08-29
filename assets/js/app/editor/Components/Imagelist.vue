@@ -20,6 +20,8 @@
                 :is-first-in-imagelist="isFirstInImagelist(index)"
                 :is-last-in-imagelist="isLastInImagelist(index)"
                 :readonly="readonly"
+                :extra-fields="extraFields"
+                :extra-data="child"
                 @remove="onRemoveImage"
                 @moveImageUp="onMoveImageUp"
                 @moveImageDown="onMoveImageDown"
@@ -53,6 +55,7 @@ export default {
         attributesLink: String,
         limit: Number,
         readonly: Boolean,
+        extraFields: Array,
     },
     data: function() {
         let counter = 0;

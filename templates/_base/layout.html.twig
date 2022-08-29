@@ -92,7 +92,7 @@
         'action.new': 'action.new'|trans,
         'action.view': 'action.view'|trans,
     }|json_encode %}
-    <div class="admin__sidebar">
+    <div class="admin__sidebar d-none d-lg-block">
         <div class="sidebar sidebar--sticky" id="bolt--sidebar">
             <admin-sidebar
               :menu="{{ admin_menu_json }}"
@@ -132,6 +132,30 @@
         </div>
     </div>
     <!-- End Admin Main -->
+
+    <div class="modal fade" id="resourcesModal" tabindex="-1" aria-labelledby="resourcesModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="resourcesModalLabel">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">{{ __("modal.text.loading") }}</span>
+                        </div>
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">{{ __("modal.text.loading") }}</span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button data-modal-button-deny="{{ __("modal.button_deny") }}" id="modalButtonDeny" type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __("modal.button_deny") }}</button>
+                    <button data-modal-button-accept="{{ __("modal.button_save") }}" id="modalButtonAccept" type="button" class="btn btn-primary" data-bs-dismiss="modal">{{ __("modal.button_save") }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
 

@@ -1,11 +1,12 @@
 {
     "integrationFolder": "tests/cypress/integration",
     "pluginsFile": "tests/cypress/plugins/index.js",
-    "screenshotsFolder": "tests/cypress/screenshots",
-    "videosFolder": "tests/cypress/videos",
+    "screenshotsFolder": "tests/cypress/evidence/screenshots",
+    "videosFolder": "tests/cypress/evidence/videos",
     "supportFile": "tests/cypress/support/index.js",
-    "baseUrl": "https://127.0.0.1:8001",
+    "baseUrl": "https://127.0.0.1:8088",
     "viewportWidth": 1920,
     "viewportHeight": 1080,
-    "retries": 2
+    "retries": 0,
+    "scrollBehavior": false
 }

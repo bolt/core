@@ -7,6 +7,6 @@ add:
     services:
         _defaults:
             bind:         
-                $publicFolder: '%bolt.public_folder%'
+                $backendUrl: '%bolt.backend_url%'
         Bolt\Cache\GetFormatCacher:
             decorates: Bolt\Utils\ContentHelper

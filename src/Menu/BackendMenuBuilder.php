@@ -6,6 +6,7 @@ namespace Bolt\Menu;
 
 use Bolt\Configuration\Config;
 use Bolt\Configuration\Content\ContentType;
+use Bolt\Entity\Content;
 use Bolt\Repository\ContentRepository;
 use Bolt\Security\ContentVoter;
 use Bolt\Twig\ContentExtension;
@@ -364,16 +365,19 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
             }
 
             $label = $contentType->get('show_in_menu') ?: $t->trans('caption.other_content');
+            $icon = $icon ?? $contentType->get('icon_many');
 
             if (! $menu->getChild($label)) {
                 // Add the top level item
 
+                $icon = $contentType->get('icon_many');
                 $slug = $slugify->slugify($label);
+
                 $menu->addChild($label, [
                     'uri' => $this->urlGenerator->generate('bolt_menupage', ['slug' => $slug]),
                     'extras' => [
                         'name' => $label,
-                        'icon' => "fa-map-signs",
+                        'icon' => $icon,
                         'slug' => $slug,
                     ],
                 ]);
@@ -397,6 +401,7 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
 
         $result = [];
 
+        /** @var Content $record */
         foreach ($records as $record) {
             try {
                 $additionalResult = [
@@ -404,7 +409,7 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
                     'name' => $this->contentExtension->getTitle($record),
                     'link' => $this->contentExtension->getLink($record),
                     'editLink' => $this->contentExtension->getEditLink($record),
-                    'icon' => $record->getIcon(),
+                    'icon' => $record->getContentTypeIcon(),
                 ];
 
                 $result[] = $additionalResult;

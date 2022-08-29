@@ -2,24 +2,14 @@
 
 {% block field %}
 
-  {# set mode #}
-  {% if not mode|default %}
-    {% set mode = field.definition.mode|default('float') %}
-  {% endif %}
+  {% set min = field.definition.min %}
+  {% set max = field.definition.max %}
+  {% set mode = field.definition.mode|default('float') %}
+  {% set step = field.definition['step']|default(1) %}
 
-  {# set step #}
-  {% if not step|default and field.definition['step'] is defined %}
-    {% set step = field.definition.step %}
-  {% elseif not step|default %}
-    {# default step values #}
-    {% if mode == 'float' %}
-      {% set step = "'any'" %}
-    {% elseif mode == 'integer' %}
-      {% set step = 1 %}
-    {% else %}
-      {# field mode unknown #}
-      {% set step = 1 %}
-    {% endif %}
+  {# --- if the mode is `float` and `step` is not set, use the magical 'any' --- #}
+  {% if mode == 'float' %}
+    {% set step = field.definition['step']|default("'any'") %}
   {% endif %}
 
   <editor-number
@@ -27,6 +17,8 @@
     name="{{ name }}"
     value="{{ value }}"
     :step="{{ step|raw }}"
+    :min="{{ min }}"
+    :max="{{ max }}"
     :required="{{ required|json_encode }}"
     :readonly="{{ readonly|json_encode }}"
     :errormessage="{{ errormessage|json_encode }}"

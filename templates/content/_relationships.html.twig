@@ -1,20 +1,21 @@
 {% import '_macro/_macro.html.twig' as macro %}
 
-{% for contentType, relation in record.definition.relations %}
+{% set fromContentType = record.definition %}
 
-    {% set options = related_options(contentType, relation.order|default(), relation.format|default(), relation.required, relation.allow_empty) %}
+{% for toContentTypeSlug, relation in record.definition.relations %}
 
-    {% set value = record|related_values(contentType) %}
+    {% set options = related_options(fromContentType, toContentTypeSlug, relation.order|default(), relation.format|default(), relation.required, relation.allow_empty, relation.link_to_record|default(false), ) %}
+    {% set value = record|related_values(toContentTypeSlug) %}
 
-    <div class="form-group is-normal">
+    <div class="mb-4">
 
         {# Print prefix #}
         {% if relation['prefix']|default() is not empty %}
-            {{ macro.generatePrefix(relation['prefix']|default, contentType) }}
+            {{ macro.generatePrefix(relation['prefix']|default, toContentTypeSlug) }}
         {% endif %}
 
         {% include '@bolt/_partials/fields/_label.html.twig' with {
-            'id': 'relationship-' ~ contentType,
+            'id': 'relationship-' ~ toContentTypeSlug,
             'label': relation.label,
             'required': relation.required
         } %}
@@ -22,8 +23,8 @@
         <div>
             <editor-select
                     :value="{{ value }}"
-                    :name="'relationship[{{ contentType }}]'"
-                    :id="'relationship-{{ contentType }}'"
+                    :name="'relationship[{{ toContentTypeSlug }}]'"
+                    :id="'relationship-{{ toContentTypeSlug }}'"
                     :options="{{ options }}"
                     :multiple="{{ relation.multiple ? 'true' : 'false' }}"
                     :taggable=false
@@ -33,7 +34,7 @@
 
         {# Print postfix #}
         {% if relation['postfix']|default() is not empty %}
-            {{ macro.generatePostfix(relation['postfix']|default, contentType) }}
+            {{ macro.generatePostfix(relation['postfix']|default, toContentTypeSlug) }}
         {% endif %}
 
     </div>

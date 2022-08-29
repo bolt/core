@@ -17,7 +17,7 @@ class ContentTypesParserTest extends ParserTestBase
 
     public const AMOUNT_OF_ATTRIBUTES_IN_CONTENT_TYPE = 27;
 
-    public const AMOUNT_OF_ATTRIBUTES_IN_FIELD = 29;
+    public const AMOUNT_OF_ATTRIBUTES_IN_FIELD = 32;
 
     public const ALLOWED_LOCALES = 'en|nl|es|fr|de|pl|it|hu|pt_BR|ja|nb|nn|nl_NL|nl_BE';
 
@@ -70,7 +70,7 @@ class ContentTypesParserTest extends ParserTestBase
         $contentTypesParser = new ContentTypesParser($this->getProjectDir(), $generalParser->parse(), self::DEFAULT_LOCALE, self::ALLOWED_LOCALES);
         $config = $contentTypesParser->parse();
 
-        $this->assertCount(7, $config);
+        $this->assertCount(9, $config);
 
         $this->assertArrayHasKey('homepage', $config);
         $this->assertCount(self::AMOUNT_OF_ATTRIBUTES_IN_CONTENT_TYPE, $config['homepage']);

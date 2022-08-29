@@ -68,14 +68,26 @@
                         </a>
                     {% endif %}
                     {% if package|default() %}
-                        <a class="btn btn-hidden-danger btn-small ml-1 float-right" href=""
-                           data-confirmation="{{ 'extensions.message_not_implemented'|trans }}">
+                        <a class="btn btn-hidden-danger btn-small ms-1 float-end" href=""
+                           data-modal-title="{{ 'extensions.message_not_implemented'|trans }}"
+                           data-modal-body="{{ 'extensions.message_not_implemented'|trans }}"
+                           data-modal-button-deny="Cancel"
+                           data-modal-button-accept="OK"
+                           data-bs-toggle="modal"
+                           data-bs-target="#resourcesModal"
+                        >
                             <i class="fas fa-trash-alt"></i>{{ 'extensions.button_remove'|trans }}
                         </a>
                     {% endif %}
 
-                    <a class="btn btn-tertiary btn-small float-right" href=""
-                       data-confirmation="{{ 'extensions.message_not_implemented'|trans }}">
+                    <a class="btn btn-tertiary btn-small float-end" href=""
+                       data-modal-title="{{ 'extensions.message_not_implemented'|trans }}"
+                       data-modal-body="{{ 'extensions.message_not_implemented'|trans }}"
+                       data-modal-button-deny="Cancel"
+                       data-modal-button-accept="OK"
+                       data-bs-toggle="modal"
+                       data-bs-target="#resourcesModal"
+                    >
                         <i class="fas fa-ban"></i>{{ 'extensions.button_disable'|trans }}
                     </a>
                 </div>

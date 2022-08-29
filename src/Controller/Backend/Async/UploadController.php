@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Backend\Async;
 
+use Bolt\Common\Str;
 use Bolt\Configuration\Config;
 use Bolt\Controller\CsrfTrait;
 use Bolt\Factory\MediaFactory;
@@ -16,6 +17,7 @@ use Sirius\Upload\Result\Collection;
 use Sirius\Upload\Result\ResultInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Path;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\FileBag;
@@ -25,8 +27,8 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
+use Symfony\Contracts\Cache\TagAwareCacheInterface;
 use Throwable;
-use Webmozart\PathUtil\Path;
 
 /**
  * @Security("is_granted('upload')")
@@ -53,7 +55,16 @@ class UploadController extends AbstractController implements AsyncZoneInterface
     /** @var Filesystem */
     private $filesystem;
 
-    public function __construct(MediaFactory $mediaFactory, EntityManagerInterface $em, Config $config, TextExtension $textExtension, RequestStack $requestStack, Filesystem $filesystem)
+    /** @var TagAwareCacheInterface */
+    private $cache;
+
+    public function __construct(MediaFactory           $mediaFactory,
+                                EntityManagerInterface $em,
+                                Config                 $config,
+                                TextExtension          $textExtension,
+                                RequestStack           $requestStack,
+                                Filesystem             $filesystem,
+                                TagAwareCacheInterface $cache)
     {
         $this->mediaFactory = $mediaFactory;
         $this->em = $em;
@@ -61,6 +72,7 @@ class UploadController extends AbstractController implements AsyncZoneInterface
         $this->textExtension = $textExtension;
         $this->request = $requestStack->getCurrentRequest();
         $this->filesystem = $filesystem;
+        $this->cache = $cache;
     }
 
     /**
@@ -130,7 +142,17 @@ class UploadController extends AbstractController implements AsyncZoneInterface
         $locationName = $this->request->query->get('location', '');
         $path = $this->request->query->get('path', '');
 
+        $basepath = $this->config->getPath($locationName);
         $target = $this->config->getPath($locationName, true, $path);
+
+        // Make sure we don't move it out of the root.
+        if (Str::startsWith(path::makeRelative($target, $basepath), '../')) {
+            return new JsonResponse([
+                'error' => [
+                    'message' => "You are not allowed to do that.",
+                ],
+            ], Response::HTTP_BAD_REQUEST);
+        }
 
         $uploadHandler = new Handler($target, [
             Handler::OPTION_AUTOCONFIRM => true,
@@ -142,9 +164,7 @@ class UploadController extends AbstractController implements AsyncZoneInterface
 
         $uploadHandler->addRule(
             'extension',
-            [
-                'allowed' => $acceptedFileTypes,
-            ],
+            ['allowed' => $acceptedFileTypes],
             'The file for field \'{label}\' was <u>not</u> uploaded. It should be a valid file type. Allowed are <code>' . implode('</code>, <code>', $acceptedFileTypes) . '.',
             'Upload file'
         );
@@ -156,9 +176,19 @@ class UploadController extends AbstractController implements AsyncZoneInterface
             'Upload file'
         );
 
+        $uploadHandler->addRule(
+            'callback',
+            ['callback' => [$this, 'checkJavascriptInSVG']],
+            'It is not allowed to upload SVG\'s with embedded Javascript.',
+            'Upload file'
+        );
+
         $uploadHandler->setSanitizerCallback(function ($name) {
             return $this->sanitiseFilename($name);
         });
+
+        // Clear the 'files_index' cache.
+        $this->cache->invalidateTags(['fileslisting']);
 
         try {
             /** @var UploadedFile|File|ResultInterface|Collection $result */
@@ -209,4 +239,20 @@ class UploadController extends AbstractController implements AsyncZoneInterface
 
         return $filename . '.' . $extension;
     }
+
+    public function checkJavascriptInSVG($file)
+    {
+        if (Path::getExtension($file['name']) != 'svg') {
+            return true;
+        }
+
+        $svgFile = file_get_contents($file['tmp_name']);
+
+        if (preg_match('/(?:<[^>]+\s)(on\S+)=["\']?((?:.(?!["\']?\s+(?:\S+)=|[>"\']))+.)["\']?/i', $svgFile)) {
+            return false;
+        }
+
+        return (mb_strpos(preg_replace('/\s+/', '', mb_strtolower($svgFile)), '<script') === false);
+    }
 }
+

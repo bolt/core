@@ -4,11 +4,16 @@
             <p v-if="item.type === 'separator'" class="admin__sidebar--separator">
                 {{ item.name }}
             </p>
-            <a v-else-if="item.singleton" class="admin__sidebar--link" :href="singleton(item)">
-                <i class="fas mr-2 link--icon" :class="item.icon"></i><span class="link--text">{{ item.name }}</span>
+            <a v-else-if="item.singleton" class="admin__sidebar--link text-decoration-none" :href="singleton(item)">
+                <i class="fas me-2 link--icon" :class="item.icon"></i><span class="link--text">{{ item.name }}</span>
             </a>
-            <a v-else class="admin__sidebar--link" :class="{ 'has-menu': item.submenu !== null }" :href="item.link">
-                <i class="fas mr-2 link--icon" :class="item.icon"></i><span class="link--text">{{ item.name }}</span>
+            <a
+                v-else
+                class="admin__sidebar--link text-decoration-none"
+                :class="{ 'has-menu': item.submenu !== null }"
+                :href="item.link"
+            >
+                <i class="fas me-2 link--icon" :class="item.icon"></i><span class="link--text">{{ item.name }}</span>
                 <template v-if="item.submenu !== null">
                     <i class="fas fa-caret-right link--caret"></i>
                     <sub-menu :item="item" :labels="labels"></sub-menu>

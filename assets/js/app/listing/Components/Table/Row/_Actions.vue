@@ -6,12 +6,12 @@
                 :href="record.extras.editLink"
                 data-patience="virtue"
             >
-                <i class="far fa-edit mr-1"></i> {{ labels.button_edit }}
+                <i class="far fa-edit me-1"></i> {{ labels.button_edit }}
             </a>
             <button
                 type="button"
                 class="btn btn-sm btn-secondary edit-actions__dropdown-toggler dropdown-toggle dropdown-toggle-split"
-                data-toggle="dropdown"
+                data-bs-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="false"
             >
@@ -32,7 +32,7 @@
                     class="dropdown-item"
                     :href="record.extras.statusLink + '&status=published'"
                 >
-                    <span class="status mr-1 is-published"></span>
+                    <span class="status me-1 is-published"></span>
                     {{ labels.status_to_publish }}
                 </a>
                 <a
@@ -40,7 +40,7 @@
                     class="dropdown-item"
                     :href="record.extras.statusLink + '&status=held'"
                 >
-                    <span class="status mr-1 is-held"></span>
+                    <span class="status me-1 is-held"></span>
                     {{ labels.status_to_held }}
                 </a>
                 <a
@@ -48,7 +48,7 @@
                     class="dropdown-item"
                     :href="record.extras.statusLink + '&status=draft'"
                 >
-                    <span class="status mr-1 is-draft"></span>
+                    <span class="status me-1 is-draft"></span>
                     {{ labels.status_to_draft }}
                 </a>
                 <a class="dropdown-item" :href="record.extras.duplicateLink">
@@ -58,7 +58,11 @@
                 <a
                     class="dropdown-item"
                     :href="record.extras.deleteLink"
-                    data-confirmation="Are you sure you wish to delete this Content?"
+                    data-modal-title="Are you sure you wish to delete this Content?"
+                    data-modal-button-deny="Cancel"
+                    data-modal-button-accept="OK"
+                    data-bs-toggle="modal"
+                    data-bs-target="#resourcesModal"
                 >
                     <i class="fas fa-w fa-trash"></i>
                     {{ labels.delete }} {{ record.extras.singular_name }}

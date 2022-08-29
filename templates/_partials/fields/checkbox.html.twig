@@ -1,12 +1,18 @@
 {% extends '@bolt/_partials/fields/_base.html.twig' %}
 
+{% block postfix %}
+    {% if not hidePostfix|default(false) %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}
+
 {% block field %}
     {# set mode #}
     {% if not mode|default %}
         {% set mode = field.definition.mode|default('checkbox') %}
     {% endif %}
 
-    {% set value = value ? true : false %}
+    {% set value = value and value !== 'false' ? true : false %}
 
     <editor-checkbox
         :id="{{ name|json_encode }}"

@@ -69,6 +69,12 @@ final class BackendMenu implements BackendMenuBuilderInterface
             $username = '';
         }
 
+        if ($user instanceof User) {
+            $username = $user->getUsername();
+        } else {
+            $username = '';
+        }
+
         $cacheKey = 'bolt.backendMenu_' . $locale . '_' . $this->backendUrl . '_' . $username;
 
         $menu = $this->cache->get($cacheKey, function (ItemInterface $item) {

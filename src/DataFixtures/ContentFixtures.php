@@ -131,15 +131,27 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
 
                 foreach ($contentType['taxonomy'] as $taxonomySlug) {
                     if ($taxonomySlug === 'categories') {
-                        $taxonomyAmount = 2;
+                        if (isset($preset['taxonomy:categories'])) {
+                            // preset categories
+                            foreach ($preset['taxonomy:categories'] as $taxonomyCategoryLabel) {
+                                $taxonomy = $this->getReference('taxonomy_categories_' . $taxonomyCategoryLabel);
+                                $content->addTaxonomy($taxonomy);
+                            }
+                            // add no additional random categories
+                            $taxonomyAmount = 0;
+                        } else {
+                            $taxonomyAmount = 2;
+                        }
                     } elseif ($taxonomySlug === 'tags') {
                         $taxonomyAmount = 4;
                     } else {
                         $taxonomyAmount = 1;
                     }
 
-                    foreach ($this->getRandomTaxonomies($taxonomySlug, $taxonomyAmount) as $taxonomy) {
-                        $content->addTaxonomy($taxonomy);
+                    if ($taxonomyAmount > 0) {
+                        foreach ($this->getRandomTaxonomies($taxonomySlug, $taxonomyAmount) as $taxonomy) {
+                            $content->addTaxonomy($taxonomy);
+                        }
                     }
                 }
 
@@ -336,7 +348,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
 
                 break;
             case 'checkbox':
-                $data = [$this->faker->numberBetween(0, 1)];
+                $data = [$this->faker->boolean()];
 
                 break;
             case 'data':
@@ -387,6 +399,13 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
 
 
                 break;
+            case 'seo':
+                $data = ['keywords' => '', 'shortlink' => '', 'canonical' => '', 'robots' => '', 'og' => ''];
+                $data['title'] = $this->faker->sentence(4, true);
+                $data['description'] = $this->faker->sentence(120, true);
+                $data = [json_encode($data)];
+
+                break;
             default:
                 $data = [$this->faker->sentence(6, true)];
         }
@@ -399,6 +418,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
         $records['entries'][] = [
             'title' => 'This is a record in the "Entries" ContentType',
             'slug' => 'This is a record in the "Entries" ContentType',
+            'taxonomy:categories' => ['love', 'books'],
         ];
         $records['blocks'][] = [
             'title' => 'About This Site',
@@ -478,6 +498,17 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 'heading' => 'Setcontent test page',
                 'slug' => 'Setcontent test page',
                 'template' => 'custom/setcontent_1.twig',
+            ];
+        }
+
+        // Only add this fixture if the file exists: It does in the "Git Clone", but not in the
+        // "Composer create-project".
+        $file = dirname(dirname(__DIR__)) . '/public/theme/skeleton/custom/setwherecheckbox_1.twig';
+        if (file_exists($file)) {
+            $records['pages'][] = [
+                'heading' => 'SetContent Where Checkbox test page',
+                'slug' => 'Setwherecheckbox test page',
+                'template' => 'custom/setwherecheckbox_1.twig',
             ];
         }
 

@@ -233,6 +233,13 @@ class TwigAwareController extends AbstractController
 
     public function createPager(Query $query, string $contentType, int $pageSize, string $order)
     {
+        return $query
+            ->getContentForTwig($contentType, $this->createPagerParams($order))
+            ->setMaxPerPage($pageSize);
+    }
+
+    public function createPagerParams(string $order): array
+    {
         $params = [
             'status' => '!unknown',
             'returnmultiple' => true,
@@ -254,8 +261,7 @@ class TwigAwareController extends AbstractController
             $params[$taxonomy[0]] = $taxonomy[1];
         }
 
-        return $query->getContentForTwig($contentType, $params)
-            ->setMaxPerPage($pageSize);
+        return $params;
     }
 
     public function getFromRequestRaw(string $parameter): string

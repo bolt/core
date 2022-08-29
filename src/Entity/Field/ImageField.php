@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Entity\Field;
 
+use Bolt\Configuration\Content\FieldType;
 use Bolt\Entity\Field;
 use Bolt\Entity\FieldInterface;
 use Bolt\Entity\Media;
@@ -32,6 +33,7 @@ class ImageField extends Field implements FieldInterface, MediaAwareInterface, C
             'thumbnail' => '',
             'fieldname' => '',
             'alt' => '',
+            'extra' => [],
             'url' => '',
             'extension' => '',
         ];
@@ -40,6 +42,23 @@ class ImageField extends Field implements FieldInterface, MediaAwareInterface, C
     public function __toString(): string
     {
         return (string) $this->getPath();
+    }
+
+    public function getDefinition(): FieldType
+    {
+        $fieldTypeDefinition = parent::getDefinition();
+
+        // Set a default label based on original key but capitalized.
+        if ($fieldTypeDefinition->has('extra')) {
+            $extra = $fieldTypeDefinition->get('extra');
+            foreach ($extra as $extraField => $extraFieldProperty) {
+                if (! $extraFieldProperty->has('label')) {
+                    $extraFieldProperty['label'] = \ucwords($extraField);
+                }
+            }
+        }
+
+        return $fieldTypeDefinition;
     }
 
     public function getValue(): array
@@ -64,7 +83,18 @@ class ImageField extends Field implements FieldInterface, MediaAwareInterface, C
         $thumbPackage = new PathPackage('/thumbs/', new EmptyVersionStrategy());
         $thumbnailHelper = new ThumbnailHelper();
 
-        $path = $thumbnailHelper->path($this->get('filename'), 400, 400);
+        $fieldDefinition = $this->getDefinition();
+        $path = isset($fieldDefinition['thumbnails'])
+            ? $thumbnailHelper->path(
+                $this->get('filename'),
+                isset($fieldDefinition['thumbnails']['size']) ? $fieldDefinition['thumbnails']['size'][0] : 400,
+                isset($fieldDefinition['thumbnails']['size']) ? $fieldDefinition['thumbnails']['size'][1] : 400,
+                null,
+                null,
+                isset($fieldDefinition['thumbnails']['cropping']) ? $fieldDefinition['thumbnails']['cropping'] : null
+            )
+            : $thumbnailHelper->path($this->get('filename'), 400, 400);
+
         $value['thumbnail'] = $thumbPackage->getUrl($path);
 
         return $value;
@@ -88,7 +118,7 @@ class ImageField extends Field implements FieldInterface, MediaAwareInterface, C
         if (! $this->get('filename')) {
             return;
         }
-        
+
         $media = $mediaRepository->findOneByFullFilename($this->get('filename'));
 
         if ($media) {

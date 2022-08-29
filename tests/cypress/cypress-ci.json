@@ -1,11 +1,14 @@
 {
     "integrationFolder": "tests/cypress/integration",
     "pluginsFile": "tests/cypress/plugins/index.js",
-    "screenshotsFolder": "tests/cypress/screenshots",
-    "video": false,
+    "screenshotsFolder": "tests/cypress/evidence/screenshots",
+    "videosFolder": "tests/cypress/evidence/videos",
     "supportFile": "tests/cypress/support/index.js",
     "baseUrl": "http://127.0.0.1:8088",
     "projectId": "54gs3j",
     "defaultCommandTimeout": 8000,
-    "retries": 2
+    "viewportWidth": 1920,
+    "viewportHeight": 1080,
+    "retries": 2,
+    "scrollBehavior": false
 }

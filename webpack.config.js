@@ -10,49 +10,48 @@ if (!Encore.isRuntimeEnvironmentConfigured()) {
 }
 
 if (!Encore.isProduction()) {
-  Encore.addPlugin(new HtmlWebpackPlugin());
-  Encore.addPlugin(new CleanWebpackPlugin());
-  Encore.configureFilenames({
-    css: '[name].[contenthash].css',
-    js: '[name].[contenthash].js',
-  });
+    Encore.addPlugin(new HtmlWebpackPlugin());
+    Encore.addPlugin(new CleanWebpackPlugin());
+    Encore.configureFilenames({
+        css: '[name].[contenthash].css',
+        js: '[name].[contenthash].js',
+    });
 }
 
-Encore
-  .addPlugin(
+Encore.addPlugin(
     new WebpackBar({
         profile: Encore.isProduction(),
         minimal: false,
     }),
-  )
+)
 
-  .setOutputPath('public/assets/')
-  .setPublicPath('/assets')
-  .setManifestKeyPrefix('assets')
+    .setOutputPath('public/assets/')
+    .setPublicPath('/assets')
+    .setManifestKeyPrefix('assets')
 
-  .copyFiles({
-    from: './assets/static',
-  })
+    .copyFiles({
+        from: './assets/static',
+    })
 
-  .cleanupOutputBeforeBuild()
-  .disableSingleRuntimeChunk()
-  .enableSourceMaps(!Encore.isProduction())
-  .enableVersioning(false)
+    .cleanupOutputBeforeBuild()
+    .disableSingleRuntimeChunk()
+    .enableSourceMaps(!Encore.isProduction())
+    .enableVersioning(false)
 
-  .addEntry('bolt', './assets/js/bolt.js')
-  .addEntry('zxcvbn', './assets/js/zxcvbn.js')
-  .addEntry('vibrant', './assets/js/vibrant.js')
-  .addStyleEntry('theme-default', './assets/scss/themes/default.scss')
-  .addStyleEntry('theme-light', './assets/scss/themes/light.scss')
-  .addStyleEntry('theme-dark', './assets/scss/themes/dark.scss')
-  .addStyleEntry('theme-woordpers', './assets/scss/themes/woordpers.scss')
+    .addEntry('bolt', './assets/js/bolt.js')
+    .addEntry('zxcvbn', './assets/js/zxcvbn.js')
+    .addEntry('vibrant', './assets/js/vibrant.js')
+    .addStyleEntry('theme-default', './assets/scss/themes/default.scss')
+    .addStyleEntry('theme-light', './assets/scss/themes/light.scss')
+    .addStyleEntry('theme-dark', './assets/scss/themes/dark.scss')
+    .addStyleEntry('theme-woordpers', './assets/scss/themes/woordpers.scss')
 
-  .splitEntryChunks()
-  .autoProvidejQuery()
-  .enableVueLoader()
-  .enableSassLoader()
-  .enablePostCssLoader()
+    .splitEntryChunks()
+    .autoProvidejQuery()
+    .enableVueLoader()
+    .enableSassLoader()
+    .enablePostCssLoader()
 
-  .enableVueLoader(() => {}, { runtimeCompilerBuild: true });
+    .enableVueLoader(() => {}, { runtimeCompilerBuild: true });
 
 module.exports = Encore.getWebpackConfig();

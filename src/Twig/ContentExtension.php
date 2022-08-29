@@ -12,6 +12,7 @@ use Bolt\Entity\Field;
 use Bolt\Entity\Field\Excerptable;
 use Bolt\Entity\Field\ImageField;
 use Bolt\Entity\Field\ImagelistField;
+use Bolt\Entity\ListFieldInterface;
 use Bolt\Entity\Taxonomy;
 use Bolt\Enum\Statuses;
 use Bolt\Log\LoggerTrait;
@@ -224,14 +225,26 @@ class ContentExtension extends AbstractExtension
         }
 
         foreach ($content->getFields() as $field) {
-            if ($field instanceof ImageField && $field->get('filename')) {
-                return $onlyValues ? $field->getValue() : $field;
-            }
+            $image = $this->findOneImage($field);
 
-            if ($field instanceof ImagelistField) {
-                $firstImage = current($field->getValue());
-                if ($firstImage && $firstImage->get('filename')) {
-                    return $onlyValues ? $firstImage->getValue() : $firstImage;
+            if ($image !== null) {
+                return $onlyValues ? $image->getValue() : $image;
+            }
+        }
+
+        return null;
+    }
+
+    private function findOneImage(Field $field)
+    {
+        if ($field instanceof ImageField && $field->get('filename')) {
+            return $field;
+        }
+
+        if ($field instanceof ListFieldInterface) {
+            foreach ($field->getValue() as $subField) {
+                if ($this->findOneImage($subField)) {
+                    return $subField;
                 }
             }
         }
@@ -487,7 +500,7 @@ class ContentExtension extends AbstractExtension
         return new Collection($taxonomies);
     }
 
-    public function pager(Environment $twig, ?Pagerfanta $records = null, string $template = '@bolt/helpers/_pager_basic.html.twig', string $class = 'pagination', int $surround = 3)
+    public function pager(Environment $twig, ?Pagerfanta $records = null, string $template = '@bolt/helpers/_pager_basic.html.twig', string $class = 'pagination', string $previousLinkClass = 'previous', string $nextLinkClass = 'next', int $surround = 3)
     {
         $params = array_merge(
             $this->requestStack->getCurrentRequest()->get('_route_params'),
@@ -502,6 +515,8 @@ class ContentExtension extends AbstractExtension
             'records' => $records,
             'surround' => $surround,
             'class' => $class,
+            'previous_link_class' => $previousLinkClass,
+            'next_link_class' => $nextLinkClass,
             'route' => $this->requestStack->getCurrentRequest()->get('_route'),
             'routeParams' => $params,
         ];
@@ -569,7 +584,7 @@ class ContentExtension extends AbstractExtension
     public function icon(?Content $record = null, string $icon = 'question-circle'): string
     {
         if ($record instanceof Content) {
-            $icon = $record->getIcon();
+            $icon = $record->getContentTypeIcon();
         }
 
         $icon = str_replace('fa-', '', $icon);

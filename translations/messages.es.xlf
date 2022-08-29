@@ -1486,5 +1486,29 @@
         <target>Estado.</target>
       </segment>
     </unit>
+    <unit id="MjY7.cg" name="modal.title.file_field">
+      <segment>
+        <source>modal.title.file_field</source>
+        <target>Elige un archivo</target>
+      </segment>
+    </unit>
+    <unit id="0yPnNMd" name="modal.title.image_field">
+      <segment>
+        <source>modal.title.image_field</source>
+        <target>Elige una imagen</target>
+      </segment>
+    </unit>
+    <unit id="VlfWDQr" name="modal.button_save">
+      <segment>
+        <source>modal.button_save</source>
+        <target>Guardar</target>
+      </segment>
+    </unit>
+    <unit id="ct_I4w3" name="modal.button_deny">
+      <segment>
+        <source>modal.button_deny</source>
+        <target>Cerrar</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

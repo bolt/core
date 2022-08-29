@@ -31,8 +31,11 @@ class JsonHelper
             if ($version->getPlatform()['driver_name'] === 'pgsql') {
                 // PostgreSQL
                 $resultWhere = 'JSON_GET_TEXT(' . $where . ', 0)';
+            } elseif ($version->getPlatform()['driver_name'] === 'mysql') {
+                // MySQL
+                $resultWhere = 'CAST(JSON_UNQUOTE(JSON_EXTRACT(' . $where . ", '$[0]')) AS CHAR)";
             } else {
-                // MySQL and SQLite
+                // SQLite
                 $resultWhere = 'JSON_EXTRACT(' . $where . ", '$[0]')";
             }
             $resultSlug = $slug;

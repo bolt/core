@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="nl" trgLang="nl">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="nl">
   <file id="messages.nl">
     <unit id="tbB2gib" name="not_available">
       <notes>
@@ -2080,6 +2080,42 @@
       <segment>
         <source>You have to login in order to access this page.</source>
         <target>Je moet ingelogd zijn om deze pagina te bekijken.</target>
+      </segment>
+    </unit>
+    <unit id="MjY7.cg" name="modal.title.file_field">
+      <segment>
+        <source>modal.title.file_field</source>
+        <target>Kies een bestand</target>
+      </segment>
+    </unit>
+    <unit id="0yPnNMd" name="modal.title.image_field">
+      <segment>
+        <source>modal.title.image_field</source>
+        <target>Kies een afbeelding</target>
+      </segment>
+    </unit>
+    <unit id="ODb3pJA" name="modal.text.loading">
+      <segment>
+        <source>modal.text.loading</source>
+        <target>Loading...</target>
+      </segment>
+    </unit>
+    <unit id="VlfWDQr" name="modal.button_save">
+      <segment>
+        <source>modal.button_save</source>
+        <target>Opslaan</target>
+      </segment>
+    </unit>
+    <unit id="ct_I4w3" name="modal.button_deny">
+      <segment>
+        <source>modal.button_deny</source>
+        <target>Sluiten</target>
+      </segment>
+    </unit>
+    <unit id="JpJFIFq" name="collection.confirm_delete">
+      <segment>
+        <source>collection.confirm_delete</source>
+        <target>Weet je zeker dat je dit collectie item wilt verwijderen?</target>
       </segment>
     </unit>
   </file>

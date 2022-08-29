@@ -1,5 +1,20 @@
 .badge-tertiary {
-  @include badge-variant($tertiary);
+  color: color-contrast($background, $color-contrast-dark: $color-contrast-dark, $color-contrast-light: $color-contrast-light, $min-contrast-ratio: $min-contrast-ratio);
+  background-color: $tertiary;
+
+  @at-root a#{&} {
+    &:hover,
+    &:focus {
+      color: color-contrast($background, $color-contrast-dark: $color-contrast-dark, $color-contrast-light: $color-contrast-light, $min-contrast-ratio: $min-contrast-ratio);
+      background-color: darken($tertiary, 10%);
+    }
+
+    &:focus,
+    &.focus {
+      outline: 0;
+      box-shadow: 0 0 0 $input-btn-focus-width rgba($tertiary, 0.5);
+    }
+  }
 }
 
 .badge {

@@ -260,6 +260,8 @@ class SelectQuery implements QueryInterface
                 $regular = $this->getRegularFieldExpression($filter);
                 $anythingExpr->addMultiple([$core, $reference, $taxonomy, $regular]);
                 $expr = $expr->add($anythingExpr);
+            } elseif ($this->utils->isFieldType($this, $filter->getKey(), CheckboxField::TYPE)) {
+                $expr = $expr->add($this->getCheckboxFieldExpression($filter));
             } else {
                 // This means the name / value in the `where` is stored in the `bolt_field` table
                 $expr = $expr->add($this->getRegularFieldExpression($filter));
@@ -561,6 +563,26 @@ class SelectQuery implements QueryInterface
         return preg_replace($originalLeftExpression, $newLeftExpression, $originalExpression);
     }
 
+    /**
+     * Special case for checkbox fields, see: https://github.com/bolt/core/pull/2843
+     * For additional fixes, see: https://github.com/bolt/core/pull/3214
+     */
+    private function getCheckboxFieldExpression(Filter $filter): string
+    {
+        $isSqlite = $this->utils->isSqlite();
+
+        // We need `true` and `false` for SQLite, and `'true'` and `'false'` for Mysql
+        if (in_array(current($filter->getParameters()), ['0', 0, false, 'false'], true)) {
+            $value = $isSqlite ? false : 'false';
+        } else {
+            $value = $isSqlite ? true : 'true';
+        }
+
+        $filter->setParameters([key($filter->getParameters()) => $value ]);
+
+        return $this->getRegularFieldExpression($filter);
+    }
+
     private function getRegularFieldExpression(Filter $filter): string
     {
         $this->fieldJoins[$filter->getKey()] = $filter;
@@ -601,7 +623,7 @@ class SelectQuery implements QueryInterface
 
             $newExpressions = array_map(function($expression) use ($valueAlias) {
                 preg_match('/:\w+/', $expression, $parameter);
-                return sprintf("JSON_SEARCH(%s, 'one', %s) != ''", $valueAlias, $parameter[0]);
+                return sprintf("JSON_EXTRACT(%s, 'one', %s) != ''", $valueAlias, $parameter[0]);
             }, $expressions);
 
             // We reverse the arrays, to prevent mix-ups with `:foo_1` and `:foo_10`, etc. See PR #3137
@@ -620,11 +642,6 @@ class SelectQuery implements QueryInterface
     {
         if ($this->utils->isFieldType($this, $fieldName, NumberField::TYPE) && $this->utils->hasCast()) {
             return $this->utils->getNumericCastExpression($valueAlias);
-        }
-
-        // Special case for checkbox fields: https://github.com/bolt/core/pull/2843
-        if ($this->utils->isFieldType($this, $fieldName, CheckboxField::TYPE)) {
-            return '0 + ' . JsonHelper::wrapJsonFunction($valueAlias, null, $this->em->getConnection());
         }
 
         return JsonHelper::wrapJsonFunction($valueAlias, null, $this->em->getConnection());

@@ -22,7 +22,7 @@ class DashboardController extends TwigAwareController implements BackendZoneInte
         $amount = (int) $this->config->get('general/records_per_page', 10);
         $page = (int) $this->request->get('page', 1);
         $contentTypes = $this->config->get('contenttypes')->where('show_on_dashboard', true)->keys()->implode(',');
-        $filter = $this->getFromRequest('filter');
+        $filter = strip_tags($this->getFromRequest('filter', ''));
 
         $pager = $this->createPager($query, $contentTypes, $amount, '-modifiedAt');
         $nbPages = $pager->getNbPages();

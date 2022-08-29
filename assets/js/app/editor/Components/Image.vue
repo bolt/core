@@ -34,19 +34,39 @@
                     />
                 </div>
                 <div v-if="includeAlt" class="input-group mb-3">
-                    <input
-                        v-model="altData"
-                        :title="name + ' alt'"
-                        class="form-control"
-                        :name="name + '[alt]'"
-                        type="text"
-                        :readonly="readonly"
-                        :pattern="pattern"
-                        :placeholder="getPlaceholder"
-                    />
+                    <div class="col-sm-2">
+                        <label>Alt:</label>
+                    </div>
+                    <div class="col-sm-10">
+                        <input
+                            v-model="altData"
+                            :title="name + ' alt'"
+                            class="form-control"
+                            :name="name + '[alt]'"
+                            type="text"
+                            :readonly="readonly"
+                            :pattern="pattern"
+                            :placeholder="getPlaceholder"
+                        />
+                    </div>
+                </div>
+                <div v-for="(extraFieldProps, extraField) in extraFields" :key="extraField" class="input-group mb-3">
+                    <div class="col-sm-2">
+                        <label>{{ extraFieldProps.label }}:</label>
+                    </div>
+                    <div class="col-sm-10">
+                        <input
+                            v-model="extraData[extraField]"
+                            :title="name + ' ' + extraField"
+                            class="form-control"
+                            :name="name + '[' + extraField + ']'"
+                            type="text"
+                            :placeholder="extraFieldProps.placeholder"
+                        />
+                    </div>
                 </div>
                 <div class="btn-toolbar" role="toolbar">
-                    <div class="btn-group mr-2" role="group">
+                    <div class="btn-group me-2" role="group">
                         <button
                             class="btn btn-sm btn-tertiary"
                             type="button"
@@ -60,7 +80,7 @@
                             class="btn btn-sm btn-tertiary dropdown-toggle dropdown-toggle-split"
                             aria-expanded="false"
                             aria-haspopup="true"
-                            data-toggle="dropdown"
+                            data-bs-toggle="dropdown"
                             name="image-upload-dropdown"
                             type="button"
                             :disabled="readonly"
@@ -74,7 +94,12 @@
                                 type="button"
                                 :disabled="readonly"
                                 data-patience="virtue"
-                                @click="selectServerFile"
+                                data-bs-toggle="modal"
+                                data-bs-target="#resourcesModal"
+                                :data-modal-title="labels.modal_title_images"
+                                :data-initiator="id"
+                                data-modal-dialog-class="modal-xl"
+                                @click="selectServerFile($event)"
                             >
                                 <i class="fas fa-fw fa-th"></i>
                                 {{ labels.button_from_library }}
@@ -85,7 +110,10 @@
                                 type="button"
                                 :disabled="readonly"
                                 data-patiance="virtue"
-                                @click="uploadFileFromUrl"
+                                data-bs-toggle="modal"
+                                data-bs-target="#resourcesModal"
+                                :data-modal-title="labels.modal_title_upload_from_url"
+                                @click="uploadFileFromUrl($event)"
                             >
                                 <i class="fas fa-fw fa-external-link-alt"></i>
                                 {{ labels.button_from_url }}
@@ -103,7 +131,7 @@
                         </div>
                     </div>
 
-                    <div class="btn-group mr-2" role="group">
+                    <div class="btn-group me-2" role="group">
                         <button
                             v-if="inImagelist"
                             class="btn btn-sm btn-tertiary"
@@ -167,7 +195,9 @@ import noScroll from 'no-scroll';
 import baguetteBox from 'baguettebox.js';
 import field from '../mixins/value';
 import Axios from 'axios';
-import bootbox from 'bootbox';
+import { Modal } from 'bootstrap';
+import { renable } from '../../patience-is-a-virtue';
+import { resetModalContent } from '../../modal';
 
 export default {
     name: 'EditorImage',
@@ -195,6 +225,8 @@ export default {
         errormessage: String | Boolean, //string if errormessage is set, and false otherwise
         pattern: String | Boolean,
         placeholder: String | Boolean,
+        extraFields: Array,
+        extraData: Array,
     },
     data() {
         return {
@@ -268,30 +300,195 @@ export default {
         selectUploadFile() {
             this.$refs.selectFile.click();
         },
-        selectServerFile() {
+        generateModalContent(inputOptions) {
+            let filePath = '';
+            let folderPath = inputOptions[0].value;
+            let baseAsyncPath = inputOptions[0].base_url_path;
+            let modalContent = '<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-2">';
+            // If we are deep in the directory, add an arrow to navigate back to previous folder
+            if (folderPath.includes('/')) {
+                let pathChunks = inputOptions[0].value.split('/');
+                pathChunks.pop();
+                pathChunks.pop();
+                filePath = pathChunks.join('/');
+                let baseAsyncUrl = `${baseAsyncPath}?location=${filePath}&type=images`;
+
+                if (filePath != '') {
+                    modalContent += `
+                    <div class="col">
+                        <div class="card h-100">
+                            <a href="${baseAsyncUrl}" class="directory d-flex justify-content-center w-100 flex-grow-1 text-decoration-none align-self-center">
+                                <i class="fas fa-solid fa-level-up-alt fa-3x me-0 align-self-center"></i>
+                            </a>
+                            <div class="card-body px-2 flex-grow-0 border-top border-very-light-border">
+                                <div class="form-check ps-0">
+                                    <span class="form-check-label d-inline fs-6 fw-normal d-block">
+                                        ../${filePath}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+                }
+            }
+            inputOptions.forEach((element, key) => {
+                if (element.group == 'directories') {
+                    filePath = element.value;
+                    let baseAsyncUrl = `${baseAsyncPath}?location=${filePath}&type=images`;
+                    // let directoryPath = '/bolt/async/list_files?location=files/' + element.value + '&type=images';
+                    modalContent += `
+                    <div class="col">
+                        <div class="card h-100">
+                            <a href="${baseAsyncUrl}" class="directory d-flex justify-content-center w-100 flex-grow-1 text-decoration-none align-self-center">
+                                <i class="fas fa-solid fa-folder fa-5x me-0 align-self-center"></i>
+                            </a>
+                            <div class="card-body px-2 flex-grow-0 border-top border-very-light-border">
+                                <div class="form-check ps-0">
+                                    <span class="form-check-label d-inline fs-6 fw-normal d-block">
+                                        /${element.text}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+                } else {
+                    modalContent += `
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="/thumbs/523×294×crop/${element.value.replace('files/', '')}" loading="lazy">
+                            <div class="card-body px-2 flex-grow-0 border-top border-very-light-border">
+                                <div class="form-check ps-0">
+                                    <input class="form-check-input" type="checkbox" value="${
+                                        element.value
+                                    }" id="flexCheckDefault-${key}">
+                                    <label class="form-check-label d-inline fs-6 fw-normal d-block" for="flexCheckDefault-${key}">
+                                        ${element.text}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    `;
+                }
+            });
+            modalContent += `</div>`;
+            return modalContent;
+        },
+        generateUploadFromURLModalContent() {
+            let modalContent = '';
+            modalContent += `
+                <form>
+                    <input class="form-control" autocomplete="off" type="text" name="from-url-input">
+                </form>
+            `;
+            return modalContent;
+        },
+        selectServerFile(event) {
             let thisField = this;
             Axios.get(this.filelist)
                 .then(res => {
-                    bootbox.prompt({
-                        title: 'Select a file',
-                        inputType: 'select',
-                        name: 'image-selector',
-                        inputOptions: this.filterServerFiles(res.data),
-                        callback: function(result) {
-                            if (result) {
-                                thisField.filenameData = result;
-                                thisField.thumbnailData = `/thumbs/400×300/${result}`;
-                                thisField.previewData = `/thumbs/1000×1000/${result}`;
-                            }
-                        },
+                    let inputOptions = this.filterServerFiles(res.data);
+
+                    var resourcesModal = document.getElementById('resourcesModal');
+                    var bootstrapResourcesModal = document.querySelector('#resourcesModal');
+                    var resourcesModalObject = Modal.getOrCreateInstance(bootstrapResourcesModal); // Returns a Bootstrap modal instance
+                    var button = event.target;
+                    var title = button.getAttribute('data-modal-title');
+                    var modalDialog = resourcesModal.querySelector('.modal-dialog');
+                    var modalTitle = resourcesModal.querySelector('.modal-title');
+                    var modalBody = resourcesModal.querySelector('.modal-body');
+                    var modalFooter = resourcesModal.querySelector('.modal-footer');
+                    var modalBodyContent = this.generateModalContent(inputOptions);
+
+                    modalDialog.classList.add(button.getAttribute('data-modal-dialog-class'));
+                    modalTitle.innerHTML = title;
+                    modalBody.innerHTML = modalBodyContent;
+                    modalFooter.remove();
+
+                    var directoryLinks = resourcesModal.querySelectorAll('.directory');
+
+                    directoryLinks.forEach(link => {
+                        link.addEventListener('click', e => {
+                            e.preventDefault();
+                            this.filelist = link.href;
+                            thisField.filelist = link.href;
+                            this.navigateDirectory();
+                            // return false;
+                        });
                     });
-                    window.$('.bootbox-input').attr('name', 'bootbox-input');
-                    window.reEnablePatientButtons();
+
+                    var cards = modalBody.querySelectorAll('.form-check-input');
+                    cards.forEach(card => {
+                        card.addEventListener('click', () => {
+                            resourcesModalObject.hide();
+                        });
+                    });
+
+                    resourcesModal.addEventListener(
+                        'hidden.bs.modal',
+                        () => {
+                            if (modalBody.querySelector('input[type=checkbox]:checked')) {
+                                var selectedImage = modalBody.querySelector('input[type=checkbox]:checked').value;
+                                thisField.filenameData = selectedImage.replace('files/', '');
+                                thisField.thumbnailData = `/thumbs/400×300/${selectedImage.replace('files/', '')}`;
+                                thisField.previewData = `/thumbs/1000×1000/${selectedImage.replace('files/', '')}`;
+                            }
+                            // Reset modal body content when the modal is closed
+                            resetModalContent(this.labels);
+                        },
+                        { once: true },
+                    );
+
+                    renable();
                 })
                 .catch(err => {
-                    bootbox.alert(err.response.data + '<br>Image did not upload.');
-                    console.warn(err);
-                    window.reEnablePatientButtons();
+                    window.alert(err.response.data + '<br>Image did not upload.');
+                    renable();
+                });
+        },
+        navigateDirectory() {
+            let thisField = this;
+            Axios.get(this.filelist)
+                .then(res => {
+                    let inputOptions = this.filterServerFiles(res.data);
+                    let folderPath = '';
+
+                    // Generate current folder path to add to modal title
+                    folderPath = inputOptions[0].value.split('/');
+                    folderPath.pop();
+                    folderPath = folderPath.join('/');
+
+                    var resourcesModal = document.getElementById('resourcesModal');
+                    var bootstrapResourcesModal = document.querySelector('#resourcesModal');
+                    var resourcesModalObject = Modal.getOrCreateInstance(bootstrapResourcesModal); // Returns a Bootstrap modal instance
+                    var modalTitle = resourcesModal.querySelector('.modal-title');
+                    var modalBody = resourcesModal.querySelector('.modal-body');
+                    var modalBodyContent = this.generateModalContent(inputOptions);
+
+                    modalTitle.innerHTML = 'Select an image: <i class="fas fa-solid fa-folder-tree"></i>' + folderPath;
+                    modalBody.innerHTML = modalBodyContent;
+
+                    var directoryLinks = resourcesModal.querySelectorAll('.directory');
+
+                    directoryLinks.forEach(link => {
+                        link.addEventListener('click', e => {
+                            e.preventDefault();
+                            this.filelist = link.href;
+                            thisField.filelist = link.href;
+                            this.navigateDirectory(e);
+                        });
+                    });
+
+                    var cards = modalBody.querySelectorAll('.form-check-input');
+                    cards.forEach(card => {
+                        card.addEventListener('click', () => {
+                            resourcesModalObject.hide();
+                        });
+                    });
+                })
+                .catch(err => {
+                    window.alert(err.response.data + '<br>Image did not upload.');
+                    renable();
                 });
         },
         onDragEnter(e) {
@@ -334,7 +531,7 @@ export default {
                     this.progress = 0;
                 })
                 .catch(err => {
-                    bootbox.alert(err.response.data.error.message);
+                    window.alert(err.response.data.error.message);
                     console.warn(err.response.data.error.message);
                     this.progress = 0;
                 });
@@ -350,12 +547,27 @@ export default {
                     'Content-Type': 'multipart/form-data',
                 },
             };
-            bootbox.prompt({
-                title: 'Upload from URL',
-                callback: function(url) {
-                    if (url) {
+
+            var resourcesModal = document.getElementById('resourcesModal');
+            var saveButton = document.getElementById('modalButtonAccept');
+            var button = event.target;
+            var title = button.getAttribute('data-modal-title');
+            var modalTitle = resourcesModal.querySelector('.modal-title');
+            var modalBody = resourcesModal.querySelector('.modal-body');
+            var modalBodyContent = this.generateUploadFromURLModalContent();
+            modalTitle.innerHTML = title;
+
+            setTimeout(() => {
+                modalBody.innerHTML = modalBodyContent;
+            }, 1);
+
+            saveButton.addEventListener(
+                'click',
+                () => {
+                    var imageURL = modalBody.querySelector('input[name=from-url-input]').value;
+                    if (imageURL) {
                         const fd = new FormData();
-                        fd.append('url', url);
+                        fd.append('url', imageURL);
                         fd.append('_csrf_token', thisField.token);
                         Axios.post(thisField.directoryurl, fd, config)
                             .then(res => {
@@ -365,20 +577,34 @@ export default {
                                 thisField.progress = 0;
                             })
                             .catch(err => {
-                                bootbox.alert(err.response.data.error.message);
+                                window.alert(err.response.data.error.message);
                                 console.warn(err.response.data.error.message);
                                 thisField.progress = 0;
                             });
                     }
                 },
-            });
-            window.$('.bootbox-input').attr('name', 'bootbox-input');
-            window.reEnablePatientButtons();
+                { once: true },
+            );
+
+            resourcesModal.addEventListener(
+                'hidden.bs.modal',
+                () => {
+                    // Reset modal body content when the modal is closed
+                    resetModalContent(this.labels);
+                },
+                { once: true },
+            );
+
+            renable();
         },
         filterServerFiles(files) {
             let self = this;
             return files.filter(function(file) {
                 let ext = /(?:\.([^.]+))?$/.exec(file.text)[1];
+                // If it's a directory, return the directory
+                if (file.group == 'directories') {
+                    return file;
+                }
                 return self.extensions.includes(ext);
             });
         },

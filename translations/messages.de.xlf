@@ -1,1829 +1,3415 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="de" trgLang="de">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="de">
   <file id="messages.de">
-    <unit id="HLtdhYw" name="action.save">
-      <segment>
-        <source>action.save</source>
-        <target>Speichern</target>
-      </segment>
-    </unit>
-    <unit id="TpGxDI3" name="user.unknown_user">
-      <segment>
-        <source>user.unknown_user</source>
-        <target>Unbekannter Benutzer</target>
-      </segment>
-    </unit>
-    <unit id="7aLIA3c" name="caption.dashboard">
-      <segment>
-        <source>caption.dashboard</source>
-        <target>Bolt Dashboard</target>
-      </segment>
-    </unit>
-    <unit id="1xlE8ex" name="caption.content">
-      <segment>
-        <source>caption.content</source>
-        <target>Inhalte</target>
-      </segment>
-    </unit>
-    <unit id="ZO.uqIZ" name="caption.settings">
-      <segment>
-        <source>caption.settings</source>
-        <target>Einstellungen</target>
-      </segment>
-    </unit>
-    <unit id="drK.0GZ" name="caption.taxonomies">
-      <segment>
-        <source>caption.taxonomies</source>
-        <target>Taxonomien</target>
-      </segment>
-    </unit>
-    <unit id="_w7J5rZ" name="caption.contenttypes">
-      <segment>
-        <source>caption.contenttypes</source>
-        <target>Inhaltstypen</target>
-      </segment>
-    </unit>
-    <unit id="kXNBV9S" name="caption.main_configuration">
-      <segment>
-        <source>caption.main_configuration</source>
-        <target>Hauptkonfiguration</target>
-      </segment>
-    </unit>
-    <unit id="ipmA6Ah" name="caption.users_permissions">
-      <segment>
-        <source>caption.users_permissions</source>
-        <target><![CDATA[Benutzer & Rechte]]></target>
-      </segment>
-    </unit>
-    <unit id="zOLL.7E" name="caption.configuration">
-      <segment>
-        <source>caption.configuration</source>
-        <target>Konfiguration</target>
-      </segment>
-    </unit>
-    <unit id="2RUXD4A" name="caption.menu_setup">
-      <segment>
-        <source>caption.menu_setup</source>
-        <target>Menü</target>
-      </segment>
-    </unit>
-    <unit id="wBKDkwl" name="caption.routing_setup">
-      <segment>
-        <source>caption.routing_setup</source>
-        <target>Routen</target>
-      </segment>
-    </unit>
-    <unit id="i4cbdta" name="caption.all_configuration_files">
-      <segment>
-        <source>caption.all_configuration_files</source>
-        <target>Konfigurationsdateien</target>
-      </segment>
-    </unit>
-    <unit id="OpKTKAL" name="caption.maintenance">
-      <segment>
-        <source>caption.maintenance</source>
-        <target>Wartung</target>
-      </segment>
-    </unit>
-    <unit id="mfvtHPQ" name="caption.extensions">
-      <segment>
-        <source>caption.extensions</source>
-        <target>Erweiterungen</target>
-      </segment>
-    </unit>
-    <unit id="Dvu2HQx" name="caption.api">
-      <segment>
-        <source>caption.api</source>
-        <target>API</target>
-      </segment>
-    </unit>
-    <unit id="wLaDaK5" name="caption.about_bolt">
-      <segment>
-        <source>caption.about_bolt</source>
-        <target>Über Bolt</target>
-      </segment>
-    </unit>
-    <unit id="dd5MzCM" name="caption.translations">
-      <segment>
-        <source>caption.translations</source>
-        <target>Übersetzungen</target>
-      </segment>
-    </unit>
-    <unit id="_ef0RBR" name="caption.installation_checks">
-      <segment>
-        <source>caption.installation_checks</source>
-        <target>Installation prüfen</target>
-      </segment>
-    </unit>
-    <unit id="K6TmK4B" name="caption.clear_cache">
-      <segment>
-        <source>caption.clear_cache</source>
-        <target>Cache leeren</target>
-      </segment>
-    </unit>
-    <unit id="hGJoUs5" name="caption.fixtures_dummy_content">
-      <segment>
-        <source>caption.fixtures_dummy_content</source>
-        <target>Beispielinhalte</target>
-      </segment>
-    </unit>
-    <unit id="bmdn3u9" name="action.logout">
-      <segment>
-        <source>action.logout</source>
-        <target>Ausloggen</target>
-      </segment>
-    </unit>
-    <unit id="b_RPpcB" name="general.greeting">
-      <segment>
-        <source>general.greeting</source>
-        <target>Hallo, %name%!</target>
-      </segment>
-    </unit>
-    <unit id="KfVJho2" name="action.create_new">
-      <segment>
-        <source>action.create_new</source>
-        <target>Anlegen</target>
-      </segment>
-    </unit>
-    <unit id="UZFanGF" name="about.bolt_documentation">
-      <segment>
-        <source>about.bolt_documentation</source>
-        <target>Bolt Dokumentation</target>
-      </segment>
-    </unit>
-    <unit id="bq6bSf4" name="caption.uploaded_files">
-      <segment>
-        <source>caption.uploaded_files</source>
-        <target>Hochgeladene Dateien</target>
-      </segment>
-    </unit>
-    <unit id="l4yt0BE" name="caption.file_management">
-      <segment>
-        <source>caption.file_management</source>
-        <target>Dateiverwaltung</target>
-      </segment>
-    </unit>
-    <unit id="N_0yRcH" name="action.close_alert">
-      <segment>
-        <source>action.close_alert</source>
-        <target>Schließen</target>
-      </segment>
-    </unit>
-    <unit id="mEDsKHk" name="label.locale">
-      <segment>
-        <source>label.locale</source>
-        <target>Sprache</target>
-      </segment>
-    </unit>
-    <unit id="D2N6_cP" name="label.email">
-      <segment>
-        <source>label.email</source>
-        <target>E-Mail-Adresse</target>
-      </segment>
-    </unit>
-    <unit id="9pvowqn" name="label.password">
-      <segment>
-        <source>label.password</source>
-        <target>Passwort</target>
-      </segment>
-    </unit>
-    <unit id="SeTqePC" name="label.display_name">
-      <segment>
-        <source>label.display_name</source>
-        <target>Anzeigename</target>
-      </segment>
-    </unit>
-    <unit id="LDhDPrF" name="label.username">
-      <segment>
-        <source>label.username</source>
-        <target>Benutzername</target>
-      </segment>
-    </unit>
-    <unit id="Gabafxx" name="admin_sidebar.toggler">
-      <segment>
-        <source>admin_sidebar.toggler</source>
-        <target>Menü umschalten</target>
-      </segment>
-    </unit>
-    <unit id="jXAelLe" name="admin_sidebar_toggler.toggle">
-      <segment>
-        <source>admin_sidebar_toggler.toggle</source>
-        <target><![CDATA[Menü<span class="sr-only"> umschalten</span>]]></target>
-      </segment>
-    </unit>
-    <unit id="Dgtkgju" name="title.edit_user_profile">
-      <segment>
-        <source>title.edit_user_profile</source>
-        <target>Benutzerprofil bearbeiten</target>
-      </segment>
-    </unit>
-    <unit id="k.JymqB" name="about.visit_bolt">
-      <segment>
-        <source>about.visit_bolt</source>
-        <target>Besucht Boltcms.io</target>
-      </segment>
-    </unit>
-    <unit id="zOfpTLD" name="action.edit_profile">
-      <segment>
-        <source>action.edit_profile</source>
-        <target>Profil bearbeiten</target>
-      </segment>
-    </unit>
-    <unit id="K4D568R" name="caption.view_edit_templates">
-      <segment>
-        <source>caption.view_edit_templates</source>
-        <target>Templates verwalten</target>
-      </segment>
-    </unit>
-    <unit id="TtmWqX3" name="action.view">
-      <segment>
-        <source>action.view</source>
-        <target>Ansehen</target>
-      </segment>
-    </unit>
-    <unit id="JEnqOi." name="title.primary_actions">
-      <segment>
-        <source>title.primary_actions</source>
-        <target>Primäre Aktionen</target>
-      </segment>
-    </unit>
-    <unit id="dQIY7_J" name="action.preview">
-      <segment>
-        <source>action.preview</source>
-        <target>Vorschau</target>
-      </segment>
-    </unit>
-    <unit id="qQKx1lR" name="buttons.button_toggle">
-      <segment>
-        <source>buttons.button_toggle</source>
-        <target>Dropdown anzeigen</target>
-      </segment>
-    </unit>
-    <unit id="ok6YulQ" name="action.view_saved">
-      <segment>
-        <source>action.view_saved</source>
-        <target>Gespeicherte Version anschauen</target>
-      </segment>
-    </unit>
-    <unit id="8zEzq8N" name="field.current_locale">
-      <segment>
-        <source>field.current_locale</source>
-        <target>Aktuelle Sprache</target>
-      </segment>
-    </unit>
-    <unit id="ahZvOJz" name="field.switch_to_locale">
-      <segment>
-        <source>field.switch_to_locale</source>
-        <target>Sprache wechseln zu</target>
-      </segment>
-    </unit>
-    <unit id="7616Os4" name="title.options">
-      <segment>
-        <source>title.options</source>
-        <target>Optionen</target>
-      </segment>
-    </unit>
-    <unit id="FuCyk5C" name="field.status">
-      <segment>
-        <source>field.status</source>
-        <target>Status</target>
-      </segment>
-    </unit>
-    <unit id="3gdi1dy" name="field.publishedAt">
-      <segment>
-        <source>field.publishedAt</source>
-        <target>Veröffentlicht am</target>
-      </segment>
-    </unit>
-    <unit id="SNELzJ2" name="field.id">
-      <segment>
-        <source>field.id</source>
-        <target>ID</target>
-      </segment>
-    </unit>
-    <unit id="eVkSIKu" name="field.modifiedAt">
-      <segment>
-        <source>field.modifiedAt</source>
-        <target>Bearbeitet am</target>
-      </segment>
-    </unit>
-    <unit id="O9wtVOp" name="field.createdAt">
-      <segment>
-        <source>field.createdAt</source>
-        <target>Erstellt am</target>
-      </segment>
-    </unit>
-    <unit id="aQX4Emy" name="field.author">
-      <segment>
-        <source>field.author</source>
-        <target>Autor</target>
-      </segment>
-    </unit>
-    <unit id="eN7IfEL" name="field.depublishedAt">
-      <segment>
-        <source>field.depublishedAt</source>
-        <target>Veröffentlichung zurückgezogen am</target>
-      </segment>
-    </unit>
-    <unit id="HK7XTUX" name="caption.edit">
-      <segment>
-        <source>caption.edit</source>
-        <target>Bearbeiten</target>
-      </segment>
-    </unit>
-    <unit id="vptPhch" name="image.button_upload">
-      <segment>
-        <source>image.button_upload</source>
-        <target>Hochladen</target>
-      </segment>
-    </unit>
-    <unit id="vIVO1lU" name="image.button_from_library">
-      <segment>
-        <source>image.button_from_library</source>
-        <target>Aus der Bibliothek</target>
-      </segment>
-    </unit>
-    <unit id="oOuVKRv" name="image.placeholder_filename">
-      <segment>
-        <source>image.placeholder_filename</source>
-        <target>Dateiname</target>
-      </segment>
-    </unit>
-    <unit id="BWubOnS" name="image.placeholder_alt_text">
-      <segment>
-        <source>image.placeholder_alt_text</source>
-        <target>Alternativer Text</target>
-      </segment>
-    </unit>
-    <unit id="eHV6ZJB" name="image.button_edit_attributes">
-      <segment>
-        <source>image.button_edit_attributes</source>
-        <target>Attribute bearbeiten</target>
-      </segment>
-    </unit>
-    <unit id="odDw0du" name="action.search">
-      <segment>
-        <source>action.search</source>
-        <target>Suchen</target>
-      </segment>
-    </unit>
-    <unit id="Pily_qo" name="general.phrase.read-more">
-      <segment>
-        <source>general.phrase.read-more</source>
-        <target>Mehr anzeigen</target>
-      </segment>
-    </unit>
-    <unit id="wNEwZy_" name="contenttypes.generic.overview">
-      <segment>
-        <source>contenttypes.generic.overview</source>
-        <target>Seitenübersicht</target>
-      </segment>
-    </unit>
-    <unit id="psOa_9x" name="general.phrase.built-with-bolt">
-      <segment>
-        <source>general.phrase.built-with-bolt</source>
-        <target><![CDATA[Diese Webseite wurde erstellt mit <a href='https://boltcms.io' target='_blank' title='Sophisticated, lightweight & simple CMS'>Bolt</a>. ]]></target>
-      </segment>
-    </unit>
-    <unit id="AGegYAN" name="contenttypes.generic.recent">
-      <segment>
-        <source>contenttypes.generic.recent</source>
-        <target>Neueste Seiten</target>
-      </segment>
-    </unit>
-    <unit id="gB.9hTu" name="general.phrase.search-ellipsis">
-      <segment>
-        <source>general.phrase.search-ellipsis</source>
-        <target>...</target>
-      </segment>
-    </unit>
-    <unit id="kaK5Wdr" name="slug.button_locked">
-      <segment>
-        <source>slug.button_locked</source>
-        <target>Deaktiviert</target>
-      </segment>
-    </unit>
-    <unit id="qcDEz5O" name="slug.button_edit">
-      <segment>
-        <source>slug.button_edit</source>
-        <target>Bearbeiten</target>
-      </segment>
-    </unit>
-    <unit id="Wou02nK" name="caption.kitchensink">
-      <segment>
-        <source>caption.kitchensink</source>
-        <target>Testumgebung</target>
-      </segment>
-    </unit>
-    <unit id="xIztVmp" name="listing_filter.button_expanded">
-      <segment>
-        <source>listing_filter.button_expanded</source>
-        <target>Detailansicht</target>
-      </segment>
-    </unit>
-    <unit id="pcq1NGk" name="listing_filter.button_compact">
-      <segment>
-        <source>listing_filter.button_compact</source>
-        <target>Kompakteansicht</target>
-      </segment>
-    </unit>
-    <unit id="L0TE0M9" name="listing_table.actions.view_on_site">
-      <segment>
-        <source>listing_table.actions.view_on_site</source>
-        <target>Anzeigen</target>
-      </segment>
-    </unit>
-    <unit id="PoauAuK" name="listing_table.actions.status_to_publish">
-      <segment>
-        <source>listing_table.actions.status_to_publish</source>
-        <target>Veröffentlichen</target>
-      </segment>
-    </unit>
-    <unit id="ZJxfdD6" name="listing_table.actions.status_to_held">
-      <segment>
-        <source>listing_table.actions.status_to_held</source>
-        <target>Festhalten</target>
-      </segment>
-    </unit>
-    <unit id="apyOs0o" name="listing_table.actions.status_to_draft">
-      <segment>
-        <source>listing_table.actions.status_to_draft</source>
-        <target>Als Vorlage markieren</target>
-      </segment>
-    </unit>
-    <unit id="5H60Xq6" name="listing_table.actions.duplicate">
-      <segment>
-        <source>listing_table.actions.duplicate</source>
-        <target>Duplizieren</target>
-      </segment>
-    </unit>
-    <unit id="hR8ri.m" name="listing_table.actions.delete">
-      <segment>
-        <source>listing_table.actions.delete</source>
-        <target>Löschen</target>
-      </segment>
-    </unit>
-    <unit id="5zbX1vo" name="listing_table.actions.slug">
-      <segment>
-        <source>listing_table.actions.slug</source>
-        <target>Slug</target>
-      </segment>
-    </unit>
-    <unit id="wKDOBOC" name="listing_table.actions.created_on">
-      <segment>
-        <source>listing_table.actions.created_on</source>
-        <target>Erstellt am</target>
-      </segment>
-    </unit>
-    <unit id="tVX01Xl" name="listing_table.actions.published_on">
-      <segment>
-        <source>listing_table.actions.published_on</source>
-        <target>Veröffentlicht am</target>
-      </segment>
-    </unit>
-    <unit id="kHkjS5U" name="listing_table.actions.last_modified_on">
-      <segment>
-        <source>listing_table.actions.last_modified_on</source>
-        <target>Zuletzt bearbeitet am</target>
-      </segment>
-    </unit>
-    <unit id="Em.C0bV" name="listing_table.actions.button_edit">
-      <segment>
-        <source>listing_table.actions.button_edit</source>
-        <target>Bearbeiten</target>
-      </segment>
-    </unit>
-    <unit id="a2vzLi7" name="action.do_something">
-      <segment>
-        <source>action.do_something</source>
-        <target>Beispieltext</target>
-      </segment>
-    </unit>
-    <unit id="z2AgHGp" name="flash_messages.notification">
-      <segment>
-        <source>flash_messages.notification</source>
-        <target>Benachrichtigung</target>
-      </segment>
-    </unit>
-    <unit id="ruQIhH0" name="success">
-      <segment>
-        <source>success</source>
-        <target>Erfolg!</target>
-      </segment>
-    </unit>
-    <unit id="cH6rDCP" name="Button">
-      <segment>
-        <source>Button</source>
-        <target>Button</target>
-      </segment>
-    </unit>
-    <unit id="1LzKCXS" name="&lt;strong&gt;Well done!&lt;/strong&gt; You successfully read this important alert message.">
-      <segment>
-        <source>&lt;strong&gt;Well done!&lt;/strong&gt; You successfully read this important alert message.</source>
-        <target><![CDATA[<strong>Gut gemacht!</strong> Sie haben diese wichtige Meldung erfolgreich gelesen. ]]></target>
-      </segment>
-    </unit>
-    <unit id="RaGzSx5" name="57d589f">
-      <segment>
-        <source>57d589f</source>
-        <target><![CDATA[<strong>Achtung!</strong> Diese Warnung benötigt Ihre Aufmerksamkeit, ist aber nicht besonders wichtig.]]></target>
-      </segment>
-    </unit>
-    <unit id="Bicbr0l" name="info">
-      <segment>
-        <source>info</source>
-        <target>Information</target>
-      </segment>
-    </unit>
-    <unit id="S9k1S7Z" name="warning">
-      <segment>
-        <source>warning</source>
-        <target>Warnung</target>
-      </segment>
-    </unit>
-    <unit id="JYILFeM" name="&lt;strong&gt;Warning!&lt;/strong&gt; Better check yourself, you're not looking too good.">
-      <segment>
-        <source>&lt;strong&gt;Warning!&lt;/strong&gt; Better check yourself, you're not looking too good.</source>
-        <target><![CDATA[<strong>Warnung!</strong> Pass auf, etwas stimmt nicht.]]></target>
-      </segment>
-    </unit>
-    <unit id="Ej.WZqo" name="danger">
-      <segment>
-        <source>danger</source>
-        <target>Achtung</target>
-      </segment>
-    </unit>
-    <unit id="OGd6iOm" name="&lt;strong&gt;Oh snap!&lt;/strong&gt; Change a few things up and try submitting again.">
-      <segment>
-        <source>&lt;strong&gt;Oh snap!&lt;/strong&gt; Change a few things up and try submitting again.</source>
-        <target><![CDATA[<strong>Ohje!</strong> Ändere ein paar Dinge und versuche es erneut.]]></target>
-      </segment>
-    </unit>
-    <unit id="ypPzS03" name="localeswitcher.button_info">
-      <segment>
-        <source>localeswitcher.button_info</source>
-        <target>Übersetzungsstatus</target>
-      </segment>
-    </unit>
-    <unit id="raO5QSf" name="slug.generate_from">
-      <segment>
-        <source>slug.generate_from</source>
-        <target>Erzeugt aus:</target>
-      </segment>
-    </unit>
-    <unit id="BINgtmK" name="editor_date.toggle">
-      <segment>
-        <source>editor_date.toggle</source>
-        <target>Umschalten</target>
-      </segment>
-    </unit>
-    <unit id="n.jOrkg" name="caption.untitled_contenttype">
-      <segment>
-        <source>caption.untitled_contenttype</source>
-        <target>Unbenannte(r) %contenttype%</target>
-      </segment>
-    </unit>
-    <unit id="QoeqyPT" name="caption.new_contenttype">
-      <segment>
-        <source>caption.new_contenttype</source>
-        <target>%contenttype% anlegen</target>
-      </segment>
-    </unit>
-    <unit id="Iy4HXCU" name="controller.user.title">
-      <segment>
-        <source>controller.user.title</source>
-        <target><![CDATA[Benutzer & Rechte]]></target>
-      </segment>
-    </unit>
-    <unit id="7cXqH5s" name="listing.title_display_name">
-      <segment>
-        <source>listing.title_display_name</source>
-        <target>Anzeigename</target>
-      </segment>
-    </unit>
-    <unit id="Ay7xZ2h" name="listing.title_username">
-      <segment>
-        <source>listing.title_username</source>
-        <target>Benutzername</target>
-      </segment>
-    </unit>
-    <unit id="RN1tdtJ" name="listing.title_email">
-      <segment>
-        <source>listing.title_email</source>
-        <target>E-Mail-Adresse</target>
-      </segment>
-    </unit>
-    <unit id="0pjZ.GV" name="listing.title_roles">
-      <segment>
-        <source>listing.title_roles</source>
-        <target>Rollen</target>
-      </segment>
-    </unit>
-    <unit id="hXEFV1n" name="listing.title_last_seen">
-      <segment>
-        <source>listing.title_last_seen</source>
-        <target>Zuletzt gesehen</target>
-      </segment>
-    </unit>
-    <unit id="pn7kE17" name="listing.title_last_ip">
-      <segment>
-        <source>listing.title_last_ip</source>
-        <target>Letzte Ip</target>
-      </segment>
-    </unit>
-    <unit id="GZ65uOC" name="listing.title_actions">
-      <segment>
-        <source>listing.title_actions</source>
-        <target>Optionen</target>
-      </segment>
-    </unit>
-    <unit id="ovKkXwU" name="action.edit">
-      <segment>
-        <source>action.edit</source>
-        <target>Bearbeiten</target>
-      </segment>
-    </unit>
-    <unit id="ryXZRAu" name="action.disable">
-      <segment>
-        <source>action.disable</source>
-        <target>Deaktivieren</target>
-      </segment>
-    </unit>
-    <unit id="hTKWQ6g" name="action.delete">
-      <segment>
-        <source>action.delete</source>
-        <target>Löschen</target>
-      </segment>
-    </unit>
-    <unit id="3zlZmRK" name="action.add_user">
-      <segment>
-        <source>action.add_user</source>
-        <target>Benutzer hinzufügen</target>
-      </segment>
-    </unit>
-    <unit id="Npkio79" name="listing.title_session_expires">
-      <segment>
-        <source>listing.title_session_expires</source>
-        <target>Session endet</target>
-      </segment>
-    </unit>
-    <unit id="mmUDcto" name="listing.title_ip_address">
-      <segment>
-        <source>listing.title_ip_address</source>
-        <target>IP-Adresse</target>
-      </segment>
-    </unit>
-    <unit id="x9qAwrz" name="listing.title_browser">
-      <segment>
-        <source>listing.title_browser</source>
-        <target>Browser / Betriebssystem</target>
-      </segment>
-    </unit>
-    <unit id="HBwIQ9b" name="controller.user.subtitle">
-      <segment>
-        <source>controller.user.subtitle</source>
-        <target>Benutzer und Rechte bearbeiten</target>
-      </segment>
-    </unit>
-    <unit id="7whLbH8" name="user.new_user">
-      <segment>
-        <source>user.new_user</source>
-        <target>Neuen Benutzer anlegen</target>
-      </segment>
-    </unit>
-    <unit id="1sstKF9" name="title.edit_user">
-      <segment>
-        <source>title.edit_user</source>
-        <target>Benutzer bearbeiten</target>
-      </segment>
-    </unit>
-    <unit id="iD6CNOO" name="label.roles">
-      <segment>
-        <source>label.roles</source>
-        <target>Rollen</target>
-      </segment>
-    </unit>
-    <unit id="FSroufa" name="caption.path">
-      <segment>
-        <source>caption.path</source>
-        <target>Pfad</target>
-      </segment>
-    </unit>
-    <unit id="P1FHg3Q" name="caption.edit_file">
-      <segment>
-        <source>caption.edit_file</source>
-        <target>Datei bearbeiten</target>
-      </segment>
-    </unit>
-    <unit id="m3tNvJb" name="finder.button_list">
-      <segment>
-        <source>finder.button_list</source>
-        <target>Listenansicht</target>
-      </segment>
-    </unit>
-    <unit id="tRLgeoX" name="finder.button_cards">
-      <segment>
-        <source>finder.button_cards</source>
-        <target>Kartenansicht</target>
-      </segment>
-    </unit>
-    <unit id="KHvGNGW" name="directoryname">
-      <segment>
-        <source>directoryname</source>
-        <target>Verzeichnisname</target>
-      </segment>
-    </unit>
-    <unit id="QZYjRy0" name="caption.file_uploader">
-      <segment>
-        <source>caption.file_uploader</source>
-        <target>Datei hochladen</target>
-      </segment>
-    </unit>
-    <unit id="v6cfPyt" name="quickselect.title_select">
-      <segment>
-        <source>quickselect.title_select</source>
-        <target>Datei auswählen</target>
-      </segment>
-    </unit>
-    <unit id="JjU6ZQP" name="files_cards.action_delete">
-      <segment>
-        <source>files_cards.action_delete</source>
-        <target>Löschen</target>
-      </segment>
-    </unit>
-    <unit id="ZoY6ADX" name="files_cards.action_duplicate">
-      <segment>
-        <source>files_cards.action_duplicate</source>
-        <target>Duplizieren</target>
-      </segment>
-    </unit>
-    <unit id="H1pgP94" name="files_cards.action_view_original">
-      <segment>
-        <source>files_cards.action_view_original</source>
-        <target>Original ansehen</target>
-      </segment>
-    </unit>
-    <unit id="5LXvJfE" name="files_cards.action_edit_file">
-      <segment>
-        <source>files_cards.action_edit_file</source>
-        <target>Datei im Editor bearbeiten</target>
-      </segment>
-    </unit>
-    <unit id="3jdNwuk" name="files_cards.label_filename">
-      <segment>
-        <source>files_cards.label_filename</source>
-        <target>Dateiname:</target>
-      </segment>
-    </unit>
-    <unit id="eQBhceV" name="files_cards.label_filesize">
-      <segment>
-        <source>files_cards.label_filesize</source>
-        <target>Dateigröße:</target>
-      </segment>
-    </unit>
-    <unit id="uiCjlwk" name="files_cards.label_created_on">
-      <segment>
-        <source>files_cards.label_created_on</source>
-        <target>Erstellt am:</target>
-      </segment>
-    </unit>
-    <unit id="LaDIuZA" name="caption.meta_information">
-      <segment>
-        <source>caption.meta_information</source>
-        <target>Metadaten</target>
-      </segment>
-    </unit>
-    <unit id="Kw3N1AA" name="actions">
-      <segment>
-        <source>actions</source>
-        <target>Optionen</target>
-      </segment>
-    </unit>
-    <unit id="I2ykiIZ" name="caption.folders">
-      <segment>
-        <source>caption.folders</source>
-        <target>Ordner</target>
-      </segment>
-    </unit>
-    <unit id="QQvRJe." name="files_cards.button_toggle">
-      <segment>
-        <source>files_cards.button_toggle</source>
-        <target>Dropdown umschalten</target>
-      </segment>
-    </unit>
-    <unit id="C15MbYY" name="form.quick_select_file">
-      <segment>
-        <source>form.quick_select_file</source>
-        <target>Datei Schnellauswahl</target>
-      </segment>
-    </unit>
-    <unit id="73A2bWM" name="finder.label_view">
-      <segment>
-        <source>finder.label_view</source>
-        <target>Ansicht:</target>
-      </segment>
-    </unit>
-    <unit id="_XSgfqS" name="filename">
-      <segment>
-        <source>filename</source>
-        <target>Dateiname</target>
-      </segment>
-    </unit>
-    <unit id="gPYflhh" name="thumbnail">
-      <segment>
-        <source>thumbnail</source>
-        <target>Vorschaubild</target>
-      </segment>
-    </unit>
-    <unit id="zNy_hG8" name="size">
-      <segment>
-        <source>size</source>
-        <target>Größe</target>
-      </segment>
-    </unit>
-    <unit id="DodjLNR" name="date">
-      <segment>
-        <source>date</source>
-        <target>Datum</target>
-      </segment>
-    </unit>
-    <unit id="gtC_ujD" name="files_cards.action_edit_image_info">
-      <segment>
-        <source>files_cards.action_edit_image_info</source>
-        <target>Bild Metadaten bearbeiten</target>
-      </segment>
-    </unit>
-    <unit id="vlRe8Tx" name="field.width">
-      <segment>
-        <source>field.width</source>
-        <target>Breite</target>
-      </segment>
-    </unit>
-    <unit id="CZbXbM_" name="field.height">
-      <segment>
-        <source>field.height</source>
-        <target>Höhe</target>
-      </segment>
-    </unit>
-    <unit id="EaqUUfe" name="label.predominant_colors__in_image">
-      <segment>
-        <source>label.predominant_colors__in_image</source>
-        <target>Vorherrschende Farben</target>
-      </segment>
-    </unit>
-    <unit id="Sz_u.OS" name="field.filesize">
-      <segment>
-        <source>field.filesize</source>
-        <target>Dateigröße</target>
-      </segment>
-    </unit>
-    <unit id="TtIlBDd" name="caption.edit_image">
-      <segment>
-        <source>caption.edit_image</source>
-        <target>Bild bearbeiten</target>
-      </segment>
-    </unit>
-    <unit id="y5otxEK" name="caption.filename">
-      <segment>
-        <source>caption.filename</source>
-        <target>Dateiname</target>
-      </segment>
-    </unit>
-    <unit id="VKhfRZB" name="field.title">
-      <segment>
-        <source>field.title</source>
-        <target>Title</target>
-      </segment>
-    </unit>
-    <unit id="7_wwX8J" name="field.description">
-      <segment>
-        <source>field.description</source>
-        <target>Beschreibung</target>
-      </segment>
-    </unit>
-    <unit id="hjDmcPC" name="field.copyright">
-      <segment>
-        <source>field.copyright</source>
-        <target>Copyright</target>
-      </segment>
-    </unit>
-    <unit id="v0sitU8" name="field.originalFilename">
-      <segment>
-        <source>field.originalFilename</source>
-        <target>Originaler Dateiname</target>
-      </segment>
-    </unit>
-    <unit id="fLOd6Zd" name="field.cropX">
-      <segment>
-        <source>field.cropX</source>
-        <target>Breite zuschneiden</target>
-      </segment>
-    </unit>
-    <unit id="hi98HIj" name="field.cropY">
-      <segment>
-        <source>field.cropY</source>
-        <target>Höhe zuschneiden</target>
-      </segment>
-    </unit>
-    <unit id="Sd_AbmV" name="field.cropXPostfix">
-      <segment>
-        <source>field.cropXPostfix</source>
-        <target>Mögliche Positionen der X-Achse sind 0-100.</target>
-      </segment>
-    </unit>
-    <unit id="BQBmQHT" name="field.cropYPostfix">
-      <segment>
-        <source>field.cropYPostfix</source>
-        <target>Mögliche Positionen der Y-Achse sind 0-100.</target>
-      </segment>
-    </unit>
-    <unit id="PHOpD5y" name="field.cropZoom">
-      <segment>
-        <source>field.cropZoom</source>
-        <target>Zoomfaktor</target>
-      </segment>
-    </unit>
-    <unit id="tn6Z8wY" name="field.cropZoomPostfix">
-      <segment>
-        <source>field.cropZoomPostfix</source>
-        <target>Möglicher Zoomfaktor ist 0-10.</target>
-      </segment>
-    </unit>
-    <unit id="IB0mNQh" name="content.created_successfully">
-      <segment>
-        <source>content.created_successfully</source>
-        <target>Mediendatei wurde erfolgreich erstellt!</target>
-      </segment>
-    </unit>
-    <unit id="nrWBJNm" name="extensions.title_desc">
-      <segment>
-        <source>extensions.title_desc</source>
-        <target>Beschreibung:</target>
-      </segment>
-    </unit>
-    <unit id="7raDJAR" name="extensions.title_author">
-      <segment>
-        <source>extensions.title_author</source>
-        <target>Autor:</target>
-      </segment>
-    </unit>
-    <unit id="UP8pNGy" name="extensions.title_package">
-      <segment>
-        <source>extensions.title_package</source>
-        <target>Package / Class name:</target>
-      </segment>
-    </unit>
-    <unit id="QFQ1uTC" name="extensions.title_version">
-      <segment>
-        <source>extensions.title_version</source>
-        <target>Version:</target>
-      </segment>
-    </unit>
-    <unit id="mjhFljb" name="extensions.button_configuration">
-      <segment>
-        <source>extensions.button_configuration</source>
-        <target>Konfiguration</target>
-      </segment>
-    </unit>
-    <unit id="r3ryNTG" name="extensions.button_source">
-      <segment>
-        <source>extensions.button_source</source>
-        <target>Source</target>
-      </segment>
-    </unit>
-    <unit id="7JK6jNv" name="extensions.message_not_implemented">
-      <segment>
-        <source>extensions.message_not_implemented</source>
-        <target>Entschuldigung! Noch nicht implementiert!</target>
-      </segment>
-    </unit>
-    <unit id="qc3rFkZ" name="extensions.button_remove">
-      <segment>
-        <source>extensions.button_remove</source>
-        <target>Erweiterung entfernen</target>
-      </segment>
-    </unit>
-    <unit id="SLZyVzU" name="extensions.button_disable">
-      <segment>
-        <source>extensions.button_disable</source>
-        <target>Erweiterung deaktivieren</target>
+    <unit id="Zssh7In" name="content.status_changed_successfully">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Controller/Backend/BulkOperationsController.php:63</note>
+        <note category="file-source" priority="1">bolt-core/src/Controller/Backend/ContentEditController.php:298</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>content.status_changed_successfully</source>
+        <target>Status erfolgreich geändert</target>
+      </segment>
+    </unit>
+    <unit id="GOhQBY9" name="content.deleted_successfully">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Controller/Backend/BulkOperationsController.php:86</note>
+        <note category="file-source" priority="1">bolt-core/src/Controller/Backend/ContentEditController.php:324</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>content.deleted_successfully</source>
+        <target>Inhalt erfolgreich gelöscht</target>
       </segment>
     </unit>
     <unit id="2MMvCKK" name="label.cache_cleared">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Controller/Backend/ClearCacheController.php:28</note>
+      </notes>
       <segment>
         <source>label.cache_cleared</source>
         <target>Der Cache wurde erfolgreich geleert!</target>
       </segment>
     </unit>
-    <unit id="5IxD63c" name="general.latest_bolt_news">
+    <unit id="iH0RRIt" name="content.validation_errors">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Controller/Backend/ContentEditController.php:198</note>
+        <note category="state" priority="1">new</note>
+      </notes>
       <segment>
-        <source>general.latest_bolt_news</source>
-        <target>Neueste Bolt Neuigkeiten</target>
+        <source>content.validation_errors</source>
+        <target>Fehler beim validieren</target>
       </segment>
     </unit>
-    <unit id="xN1kSQQ" name="caption.bolt_payoff">
+    <unit id="ruQIhH0" name="success">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Controller/Backend/ContentEditController.php:227</note>
+      </notes>
       <segment>
-        <source>caption.bolt_payoff</source>
-        <target>Anspruchsvolles, leichtes und einfaches CMS</target>
+        <source>success</source>
+        <target>Erfolg!</target>
       </segment>
     </unit>
-    <unit id="FO7zDub" name="about.bolt_on_github">
+    <unit id="3hkt.eH" name="content.updated_successfully">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Controller/Backend/ContentEditController.php:228</note>
+        <note category="file-source" priority="1">bolt-core/src/Controller/Backend/ContentEditController.php:236</note>
+        <note category="file-source" priority="1">bolt-core/src/Controller/Backend/MediaEditController.php:85</note>
+        <note category="state" priority="1">new</note>
+      </notes>
       <segment>
-        <source>about.bolt_on_github</source>
-        <target>Bolt auf GitHub</target>
+        <source>content.updated_successfully</source>
+        <target>Inhalt erfolgreich aktualisiert</target>
       </segment>
     </unit>
-    <unit id="_9fS00R" name="about.used_libraries">
+    <unit id="z2AgHGp" name="flash_messages.notification">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Controller/Backend/ContentEditController.php:229</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/_flash_messages.html.twig:8</note>
+      </notes>
       <segment>
-        <source>about.used_libraries</source>
-        <target>Benutzte Libraries</target>
+        <source>flash_messages.notification</source>
+        <target>Benachrichtigung</target>
       </segment>
     </unit>
-    <unit id="tgLgLDQ" name="about.list_of_used_libraries">
+    <unit id="Iyry5.g" name="editfile.updated_successfully">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Controller/Backend/FileEditController.php:105</note>
+        <note category="state" priority="1">new</note>
+      </notes>
       <segment>
-        <source>about.list_of_used_libraries</source>
-        <target>Unten aufgelistetete Libraries werden von Bolt verwendet.</target>
+        <source>editfile.updated_successfully</source>
+        <target>Datei erfolgreich aktualisiert!</target>
       </segment>
     </unit>
-    <unit id="ufFUPp7" name="view_locales.badge_missing">
+    <unit id="b1jqjUC" name="editfile.could_not_write">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Controller/Backend/FileEditController.php:107</note>
+        <note category="state" priority="1">new</note>
+      </notes>
       <segment>
-        <source>view_locales.badge_missing</source>
-        <target>Fehlt</target>
+        <source>editfile.could_not_write</source>
+        <target>Datei konnte nicht gespeichert werden</target>
       </segment>
     </unit>
-    <unit id="JTRCo_U" name="view_locales.badge_ok">
+    <unit id="v7ZTnja" name="file.delete_success">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Controller/Backend/FileEditController.php:151</note>
+        <note category="state" priority="1">new</note>
+      </notes>
       <segment>
-        <source>view_locales.badge_ok</source>
-        <target>Ok</target>
+        <source>file.delete_success</source>
+        <target>Datei erfolgreich gelöscht!</target>
       </segment>
     </unit>
-    <unit id="37kJiIe" name="view_locales.badge_default">
+    <unit id="lZxOEzh" name="filemanager.delete_folder_successful">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Controller/Backend/FilemanagerController.php:128</note>
+        <note category="state" priority="1">new</note>
+      </notes>
       <segment>
-        <source>view_locales.badge_default</source>
-        <target>Standard</target>
+        <source>filemanager.delete_folder_successful</source>
+        <target>Ordner erfolgreich gelöscht</target>
       </segment>
     </unit>
-    <unit id="UNBaDz." name="general.phrase.edit">
+    <unit id="VNOIZGY" name="filemanager.delete_folder_error">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Controller/Backend/FilemanagerController.php:130</note>
+        <note category="state" priority="1">new</note>
+      </notes>
       <segment>
-        <source>general.phrase.edit</source>
-        <target>Bearbeiten</target>
+        <source>filemanager.delete_folder_error</source>
+        <target>Ordner konnte nicht gelöscht werden</target>
       </segment>
     </unit>
-    <unit id=".fL0AbE" name="files_list.remark">
+    <unit id="4fyuUU." name="filemanager.create_folder_already_exists">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Controller/Backend/FilemanagerController.php:165</note>
+        <note category="state" priority="1">new</note>
+      </notes>
       <segment>
-        <source>files_list.remark</source>
-        <target>Keine Dateien im Ordner vorhanden, bitte wählen Sie ein Verzeichnis aus!</target>
+        <source>filemanager.create_folder_already_exists</source>
+        <target>Ordner existiert bereits</target>
       </segment>
     </unit>
-    <unit id="283aB_E" name="caption.file_upload.upload_text">
+    <unit id="aSxePCB" name="filemanager.create_folder_error">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Controller/Backend/FilemanagerController.php:166</note>
+        <note category="file-source" priority="1">bolt-core/src/Controller/Backend/FilemanagerController.php:172</note>
+        <note category="state" priority="1">new</note>
+      </notes>
       <segment>
-        <source>caption.file_upload.upload_text</source>
-        <target>Legen Sie Dateien hier ab, um sie hochzuladen</target>
+        <source>filemanager.create_folder_error</source>
+        <target>Ordner konnte nicht erstellt werden</target>
       </segment>
     </unit>
-    <unit id="AMxTho9" name="pager.previous">
+    <unit id="wbFKypA" name="filemanager.create_folder_success">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Controller/Backend/FilemanagerController.php:170</note>
+        <note category="state" priority="1">new</note>
+      </notes>
       <segment>
-        <source>pager.previous</source>
-        <target>Zurück</target>
+        <source>filemanager.create_folder_success</source>
+        <target>Ordner wurde erfolgreich erstellt.</target>
       </segment>
     </unit>
-    <unit id="L_YQKUn" name="pager.next">
+    <unit id="1LzKCXS" name="&lt;strong&gt;Well done!&lt;/strong&gt; You successfully read this important alert message.">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Controller/Backend/GeneralController.php:57</note>
+      </notes>
       <segment>
-        <source>pager.next</source>
-        <target>Vor</target>
+        <source>&lt;strong&gt;Well done!&lt;/strong&gt; You successfully read this important alert message.</source>
+        <target><![CDATA[<strong>Gut gemacht!</strong> Sie haben diese wichtige Meldung erfolgreich gelesen. ]]></target>
       </segment>
     </unit>
-    <unit id="2MtT_h0" name="caption.logviewer">
+    <unit id="ibSB.pZ">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Controller/Backend/GeneralController.php:58</note>
+        <note category="state" priority="1">new</note>
+      </notes>
       <segment>
-        <source>caption.logviewer</source>
-        <target>Protokolle</target>
+        <source>&lt;strong&gt;Heads up!&lt;/strong&gt; This alert needs your attention, but it's not super important.</source>
+        <target>&lt;strong&gt;Achtung!&lt;/strong&gt; Diese Benachrichtigung benötigt Ihre Aufmerksamkeit, aber es ist nciht super wichtig..</target>
       </segment>
     </unit>
-    <unit id="wGlnx8X" name="general.phrase.search">
+    <unit id="JYILFeM" name="&lt;strong&gt;Warning!&lt;/strong&gt; Better check yourself, you're not looking too good.">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Controller/Backend/GeneralController.php:59</note>
+      </notes>
       <segment>
-        <source>general.phrase.search</source>
-        <target>Suche</target>
+        <source>&lt;strong&gt;Warning!&lt;/strong&gt; Better check yourself, you're not looking too good.</source>
+        <target><![CDATA[<strong>Warnung!</strong> Pass auf, etwas stimmt nicht.]]></target>
       </segment>
     </unit>
-    <unit id="O_m7mx1" name="listing.placeholder_search">
+    <unit id="OGd6iOm" name="&lt;strong&gt;Oh snap!&lt;/strong&gt; Change a few things up and try submitting again.">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Controller/Backend/GeneralController.php:60</note>
+      </notes>
       <segment>
-        <source>listing.placeholder_search</source>
-        <target>Nach Schlüsselwörtern suchen ...</target>
+        <source>&lt;strong&gt;Oh snap!&lt;/strong&gt; Change a few things up and try submitting again.</source>
+        <target><![CDATA[<strong>Ohje!</strong> Ändere ein paar Dinge und versuche es erneut.]]></target>
       </segment>
     </unit>
-    <unit id=".I3mIHo" name="label.current_status">
+    <unit id="IB0mNQh" name="content.created_successfully">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Controller/Backend/MediaEditController.php:111</note>
+      </notes>
       <segment>
-        <source>label.current_status</source>
-        <target>Aktueller Status</target>
-      </segment>
-    </unit>
-    <unit id="utGAKaQ" name="status.published">
-      <segment>
-        <source>status.published</source>
-        <target>Veröffentlicht</target>
-      </segment>
-    </unit>
-    <unit id="6Gw1lsE" name="action.confirm_delete">
-      <segment>
-        <source>action.confirm_delete</source>
-        <target>Sind Sie sicher, dass Sie diesen Inhalt löschen möchten?
-</target>
-      </segment>
-    </unit>
-    <unit id="oxqDDuK" name="status.held">
-      <segment>
-        <source>status.held</source>
-        <target>Gehalten</target>
-      </segment>
-    </unit>
-    <unit id="h7dP3WY" name="status.timed">
-      <segment>
-        <source>status.timed</source>
-        <target>Terminiert</target>
-      </segment>
-    </unit>
-    <unit id="HJbHjee" name="status.draft">
-      <segment>
-        <source>status.draft</source>
-        <target>Entwurf</target>
-      </segment>
-    </unit>
-    <unit id="hAysbHB" name="label.translatable">
-      <segment>
-        <source>label.translatable</source>
-        <target>Dieses Feld ist übersetzbar</target>
-      </segment>
-    </unit>
-    <unit id="YZJO3Ul" name="upload.allow_file_types">
-      <segment>
-        <source>upload.allow_file_types</source>
-        <target>Erlaubte Dateiformate</target>
-      </segment>
-    </unit>
-    <unit id="noOf4ML" name="upload.max_size">
-      <segment>
-        <source>upload.max_size</source>
-        <target>Maximale Dateigröße</target>
-      </segment>
-    </unit>
-    <unit id="FqVh1Hv" name="image.button_remove">
-      <segment>
-        <source>image.button_remove</source>
-        <target>Entfernen</target>
-      </segment>
-    </unit>
-    <unit id="XQ2U6fN" name="slug.button_unlocked">
-      <segment>
-        <source>slug.button_unlocked</source>
-        <target>Entsperrt</target>
-      </segment>
-    </unit>
-    <unit id="BdhsE_X" name="listing_select_box.card_header.selected">
-      <segment>
-        <source>listing_select_box.card_header.selected</source>
-        <target>Ausgewählt</target>
-      </segment>
-    </unit>
-    <unit id="WeJxw6Z" name="action.update_all">
-      <segment>
-        <source>action.update_all</source>
-        <target>auf alle anwenden</target>
-      </segment>
-    </unit>
-    <unit id="vJwSCBO" name="title.contentlisting">
-      <segment>
-        <source>title.contentlisting</source>
-        <target>Inhaltsauflistung</target>
-      </segment>
-    </unit>
-    <unit id="wQ0WYAT" name="listing.title_sortby">
-      <segment>
-        <source>listing.title_sortby</source>
-        <target>Sortieren nach</target>
-      </segment>
-    </unit>
-    <unit id="hp554Ds" name="listing.option_select_sortby">
-      <segment>
-        <source>listing.option_select_sortby</source>
-        <target>Feld zum Sortieren auswählen</target>
-      </segment>
-    </unit>
-    <unit id="IWbf2by" name="listing.title_filterby">
-      <segment>
-        <source>listing.title_filterby</source>
-        <target>Filtern nach</target>
-      </segment>
-    </unit>
-    <unit id="pn22p7q" name="listing.placeholder_filter">
-      <segment>
-        <source>listing.placeholder_filter</source>
-        <target>Schlüsselwort zum Filtern ...</target>
-      </segment>
-    </unit>
-    <unit id="ni4zApC" name="listing.button_filter">
-      <segment>
-        <source>listing.button_filter</source>
-        <target>Filtern</target>
-      </segment>
-    </unit>
-    <unit id="n.3JZvX" name="title.contentType">
-      <segment>
-        <source>title.contentType</source>
-        <target>Inhaltstyp</target>
-      </segment>
-    </unit>
-    <unit id="Hlf9c1s" name="listing.title_overview">
-      <segment>
-        <source>listing.title_overview</source>
-        <target>Übersicht für</target>
-      </segment>
-    </unit>
-    <unit id="kHeY93_" name="editor_embed.content_url">
-      <segment>
-        <source>editor_embed.content_url</source>
-        <target>URL des einzubettenden Inhalts</target>
-      </segment>
-    </unit>
-    <unit id="VoIdmBa" name="editor_embed.placeholder_content_url">
-      <segment>
-        <source>editor_embed.placeholder_content_url</source>
-        <target>URL des Inhalts von Facebook, Twitter, Soundcloud, Youtube, Vimeo…</target>
-      </segment>
-    </unit>
-    <unit id="1.Eb1GS" name="editor_embed.label_height">
-      <segment>
-        <source>editor_embed.label_height</source>
-        <target>Höhe</target>
-      </segment>
-    </unit>
-    <unit id="eWLSFJs" name="editor_embed.label_pixel">
-      <segment>
-        <source>editor_embed.label_pixel</source>
-        <target>Pixel</target>
-      </segment>
-    </unit>
-    <unit id="EAtXrAm" name="editor_embed.label_matched_embed">
-      <segment>
-        <source>editor_embed.label_matched_embed</source>
-        <target>Zugeordnete Einbettung</target>
-      </segment>
-    </unit>
-    <unit id="zATju4V" name="editor_embed.label_preview">
-      <segment>
-        <source>editor_embed.label_preview</source>
-        <target>Vorschau</target>
-      </segment>
-    </unit>
-    <unit id="9SQ0oaR" name="editor_embed.label_size">
-      <segment>
-        <source>editor_embed.label_size</source>
-        <target>Größe</target>
-      </segment>
-    </unit>
-    <unit id="VPV0lFM" name="image.placeholder_title">
-      <segment>
-        <source>image.placeholder_title</source>
-        <target>Titel</target>
-      </segment>
-    </unit>
-    <unit id="7aSD0Qr" name="image.button_up">
-      <segment>
-        <source>image.button_up</source>
-        <target>Hoch</target>
-      </segment>
-    </unit>
-    <unit id="WihD8Y5" name="image.button_down">
-      <segment>
-        <source>image.button_down</source>
-        <target>Runter</target>
-      </segment>
-    </unit>
-    <unit id="Oj2UZ5J" name="image.add_new_image">
-      <segment>
-        <source>image.add_new_image</source>
-        <target>Neues Bild hinzufügen</target>
-      </segment>
-    </unit>
-    <unit id="8Q4FxVw" name="file.add_new_file">
-      <segment>
-        <source>file.add_new_file</source>
-        <target>Neue Datei hinzufügen</target>
-      </segment>
-    </unit>
-    <unit id="0C9.Vmh" name="collection.add_item">
-      <segment>
-        <source>collection.add_item</source>
-        <target>Objekt zu %name% hinzufügen </target>
-      </segment>
-    </unit>
-    <unit id="ApPu4P_" name="collection.move_item_up">
-      <segment>
-        <source>collection.move_item_up</source>
-        <target>Hoch bewegen</target>
-      </segment>
-    </unit>
-    <unit id="KzBtfHi" name="collection.move_item_down">
-      <segment>
-        <source>collection.move_item_down</source>
-        <target>Runter bewegen</target>
-      </segment>
-    </unit>
-    <unit id="JpJFIFq" name="collection.confirm_delete">
-      <segment>
-        <source>collection.confirm_delete</source>
-        <target>Sind Sie sicher, dass Sie dieses Kollektionsobjekt löschen möchten?</target>
-      </segment>
-    </unit>
-    <unit id=".t1ICS7" name="collection.remove_item">
-      <segment>
-        <source>collection.remove_item</source>
-        <target>Objekt entfernen</target>
-      </segment>
-    </unit>
-    <unit id="rCKtTo5" name="caption.redirection_page">
-      <segment>
-        <source>caption.redirection_page</source>
-        <target>Weiterleitungsseite</target>
-      </segment>
-    </unit>
-    <unit id="wHPoBzP" name="file.delete_confirm">
-      <segment>
-        <source>file.delete_confirm</source>
-        <target>Sind Sie sicher, dass Sie diese Datei löschen möchten?</target>
-      </segment>
-    </unit>
-    <unit id="hgNZLwW" name="extensions.title_configuration">
-      <segment>
-        <source>extensions.title_configuration</source>
-        <target>Konfigurationsdatei</target>
-      </segment>
-    </unit>
-    <unit id="BFARQEU" name="extensions.button_detailed_view">
-      <segment>
-        <source>extensions.button_detailed_view</source>
-        <target>Details ansehen</target>
-      </segment>
-    </unit>
-    <unit id="txRonia" name="label.id">
-      <segment>
-        <source>label.id</source>
-        <target>ID</target>
-      </segment>
-    </unit>
-    <unit id="IwLLxxx" name="label.level">
-      <segment>
-        <source>label.level</source>
-        <target>Level</target>
-      </segment>
-    </unit>
-    <unit id="51OQi14" name="label.message">
-      <segment>
-        <source>label.message</source>
-        <target>Nachricht</target>
-      </segment>
-    </unit>
-    <unit id="S0f6iTL" name="label.timestamp">
-      <segment>
-        <source>label.timestamp</source>
-        <target>Zeit</target>
-      </segment>
-    </unit>
-    <unit id="FlGE3qB" name="label.request">
-      <segment>
-        <source>label.request</source>
-        <target>Anfrage</target>
-      </segment>
-    </unit>
-    <unit id="l71Tprl" name="label.trace">
-      <segment>
-        <source>label.trace</source>
-        <target>Spur</target>
-      </segment>
-    </unit>
-    <unit id="29ZEo1r" name="label.context">
-      <segment>
-        <source>label.context</source>
-        <target>Kontext</target>
-      </segment>
-    </unit>
-    <unit id="O2X4xZH" name="label.user">
-      <segment>
-        <source>label.user</source>
-        <target>Benutzer</target>
-      </segment>
-    </unit>
-    <unit id="QVRwwK4" name="about.system_info">
-      <segment>
-        <source>about.system_info</source>
-        <target>Systeminformationen</target>
-      </segment>
-    </unit>
-    <unit id="Y90_Pn1" name="files_cards.label_title">
-      <segment>
-        <source>files_cards.label_title</source>
-        <target>Titel:</target>
-      </segment>
-    </unit>
-    <unit id="EdCfIKX" name="files_cards.label_dimensions">
-      <segment>
-        <source>files_cards.label_dimensions</source>
-        <target>Abmessungen:</target>
-      </segment>
-    </unit>
-    <unit id="munFS0n" name="title.filtered_by">
-      <segment>
-        <source>title.filtered_by</source>
-        <target><![CDATA[Gesamter Inhalt, gefiltert nach <em>'%filter%'</em>.]]></target>
-      </segment>
-    </unit>
-    <unit id="Hr2E9Oa" name="listing_table.no_results">
-      <segment>
-        <source>listing_table.no_results</source>
-        <target>Keine Ergebnisse gefunden. Erweitern Sie die Filterkriterien oder fügen Sie weitere Inhalte hinzu.</target>
-      </segment>
-    </unit>
-    <unit id="OEqzPDO" name="listing_table.actions.select_all">
-      <segment>
-        <source>listing_table.actions.select_all</source>
-        <target>Alle auswählen</target>
-      </segment>
-    </unit>
-    <unit id="a_COwtV" name="image.button_upload_options">
-      <segment>
-        <source>image.button_upload_options</source>
-        <target>Upload Optionen</target>
-      </segment>
-    </unit>
-    <unit id="kciiidS" name="image.button_from_url">
-      <segment>
-        <source>image.button_from_url</source>
-        <target>Von einer URL</target>
-      </segment>
-    </unit>
-    <unit id="H9knE.O" name="collection.expand_all">
-      <segment>
-        <source>collection.expand_all</source>
-        <target>Alles einblenden</target>
-      </segment>
-    </unit>
-    <unit id="JjvI6hp" name="collection.collapse_all">
-      <segment>
-        <source>collection.collapse_all</source>
-        <target>Alles ausblenden</target>
-      </segment>
-    </unit>
-    <unit id="RBJ0NMl" name="collection.select">
-      <segment>
-        <source>collection.select</source>
-        <target>Auswählen ...</target>
-      </segment>
-    </unit>
-    <unit id="wG04eAa" name="image.image_preview">
-      <segment>
-        <source>image.image_preview</source>
-        <target>Bildvorschau anzeigen</target>
-      </segment>
-    </unit>
-    <unit id="CvNi3GD" name="action.refresh">
-      <segment>
-        <source>action.refresh</source>
-        <target>Neu laden</target>
-      </segment>
-    </unit>
-    <unit id="U6qdalg" name="reset_password.check_email_sent_header">
-      <segment>
-        <source>reset_password.check_email_sent_header</source>
-        <target>Passwort Reset Email versendet</target>
-      </segment>
-    </unit>
-    <unit id="y.dIywE" name="reset_password.request_header">
-      <segment>
-        <source>reset_password.request_header</source>
-        <target>Passwort zurücksetzen</target>
-      </segment>
-    </unit>
-    <unit id="SxW1D3L" name="reset_password.check_email_sent_text_1">
-      <segment>
-        <source>reset_password.check_email_sent_text_1</source>
-        <target>Es wurde eine Email versandt, die einen Link enthält, auf den Sie klicken können, um Ihr Passwort zurückzusetzen. Dieser Link wird in %Stunden% Stunde(n) ablaufen.</target>
-      </segment>
-    </unit>
-    <unit id="z25k4DS" name="reset_password.check_email_sent_text_2">
-      <segment>
-        <source>reset_password.check_email_sent_text_2</source>
-        <target>Wenn Sie keine E-Mail erhalten, überprüfen Sie bitte Ihren Spam-Ordner oder versuchen Sie es erneut.</target>
-      </segment>
-    </unit>
-    <unit id="gVc0Uf4" name="reset_password.reset_header">
-      <segment>
-        <source>reset_password.reset_header</source>
-        <target>Setze dein Passwort zurück</target>
-      </segment>
-    </unit>
-    <unit id="QpUMHfK" name="reset_password.reset_btn">
-      <segment>
-        <source>reset_password.reset_btn</source>
-        <target>Passwort zurücksetzen</target>
-      </segment>
-    </unit>
-    <unit id="SwOgM7K" name="reset_password.request_description">
-      <segment>
-        <source>reset_password.request_description</source>
-        <target>Geben Sie Ihre E-Mail-Adresse ein und wir senden Ihnen einen Link zum Zurücksetzen Ihres Passworts.</target>
-      </segment>
-    </unit>
-    <unit id="RX0Iuzi" name="reset_password.request_send">
-      <segment>
-        <source>reset_password.request_send</source>
-        <target>Absenden</target>
-      </segment>
-    </unit>
-    <unit id="k9hekeu" name="reset_password.back-to-login">
-      <segment>
-        <source>reset_password.back-to-login</source>
-        <target>Zurück zum Login</target>
-      </segment>
-    </unit>
-    <unit id="dp42qbF" name="reset_password.email_title">
-      <segment>
-        <source>reset_password.email_title</source>
-        <target>Hallo!</target>
-      </segment>
-    </unit>
-    <unit id="xS2vvXw" name="reset_password.email_description">
-      <segment>
-        <source>reset_password.email_description</source>
-        <target>Um Ihr Passwort zurückzusetzen, besuchen Sie bitte den folgenden Link</target>
-      </segment>
-    </unit>
-    <unit id="apkSD11" name="reset_password.email_expire">
-      <segment>
-        <source>reset_password.email_expire</source>
-        <target>Dieser Link wird in %hours% Stunde(n) ablaufen.</target>
-      </segment>
-    </unit>
-    <unit id="_gg3hPE" name="reset_password.email_thanks">
-      <segment>
-        <source>reset_password.email_thanks</source>
-        <target>Danke!</target>
-      </segment>
-    </unit>
-    <unit id="LfwezhR" name="extensions.title_dependencies">
-      <segment>
-        <source>extensions.title_dependencies</source>
-        <target>Abhängigkeiten</target>
-      </segment>
-    </unit>
-    <unit id="60xy4WG" name="extensions.no_dependencies">
-      <segment>
-        <source>extensions.no_dependencies</source>
-        <target>Keine bekannten Abhängigkeiten</target>
-      </segment>
-    </unit>
-    <unit id="piuatxC" name="extensions.info_not_installed">
-      <segment>
-        <source>extensions.info_not_installed</source>
-        <target>Dies ist ein lokales Paket, das nicht über Composer installiert ist.</target>
-      </segment>
-    </unit>
-    <unit id="3j1gEmk" name="extensions.title_class">
-      <segment>
-        <source>extensions.title_class</source>
-        <target>Klassenname:</target>
-      </segment>
-    </unit>
-    <unit id="qlucRr7" name="maintenance.activated_warning">
-      <segment>
-        <source>maintenance.activated_warning</source>
-        <target>Maintenance Modus ist aktiviert</target>
-      </segment>
-    </unit>
-    <unit id="80JoLd0" name="title.login">
-      <segment>
-        <source>title.login</source>
-        <target>In Bolt anmelden</target>
-      </segment>
-    </unit>
-    <unit id="beqzCkE" name="login.header_login">
-      <segment>
-        <source>login.header_login</source>
-        <target>Bolt » Login</target>
-      </segment>
-    </unit>
-    <unit id="gLN0C81" name="action.log_in">
-      <segment>
-        <source>action.log_in</source>
-        <target>Einloggen</target>
-      </segment>
-    </unit>
-    <unit id="i37ZNqN" name="login.forgotpassword">
-      <segment>
-        <source>login.forgotpassword</source>
-        <target>Passwort vergessen</target>
-      </segment>
-    </unit>
-    <unit id="QcN1pi8" name="files_cards.copy_to_clipboard">
-      <segment>
-        <source>files_cards.copy_to_clipboard</source>
-        <target>Link zu Datei kopieren</target>
-      </segment>
-    </unit>
-    <unit id="8JeahIj" name="files_cards.message_no_files">
-      <segment>
-        <source>files_cards.message_no_files</source>
-        <target>In diesem Ordner sind keine Dateien vorhanden. Wählen Sie auf der rechten Seite einen Ordner aus, zu dem Sie navigieren möchten.</target>
-      </segment>
-    </unit>
-    <unit id="f.rvF6y" name="action.new">
-      <segment>
-        <source>action.new</source>
-        <target>Neu</target>
-      </segment>
-    </unit>
-    <unit id="a6Xhtq0" name="folder.create_new">
-      <segment>
-        <source>folder.create_new</source>
-        <target>Neuer Ordner</target>
-      </segment>
-    </unit>
-    <unit id="9UKAP.V" name="listing_details_box.showing_records">
-      <segment>
-        <source>listing_details_box.showing_records</source>
-        <target>Anzeige Records %current% von %total%</target>
-      </segment>
-    </unit>
-    <unit id="UrywY0R" name="listing_details_box.name">
-      <segment>
-        <source>listing_details_box.name</source>
-        <target>Name: %name% (singular: %singularName%)</target>
-      </segment>
-    </unit>
-    <unit id=".l3zbrq" name="listing_details_box.slug">
-      <segment>
-        <source>listing_details_box.slug</source>
-        <target>Slug: %slug% (Singular: %singularSlug%)</target>
-      </segment>
-    </unit>
-    <unit id="eJ9YbdG" name="listing_details_box.record_template">
-      <segment>
-        <source>listing_details_box.record_template</source>
-        <target>Record template: %template%</target>
-      </segment>
-    </unit>
-    <unit id="tsc7_G3" name="listing_details_box.listing_template">
-      <segment>
-        <source>listing_details_box.listing_template</source>
-        <target>Listing template: %template% (%listingRecords% Einträge)</target>
-      </segment>
-    </unit>
-    <unit id="pPz9Ocx" name="listing_details_box.locales">
-      <segment>
-        <source>listing_details_box.locales</source>
-        <target>Lokalisierungen: %locales%</target>
-      </segment>
-    </unit>
-    <unit id="EvAqL__" name="caption.duplicate">
-      <segment>
-        <source>caption.duplicate</source>
-        <target>Kopieren</target>
-      </segment>
-    </unit>
-    <unit id="pXtciRI" name="content.edit_missing_definition">
-      <segment>
-        <source>content.edit_missing_definition</source>
-        <target>Die Definition für diesen ContentType fehlt! Die Bearbeitung dieses Datensatzes wird nicht wie erwartet funktionieren. Bitte überprüfen Sie Ihre contenttypes.yaml, um sicherzustellen, dass sie %contenttype% enthält.</target>
-      </segment>
-    </unit>
-    <unit id="qoZwSEY" name="action.preview_secure_share">
-      <segment>
-        <source>action.preview_secure_share</source>
-        <target>Sicheren Vorschau-Link teilen</target>
-      </segment>
-    </unit>
-    <unit id="SGlj7K2" name="view_locales.badge_empty">
-      <segment>
-        <source>view_locales.badge_empty</source>
-        <target>Leer</target>
-      </segment>
-    </unit>
-    <unit id="a_CQgly" name="Order">
-      <segment>
-        <source>Order</source>
-        <target>Bestellung</target>
-      </segment>
-    </unit>
-    <unit id="zYeSeNJ" name="action.stop_impersonating">
-      <segment>
-        <source>action.stop_impersonating</source>
-        <target>Impersonierung beenden</target>
-      </segment>
-    </unit>
-    <unit id="OYUVA5." name="general.label.search">
-      <segment>
-        <source>general.label.search</source>
-        <target>Suche</target>
-      </segment>
-    </unit>
-    <unit id="hiE9jap" name="password.suggested">
-      <segment>
-        <source>password.suggested</source>
-        <target><![CDATA[<![CDATA[Vorgeschlagenes sicheres Passwort: <code>%password%</code>]]]]><![CDATA[>]]></target>
-      </segment>
-    </unit>
-    <unit id="nWMH_Nr" name="label.avatar">
-      <segment>
-        <source>label.avatar</source>
-        <target>Avatar</target>
-      </segment>
-    </unit>
-    <unit id="eJG2.4P" name="listing.current_sessions_header">
-      <segment>
-        <source>listing.current_sessions_header</source>
-        <target>Aktuelle Sitzungen</target>
+        <source>content.created_successfully</source>
+        <target>Mediendatei wurde erfolgreich erstellt!</target>
       </segment>
     </unit>
     <unit id="GUQYLn2" name="reset_password.no_token">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Controller/Backend/ResetPasswordController.php:106</note>
+      </notes>
       <segment>
         <source>reset_password.no_token</source>
         <target>In der URL oder in der Sitzung wurde kein Token zum Zurücksetzen des Passworts gefunden.</target>
       </segment>
     </unit>
     <unit id="5Xr92sQ" name="reset_password.problem_with_request">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Controller/Backend/ResetPasswordController.php:113</note>
+        <note category="file-source" priority="1">bolt-core/src/Controller/Backend/ResetPasswordController.php:179</note>
+      </notes>
       <segment>
         <source>reset_password.problem_with_request</source>
         <target>Es gab ein Problem bei der Bearbeitung Ihrer Anfrage zum Zurücksetzen des Passworts - %s</target>
       </segment>
     </unit>
     <unit id="SjuOnue" name="reset_password.reset_successful">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Controller/Backend/ResetPasswordController.php:141</note>
+      </notes>
       <segment>
         <source>reset_password.reset_successful</source>
         <target>Passwort Reset war erfolgreich.</target>
       </segment>
     </unit>
+    <unit id="OBmPOoB" name="user.updated_successfully">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Controller/Backend/UserEditController.php:157</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>user.updated_successfully</source>
+        <target>Erfolgreich aktualisiert</target>
+      </segment>
+    </unit>
+    <unit id="YDH.7uR" name="user.updated_profile">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Controller/Backend/UserEditController.php:191</note>
+        <note category="file-source" priority="1">bolt-core/src/Controller/Backend/UserEditController.php:223</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>user.updated_profile</source>
+        <target>Benutzer erfolgreich aktualisiert!</target>
+      </segment>
+    </unit>
     <unit id="harDiJR" name="reset_password.enter_pwd">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Form/ChangePasswordFormType.php:34</note>
+      </notes>
       <segment>
         <source>reset_password.enter_pwd</source>
         <target>Bitte ein Passwort eingeben</target>
       </segment>
     </unit>
     <unit id="1JZeWxG" name="reset_password.minimum_length">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Form/ChangePasswordFormType.php:38</note>
+      </notes>
       <segment>
         <source>reset_password.minimum_length</source>
         <target>Ihr Passwort sollte mindestens %s Zeichen lang sein</target>
       </segment>
     </unit>
     <unit id="Tg5zdeo" name="reset_password.not_matching_pwds">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Form/ChangePasswordFormType.php:48</note>
+      </notes>
       <segment>
         <source>reset_password.not_matching_pwds</source>
         <target>Die Passwortfelder stimmen nicht überein.</target>
       </segment>
     </unit>
+    <unit id="iiWFLaI" name="label.new_password">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Form/ChangePasswordFormType.php:31</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>label.new_password</source>
+        <target>Neues Passwort</target>
+      </segment>
+    </unit>
+    <unit id="rU9cSfq" name="label.repeat_password">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Form/ChangePasswordFormType.php:45</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>label.repeat_password</source>
+        <target>Passwort wiederholen</target>
+      </segment>
+    </unit>
+    <unit id="RZQ0CeQ" name="Plain password">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Form/ChangePasswordFormType.php:28</note>
+        <note category="file-source" priority="1">bolt-core/src/Form/UserType.php:79</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>Plain password</source>
+        <target>Klarpasswort</target>
+      </segment>
+    </unit>
     <unit id="2SSLP1K" name="form.empty_username_email">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Form/LoginType.php:45</note>
+      </notes>
       <segment>
         <source>form.empty_username_email</source>
         <target>Bitte Usernamen oder Email-Adresse eingeben</target>
       </segment>
     </unit>
     <unit id="5Qf_RiO" name="form.empty_password">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Form/LoginType.php:57</note>
+      </notes>
       <segment>
         <source>form.empty_password</source>
         <target>Bitte Passwort eingeben</target>
       </segment>
     </unit>
-    <unit id="f8zXapF" name="form.empty_email">
-      <segment>
-        <source>form.empty_email</source>
-        <target>Bitte Email-Adresse eingeben</target>
-      </segment>
-    </unit>
-    <unit id="Y7ajNNN" name="placeholder.email">
-      <segment>
-        <source>placeholder.email</source>
-        <target>Ihre Email-Adresse</target>
-      </segment>
-    </unit>
-    <unit id="KshyLfh" name="caption.other_content">
-      <segment>
-        <source>caption.other_content</source>
-        <target>Andere Inhalte</target>
-      </segment>
-    </unit>
     <unit id="RMPnq6o" name="label.username_or_email">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Form/LoginType.php:41</note>
+      </notes>
       <segment>
         <source>label.username_or_email</source>
         <target>Username oder Email</target>
       </segment>
     </unit>
+    <unit id="9pvowqn" name="label.password">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Form/LoginType.php:53</note>
+        <note category="file-source" priority="1">bolt-core/templates/users/_form.html.twig:51</note>
+        <note category="file-source" priority="1">bolt-core/templates/users/profile.html.twig:42</note>
+      </notes>
+      <segment>
+        <source>label.password</source>
+        <target>Passwort</target>
+      </segment>
+    </unit>
     <unit id="2hoKa1k" name="label.remembermeduration">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Form/LoginType.php:68</note>
+      </notes>
       <segment>
         <source>label.remembermeduration</source>
         <target>Angemeldet bleiben? (%duration% Tage)</target>
       </segment>
     </unit>
     <unit id="z_tOHwq" name="placeholder.username_or_email">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Form/LoginType.php:49</note>
+      </notes>
       <segment>
         <source>placeholder.username_or_email</source>
         <target>Usernamen oder Email eingeben</target>
+      </segment>
+    </unit>
+    <unit id="xgYhRkc" name="placeholder.password">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Form/LoginType.php:63</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>placeholder.password</source>
+        <target>Ihr Passwort</target>
+      </segment>
+    </unit>
+    <unit id="f8zXapF" name="form.empty_email">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Form/ResetPasswordRequestFormType.php:31</note>
+      </notes>
+      <segment>
+        <source>form.empty_email</source>
+        <target>Bitte Email-Adresse eingeben</target>
+      </segment>
+    </unit>
+    <unit id="Y7ajNNN" name="placeholder.email">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Form/ResetPasswordRequestFormType.php:35</note>
+      </notes>
+      <segment>
+        <source>placeholder.email</source>
+        <target>Ihre Email-Adresse</target>
+      </segment>
+    </unit>
+    <unit id="D2N6_cP" name="label.email">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Form/ResetPasswordRequestFormType.php:27</note>
+        <note category="file-source" priority="1">bolt-core/templates/users/_form.html.twig:68</note>
+        <note category="file-source" priority="1">bolt-core/templates/users/profile.html.twig:51</note>
+      </notes>
+      <segment>
+        <source>label.email</source>
+        <target>E-Mail-Adresse</target>
+      </segment>
+    </unit>
+    <unit id="yo6CbZw" name="Avatar">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Form/UserType.php:79</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>Avatar</source>
+        <target>Profilbild</target>
+      </segment>
+    </unit>
+    <unit id="yj3GEvR" name="Locale">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Form/UserType.php:79</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>Locale</source>
+        <target>Sprache</target>
+      </segment>
+    </unit>
+    <unit id="lpzL089" name="Email">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Form/UserType.php:79</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>Email</source>
+        <target>E-Mail</target>
+      </segment>
+    </unit>
+    <unit id="K39qhN6" name="Display name">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Form/UserType.php:79</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>Display name</source>
+        <target>Anzeigename</target>
+      </segment>
+    </unit>
+    <unit id="47ienTP" name="Username">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Form/UserType.php:79</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>Username</source>
+        <target>Benutzername</target>
+      </segment>
+    </unit>
+    <unit id="kg5BPH1" name="Status">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Form/UserType.php:121</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>Status</source>
+        <target>Status</target>
+      </segment>
+    </unit>
+    <unit id="wlM3BVR" name="Roles">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Form/UserType.php:121</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>Roles</source>
+        <target>Rollen</target>
+      </segment>
+    </unit>
+    <unit id="7aLIA3c" name="caption.dashboard">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Menu/BackendMenuBuilder.php:83</note>
+        <note category="file-source" priority="1">bolt-core/templates/pages/dashboard.html.twig:6</note>
+      </notes>
+      <segment>
+        <source>caption.dashboard</source>
+        <target>Bolt Dashboard</target>
+      </segment>
+    </unit>
+    <unit id="1xlE8ex" name="caption.content">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Menu/BackendMenuBuilder.php:91</note>
+      </notes>
+      <segment>
+        <source>caption.content</source>
+        <target>Inhalte</target>
+      </segment>
+    </unit>
+    <unit id="ZO.uqIZ" name="caption.settings">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Menu/BackendMenuBuilder.php:107</note>
+      </notes>
+      <segment>
+        <source>caption.settings</source>
+        <target>Einstellungen</target>
+      </segment>
+    </unit>
+    <unit id="zOLL.7E" name="caption.configuration">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Menu/BackendMenuBuilder.php:119</note>
+      </notes>
+      <segment>
+        <source>caption.configuration</source>
+        <target>Konfiguration</target>
+      </segment>
+    </unit>
+    <unit id="ipmA6Ah" name="caption.users_permissions">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Menu/BackendMenuBuilder.php:129</note>
+      </notes>
+      <segment>
+        <source>caption.users_permissions</source>
+        <target><![CDATA[Benutzer & Rechte]]></target>
+      </segment>
+    </unit>
+    <unit id="kXNBV9S" name="caption.main_configuration">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Menu/BackendMenuBuilder.php:142</note>
+      </notes>
+      <segment>
+        <source>caption.main_configuration</source>
+        <target>Hauptkonfiguration</target>
+      </segment>
+    </unit>
+    <unit id="_w7J5rZ" name="caption.contenttypes">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Menu/BackendMenuBuilder.php:153</note>
+      </notes>
+      <segment>
+        <source>caption.contenttypes</source>
+        <target>Inhaltstypen</target>
+      </segment>
+    </unit>
+    <unit id="drK.0GZ" name="caption.taxonomies">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Menu/BackendMenuBuilder.php:164</note>
+      </notes>
+      <segment>
+        <source>caption.taxonomies</source>
+        <target>Taxonomien</target>
+      </segment>
+    </unit>
+    <unit id="2RUXD4A" name="caption.menu_setup">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Menu/BackendMenuBuilder.php:175</note>
+      </notes>
+      <segment>
+        <source>caption.menu_setup</source>
+        <target>Menü</target>
+      </segment>
+    </unit>
+    <unit id="wBKDkwl" name="caption.routing_setup">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Menu/BackendMenuBuilder.php:187</note>
+      </notes>
+      <segment>
+        <source>caption.routing_setup</source>
+        <target>Routen</target>
+      </segment>
+    </unit>
+    <unit id="i4cbdta" name="caption.all_configuration_files">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Menu/BackendMenuBuilder.php:195</note>
+      </notes>
+      <segment>
+        <source>caption.all_configuration_files</source>
+        <target>Konfigurationsdateien</target>
+      </segment>
+    </unit>
+    <unit id="OpKTKAL" name="caption.maintenance">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Menu/BackendMenuBuilder.php:207</note>
+      </notes>
+      <segment>
+        <source>caption.maintenance</source>
+        <target>Wartung</target>
+      </segment>
+    </unit>
+    <unit id="mfvtHPQ" name="caption.extensions">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Menu/BackendMenuBuilder.php:217</note>
+        <note category="file-source" priority="1">bolt-core/templates/pages/extension_details.html.twig:6</note>
+        <note category="file-source" priority="1">bolt-core/templates/pages/extensions.html.twig:6</note>
+      </notes>
+      <segment>
+        <source>caption.extensions</source>
+        <target>Erweiterungen</target>
+      </segment>
+    </unit>
+    <unit id="2MtT_h0" name="caption.logviewer">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Menu/BackendMenuBuilder.php:227</note>
+        <note category="file-source" priority="1">bolt-core/templates/pages/logviewer.html.twig:6</note>
+      </notes>
+      <segment>
+        <source>caption.logviewer</source>
+        <target>Protokolle</target>
+      </segment>
+    </unit>
+    <unit id="Dvu2HQx" name="caption.api">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Menu/BackendMenuBuilder.php:237</note>
+      </notes>
+      <segment>
+        <source>caption.api</source>
+        <target>API</target>
+      </segment>
+    </unit>
+    <unit id="K6TmK4B" name="caption.clear_cache">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Menu/BackendMenuBuilder.php:247</note>
+        <note category="file-source" priority="1">bolt-core/templates/pages/clearcache.html.twig:6</note>
+        <note category="file-source" priority="1">bolt-core/templates/pages/clearcache.html.twig:18</note>
+      </notes>
+      <segment>
+        <source>caption.clear_cache</source>
+        <target>Cache leeren</target>
+      </segment>
+    </unit>
+    <unit id="dd5MzCM" name="caption.translations">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Menu/BackendMenuBuilder.php:257</note>
+        <note category="file-source" priority="1">bolt-core/templates/content/view_locales.html.twig:15</note>
+      </notes>
+      <segment>
+        <source>caption.translations</source>
+        <target>Übersetzungen</target>
+      </segment>
+    </unit>
+    <unit id="Wou02nK" name="caption.kitchensink">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Menu/BackendMenuBuilder.php:268</note>
+      </notes>
+      <segment>
+        <source>caption.kitchensink</source>
+        <target>Testumgebung</target>
+      </segment>
+    </unit>
+    <unit id="wLaDaK5" name="caption.about_bolt">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Menu/BackendMenuBuilder.php:278</note>
+        <note category="file-source" priority="1">bolt-core/templates/pages/about.html.twig:6</note>
+      </notes>
+      <segment>
+        <source>caption.about_bolt</source>
+        <target>Über Bolt</target>
+      </segment>
+    </unit>
+    <unit id="l4yt0BE" name="caption.file_management">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Menu/BackendMenuBuilder.php:290</note>
+        <note category="file-source" priority="1">bolt-core/templates/finder/finder.html.twig:6</note>
+      </notes>
+      <segment>
+        <source>caption.file_management</source>
+        <target>Dateiverwaltung</target>
+      </segment>
+    </unit>
+    <unit id="bq6bSf4" name="caption.uploaded_files">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Menu/BackendMenuBuilder.php:300</note>
+      </notes>
+      <segment>
+        <source>caption.uploaded_files</source>
+        <target>Hochgeladene Dateien</target>
+      </segment>
+    </unit>
+    <unit id="K4D568R" name="caption.view_edit_templates">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Menu/BackendMenuBuilder.php:310</note>
+      </notes>
+      <segment>
+        <source>caption.view_edit_templates</source>
+        <target>Templates verwalten</target>
+      </segment>
+    </unit>
+    <unit id="KshyLfh" name="caption.other_content">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Menu/BackendMenuBuilder.php:366</note>
+      </notes>
+      <segment>
+        <source>caption.other_content</source>
+        <target>Andere Inhalte</target>
+      </segment>
+    </unit>
+    <unit id="Z7aWRoY" name="Dashboard">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Menu/BackendMenuBuilder.php:80</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>Dashboard</source>
+        <target>Dashboard</target>
+      </segment>
+    </unit>
+    <unit id="R70pB1_" name="Content">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Menu/BackendMenuBuilder.php:89</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>Content</source>
+        <target>Inhalt</target>
+      </segment>
+    </unit>
+    <unit id="dKiDoDe" name="Settings">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Menu/BackendMenuBuilder.php:105</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>Settings</source>
+        <target>Einstellungen</target>
+      </segment>
+    </unit>
+    <unit id="szLDSS1" name="Configuration">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Menu/BackendMenuBuilder.php:114</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>Configuration</source>
+        <target>Einrichtung</target>
+      </segment>
+    </unit>
+    <unit id="L_GMMkf" name="Users &amp;amp; Permissions">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Menu/BackendMenuBuilder.php:126</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>Users &amp;amp; Permissions</source>
+        <target>Benutzer &amp; Rechte</target>
+      </segment>
+    </unit>
+    <unit id="jb9I1wY" name="Main configuration">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Menu/BackendMenuBuilder.php:136</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>Main configuration</source>
+        <target>Haupt</target>
+      </segment>
+    </unit>
+    <unit id="uo1bGDD" name="ContentTypes">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Menu/BackendMenuBuilder.php:147</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>ContentTypes</source>
+        <target>Inhaltstypen</target>
+      </segment>
+    </unit>
+    <unit id="0_HwkHi" name="Taxonomies">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Menu/BackendMenuBuilder.php:158</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>Taxonomies</source>
+        <target>Taxonomie</target>
+      </segment>
+    </unit>
+    <unit id="wpYayj3" name="Menu set up">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Menu/BackendMenuBuilder.php:169</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>Menu set up</source>
+        <target>Menü-Einrichtung</target>
+      </segment>
+    </unit>
+    <unit id="WcVgNHo" name="Routing set up">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Menu/BackendMenuBuilder.php:181</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>Routing set up</source>
+        <target>Routen-Einrichtung</target>
+      </segment>
+    </unit>
+    <unit id="yDV.P5Y" name="All configuration files">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Menu/BackendMenuBuilder.php:192</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>All configuration files</source>
+        <target>Alle Konfigurationsdateien</target>
+      </segment>
+    </unit>
+    <unit id="F8z6W2g" name="Maintenance">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Menu/BackendMenuBuilder.php:202</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>Maintenance</source>
+        <target>Wartung</target>
+      </segment>
+    </unit>
+    <unit id=".jQ2r4a" name="Extensions">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Menu/BackendMenuBuilder.php:214</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>Extensions</source>
+        <target>Erweiterungen</target>
+      </segment>
+    </unit>
+    <unit id="qH__ewO" name="Log viewer">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Menu/BackendMenuBuilder.php:224</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>Log viewer</source>
+        <target>Log-Ansicht</target>
+      </segment>
+    </unit>
+    <unit id="ldt1zD." name="Bolt API">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Menu/BackendMenuBuilder.php:234</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>Bolt API</source>
+        <target>Bolt API</target>
+      </segment>
+    </unit>
+    <unit id="iDvBicF" name="Clear the cache">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Menu/BackendMenuBuilder.php:244</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>Clear the cache</source>
+        <target>Cache leeren</target>
+      </segment>
+    </unit>
+    <unit id="JmpBuQ1" name="Translations">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Menu/BackendMenuBuilder.php:254</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>Translations</source>
+        <target>Übersetzungen</target>
+      </segment>
+    </unit>
+    <unit id="7_UlZWQ" name="The Kitchensink">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Menu/BackendMenuBuilder.php:265</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>The Kitchensink</source>
+        <target>Die Küchenspüle</target>
+      </segment>
+    </unit>
+    <unit id="aQw9smj" name="About Bolt">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Menu/BackendMenuBuilder.php:275</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>About Bolt</source>
+        <target>Über Bolt</target>
+      </segment>
+    </unit>
+    <unit id="fgUoR4S" name="File Management">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Menu/BackendMenuBuilder.php:285</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>File Management</source>
+        <target>Dateiverwaltung</target>
+      </segment>
+    </unit>
+    <unit id="PE1dkX_" name="Uploaded files">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Menu/BackendMenuBuilder.php:297</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>Uploaded files</source>
+        <target>Datei hochladen</target>
+      </segment>
+    </unit>
+    <unit id="eV_CM1t" name="View/edit Templates">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Menu/BackendMenuBuilder.php:307</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>View/edit Templates</source>
+        <target>Templates anzeigen/bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="UZFanGF" name="about.bolt_documentation">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_base/layout.html.twig:37</note>
+        <note category="file-source" priority="1">bolt-core/templates/pages/about.html.twig:66</note>
+      </notes>
+      <segment>
+        <source>about.bolt_documentation</source>
+        <target>Bolt Dokumentation</target>
+      </segment>
+    </unit>
+    <unit id="b_RPpcB" name="general.greeting">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_base/layout.html.twig:39</note>
+      </notes>
+      <segment>
+        <source>general.greeting</source>
+        <target>Hallo, %name%!</target>
+      </segment>
+    </unit>
+    <unit id="bmdn3u9" name="action.logout">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_base/layout.html.twig:40</note>
+      </notes>
+      <segment>
+        <source>action.logout</source>
+        <target>Ausloggen</target>
+      </segment>
+    </unit>
+    <unit id="zYeSeNJ" name="action.stop_impersonating">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_base/layout.html.twig:41</note>
+      </notes>
+      <segment>
+        <source>action.stop_impersonating</source>
+        <target>Impersonierung beenden</target>
+      </segment>
+    </unit>
+    <unit id="zOfpTLD" name="action.edit_profile">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_base/layout.html.twig:42</note>
+      </notes>
+      <segment>
+        <source>action.edit_profile</source>
+        <target>Profil bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="k.JymqB" name="about.visit_bolt">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_base/layout.html.twig:43</note>
+        <note category="file-source" priority="1">bolt-core/templates/pages/about.html.twig:63</note>
+      </notes>
+      <segment>
+        <source>about.visit_bolt</source>
+        <target>Besucht Boltcms.io</target>
+      </segment>
+    </unit>
+    <unit id="wGlnx8X" name="general.phrase.search">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_base/layout.html.twig:44</note>
+      </notes>
+      <segment>
+        <source>general.phrase.search</source>
+        <target>Suche</target>
+      </segment>
+    </unit>
+    <unit id="O_m7mx1" name="listing.placeholder_search">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_base/layout.html.twig:45</note>
+      </notes>
+      <segment>
+        <source>listing.placeholder_search</source>
+        <target>Nach Schlüsselwörtern suchen ...</target>
+      </segment>
+    </unit>
+    <unit id="OYUVA5." name="general.label.search">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_base/layout.html.twig:46</note>
+      </notes>
+      <segment>
+        <source>general.label.search</source>
+        <target>Suche</target>
+      </segment>
+    </unit>
+    <unit id="jXAelLe" name="admin_sidebar_toggler.toggle">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_base/layout.html.twig:82</note>
+      </notes>
+      <segment>
+        <source>admin_sidebar_toggler.toggle</source>
+        <target><![CDATA[Menü<span class="sr-only"> umschalten</span>]]></target>
+      </segment>
+    </unit>
+    <unit id="Gabafxx" name="admin_sidebar.toggler">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_base/layout.html.twig:91</note>
+      </notes>
+      <segment>
+        <source>admin_sidebar.toggler</source>
+        <target>Menü umschalten</target>
+      </segment>
+    </unit>
+    <unit id="f.rvF6y" name="action.new">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_base/layout.html.twig:92</note>
+        <note category="file-source" priority="1">bolt-core/templates/finder/_createfolder.html.twig:9</note>
+      </notes>
+      <segment>
+        <source>action.new</source>
+        <target>Neu</target>
+      </segment>
+    </unit>
+    <unit id="TtmWqX3" name="action.view">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_base/layout.html.twig:93</note>
+      </notes>
+      <segment>
+        <source>action.view</source>
+        <target>Ansehen</target>
+      </segment>
+    </unit>
+    <unit id="pcq1NGk" name="listing_filter.button_compact">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/_content_listing.html.twig:13</note>
+      </notes>
+      <segment>
+        <source>listing_filter.button_compact</source>
+        <target>Kompakteansicht</target>
+      </segment>
+    </unit>
+    <unit id="xIztVmp" name="listing_filter.button_expanded">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/_content_listing.html.twig:14</note>
+      </notes>
+      <segment>
+        <source>listing_filter.button_expanded</source>
+        <target>Detailansicht</target>
+      </segment>
+    </unit>
+    <unit id="OEqzPDO" name="listing_table.actions.select_all">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/_content_listing.html.twig:15</note>
+      </notes>
+      <segment>
+        <source>listing_table.actions.select_all</source>
+        <target>Alle auswählen</target>
+      </segment>
+    </unit>
+    <unit id="L0TE0M9" name="listing_table.actions.view_on_site">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/_content_listing.html.twig:23</note>
+      </notes>
+      <segment>
+        <source>listing_table.actions.view_on_site</source>
+        <target>Anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="PoauAuK" name="listing_table.actions.status_to_publish">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/_content_listing.html.twig:24</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/_content_listing.html.twig:27</note>
+        <note category="file-source" priority="1">bolt-core/templates/content/listing.html.twig:43</note>
+      </notes>
+      <segment>
+        <source>listing_table.actions.status_to_publish</source>
+        <target>Veröffentlichen</target>
+      </segment>
+    </unit>
+    <unit id="ZJxfdD6" name="listing_table.actions.status_to_held">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/_content_listing.html.twig:25</note>
+        <note category="file-source" priority="1">bolt-core/templates/content/listing.html.twig:42</note>
+      </notes>
+      <segment>
+        <source>listing_table.actions.status_to_held</source>
+        <target>Festhalten</target>
+      </segment>
+    </unit>
+    <unit id="apyOs0o" name="listing_table.actions.status_to_draft">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/_content_listing.html.twig:26</note>
+        <note category="file-source" priority="1">bolt-core/templates/content/listing.html.twig:41</note>
+      </notes>
+      <segment>
+        <source>listing_table.actions.status_to_draft</source>
+        <target>Als Vorlage markieren</target>
+      </segment>
+    </unit>
+    <unit id="5H60Xq6" name="listing_table.actions.duplicate">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/_content_listing.html.twig:28</note>
+      </notes>
+      <segment>
+        <source>listing_table.actions.duplicate</source>
+        <target>Duplizieren</target>
+      </segment>
+    </unit>
+    <unit id="hR8ri.m" name="listing_table.actions.delete">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/_content_listing.html.twig:29</note>
+      </notes>
+      <segment>
+        <source>listing_table.actions.delete</source>
+        <target>Löschen</target>
+      </segment>
+    </unit>
+    <unit id="5zbX1vo" name="listing_table.actions.slug">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/_content_listing.html.twig:30</note>
+      </notes>
+      <segment>
+        <source>listing_table.actions.slug</source>
+        <target>Slug</target>
+      </segment>
+    </unit>
+    <unit id="wKDOBOC" name="listing_table.actions.created_on">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/_content_listing.html.twig:31</note>
+      </notes>
+      <segment>
+        <source>listing_table.actions.created_on</source>
+        <target>Erstellt am</target>
+      </segment>
+    </unit>
+    <unit id="tVX01Xl" name="listing_table.actions.published_on">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/_content_listing.html.twig:32</note>
+      </notes>
+      <segment>
+        <source>listing_table.actions.published_on</source>
+        <target>Veröffentlicht am</target>
+      </segment>
+    </unit>
+    <unit id="kHkjS5U" name="listing_table.actions.last_modified_on">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/_content_listing.html.twig:33</note>
+      </notes>
+      <segment>
+        <source>listing_table.actions.last_modified_on</source>
+        <target>Zuletzt bearbeitet am</target>
+      </segment>
+    </unit>
+    <unit id="Em.C0bV" name="listing_table.actions.button_edit">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/_content_listing.html.twig:34</note>
+      </notes>
+      <segment>
+        <source>listing_table.actions.button_edit</source>
+        <target>Bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="N_0yRcH" name="action.close_alert">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/_flash_messages.html.twig:1</note>
+      </notes>
+      <segment>
+        <source>action.close_alert</source>
+        <target>Schließen</target>
+      </segment>
+    </unit>
+    <unit id="ApPu4P_" name="collection.move_item_up">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/_collection_buttons.html.twig:5</note>
+      </notes>
+      <segment>
+        <source>collection.move_item_up</source>
+        <target>Hoch bewegen</target>
+      </segment>
+    </unit>
+    <unit id="KzBtfHi" name="collection.move_item_down">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/_collection_buttons.html.twig:9</note>
+      </notes>
+      <segment>
+        <source>collection.move_item_down</source>
+        <target>Runter bewegen</target>
+      </segment>
+    </unit>
+    <unit id="JpJFIFq" name="collection.confirm_delete">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/_collection_buttons.html.twig:13</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/_collection_buttons.html.twig:14</note>
+      </notes>
+      <segment>
+        <source>collection.confirm_delete</source>
+        <target>Sind Sie sicher, dass Sie dieses Kollektionsobjekt löschen möchten?</target>
+      </segment>
+    </unit>
+    <unit id=".t1ICS7" name="collection.remove_item">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/_collection_buttons.html.twig:20</note>
+      </notes>
+      <segment>
+        <source>collection.remove_item</source>
+        <target>Objekt entfernen</target>
+      </segment>
+    </unit>
+    <unit id="0C9.Vmh" name="collection.add_item">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/collection.html.twig:6</note>
+      </notes>
+      <segment>
+        <source>collection.add_item</source>
+        <target>Objekt zu %name% hinzufügen </target>
+      </segment>
+    </unit>
+    <unit id="H9knE.O" name="collection.expand_all">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/collection.html.twig:7</note>
+      </notes>
+      <segment>
+        <source>collection.expand_all</source>
+        <target>Alles einblenden</target>
+      </segment>
+    </unit>
+    <unit id="JjvI6hp" name="collection.collapse_all">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/collection.html.twig:8</note>
+      </notes>
+      <segment>
+        <source>collection.collapse_all</source>
+        <target>Alles ausblenden</target>
+      </segment>
+    </unit>
+    <unit id="RBJ0NMl" name="collection.select">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/collection.html.twig:10</note>
+      </notes>
+      <segment>
+        <source>collection.select</source>
+        <target>Auswählen ...</target>
+      </segment>
+    </unit>
+    <unit id="BINgtmK" name="editor_date.toggle">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/date.html.twig:39</note>
+      </notes>
+      <segment>
+        <source>editor_date.toggle</source>
+        <target>Umschalten</target>
+      </segment>
+    </unit>
+    <unit id="kHeY93_" name="editor_embed.content_url">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/embed.html.twig:20</note>
+      </notes>
+      <segment>
+        <source>editor_embed.content_url</source>
+        <target>URL des einzubettenden Inhalts</target>
+      </segment>
+    </unit>
+    <unit id="VoIdmBa" name="editor_embed.placeholder_content_url">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/embed.html.twig:21</note>
+      </notes>
+      <segment>
+        <source>editor_embed.placeholder_content_url</source>
+        <target>URL des Inhalts von Facebook, Twitter, Soundcloud, Youtube, Vimeo…</target>
+      </segment>
+    </unit>
+    <unit id="1.Eb1GS" name="editor_embed.label_height">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/embed.html.twig:22</note>
+      </notes>
+      <segment>
+        <source>editor_embed.label_height</source>
+        <target>Höhe</target>
+      </segment>
+    </unit>
+    <unit id="eWLSFJs" name="editor_embed.label_pixel">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/embed.html.twig:23</note>
+      </notes>
+      <segment>
+        <source>editor_embed.label_pixel</source>
+        <target>Pixel</target>
+      </segment>
+    </unit>
+    <unit id="EAtXrAm" name="editor_embed.label_matched_embed">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/embed.html.twig:24</note>
+      </notes>
+      <segment>
+        <source>editor_embed.label_matched_embed</source>
+        <target>Zugeordnete Einbettung</target>
+      </segment>
+    </unit>
+    <unit id="zATju4V" name="editor_embed.label_preview">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/embed.html.twig:25</note>
+      </notes>
+      <segment>
+        <source>editor_embed.label_preview</source>
+        <target>Vorschau</target>
+      </segment>
+    </unit>
+    <unit id="9SQ0oaR" name="editor_embed.label_size">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/embed.html.twig:26</note>
+      </notes>
+      <segment>
+        <source>editor_embed.label_size</source>
+        <target>Größe</target>
+      </segment>
+    </unit>
+    <unit id="hTKWQ6g" name="action.delete">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/embed.html.twig:27</note>
+        <note category="file-source" priority="1">bolt-core/templates/content/_buttons.html.twig:69</note>
+        <note category="file-source" priority="1">bolt-core/templates/content/listing.html.twig:44</note>
+      </notes>
+      <segment>
+        <source>action.delete</source>
+        <target>Löschen</target>
+      </segment>
+    </unit>
+    <unit id="CvNi3GD" name="action.refresh">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/embed.html.twig:28</note>
+      </notes>
+      <segment>
+        <source>action.refresh</source>
+        <target>Neu laden</target>
+      </segment>
+    </unit>
+    <unit id="vlRe8Tx" name="field.width">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/embed.html.twig:29</note>
+        <note category="file-source" priority="1">bolt-core/templates/media/edit.html.twig:128</note>
+      </notes>
+      <segment>
+        <source>field.width</source>
+        <target>Breite</target>
+      </segment>
+    </unit>
+    <unit id="CZbXbM_" name="field.height">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/embed.html.twig:30</note>
+        <note category="file-source" priority="1">bolt-core/templates/media/edit.html.twig:135</note>
+      </notes>
+      <segment>
+        <source>field.height</source>
+        <target>Höhe</target>
+      </segment>
+    </unit>
+    <unit id="VKhfRZB" name="field.title">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/embed.html.twig:31</note>
+        <note category="file-source" priority="1">bolt-core/templates/media/edit.html.twig:39</note>
+      </notes>
+      <segment>
+        <source>field.title</source>
+        <target>Title</target>
+      </segment>
+    </unit>
+    <unit id="aQX4Emy" name="field.author">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/embed.html.twig:32</note>
+        <note category="file-source" priority="1">bolt-core/templates/content/_fields_aside.html.twig:33</note>
+      </notes>
+      <segment>
+        <source>field.author</source>
+        <target>Autor</target>
+      </segment>
+    </unit>
+    <unit id="YZJO3Ul" name="upload.allow_file_types">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/file.html.twig:5</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/filelist.html.twig:5</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/image.html.twig:5</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/imagelist.html.twig:5</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/simple_image.html.twig:49</note>
+        <note category="file-source" priority="1">bolt-core/templates/finder/_uploader.html.twig:3</note>
+      </notes>
+      <segment>
+        <source>upload.allow_file_types</source>
+        <target>Erlaubte Dateiformate</target>
+      </segment>
+    </unit>
+    <unit id="noOf4ML" name="upload.max_size">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/file.html.twig:6</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/filelist.html.twig:6</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/image.html.twig:6</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/imagelist.html.twig:6</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/simple_image.html.twig:50</note>
+        <note category="file-source" priority="1">bolt-core/templates/finder/_uploader.html.twig:4</note>
+      </notes>
+      <segment>
+        <source>upload.max_size</source>
+        <target>Maximale Dateigröße</target>
+      </segment>
+    </unit>
+    <unit id="vptPhch" name="image.button_upload">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/file.html.twig:16</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/filelist.html.twig:16</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/image.html.twig:17</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/imagelist.html.twig:16</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/simple_image.html.twig:58</note>
+      </notes>
+      <segment>
+        <source>image.button_upload</source>
+        <target>Hochladen</target>
+      </segment>
+    </unit>
+    <unit id="a_COwtV" name="image.button_upload_options">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/file.html.twig:17</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/filelist.html.twig:17</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/image.html.twig:18</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/imagelist.html.twig:17</note>
+      </notes>
+      <segment>
+        <source>image.button_upload_options</source>
+        <target>Upload Optionen</target>
+      </segment>
+    </unit>
+    <unit id="vIVO1lU" name="image.button_from_library">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/file.html.twig:18</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/filelist.html.twig:18</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/image.html.twig:19</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/imagelist.html.twig:18</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/simple_image.html.twig:59</note>
+      </notes>
+      <segment>
+        <source>image.button_from_library</source>
+        <target>Aus der Bibliothek</target>
+      </segment>
+    </unit>
+    <unit id="FqVh1Hv" name="image.button_remove">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/file.html.twig:19</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/filelist.html.twig:22</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/image.html.twig:20</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/imagelist.html.twig:22</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/simple_image.html.twig:60</note>
+      </notes>
+      <segment>
+        <source>image.button_remove</source>
+        <target>Entfernen</target>
+      </segment>
+    </unit>
+    <unit id="oOuVKRv" name="image.placeholder_filename">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/file.html.twig:20</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/filelist.html.twig:19</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/image.html.twig:21</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/imagelist.html.twig:19</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/simple_image.html.twig:61</note>
+      </notes>
+      <segment>
+        <source>image.placeholder_filename</source>
+        <target>Dateiname</target>
+      </segment>
+    </unit>
+    <unit id="BWubOnS" name="image.placeholder_alt_text">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/file.html.twig:21</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/filelist.html.twig:20</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/image.html.twig:22</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/imagelist.html.twig:20</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/simple_image.html.twig:62</note>
+      </notes>
+      <segment>
+        <source>image.placeholder_alt_text</source>
+        <target>Alternativer Text</target>
+      </segment>
+    </unit>
+    <unit id="VPV0lFM" name="image.placeholder_title">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/file.html.twig:22</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/filelist.html.twig:21</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/imagelist.html.twig:21</note>
+      </notes>
+      <segment>
+        <source>image.placeholder_title</source>
+        <target>Titel</target>
+      </segment>
+    </unit>
+    <unit id="eHV6ZJB" name="image.button_edit_attributes">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/file.html.twig:23</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/filelist.html.twig:26</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/image.html.twig:23</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/imagelist.html.twig:23</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/simple_image.html.twig:63</note>
+      </notes>
+      <segment>
+        <source>image.button_edit_attributes</source>
+        <target>Attribute bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="MjY7.cg" name="modal.title.file_field">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/file.html.twig:24</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/filelist.html.twig:27</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>modal.title.file_field</source>
+        <target>Datei auswählen</target>
+      </segment>
+    </unit>
+    <unit id="VlfWDQr" name="modal.button_save">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/file.html.twig:25</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/filelist.html.twig:28</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/image.html.twig:28</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/imagelist.html.twig:30</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>modal.button_save</source>
+        <target>Speichern</target>
+      </segment>
+    </unit>
+    <unit id="ct_I4w3" name="modal.button_deny">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/file.html.twig:26</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/filelist.html.twig:29</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/image.html.twig:29</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/imagelist.html.twig:31</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>modal.button_deny</source>
+        <target>Schließen</target>
+      </segment>
+    </unit>
+    <unit id="7aSD0Qr" name="image.button_up">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/filelist.html.twig:23</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/imagelist.html.twig:25</note>
+      </notes>
+      <segment>
+        <source>image.button_up</source>
+        <target>Hoch</target>
+      </segment>
+    </unit>
+    <unit id="WihD8Y5" name="image.button_down">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/filelist.html.twig:24</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/imagelist.html.twig:26</note>
+      </notes>
+      <segment>
+        <source>image.button_down</source>
+        <target>Runter</target>
+      </segment>
+    </unit>
+    <unit id="8Q4FxVw" name="file.add_new_file">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/filelist.html.twig:25</note>
+      </notes>
+      <segment>
+        <source>file.add_new_file</source>
+        <target>Neue Datei hinzufügen</target>
+      </segment>
+    </unit>
+    <unit id="kciiidS" name="image.button_from_url">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/image.html.twig:24</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/imagelist.html.twig:24</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/simple_image.html.twig:64</note>
+      </notes>
+      <segment>
+        <source>image.button_from_url</source>
+        <target>Von einer URL</target>
+      </segment>
+    </unit>
+    <unit id="wG04eAa" name="image.image_preview">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/image.html.twig:25</note>
+      </notes>
+      <segment>
+        <source>image.image_preview</source>
+        <target>Bildvorschau anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="0yPnNMd" name="modal.title.image_field">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/image.html.twig:26</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/imagelist.html.twig:28</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>modal.title.image_field</source>
+        <target>Bild auswählen</target>
+      </segment>
+    </unit>
+    <unit id="KIN.Ehy" name="modal.title.upload_from_url">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/image.html.twig:27</note>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/imagelist.html.twig:29</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>modal.title.upload_from_url</source>
+        <target>Von URL hochladen</target>
+      </segment>
+    </unit>
+    <unit id="Oj2UZ5J" name="image.add_new_image">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/imagelist.html.twig:27</note>
+      </notes>
+      <segment>
+        <source>image.add_new_image</source>
+        <target>Neues Bild hinzufügen</target>
+      </segment>
+    </unit>
+    <unit id="XQ2U6fN" name="slug.button_unlocked">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/slug.html.twig:17</note>
+      </notes>
+      <segment>
+        <source>slug.button_unlocked</source>
+        <target>Entsperrt</target>
+      </segment>
+    </unit>
+    <unit id="kaK5Wdr" name="slug.button_locked">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/slug.html.twig:18</note>
+      </notes>
+      <segment>
+        <source>slug.button_locked</source>
+        <target>Deaktiviert</target>
+      </segment>
+    </unit>
+    <unit id="qcDEz5O" name="slug.button_edit">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/slug.html.twig:19</note>
+      </notes>
+      <segment>
+        <source>slug.button_edit</source>
+        <target>Bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="raO5QSf" name="slug.generate_from">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/_partials/fields/slug.html.twig:20</note>
+      </notes>
+      <segment>
+        <source>slug.generate_from</source>
+        <target>Erzeugt aus:</target>
+      </segment>
+    </unit>
+    <unit id="qoZwSEY" name="action.preview_secure_share">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/content/_buttons.html.twig:34</note>
+      </notes>
+      <segment>
+        <source>action.preview_secure_share</source>
+        <target>Sicheren Vorschau-Link teilen</target>
+      </segment>
+    </unit>
+    <unit id="eVkSIKu" name="field.modifiedAt">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/content/_buttons.html.twig:50</note>
+        <note category="file-source" priority="1">bolt-core/templates/content/_fields_aside_summary.html.twig:16</note>
+        <note category="file-source" priority="1">bolt-core/templates/media/edit.html.twig:159</note>
+      </notes>
+      <segment>
+        <source>field.modifiedAt</source>
+        <target>Bearbeitet am</target>
+      </segment>
+    </unit>
+    <unit id="6Gw1lsE" name="action.confirm_delete">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/content/_buttons.html.twig:63</note>
+        <note category="file-source" priority="1">bolt-core/templates/finder/_folders.html.twig:40</note>
+        <note category="file-source" priority="1">bolt-core/templates/finder/_folders.html.twig:41</note>
+        <note category="file-source" priority="1">bolt-core/templates/users/listing.html.twig:89</note>
+        <note category="file-source" priority="1">bolt-core/templates/users/listing.html.twig:90</note>
+      </notes>
+      <segment>
+        <source>action.confirm_delete</source>
+        <target>Sind Sie sicher, dass Sie diesen Inhalt löschen möchten?
+</target>
+      </segment>
+    </unit>
+    <unit id="FuCyk5C" name="field.status">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/content/_fields_aside.html.twig:5</note>
+        <note category="file-source" priority="1">bolt-core/templates/users/_form.html.twig:153</note>
+      </notes>
+      <segment>
+        <source>field.status</source>
+        <target>Status</target>
+      </segment>
+    </unit>
+    <unit id="3gdi1dy" name="field.publishedAt">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/content/_fields_aside.html.twig:15</note>
+      </notes>
+      <segment>
+        <source>field.publishedAt</source>
+        <target>Veröffentlicht am</target>
+      </segment>
+    </unit>
+    <unit id="eN7IfEL" name="field.depublishedAt">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/content/_fields_aside.html.twig:24</note>
+      </notes>
+      <segment>
+        <source>field.depublishedAt</source>
+        <target>Veröffentlichung zurückgezogen am</target>
+      </segment>
+    </unit>
+    <unit id="O9wtVOp" name="field.createdAt">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/content/_fields_aside_summary.html.twig:6</note>
+        <note category="file-source" priority="1">bolt-core/templates/media/edit.html.twig:151</note>
+      </notes>
+      <segment>
+        <source>field.createdAt</source>
+        <target>Erstellt am</target>
+      </segment>
+    </unit>
+    <unit id="SNELzJ2" name="field.id">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/content/_fields_aside_summary.html.twig:26</note>
+        <note category="file-source" priority="1">bolt-core/templates/media/edit.html.twig:121</note>
+      </notes>
+      <segment>
+        <source>field.id</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="8zEzq8N" name="field.current_locale">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/content/_localeswitcher.html.twig:7</note>
+      </notes>
+      <segment>
+        <source>field.current_locale</source>
+        <target>Aktuelle Sprache</target>
+      </segment>
+    </unit>
+    <unit id="ahZvOJz" name="field.switch_to_locale">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/content/_localeswitcher.html.twig:14</note>
+      </notes>
+      <segment>
+        <source>field.switch_to_locale</source>
+        <target>Sprache wechseln zu</target>
+      </segment>
+    </unit>
+    <unit id="a_CQgly" name="Order">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/content/_taxonomies.html.twig:27</note>
+      </notes>
+      <segment>
+        <source>Order</source>
+        <target>Bestellung</target>
+      </segment>
+    </unit>
+    <unit id="EvAqL__" name="caption.duplicate">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/content/edit.html.twig:22</note>
+      </notes>
+      <segment>
+        <source>caption.duplicate</source>
+        <target>Kopieren</target>
+      </segment>
+    </unit>
+    <unit id="HK7XTUX" name="caption.edit">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/content/edit.html.twig:22</note>
+      </notes>
+      <segment>
+        <source>caption.edit</source>
+        <target>Bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="pXtciRI" name="content.edit_missing_definition">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/content/edit.html.twig:45</note>
+      </notes>
+      <segment>
+        <source>content.edit_missing_definition</source>
+        <target>Die Definition für diesen ContentType fehlt! Die Bearbeitung dieses Datensatzes wird nicht wie erwartet funktionieren. Bitte überprüfen Sie Ihre contenttypes.yaml, um sicherzustellen, dass sie %contenttype% enthält.</target>
+      </segment>
+    </unit>
+    <unit id="JEnqOi." name="title.primary_actions">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/content/edit.html.twig:103</note>
+      </notes>
+      <segment>
+        <source>title.primary_actions</source>
+        <target>Primäre Aktionen</target>
+      </segment>
+    </unit>
+    <unit id="7616Os4" name="title.options">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/content/edit.html.twig:115</note>
+      </notes>
+      <segment>
+        <source>title.options</source>
+        <target>Optionen</target>
+      </segment>
+    </unit>
+    <unit id="Hlf9c1s" name="listing.title_overview">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/content/listing.html.twig:6</note>
+      </notes>
+      <segment>
+        <source>listing.title_overview</source>
+        <target>Übersicht für</target>
+      </segment>
+    </unit>
+    <unit id="BdhsE_X" name="listing_select_box.card_header.selected">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/content/listing.html.twig:40</note>
+      </notes>
+      <segment>
+        <source>listing_select_box.card_header.selected</source>
+        <target>Ausgewählt</target>
+      </segment>
+    </unit>
+    <unit id="WeJxw6Z" name="action.update_all">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/content/listing.html.twig:45</note>
+      </notes>
+      <segment>
+        <source>action.update_all</source>
+        <target>auf alle anwenden</target>
+      </segment>
+    </unit>
+    <unit id="vJwSCBO" name="title.contentlisting">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/content/listing.html.twig:58</note>
+      </notes>
+      <segment>
+        <source>title.contentlisting</source>
+        <target>Inhaltsauflistung</target>
+      </segment>
+    </unit>
+    <unit id="wQ0WYAT" name="listing.title_sortby">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/content/listing.html.twig:69</note>
+        <note category="file-source" priority="1">bolt-core/templates/content/listing.html.twig:70</note>
+        <note category="file-source" priority="1">bolt-core/templates/users/listing.html.twig:190</note>
+        <note category="file-source" priority="1">bolt-core/templates/users/listing.html.twig:191</note>
+      </notes>
+      <segment>
+        <source>listing.title_sortby</source>
+        <target>Sortieren nach</target>
+      </segment>
+    </unit>
+    <unit id="hp554Ds" name="listing.option_select_sortby">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/content/listing.html.twig:72</note>
+        <note category="file-source" priority="1">bolt-core/templates/users/listing.html.twig:193</note>
+      </notes>
+      <segment>
+        <source>listing.option_select_sortby</source>
+        <target>Feld zum Sortieren auswählen</target>
+      </segment>
+    </unit>
+    <unit id="IWbf2by" name="listing.title_filterby">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/content/listing.html.twig:104</note>
+        <note category="file-source" priority="1">bolt-core/templates/users/listing.html.twig:207</note>
+      </notes>
+      <segment>
+        <source>listing.title_filterby</source>
+        <target>Filtern nach</target>
+      </segment>
+    </unit>
+    <unit id="pn22p7q" name="listing.placeholder_filter">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/content/listing.html.twig:106</note>
+        <note category="file-source" priority="1">bolt-core/templates/content/listing.html.twig:106</note>
+        <note category="file-source" priority="1">bolt-core/templates/users/listing.html.twig:214</note>
+        <note category="file-source" priority="1">bolt-core/templates/users/listing.html.twig:215</note>
+      </notes>
+      <segment>
+        <source>listing.placeholder_filter</source>
+        <target>Schlüsselwort zum Filtern ...</target>
+      </segment>
+    </unit>
+    <unit id="n.3JZvX" name="title.contentType">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/content/listing.html.twig:136</note>
+      </notes>
+      <segment>
+        <source>title.contentType</source>
+        <target>Inhaltstyp</target>
+      </segment>
+    </unit>
+    <unit id="9UKAP.V" name="listing_details_box.showing_records">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/content/listing.html.twig:149</note>
+      </notes>
+      <segment>
+        <source>listing_details_box.showing_records</source>
+        <target>Anzeige Records %current% von %total%</target>
+      </segment>
+    </unit>
+    <unit id="UrywY0R" name="listing_details_box.name">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/content/listing.html.twig:155</note>
+      </notes>
+      <segment>
+        <source>listing_details_box.name</source>
+        <target>Name: %name% (singular: %singularName%)</target>
+      </segment>
+    </unit>
+    <unit id=".l3zbrq" name="listing_details_box.slug">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/content/listing.html.twig:161</note>
+      </notes>
+      <segment>
+        <source>listing_details_box.slug</source>
+        <target>Slug: %slug% (Singular: %singularSlug%)</target>
+      </segment>
+    </unit>
+    <unit id="eJ9YbdG" name="listing_details_box.record_template">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/content/listing.html.twig:167</note>
+      </notes>
+      <segment>
+        <source>listing_details_box.record_template</source>
+        <target>Record template: %template%</target>
+      </segment>
+    </unit>
+    <unit id="tsc7_G3" name="listing_details_box.listing_template">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/content/listing.html.twig:173</note>
+      </notes>
+      <segment>
+        <source>listing_details_box.listing_template</source>
+        <target>Listing template: %template% (%listingRecords% Einträge)</target>
+      </segment>
+    </unit>
+    <unit id="pPz9Ocx" name="listing_details_box.locales">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/content/listing.html.twig:187</note>
+      </notes>
+      <segment>
+        <source>listing_details_box.locales</source>
+        <target>Lokalisierungen: %locales%</target>
+      </segment>
+    </unit>
+    <unit id="UNBaDz." name="general.phrase.edit">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/content/view_locales.html.twig:60</note>
+      </notes>
+      <segment>
+        <source>general.phrase.edit</source>
+        <target>Bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="37kJiIe" name="view_locales.badge_default">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/content/view_locales.html.twig:99</note>
+      </notes>
+      <segment>
+        <source>view_locales.badge_default</source>
+        <target>Standard</target>
+      </segment>
+    </unit>
+    <unit id="ufFUPp7" name="view_locales.badge_missing">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/content/view_locales.html.twig:101</note>
+      </notes>
+      <segment>
+        <source>view_locales.badge_missing</source>
+        <target>Fehlt</target>
+      </segment>
+    </unit>
+    <unit id="SGlj7K2" name="view_locales.badge_empty">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/content/view_locales.html.twig:103</note>
+      </notes>
+      <segment>
+        <source>view_locales.badge_empty</source>
+        <target>Leer</target>
+      </segment>
+    </unit>
+    <unit id="JTRCo_U" name="view_locales.badge_ok">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/content/view_locales.html.twig:105</note>
+      </notes>
+      <segment>
+        <source>view_locales.badge_ok</source>
+        <target>Ok</target>
+      </segment>
+    </unit>
+    <unit id="a6Xhtq0" name="folder.create_new">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/finder/_createfolder.html.twig:13</note>
+      </notes>
+      <segment>
+        <source>folder.create_new</source>
+        <target>Neuer Ordner</target>
+      </segment>
+    </unit>
+    <unit id="QQvRJe." name="files_cards.button_toggle">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/finder/_files_actions.html.twig:10</note>
+      </notes>
+      <segment>
+        <source>files_cards.button_toggle</source>
+        <target>Dropdown umschalten</target>
+      </segment>
+    </unit>
+    <unit id="gtC_ujD" name="files_cards.action_edit_image_info">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/finder/_files_actions.html.twig:17</note>
+      </notes>
+      <segment>
+        <source>files_cards.action_edit_image_info</source>
+        <target>Bild Metadaten bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="5LXvJfE" name="files_cards.action_edit_file">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/finder/_files_actions.html.twig:19</note>
+      </notes>
+      <segment>
+        <source>files_cards.action_edit_file</source>
+        <target>Datei im Editor bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="H1pgP94" name="files_cards.action_view_original">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/finder/_files_actions.html.twig:25</note>
+      </notes>
+      <segment>
+        <source>files_cards.action_view_original</source>
+        <target>Original ansehen</target>
+      </segment>
+    </unit>
+    <unit id="QcN1pi8" name="files_cards.copy_to_clipboard">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/finder/_files_actions.html.twig:29</note>
+      </notes>
+      <segment>
+        <source>files_cards.copy_to_clipboard</source>
+        <target>Link zu Datei kopieren</target>
+      </segment>
+    </unit>
+    <unit id="ZoY6ADX" name="files_cards.action_duplicate">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/finder/_files_actions.html.twig:36</note>
+      </notes>
+      <segment>
+        <source>files_cards.action_duplicate</source>
+        <target>Duplizieren</target>
+      </segment>
+    </unit>
+    <unit id="wHPoBzP" name="file.delete_confirm">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/finder/_files_actions.html.twig:42</note>
+        <note category="file-source" priority="1">bolt-core/templates/finder/_files_actions.html.twig:43</note>
+      </notes>
+      <segment>
+        <source>file.delete_confirm</source>
+        <target>Sind Sie sicher, dass Sie diese Datei löschen möchten?</target>
+      </segment>
+    </unit>
+    <unit id="JjU6ZQP" name="files_cards.action_delete">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/finder/_files_actions.html.twig:49</note>
+      </notes>
+      <segment>
+        <source>files_cards.action_delete</source>
+        <target>Löschen</target>
+      </segment>
+    </unit>
+    <unit id="3jdNwuk" name="files_cards.label_filename">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/finder/_files_actions.html.twig:56</note>
+      </notes>
+      <segment>
+        <source>files_cards.label_filename</source>
+        <target>Dateiname:</target>
+      </segment>
+    </unit>
+    <unit id="Y90_Pn1" name="files_cards.label_title">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/finder/_files_actions.html.twig:63</note>
+      </notes>
+      <segment>
+        <source>files_cards.label_title</source>
+        <target>Titel:</target>
+      </segment>
+    </unit>
+    <unit id="EdCfIKX" name="files_cards.label_dimensions">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/finder/_files_actions.html.twig:70</note>
+      </notes>
+      <segment>
+        <source>files_cards.label_dimensions</source>
+        <target>Abmessungen:</target>
+      </segment>
+    </unit>
+    <unit id="eQBhceV" name="files_cards.label_filesize">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/finder/_files_actions.html.twig:76</note>
+      </notes>
+      <segment>
+        <source>files_cards.label_filesize</source>
+        <target>Dateigröße:</target>
+      </segment>
+    </unit>
+    <unit id="uiCjlwk" name="files_cards.label_created_on">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/finder/_files_actions.html.twig:81</note>
+      </notes>
+      <segment>
+        <source>files_cards.label_created_on</source>
+        <target>Erstellt am:</target>
+      </segment>
+    </unit>
+    <unit id="8JeahIj" name="files_cards.message_no_files">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/finder/_files_cards.html.twig:48</note>
+      </notes>
+      <segment>
+        <source>files_cards.message_no_files</source>
+        <target>In diesem Ordner sind keine Dateien vorhanden. Wählen Sie auf der rechten Seite einen Ordner aus, zu dem Sie navigieren möchten.</target>
+      </segment>
+    </unit>
+    <unit id="_XSgfqS" name="filename">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/finder/_files_list.html.twig:6</note>
+      </notes>
+      <segment>
+        <source>filename</source>
+        <target>Dateiname</target>
+      </segment>
+    </unit>
+    <unit id="gPYflhh" name="thumbnail">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/finder/_files_list.html.twig:7</note>
+      </notes>
+      <segment>
+        <source>thumbnail</source>
+        <target>Vorschaubild</target>
+      </segment>
+    </unit>
+    <unit id="zNy_hG8" name="size">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/finder/_files_list.html.twig:8</note>
+      </notes>
+      <segment>
+        <source>size</source>
+        <target>Größe</target>
+      </segment>
+    </unit>
+    <unit id="DodjLNR" name="date">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/finder/_files_list.html.twig:9</note>
+      </notes>
+      <segment>
+        <source>date</source>
+        <target>Datum</target>
+      </segment>
+    </unit>
+    <unit id="Kw3N1AA" name="actions">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/finder/_files_list.html.twig:10</note>
+        <note category="file-source" priority="1">bolt-core/templates/finder/_folders.html.twig:7</note>
+      </notes>
+      <segment>
+        <source>actions</source>
+        <target>Optionen</target>
+      </segment>
+    </unit>
+    <unit id=".fL0AbE" name="files_list.remark">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/finder/_files_list.html.twig:75</note>
+      </notes>
+      <segment>
+        <source>files_list.remark</source>
+        <target>Keine Dateien im Ordner vorhanden, bitte wählen Sie ein Verzeichnis aus!</target>
+      </segment>
+    </unit>
+    <unit id="KHvGNGW" name="directoryname">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/finder/_folders.html.twig:6</note>
+      </notes>
+      <segment>
+        <source>directoryname</source>
+        <target>Verzeichnisname</target>
+      </segment>
+    </unit>
+    <unit id="v6cfPyt" name="quickselect.title_select">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/finder/_quickselect.html.twig:5</note>
+      </notes>
+      <segment>
+        <source>quickselect.title_select</source>
+        <target>Datei auswählen</target>
+      </segment>
+    </unit>
+    <unit id="C15MbYY" name="form.quick_select_file">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/finder/_quickselect.html.twig:9</note>
+      </notes>
+      <segment>
+        <source>form.quick_select_file</source>
+        <target>Datei Schnellauswahl</target>
+      </segment>
+    </unit>
+    <unit id="QZYjRy0" name="caption.file_uploader">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/finder/_uploader.html.twig:8</note>
+      </notes>
+      <segment>
+        <source>caption.file_uploader</source>
+        <target>Datei hochladen</target>
+      </segment>
+    </unit>
+    <unit id="283aB_E" name="caption.file_upload.upload_text">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/finder/_uploader.html.twig:17</note>
+      </notes>
+      <segment>
+        <source>caption.file_upload.upload_text</source>
+        <target>Legen Sie Dateien hier ab, um sie hochzuladen</target>
+      </segment>
+    </unit>
+    <unit id="P1FHg3Q" name="caption.edit_file">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/finder/editfile.html.twig:21</note>
+      </notes>
+      <segment>
+        <source>caption.edit_file</source>
+        <target>Datei bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="FSroufa" name="caption.path">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/finder/editfile.html.twig:26</note>
+        <note category="file-source" priority="1">bolt-core/templates/finder/finder.html.twig:40</note>
+      </notes>
+      <segment>
+        <source>caption.path</source>
+        <target>Pfad</target>
+      </segment>
+    </unit>
+    <unit id="HLtdhYw" name="action.save">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/finder/editfile.html.twig:38</note>
+        <note category="file-source" priority="1">bolt-core/templates/media/edit.html.twig:111</note>
+      </notes>
+      <segment>
+        <source>action.save</source>
+        <target>Speichern</target>
+      </segment>
+    </unit>
+    <unit id="LaDIuZA" name="caption.meta_information">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/finder/finder.html.twig:38</note>
+        <note category="file-source" priority="1">bolt-core/templates/media/edit.html.twig:105</note>
+      </notes>
+      <segment>
+        <source>caption.meta_information</source>
+        <target>Metadaten</target>
+      </segment>
+    </unit>
+    <unit id="73A2bWM" name="finder.label_view">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/finder/finder.html.twig:41</note>
+      </notes>
+      <segment>
+        <source>finder.label_view</source>
+        <target>Ansicht:</target>
+      </segment>
+    </unit>
+    <unit id="m3tNvJb" name="finder.button_list">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/finder/finder.html.twig:45</note>
+      </notes>
+      <segment>
+        <source>finder.button_list</source>
+        <target>Listenansicht</target>
+      </segment>
+    </unit>
+    <unit id="tRLgeoX" name="finder.button_cards">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/finder/finder.html.twig:49</note>
+      </notes>
+      <segment>
+        <source>finder.button_cards</source>
+        <target>Kartenansicht</target>
+      </segment>
+    </unit>
+    <unit id="AMxTho9" name="pager.previous">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/helpers/_pager_basic.html.twig:30</note>
+        <note category="file-source" priority="1">bolt-core/templates/helpers/_pager_bootstrap.html.twig:33</note>
+        <note category="file-source" priority="1">bolt-core/templates/helpers/_pager_bulma.html.twig:28</note>
+        <note category="file-source" priority="1">bolt-core/templates/helpers/_pager_tailwind.html.twig:29</note>
+      </notes>
+      <segment>
+        <source>pager.previous</source>
+        <target>Zurück</target>
+      </segment>
+    </unit>
+    <unit id="L_YQKUn" name="pager.next">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/helpers/_pager_basic.html.twig:66</note>
+        <note category="file-source" priority="1">bolt-core/templates/helpers/_pager_bootstrap.html.twig:74</note>
+        <note category="file-source" priority="1">bolt-core/templates/helpers/_pager_bulma.html.twig:34</note>
+        <note category="file-source" priority="1">bolt-core/templates/helpers/_pager_tailwind.html.twig:69</note>
+      </notes>
+      <segment>
+        <source>pager.next</source>
+        <target>Vor</target>
+      </segment>
+    </unit>
+    <unit id="TtIlBDd" name="caption.edit_image">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/media/edit.html.twig:6</note>
+      </notes>
+      <segment>
+        <source>caption.edit_image</source>
+        <target>Bild bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="y5otxEK" name="caption.filename">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/media/edit.html.twig:30</note>
+      </notes>
+      <segment>
+        <source>caption.filename</source>
+        <target>Dateiname</target>
+      </segment>
+    </unit>
+    <unit id="7_wwX8J" name="field.description">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/media/edit.html.twig:45</note>
+      </notes>
+      <segment>
+        <source>field.description</source>
+        <target>Beschreibung</target>
+      </segment>
+    </unit>
+    <unit id="hjDmcPC" name="field.copyright">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/media/edit.html.twig:51</note>
+      </notes>
+      <segment>
+        <source>field.copyright</source>
+        <target>Copyright</target>
+      </segment>
+    </unit>
+    <unit id="v0sitU8" name="field.originalFilename">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/media/edit.html.twig:58</note>
+      </notes>
+      <segment>
+        <source>field.originalFilename</source>
+        <target>Originaler Dateiname</target>
+      </segment>
+    </unit>
+    <unit id="fLOd6Zd" name="field.cropX">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/media/edit.html.twig:70</note>
+      </notes>
+      <segment>
+        <source>field.cropX</source>
+        <target>Breite zuschneiden</target>
+      </segment>
+    </unit>
+    <unit id="Sd_AbmV" name="field.cropXPostfix">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/media/edit.html.twig:73</note>
+      </notes>
+      <segment>
+        <source>field.cropXPostfix</source>
+        <target>Mögliche Positionen der X-Achse sind 0-100.</target>
+      </segment>
+    </unit>
+    <unit id="hi98HIj" name="field.cropY">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/media/edit.html.twig:77</note>
+      </notes>
+      <segment>
+        <source>field.cropY</source>
+        <target>Höhe zuschneiden</target>
+      </segment>
+    </unit>
+    <unit id="BQBmQHT" name="field.cropYPostfix">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/media/edit.html.twig:80</note>
+      </notes>
+      <segment>
+        <source>field.cropYPostfix</source>
+        <target>Mögliche Positionen der Y-Achse sind 0-100.</target>
+      </segment>
+    </unit>
+    <unit id="PHOpD5y" name="field.cropZoom">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/media/edit.html.twig:84</note>
+      </notes>
+      <segment>
+        <source>field.cropZoom</source>
+        <target>Zoomfaktor</target>
+      </segment>
+    </unit>
+    <unit id="tn6Z8wY" name="field.cropZoomPostfix">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/media/edit.html.twig:87</note>
+      </notes>
+      <segment>
+        <source>field.cropZoomPostfix</source>
+        <target>Möglicher Zoomfaktor ist 0-10.</target>
+      </segment>
+    </unit>
+    <unit id="EaqUUfe" name="label.predominant_colors__in_image">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/media/edit.html.twig:114</note>
+      </notes>
+      <segment>
+        <source>label.predominant_colors__in_image</source>
+        <target>Vorherrschende Farben</target>
+      </segment>
+    </unit>
+    <unit id="Sz_u.OS" name="field.filesize">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/media/edit.html.twig:142</note>
+      </notes>
+      <segment>
+        <source>field.filesize</source>
+        <target>Dateigröße</target>
+      </segment>
+    </unit>
+    <unit id="xN1kSQQ" name="caption.bolt_payoff">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/pages/about.html.twig:11</note>
+      </notes>
+      <segment>
+        <source>caption.bolt_payoff</source>
+        <target>Anspruchsvolles, leichtes und einfaches CMS</target>
+      </segment>
+    </unit>
+    <unit id="QVRwwK4" name="about.system_info">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/pages/about.html.twig:21</note>
+      </notes>
+      <segment>
+        <source>about.system_info</source>
+        <target>Systeminformationen</target>
+      </segment>
+    </unit>
+    <unit id="FO7zDub" name="about.bolt_on_github">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/pages/about.html.twig:69</note>
+      </notes>
+      <segment>
+        <source>about.bolt_on_github</source>
+        <target>Bolt auf GitHub</target>
+      </segment>
+    </unit>
+    <unit id="_9fS00R" name="about.used_libraries">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/pages/about.html.twig:73</note>
+      </notes>
+      <segment>
+        <source>about.used_libraries</source>
+        <target>Benutzte Libraries</target>
+      </segment>
+    </unit>
+    <unit id="tgLgLDQ" name="about.list_of_used_libraries">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/pages/about.html.twig:75</note>
+      </notes>
+      <segment>
+        <source>about.list_of_used_libraries</source>
+        <target>Unten aufgelistetete Libraries werden von Bolt verwendet.</target>
+      </segment>
+    </unit>
+    <unit id="munFS0n" name="title.filtered_by">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/pages/dashboard.html.twig:12</note>
+      </notes>
+      <segment>
+        <source>title.filtered_by</source>
+        <target><![CDATA[Gesamter Inhalt, gefiltert nach <em>'%filter%'</em>.]]></target>
+      </segment>
+    </unit>
+    <unit id="nrWBJNm" name="extensions.title_desc">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/pages/extension_details.html.twig:24</note>
+        <note category="file-source" priority="1">bolt-core/templates/pages/extension_details.html.twig:51</note>
+        <note category="file-source" priority="1">bolt-core/templates/pages/extensions.html.twig:27</note>
+        <note category="file-source" priority="1">bolt-core/templates/pages/extensions.html.twig:44</note>
+      </notes>
+      <segment>
+        <source>extensions.title_desc</source>
+        <target>Beschreibung:</target>
+      </segment>
+    </unit>
+    <unit id="7raDJAR" name="extensions.title_author">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/pages/extension_details.html.twig:26</note>
+        <note category="file-source" priority="1">bolt-core/templates/pages/extensions.html.twig:29</note>
+      </notes>
+      <segment>
+        <source>extensions.title_author</source>
+        <target>Autor:</target>
+      </segment>
+    </unit>
+    <unit id="UP8pNGy" name="extensions.title_package">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/pages/extension_details.html.twig:28</note>
+        <note category="file-source" priority="1">bolt-core/templates/pages/extensions.html.twig:31</note>
+      </notes>
+      <segment>
+        <source>extensions.title_package</source>
+        <target>Package / Class name:</target>
+      </segment>
+    </unit>
+    <unit id="hgNZLwW" name="extensions.title_configuration">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/pages/extension_details.html.twig:31</note>
+        <note category="file-source" priority="1">bolt-core/templates/pages/extensions.html.twig:34</note>
+      </notes>
+      <segment>
+        <source>extensions.title_configuration</source>
+        <target>Konfigurationsdatei</target>
+      </segment>
+    </unit>
+    <unit id="QFQ1uTC" name="extensions.title_version">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/pages/extension_details.html.twig:34</note>
+        <note category="file-source" priority="1">bolt-core/templates/pages/extensions.html.twig:37</note>
+      </notes>
+      <segment>
+        <source>extensions.title_version</source>
+        <target>Version:</target>
+      </segment>
+    </unit>
+    <unit id="LfwezhR" name="extensions.title_dependencies">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/pages/extension_details.html.twig:36</note>
+      </notes>
+      <segment>
+        <source>extensions.title_dependencies</source>
+        <target>Abhängigkeiten</target>
+      </segment>
+    </unit>
+    <unit id="60xy4WG" name="extensions.no_dependencies">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/pages/extension_details.html.twig:39</note>
+      </notes>
+      <segment>
+        <source>extensions.no_dependencies</source>
+        <target>Keine bekannten Abhängigkeiten</target>
+      </segment>
+    </unit>
+    <unit id="piuatxC" name="extensions.info_not_installed">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/pages/extension_details.html.twig:52</note>
+        <note category="file-source" priority="1">bolt-core/templates/pages/extensions.html.twig:45</note>
+      </notes>
+      <segment>
+        <source>extensions.info_not_installed</source>
+        <target>Dies ist ein lokales Paket, das nicht über Composer installiert ist.</target>
+      </segment>
+    </unit>
+    <unit id="3j1gEmk" name="extensions.title_class">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/pages/extension_details.html.twig:53</note>
+        <note category="file-source" priority="1">bolt-core/templates/pages/extensions.html.twig:46</note>
+      </notes>
+      <segment>
+        <source>extensions.title_class</source>
+        <target>Klassenname:</target>
+      </segment>
+    </unit>
+    <unit id="mjhFljb" name="extensions.button_configuration">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/pages/extension_details.html.twig:62</note>
+        <note category="file-source" priority="1">bolt-core/templates/pages/extensions.html.twig:58</note>
+      </notes>
+      <segment>
+        <source>extensions.button_configuration</source>
+        <target>Konfiguration</target>
+      </segment>
+    </unit>
+    <unit id="r3ryNTG" name="extensions.button_source">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/pages/extension_details.html.twig:67</note>
+        <note category="file-source" priority="1">bolt-core/templates/pages/extensions.html.twig:63</note>
+      </notes>
+      <segment>
+        <source>extensions.button_source</source>
+        <target>Source</target>
+      </segment>
+    </unit>
+    <unit id="7JK6jNv" name="extensions.message_not_implemented">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/pages/extension_details.html.twig:72</note>
+        <note category="file-source" priority="1">bolt-core/templates/pages/extension_details.html.twig:73</note>
+        <note category="file-source" priority="1">bolt-core/templates/pages/extension_details.html.twig:84</note>
+        <note category="file-source" priority="1">bolt-core/templates/pages/extension_details.html.twig:85</note>
+        <note category="file-source" priority="1">bolt-core/templates/pages/extensions.html.twig:68</note>
+        <note category="file-source" priority="1">bolt-core/templates/pages/extensions.html.twig:69</note>
+        <note category="file-source" priority="1">bolt-core/templates/pages/extensions.html.twig:79</note>
+        <note category="file-source" priority="1">bolt-core/templates/pages/extensions.html.twig:80</note>
+      </notes>
+      <segment>
+        <source>extensions.message_not_implemented</source>
+        <target>Entschuldigung! Noch nicht implementiert!</target>
+      </segment>
+    </unit>
+    <unit id="qc3rFkZ" name="extensions.button_remove">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/pages/extension_details.html.twig:79</note>
+        <note category="file-source" priority="1">bolt-core/templates/pages/extensions.html.twig:74</note>
+      </notes>
+      <segment>
+        <source>extensions.button_remove</source>
+        <target>Erweiterung entfernen</target>
+      </segment>
+    </unit>
+    <unit id="SLZyVzU" name="extensions.button_disable">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/pages/extension_details.html.twig:91</note>
+        <note category="file-source" priority="1">bolt-core/templates/pages/extensions.html.twig:86</note>
+      </notes>
+      <segment>
+        <source>extensions.button_disable</source>
+        <target>Erweiterung deaktivieren</target>
+      </segment>
+    </unit>
+    <unit id="BFARQEU" name="extensions.button_detailed_view">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/pages/extensions.html.twig:54</note>
+      </notes>
+      <segment>
+        <source>extensions.button_detailed_view</source>
+        <target>Details ansehen</target>
+      </segment>
+    </unit>
+    <unit id="rCKtTo5" name="caption.redirection_page">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/pages/menupage.html.twig:13</note>
+      </notes>
+      <segment>
+        <source>caption.redirection_page</source>
+        <target>Weiterleitungsseite</target>
+      </segment>
+    </unit>
+    <unit id="U6qdalg" name="reset_password.check_email_sent_header">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/reset_password/check_email.html.twig:4</note>
+      </notes>
+      <segment>
+        <source>reset_password.check_email_sent_header</source>
+        <target>Passwort Reset Email versendet</target>
+      </segment>
+    </unit>
+    <unit id="y.dIywE" name="reset_password.request_header">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/reset_password/check_email.html.twig:32</note>
+        <note category="file-source" priority="1">bolt-core/templates/reset_password/request.html.twig:4</note>
+        <note category="file-source" priority="1">bolt-core/templates/reset_password/request.html.twig:36</note>
+      </notes>
+      <segment>
+        <source>reset_password.request_header</source>
+        <target>Passwort zurücksetzen</target>
+      </segment>
+    </unit>
+    <unit id="SxW1D3L" name="reset_password.check_email_sent_text_1">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/reset_password/check_email.html.twig:35</note>
+      </notes>
+      <segment>
+        <source>reset_password.check_email_sent_text_1</source>
+        <target>Es wurde eine Email versandt, die einen Link enthält, auf den Sie klicken können, um Ihr Passwort zurückzusetzen. Dieser Link wird in %Stunden% Stunde(n) ablaufen.</target>
+      </segment>
+    </unit>
+    <unit id="z25k4DS" name="reset_password.check_email_sent_text_2">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/reset_password/check_email.html.twig:36</note>
+      </notes>
+      <segment>
+        <source>reset_password.check_email_sent_text_2</source>
+        <target>Wenn Sie keine E-Mail erhalten, überprüfen Sie bitte Ihren Spam-Ordner oder versuchen Sie es erneut.</target>
+      </segment>
+    </unit>
+    <unit id="dp42qbF" name="reset_password.email_title">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/reset_password/email.html.twig:1</note>
+      </notes>
+      <segment>
+        <source>reset_password.email_title</source>
+        <target>Hallo!</target>
+      </segment>
+    </unit>
+    <unit id="xS2vvXw" name="reset_password.email_description">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/reset_password/email.html.twig:3</note>
+      </notes>
+      <segment>
+        <source>reset_password.email_description</source>
+        <target>Um Ihr Passwort zurückzusetzen, besuchen Sie bitte den folgenden Link</target>
+      </segment>
+    </unit>
+    <unit id="apkSD11" name="reset_password.email_expire">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/reset_password/email.html.twig:7</note>
+      </notes>
+      <segment>
+        <source>reset_password.email_expire</source>
+        <target>Dieser Link wird in %hours% Stunde(n) ablaufen.</target>
+      </segment>
+    </unit>
+    <unit id="_gg3hPE" name="reset_password.email_thanks">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/reset_password/email.html.twig:9</note>
+      </notes>
+      <segment>
+        <source>reset_password.email_thanks</source>
+        <target>Danke!</target>
+      </segment>
+    </unit>
+    <unit id="SwOgM7K" name="reset_password.request_description">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/reset_password/request.html.twig:42</note>
+      </notes>
+      <segment>
+        <source>reset_password.request_description</source>
+        <target>Geben Sie Ihre E-Mail-Adresse ein und wir senden Ihnen einen Link zum Zurücksetzen Ihres Passworts.</target>
+      </segment>
+    </unit>
+    <unit id="RX0Iuzi" name="reset_password.request_send">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/reset_password/request.html.twig:44</note>
+      </notes>
+      <segment>
+        <source>reset_password.request_send</source>
+        <target>Absenden</target>
+      </segment>
+    </unit>
+    <unit id="k9hekeu" name="reset_password.back-to-login">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/reset_password/request.html.twig:47</note>
+      </notes>
+      <segment>
+        <source>reset_password.back-to-login</source>
+        <target>Zurück zum Login</target>
+      </segment>
+    </unit>
+    <unit id="gVc0Uf4" name="reset_password.reset_header">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/reset_password/reset.html.twig:4</note>
+        <note category="file-source" priority="1">bolt-core/templates/reset_password/reset.html.twig:32</note>
+      </notes>
+      <segment>
+        <source>reset_password.reset_header</source>
+        <target>Setze dein Passwort zurück</target>
+      </segment>
+    </unit>
+    <unit id="QpUMHfK" name="reset_password.reset_btn">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/reset_password/reset.html.twig:37</note>
+      </notes>
+      <segment>
+        <source>reset_password.reset_btn</source>
+        <target>Passwort zurücksetzen</target>
+      </segment>
+    </unit>
+    <unit id="80JoLd0" name="title.login">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/security/login.html.twig:4</note>
+      </notes>
+      <segment>
+        <source>title.login</source>
+        <target>In Bolt anmelden</target>
+      </segment>
+    </unit>
+    <unit id="beqzCkE" name="login.header_login">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/security/login.html.twig:40</note>
+      </notes>
+      <segment>
+        <source>login.header_login</source>
+        <target>Bolt » Login</target>
+      </segment>
+    </unit>
+    <unit id="gLN0C81" name="action.log_in">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/security/login.html.twig:60</note>
+      </notes>
+      <segment>
+        <source>action.log_in</source>
+        <target>Einloggen</target>
+      </segment>
+    </unit>
+    <unit id="i37ZNqN" name="login.forgotpassword">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/security/login.html.twig:64</note>
+      </notes>
+      <segment>
+        <source>login.forgotpassword</source>
+        <target>Passwort vergessen</target>
+      </segment>
+    </unit>
+    <unit id="LDhDPrF" name="label.username">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/users/_form.html.twig:10</note>
+        <note category="file-source" priority="1">bolt-core/templates/users/profile.html.twig:24</note>
+      </notes>
+      <segment>
+        <source>label.username</source>
+        <target>Benutzername</target>
+      </segment>
+    </unit>
+    <unit id="SeTqePC" name="label.display_name">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/users/_form.html.twig:26</note>
+        <note category="file-source" priority="1">bolt-core/templates/users/profile.html.twig:33</note>
+      </notes>
+      <segment>
+        <source>label.display_name</source>
+        <target>Anzeigename</target>
+      </segment>
+    </unit>
+    <unit id="hiE9jap" name="password.suggested">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/users/_form.html.twig:44</note>
+      </notes>
+      <segment>
+        <source>password.suggested</source>
+        <target><![CDATA[<![CDATA[Vorgeschlagenes sicheres Passwort: <code>%password%</code>]]]]><![CDATA[>]]></target>
+      </segment>
+    </unit>
+    <unit id="mEDsKHk" name="label.locale">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/users/_form.html.twig:95</note>
+        <note category="file-source" priority="1">bolt-core/templates/users/profile.html.twig:72</note>
+      </notes>
+      <segment>
+        <source>label.locale</source>
+        <target>Sprache</target>
+      </segment>
+    </unit>
+    <unit id="iD6CNOO" name="label.roles">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/users/_form.html.twig:124</note>
+      </notes>
+      <segment>
+        <source>label.roles</source>
+        <target>Rollen</target>
+      </segment>
+    </unit>
+    <unit id="nWMH_Nr" name="label.avatar">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/users/_form.html.twig:172</note>
+      </notes>
+      <segment>
+        <source>label.avatar</source>
+        <target>Avatar</target>
+      </segment>
+    </unit>
+    <unit id="3zlZmRK" name="action.add_user">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/users/add.html.twig:6</note>
+      </notes>
+      <segment>
+        <source>action.add_user</source>
+        <target>Benutzer hinzufügen</target>
+      </segment>
+    </unit>
+    <unit id="1sstKF9" name="title.edit_user">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/users/edit.html.twig:6</note>
+      </notes>
+      <segment>
+        <source>title.edit_user</source>
+        <target>Benutzer bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="Ay7xZ2h" name="listing.title_username">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/users/listing.html.twig:19</note>
+        <note category="file-source" priority="1">bolt-core/templates/users/listing.html.twig:122</note>
+      </notes>
+      <segment>
+        <source>listing.title_username</source>
+        <target>Benutzername</target>
+      </segment>
+    </unit>
+    <unit id="7cXqH5s" name="listing.title_display_name">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/users/listing.html.twig:20</note>
+      </notes>
+      <segment>
+        <source>listing.title_display_name</source>
+        <target>Anzeigename</target>
+      </segment>
+    </unit>
+    <unit id="RN1tdtJ" name="listing.title_email">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/users/listing.html.twig:20</note>
+      </notes>
+      <segment>
+        <source>listing.title_email</source>
+        <target>E-Mail-Adresse</target>
+      </segment>
+    </unit>
+    <unit id="0pjZ.GV" name="listing.title_roles">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/users/listing.html.twig:21</note>
+      </notes>
+      <segment>
+        <source>listing.title_roles</source>
+        <target>Rollen</target>
+      </segment>
+    </unit>
+    <unit id="hXEFV1n" name="listing.title_last_seen">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/users/listing.html.twig:22</note>
+        <note category="file-source" priority="1">bolt-core/templates/users/listing.html.twig:123</note>
+      </notes>
+      <segment>
+        <source>listing.title_last_seen</source>
+        <target>Zuletzt gesehen</target>
+      </segment>
+    </unit>
+    <unit id="pn7kE17" name="listing.title_last_ip">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/users/listing.html.twig:23</note>
+      </notes>
+      <segment>
+        <source>listing.title_last_ip</source>
+        <target>Letzte Ip</target>
+      </segment>
+    </unit>
+    <unit id="GZ65uOC" name="listing.title_actions">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/users/listing.html.twig:24</note>
+      </notes>
+      <segment>
+        <source>listing.title_actions</source>
+        <target>Optionen</target>
+      </segment>
+    </unit>
+    <unit id="eJG2.4P" name="listing.current_sessions_header">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/users/listing.html.twig:117</note>
+      </notes>
+      <segment>
+        <source>listing.current_sessions_header</source>
+        <target>Aktuelle Sitzungen</target>
+      </segment>
+    </unit>
+    <unit id="Npkio79" name="listing.title_session_expires">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/users/listing.html.twig:124</note>
+      </notes>
+      <segment>
+        <source>listing.title_session_expires</source>
+        <target>Session endet</target>
+      </segment>
+    </unit>
+    <unit id="mmUDcto" name="listing.title_ip_address">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/users/listing.html.twig:125</note>
+      </notes>
+      <segment>
+        <source>listing.title_ip_address</source>
+        <target>IP-Adresse</target>
+      </segment>
+    </unit>
+    <unit id="x9qAwrz" name="listing.title_browser">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/users/listing.html.twig:126</note>
+      </notes>
+      <segment>
+        <source>listing.title_browser</source>
+        <target>Browser / Betriebssystem</target>
+      </segment>
+    </unit>
+    <unit id="Dgtkgju" name="title.edit_user_profile">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/users/profile.html.twig:6</note>
+      </notes>
+      <segment>
+        <source>title.edit_user_profile</source>
+        <target>Benutzerprofil bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="qlucRr7" name="maintenance.activated_warning">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/templates/widget/maintenance_mode.twig:25</note>
+      </notes>
+      <segment>
+        <source>maintenance.activated_warning</source>
+        <target>Maintenance Modus ist aktiviert</target>
+      </segment>
+    </unit>
+    <unit id="TpGxDI3" name="user.unknown_user">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>user.unknown_user</source>
+        <target>Unbekannter Benutzer</target>
+      </segment>
+    </unit>
+    <unit id="_ef0RBR" name="caption.installation_checks">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>caption.installation_checks</source>
+        <target>Installation prüfen</target>
+      </segment>
+    </unit>
+    <unit id="hGJoUs5" name="caption.fixtures_dummy_content">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>caption.fixtures_dummy_content</source>
+        <target>Beispielinhalte</target>
+      </segment>
+    </unit>
+    <unit id="KfVJho2" name="action.create_new">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>action.create_new</source>
+        <target>Anlegen</target>
+      </segment>
+    </unit>
+    <unit id="dQIY7_J" name="action.preview">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>action.preview</source>
+        <target>Vorschau</target>
+      </segment>
+    </unit>
+    <unit id="qQKx1lR" name="buttons.button_toggle">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>buttons.button_toggle</source>
+        <target>Dropdown anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="ok6YulQ" name="action.view_saved">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>action.view_saved</source>
+        <target>Gespeicherte Version anschauen</target>
+      </segment>
+    </unit>
+    <unit id="odDw0du" name="action.search">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>action.search</source>
+        <target>Suchen</target>
+      </segment>
+    </unit>
+    <unit id="Pily_qo" name="general.phrase.read-more">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>general.phrase.read-more</source>
+        <target>Mehr anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="wNEwZy_" name="contenttypes.generic.overview">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>contenttypes.generic.overview</source>
+        <target>Seitenübersicht</target>
+      </segment>
+    </unit>
+    <unit id="psOa_9x" name="general.phrase.built-with-bolt">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>general.phrase.built-with-bolt</source>
+        <target><![CDATA[Diese Webseite wurde erstellt mit <a href='https://boltcms.io' target='_blank' title='Sophisticated, lightweight & simple CMS'>Bolt</a>. ]]></target>
+      </segment>
+    </unit>
+    <unit id="AGegYAN" name="contenttypes.generic.recent">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>contenttypes.generic.recent</source>
+        <target>Neueste Seiten</target>
+      </segment>
+    </unit>
+    <unit id="gB.9hTu" name="general.phrase.search-ellipsis">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>general.phrase.search-ellipsis</source>
+        <target>...</target>
+      </segment>
+    </unit>
+    <unit id="a2vzLi7" name="action.do_something">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>action.do_something</source>
+        <target>Beispieltext</target>
+      </segment>
+    </unit>
+    <unit id="cH6rDCP" name="Button">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>Button</source>
+        <target>Button</target>
+      </segment>
+    </unit>
+    <unit id="RaGzSx5" name="57d589f">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>57d589f</source>
+        <target><![CDATA[<strong>Achtung!</strong> Diese Warnung benötigt Ihre Aufmerksamkeit, ist aber nicht besonders wichtig.]]></target>
+      </segment>
+    </unit>
+    <unit id="Bicbr0l" name="info">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>info</source>
+        <target>Information</target>
+      </segment>
+    </unit>
+    <unit id="S9k1S7Z" name="warning">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>warning</source>
+        <target>Warnung</target>
+      </segment>
+    </unit>
+    <unit id="Ej.WZqo" name="danger">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>danger</source>
+        <target>Achtung</target>
+      </segment>
+    </unit>
+    <unit id="ypPzS03" name="localeswitcher.button_info">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>localeswitcher.button_info</source>
+        <target>Übersetzungsstatus</target>
+      </segment>
+    </unit>
+    <unit id="n.jOrkg" name="caption.untitled_contenttype">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>caption.untitled_contenttype</source>
+        <target>Unbenannte(r) %contenttype%</target>
+      </segment>
+    </unit>
+    <unit id="QoeqyPT" name="caption.new_contenttype">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>caption.new_contenttype</source>
+        <target>%contenttype% anlegen</target>
+      </segment>
+    </unit>
+    <unit id="Iy4HXCU" name="controller.user.title">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>controller.user.title</source>
+        <target><![CDATA[Benutzer & Rechte]]></target>
+      </segment>
+    </unit>
+    <unit id="ovKkXwU" name="action.edit">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>action.edit</source>
+        <target>Bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="ryXZRAu" name="action.disable">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>action.disable</source>
+        <target>Deaktivieren</target>
+      </segment>
+    </unit>
+    <unit id="HBwIQ9b" name="controller.user.subtitle">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>controller.user.subtitle</source>
+        <target>Benutzer und Rechte bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="7whLbH8" name="user.new_user">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>user.new_user</source>
+        <target>Neuen Benutzer anlegen</target>
+      </segment>
+    </unit>
+    <unit id="I2ykiIZ" name="caption.folders">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>caption.folders</source>
+        <target>Ordner</target>
+      </segment>
+    </unit>
+    <unit id="5IxD63c" name="general.latest_bolt_news">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>general.latest_bolt_news</source>
+        <target>Neueste Bolt Neuigkeiten</target>
+      </segment>
+    </unit>
+    <unit id=".I3mIHo" name="label.current_status">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>label.current_status</source>
+        <target>Aktueller Status</target>
+      </segment>
+    </unit>
+    <unit id="utGAKaQ" name="status.published">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>status.published</source>
+        <target>Veröffentlicht</target>
+      </segment>
+    </unit>
+    <unit id="oxqDDuK" name="status.held">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>status.held</source>
+        <target>Gehalten</target>
+      </segment>
+    </unit>
+    <unit id="h7dP3WY" name="status.timed">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>status.timed</source>
+        <target>Terminiert</target>
+      </segment>
+    </unit>
+    <unit id="HJbHjee" name="status.draft">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>status.draft</source>
+        <target>Entwurf</target>
+      </segment>
+    </unit>
+    <unit id="hAysbHB" name="label.translatable">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>label.translatable</source>
+        <target>Dieses Feld ist übersetzbar</target>
+      </segment>
+    </unit>
+    <unit id="ni4zApC" name="listing.button_filter">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>listing.button_filter</source>
+        <target>Filtern</target>
+      </segment>
+    </unit>
+    <unit id="txRonia" name="label.id">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>label.id</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="IwLLxxx" name="label.level">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>label.level</source>
+        <target>Level</target>
+      </segment>
+    </unit>
+    <unit id="51OQi14" name="label.message">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>label.message</source>
+        <target>Nachricht</target>
+      </segment>
+    </unit>
+    <unit id="S0f6iTL" name="label.timestamp">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>label.timestamp</source>
+        <target>Zeit</target>
+      </segment>
+    </unit>
+    <unit id="FlGE3qB" name="label.request">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>label.request</source>
+        <target>Anfrage</target>
+      </segment>
+    </unit>
+    <unit id="l71Tprl" name="label.trace">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>label.trace</source>
+        <target>Spur</target>
+      </segment>
+    </unit>
+    <unit id="29ZEo1r" name="label.context">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>label.context</source>
+        <target>Kontext</target>
+      </segment>
+    </unit>
+    <unit id="O2X4xZH" name="label.user">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>label.user</source>
+        <target>Benutzer</target>
+      </segment>
+    </unit>
+    <unit id="Hr2E9Oa" name="listing_table.no_results">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>listing_table.no_results</source>
+        <target>Keine Ergebnisse gefunden. Erweitern Sie die Filterkriterien oder fügen Sie weitere Inhalte hinzu.</target>
       </segment>
     </unit>
   </file>

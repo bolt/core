@@ -30,11 +30,11 @@
             <th scope="row">{{ iteratedUser.id }}</th>
             <td>
                 {{ iteratedUser.username }}
-                {% if iteratedUser.status === 'disabled' %}<span class="badge badge-danger">{{ __('listing.disabled') }}</span>{% endif %}
+                {% if iteratedUser.status === 'disabled' %}<span class="badge bg-danger">{{ __('listing.disabled') }}</span>{% endif %}
             </td>
             <td>
                 {{ iteratedUser.displayName }} /
-                <small><a href="mailto:{{ iteratedUser.email }}" rel="noopener noreferrer">@</a></small>
+                <small><a href="mailto:{{ iteratedUser.email }}" rel="noopener noreferrer" style="text-decoration: none">@</a></small>
             </td>
             <td>
                 <small><code>{{ iteratedUser.roles|join('</code>, <code>')|raw }}</code></small>
@@ -55,7 +55,7 @@
             </td>
             <td>
                 <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {{ __('title.options') }}
                     </button>
                     <div class="dropdown-menu dropdown-menu-right">
@@ -84,7 +84,15 @@
                             {% endif %}
                             {% if is_granted('user:delete') %}
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item btn-hidden-danger" href="{{ path('bolt_user_delete', {'id': iteratedUser.id, '_csrf_token': csrf_token('useredit')}) }}" data-confirmation="{{ 'action.confirm_delete'|trans }}">
+                                <a class="dropdown-item btn-hidden-danger"
+                                   href="{{ path('bolt_user_delete', {'id': iteratedUser.id, '_csrf_token': csrf_token('useredit')}) }}"
+                                   data-modal-title="{{ 'action.confirm_delete'|trans }}"
+                                   data-modal-body="{{ 'action.confirm_delete'|trans }}"
+                                   data-modal-button-deny="Cancel"
+                                   data-modal-button-accept="OK"
+                                   data-bs-toggle="modal"
+                                   data-bs-target="#resourcesModal"
+                                >
                                     <i class="fas fa-w fa-trash"></i> {{ __('action.delete') }}
                                 </a>
                             {% endif %}

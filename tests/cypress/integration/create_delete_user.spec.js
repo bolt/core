@@ -38,8 +38,8 @@ describe('Create/delete user', () => {
         cy.wait(100);
         cy.get('table').eq(0).find('tbody').find('tr').eq(5).find('td').eq(5).find('.btn-hidden-danger').click({ force: true });
         cy.wait(1000);
-        cy.get('.bootbox-body').should('contain', 'Are you sure you wish to delete this content?');
-        cy.get('.modal-footer').find('button').eq(1).should('contain', 'OK').click();
+        cy.get('.modal-title').should('contain', 'Are you sure you wish to delete this content?');
+        cy.get('.modal-footer').find('button').eq(1).should('contain', 'Save').click();
 
         cy.visit('/bolt/users');
         cy.wait(1000);

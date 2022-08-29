@@ -7,7 +7,7 @@ namespace Bolt\Repository;
 use Bolt\Entity\Media;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Webmozart\PathUtil\Path;
+use Symfony\Component\Filesystem\Path;
 
 /**
  * @method Media|null find($id, $lockMode = null, $lockVersion = null)
@@ -56,7 +56,7 @@ class MediaRepository extends ServiceEntityRepository
         $criteria = [
             'location' => $location,
             'path' => Path::getDirectory($fullFileName),
-            'filename' => Path::getFilename($fullFileName),
+            'filename' => basename($fullFileName),
         ];
 
         return $this->findOneBy($criteria);

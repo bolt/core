@@ -9,6 +9,7 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Driver\PDOConnection;
 use Doctrine\DBAL\Platforms\MariaDb1027Platform;
 use Doctrine\DBAL\Platforms\MySQL57Platform;
+use Doctrine\DBAL\Platforms\MySqlPlatform;
 use Doctrine\DBAL\Platforms\PostgreSQL92Platform;
 use Doctrine\DBAL\Platforms\SqlitePlatform;
 
@@ -97,6 +98,31 @@ class Version
             return true;
         }
 
+        // Corner case where MySQL platform is not specialized.
+        // Was observed with deployment to platform.sh using oracle-mysql service.
+        if ($platform instanceof MySqlPlatform) {
+            // samples:
+            // 8.0.29
+            // 8.0.27-cluster
+            // 10.7.3-MariaDB-1:10.7.3+maria~focal
+            $serverVersion = $this->getPlatform()["server_version"];
+
+            if (!preg_match("/^\d+\.\d+\.\d+/", $serverVersion, $matches)) {
+                // should throw an error or something?
+                return false;
+            }
+
+            $actVersion = $matches[0];
+
+            $isMariaDb = is_int(mb_stripos($serverVersion, "maria"));
+            $minVersion = $isMariaDb
+                ? "10.2.7"  // taken from MariaDb1027Platform docs
+                : "5.7.9" // taken from MySQL57Platform docs
+            ;
+
+            return version_compare($actVersion, $minVersion, ">=");
+        }
+
         // PostgreSQL supports JSON from v9.2 and above, later versions are implicitly included
         if ($platform instanceof PostgreSQL92Platform) {
             return true;
@@ -133,7 +159,7 @@ class Version
         try {
             $query = $this->connection->createQueryBuilder();
             $query
-                ->select('JSON_SEARCH("{}", "one", "")');
+                ->select('JSON_EXTRACT("{}", "one", "")');
             $query->execute();
         } catch (\Throwable $e) {
             return false;

@@ -24,7 +24,9 @@
 
 {% block title %}
     {{ icon(record) }}
-    {{ displayTitle|excerpt(50) }}
+    <div class="admin__header--title-inner" style="display: inline">
+        {{ displayTitle|excerpt(50) }}
+    </div>
 {% endblock %}
 
 {% block vue_id 'editor' %}
@@ -52,7 +54,7 @@
         {%endfor%}
     {% endif %}
 
-    <form method="post" id="editcontent">
+    <form method="post" id="editcontent" data-record="{{ record.id }}">
         {{ widgets('editcontent_below_header') }}
 
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('editrecord') }}">
@@ -72,10 +74,13 @@
             {# Note: the `|slug` below should be entirely unnecesary, but is added here for consistency, if a certain
             locale / slugify config insist on keeping uppercase letters. See: https://github.com/bolt/core/pull/2907 #}
             <div class="tab-pane" id="{{ "Relations"|slug }}" role="tabpanel" aria-labelledby="relations-tab">
+                {% if record.definition.relations.count()|default(0) > 0 %}
+                    {% include '@bolt/content/_relationships.html.twig' %}
+                {% endif %}
 
-                {% include '@bolt/content/_relationships.html.twig' %}
-
-                {% include '@bolt/content/_taxonomies.html.twig' %}
+                {% if record.definition.taxonomy.count()|default(0) > 0 %}
+                    {% include '@bolt/content/_taxonomies.html.twig' %}
+                {% endif %}
             </div>
 
         </div>

@@ -27,7 +27,7 @@
         <li>Operating system: <code>{{ os_name }} - <small>{{ os_version }}</small></code></li>
         <li>Assets version: <code id="assetsVersion">-</code></li>
         <li>File size upload limit: <code>{{ config.maxUpload|format_bytes }}</code>
-            <i data-toggle="popover" data-trigger="hover" title="" data-html="true" data-content="{{ config.maxUploadDescription|raw }}" class="fa fa-info-circle"></i>
+            <i data-bs-toggle="popover" data-bs-trigger="hover" title="" data-bs-html="true" data-bs-content="{{ config.maxUploadDescription|raw }}" class="fa fa-info-circle"></i>
         </li>
         <li>Memory limit: <code>{{ memory_limit }}</code></li>
     </ul>

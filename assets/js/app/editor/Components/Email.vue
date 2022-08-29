@@ -1,9 +1,7 @@
 <template>
     <div>
         <div class="input-group mb-2">
-            <div class="input-group-prepend">
-                <div class="input-group-text"><i class="far fa-envelope mr-0"></i></div>
-            </div>
+            <i class="input-group-text far fa-envelope me-0"></i>
             <input
                 :id="id"
                 class="form-control"
