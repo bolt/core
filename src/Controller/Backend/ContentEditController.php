@@ -98,7 +98,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
     /**
      * @Route("/new/{contentType}", name="bolt_content_new", methods={"GET|POST"})
      */
-    public function new(string $contentType): Response
+    public function new(string $contentType, ?ContentValidatorInterface $contentValidator = null): Response
     {
         $content = new Content();
 
@@ -113,7 +113,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         $this->contentFillListener->fillContent($content);
 
         if ($this->request->getMethod() === 'POST') {
-            return $this->save($content);
+            return $this->save($content, $contentValidator);
         }
 
         return $this->edit($content);
