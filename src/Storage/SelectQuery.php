@@ -110,11 +110,11 @@ class SelectQuery implements QueryInterface
      * Constructor.
      */
     public function __construct(
-        ?QueryBuilder $qb = null,
         QueryParameterParser $parser,
         Config $config,
         EntityManagerInterface $em,
-        FieldQueryUtils $utils
+        FieldQueryUtils $utils,
+        ?QueryBuilder $qb = null
     ) {
         $this->qb = $qb;
         $this->parser = $parser;
