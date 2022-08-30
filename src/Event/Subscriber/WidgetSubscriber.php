@@ -48,13 +48,19 @@ class WidgetSubscriber implements EventSubscriberInterface
      */
     public function onKernelRequest(RequestEvent $event): void
     {
-        $canonicalLinkWidget = new CanonicalLinkWidget(
-            $this->canonical,
-            $this->config,
-            $this->twig
-        );
+        if (!$event->isMainRequest()) {
+            return;
+        }
 
-        $this->widgets->registerWidget($canonicalLinkWidget);
+        if (! $this->config->get('general/omit_canonical_link')) {
+            $canonicalLinkWidget = new CanonicalLinkWidget(
+                $this->canonical,
+                $this->config,
+                $this->twig
+            );
+
+            $this->widgets->registerWidget($canonicalLinkWidget);
+        }
 
         if (! $this->config->get('general/headers/allow_floc')) {
             $this->widgets->registerWidget(new FlocOptOutHeader());

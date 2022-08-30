@@ -114,6 +114,7 @@ class GeneralParser extends BaseParser
             ],
             'omit_backgrounds' => false,
             'omit_meta_generator_tag' => false,
+            'omit_canonical_link' => false,
             'user_avatar' => [
                 'upload_path' => 'avatars',
                 'extensions_allowed' => ['png', 'jpeg', 'jpg', 'gif'],
