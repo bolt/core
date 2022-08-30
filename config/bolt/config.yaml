@@ -68,6 +68,9 @@ canonical: https://example.org
 # If you want to override the canonical template, from the theme:
 #canonical_template: 'partials/_canonical.html.twig'
 
+# If you want to add canonical link in your own way, set this to true
+omit_canonical_link: false
+
 # By setting this to true, you will get a relative canonical path passed to the template.
 #relative_canonical_url: true
 
