@@ -1,6 +1,18 @@
 Changelog
 =========
 
+## 5.1.14
+
+Released: 2022-08-31
+
+### 🐛 Bug fixes
+
+- Catch more broad Exception in `Locales::getName` (bobdenotter, [#3309](https://github.com/bolt/core/pull/3309))
+- Insert `<meta>` snippets on main request only (jordanaubert, [#3308](https://github.com/bolt/core/pull/3308))
+- Content validation is triggered on creation of content as well (jordanaubert, [#3305](https://github.com/bolt/core/pull/3305))
+- Fix deprecation notice in PHP `8.0` and above ( abdellahrk, [#3307](https://github.com/bolt/core/pull/3307))
+
+
 ## 5.1.13
 
 Released: 2022-08-26
