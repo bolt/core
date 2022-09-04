@@ -19,6 +19,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Security;
 use Twig\Environment;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class UserType extends AbstractType
 {
@@ -106,6 +107,9 @@ class UserType extends AbstractType
                     'upload_path' => $this->avatarConfig->get('upload_path'),
                     'extensions_allowed' => $this->avatarConfig->get('extensions_allowed'),
                 ],
+            ])
+            ->add('about', TextareaType::class, [
+                'required' => false
             ])
         ;
 
