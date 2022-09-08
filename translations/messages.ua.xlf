@@ -1,0 +1,2443 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="ru" trgLang="ru">
+    <file id="messages.en">
+        <unit id="tbB2gib" name="not_available">
+            <notes>
+                <note>templates/debug/source_code.twig:26</note>
+            </notes>
+            <segment>
+                <source>not_available</source>
+                <target>Недоступно</target>
+            </segment>
+        </unit>
+        <unit id="DF34uM2" name="http_error.name">
+            <notes>
+                <note>templates/bundles/TwigBundle/Exception/error.html.twig:15</note>
+                <note>templates/bundles/TwigBundle/Exception/error404.html.twig:15</note>
+                <note>templates/bundles/TwigBundle/Exception/error500.html.twig:15</note>
+                <note>templates/bundles/TwigBundle/Exception/error403.html.twig:15</note>
+            </notes>
+            <segment>
+                <source>http_error.name</source>
+                <target>Помилка %status_code%</target>
+            </segment>
+        </unit>
+        <unit id="e3w.2Rf" name="http_error.description">
+            <notes>
+                <note>templates/bundles/TwigBundle/Exception/error.html.twig:18</note>
+            </notes>
+            <segment>
+                <source>http_error.description</source>
+                <target>Відбулася невідома помилка (HTTP %status_code%), яка завадила виконати ваш запит.</target>
+            </segment>
+        </unit>
+        <unit id="ru5FEGk" name="http_error.suggestion">
+            <notes>
+                <note>templates/bundles/TwigBundle/Exception/error.html.twig:21</note>
+            </notes>
+            <segment>
+                <source>http_error.suggestion</source>
+                <target><![CDATA[Спробуйте завантажити цю сторінку ще раз за кілька хвилин або <a href="%url%">поверніться на головну сторінку</a>.]]></target>
+            </segment>
+        </unit>
+        <unit id="Qn5rwdU" name="http_error_403.description">
+            <notes>
+                <note>templates/bundles/TwigBundle/Exception/error403.html.twig:18</note>
+            </notes>
+            <segment>
+                <source>http_error_403.description</source>
+                <target>У вас немає дозволу на доступ до цього ресурсу.</target>
+            </segment>
+        </unit>
+        <unit id="zDeeh7L" name="http_error_403.suggestion">
+            <notes>
+                <note>templates/bundles/TwigBundle/Exception/error403.html.twig:21</note>
+            </notes>
+            <segment>
+                <source>http_error_403.suggestion</source>
+                <target>Попросіть менеджера або системного адміністратора надати вам доступ до цього ресурсу.</target>
+            </segment>
+        </unit>
+        <unit id="_W1eNz2" name="http_error_404.description">
+            <notes>
+                <note>templates/bundles/TwigBundle/Exception/error404.html.twig:18</note>
+            </notes>
+            <segment>
+                <source>http_error_404.description</source>
+                <target>Нам не вдалося знайти запитану сторінку.</target>
+            </segment>
+        </unit>
+        <unit id="MWNS5dg" name="http_error_404.suggestion">
+            <notes>
+                <note>templates/bundles/TwigBundle/Exception/error404.html.twig:21</note>
+            </notes>
+            <segment>
+                <source>http_error_404.suggestion</source>
+                <target><![CDATA[Перевірте правильність написання URL-адреси або <a href="%url%">поверніться на головну сторінку</a>.]]></target>
+            </segment>
+        </unit>
+        <unit id="ZYXSW95" name="http_error_500.description">
+            <notes>
+                <note>templates/bundles/TwigBundle/Exception/error500.html.twig:18</note>
+            </notes>
+            <segment>
+                <source>http_error_500.description</source>
+                <target>Відбулася внутрішня помилка сервера.</target>
+            </segment>
+        </unit>
+        <unit id="VVs_J1c" name="http_error_500.suggestion">
+            <notes>
+                <note>templates/bundles/TwigBundle/Exception/error500.html.twig:21</note>
+            </notes>
+            <segment>
+                <source>http_error_500.suggestion</source>
+                <target><![CDATA[Try loading this page again in some minutes or <a href="%url%">поверніться на головну сторінку</a>.]]></target>
+            </segment>
+        </unit>
+        <unit id="9RwuNlf" name="title.source_code">
+            <notes>
+                <note>templates/debug/source_code.twig:17</note>
+            </notes>
+            <segment>
+                <source>title.source_code</source>
+                <target>Початковий код, використаний для відображення цієї сторінки</target>
+            </segment>
+        </unit>
+        <unit id="jaB3QjG" name="title.controller_code">
+            <notes>
+                <note>templates/debug/source_code.twig:22</note>
+                <note>templates/debug/source_code.twig:25</note>
+            </notes>
+            <segment>
+                <source>title.controller_code</source>
+                <target>Код контролера</target>
+            </segment>
+        </unit>
+        <unit id="2bH7SjO" name="title.twig_template_code">
+            <notes>
+                <note>templates/debug/source_code.twig:29</note>
+            </notes>
+            <segment>
+                <source>title.twig_template_code</source>
+                <target>Twig код шаблону</target>
+            </segment>
+        </unit>
+        <unit id="1sstKF9" name="title.edit_user">
+            <notes>
+                <note>templates/users/edit.twig:4</note>
+            </notes>
+            <segment>
+                <source>title.edit_user</source>
+                <target>Редагувати користувача</target>
+            </segment>
+        </unit>
+        <unit id="QbohvW1" name="action.show_code">
+            <notes>
+                <note>templates/debug/source_code.twig:7</note>
+            </notes>
+            <segment>
+                <source>action.show_code</source>
+                <target>Показати код</target>
+            </segment>
+        </unit>
+        <unit id="HLtdhYw" name="action.save">
+            <notes>
+                <note>templates/users/change_password.twig:18</note>
+                <note>templates/users/edit.twig:15</note>
+            </notes>
+            <segment>
+                <source>action.save</source>
+                <target>Зберегти зміни</target>
+            </segment>
+        </unit>
+        <unit id="a2vzLi7" name="action.do_something">
+            <segment>
+                <source>action.do_something</source>
+                <target>Зробіть щось</target>
+            </segment>
+        </unit>
+        <unit id="etGJjTo" name="action.edit_user">
+            <notes>
+                <note>templates/users/change_password.twig:26</note>
+            </notes>
+            <segment>
+                <source>action.edit_user</source>
+                <target>Редагувати користувача</target>
+            </segment>
+        </unit>
+        <unit id="ovKkXwU" name="action.edit">
+            <segment>
+                <source>action.edit</source>
+                <target>Редагувати</target>
+            </segment>
+        </unit>
+        <unit id="LDhDPrF" name="label.username">
+            <notes>
+                <note>templates/security/login.twig:66</note>
+                <note>src/Form/UserType.php:31</note>
+            </notes>
+            <segment>
+                <source>label.username</source>
+                <target>Ім'я користувача</target>
+            </segment>
+        </unit>
+        <unit id="VgeTgE2" name="help.show_code">
+            <notes>
+                <note>templates/debug/source_code.twig:3</note>
+            </notes>
+            <segment>
+                <source>help.show_code</source>
+                <target><![CDATA[Натисніть цю кнопку, щоб відобразити вихідний код <strong>Контролера</strong> and <strong>шаблону</strong>, які використовуються для рендерингу цієї сторінки.]]></target>
+            </segment>
+        </unit>
+        <unit id="wtG.cxy" name="info.change_password">
+            <notes>
+                <note>templates/users/change_password.twig:12</note>
+            </notes>
+            <segment>
+                <source>info.change_password</source>
+                <target>Після зміни пароля ви вийдете з програми.</target>
+            </segment>
+        </unit>
+        <unit id="80JoLd0" name="title.login">
+            <notes>
+                <note>templates/security/login.twig:4</note>
+            </notes>
+            <segment>
+                <source>title.login</source>
+                <target>Авторизація</target>
+            </segment>
+        </unit>
+        <unit id="9pvowqn" name="label.password">
+            <notes>
+                <note>templates/security/login.twig:70</note>
+                <note>templates/security/login.twig:75</note>
+            </notes>
+            <segment>
+                <source>label.password</source>
+                <target>Пароль</target>
+            </segment>
+        </unit>
+        <unit id="gLN0C81" name="action.log_in">
+            <notes>
+                <note>templates/security/login.twig:84</note>
+            </notes>
+            <segment>
+                <source>action.log_in</source>
+                <target>Увійти</target>
+            </segment>
+        </unit>
+        <unit id="vJwSCBO" name="title.contentlisting">
+            <notes>
+                <note>templates/content/listing.twig:9</note>
+            </notes>
+            <segment>
+                <source>title.contentlisting</source>
+                <target>Список вмісту</target>
+            </segment>
+        </unit>
+        <unit id="CX_oSFd" name="action.change_password">
+            <notes>
+                <note>templates/users/edit.twig:24</note>
+            </notes>
+            <segment>
+                <source>action.change_password</source>
+                <target>Змініть пароль</target>
+            </segment>
+        </unit>
+        <unit id="SNELzJ2" name="field.id">
+            <notes>
+                <note>templates/editcontent/edit.twig:118</note>
+                <note>templates/editcontent/media_edit.twig:98</note>
+            </notes>
+            <segment>
+                <source>field.id</source>
+                <target>ID</target>
+            </segment>
+        </unit>
+        <unit id="FuCyk5C" name="field.status">
+            <notes>
+                <note>templates/editcontent/edit.twig:76</note>
+            </notes>
+            <segment>
+                <source>field.status</source>
+                <target>Статус</target>
+            </segment>
+        </unit>
+        <unit id="O9wtVOp" name="field.createdAt">
+            <notes>
+                <note>templates/editcontent/edit.twig:86</note>
+                <note>templates/editcontent/media_edit.twig:128</note>
+            </notes>
+            <segment>
+                <source>field.createdAt</source>
+                <target>Створено</target>
+            </segment>
+        </unit>
+        <unit id="eVkSIKu" name="field.modifiedAt">
+            <notes>
+                <note>templates/editcontent/edit.twig:94</note>
+                <note>templates/editcontent/media_edit.twig:135</note>
+            </notes>
+            <segment>
+                <source>field.modifiedAt</source>
+                <target>Змінено</target>
+            </segment>
+        </unit>
+        <unit id="3gdi1dy" name="field.publishedAt">
+            <notes>
+                <note>templates/editcontent/edit.twig:102</note>
+            </notes>
+            <segment>
+                <source>field.publishedAt</source>
+                <target>Опубліковано</target>
+            </segment>
+        </unit>
+        <unit id="eN7IfEL" name="field.depublishedAt">
+            <notes>
+                <note>templates/editcontent/edit.twig:110</note>
+            </notes>
+            <segment>
+                <source>field.depublishedAt</source>
+                <target>Знято з публікації</target>
+            </segment>
+        </unit>
+        <unit id="VKhfRZB" name="field.title">
+            <notes>
+                <note>templates/editcontent/media_edit.twig:47</note>
+            </notes>
+            <segment>
+                <source>field.title</source>
+                <target>Заголовок</target>
+            </segment>
+        </unit>
+        <unit id="7_wwX8J" name="field.description">
+            <notes>
+                <note>templates/editcontent/media_edit.twig:53</note>
+            </notes>
+            <segment>
+                <source>field.description</source>
+                <target>Опис</target>
+            </segment>
+        </unit>
+        <unit id="hjDmcPC" name="field.copyright">
+            <notes>
+                <note>templates/editcontent/media_edit.twig:59</note>
+            </notes>
+            <segment>
+                <source>field.copyright</source>
+                <target>Авторські права</target>
+            </segment>
+        </unit>
+        <unit id="v0sitU8" name="field.originalFilename">
+            <notes>
+                <note>templates/editcontent/media_edit.twig:66</note>
+            </notes>
+            <segment>
+                <source>field.originalFilename</source>
+                <target>Початкове ім'я файлу</target>
+            </segment>
+        </unit>
+        <unit id="vlRe8Tx" name="field.width">
+            <notes>
+                <note>templates/editcontent/media_edit.twig:105</note>
+            </notes>
+            <segment>
+                <source>field.width</source>
+                <target>ширина</target>
+            </segment>
+        </unit>
+        <unit id="CZbXbM_" name="field.height">
+            <notes>
+                <note>templates/editcontent/media_edit.twig:112</note>
+            </notes>
+            <segment>
+                <source>field.height</source>
+                <target>висота</target>
+            </segment>
+        </unit>
+        <unit id="Sz_u.OS" name="field.filesize">
+            <notes>
+                <note>templates/editcontent/media_edit.twig:119</note>
+            </notes>
+            <segment>
+                <source>field.filesize</source>
+                <target>Filesize</target>
+            </segment>
+        </unit>
+        <unit id="RMPnq6o" name="label.username_or_email">
+            <notes>
+                <note>templates/security/login.twig:61</note>
+            </notes>
+            <segment>
+                <source>label.username_or_email</source>
+                <target>Ім'я користувача або email</target>
+            </segment>
+        </unit>
+        <unit id="IaF1MjB" name="label.rememberme">
+            <notes>
+                <note>templates/security/login.twig:80</note>
+            </notes>
+            <segment>
+                <source>label.rememberme</source>
+                <target>Запам'ятати?</target>
+            </segment>
+        </unit>
+        <unit id="k.JymqB" name="about.visit_bolt">
+            <notes>
+                <note>templates/pages/about.twig:25</note>
+            </notes>
+            <segment>
+                <source>about.visit_bolt</source>
+                <target>Перейти на Boltcms.io</target>
+            </segment>
+        </unit>
+        <unit id="UZFanGF" name="about.bolt_documentation">
+            <notes>
+                <note>templates/pages/about.twig:28</note>
+            </notes>
+            <segment>
+                <source>about.bolt_documentation</source>
+                <target>Документація по Bolt</target>
+            </segment>
+        </unit>
+        <unit id="FO7zDub" name="about.bolt_on_github">
+            <notes>
+                <note>templates/pages/about.twig:31</note>
+            </notes>
+            <segment>
+                <source>about.bolt_on_github</source>
+                <target>Bolt на Github</target>
+            </segment>
+        </unit>
+        <unit id="_9fS00R" name="about.used_libraries">
+            <notes>
+                <note>templates/pages/about.twig:35</note>
+            </notes>
+            <segment>
+                <source>about.used_libraries</source>
+                <target>Бібліотеки / компоненти, що використовуються</target>
+            </segment>
+        </unit>
+        <unit id="tgLgLDQ" name="about.list_of_used_libraries">
+            <notes>
+                <note>templates/pages/about.twig:37</note>
+            </notes>
+            <segment>
+                <source>about.list_of_used_libraries</source>
+                <target>Нижче наведено сторонні бібліотеки, які використовує Bolt.</target>
+            </segment>
+        </unit>
+        <unit id="aYnbvsn" name="label.fullname">
+            <notes>
+                <note>src/Form/UserType.php:35</note>
+                <note>new</note>
+            </notes>
+            <segment>
+                <source>label.fullname</source>
+                <target>Повне ім'я</target>
+            </segment>
+        </unit>
+        <unit id="D2N6_cP" name="label.email">
+            <notes>
+                <note>src/Form/UserType.php:38</note>
+                <note>new</note>
+            </notes>
+            <segment>
+                <source>label.email</source>
+                <target>Адреса електронної пошти</target>
+            </segment>
+        </unit>
+        <unit id="OBmPOoB" name="user.updated_successfully">
+            <notes>
+                <note>src/Controller/Backend/UserController.php:33</note>
+                <note>new</note>
+            </notes>
+            <segment>
+                <source>user.updated_successfully</source>
+                <target>Оновлення успішно</target>
+            </segment>
+        </unit>
+        <unit id="3hkt.eH" name="content.updated_successfully">
+            <notes>
+                <note>src/Controller/Backend/EditMediaController.php:126</note>
+                <note>src/Controller/Backend/EditRecordController.php:86</note>
+                <note>new</note>
+            </notes>
+            <segment>
+                <source>content.updated_successfully</source>
+                <target>Контент успішно оновлено</target>
+            </segment>
+        </unit>
+        <unit id="IB0mNQh" name="content.created_successfully">
+            <notes>
+                <note>src/Controller/Backend/EditMediaController.php:157</note>
+                <note>new</note>
+            </notes>
+            <segment>
+                <source>content.created_successfully</source>
+                <target>Медіа-елемент успішно створений</target>
+            </segment>
+        </unit>
+        <unit id="b1jqjUC" name="editfile.could_not_write">
+            <notes>
+                <note>src/Controller/Backend/EditFileController.php:101</note>
+                <note>new</note>
+            </notes>
+            <segment>
+                <source>editfile.could_not_write</source>
+                <target>Не вдалося записати Медіа-елемент</target>
+            </segment>
+        </unit>
+        <unit id="mEDsKHk" name="label.locale">
+            <segment>
+                <source>label.locale</source>
+                <target>Локаль</target>
+            </segment>
+        </unit>
+        <unit id="98Q5SA2" name="label.backend_theme">
+            <segment>
+                <source>label.backend_theme</source>
+                <target>Бекенд-тема</target>
+            </segment>
+        </unit>
+        <unit id="Z84BVRW" name="English (en)">
+            <segment>
+                <source>English (en)</source>
+                <target>English (en)</target>
+            </segment>
+        </unit>
+        <unit id="eG9ABZd" name="Nederlands (dutch, nl)">
+            <segment>
+                <source>Nederlands (dutch, nl)</source>
+                <target>Nederlands (dutch, nl)</target>
+            </segment>
+        </unit>
+        <unit id="57LcBXV" name="Español (Spanish, es)">
+            <segment>
+                <source>Español (Spanish, es)</source>
+                <target>Español (Spanish, es)</target>
+            </segment>
+        </unit>
+        <unit id="e7RdvJ0" name="français (French, fr)">
+            <segment>
+                <source>français (French, fr)</source>
+                <target>français (French, fr)</target>
+            </segment>
+        </unit>
+        <unit id="U1vrep2" name="Deutsch (German, de)">
+            <segment>
+                <source>Deutsch (German, de)</source>
+                <target>Deutsch (німецька, de)</target>
+            </segment>
+        </unit>
+        <unit id="EsWjyMS" name="Język Polski (Polish, pl)">
+            <segment>
+                <source>Język Polski (Polish, pl)</source>
+                <target>Jezyk Polski (Polish, pl)</target>
+            </segment>
+        </unit>
+        <unit id="fbEbOrT" name="Brasilian Portuguese (Brasilian Portuguese, pt_BR)">
+            <segment>
+                <source>Brasilian Portuguese (Brasilian Portuguese, pt_BR)</source>
+                <target>Brasilian Portuguese (Brasilian Portuguese, pt_BR)</target>
+            </segment>
+        </unit>
+        <unit id="pBUPCm9" name="Italiano (Italian, it)">
+            <segment>
+                <source>Italiano (Italian, it)</source>
+                <target>Italiano (Italian, it)</target>
+            </segment>
+        </unit>
+        <unit id="Oiwdkpg" name="The Default theme">
+            <segment>
+                <source>The Default theme</source>
+                <target>Тема за замовчуванням</target>
+            </segment>
+        </unit>
+        <unit id="C389Knp" name="The Default Dark theme">
+            <segment>
+                <source>The Default Dark theme</source>
+                <target>Темна тема за замовчуванням</target>
+            </segment>
+        </unit>
+        <unit id="kouGbMq" name="WoordPers: Kinda looks like that other CMS">
+            <segment>
+                <source>WoordPers: Kinda looks like that other CMS</source>
+                <target>WoordPers: Kinda looks like that other CMS</target>
+            </segment>
+        </unit>
+        <unit id="7aLIA3c" name="caption.dashboard">
+            <segment>
+                <source>caption.dashboard</source>
+                <target>Панель Bolt</target>
+            </segment>
+        </unit>
+        <unit id="xuNRuUu" name="caption.translations: messages">
+            <segment>
+                <source>caption.translations: messages</source>
+                <target>caption.translations: messages</target>
+            </segment>
+        </unit>
+        <unit id="K6TmK4B" name="caption.clear_cache">
+            <segment>
+                <source>caption.clear_cache</source>
+                <target>Очистити кеш</target>
+            </segment>
+        </unit>
+        <unit id="RRQ1EJ3" name="caption.check_database">
+            <segment>
+                <source>caption.check_database</source>
+                <target>Перевірити базу даних</target>
+            </segment>
+        </unit>
+        <unit id="cIiIXu_" name="caption.routing set up">
+            <segment>
+                <source>caption.routing set up</source>
+                <target>caption.routing set up</target>
+            </segment>
+        </unit>
+        <unit id="2RUXD4A" name="caption.menu_setup">
+            <segment>
+                <source>caption.menu_setup</source>
+                <target>Налаштування меню</target>
+            </segment>
+        </unit>
+        <unit id="drK.0GZ" name="caption.taxonomies">
+            <segment>
+                <source>caption.taxonomies</source>
+                <target>Категоризація</target>
+            </segment>
+        </unit>
+        <unit id="_w7J5rZ" name="caption.contenttypes">
+            <segment>
+                <source>caption.contenttypes</source>
+                <target>Типи контенту</target>
+            </segment>
+        </unit>
+        <unit id="kXNBV9S" name="caption.main_configuration">
+            <segment>
+                <source>caption.main_configuration</source>
+                <target>Основна конфігурація</target>
+            </segment>
+        </unit>
+        <unit id="ipmA6Ah" name="caption.users_permissions">
+            <segment>
+                <source>caption.users_permissions</source>
+                <target>Користувачі та права</target>
+            </segment>
+        </unit>
+        <unit id="zOLL.7E" name="caption.configuration">
+            <segment>
+                <source>caption.configuration</source>
+                <target>Конфігурація</target>
+            </segment>
+        </unit>
+        <unit id="ZO.uqIZ" name="caption.settings">
+            <segment>
+                <source>caption.settings</source>
+                <target>Налаштування</target>
+            </segment>
+        </unit>
+        <unit id="1xlE8ex" name="caption.content">
+            <segment>
+                <source>caption.content</source>
+                <target>Контент</target>
+            </segment>
+        </unit>
+        <unit id="l4yt0BE" name="caption.file_management">
+            <segment>
+                <source>caption.file_management</source>
+                <target>Файли</target>
+            </segment>
+        </unit>
+        <unit id="mfvtHPQ" name="caption.extensions">
+            <segment>
+                <source>caption.extensions</source>
+                <target>Розширення</target>
+            </segment>
+        </unit>
+        <unit id="K4D568R" name="caption.view_edit_templates">
+            <segment>
+                <source>caption.view_edit_templates</source>
+                <target>Шаблони</target>
+            </segment>
+        </unit>
+        <unit id="bq6bSf4" name="caption.uploaded_files">
+            <segment>
+                <source>caption.uploaded_files</source>
+                <target>Завантажені файли</target>
+            </segment>
+        </unit>
+        <unit id="wBKDkwl" name="caption.routing_setup">
+            <segment>
+                <source>caption.routing_setup</source>
+                <target>Конфігурація маршрутизації</target>
+            </segment>
+        </unit>
+        <unit id="dd5MzCM" name="caption.translations">
+            <segment>
+                <source>caption.translations</source>
+                <target>Переклади / Ярлики</target>
+            </segment>
+        </unit>
+        <unit id="wLaDaK5" name="caption.about_bolt">
+            <segment>
+                <source>caption.about_bolt</source>
+                <target>Про Bolt</target>
+            </segment>
+        </unit>
+        <unit id="xN1kSQQ" name="caption.bolt_payoff">
+            <segment>
+                <source>caption.bolt_payoff</source>
+                <target><![CDATA[Вишукана, легка та проста CMS]]></target>
+            </segment>
+        </unit>
+        <unit id="HK7XTUX" name="caption.edit">
+            <segment>
+                <source>caption.edit</source>
+                <target>Редагувати</target>
+            </segment>
+        </unit>
+        <unit id="QZYjRy0" name="caption.file_uploader">
+            <segment>
+                <source>caption.file_uploader</source>
+                <target>Завантажувач файлів</target>
+            </segment>
+        </unit>
+        <unit id="LaDIuZA" name="caption.meta_information">
+            <segment>
+                <source>caption.meta_information</source>
+                <target>Мета інформація</target>
+            </segment>
+        </unit>
+        <unit id="DodjLNR" name="date">
+            <segment>
+                <source>date</source>
+                <target>Дата</target>
+            </segment>
+        </unit>
+        <unit id="zNy_hG8" name="size">
+            <segment>
+                <source>size</source>
+                <target>Розмір</target>
+            </segment>
+        </unit>
+        <unit id="gPYflhh" name="thumbnail">
+            <segment>
+                <source>thumbnail</source>
+                <target>Ескіз</target>
+            </segment>
+        </unit>
+        <unit id="_XSgfqS" name="filename">
+            <segment>
+                <source>filename</source>
+                <target>Ім'я файлу</target>
+            </segment>
+        </unit>
+        <unit id="Kw3N1AA" name="actions">
+            <segment>
+                <source>actions</source>
+                <target>Дії</target>
+            </segment>
+        </unit>
+        <unit id="KHvGNGW" name="directoryname">
+            <segment>
+                <source>directoryname</source>
+                <target>Ім'я каталогу</target>
+            </segment>
+        </unit>
+        <unit id="ZV7_x5F" name="action.go">
+            <segment>
+                <source>action.go</source>
+                <target>Старт</target>
+            </segment>
+        </unit>
+        <unit id="C15MbYY" name="form.quick_select_file">
+            <segment>
+                <source>form.quick_select_file</source>
+                <target>Вибір файлу для редагування…</target>
+            </segment>
+        </unit>
+        <unit id="gFcV5nW" name="label.quick_select">
+            <segment>
+                <source>label.quick_select</source>
+                <target>Вибір</target>
+            </segment>
+        </unit>
+        <unit id="FSroufa" name="caption.path">
+            <segment>
+                <source>caption.path</source>
+                <target>Шлях</target>
+            </segment>
+        </unit>
+        <unit id="y5otxEK" name="caption.filename">
+            <segment>
+                <source>caption.filename</source>
+                <target>Ім'я файлу</target>
+            </segment>
+        </unit>
+        <unit id="XNTbZW6" name="action.visit_site">
+            <segment>
+                <source>action.visit_site</source>
+                <target>Відвідайте сайт</target>
+            </segment>
+        </unit>
+        <unit id="KfVJho2" name="action.create_new">
+            <segment>
+                <source>action.create_new</source>
+                <target>Створити</target>
+            </segment>
+        </unit>
+        <unit id="b_RPpcB" name="general.greeting">
+            <segment>
+                <source>general.greeting</source>
+                <target>Привіт %name%!</target>
+            </segment>
+        </unit>
+        <unit id="bmdn3u9" name="action.logout">
+            <segment>
+                <source>action.logout</source>
+                <target>Вийти</target>
+            </segment>
+        </unit>
+        <unit id="zOfpTLD" name="action.edit_profile">
+            <segment>
+                <source>action.edit_profile</source>
+                <target>Профіль</target>
+            </segment>
+        </unit>
+        <unit id="N_0yRcH" name="action.close_alert">
+            <segment>
+                <source>action.close_alert</source>
+                <target>закрити</target>
+            </segment>
+        </unit>
+        <unit id="Dvu2HQx" name="caption.api">
+            <segment>
+                <source>caption.api</source>
+                <target>API</target>
+            </segment>
+        </unit>
+        <unit id="i4cbdta" name="caption.all_configuration_files">
+            <segment>
+                <source>caption.all_configuration_files</source>
+                <target>Файли конфігурацій</target>
+            </segment>
+        </unit>
+        <unit id="OpKTKAL" name="caption.maintenance">
+            <segment>
+                <source>caption.maintenance</source>
+                <target>Обслуговування</target>
+            </segment>
+        </unit>
+        <unit id="hGJoUs5" name="caption.fixtures_dummy_content">
+            <segment>
+                <source>caption.fixtures_dummy_content</source>
+                <target>Фікстури (Контент для прикладу)</target>
+            </segment>
+        </unit>
+        <unit id="P1FHg3Q" name="caption.edit_file">
+            <segment>
+                <source>caption.edit_file</source>
+                <target>Редагувати файл</target>
+            </segment>
+        </unit>
+        <unit id="_ef0RBR" name="caption.installation_checks">
+            <segment>
+                <source>caption.installation_checks</source>
+                <target>Перевірка установки</target>
+            </segment>
+        </unit>
+        <unit id="pNPctrH" name="form.select_language">
+            <segment>
+                <source>form.select_language</source>
+                <target>Виберіть мову</target>
+            </segment>
+        </unit>
+        <unit id="9lJhqvA" name="field.locale">
+            <segment>
+                <source>field.locale</source>
+                <target>Локаль</target>
+            </segment>
+        </unit>
+        <unit id="8zEzq8N" name="field.current_locale">
+            <segment>
+                <source>field.current_locale</source>
+                <target>Поточна локаль</target>
+            </segment>
+        </unit>
+        <unit id="ahZvOJz" name="field.switch_to_locale">
+            <segment>
+                <source>field.switch_to_locale</source>
+                <target>Переключити локаль</target>
+            </segment>
+        </unit>
+        <unit id="aQX4Emy" name="field.author">
+            <segment>
+                <source>field.author</source>
+                <target>Автор</target>
+            </segment>
+        </unit>
+        <unit id="UNBaDz." name="general.phrase.edit">
+            <segment>
+                <source>general.phrase.edit</source>
+                <target>Редагування</target>
+            </segment>
+        </unit>
+        <unit id="t2TNwOq" name="Unknown">
+            <segment>
+                <source>Unknown</source>
+                <target>Невідомо</target>
+            </segment>
+        </unit>
+        <unit id="A_d5KPt" name="general.phrase.written-by-on">
+            <segment>
+                <source>general.phrase.written-by-on</source>
+                <target>Написано %name% , %date%.</target>
+            </segment>
+        </unit>
+        <unit id="TVU.FCV" name="general.phrase.missing-about-page">
+            <segment>
+                <source>general.phrase.missing-about-page</source>
+                <target>Сторінка "About" відсутня.</target>
+            </segment>
+        </unit>
+        <unit id="7iq8jIG" name="general.phrase.missing-about-page-block">
+            <segment>
+                <source>general.phrase.missing-about-page-block</source>
+                <target>Блок "About" відсутній.</target>
+            </segment>
+        </unit>
+        <unit id="AGegYAN" name="contenttypes.generic.recent">
+            <segment>
+                <source>contenttypes.generic.recent</source>
+                <target>Нещодавно використовувані %contenttypes%</target>
+            </segment>
+        </unit>
+        <unit id="gB.9hTu" name="general.phrase.search-ellipsis">
+            <segment>
+                <source>general.phrase.search-ellipsis</source>
+                <target>…</target>
+            </segment>
+        </unit>
+        <unit id="wGlnx8X" name="general.phrase.search">
+            <segment>
+                <source>general.phrase.search</source>
+                <target>Пошук</target>
+            </segment>
+        </unit>
+        <unit id="z0k8hRg" name="9fb3e6e">
+            <segment>
+                <source>9fb3e6e</source>
+                <target>Цей сайт <a href='https://boltcms.io' target='_blank' title='Вишукана, легка і проста CMS'>зроблений на Bolt</a>.</target>
+            </segment>
+        </unit>
+        <unit id="wNEwZy_" name="contenttypes.generic.overview">
+            <segment>
+                <source>contenttypes.generic.overview</source>
+                <target>Список записів %contenttypes%</target>
+            </segment>
+        </unit>
+        <unit id="skuzBpI" name="contenttypes.generic.no-recent">
+            <segment>
+                <source>contenttypes.generic.no-recent</source>
+                <target>Недавніх записів %contenttype% не виявлено</target>
+            </segment>
+        </unit>
+        <unit id="ma9mBv_" name="Menu">
+            <segment>
+                <source>Menu</source>
+                <target>Меню</target>
+            </segment>
+        </unit>
+        <unit id="ScJmuqq" name="Search">
+            <segment>
+                <source>Search</source>
+                <target>Пошук</target>
+            </segment>
+        </unit>
+        <unit id="k.xuYv2" name="general.phrase.permalink">
+            <segment>
+                <source>general.phrase.permalink</source>
+                <target>Постійне посилання</target>
+            </segment>
+        </unit>
+        <unit id="zsyp43M" name="label.displayname">
+            <segment>
+                <source>label.displayname</source>
+                <target>Відображуване ім'я</target>
+            </segment>
+        </unit>
+        <unit id="2MMvCKK" name="label.cache_cleared">
+            <segment>
+                <source>label.cache_cleared</source>
+                <target>Кеш успішно очищений!</target>
+            </segment>
+        </unit>
+        <unit id="Wou02nK" name="caption.kitchensink">
+            <segment>
+                <source>caption.kitchensink</source>
+                <target>The Kitchensink</target>
+            </segment>
+        </unit>
+        <unit id="wrUiAsV" name="general.phrase.search-results-for-variable">
+            <notes>
+                <note>parameters:</note>
+                <note> '%search%': consequatur</note>
+            </notes>
+            <segment>
+                <source>general.phrase.search-results-for-variable</source>
+                <target>Результати пошуку на запит "% search%".</target>
+            </segment>
+        </unit>
+        <unit id="2CfJ3WY" name="general.phrase.search-results-for">
+            <notes>
+                <note>parameters:</note>
+                <note> '%search%': ymnrubeyrvwearsytevsf</note>
+            </notes>
+            <segment>
+                <source>general.phrase.search-results-for</source>
+                <target>Результати пошуку на запит "% search%".</target>
+            </segment>
+        </unit>
+        <unit id="V0VhH5g" name="general.phrase.no-search-results-for">
+            <notes>
+                <note>parameters:</note>
+                <note> '%SEARCHTERM%': ymnrubeyrvwearsytevsf</note>
+            </notes>
+            <segment>
+                <source>general.phrase.no-search-results-for</source>
+                <target>За запитом %search% нічого не знайдено.</target>
+            </segment>
+        </unit>
+        <unit id="_KyvT9o" name="general.phrase.no-search-term-provided">
+            <segment>
+                <source>general.phrase.no-search-term-provided</source>
+                <target>Введіть пошуковий запит, щоб відобразити релевантні результати.</target>
+            </segment>
+        </unit>
+        <unit id="Pily_qo" name="general.phrase.read-more">
+            <segment>
+                <source>general.phrase.read-more</source>
+                <target>Докладніше</target>
+            </segment>
+        </unit>
+        <unit id="psOa_9x" name="general.phrase.built-with-bolt">
+            <segment>
+                <source>general.phrase.built-with-bolt</source>
+                <target><![CDATA[Цей сайт <a href='https://boltcms.io' target='_blank' title='Вишукана, легка та проста CMS'>зроблений на Bolt</a>.]]> </target>
+            </segment>
+        </unit>
+        <unit id="5IxD63c" name="general.latest_bolt_news">
+            <segment>
+                <source>general.latest_bolt_news</source>
+                <target>Новини Bolt</target>
+            </segment>
+        </unit>
+        <unit id="dQIY7_J" name="action.preview">
+            <segment>
+                <source>action.preview</source>
+                <target>Список</target>
+            </segment>
+        </unit>
+        <unit id="ok6YulQ" name="action.view_saved">
+            <segment>
+                <source>action.view_saved</source>
+                <target>Подивитися збережену версію</target>
+            </segment>
+        </unit>
+        <unit id="SeTqePC" name="label.display_name">
+            <segment>
+                <source>label.display_name</source>
+                <target>Відображуване ім'я</target>
+            </segment>
+        </unit>
+        <unit id="EvAqL__" name="caption.duplicate">
+            <segment>
+                <source>caption.duplicate</source>
+                <target>Дублікат</target>
+            </segment>
+        </unit>
+        <unit id="pGkejkU" name="label.current_password">
+            <segment>
+                <source>label.current_password</source>
+                <target>Поточний пароль</target>
+            </segment>
+        </unit>
+        <unit id="iiWFLaI" name="label.new_password">
+            <segment>
+                <source>label.new_password</source>
+                <target>Новий пароль</target>
+            </segment>
+        </unit>
+        <unit id="Ucl9Jfc" name="label.new_password_confirm">
+            <segment>
+                <source>label.new_password_confirm</source>
+                <target>Новий пароль (підтвердження)</target>
+            </segment>
+        </unit>
+        <unit id="Iyry5.g" name="editfile.updated_successfully">
+            <segment>
+                <source>editfile.updated_successfully</source>
+                <target>Файл оновлено успішно!</target>
+            </segment>
+        </unit>
+        <unit id="3zlZmRK" name="action.add_user">
+            <segment>
+                <source>action.add_user</source>
+                <target>Додати користувача</target>
+            </segment>
+        </unit>
+        <unit id="ruQIhH0" name="success">
+            <segment>
+                <source>success</source>
+                <target>Успішно!</target>
+            </segment>
+        </unit>
+        <unit id="YDH.7uR" name="user.updated_profile">
+            <segment>
+                <source>user.updated_profile</source>
+                <target>Профіль користувача оновлено!</target>
+            </segment>
+        </unit>
+        <unit id="iD6CNOO" name="label.roles">
+            <segment>
+                <source>label.roles</source>
+                <target>Ролі</target>
+            </segment>
+        </unit>
+        <unit id="7whLbH8" name="user.new_user">
+            <segment>
+                <source>user.new_user</source>
+                <target>Новий користувач</target>
+            </segment>
+        </unit>
+        <unit id="TtmWqX3" name="action.view">
+            <segment>
+                <source>action.view</source>
+                <target>Список</target>
+            </segment>
+        </unit>
+        <unit id="I2ykiIZ" name="caption.folders">
+            <segment>
+                <source>caption.folders</source>
+                <target>Папки</target>
+            </segment>
+        </unit>
+        <unit id="kaK5Wdr" name="slug.button_locked">
+            <segment>
+                <source>slug.button_locked</source>
+                <target>Заблоковано</target>
+            </segment>
+        </unit>
+        <unit id="qcDEz5O" name="slug.button_edit">
+            <segment>
+                <source>slug.button_edit</source>
+                <target>Редагувати</target>
+            </segment>
+        </unit>
+        <unit id="raO5QSf" name="slug.generate_from">
+            <segment>
+                <source>slug.generate_from</source>
+                <target>Створити на основі поля:</target>
+            </segment>
+        </unit>
+        <unit id="vptPhch" name="image.button_upload">
+            <segment>
+                <source>image.button_upload</source>
+                <target>Завантажити</target>
+            </segment>
+        </unit>
+        <unit id="vIVO1lU" name="image.button_from_library">
+            <segment>
+                <source>image.button_from_library</source>
+                <target>З бібліотеки</target>
+            </segment>
+        </unit>
+        <unit id="L0TE0M9" name="listing_table.actions.view_on_site">
+            <segment>
+                <source>listing_table.actions.view_on_site</source>
+                <target>Перегляд на сайті</target>
+            </segment>
+        </unit>
+        <unit id="PoauAuK" name="listing_table.actions.status_to_publish">
+            <segment>
+                <source>listing_table.actions.status_to_publish</source>
+                <target>Змініть статус на "опублікувати"</target>
+            </segment>
+        </unit>
+        <unit id="ZJxfdD6" name="listing_table.actions.status_to_held">
+            <segment>
+                <source>listing_table.actions.status_to_held</source>
+                <target>Змінити статус на "не активно"</target>
+            </segment>
+        </unit>
+        <unit id="apyOs0o" name="listing_table.actions.status_to_draft">
+            <segment>
+                <source>listing_table.actions.status_to_draft</source>
+                <target>Змінити статус на чернетку</target>
+            </segment>
+        </unit>
+        <unit id="5H60Xq6" name="listing_table.actions.duplicate">
+            <segment>
+                <source>listing_table.actions.duplicate</source>
+                <target>Клонувати</target>
+            </segment>
+        </unit>
+        <unit id="hR8ri.m" name="listing_table.actions.delete">
+            <segment>
+                <source>listing_table.actions.delete</source>
+                <target>Видалити</target>
+            </segment>
+        </unit>
+        <unit id="5zbX1vo" name="listing_table.actions.slug">
+            <segment>
+                <source>listing_table.actions.slug</source>
+                <target>Сегмент адреси</target>
+            </segment>
+        </unit>
+        <unit id="wKDOBOC" name="listing_table.actions.created_on">
+            <segment>
+                <source>listing_table.actions.created_on</source>
+                <target>Створено</target>
+            </segment>
+        </unit>
+        <unit id="tVX01Xl" name="listing_table.actions.published_on">
+            <segment>
+                <source>listing_table.actions.published_on</source>
+                <target>Опубліковано</target>
+            </segment>
+        </unit>
+        <unit id="kHkjS5U" name="listing_table.actions.last_modified_on">
+            <segment>
+                <source>listing_table.actions.last_modified_on</source>
+                <target>Змінено</target>
+            </segment>
+        </unit>
+        <unit id="BdhsE_X" name="listing_select_box.card_header.selected">
+            <segment>
+                <source>listing_select_box.card_header.selected</source>
+                <target>Вибрано</target>
+            </segment>
+        </unit>
+        <unit id="jBpmj90" name="listing_select_box.card_body.records_passed">
+            <segment>
+                <source>listing_select_box.card_body.records_passed</source>
+                <target>передані ідентифікатори вибраних записів</target>
+            </segment>
+        </unit>
+        <unit id="D8vDkhK" name="listing_select_box.card_body.remark">
+            <segment>
+                <source>listing_select_box.card_body.remark</source>
+                <target>(це можна використовувати з чимось подібним до axios для масової зміни / видалення)</target>
+            </segment>
+        </unit>
+        <unit id="kHeY93_" name="editor_embed.content_url">
+            <segment>
+                <source>editor_embed.content_url</source>
+                <target>URL-адреса контенту для вбудовування</target>
+            </segment>
+        </unit>
+        <unit id="VoIdmBa" name="editor_embed.placeholder_content_url">
+            <segment>
+                <source>editor_embed.placeholder_content_url</source>
+                <target>URL-адреса контенту у Facebook, Twitter, Soundcloud, Youtube, Vimeo…</target>
+            </segment>
+        </unit>
+        <unit id="1.Eb1GS" name="editor_embed.label_height">
+            <segment>
+                <source>editor_embed.label_height</source>
+                <target>Висота</target>
+            </segment>
+        </unit>
+        <unit id="eWLSFJs" name="editor_embed.label_pixel">
+            <segment>
+                <source>editor_embed.label_pixel</source>
+                <target>піксель</target>
+            </segment>
+        </unit>
+        <unit id="EAtXrAm" name="editor_embed.label_matched_embed">
+            <segment>
+                <source>editor_embed.label_matched_embed</source>
+                <target>Відповідний вбудований елемент</target>
+            </segment>
+        </unit>
+        <unit id="zATju4V" name="editor_embed.label_preview">
+            <segment>
+                <source>editor_embed.label_preview</source>
+                <target>Preview</target>
+            </segment>
+        </unit>
+        <unit id="9SQ0oaR" name="editor_embed.label_size">
+            <segment>
+                <source>editor_embed.label_size</source>
+                <target>Розмір</target>
+            </segment>
+        </unit>
+        <unit id="oOuVKRv" name="image.placeholder_filename">
+            <segment>
+                <source>image.placeholder_filename</source>
+                <target>Ім'я файлу (завантажте новий файл або виберіть існуючий)</target>
+            </segment>
+        </unit>
+        <unit id="BWubOnS" name="image.placeholder_alt_text">
+            <segment>
+                <source>image.placeholder_alt_text</source>
+                <target>Атрибут Alt</target>
+            </segment>
+        </unit>
+        <unit id="VPV0lFM" name="image.placeholder_title">
+            <segment>
+                <source>image.placeholder_title</source>
+                <target>Заголовок</target>
+            </segment>
+        </unit>
+        <unit id="Gabafxx" name="admin_sidebar.toggler">
+            <segment>
+                <source>admin_sidebar.toggler</source>
+                <target>Переключити ширину бічної панелі</target>
+            </segment>
+        </unit>
+        <unit id="jXAelLe" name="admin_sidebar_toggler.toggle">
+            <segment>
+                <source>admin_sidebar_toggler.toggle</source>
+                <target><![CDATA[<span class="sr-only">Увімк./Вимк. </span>меню]]></target>
+            </segment>
+        </unit>
+        <unit id="BINgtmK" name="editor_date.toggle">
+            <segment>
+                <source>editor_date.toggle</source>
+                <target>Увімк./Вимк.</target>
+            </segment>
+        </unit>
+        <unit id="VQ2t655" name="file.label_filename">
+            <segment>
+                <source>file.label_filename</source>
+                <target>Ім'я файлу</target>
+            </segment>
+        </unit>
+        <unit id="tvpSmD7" name="file.label_title">
+            <segment>
+                <source>file.label_title</source>
+                <target>Заголовок</target>
+            </segment>
+        </unit>
+        <unit id="hXT_hI." name="file.button_view">
+            <segment>
+                <source>file.button_view</source>
+                <target>Перегляд зображення</target>
+            </segment>
+        </unit>
+        <unit id="QKIqqOw" name="file.button_upload">
+            <segment>
+                <source>file.button_upload</source>
+                <target>Завантажте зображення</target>
+            </segment>
+        </unit>
+        <unit id="4_JdYp1" name="file.remark">
+            <segment>
+                <source>file.remark</source>
+                <target><![CDATA[Примітка. Це поле практично таке саме, як поле <code>image</code>.]]></target>
+            </segment>
+        </unit>
+        <unit id="TJDc9vQ" name="file.label_alt">
+            <segment>
+                <source>file.label_alt</source>
+                <target>Alt</target>
+            </segment>
+        </unit>
+        <unit id="M.3olSc" name="filelist.remark">
+            <segment>
+                <source>filelist.remark</source>
+                <target><![CDATA[Примітка. Це поле практично таке саме, як поле <code>imagelist</code>.]]></target>
+            </segment>
+        </unit>
+        <unit id="zg5Dum5" name="geolocation.label_geolocation">
+            <segment>
+                <source>geolocation.label_geolocation</source>
+                <target>Геолокація:</target>
+            </segment>
+        </unit>
+        <unit id="Com0pbc" name="geolocation.label_address">
+            <segment>
+                <source>geolocation.label_address</source>
+                <target>Пошук адреси</target>
+            </segment>
+        </unit>
+        <unit id="3o0LPHj" name="geolocation.placeholder_address">
+            <segment>
+                <source>geolocation.placeholder_address</source>
+                <target>Вулиця, поштовий індекс, місто чи інше…</target>
+            </segment>
+        </unit>
+        <unit id="CC5QTmy" name="geolocation.label_lat">
+            <segment>
+                <source>geolocation.label_lat</source>
+                <target>Широта</target>
+            </segment>
+        </unit>
+        <unit id="MJ5WYEM" name="geolocation.label_address_matched">
+            <segment>
+                <source>geolocation.label_address_matched</source>
+                <target>Відповідна адреса</target>
+            </segment>
+        </unit>
+        <unit id="WJGjWG8" name="geolocation.label_marker">
+            <segment>
+                <source>geolocation.label_marker</source>
+                <target>Розміщення маркера</target>
+            </segment>
+        </unit>
+        <unit id="SaP3OOf" name="geolocation.label_control">
+            <segment>
+                <source>geolocation.label_control</source>
+                <target>Прив'язати до найближчої адреси</target>
+            </segment>
+        </unit>
+        <unit id="AHaenW3" name="geolocation.label_long">
+            <segment>
+                <source>geolocation.label_long</source>
+                <target>Довгота</target>
+            </segment>
+        </unit>
+        <unit id="TkryUve" name="imagelist.remark">
+            <segment>
+                <source>imagelist.remark</source>
+                <target><![CDATA[Примітка. Це поле практично таке саме, як поле <code>filelist</code>.]]></target>
+            </segment>
+        </unit>
+        <unit id="z2AgHGp" name="flash_messages.notification">
+            <segment>
+                <source>flash_messages.notification</source>
+                <target>Сповіщення</target>
+            </segment>
+        </unit>
+        <unit id="qQKx1lR" name="buttons.button_toggle">
+            <segment>
+                <source>buttons.button_toggle</source>
+                <target>Переключити список, що розкривається</target>
+            </segment>
+        </unit>
+        <unit id="ypPzS03" name="localeswitcher.button_info">
+            <segment>
+                <source>localeswitcher.button_info</source>
+                <target>Див. Інформація про локалізацію</target>
+            </segment>
+        </unit>
+        <unit id="wQ0WYAT" name="listing.title_sortby">
+            <segment>
+                <source>listing.title_sortby</source>
+                <target>Сортувати за</target>
+            </segment>
+        </unit>
+        <unit id="ZGv90X8" name="listing.option_select_item">
+            <segment>
+                <source>listing.option_select_item</source>
+                <target>Вибрати елемент</target>
+            </segment>
+        </unit>
+        <unit id="TIyjgb6" name="listing.title_title">
+            <segment>
+                <source>listing.title_title</source>
+                <target>Заголовок</target>
+            </segment>
+        </unit>
+        <unit id="pn22p7q" name="listing.placeholder_filter">
+            <segment>
+                <source>listing.placeholder_filter</source>
+                <target>Ключове слово для фільтрації…</target>
+            </segment>
+        </unit>
+        <unit id="ni4zApC" name="listing.button_filter">
+            <segment>
+                <source>listing.button_filter</source>
+                <target>Відфільтрувати</target>
+            </segment>
+        </unit>
+        <unit id="doNsgm0" name="listing.button_clear">
+            <segment>
+                <source>listing.button_clear</source>
+                <target>Очистити сортування/фільтр</target>
+            </segment>
+        </unit>
+        <unit id="37kJiIe" name="view_locales.badge_default">
+            <segment>
+                <source>view_locales.badge_default</source>
+                <target>За замовчуванням</target>
+            </segment>
+        </unit>
+        <unit id="JTRCo_U" name="view_locales.badge_ok">
+            <segment>
+                <source>view_locales.badge_ok</source>
+                <target>OK</target>
+            </segment>
+        </unit>
+        <unit id="ufFUPp7" name="view_locales.badge_missing">
+            <segment>
+                <source>view_locales.badge_missing</source>
+                <target>Відсутня</target>
+            </segment>
+        </unit>
+        <unit id="QQvRJe." name="files_cards.button_toggle">
+            <segment>
+                <source>files_cards.button_toggle</source>
+                <target>Переключити список, що розкривається</target>
+            </segment>
+        </unit>
+        <unit id="gtC_ujD" name="files_cards.action_edit_image_info">
+            <segment>
+                <source>files_cards.action_edit_image_info</source>
+                <target>Редагувати інфо. про зображення</target>
+            </segment>
+        </unit>
+        <unit id="5LXvJfE" name="files_cards.action_edit_file">
+            <segment>
+                <source>files_cards.action_edit_file</source>
+                <target>Змінити файл у редакторі</target>
+            </segment>
+        </unit>
+        <unit id="H1pgP94" name="files_cards.action_view_original">
+            <segment>
+                <source>files_cards.action_view_original</source>
+                <target>Перегляд</target>
+            </segment>
+        </unit>
+        <unit id="ZoY6ADX" name="files_cards.action_duplicate">
+            <segment>
+                <source>files_cards.action_duplicate</source>
+                <target>Клонувати</target>
+            </segment>
+        </unit>
+        <unit id="JjU6ZQP" name="files_cards.action_delete">
+            <segment>
+                <source>files_cards.action_delete</source>
+                <target>Видалити</target>
+            </segment>
+        </unit>
+        <unit id="3jdNwuk" name="files_cards.label_filename">
+            <segment>
+                <source>files_cards.label_filename</source>
+                <target>Ім'я файлу:</target>
+            </segment>
+        </unit>
+        <unit id="Y90_Pn1" name="files_cards.label_title">
+            <segment>
+                <source>files_cards.label_title</source>
+                <target>Заголовок:</target>
+            </segment>
+        </unit>
+        <unit id="EdCfIKX" name="files_cards.label_dimensions">
+            <segment>
+                <source>files_cards.label_dimensions</source>
+                <target>Розміри:</target>
+            </segment>
+        </unit>
+        <unit id="eQBhceV" name="files_cards.label_filesize">
+            <segment>
+                <source>files_cards.label_filesize</source>
+                <target>Розмір файлу:</target>
+            </segment>
+        </unit>
+        <unit id="uiCjlwk" name="files_cards.label_created_on">
+            <segment>
+                <source>files_cards.label_created_on</source>
+                <target>Створено:</target>
+            </segment>
+        </unit>
+        <unit id=".fL0AbE" name="files_list.remark">
+            <segment>
+                <source>files_list.remark</source>
+                <target>У цій теці немає файлів. Виберіть теку, щоб перейти.</target>
+            </segment>
+        </unit>
+        <unit id="v6cfPyt" name="quickselect.title_select">
+            <segment>
+                <source>quickselect.title_select</source>
+                <target>Вибір файлу:</target>
+            </segment>
+        </unit>
+        <unit id="m3tNvJb" name="finder.button_list">
+            <segment>
+                <source>finder.button_list</source>
+                <target>Список</target>
+            </segment>
+        </unit>
+        <unit id="tRLgeoX" name="finder.button_cards">
+            <segment>
+                <source>finder.button_cards</source>
+                <target>Картки</target>
+            </segment>
+        </unit>
+        <unit id="nrWBJNm" name="extensions.title_desc">
+            <segment>
+                <source>extensions.title_desc</source>
+                <target>Опис:</target>
+            </segment>
+        </unit>
+        <unit id="7raDJAR" name="extensions.title_author">
+            <segment>
+                <source>extensions.title_author</source>
+                <target>Автор:</target>
+            </segment>
+        </unit>
+        <unit id="UP8pNGy" name="extensions.title_package">
+            <segment>
+                <source>extensions.title_package</source>
+                <target>Пакет/ім'я класу:</target>
+            </segment>
+        </unit>
+        <unit id="QFQ1uTC" name="extensions.title_version">
+            <segment>
+                <source>extensions.title_version</source>
+                <target>Версія:</target>
+            </segment>
+        </unit>
+        <unit id="piuatxC" name="extensions.info_not_installed">
+            <segment>
+                <source>extensions.info_not_installed</source>
+                <target>Це локальний пакет, який не встановлено через Composer</target>
+            </segment>
+        </unit>
+        <unit id="3j1gEmk" name="extensions.title_class">
+            <segment>
+                <source>extensions.title_class</source>
+                <target>Ім'я класу:</target>
+            </segment>
+        </unit>
+        <unit id="mjhFljb" name="extensions.button_configuration">
+            <segment>
+                <source>extensions.button_configuration</source>
+                <target>Конфігурація</target>
+            </segment>
+        </unit>
+        <unit id="r3ryNTG" name="extensions.button_source">
+            <segment>
+                <source>extensions.button_source</source>
+                <target>Джерело</target>
+            </segment>
+        </unit>
+        <unit id="qc3rFkZ" name="extensions.button_remove">
+            <segment>
+                <source>extensions.button_remove</source>
+                <target>Видалити розширення</target>
+            </segment>
+        </unit>
+        <unit id="SLZyVzU" name="extensions.button_disable">
+            <segment>
+                <source>extensions.button_disable</source>
+                <target>Вимкнути розширення</target>
+            </segment>
+        </unit>
+        <unit id="beqzCkE" name="login.header_login">
+            <segment>
+                <source>login.header_login</source>
+                <target>Bolt » Вхід</target>
+            </segment>
+        </unit>
+        <unit id="7JK6jNv" name="extensions.message_not_implemented">
+            <segment>
+                <source>extensions.message_not_implemented</source>
+                <target>Ще не реалізовано.</target>
+            </segment>
+        </unit>
+        <unit id="Hlf9c1s" name="listing.title_overview">
+            <segment>
+                <source>listing.title_overview</source>
+                <target>Список записів</target>
+            </segment>
+        </unit>
+        <unit id="8JeahIj" name="files_cards.message_no_files">
+            <segment>
+                <source>files_cards.message_no_files</source>
+                <target>У цій теці немає файлів. Виберіть теку, щоб перейти з правого боку.</target>
+            </segment>
+        </unit>
+        <unit id="pcq1NGk" name="listing_filter.button_compact">
+            <segment>
+                <source>listing_filter.button_compact</source>
+                <target>Згорнуто</target>
+            </segment>
+        </unit>
+        <unit id="xIztVmp" name="listing_filter.button_expanded">
+            <segment>
+                <source>listing_filter.button_expanded</source>
+                <target>Розгорнуто</target>
+            </segment>
+        </unit>
+        <unit id="73A2bWM" name="finder.label_view">
+            <segment>
+                <source>finder.label_view</source>
+                <target>Перегляд:</target>
+            </segment>
+        </unit>
+        <unit id="Em.C0bV" name="listing_table.actions.button_edit">
+            <segment>
+                <source>listing_table.actions.button_edit</source>
+                <target>Редагувати</target>
+            </segment>
+        </unit>
+        <unit id="Iy4HXCU" name="controller.user.title">
+            <segment>
+                <source>controller.user.title</source>
+                <target>Користувачі та права</target>
+            </segment>
+        </unit>
+        <unit id="HBwIQ9b" name="controller.user.subtitle">
+            <segment>
+                <source>controller.user.subtitle</source>
+                <target>Для редагування користувачів та їх прав</target>
+            </segment>
+        </unit>
+        <unit id="0Gyf5xr" name="controller.database.check_title">
+            <segment>
+                <source>controller.database.check_title</source>
+                <target>Перевірка бази даних</target>
+            </segment>
+        </unit>
+        <unit id="SeDwjX6" name="controller.database.check_subtitle">
+            <segment>
+                <source>controller.database.check_subtitle</source>
+                <target>Щоб перевірити базу даних</target>
+            </segment>
+        </unit>
+        <unit id="nJnALPG" name="controller.database.update_title">
+            <segment>
+                <source>controller.database.update_title</source>
+                <target>Оновлення бази даних</target>
+            </segment>
+        </unit>
+        <unit id="nRE74_i" name="controller.database.update_subtitle">
+            <segment>
+                <source>controller.database.update_subtitle</source>
+                <target>Щоб оновити базу даних</target>
+            </segment>
+        </unit>
+        <unit id="a3UNsKw" name="controller.omnisearch.title">
+            <segment>
+                <source>controller.omnisearch.title</source>
+                <target>Всеспрямований пошук</target>
+            </segment>
+        </unit>
+        <unit id="4N41oTU" name="controller.omnisearch.subtitle">
+            <segment>
+                <source>controller.omnisearch.subtitle</source>
+                <target>До пошуку, в omni-like fashion</target>
+            </segment>
+        </unit>
+        <unit id="7cXqH5s" name="listing.title_display_name">
+            <segment>
+                <source>listing.title_display_name</source>
+                <target>Відображуване ім'я</target>
+            </segment>
+        </unit>
+        <unit id="Ay7xZ2h" name="listing.title_username">
+            <segment>
+                <source>listing.title_username</source>
+                <target>Ім'я користувача</target>
+            </segment>
+        </unit>
+        <unit id="RN1tdtJ" name="listing.title_email">
+            <segment>
+                <source>listing.title_email</source>
+                <target>Ел. адреса</target>
+            </segment>
+        </unit>
+        <unit id="0pjZ.GV" name="listing.title_roles">
+            <segment>
+                <source>listing.title_roles</source>
+                <target>Ролі</target>
+            </segment>
+        </unit>
+        <unit id="hXEFV1n" name="listing.title_last_seen">
+            <segment>
+                <source>listing.title_last_seen</source>
+                <target>Вік сесії</target>
+            </segment>
+        </unit>
+        <unit id="pn7kE17" name="listing.title_last_ip">
+            <segment>
+                <source>listing.title_last_ip</source>
+                <target>Останній IP</target>
+            </segment>
+        </unit>
+        <unit id="GZ65uOC" name="listing.title_actions">
+            <segment>
+                <source>listing.title_actions</source>
+                <target>Дії</target>
+            </segment>
+        </unit>
+        <unit id="fkXL.k6" name="user.not_valid_email">
+            <segment>
+                <source>user.not_valid_email</source>
+                <target>Неправильна адреса електронної пошти</target>
+            </segment>
+        </unit>
+        <unit id="HjWW.NS" name="user.not_valid_password">
+            <segment>
+                <source>user.not_valid_password</source>
+                <target>Неправильний пароль. Пароль повинен містити щонайменше 6 символів.</target>
+            </segment>
+        </unit>
+        <unit id="TpGxDI3" name="user.unknown_user">
+            <segment>
+                <source>user.unknown_user</source>
+                <target>Невідомий користувач</target>
+            </segment>
+        </unit>
+        <unit id="EaqUUfe" name="label.predominant_colors__in_image">
+            <segment>
+                <source>label.predominant_colors__in_image</source>
+                <target>Переважні кольори у зображенні</target>
+            </segment>
+        </unit>
+        <unit id="8RPjZ5w" name="general.phrase.overview-for">
+            <segment>
+                <source>general.phrase.overview-for</source>
+                <target>Огляд для %slug%</target>
+            </segment>
+        </unit>
+        <unit id="6mze9DI" name="general.phrase.related-content">
+            <segment>
+                <source>general.phrase.related-content</source>
+                <target>Зв'язаний контент</target>
+            </segment>
+        </unit>
+        <unit id="odDw0du" name="action.search">
+            <segment>
+                <source>action.search</source>
+                <target>Шукати</target>
+            </segment>
+        </unit>
+        <unit id="QoeqyPT" name="caption.new_contenttype">
+            <segment>
+                <source>caption.new_contenttype</source>
+                <target>Створити %contenttype%</target>
+            </segment>
+        </unit>
+        <unit id="n.jOrkg" name="caption.untitled_contenttype">
+            <segment>
+                <source>caption.untitled_contenttype</source>
+                <target>%contenttype% без назви</target>
+            </segment>
+        </unit>
+        <unit id="Dgtkgju" name="title.edit_user_profile">
+            <segment>
+                <source>title.edit_user_profile</source>
+                <target>Редагувати профіль користувача</target>
+            </segment>
+        </unit>
+        <unit id="rCKtTo5" name="caption.redirection_page">
+            <segment>
+                <source>caption.redirection_page</source>
+                <target>Сторінка перенаправлення</target>
+            </segment>
+        </unit>
+        <unit id="TtIlBDd" name="caption.edit_image">
+            <segment>
+                <source>caption.edit_image</source>
+                <target>Редагувати зображення</target>
+            </segment>
+        </unit>
+        <unit id="MClSUET" name="general.phrase.select_language">
+            <segment>
+                <source>general.phrase.select_language</source>
+                <target>Вибрати мову</target>
+            </segment>
+        </unit>
+        <unit id="hiE9jap" name="password.suggested">
+            <segment>
+                <source>password.suggested</source>
+                <target><![CDATA[Пропонований безпечний пароль: <code>%password%</code>]]></target>
+            </segment>
+        </unit>
+        <unit id="fLOd6Zd" name="field.cropX">
+            <segment>
+                <source>field.cropX</source>
+                <target>Обрізати X</target>
+            </segment>
+        </unit>
+        <unit id="Sd_AbmV" name="field.cropXPostfix">
+            <segment>
+                <source>field.cropXPostfix</source>
+                <target>Положення кадрування по осі X, діапазон 0-100.</target>
+            </segment>
+        </unit>
+        <unit id="BQBmQHT" name="field.cropYPostfix">
+            <segment>
+                <source>field.cropYPostfix</source>
+                <target>Положення кадрування по осі Y, діапазон 0-100. </target>
+            </segment>
+        </unit>
+        <unit id="hi98HIj" name="field.cropY">
+            <segment>
+                <source>field.cropY</source>
+                <target>Обрізати Y</target>
+            </segment>
+        </unit>
+        <unit id="PHOpD5y" name="field.cropZoom">
+            <segment>
+                <source>field.cropZoom</source>
+                <target>Коефіцієнт масштабування кадрування</target>
+            </segment>
+        </unit>
+        <unit id="tn6Z8wY" name="field.cropZoomPostfix">
+            <segment>
+                <source>field.cropZoomPostfix</source>
+                <target>Масштаб кадрування, діапазон 1-10. </target>
+            </segment>
+        </unit>
+        <unit id="n.3JZvX" name="title.contentType">
+            <segment>
+                <source>title.contentType</source>
+                <target>Тип контенту</target>
+            </segment>
+        </unit>
+        <unit id="TSkqRw3" name="listing.title_taxonomy">
+            <segment>
+                <source>listing.title_taxonomy</source>
+                <target>Категорії</target>
+            </segment>
+        </unit>
+        <unit id="Hr2E9Oa" name="listing_table.no_results">
+            <segment>
+                <source>listing_table.no_results</source>
+                <target>Результати не знайдено. Розширіть критерії фільтрації або додайте більше вмісту.</target>
+            </segment>
+        </unit>
+        <unit id="hp554Ds" name="listing.option_select_sortby">
+            <segment>
+                <source>listing.option_select_sortby</source>
+                <target>Виберіть поле для сортування …</target>
+            </segment>
+        </unit>
+        <unit id="JEnqOi." name="title.primary_actions">
+            <segment>
+                <source>title.primary_actions</source>
+                <target>Основні дії</target>
+            </segment>
+        </unit>
+        <unit id="7616Os4" name="title.options">
+            <segment>
+                <source>title.options</source>
+                <target>Опції</target>
+            </segment>
+        </unit>
+        <unit id="hTKWQ6g" name="action.delete">
+            <segment>
+                <source>action.delete</source>
+                <target>Видалити</target>
+            </segment>
+        </unit>
+        <unit id="ezqx.4H" name="action.enable">
+            <segment>
+                <source>action.enable</source>
+                <target>Увімк.</target>
+            </segment>
+        </unit>
+        <unit id="ryXZRAu" name="action.disable">
+            <segment>
+                <source>action.disable</source>
+                <target>Вимк.</target>
+            </segment>
+        </unit>
+        <unit id="29MN3Ip" name="user.enabled_successfully">
+            <segment>
+                <source>user.enabled_successfully</source>
+                <target>Користувач успішно включений!</target>
+            </segment>
+        </unit>
+        <unit id="nj8qBZ5" name="user.disabled_successfully">
+            <segment>
+                <source>user.disabled_successfully</source>
+                <target>Користувач був успішно вимкнений!</target>
+            </segment>
+        </unit>
+        <unit id="Npkio79" name="listing.title_session_expires">
+            <segment>
+                <source>listing.title_session_expires</source>
+                <target>Сесія закінчується</target>
+            </segment>
+        </unit>
+        <unit id="mmUDcto" name="listing.title_ip_address">
+            <segment>
+                <source>listing.title_ip_address</source>
+                <target>IP-адреса</target>
+            </segment>
+        </unit>
+        <unit id="x9qAwrz" name="listing.title_browser">
+            <segment>
+                <source>listing.title_browser</source>
+                <target>Браузер/платформа</target>
+            </segment>
+        </unit>
+        <unit id="FqVh1Hv" name="image.button_remove">
+            <segment>
+                <source>image.button_remove</source>
+                <target>Видалити</target>
+            </segment>
+        </unit>
+        <unit id="eHV6ZJB" name="image.button_edit_attributes">
+            <segment>
+                <source>image.button_edit_attributes</source>
+                <target>Редагувати атрибути</target>
+            </segment>
+        </unit>
+        <unit id="s14vS9S" name="image.button_move_up">
+            <segment>
+                <source>image.button_move_up</source>
+                <target>Вгору</target>
+            </segment>
+        </unit>
+        <unit id="xoOPAPl" name="image.button_move_down">
+            <segment>
+                <source>image.button_move_down</source>
+                <target>Вниз</target>
+            </segment>
+        </unit>
+        <unit id="Oj2UZ5J" name="image.add_new_image">
+            <segment>
+                <source>image.add_new_image</source>
+                <target>Додати нове зображення</target>
+            </segment>
+        </unit>
+        <unit id="8Q4FxVw" name="file.add_new_file">
+            <segment>
+                <source>file.add_new_file</source>
+                <target>Додати новий файл</target>
+            </segment>
+        </unit>
+        <unit id=".t1ICS7" name="collection.remove_item">
+            <segment>
+                <source>collection.remove_item</source>
+                <target>Видалити елемент</target>
+            </segment>
+        </unit>
+        <unit id="0C9.Vmh" name="collection.add_item">
+            <segment>
+                <source>collection.add_item</source>
+                <target>Додати елемент до %name%</target>
+            </segment>
+        </unit>
+        <unit id="ApPu4P_" name="collection.move_item_up">
+            <segment>
+                <source>collection.move_item_up</source>
+                <target>Вгору</target>
+            </segment>
+        </unit>
+        <unit id="KzBtfHi" name="collection.move_item_down">
+            <segment>
+                <source>collection.move_item_down</source>
+                <target>Вниз</target>
+            </segment>
+        </unit>
+        <unit id="BFARQEU" name="extensions.button_detailed_view">
+            <segment>
+                <source>extensions.button_detailed_view</source>
+                <target>Подивитися деталі</target>
+            </segment>
+        </unit>
+        <unit id="hgNZLwW" name="extensions.title_configuration">
+            <segment>
+                <source>extensions.title_configuration</source>
+                <target>Файл конфігурації</target>
+            </segment>
+        </unit>
+        <unit id="283aB_E" name="caption.file_upload.upload_text">
+            <segment>
+                <source>caption.file_upload.upload_text</source>
+                <target>Перетягніть сюди файли для завантаження</target>
+            </segment>
+        </unit>
+        <unit id="L_YQKUn" name="pager.next">
+            <segment>
+                <source>pager.next</source>
+                <target>Далі</target>
+            </segment>
+        </unit>
+        <unit id="AMxTho9" name="pager.previous">
+            <segment>
+                <source>pager.previous</source>
+                <target>Назад</target>
+            </segment>
+        </unit>
+        <unit id="7aSD0Qr" name="image.button_up">
+            <segment>
+                <source>image.button_up</source>
+                <target>Вгору</target>
+            </segment>
+        </unit>
+        <unit id="WihD8Y5" name="image.button_down">
+            <segment>
+                <source>image.button_down</source>
+                <target>Вниз</target>
+            </segment>
+        </unit>
+        <unit id="fon6eNN" name="general.phrase.download">
+            <segment>
+                <source>general.phrase.download</source>
+                <target>Завантажити</target>
+            </segment>
+        </unit>
+        <unit id="2MtT_h0" name="caption.logviewer">
+            <segment>
+                <source>caption.logviewer</source>
+                <target>Перегляд логів</target>
+            </segment>
+        </unit>
+        <unit id="FlGE3qB" name="label.request">
+            <segment>
+                <source>label.request</source>
+                <target>Запит</target>
+            </segment>
+        </unit>
+        <unit id="l71Tprl" name="label.trace">
+            <segment>
+                <source>label.trace</source>
+                <target>Трасування</target>
+            </segment>
+        </unit>
+        <unit id="29ZEo1r" name="label.context">
+            <segment>
+                <source>label.context</source>
+                <target>Контекст</target>
+            </segment>
+        </unit>
+        <unit id="txRonia" name="label.id">
+            <segment>
+                <source>label.id</source>
+                <target>ID</target>
+            </segment>
+        </unit>
+        <unit id="IwLLxxx" name="label.level">
+            <segment>
+                <source>label.level</source>
+                <target>Рівень</target>
+            </segment>
+        </unit>
+        <unit id="51OQi14" name="label.message">
+            <segment>
+                <source>label.message</source>
+                <target>Повідомлення</target>
+            </segment>
+        </unit>
+        <unit id="S0f6iTL" name="label.timestamp">
+            <segment>
+                <source>label.timestamp</source>
+                <target>Timestamp</target>
+            </segment>
+        </unit>
+        <unit id="O2X4xZH" name="label.user">
+            <segment>
+                <source>label.user</source>
+                <target>Користувач</target>
+            </segment>
+        </unit>
+        <unit id="3MuwWwe" name="listing.disabled">
+            <segment>
+                <source>listing.disabled</source>
+                <target>Висновок вимкнено</target>
+            </segment>
+        </unit>
+        <unit id="XQ2U6fN" name="slug.button_unlocked">
+            <segment>
+                <source>slug.button_unlocked</source>
+                <target>Розблоковано</target>
+            </segment>
+        </unit>
+        <unit id="jz2qkbb" name="general.phrase.no-content-found">
+            <segment>
+                <source>general.phrase.no-content-found</source>
+                <target>Контент не знайдено</target>
+            </segment>
+        </unit>
+        <unit id="FM8B.gO" name="general.phrase.empty-database">
+            <segment>
+                <source>general.phrase.empty-database</source>
+                <target>Схоже, що база даних порожня. Внесіть контент у бекенді Bolt, або запустіть команду, щоб додати трохи фікстур (прикладного контенту). </target>
+            </segment>
+        </unit>
+        <unit id="SGlj7K2" name="view_locales.badge_empty">
+            <segment>
+                <source>view_locales.badge_empty</source>
+                <target>Пусто</target>
+            </segment>
+        </unit>
+        <unit id="WeJxw6Z" name="action.update_all">
+            <segment>
+                <source>action.update_all</source>
+                <target>Застосувати до всіх</target>
+            </segment>
+        </unit>
+        <unit id="QVRwwK4" name="about.system_info">
+            <segment>
+                <source>about.system_info</source>
+                <target>Системна інформація</target>
+            </segment>
+        </unit>
+        <unit id="4oq.CNw" name="user.not_valid_display_name">
+            <segment>
+                <source>user.not_valid_display_name</source>
+                <target>Недійсне відображене ім'я</target>
+            </segment>
+        </unit>
+        <unit id="6Gw1lsE" name="action.confirm_delete">
+            <segment>
+                <source>action.confirm_delete</source>
+                <target>Ви впевнені, що хочете видалити цей контент?</target>
+            </segment>
+        </unit>
+        <unit id="z_tOHwq" name="placeholder.username_or_email">
+            <segment>
+                <source>placeholder.username_or_email</source>
+                <target>Ваше ім'я користувача або email</target>
+            </segment>
+        </unit>
+        <unit id="xgYhRkc" name="placeholder.password">
+            <segment>
+                <source>placeholder.password</source>
+                <target>Ваш пароль</target>
+            </segment>
+        </unit>
+        <unit id="KshyLfh" name="caption.other_content">
+            <segment>
+                <source>caption.other_content</source>
+                <target>Інший контент</target>
+            </segment>
+        </unit>
+        <unit id="wHOF8eG" name="editfile.target_not_writable">
+            <segment>
+                <source>editfile.target_not_writable</source>
+                <target>Збереження вимкнено, оскільки цільовий файл недоступний для запису.</target>
+            </segment>
+        </unit>
+        <unit id="hAysbHB" name="label.translatable">
+            <segment>
+                <source>label.translatable</source>
+                <target>Це поле можна перекласти</target>
+            </segment>
+        </unit>
+        <unit id="qqpGLJl" name="label.content">
+            <segment>
+                <source>label.content</source>
+                <target>Контент</target>
+            </segment>
+        </unit>
+        <unit id="v7ZTnja" name="file.delete_success">
+            <segment>
+                <source>file.delete_success</source>
+                <target>Файл успішно видалено!</target>
+            </segment>
+        </unit>
+        <unit id="wHPoBzP" name="file.delete_confirm">
+            <segment>
+                <source>file.delete_confirm</source>
+                <target>Ви впевнені, що хочете видалити цей файл?</target>
+            </segment>
+        </unit>
+        <unit id="IWbf2by" name="listing.title_filterby">
+            <segment>
+                <source>listing.title_filterby</source>
+                <target>Шукати / фільтрувати за</target>
+            </segment>
+        </unit>
+        <unit id="Zssh7In" name="content.status_changed_successfully">
+            <segment>
+                <source>content.status_changed_successfully</source>
+                <target>Статус успішно змінено</target>
+            </segment>
+        </unit>
+        <unit id="GOhQBY9" name="content.deleted_successfully">
+            <segment>
+                <source>content.deleted_successfully</source>
+                <target>Контент успішно видалено</target>
+            </segment>
+        </unit>
+        <unit id=".I3mIHo" name="label.current_status">
+            <segment>
+                <source>label.current_status</source>
+                <target>Поточний статус</target>
+            </segment>
+        </unit>
+        <unit id="utGAKaQ" name="status.published">
+            <segment>
+                <source>status.published</source>
+                <target>Опубліковано</target>
+            </segment>
+        </unit>
+        <unit id="HJbHjee" name="status.draft">
+            <segment>
+                <source>status.draft</source>
+                <target>Чернетка</target>
+            </segment>
+        </unit>
+        <unit id="h7dP3WY" name="status.timed">
+            <segment>
+                <source>status.timed</source>
+                <target>Відстрочено</target>
+            </segment>
+        </unit>
+        <unit id="oxqDDuK" name="status.held">
+            <segment>
+                <source>status.held</source>
+                <target>Не активно</target>
+            </segment>
+        </unit>
+        <unit id="JpJFIFq" name="collection.confirm_delete">
+            <segment>
+                <source>collection.confirm_delete</source>
+                <target>Ви дійсно хочете видалити цей елемент колекції?</target>
+            </segment>
+        </unit>
+        <unit id="YZJO3Ul" name="upload.allow_file_types">
+            <segment>
+                <source>upload.allow_file_types</source>
+                <target>Типи файлів для завантаження</target>
+            </segment>
+        </unit>
+        <unit id="noOf4ML" name="upload.max_size">
+            <segment>
+                <source>upload.max_size</source>
+                <target>Максимальний розмір файлу, що завантажується</target>
+            </segment>
+        </unit>
+        <unit id="O_m7mx1" name="listing.placeholder_search">
+            <segment>
+                <source>listing.placeholder_search</source>
+                <target>Ключове слово…</target>
+            </segment>
+        </unit>
+        <unit id="munFS0n" name="title.filtered_by">
+            <segment>
+                <source>title.filtered_by</source>
+                <target><![CDATA[Весь контент, відфільтрований за <em>'%filter%'</em>.]]></target>
+            </segment>
+        </unit>
+        <unit id="GPd6Hap" name="action.view_site">
+            <segment>
+                <source>action.view_site</source>
+                <target>Перейти на сайт</target>
+            </segment>
+        </unit>
+        <unit id="f.rvF6y" name="action.new">
+            <segment>
+                <source>action.new</source>
+                <target>Створити</target>
+            </segment>
+        </unit>
+        <unit id="60xy4WG" name="extensions.no_dependencies">
+            <segment>
+                <source>extensions.no_dependencies</source>
+                <target>Немає відомих залежностей</target>
+            </segment>
+        </unit>
+        <unit id="LfwezhR" name="extensions.title_dependencies">
+            <segment>
+                <source>extensions.title_dependencies</source>
+                <target>Залежності</target>
+            </segment>
+        </unit>
+        <unit id="H9knE.O" name="collection.expand_all">
+            <segment>
+                <source>collection.expand_all</source>
+                <target>Розгорнути все</target>
+            </segment>
+        </unit>
+        <unit id="JjvI6hp" name="collection.collapse_all">
+            <segment>
+                <source>collection.collapse_all</source>
+                <target>Згорнути все</target>
+            </segment>
+        </unit>
+        <unit id="pXtciRI" name="content.edit_missing_definition">
+            <segment>
+                <source>content.edit_missing_definition</source>
+                <target>Визначення цього типу контенту відсутнє! Редагування цього запису не працюватиме належним чином. Будь ласка, перевірте свій contenttypes.yaml, щоб переконатися, що він містить %contentcontent%.</target>
+            </segment>
+        </unit>
+        <unit id="RBJ0NMl" name="collection.select">
+            <segment>
+                <source>collection.select</source>
+                <target>Вибрати …</target>
+            </segment>
+        </unit>
+        <unit id="2SSLP1K" name="form.empty_username_email">
+            <segment>
+                <source>form.empty_username_email</source>
+                <target>Будь ласка, введіть ваше ім'я користувача або адресу електронної пошти</target>
+            </segment>
+        </unit>
+        <unit id="5Qf_RiO" name="form.empty_password">
+            <segment>
+                <source>form.empty_password</source>
+                <target>Будь ласка, введіть пароль</target>
+            </segment>
+        </unit>
+        <unit id="fAmcKUQ" name="listing.title_filterby_field">
+            <segment>
+                <source>listing.title_filterby_field</source>
+                <target>Фільтр по полю</target>
+            </segment>
+        </unit>
+        <unit id="kciiidS" name="image.button_from_url">
+            <segment>
+                <source>image.button_from_url</source>
+                <target>По URL</target>
+            </segment>
+        </unit>
+        <unit id="QcN1pi8" name="files_cards.copy_to_clipboard">
+            <segment>
+                <source>files_cards.copy_to_clipboard</source>
+                <target>Скопіювати посилання на файл</target>
+            </segment>
+        </unit>
+        <unit id="S9k1S7Z" name="warning">
+            <segment>
+                <source>warning</source>
+                <target>Попередження</target>
+            </segment>
+        </unit>
+        <unit id="4fyuUU." name="filemanager.create_folder_already_exists">
+            <segment>
+                <source>filemanager.create_folder_already_exists</source>
+                <target>Тека вже існує</target>
+            </segment>
+        </unit>
+        <unit id="aSxePCB" name="filemanager.create_folder_error">
+            <segment>
+                <source>filemanager.create_folder_error</source>
+                <target>Не вдалося створити теку</target>
+            </segment>
+        </unit>
+        <unit id="wbFKypA" name="filemanager.create_folder_success">
+            <segment>
+                <source>filemanager.create_folder_success</source>
+                <target>Теку успішно створено.</target>
+            </segment>
+        </unit>
+        <unit id="lZxOEzh" name="filemanager.delete_folder_successful">
+            <segment>
+                <source>filemanager.delete_folder_successful</source>
+                <target>Теку успішно видалено</target>
+            </segment>
+        </unit>
+        <unit id="a6Xhtq0" name="folder.create_new">
+            <segment>
+                <source>folder.create_new</source>
+                <target>Нова тека</target>
+            </segment>
+        </unit>
+        <unit id="FcXvWL8" name="title.add_user">
+            <segment>
+                <source>title.add_user</source>
+                <target>Додати користувача</target>
+            </segment>
+        </unit>
+        <unit id="nWMH_Nr" name="label.avatar">
+            <segment>
+                <source>label.avatar</source>
+                <target>Аватар</target>
+            </segment>
+        </unit>
+    </file>
+</xliff>
