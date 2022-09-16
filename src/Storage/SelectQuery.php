@@ -618,18 +618,6 @@ class SelectQuery implements QueryInterface
 
     private function getRegularFieldWhereExpression(Filter $filter, string $valueAlias): string
     {
-        if ($this->utils->isFieldType($this, $filter->getKey(), SelectField::TYPE) && $this->utils->hasJsonSearch()) {
-            $expressions = preg_split('/\s?(AND|OR)\s?/', $filter->getExpression());
-
-            $newExpressions = array_map(function($expression) use ($valueAlias) {
-                preg_match('/:\w+/', $expression, $parameter);
-                return sprintf("JSON_EXTRACT(%s, 'one', %s) != ''", $valueAlias, $parameter[0]);
-            }, $expressions);
-
-            // We reverse the arrays, to prevent mix-ups with `:foo_1` and `:foo_10`, etc. See PR #3137
-            return str_replace(array_reverse($expressions), array_reverse($newExpressions), $filter->getExpression());
-        }
-
         $originalLeftExpression = 'content.' . $filter->getKey();
         $valueWhere = $filter->getExpression();
 
