@@ -123,6 +123,11 @@ class User implements UserInterface, \Serializable, PasswordAuthenticatedUserInt
     public function __construct()
     {
     }
+    
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
 
     public function getId(): int
     {
