@@ -1,6 +1,17 @@
 Changelog
 =========
 
+## 5.1.15
+
+Released: 2022-09-16
+
+### 🐛 Bug fixes
+
+- Remove outdated edge-case, that was actually breaking on MariaDB (bobdenotter, [#3315](https://github.com/bolt/core/pull/3315))
+- Characters escaped when displaying the title bloc in templates (fsidobre, [#3314](https://github.com/bolt/core/pull/3314))
+- Add setId() function in User Entity (nestordedios, [#3313](https://github.com/bolt/core/pull/3313))
+
+
 ## 5.1.14
 
 Released: 2022-08-31
