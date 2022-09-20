@@ -388,8 +388,8 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         }
 
         if (isset($formData['relationship'])) {
-            foreach ($formData['relationship'] as $relation) {
-                $this->updateRelation($content, $relation);
+            foreach ($formData['relationship'] as $relationType => $relation) {
+                $this->updateRelation($content, $relationType, $relation);
             }
         }
 
