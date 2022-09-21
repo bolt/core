@@ -571,17 +571,16 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
     private function updateRelation(Content $content, string $relationType, $newRelations): void
     {
         $newRelations = (new Collection(Json::findArray($newRelations)))->filter();
-        $currentRelations = $this->relationRepository->findRelations($content, $relationType, null, false);
-        $currentRelationIds = \array_unique(
-            \array_map(
+        $currentRelations = new Collection($this->relationRepository->findRelations($content, $relationType, null, false));
+        $currentRelationIds = $currentRelations
+            ->map(
                 static function (Relation $relation) use ($content) {
                     return $relation->getFromContent() === $content
                         ? $relation->getToContent()->getId()
                         : $relation->getFromContent()->getId();
-                },
-                $currentRelations
+                }
             )
-        );
+            ->unique();
 
         // Remove old, no longer used relations.
         foreach ($currentRelations as $currentRelation) {
@@ -611,9 +610,20 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         }
 
         // Then (re-) add selected ones
-        foreach ($newRelations as $id) {
-            if (\in_array($id, $currentRelationIds)) {
-                // If this relation already exists, don't add it a second time.
+        foreach ($newRelations as $position => $id) {
+            if ($currentRelationIds->contains($id)) {
+                // If this relation already exists, don't add it a second time. Do set a proper order on it, though.
+                $currentRelations
+                    ->first(
+                        static function (Relation $relation) use ($id) {
+                            return \in_array(
+                                $id,
+                                [$relation->getFromContent()->getId(), $relation->getToContent()->getId()],
+                                true
+                            );
+                        }
+                    )
+                    ->setPosition($position);
                 continue;
             }
 
@@ -624,6 +634,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
             }
 
             $relation = new Relation($content, $contentTo);
+            $relation->setPosition($position);
             $this->em->persist($relation);
         }
     }

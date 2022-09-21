@@ -51,9 +51,7 @@ class RelationRepository extends ServiceEntityRepository
             ->select('r, cfrom, cto')
             ->join('r.fromContent', 'cfrom')
             ->join('r.toContent', 'cto')
-            ->orderBy('r.position', 'DESC');
-
-        $qb->andWhere('r.fromContent = :from OR r.toContent = :from');
+            ->orderBy('r.position', 'ASC');
 
         if ($publishedOnly === true) {
             $qb->andWhere('cto.status = :status')
@@ -62,8 +60,10 @@ class RelationRepository extends ServiceEntityRepository
         }
 
         if ($name !== null) {
-            $qb->andWhere('cto.contentType = :name OR cfrom.contentType = :name')
+            $qb->andWhere("(cfrom.contentType = :name AND r.toContent = :from) OR (cto.contentType = :name AND r.fromContent = :from)")
                 ->setParameter('name', $name, \PDO::PARAM_STR);
+        } else {
+            $qb->andWhere('r.fromContent = :from OR r.toContent = :from');
         }
 
         $qb->setParameter(':from', $from);
