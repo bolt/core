@@ -17,7 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  */
-class CollectionField extends Field implements FieldInterface, FieldParentInterface, ListFieldInterface, \Iterator, RawPersistable
+class CollectionField extends Field implements Excerptable, FieldInterface, FieldParentInterface, ListFieldInterface, \Iterator, RawPersistable
 {
     use FieldParentTrait;
     use IterableFieldTrait;
@@ -98,5 +98,19 @@ class CollectionField extends Field implements FieldInterface, FieldParentInterf
         }
 
         return $result;
+    }
+
+    public function __toString(): string
+    {
+        $fields = $this->getValue();
+        $result = [];
+
+        foreach ($fields as $field) {
+            if ($field instanceof Excerptable) {
+                $result[] = $field->__toString();
+            }
+        }
+
+        return implode(" ", $result);
     }
 }
