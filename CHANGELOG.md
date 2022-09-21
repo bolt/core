@@ -1,6 +1,20 @@
 Changelog
 =========
 
+## 5.1.16
+
+Released: 2022-09-21
+
+### 📦 Additions and new features
+
+-  The `|excerpt`-filter now also excerpts fields inside Collections and Sets #3320
+
+### 🐛 Bug fixes
+
+- Make `Request` parameter optional. Prevent breakage in extensions that don't have context (yet). #3318
+- Make `LocaleHelper` throw the correct Exception #3319
+
+
 ## 5.1.15
 
 Released: 2022-09-16
