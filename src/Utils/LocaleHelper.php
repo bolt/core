@@ -7,6 +7,7 @@ namespace Bolt\Utils;
 use Bolt\Configuration\Config;
 use Bolt\Repository\ContentRepository;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Intl\Exception\RuntimeException;
 use Symfony\Component\Intl\Locales;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Tightenco\Collect\Support\Collection;
@@ -185,7 +186,7 @@ class LocaleHelper
         try {
             $locale['name'] = Locales::getName($localeCode);
             $locale['localizedname'] = Locales::getName($localeCode, $localeCode);
-        } catch (\ErrorException $e) {
+        } catch (RuntimeException $e) {
             $locale['name'] = 'unknown';
             $locale['localizedname'] = 'unknown';
         }
