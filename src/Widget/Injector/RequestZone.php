@@ -65,7 +65,7 @@ class RequestZone
     /**
      * Get the current zone.
      */
-    public static function getFromRequest(Request $request): string
+    public static function getFromRequest(?Request $request): string
     {
         return $request->attributes->get(static::KEY) ?: static::NOWHERE;
     }

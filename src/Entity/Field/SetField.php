@@ -18,7 +18,7 @@ use Tightenco\Collect\Support\Collection;
 /**
  * @ORM\Entity
  */
-class SetField extends Field implements FieldInterface, FieldParentInterface, ListFieldInterface, \Iterator, RawPersistable
+class SetField extends Field implements Excerptable, FieldInterface, FieldParentInterface, ListFieldInterface, \Iterator, RawPersistable
 {
     use FieldParentTrait;
     use IterableFieldTrait;
@@ -120,5 +120,19 @@ class SetField extends Field implements FieldInterface, FieldParentInterface, Li
         }
 
         return $value;
+    }
+
+    public function __toString(): string
+    {
+        $fields = $this->getValue();
+        $result = [];
+
+        foreach ($fields as $field) {
+            if ($field instanceof Excerptable) {
+                $result[] = $field->__toString();
+            }
+        }
+
+        return implode(" ", $result);
     }
 }
