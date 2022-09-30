@@ -358,7 +358,7 @@ class User implements UserInterface, \Serializable, PasswordAuthenticatedUserInt
         $this->avatar = $avatar;
     }
 
-    public function getAbout(): ?string 
+    public function getAbout(): ?string
     {
         return $this->about;
     }
