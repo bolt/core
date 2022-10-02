@@ -448,6 +448,16 @@
         <target>Adresse Email</target>
       </segment>
     </unit>
+    <unit id="D2N6_cP" name="label.about">
+      <notes>
+        <note>src/Form/UserType.php:38</note>
+        <note>new</note>
+      </notes>
+      <segment>
+        <source>label.about</source>
+        <target>À propos</target>
+      </segment>
+    </unit>
     <unit id="OBmPOoB" name="user.updated_successfully">
       <notes>
         <note>src/Controller/Backend/UserController.php:33</note>
