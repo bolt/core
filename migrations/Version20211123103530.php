@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-/** Do not change the namespace. It has to be identical to the configuration in `doctrine_migrations.yaml` */
 namespace Bolt\DoctrineMigrations;
 
 use Doctrine\DBAL\Connection;
@@ -10,9 +9,6 @@ use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 use Psr\Log\LoggerInterface;
 
-/**
- * Auto-generated Migration: Please modify to your needs!
- */
 final class Version20211123103530 extends AbstractMigration
 {
     /** @var string */
