@@ -120,7 +120,7 @@ class User implements UserInterface, \Serializable, PasswordAuthenticatedUserInt
     /** @ORM\Column(type="string", length=250, nullable=true) */
     private $avatar;
 
-    /** @ORM\Column(type="text", nullable=true) */
+    /** @ORM\Column(type="string", length=1024, nullable=true) */
     private $about;
 
     public function __construct()
