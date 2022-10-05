@@ -64,7 +64,7 @@ describe('Create content as editor and delete it as chief editor', () => {
         cy.get('button[data-bs-dismiss="modal"]').click({ multiple: true });
 
         cy.visit('/bolt/content/pages?page=3');
-        cy.get('.listing--container').its('length').should('eq', 2);
+        cy.get('.listing--container').its('length').should('eq', 3);
     })
 });
 
