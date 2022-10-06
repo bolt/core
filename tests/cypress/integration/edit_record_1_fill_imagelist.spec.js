@@ -53,7 +53,7 @@ describe('As an Admin I want to fill in an imagelist', { retries: 0 }, () => {
         // cy.get('div[class="btn-group me-2"]').eq(13).find('button[disabled="disabled"]');
         //
         // cy.get('.form-fieldsgroup:nth-child(1) > .editor__image .btn:nth-child(3)').click({ force: true}) ;
-        // cy.get('button[class="btn btn-success mb-0 "]').eq(1).click({ force: true}) ;
+        // cy.get('button[class="btn btn-success mb-0"]').eq(1).click({ force: true}) ;
         // //TODO: move checking for elements before saving changes(for some reason it doesn't work)
 
         cy.get('.editor__imagelist').find('div[class="form-fieldsgroup"]').its('length').should('eq', 4);

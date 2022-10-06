@@ -6,6 +6,8 @@ describe('As an Admin I want to fill in a Set and an Collection', () => {
         cy.visit('/bolt/edit/43');
         cy.get('.editor__tabbar').should('contain', 'Sets');
 
+        cy.get('h1.admin__header--title').scrollIntoView();
+
         cy.get('a[id="sets-tab"]').click();
         cy.url().should('contain', '/bolt/edit/43');
 
@@ -19,8 +21,8 @@ describe('As an Admin I want to fill in a Set and an Collection', () => {
         cy.get('textarea[name="sets[set][textarea]"]').clear();
         cy.get('textarea[name="sets[set][textarea]"]').type('Bar');
 
-        cy.get('button[class="btn btn-success mb-0 "]').eq(1).scrollIntoView();
-        cy.get('button[class="btn btn-success mb-0 "]').eq(1).click();
+        cy.get('button[class="btn btn-success mb-0"]').eq(1).scrollIntoView();
+        cy.get('button[class="btn btn-success mb-0"]').eq(1).click();
 
         cy.url().should('contain', '/bolt/edit/43');
         cy.get('input[name="sets[set][title]"]').should('have.value', 'Foo');
@@ -57,8 +59,8 @@ describe('As an Admin I want to fill in a Set and an Collection', () => {
         cy.get('.collection-item:nth-child(4) .action-move-down-collection-item').click();
         cy.get('div[data-label="Set inside Collection"]').should('exist');
 
-        cy.get('button[class="btn btn-success mb-0 "]').eq(1).scrollIntoView();
-        cy.get('button[class="btn btn-success mb-0 "]').eq(1).click({ force: true });
+        cy.get('button[class="btn btn-success mb-0"]').eq(1).scrollIntoView();
+        cy.get('button[class="btn btn-success mb-0"]').eq(1).click({ force: true });
         cy.url().should('contain', '/bolt/edit/43');
 
         cy.get('#collections textarea').eq(1).clear();
@@ -79,8 +81,8 @@ describe('As an Admin I want to fill in a Set and an Collection', () => {
         cy.wait(1000);
 
         cy.get('.collection-item').its('length').should('eq', 2);
-        cy.get('button[class="btn btn-success mb-0 "]').eq(1).scrollIntoView();
-        cy.get('button[class="btn btn-success mb-0 "]').eq(1).click({force: true});
+        cy.get('button[class="btn btn-success mb-0"]').eq(1).scrollIntoView();
+        cy.get('button[class="btn btn-success mb-0"]').eq(1).click({force: true});
 
         cy.get('.collection-item').its('length').should('eq', 2);
         cy.get('.collection-item-title').should('not.contain', 'Hey, Bolt');

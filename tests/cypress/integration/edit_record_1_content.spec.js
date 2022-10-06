@@ -35,8 +35,8 @@ describe('As an Admin I want to see separators, placeholders and default values'
         cy.get('input[name="collections[collection_field][photo][3][filename]"]').should('have.value', 'joey.jpg');
         cy.get('input[name="collections[collection_field][photo][3][alt]"]').should('have.value', 'Photo of a foal');
 
-        cy.get('button[class="btn btn-success mb-0 "]').eq(1).scrollIntoView();
-        cy.get('button[class="btn btn-success mb-0 "]').eq(1).click();
+        cy.get('button[class="btn btn-success mb-0"]').eq(1).scrollIntoView();
+        cy.get('button[class="btn btn-success mb-0"]').eq(1).click();
 
         cy.get('input[name="fields[title]"]').should('have.value', 'Title of a test contenttype');
         cy.get('input[name="fields[image][filename]"]').should('have.value', 'foal.jpg');
@@ -66,8 +66,8 @@ describe('As an Admin, I want to duplicate a page', () => {
         cy.get('input[name="fields[heading]"]').should('have.value', 'This is a page');
         cy.get('input[name="fields[slug]"]').should('have.value', 'this-is-a-page');
 
-        cy.get('button[class="btn btn-success mb-0 "]').eq(1).scrollIntoView();
-        cy.get('button[class="btn btn-success mb-0 "]').eq(1).click();
+        cy.get('button[class="btn btn-success mb-0"]').eq(1).scrollIntoView();
+        cy.get('button[class="btn btn-success mb-0"]').eq(1).click();
 
         cy.get('input[name="fields[heading]"]').should('have.value', 'This is a page');
         cy.get('input[name="fields[slug]"]').should('have.value', 'this-is-a-page-1');

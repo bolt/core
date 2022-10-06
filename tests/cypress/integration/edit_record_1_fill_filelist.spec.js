@@ -48,7 +48,7 @@ describe('As an Admin I want to fill in an filelist', { retries: 0 }, () => {
         //
         // cy.get('.form-fieldsgroup:nth-child(1) > .editor__file .btn-hidden-danger').click({ force: true}) ;
         // cy.get('button[class="btn btn-tertiary"]').eq(0).should('be.enabled');
-        // cy.get('button[class="btn btn-success mb-0 "]').eq(1).click({ force: true}) ;
+        // cy.get('button[class="btn btn-success mb-0"]').eq(1).click({ force: true}) ;
 
         //TODO: move checking for elements before saving changes(for some reason it doesn't work)
         cy.get('.editor-filelist').find('div[class="form-fieldsgroup"]').its('length').should('eq', 4);
