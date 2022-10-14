@@ -67,6 +67,10 @@ class RequestZone
      */
     public static function getFromRequest(?Request $request): string
     {
+        if (!$request) {
+            return static::NOWHERE;
+        }
+        
         return $request->attributes->get(static::KEY) ?: static::NOWHERE;
     }
 
