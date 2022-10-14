@@ -1,6 +1,14 @@
 Changelog
 =========
 
+## 5.1.17
+
+Released: 2022-10-14
+
+- Ensure we return the found `ImageField`, and not the surrounding `Set` or `Collection` #3333
+- Fix `fix-bundles` in `PostUpdateScript.php` #3331
+- Allow editing `YAML` files through the Bolt Backend #3325
+
 ## 5.1.16
 
 Released: 2022-09-21
