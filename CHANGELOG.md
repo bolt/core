@@ -10,6 +10,7 @@ Released: 2022-10-28
  - Create fix-bundles as bash script #3340
  - Since we call it using `self::runPHP`, we don't need the shebang #3337
  - Fixed some typos and made some phrases more natural/native sounding #3338
+ - Pass other `_route_params` into a forwarded request #3342
 
 ### 📦 Additions and new features
 
@@ -67,8 +68,8 @@ Released: 2022-08-31
 
 Released: 2022-08-26
 
-This release includes three security-related fixes. Our thanks go out to Eitan 
-Shav at [WhiteSource](https://whitesourcesoftware.com) and David Müller of 
+This release includes three security-related fixes. Our thanks go out to Eitan
+Shav at [WhiteSource](https://whitesourcesoftware.com) and David Müller of
 [lutrasecurity.com](https://lutrasecurity.com/) for identifying these issues and
 disclosing them to us responsibly! 👏🙏
 
