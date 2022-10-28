@@ -1,6 +1,20 @@
 Changelog
 =========
 
+## 5.1.18
+
+Released: 2022-10-28
+
+### 🐛 Bug fixes
+
+ - Create fix-bundles as bash script #3340
+ - Since we call it using `self::runPHP`, we don't need the shebang #3337
+ - Fixed some typos and made some phrases more natural/native sounding #3338
+
+### 📦 Additions and new features
+
+ - Added Ukrainian lang support, fixed some Russian translations #3339
+
 ## 5.1.17
 
 Released: 2022-10-14
