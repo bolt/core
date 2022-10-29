@@ -8,6 +8,8 @@ Installation
 
 Make sure you have set up a Bolt development environment. You can find a guide for that [here][dev].
 
+Set up Cypress for initial usage, by running `./node_modules/.bin/cypress install`. 
+
 Cypress has the [Electron][electron] browser built-in and uses it by default, but you can change 
 which browser it operates in by following [this guide][guide] from the official documentation.
 

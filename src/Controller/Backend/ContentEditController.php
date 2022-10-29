@@ -388,8 +388,8 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         }
 
         if (isset($formData['relationship'])) {
-            foreach ($formData['relationship'] as $relation) {
-                $this->updateRelation($content, $relation);
+            foreach ($formData['relationship'] as $relationType => $relation) {
+                $this->updateRelation($content, $relationType, $relation);
             }
         }
 
@@ -568,41 +568,75 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         }
     }
 
-    private function updateRelation(Content $content, $newRelations): array
+    private function updateRelation(Content $content, string $relationType, $newRelations): void
     {
         $newRelations = (new Collection(Json::findArray($newRelations)))->filter();
-        $currentRelations = $this->relationRepository->findRelations($content, null, null, false);
-        $relationsResult = [];
+        $currentRelations = new Collection($this->relationRepository->findRelations($content, $relationType, null, false));
+        $currentRelationIds = $currentRelations
+            ->map(
+                static function (Relation $relation) use ($content) {
+                    return $relation->getFromContent() === $content
+                        ? $relation->getToContent()->getId()
+                        : $relation->getFromContent()->getId();
+                }
+            )
+            ->unique();
 
-        // Remove old ones
+        // Remove old, no longer used relations.
         foreach ($currentRelations as $currentRelation) {
+            if (
+                $newRelations->contains($currentRelation->getToContent()->getId())
+                || $newRelations->contains($currentRelation->getFromContent()->getId())
+            ) {
+                // This relation currently exists, and continues to exist.
+                continue;
+            }
+
             // unlink content from relation - needed for code using relations from the content
             // side later (e.g. validation)
-            if ($currentRelation->getToContent()) {
+            if (
+                $currentRelation->getToContent()
+                && $newRelations->doesntContain($currentRelation->getToContent()->getId())
+            ) {
                 $currentRelation->getToContent()->removeRelationsToThisContent($currentRelation);
             }
-            if ($currentRelation->getFromContent()) {
+            if (
+                $currentRelation->getFromContent()
+                && $newRelations->doesntContain($currentRelation->getFromContent()->getId())
+            ) {
                 $currentRelation->getFromContent()->removeRelationsFromThisContent($currentRelation);
             }
             $this->em->remove($currentRelation);
         }
 
         // Then (re-) add selected ones
-        foreach ($newRelations as $id) {
-            $contentTo = $this->contentRepository->findOneBy(['id' => $id]);
+        foreach ($newRelations as $position => $id) {
+            if ($currentRelationIds->contains($id)) {
+                // If this relation already exists, don't add it a second time. Do set a proper order on it, though.
+                $currentRelations
+                    ->first(
+                        static function (Relation $relation) use ($id) {
+                            return \in_array(
+                                $id,
+                                [$relation->getFromContent()->getId(), $relation->getToContent()->getId()],
+                                true
+                            );
+                        }
+                    )
+                    ->setPosition($position);
+                continue;
+            }
 
+            $contentTo = $this->contentRepository->findOneBy(['id' => $id]);
             if ($contentTo === null) {
                 // Don't add relations to things that have gone missing
                 continue;
             }
 
             $relation = new Relation($content, $contentTo);
-
+            $relation->setPosition($position);
             $this->em->persist($relation);
-            $relationsResult[] = $id;
         }
-
-        return $relationsResult;
     }
 
     private function getEditLocale(Content $content): string

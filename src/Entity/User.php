@@ -120,6 +120,9 @@ class User implements UserInterface, \Serializable, PasswordAuthenticatedUserInt
     /** @ORM\Column(type="string", length=250, nullable=true) */
     private $avatar;
 
+    /** @ORM\Column(type="string", length=1024, nullable=true) */
+    private $about;
+
     public function __construct()
     {
     }
@@ -358,5 +361,15 @@ class User implements UserInterface, \Serializable, PasswordAuthenticatedUserInt
     public function setAvatar(?string $avatar): void
     {
         $this->avatar = $avatar;
+    }
+
+    public function getAbout(): ?string
+    {
+        return $this->about;
+    }
+
+    public function setAbout(?string $about): void
+    {
+        $this->about = $about;
     }
 }

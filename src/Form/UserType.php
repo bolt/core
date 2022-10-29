@@ -13,6 +13,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
@@ -106,6 +107,9 @@ class UserType extends AbstractType
                     'upload_path' => $this->avatarConfig->get('upload_path'),
                     'extensions_allowed' => $this->avatarConfig->get('extensions_allowed'),
                 ],
+            ])
+            ->add('about', TextareaType::class, [
+                'required' => false
             ])
         ;
 

@@ -243,8 +243,10 @@ class ContentExtension extends AbstractExtension
 
         if ($field instanceof ListFieldInterface) {
             foreach ($field->getValue() as $subField) {
-                if ($this->findOneImage($subField)) {
-                    return $subField;
+                $foundImageField = $this->findOneImage($subField);
+
+                if ($foundImageField) {
+                    return $foundImageField;
                 }
             }
         }
