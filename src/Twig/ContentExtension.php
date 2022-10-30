@@ -362,7 +362,6 @@ class ContentExtension extends AbstractExtension
         $contentType = $sameContentType ? $content->getContentType() : null;
 
         return $this->contentRepository->findAdjacentBy($byColumn, $direction, $value, $contentType);
-
     }
 
     public function isCurrent(Environment $env, ?Content $content): bool
