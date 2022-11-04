@@ -50,7 +50,7 @@ describe('Create content as editor and delete it as chief editor', () => {
         cy.get('#field-heading').type('Test heading');
 
         cy.get('button[name="save"]').eq(1).scrollIntoView();
-        cy.get('button[name="save"]').eq(1).click();
+        cy.get('button[name="save"]').eq(1).should('be.visible').click({force:true});
 
         cy.visit('/bolt/logout');
 
