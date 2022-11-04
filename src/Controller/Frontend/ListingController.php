@@ -69,7 +69,10 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
             $route = $content->getDefinition()->get('record_route');
             $controller = $this->container->get('router')->getRouteCollection()->get($route)->getDefault('_controller');
 
-            return $this->forward($controller, ['slugOrId' => $content->getId()]);
+            $parameters = $this->request->attributes->all();
+            $parameters['slugOrId'] = $content->getId();
+
+            return $this->forward($controller, $parameters);
         }
 
         $records = $this->setRecords($content, $amountPerPage, $page);
