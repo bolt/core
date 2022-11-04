@@ -219,7 +219,7 @@ class ContentRepository extends ServiceEntityRepository
         return $paginator;
     }
 
-    public function findAdjacentBy(string $column, string $direction, int $currentValue, ?string $contentType = null): ?Content
+    public function findAdjacentBy(string $column, string $direction, $currentValue, ?string $contentType = null): ?Content
     {
         if ($direction === 'next') {
             $order = 'ASC';

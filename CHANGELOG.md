@@ -47,6 +47,31 @@ Released: 2022-07-05
 - Add `isTranslatable` condition in `get`-method [#3250](https://github.com/bolt/core/pull/3250)
 - Additional fix for `type: number` field, set default to `min: 0`. [#3252](https://github.com/bolt/core/pull/3252)
 
+## 5.1.18
+
+Released: 2022-10-28
+
+### 🐛 Bug fixes
+
+ - Create fix-bundles as bash script #3340
+ - Since we call it using `self::runPHP`, we don't need the shebang #3337
+ - Fixed some typos and made some phrases more natural/native sounding #3338
+ - Pass other `_route_params` into a forwarded request #3342
+
+### 📦 Additions and new features
+
+ - Added Ukrainian lang support, fixed some Russian translations #3339
+
+## 5.1.17
+
+Released: 2022-10-14
+
+### 🐛 Bug fixes
+
+- Ensure we return the found `ImageField`, and not the surrounding `Set` or `Collection` #3333
+- Fix `fix-bundles` in `PostUpdateScript.php` #3331
+- Allow editing `YAML` files through the Bolt Backend #3325
+- Check for empty request before using it #3334
 
 ## 5.1.16
 

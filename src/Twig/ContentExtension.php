@@ -243,8 +243,10 @@ class ContentExtension extends AbstractExtension
 
         if ($field instanceof ListFieldInterface) {
             foreach ($field->getValue() as $subField) {
-                if ($this->findOneImage($subField)) {
-                    return $subField;
+                $foundImageField = $this->findOneImage($subField);
+
+                if ($foundImageField) {
+                    return $foundImageField;
                 }
             }
         }
@@ -338,15 +340,28 @@ class ContentExtension extends AbstractExtension
 
     private function getAdjacentContent(Content $content, string $direction, string $byColumn = 'id', bool $sameContentType = true): ?Content
     {
-        if ($byColumn !== 'id') {
-            // @todo implement ordering by other columns/fields too
-            throw new \RuntimeException('Ordering content by column other than ID is not yet implemented');
+        switch ($byColumn) {
+            case "id":
+                $value = $content->getId();
+                break;
+            case "createdAt":
+                $value = $content->getCreatedAt();
+            case "publishedAt":
+                $value = $content->getPublishedAt();
+                break;
+            case "depublishedAt":
+                $value = $content->getDepublishedAt();
+                break;
+            case "modifiedAt":
+                $value = $content->getModifiedAt();
+                break;
+            default:
+                throw new \RuntimeException('Ordering content by this column is not yet implemented');
         }
 
-        $byColumn = filter_var($byColumn, FILTER_SANITIZE_STRING);
         $contentType = $sameContentType ? $content->getContentType() : null;
 
-        return $this->contentRepository->findAdjacentBy($byColumn, $direction, $content->getId(), $contentType);
+        return $this->contentRepository->findAdjacentBy($byColumn, $direction, $value, $contentType);
     }
 
     public function isCurrent(Environment $env, ?Content $content): bool

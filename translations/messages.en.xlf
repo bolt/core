@@ -28,7 +28,7 @@
       </notes>
       <segment>
         <source>http_error.description</source>
-        <target>There was an unknown error (HTTP %status_code%) that prevented to complete your request.</target>
+        <target>There was an unknown error (HTTP %status_code%) that prevented your request being completed.</target>
       </segment>
     </unit>
     <unit id="ru5FEGk" name="http_error.suggestion">
@@ -37,7 +37,7 @@
       </notes>
       <segment>
         <source>http_error.suggestion</source>
-        <target><![CDATA[Try loading this page again in some minutes or <a href="%url%">go back to the homepage</a>.]]></target>
+        <target><![CDATA[Try loading this page again in a few minutes or <a href="%url%">go back to the homepage</a>.]]></target>
       </segment>
     </unit>
     <unit id="Qn5rwdU" name="http_error_403.description">
@@ -46,7 +46,7 @@
       </notes>
       <segment>
         <source>http_error_403.description</source>
-        <target>You don't have permission to access to this resource.</target>
+        <target>You don't have permission to access this resource.</target>
       </segment>
     </unit>
     <unit id="zDeeh7L" name="http_error_403.suggestion">
@@ -73,7 +73,7 @@
       </notes>
       <segment>
         <source>http_error_404.suggestion</source>
-        <target><![CDATA[Check out any misspelling in the URL or <a href="%url%">go back to the homepage</a>.]]></target>
+        <target><![CDATA[Check for any misspelling in the URL or <a href="%url%">go back to the homepage</a>.]]></target>
       </segment>
     </unit>
     <unit id="ZYXSW95" name="http_error_500.description">
@@ -91,7 +91,7 @@
       </notes>
       <segment>
         <source>http_error_500.suggestion</source>
-        <target><![CDATA[Try loading this page again in some minutes or <a href="%url%">go back to the homepage</a>.]]></target>
+        <target><![CDATA[Try loading this page again in a few minutes or <a href="%url%">go back to the homepage</a>.]]></target>
       </segment>
     </unit>
     <unit id="9RwuNlf" name="title.source_code">
@@ -465,7 +465,7 @@
       </notes>
       <segment>
         <source>user.updated_successfully</source>
-        <target>Updated Sucessfully</target>
+        <target>Updated Successfully</target>
       </segment>
     </unit>
     <unit id="3hkt.eH" name="content.updated_successfully">
@@ -982,7 +982,7 @@
     <unit id="2MMvCKK" name="label.cache_cleared">
       <segment>
         <source>label.cache_cleared</source>
-        <target>Cache cleared succesfully!</target>
+        <target>Cache cleared successfully!</target>
       </segment>
     </unit>
     <unit id="Wou02nK" name="caption.kitchensink">
@@ -1090,7 +1090,7 @@
     <unit id="Iyry5.g" name="editfile.updated_successfully">
       <segment>
         <source>editfile.updated_successfully</source>
-        <target>File updated succesfully!</target>
+        <target>File updated successfully!</target>
       </segment>
     </unit>
     <unit id="3zlZmRK" name="action.add_user">
@@ -2470,7 +2470,7 @@
     <unit id="SwOgM7K" name="reset_password.request_description">
       <segment>
         <source>reset_password.request_description</source>
-        <target>Enter your email address and we we will send you a link to reset your password.</target>
+        <target>Enter your email address and we will send you a link to reset your password.</target>
       </segment>
     </unit>
     <unit id="RX0Iuzi" name="reset_password.request_send">
@@ -2506,7 +2506,7 @@
     <unit id="SxW1D3L" name="reset_password.check_email_sent_text_1">
       <segment>
         <source>reset_password.check_email_sent_text_1</source>
-        <target>An email has been sent that contains a link that you can click to reset your password. This link will expire in %hours% hour(s).</target>
+        <target>An email has been sent that contains a link you can click to reset your password. This link will expire in %hours% hour(s).</target>
       </segment>
     </unit>
     <unit id="z25k4DS" name="reset_password.check_email_sent_text_2">
