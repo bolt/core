@@ -9,6 +9,6 @@
     "defaultCommandTimeout": 8000,
     "viewportWidth": 1920,
     "viewportHeight": 1080,
-    "retries": 2,
-    "scrollBehavior": false
+    "retries": 0,
+    "scrollBehavior": "nearest"
 }

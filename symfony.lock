@@ -200,9 +200,6 @@
     "fakerphp/faker": {
         "version": "v1.10.1"
     },
-    "fig/link-util": {
-        "version": "1.1.0"
-    },
     "friendsofapi/localise.biz": {
         "version": "1.0.1"
     },
