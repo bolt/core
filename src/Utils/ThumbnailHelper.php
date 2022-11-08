@@ -9,6 +9,8 @@ use Bolt\Configuration\Config;
 
 class ThumbnailHelper
 {
+    const PATH_PREFIX_DEFAULT = '/thumbs';
+
     /** @var Config */
     private $config;
 
@@ -49,7 +51,8 @@ class ThumbnailHelper
 
         $paramString = $this->parameters($width, $height, $fit, $location);
         $filename = Str::ensureStartsWith($filename, '/');
+        $pathPrefix = $this->config ? $this->config->get('general/thumbnails/path_prefix', self::PATH_PREFIX_DEFAULT) : self::PATH_PREFIX_DEFAULT;
 
-        return sprintf('/thumbs/%s%s', $paramString, $filename);
+        return sprintf('%s/%s%s', $pathPrefix, $paramString, $filename);
     }
 }

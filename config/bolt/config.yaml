@@ -28,7 +28,7 @@ caching:
     frontend_menu: ~
     backend_menu: ~
     files_index: ~
-    
+
 # The theme to use.
 #
 # Dont edit the provided templates directly, because they _will_ get updated
@@ -180,6 +180,7 @@ thumbnails:
     cropping: crop
     save_files: true
     allow_upscale: false
+    path_prefix: null # Default to /thumbs
 
 # File permissions for read/write/execute to set on folders and files that are
 # created. The exact permissions you should be setting depends on the system
