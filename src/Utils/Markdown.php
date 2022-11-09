@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Bolt\Utils;
 
-use Parsedown;
+use ParsedownExtra;
 
 class Markdown
 {
-    /** @var Parsedown */
+    /** @var ParsedownExtra */
     private $parser;
 
     public function __construct()
     {
-        $this->parser = new Parsedown();
+        $this->parser = new ParsedownExtra();
     }
 
     public function parse(string $text): string
