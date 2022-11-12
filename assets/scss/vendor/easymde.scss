@@ -1,0 +1,89 @@
+@use "sass:math";
+
+.EasyMDEContainer {
+  .CodeMirror-fullscreen,
+  .editor-toolbar.fullscreen,
+  .editor-preview-side {
+    z-index: 10000;
+    background: #f0f3f6;
+    position: fixed;
+    top: $admin-toolbar-height-wide;
+    left: $admin-sidebar-width;
+    margin: 0;
+    right: 0;
+
+    @include media-breakpoint-up(wd) {
+      left: $admin-sidebar-width-wide;
+    }
+  }
+
+  .editor-preview-side {
+    left: auto;
+  }
+
+  .CodeMirror-fullscreen {
+    top: $admin-toolbar-height-wide + 39px;
+    padding: 0;
+    bottom: 0;
+    width: auto;
+    height: auto;
+    background: var(--foreground);
+
+    &.CodeMirror-sided {
+      width: auto !important;
+      right: 50%;
+    }
+  }
+
+  .editor-toolbar {
+    background-color: $input-disabled-bg;
+    opacity: 1;
+    padding: 0 $spacer * 0.5;
+    border: $input-border-width solid $input-border-color;
+    border-bottom: 0;
+    border-radius: $input-border-radius $input-border-radius 0 0;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    &::before,
+    &::after {
+      margin: 0;
+      content: none;
+    }
+
+    a {
+      padding: math.div($spacer, 3) 0;
+      margin: 0;
+      height: auto;
+      border-radius: 0;
+
+      &:hover {
+        border: 0;
+        background: var(--foreground);
+      }
+    }
+
+    &.fullscreen {
+      padding-top: 0.25rem;
+    }
+  }
+
+  .CodeMirror {
+    border: $input-border-width solid $input-border-color;
+    border-radius: 0 0 $input-border-radius $input-border-radius;
+
+    &:focus {
+      border-color: var(--primary);
+      box-shadow: $input-focus-box-shadow;
+    }
+  }
+}
+
+.is-slim .EasyMDEContainer {
+  .CodeMirror-fullscreen,
+  .editor-toolbar.fullscreen {
+    left: math.div($admin-sidebar-width, 3);
+  }
+}
