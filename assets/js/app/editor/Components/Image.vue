@@ -355,7 +355,7 @@ export default {
                     modalContent += `
                     <div class="col">
                         <div class="card h-100">
-                            <img src="/thumbs/523×294×crop/${element.value.replace('files/', '')}" loading="lazy">
+                            <img src="/thumbs/250×150×crop/${element.value.replace('files/', '')}" loading="lazy">
                             <div class="card-body px-2 flex-grow-0 border-top border-very-light-border">
                                 <div class="form-check ps-0">
                                     <input class="form-check-input" type="checkbox" value="${
