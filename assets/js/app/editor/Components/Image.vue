@@ -338,7 +338,7 @@ export default {
                     // let directoryPath = '/bolt/async/list_files?location=files/' + element.value + '&type=images';
                     modalContent += `
                     <div class="col">
-                        <div class="card h-100">
+                        <div class="card">
                             <a href="${baseAsyncUrl}" class="directory d-flex justify-content-center w-100 flex-grow-1 text-decoration-none align-self-center">
                                 <i class="fas fa-solid fa-folder fa-5x me-0 align-self-center"></i>
                             </a>
@@ -354,7 +354,7 @@ export default {
                 } else {
                     modalContent += `
                     <div class="col">
-                        <div class="card h-100">
+                        <div class="card">
                             <img src="/thumbs/250×150×crop/${element.value.replace('files/', '')}" loading="lazy">
                             <div class="card-body px-2 flex-grow-0 border-top border-very-light-border">
                                 <div class="form-check ps-0">
