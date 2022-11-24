@@ -70,15 +70,23 @@ class RelatedExtension extends AbstractExtension
     }
 
     /**
+     * @param Content $content
+     * @param bool|string $bidirectional "both"|true, "to"|false, "from"
+     * @param int|null $limit
+     * @param bool $publishedOnly
      * @return array name => Content[]
      */
-    public function getRelatedContentByType(Content $content, bool $bidirectional = true, ?int $limit = null, bool $publishedOnly = true): array
+    public function getRelatedContentByType(Content $content, $bidirectional = true, ?int $limit = null, bool $publishedOnly = true): array
     {
         if (! $this->checkforContent($content, 'related_by_type')) {
             return [];
         }
 
-        $relations = $this->relationRepository->findRelations($content, null, $limit, $publishedOnly);
+        if (is_bool($bidirectional)) {
+            $bidirectional = $bidirectional ? "both" : "to";
+        }
+
+        $relations = $this->relationRepository->findRelations($content, null, $limit, $publishedOnly, $bidirectional);
 
         return (new Collection($relations))
             ->reduce(function (array $result, Relation $relation) use ($content): array {
@@ -95,15 +103,24 @@ class RelatedExtension extends AbstractExtension
     }
 
     /**
-     * @return Content[]
+     * @param $content
+     * @param string|null $name
+     * @param bool|string $bidirectional "both"|true, "to"|false, "from"
+     * @param int|null $limit
+     * @param bool $publishedOnly
+     * @return Content
      */
-    public function getRelatedContent($content, ?string $name = null, bool $bidirectional = true, ?int $limit = null, bool $publishedOnly = true): array
+    public function getRelatedContent($content, ?string $name = null, $bidirectional = true, ?int $limit = null, bool $publishedOnly = true): array
     {
         if (! $this->checkforContent($content, 'related')) {
             return [];
         }
 
-        $relations = $this->relationRepository->findRelations($content, $name, $limit, $publishedOnly);
+        if (is_bool($bidirectional)) {
+            $bidirectional = $bidirectional ? "both" : "to";
+        }
+
+        $relations = $this->relationRepository->findRelations($content, $name, $limit, $publishedOnly, $bidirectional);
 
         return (new Collection($relations))
             ->map(function (Relation $relation) use ($content) {
