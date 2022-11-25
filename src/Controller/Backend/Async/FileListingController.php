@@ -62,7 +62,7 @@ class FileListingController implements AsyncZoneInterface
         // Do not allow any path outside of the public directory.
         $path = PathCanonicalize::canonicalize($this->publicPath, $relativeLocation);
         $baseFilePath = PathCanonicalize::canonicalize($this->publicPath, $relativeTopLocation);
-        $baseUrlPath = $this->request->server->get('PATH_INFO');
+        $baseUrlPath = $this->request->getPathInfo();
         $relativePath = Path::makeRelative($path, $this->publicPath);
 
         $files = $this->filesIndex->get($relativePath, $type, $baseUrlPath, $baseFilePath);

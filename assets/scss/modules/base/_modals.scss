@@ -33,6 +33,9 @@
 
 #resourcesModal {
   .card {
-    min-height: 209px;
+    img,
+    a.directory {
+      aspect-ratio: 5/3;
+    }
   }
 }
