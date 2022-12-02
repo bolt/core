@@ -58,8 +58,11 @@ class FrontendMenuExtension extends AbstractExtension
 
     public function isCurrent($item): bool
     {
+        $currentRequest = $this->requestStack->getCurrentRequest();
+        $currentLocale = $currentRequest->getLocale();
         $uri = $item['uri'] ?? '';
+        $currentUrl = str_replace('/' . $currentLocale, '', $currentRequest->getPathInfo());
 
-        return $uri === $this->requestStack->getCurrentRequest()->getPathInfo();
+        return $uri === $currentUrl;
     }
 }
