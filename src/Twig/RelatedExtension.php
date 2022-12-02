@@ -70,10 +70,7 @@ class RelatedExtension extends AbstractExtension
     }
 
     /**
-     * @param Content $content
      * @param bool|string $bidirectional "both"|true, "to"|false, "from"
-     * @param int|null $limit
-     * @param bool $publishedOnly
      * @return array name => Content[]
      */
     public function getRelatedContentByType(Content $content, $bidirectional = true, ?int $limit = null, bool $publishedOnly = true): array
@@ -102,14 +99,6 @@ class RelatedExtension extends AbstractExtension
             }, []);
     }
 
-    /**
-     * @param $content
-     * @param string|null $name
-     * @param bool|string $bidirectional "both"|true, "to"|false, "from"
-     * @param int|null $limit
-     * @param bool $publishedOnly
-     * @return Content
-     */
     public function getRelatedContent($content, ?string $name = null, $bidirectional = true, ?int $limit = null, bool $publishedOnly = true): array
     {
         if (! $this->checkforContent($content, 'related')) {
