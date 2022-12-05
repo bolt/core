@@ -135,10 +135,6 @@ export default {
             })
             .filter(item => undefined !== item);
 
-        if (filterSelectedItems.length === 0) {
-            filterSelectedItems = [_options[0]];
-        }
-
         this.selected = filterSelectedItems;
     },
     methods: {
