@@ -94,6 +94,7 @@ export default {
         classname: String,
         autocomplete: Boolean,
         errormessage: String | Boolean, //string if errormessage is set, and false otherwise
+        required: String | Boolean,
     },
     data: () => {
         return {
@@ -135,7 +136,7 @@ export default {
             })
             .filter(item => undefined !== item);
 
-        if (filterSelectedItems.length === 0) {
+        if (!!this._props.required && filterSelectedItems.length === 0) {
             filterSelectedItems = [_options[0]];
         }
 
