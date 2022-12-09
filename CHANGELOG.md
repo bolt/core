@@ -1,6 +1,18 @@
 Changelog
 =========
 
+## 5.1.19
+
+Released: 2022-12-08
+
+### 🐛 Bug fixes
+
+ - Pass other `_route_params` into a forwarded request #3342
+ - Fix excerpt when content would be too short _after_ trimming #3367
+ - Make `guesstimateAuthor` return type nullable #3358
+ - Made the `isCurrent`-filter remove the current locale #3368
+
+
 ## 5.1.18
 
 Released: 2022-10-28
