@@ -174,7 +174,7 @@ class ContentTranslationController extends AbstractController implements Backend
 
                 foreach ($files as $file) {
                     if ($file instanceof UploadedFile) {
-                        $notFound = [...$notFound, ...$this->processXlfTranslations($file)];
+                        $notFound = array_merge($notFound, $this->processXlfTranslations($file));
                     }
                 }
 
