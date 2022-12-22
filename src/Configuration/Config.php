@@ -268,6 +268,16 @@ class Config
         return new Collection($this->get('general/accept_file_types'));
     }
 
+    public function getLocales(): array
+    {
+        return explode('|', $this->locales);
+    }
+
+    public function getDefaultLocale(): string
+    {
+        return $this->defaultLocale;
+    }
+
     public function getMaxUpload(): int
     {
         return min(

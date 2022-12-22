@@ -6,7 +6,6 @@ namespace Bolt\Menu;
 
 use Bolt\Configuration\Config;
 use Bolt\Configuration\Content\ContentType;
-use Bolt\Entity\Content;
 use Bolt\Repository\ContentRepository;
 use Bolt\Security\ContentVoter;
 use Bolt\Twig\ContentExtension;
@@ -256,6 +255,16 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
                 'uri' => $this->urlGenerator->generate('translation_index'),
                 'extras' => [
                     'name' => $t->trans('caption.translations'),
+                    'icon' => 'fa-language',
+                ],
+            ]);
+        }
+
+        if ($this->authorizationChecker->isGranted('translation')) {
+            $menu->getChild('Maintenance')->addChild('ContentTranslations', [
+                'uri' => $this->urlGenerator->generate('bolt_content_translations_index'),
+                'extras' => [
+                    'name' => $t->trans('caption.content_translations'),
                     'icon' => 'fa-language',
                 ],
             ]);

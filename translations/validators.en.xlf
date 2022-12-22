@@ -673,5 +673,11 @@
         <target>Invalid display name</target>
       </segment>
     </unit>
+    <unit id="0WJwu9_" name="import.not_found_warning">
+      <segment>
+        <source>import.not_found_warning</source>
+        <target><![CDATA[The following ({{ locale }}) messages could not be imported: <br />{{ fields }}]]></target>
+      </segment>
+    </unit>
   </file>
 </xliff>

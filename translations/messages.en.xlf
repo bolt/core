@@ -2725,6 +2725,48 @@
         <target>You have to login in order to access this page.</target>
       </segment>
     </unit>
+    <unit id="BWi_f4Q" name="import_export_content_translations">
+      <segment>
+        <source>import_export_content_translations</source>
+        <target>Import/Export Content Translations</target>
+      </segment>
+    </unit>
+    <unit id="WrGgEr5" name="export_all_content_translations">
+      <segment>
+        <source>export_all_content_translations</source>
+        <target>Export All Content Translations</target>
+      </segment>
+    </unit>
+    <unit id="1GruCMx" name="export">
+      <segment>
+        <source>export</source>
+        <target>Export</target>
+      </segment>
+    </unit>
+    <unit id="2UL2SIZ" name="import">
+      <segment>
+        <source>import</source>
+        <target>Import</target>
+      </segment>
+    </unit>
+    <unit id="Vet5xFg" name="bolt_content_translations_files">
+      <segment>
+        <source>bolt_content_translations_files</source>
+        <target>Translation files</target>
+      </segment>
+    </unit>
+    <unit id="IcINlR." name="bolt_content_translations_send">
+      <segment>
+        <source>bolt_content_translations_send</source>
+        <target>Import translations</target>
+      </segment>
+    </unit>
+    <unit id="B6SWRS6" name="caption.content_translations">
+      <segment>
+        <source>caption.content_translations</source>
+        <target>Content Translations</target>
+      </segment>
+    </unit>
     <unit id="MjY7.cg" name="modal.title.file_field">
       <segment>
         <source>modal.title.file_field</source>
