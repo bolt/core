@@ -4,7 +4,7 @@ import { Toast } from 'bootstrap';
 
 let form = $('#editcontent');
 let record_id = form.data('record');
-let element = $('button[name="save"]');
+let element = $('button[name="save"][type="button"]'); //type="button" because it should only work when ajaxy is enabled
 
 let dom_element =
     '<div class="admin__notifications"><div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="6000"><div id="toastTitle" ><strong id="toastNotification" class="mr-auto"></strong><small id="toastType"></small><button class="ml-2 mb-1 close" aria-label="Close" data-dismiss="toast" type="button"><span aria-hidden="true">&times;</span></button></div><div id="toastBody" class="toast-body"></div></div></div>';
@@ -27,7 +27,10 @@ $(document).ready(function() {
         }
     }
 
-    window.onbeforeunload = unloadPage;
+    //it should only work when ajaxy is enabled
+    if (element.length) {
+      window.onbeforeunload = unloadPage;
+    }
 
     function showToast(
         toastType = 'Error',
