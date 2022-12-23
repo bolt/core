@@ -29,7 +29,7 @@ $(document).ready(function() {
 
     //it should only work when ajaxy is enabled
     if (element.length) {
-      window.onbeforeunload = unloadPage;
+        window.onbeforeunload = unloadPage;
     }
 
     function showToast(
