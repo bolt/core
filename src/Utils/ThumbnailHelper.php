@@ -38,7 +38,7 @@ class ThumbnailHelper
             $quality = (int) $this->config->get('general/thumbnails/quality');
         }
 
-    return implode('×', array_filter([$width, $height, $quality, $fit, $location]));
+        return implode('×', array_filter([$width, $height, $quality, $fit, $location]));
     }
 
     public function path(?string $filename = null, ?int $width = null, ?int $height = null, ?string $location = null, ?string $path = null, ?string $fit = null, ?int $quality = null): string
