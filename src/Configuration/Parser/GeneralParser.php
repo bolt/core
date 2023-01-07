@@ -84,7 +84,7 @@ class GeneralParser extends BaseParser
             'thumbnails' => [
                 'default_thumbnail' => [160, 120],
                 'default_image' => [1000, 750],
-                'quality' => 75,
+                'quality' => 80,
                 'cropping' => 'crop',
                 'notfound_image' => 'bolt_assets://img/default_notfound.png',
                 'error_image' => 'bolt_assets://img/default_error.png',
