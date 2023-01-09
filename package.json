@@ -43,7 +43,7 @@
         "hotkeys-js": "^3.10.0",
         "jquery": "^3.6.1",
         "locutus": "^2.0.15",
-        "luxon": "^1.28.0",
+        "luxon": "^2.5.2",
         "no-scroll": "^2.1.1",
         "node-vibrant": "^3.1.6",
         "popper.js": "^1.16.1",
