@@ -27,7 +27,7 @@
         "url": "git://github.com/bolt/core.git"
     },
     "overrides": {
-      "@achrinza/node-ipc": "^9.2.6"
+        "@achrinza/node-ipc": "^9.2.6"
     },
     "dependencies": {
         "@popperjs/core": "^2.11.6",
