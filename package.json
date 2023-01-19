@@ -1,6 +1,6 @@
 {
     "name": "bolt",
-    "version": "5.1.99.10",
+    "version": "5.1.99.11",
     "homepage": "https://boltcms.io",
     "author": "Bob den Otter <bob@twokings.nl> (https://boltcms.io)",
     "license": "MIT",
@@ -27,7 +27,7 @@
         "url": "git://github.com/bolt/core.git"
     },
     "overrides": {
-      "@achrinza/node-ipc": "^9.2.6"
+        "@achrinza/node-ipc": "^9.2.6"
     },
     "dependencies": {
         "@popperjs/core": "^2.11.6",
