@@ -1,6 +1,15 @@
 Changelog
 =========
 
+## 5.1.20
+
+Released: 2023-01-20
+
+### 🐛 Bug fixes
+
+ - Do not display twig value for SetField #3390
+
+
 ## 5.1.19
 
 Released: 2022-12-08
