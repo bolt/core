@@ -23,7 +23,7 @@ final class Version
      *   Stable — 3.0.0
      *   Development — 3.1.0 alpha 1
      */
-    public const VERSION = '5.1.19';
+    public const VERSION = '5.1.20';
     public const CODENAME = '';
 
     /**
