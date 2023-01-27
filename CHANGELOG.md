@@ -1,6 +1,14 @@
 Changelog
 =========
 
+## 5.1.21
+
+Released: 2023-01-27
+
+### 🐛 Bug fixes
+
+ - Fix PHPStan errors (on PHP 8.x) #3395
+
 ## 5.1.20
 
 Released: 2023-01-20
