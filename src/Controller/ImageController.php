@@ -147,18 +147,19 @@ class ImageController
             'h' => is_numeric($raw[1]) ? (int) $raw[1] : 300,
             'fit' => 'default',
             'location' => 'files',
+            'q' => (is_numeric($raw[2]) && 0 <= $raw[2] && $raw[2] <= 100) ? (int) $raw[2] : 80
         ];
 
-        if (isset($raw[3])) {
-            $this->parameters['fit'] = $this->parseFit($raw[2]);
-            $this->parameters['location'] = $raw[3];
-        } elseif (isset($raw[2])) {
-            $posible_fit = $this->parseFit($raw[2]);
+        if (isset($raw[4])) {
+            $this->parameters['fit'] = $this->parseFit($raw[3]);
+            $this->parameters['location'] = $raw[4];
+        } elseif (isset($raw[3])) {
+            $posible_fit = $this->parseFit($raw[3]);
 
             if ($this->testFit($posible_fit)) {
                 $this->parameters['fit'] = $posible_fit;
             } else {
-                $this->parameters['location'] = $raw[2];
+                $this->parameters['location'] = $raw[3];
             }
         }
     }
