@@ -3,7 +3,7 @@ Changelog
 
 ## 5.1.22
 
-Released: 2023-01-27
+Released: 2023-01-31
 
 ### 🐛 Bug fixes
 
