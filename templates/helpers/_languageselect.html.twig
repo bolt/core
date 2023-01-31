@@ -13,8 +13,8 @@ The current locale is in the Request object, which is an instance of `Symfony\Co
 
 #}
 
-{# Make sure type is either 'list' or 'select' #}
-{% if type|default('list') != 'list' %}{% set type = 'select' %}{% endif %}
+{# Make sure type is either 'list' or 'select'. Default to 'select' if not defined. #}
+{% if type|default('') != 'list' %}{% set type = 'select' %}{% endif %}
 
 {# Set `class` and `style` variables #}
 {% set class = 'class="languageselect_' ~ type ~ (class is defined ? ' ' ~ class) ~ '"' %}
