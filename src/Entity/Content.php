@@ -11,6 +11,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Entity\Field\Excerptable;
 use Bolt\Entity\Field\ScalarCastable;
+use Bolt\Entity\Field\SetField;
 use Bolt\Enum\Statuses;
 use Bolt\Repository\FieldRepository;
 use DateTimeZone;
@@ -699,7 +700,7 @@ class Content
             throw new \RuntimeException(sprintf('Invalid field name or method call on %s: %s', $this->__toString(), $name));
         }
 
-        if ($field instanceof Excerptable || $field instanceof ScalarCastable) {
+        if (!$field instanceof SetField && ($field instanceof Excerptable || $field instanceof ScalarCastable)) {
             return $field->getTwigValue();
         }
 

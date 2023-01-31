@@ -1170,7 +1170,7 @@
     <unit id="ZJxfdD6" name="listing_table.actions.status_to_held">
       <segment>
         <source>listing_table.actions.status_to_held</source>
-        <target>Изменить статус на "не активно"</target>
+        <target>Изменить статус на "неактивно"</target>
       </segment>
     </unit>
     <unit id="apyOs0o" name="listing_table.actions.status_to_draft">
@@ -1860,7 +1860,7 @@
     <unit id="Sd_AbmV" name="field.cropXPostfix">
       <segment>
         <source>field.cropXPostfix</source>
-        <target>Положение кадрирования  по оси X, диапазон 0-100.</target>
+        <target>Положение кадрирования по оси X, диапазон 0-100.</target>
       </segment>
     </unit>
     <unit id="BQBmQHT" name="field.cropYPostfix">
@@ -2136,7 +2136,7 @@
     <unit id="3MuwWwe" name="listing.disabled">
       <segment>
         <source>listing.disabled</source>
-        <target>Вывод отклчен</target>
+        <target>Вывод отключен</target>
       </segment>
     </unit>
     <unit id="XQ2U6fN" name="slug.button_unlocked">
@@ -2286,7 +2286,7 @@
     <unit id="JpJFIFq" name="collection.confirm_delete">
       <segment>
         <source>collection.confirm_delete</source>
-        <target>Вы действительно хотите удалить эту элемент коллекции?</target>
+        <target>Вы действительно хотите удалить этот элемент коллекции?</target>
       </segment>
     </unit>
     <unit id="YZJO3Ul" name="upload.allow_file_types">
@@ -2352,7 +2352,7 @@
     <unit id="pXtciRI" name="content.edit_missing_definition">
       <segment>
         <source>content.edit_missing_definition</source>
-        <target>Определение этого Типа контента  отсутствует! Редактирование этой записи не будет работать должным образом. Пожалуйста, проверьте свой contenttypes.yaml, чтобы убедиться, что он содержит% contenttype%.</target>
+        <target>Определение этого Типа контента отсутствует! Редактирование этой записи не будет работать должным образом. Пожалуйста, проверьте свой contenttypes.yaml, чтобы убедиться, что он содержит% contenttype%.</target>
       </segment>
     </unit>
     <unit id="RBJ0NMl" name="collection.select">
@@ -2370,7 +2370,7 @@
     <unit id="5Qf_RiO" name="form.empty_password">
       <segment>
         <source>form.empty_password</source>
-        <target>Пожалуйста введите ваш пароль</target>
+        <target>Пожалуйста, введите ваш пароль</target>
       </segment>
     </unit>
     <unit id="fAmcKUQ" name="listing.title_filterby_field">

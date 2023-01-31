@@ -1,6 +1,61 @@
 Changelog
 =========
 
+## 5.1.21
+
+Released: 2023-01-27
+
+### 🐛 Bug fixes
+
+ - Fix PHPStan errors (on PHP 8.x) #3395
+
+## 5.1.20
+
+Released: 2023-01-20
+
+### 🐛 Bug fixes
+
+ - Do not display twig value for SetField #3390
+
+
+## 5.1.19
+
+Released: 2022-12-08
+
+### 🐛 Bug fixes
+
+ - Pass other `_route_params` into a forwarded request #3342
+ - Fix excerpt when content would be too short _after_ trimming #3367
+ - Make `guesstimateAuthor` return type nullable #3358
+ - Made the `isCurrent`-filter remove the current locale #3368
+
+
+## 5.1.18
+
+Released: 2022-10-28
+
+### 🐛 Bug fixes
+
+ - Create fix-bundles as bash script #3340
+ - Since we call it using `self::runPHP`, we don't need the shebang #3337
+ - Fixed some typos and made some phrases more natural/native sounding #3338
+ - Pass other `_route_params` into a forwarded request #3342
+
+### 📦 Additions and new features
+
+ - Added Ukrainian lang support, fixed some Russian translations #3339
+
+## 5.1.17
+
+Released: 2022-10-14
+
+### 🐛 Bug fixes
+
+- Ensure we return the found `ImageField`, and not the surrounding `Set` or `Collection` #3333
+- Fix `fix-bundles` in `PostUpdateScript.php` #3331
+- Allow editing `YAML` files through the Bolt Backend #3325
+- Check for empty request before using it #3334
+
 ## 5.1.16
 
 Released: 2022-09-21
@@ -42,8 +97,8 @@ Released: 2022-08-31
 
 Released: 2022-08-26
 
-This release includes three security-related fixes. Our thanks go out to Eitan 
-Shav at [WhiteSource](https://whitesourcesoftware.com) and David Müller of 
+This release includes three security-related fixes. Our thanks go out to Eitan
+Shav at [WhiteSource](https://whitesourcesoftware.com) and David Müller of
 [lutrasecurity.com](https://lutrasecurity.com/) for identifying these issues and
 disclosing them to us responsibly! 👏🙏
 

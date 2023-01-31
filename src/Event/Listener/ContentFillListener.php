@@ -99,7 +99,7 @@ class ContentFillListener
         $entity->setContentExtension($this->contentExtension);
     }
 
-    private function guesstimateAuthor(): User
+    private function guesstimateAuthor(): ?User
     {
         return $this->users->getFirstAdminUser();
     }

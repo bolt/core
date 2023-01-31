@@ -109,6 +109,7 @@ class Excerpt
         // if we are going to snip too much...
         if ($textlength - $startPos < $relLength) {
             $startPos -= (int) round(($textlength - $startPos) / 2);
+            $startPos = max(0, $startPos);
         }
 
         $relText = mb_substr($fulltext, $startPos, $relLength);
