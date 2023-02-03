@@ -14,7 +14,7 @@ use Tightenco\Collect\Support\Collection;
 /**
  * @ORM\Entity
  */
-class SelectField extends Field implements FieldInterface, RawPersistable
+class SelectField extends Field implements FieldInterface, RawPersistable, \Iterator
 {
     use IterableFieldTrait;
 
