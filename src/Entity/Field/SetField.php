@@ -18,7 +18,7 @@ use Tightenco\Collect\Support\Collection;
 /**
  * @ORM\Entity
  */
-class SetField extends Field implements Excerptable, FieldInterface, FieldParentInterface, ListFieldInterface, RawPersistable
+class SetField extends Field implements Excerptable, FieldInterface, FieldParentInterface, ListFieldInterface, RawPersistable, \Iterator
 {
     use FieldParentTrait;
     use IterableFieldTrait;
