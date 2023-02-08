@@ -32,6 +32,7 @@ trait IterableFieldTrait
     /**
      * @return Field|string
      */
+    #[\ReturnTypeWillChange]
     public function current()
     {
         return $this->fields[$this->iteratorCursor];
