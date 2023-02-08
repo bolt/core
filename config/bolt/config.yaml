@@ -176,8 +176,8 @@ records_per_page: 8
 thumbnails:
     default_thumbnail: [ 320, 240 ]
     default_image: [ 1000, 750 ]
+    default_cropping: crop
     quality: 80
-    cropping: crop
     save_files: true
     allow_upscale: false
 

@@ -145,7 +145,7 @@ class ImageController
         $this->parameters = [
             'w' => is_numeric($raw[0]) ? (int) $raw[0] : 400,
             'h' => is_numeric($raw[1]) ? (int) $raw[1] : 300,
-            'fit' => 'default',
+            'fit' => isset($raw[2]) ? $raw[2] : $this->config->get('general/thumbnails/default_cropping', 'default'),
             'location' => 'files',
         ];
 
