@@ -43,19 +43,19 @@ class QueryParameterParser
         $word = "[\p{L}\p{N}_\/]+";
 
         // @codingStandardsIgnoreStart
-        $this->addValueMatcher("<\s?(${word})", [
+        $this->addValueMatcher("<\s?({$word})", [
             'value' => '$1',
             'operator' => 'lt',
         ]);
-        $this->addValueMatcher("<=\s?(${word})", [
+        $this->addValueMatcher("<=\s?({$word})", [
             'value' => '$1',
             'operator' => 'lte',
         ]);
-        $this->addValueMatcher(">=\s?(${word})", [
+        $this->addValueMatcher(">=\s?({$word})", [
             'value' => '$1',
             'operator' => 'gte',
         ]);
-        $this->addValueMatcher(">\s?(${word})", [
+        $this->addValueMatcher(">\s?({$word})", [
             'value' => '$1',
             'operator' => 'gt',
         ]);
@@ -63,7 +63,7 @@ class QueryParameterParser
             'value' => '',
             'operator' => 'isNotNull',
         ]);
-        $this->addValueMatcher("!\s?(${word})", [
+        $this->addValueMatcher("!\s?({$word})", [
             'value' => '$1',
             'operator' => 'neq',
         ]);
@@ -79,11 +79,11 @@ class QueryParameterParser
             },
             'operator' => 'in',
         ]);
-        $this->addValueMatcher("(%${word}|${word}%|%${word}%)", [
+        $this->addValueMatcher("(%{$word}|{$word}%|%{$word}%)", [
             'value' => '$1',
             'operator' => 'like',
         ]);
-        $this->addValueMatcher("(${word})", [
+        $this->addValueMatcher("({$word})", [
             'value' => '$1',
             'operator' => 'eq',
         ]);
