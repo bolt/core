@@ -49,7 +49,7 @@ class BundleFixer
     {
         if (! array_key_exists($key, $this->bundles) && class_exists($key)) {
             $this->bundles[$key] = $value;
-            echo " - Adding '${key}'.\n";
+            echo " - Adding '{$key}'.\n";
 
             return true;
         }
@@ -61,7 +61,7 @@ class BundleFixer
     {
         if (array_key_exists($key, $this->bundles) && ! class_exists($key)) {
             unset($this->bundles[$key]);
-            echo " - Removing '${key}'.\n";
+            echo " - Removing '{$key}'.\n";
 
             return true;
         }
