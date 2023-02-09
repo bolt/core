@@ -604,7 +604,7 @@ class ContentExtension extends AbstractExtension
 
         $icon = str_replace('fa-', '', $icon);
 
-        return "<i class='fas mr-2 fa-${icon}'></i>";
+        return "<i class='fas mr-2 fa-{$icon}'></i>";
     }
 
     public function hasPath(Content $record, string $path): bool

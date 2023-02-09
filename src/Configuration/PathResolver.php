@@ -75,7 +75,7 @@ class PathResolver
      */
     public function define(string $name, string $path): void
     {
-        if (mb_strpos($path, "%${name}%") !== false) {
+        if (mb_strpos($path, "%{$name}%") !== false) {
             throw new ConfigurationException('Paths cannot reference themselves.');
         }
 
@@ -105,11 +105,11 @@ class PathResolver
             $alias = $match[1];
 
             if (! isset($this->paths[$alias])) {
-                throw new ConfigurationException("Failed to resolve path. Alias %${alias}% is not defined.");
+                throw new ConfigurationException("Failed to resolve path. Alias %{$alias}% is not defined.");
             }
 
             // absolute if alias is at start of path
-            $absolute = mb_strpos($path, "%${alias}%") === 0;
+            $absolute = mb_strpos($path, "%{$alias}%") === 0;
 
             if (isset($this->resolving[$alias])) {
                 throw new ConfigurationException('Failed to resolve path. Infinite recursion detected.');

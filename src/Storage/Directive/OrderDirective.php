@@ -134,7 +134,7 @@ class OrderDirective
             $query->incrementIndex();
         } else {
             $this->notifications->warning('Incorrect OrderBy clause for field that does not exist',
-                "A query with ordering on a Field or Taxonomy (`${order}`) that's not defined, will yield unexpected results. Update your `{% setcontent %}`-statement");
+                "A query with ordering on a Field or Taxonomy (`{$order}`) that's not defined, will yield unexpected results. Update your `{% setcontent %}`-statement");
         }
     }
 

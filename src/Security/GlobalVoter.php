@@ -58,7 +58,7 @@ class GlobalVoter extends Voter
         }
 
         if (! isset($this->globalPermissions[$attribute])) {
-            throw new \DomainException("Global permission '${attribute}' not defined, check your security and permissions configuration.");
+            throw new \DomainException("Global permission '{$attribute}' not defined, check your security and permissions configuration.");
         }
 
         $rolesWithPermission = $this->globalPermissions[$attribute];
