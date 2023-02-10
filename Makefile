@@ -108,7 +108,7 @@ docker-assets-serve: ## to run server with npm
 docker-update: ## to update dependencies with docker
 	docker-compose exec -T php sh -c "$(COMPOSER) update && $(COMPOSER) outdated"
 
-docker-cache: ## to clean cache with docke
+docker-cache: ## to clean cache with docker
 	docker-compose exec -T php sh -c "bin/console cache:clear"
 
 docker-csclear: ## to clean cache and check coding style with docker
@@ -126,7 +126,7 @@ docker-csfix: ## to fix coding style with docker
 	docker-compose exec -T php sh -c "vendor/bin/ecs check src --fix"
 	make docker-stancheck
 
-docker-stancheck: ## to run phpstane with docker
+docker-stancheck: ## to run phpstan with docker
 	docker-compose exec -T php sh -c "vendor/bin/phpstan analyse -c phpstan.neon src"
 
 docker-db-reset: ## to delete database with docker
@@ -154,8 +154,8 @@ docker-full-test: ## to run all test with docker
 	make docker-cscheck
 	make docker-test
 
-docker-command: ## to run commmand shell in php container
+docker-command: ## to run command shell in php container
 	docker-compose exec -T php sh -c "$(c)"
 
-docker-console: ## to run commmand with console symfony in php container
+docker-console: ## to run command with console symfony in php container
 	docker-compose exec -T php sh -c "bin/console $(c)"
