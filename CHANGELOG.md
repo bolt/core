@@ -1,6 +1,25 @@
 Changelog
 =========
 
+## 5.1.23
+
+Released: 2023-02-03
+
+### 🐛 Bug fixes
+
+ - Partial reverse of #3395, we really need those \Iterators #3400
+
+
+## 5.1.22
+
+Released: 2023-01-31
+
+### 🐛 Bug fixes
+
+ - Fix language switcher failing to set a default "type" value #3398
+ - Fix excerpt of search result when there is no whitespace after search… #3399
+
+
 ## 5.1.21
 
 Released: 2023-01-27
@@ -8,6 +27,7 @@ Released: 2023-01-27
 ### 🐛 Bug fixes
 
 - Fix PHPStan errors (on PHP 8.x) #3395
+
 
 
 ## 5.1.20
