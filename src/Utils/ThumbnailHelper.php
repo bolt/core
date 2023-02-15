@@ -34,7 +34,7 @@ class ThumbnailHelper
             $location = null;
         }
 
-        if (! $quality && $this->config) {
+        if (! $quality && $this->config instanceof Config) {
             $quality = (int) $this->config->get('general/thumbnails/quality');
         }
 
