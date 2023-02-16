@@ -125,7 +125,8 @@
         "allow-plugins": {
             "composer/package-versions-deprecated": true,
             "drupol/composer-packages": true,
-            "symfony/flex": true
+            "symfony/flex": true,
+            "php-http/discovery": true
         }
     },
     "extra": {
