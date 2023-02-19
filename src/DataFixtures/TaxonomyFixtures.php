@@ -51,13 +51,13 @@ class TaxonomyFixtures extends BaseFixture implements FixtureGroupInterface
             foreach ($options as $key => $value) {
                 $taxonomy = $this->taxonomyRepository->factory(
                     $taxonomyDefinition['slug'],
-                    $key,
+                    (string) $key,
                     $value,
                     $taxonomyDefinition['has_sortorder'] ? $order++ : 0
                 );
 
                 $manager->persist($taxonomy);
-                $reference = 'taxonomy_' . $taxonomyDefinition['slug'] . '_' . Str::slug($key);
+                $reference = 'taxonomy_' . $taxonomyDefinition['slug'] . '_' . Str::slug((string) $key);
                 $this->addReference($reference, $taxonomy);
             }
         }
