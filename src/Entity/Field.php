@@ -285,7 +285,7 @@ class Field implements FieldInterface, TranslatableInterface
                     'record' => $this->getContent(),
                 ]);
             } catch (LoaderError|SyntaxError $e) {
-                //prevent saving error (translations getting cleared if Twig code contains errors)
+                // Prevent saving error (translations getting cleared if Twig code contains errors)
                 $value = $valueBeforeRenderingAsTwig;
             }
         }
