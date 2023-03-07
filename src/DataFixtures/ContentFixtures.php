@@ -19,6 +19,7 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
+use Symfony\Contracts\Cache\TagAwareCacheInterface;
 use Tightenco\Collect\Support\Collection;
 
 class ContentFixtures extends BaseFixture implements DependentFixtureInterface, FixtureGroupInterface
@@ -41,7 +42,10 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
     /** @var string */
     private $defaultLocale;
 
-    public function __construct(Config $config, FileLocations $fileLocations, string $defaultLocale)
+    /** @var TagAwareCacheInterface */
+    private $cache;
+
+    public function __construct(Config $config, FileLocations $fileLocations, TagAwareCacheInterface $cache, string $defaultLocale)
     {
         $this->config = $config;
         $this->faker = Factory::create();
@@ -53,6 +57,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
         $this->presetRecords = $this->getPresetRecords();
         $this->fileLocations = $fileLocations;
         $this->defaultLocale = $defaultLocale;
+        $this->cache = $cache;
     }
 
     public function getDependencies()
@@ -76,6 +81,11 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
         $this->loadContent($manager);
 
         $manager->flush();
+
+        $this->cache->invalidateTags([
+            'backendmenu',
+            'frontendmenu'
+        ]);
 
         $this->setSelectFieldsMappedWithContent($manager);
     }
