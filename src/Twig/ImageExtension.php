@@ -86,13 +86,13 @@ class ImageExtension extends AbstractExtension
         ];
     }
 
-    public function popup($image, int $width = 320, int $height = 240): string
+    public function popup($image, int $width = 320, int $height = 240, string $class="bolt_img"): string
     {
         $link = $this->getFilename($image);
         $thumbnail = $this->thumbnail($image, $width, $height);
         $alt = $this->getAlt($image);
 
-        return sprintf('<a href="%s" class="bolt-popup"><img src="%s" alt="%s"></a>', $link, $thumbnail, $alt);
+        return sprintf('<a href="%s" class="bolt-popup"><img src="%s" alt="%s" class="%s"></a>', $link, $thumbnail, $alt, $class);
     }
 
     /**
