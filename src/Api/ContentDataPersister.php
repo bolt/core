@@ -53,6 +53,6 @@ class ContentDataPersister implements ContextAwareDataPersisterInterface
 
     public function remove($data, array $context = []): void
     {
-        $this->decorated->persist($data, $context);
+        $this->decorated->remove($data, $context);
     }
 }
