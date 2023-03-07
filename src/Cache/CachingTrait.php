@@ -98,4 +98,18 @@ trait CachingTrait
     {
         return (int) $this->config->get('general/caching/' . self::CACHE_CONFIG_KEY, 3600);
     }
+
+    /**
+     * Make sure something like `(pages,entries)` becomes an array like ['pages', 'entries']
+     */
+    private function getTags(string $contentTypeSlug): array
+    {
+        $tags = explode(',', $contentTypeSlug);
+
+        $tags = array_map(function($t) {
+            return preg_replace('/[^\pL\d,]+/u', '', $t);
+        }, $tags);
+
+        return $tags;
+    }
 }
