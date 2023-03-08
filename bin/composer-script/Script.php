@@ -51,6 +51,11 @@ class Script
      */
     public static function runPHP(array $command): int
     {
+        // for windows systems add the interpreter 
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+            array_unshift($command, 'php');
+        }
+        
         if (version_compare(Composer::getVersion(), '2.3-dev', '<')) {
             // Composer 2.2.x or lower
             /* @phpstan-ignore-next-line */
