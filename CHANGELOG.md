@@ -1,6 +1,18 @@
 Changelog
 =========
 
+## 5.1.24
+
+Released: 2023-02-19
+
+### 🐛 Bug fixes
+
+ - Fixed thumbnail sizes, which did not fit because of a incomplete RegEx replace #3411
+ - Fix default thumbnail crop config #3403
+ - Update `UserFixtures.php`
+ - Strict use of strings as keys in TaxonomyFixtures #3415
+
+
 ## 5.1.23
 
 Released: 2023-02-03

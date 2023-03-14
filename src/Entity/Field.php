@@ -18,6 +18,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 use Tightenco\Collect\Support\Collection;
 use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\SyntaxError;
 use Twig\Markup;
 
 /**
@@ -274,12 +276,18 @@ class Field implements FieldInterface, TranslatableInterface
         $value = is_string($value) ? FieldFillListener::trimZeroWidthWhitespace($value) : $value;
 
         if ($this->shouldBeRenderedAsTwig($value)) {
-            $template = self::getTwig()->createTemplate($value);
-            $value = $template->render([
-                // Edge case, if we try to generate a title or excerpt for a field that allows Twig
-                // and references {{ record }}
-                'record' => $this->getContent(),
-            ]);
+            $valueBeforeRenderingAsTwig = $value;
+            try {
+                $template = self::getTwig()->createTemplate($value);
+                $value    = $template->render([
+                    // Edge case, if we try to generate a title or excerpt for a field that allows Twig
+                    // and references {{ record }}
+                    'record' => $this->getContent(),
+                ]);
+            } catch (LoaderError|SyntaxError $e) {
+                // Prevent saving error (translations getting cleared if Twig code contains errors)
+                $value = $valueBeforeRenderingAsTwig;
+            }
         }
 
         if (is_string($value) && $this->getDefinition()->get('allow_html')) {
