@@ -2284,13 +2284,13 @@
     <unit id="h7dP3WY" name="status.timed">
       <segment>
         <source>status.timed</source>
-        <target>Chronométré</target>
+        <target>Publication planifiée</target>
       </segment>
     </unit>
     <unit id="oxqDDuK" name="status.held">
       <segment>
         <source>status.held</source>
-        <target>Tenu</target>
+        <target>Non publié</target>
       </segment>
     </unit>
     <unit id="JpJFIFq" name="collection.confirm_delete">
