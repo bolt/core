@@ -238,7 +238,7 @@ abstract class BaseWidget implements WidgetInterface
             [$twigLoaders];
 
         foreach ($twigLoaders as $twigLoader) {
-            if ($twigLoader instanceof FilesystemLoader) {
+            if ($this->getTemplateFolder() && $twigLoader instanceof FilesystemLoader) {
                 $twigLoader->addPath($this->getTemplateFolder(), $this->getSlug());
             }
         }
