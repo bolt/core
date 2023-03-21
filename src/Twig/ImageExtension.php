@@ -86,7 +86,7 @@ class ImageExtension extends AbstractExtension
         ];
     }
 
-    public function popup($image, int $width = 320, int $height = 240, string $class="bolt_img"): string
+    public function popup($image, int $width = 320, int $height = 240, ?string $class = null): string
     {
         $link = $this->getFilename($image);
         $thumbnail = $this->thumbnail($image, $width, $height);
