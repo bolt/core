@@ -78,6 +78,11 @@ class RelatedExtension extends AbstractExtension
         if (! $this->checkforContent($content, 'related_by_type')) {
             return [];
         }
+        
+        // If the originating content is _not_ published, we'll need to set this. Context is probably a "secret preview link".
+        if ($content->getStatus() != Statuses::PUBLISHED) {
+            $publishedOnly = false;
+        }
 
         if (is_bool($bidirectional)) {
             $bidirectional = $bidirectional ? "both" : "to";
@@ -103,6 +108,11 @@ class RelatedExtension extends AbstractExtension
     {
         if (! $this->checkforContent($content, 'related')) {
             return [];
+        }
+
+        // If the originating content is _not_ published, we'll need to set this. Context is probably a "secret preview link".
+        if ($content->getStatus() != Statuses::PUBLISHED) {
+            $publishedOnly = false;
         }
 
         if (is_bool($bidirectional)) {
