@@ -6,6 +6,7 @@ namespace Bolt\Controller\Backend;
 
 use Bolt\Controller\CsrfTrait;
 use Bolt\Entity\Content;
+use Bolt\Event\ContentEvent;
 use Doctrine\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**
  * @Security("is_granted('bulk_operations')")
@@ -28,9 +30,13 @@ class BulkOperationsController extends AbstractController implements BackendZone
     /** @var Request */
     private $request;
 
-    public function __construct(RequestStack $requestStack)
+    /** @var EventDispatcherInterface */
+    private $dispatcher;
+
+    public function __construct(RequestStack $requestStack, EventDispatcherInterface $dispatcher)
     {
         $this->request = $requestStack->getCurrentRequest();
+        $this->dispatcher = $dispatcher;
     }
 
     public function em(): ObjectManager
@@ -75,10 +81,16 @@ class BulkOperationsController extends AbstractController implements BackendZone
         $formData = $this->request->request->get('records');
         $recordIds = array_map('intval', explode(',', $formData));
 
+        $record = null;
         $records = $this->findRecordsFromIds($recordIds);
 
         foreach ($records as $record) {
             $this->em()->remove($record);
+        }
+
+        if ($record instanceof Content) {
+            $event = new ContentEvent($record);
+            $this->dispatcher->dispatch($event, ContentEvent::POST_DELETE);
         }
 
         $this->em()->flush();
