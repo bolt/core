@@ -8,6 +8,7 @@ use Bolt\Configuration\Config;
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Entity\Content;
 use Bolt\Entity\Relation;
+use Bolt\Enum\Statuses;
 use Bolt\Repository\RelationRepository;
 use Bolt\Utils\RelatedOptionsUtility;
 use Tightenco\Collect\Support\Collection;
