@@ -110,14 +110,18 @@ final class ArrayExtension extends AbstractExtension
         // Set the secondary order, if any.
         [$orderOnSecondary, $orderAscendingSecondary] = self::getSortOrder($onSecondary);
 
-        uasort($array, function ($a, $b) use ($orderOn, $orderAscending, $orderOnSecondary, $orderAscendingSecondary, $locale): int {
-            $check = $this->orderHelper($a, $b, $orderOn, $orderAscending, $locale);
-            if ($check !== 0 || $orderOnSecondary !== '') {
-                return $check;
-            }
+        try {
+            uasort($array, function ($a, $b) use ($orderOn, $orderAscending, $orderOnSecondary, $orderAscendingSecondary, $locale): int {
+                $check = $this->orderHelper($a, $b, $orderOn, $orderAscending, $locale);
+                if ($check !== 0 || $orderOnSecondary !== '') {
+                    return $check;
+                }
 
-            return $this->orderHelper($a, $b, $orderOnSecondary, $orderAscendingSecondary, $locale);
-        });
+                return $this->orderHelper($a, $b, $orderOnSecondary, $orderAscendingSecondary, $locale);
+            });
+        } catch (\Exception $e) {
+            // If sorting failed, we don't sort..
+        }
 
         return $array;
     }
