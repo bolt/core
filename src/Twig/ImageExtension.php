@@ -92,7 +92,9 @@ class ImageExtension extends AbstractExtension
         $thumbnail = $this->thumbnail($image, $width, $height);
         $alt = $this->getAlt($image);
 
-        return sprintf('<a href="%s" class="bolt-popup"><img src="%s" alt="%s" class="%s"></a>', $link, $thumbnail, $alt, $class);
+        $class = $class ? ' class="{$class}"' : '';
+
+        return sprintf('<a href="%s" class="bolt-popup"><img src="%s" alt="%s"%s></a>', $link, $thumbnail, $alt, $class);
     }
 
     /**
