@@ -8,6 +8,7 @@ use Bolt\Configuration\Config;
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Entity\Content;
 use Bolt\Entity\Relation;
+use Bolt\Enum\Statuses;
 use Bolt\Repository\RelationRepository;
 use Bolt\Utils\RelatedOptionsUtility;
 use Tightenco\Collect\Support\Collection;
@@ -78,7 +79,7 @@ class RelatedExtension extends AbstractExtension
         if (! $this->checkforContent($content, 'related_by_type')) {
             return [];
         }
-        
+
         // If the originating content is _not_ published, we'll need to set this. Context is probably a "secret preview link".
         if ($content->getStatus() != Statuses::PUBLISHED) {
             $publishedOnly = false;
