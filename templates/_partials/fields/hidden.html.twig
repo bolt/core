@@ -1,5 +1,9 @@
-{% set name = 'fields[' ~ field.name|default('unnamed') ~ ']' %}
-{% set id = 'field-' ~ field.name|default(name)|default('unnamed') %}
+{% if not name|default %}
+    {% set name = 'fields[' ~ field.name|default('unnamed') ~ ']' %}
+{% endif %}
+{% if not id|default %}
+    {% set id = 'field-' ~ field.name|default(name)|default('unnamed') %}
+{% endif %}
 {% set value = field.value|json_encode %}
 {% set required = field.definition.required ? 1 : 0 %}
 {% set readonly = field.definition.readonly ? true : false %}
