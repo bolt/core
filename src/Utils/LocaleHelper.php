@@ -110,10 +110,11 @@ class LocaleHelper
                 $routeParams['slugOrId'] = $slug;
             }
 
-            if ($route) {
+            if ($route && (stripos($route, "bolt_") === 0 || (!isset($content) || isset($routeParams['slugOrId'])))) {
                 $locale->put('link', $this->getLink($route, $routeParams, $locale));
             } else {
                 // For edge-cases like '404', the `_route` is null.
+                // Also, there's no link to content that does not have a slug in the given locale.
                 $locale->put('link', '');
             }
 
