@@ -623,15 +623,24 @@ class SelectQuery implements QueryInterface
 
         $newLeftExpression = $this->getRegularFieldLeftExpression($valueAlias, $filter->getKey());
 
+        if (mb_strpos($newLeftExpression, 'IS NOT NULL') !== false) {
+            // Replace key like `:slug`, with `:slug_1`
+            $res = str_replace(':' . $filter->getKey(), ':' . key($filter->getParameters()), $newLeftExpression);
+
+            return $res;
+        }
+
         return str_replace($originalLeftExpression, $newLeftExpression, $valueWhere);
     }
 
-    private function getRegularFieldLeftExpression(string $valueAlias, string $fieldName, $value = null): string
+    private function getRegularFieldLeftExpression(string $valueAlias, string $fieldName): string
     {
         if ($this->utils->isFieldType($this, $fieldName, NumberField::TYPE) && $this->utils->hasCast()) {
             return $this->utils->getNumericCastExpression($valueAlias);
         }
 
-        return JsonHelper::wrapJsonFunction($valueAlias, null, $this->em->getConnection());
+        $value = JsonHelper::wrapJsonSearch($valueAlias, $fieldName, $this->em->getConnection());
+
+        return $value;
     }
 }
