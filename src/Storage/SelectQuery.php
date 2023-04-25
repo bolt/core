@@ -625,7 +625,7 @@ class SelectQuery implements QueryInterface
 
         if (mb_strpos($newLeftExpression, 'IS NOT NULL') !== false) {
             // Replace key like `:slug`, with `:slug_1`
-            $res = str_replace(':' .$filter->getKey(), ':' . key($filter->getParameters()), $newLeftExpression);
+            $res = str_replace(':' . $filter->getKey(), ':' . key($filter->getParameters()), $newLeftExpression);
 
             return $res;
         }

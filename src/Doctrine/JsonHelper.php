@@ -75,9 +75,10 @@ class JsonHelper
                 // SQLite
                 $resultWhere = 'JSON_EXTRACT(' . $where . ", '$[0]')";
             }
+        } else {
+            $resultWhere = $where;
         }
 
         return $resultWhere;
     }
-
 }
