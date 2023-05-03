@@ -621,7 +621,7 @@ class SelectQuery implements QueryInterface
         $originalLeftExpression = 'content.' . $filter->getKey();
         $valueWhere = $filter->getExpression();
 
-        $newLeftExpression = $this->getRegularFieldLeftExpression($valueAlias, $filter->getKey());
+        $newLeftExpression = $this->getRegularFieldLeftExpression($valueAlias, $filter);
 
         if (mb_strpos($newLeftExpression, 'IS NOT NULL') !== false) {
             // Replace key like `:slug`, with `:slug_1`
@@ -633,13 +633,21 @@ class SelectQuery implements QueryInterface
         return str_replace($originalLeftExpression, $newLeftExpression, $valueWhere);
     }
 
-    private function getRegularFieldLeftExpression(string $valueAlias, string $fieldName): string
+    private function getRegularFieldLeftExpression(string $valueAlias, Filter $filter): string
     {
+        $fieldName = $filter->getKey();
+        $currentParameter = current($filter->getParameters());
+        $isBoolOrIntKey = filter_var($currentParameter, FILTER_VALIDATE_BOOLEAN) !== false || filter_var($currentParameter, FILTER_VALIDATE_INT) !== false;
+
         if ($this->utils->isFieldType($this, $fieldName, NumberField::TYPE) && $this->utils->hasCast()) {
             return $this->utils->getNumericCastExpression($valueAlias);
         }
 
-        $value = JsonHelper::wrapJsonSearch($valueAlias, $fieldName, $this->em->getConnection());
+        if ($isBoolOrIntKey) {
+            $value = current(JsonHelper::wrapJsonFunction($valueAlias, $fieldName, $this->em->getConnection()));
+        } else {
+            $value = JsonHelper::wrapJsonSearch($valueAlias, $fieldName, $this->em->getConnection());
+        }
 
         return $value;
     }
