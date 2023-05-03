@@ -636,14 +636,19 @@ class SelectQuery implements QueryInterface
     private function getRegularFieldLeftExpression(string $valueAlias, Filter $filter): string
     {
         $fieldName = $filter->getKey();
+
+        // Grab the current value is a Bool or Int
         $currentParameter = current($filter->getParameters());
-        $isBoolOrIntKey = filter_var($currentParameter, FILTER_VALIDATE_BOOLEAN) !== false || filter_var($currentParameter, FILTER_VALIDATE_INT) !== false;
+        $isBoolOrIntValue = filter_var($currentParameter, FILTER_VALIDATE_BOOLEAN) !== false || filter_var($currentParameter, FILTER_VALIDATE_INT) !== false;
+
+        // Grab the operator
+        $operator = preg_match("/(=|<|>|<=|>=|<>|!=)/", $filter->getExpression(), $matches) ? $matches[0]: null;
 
         if ($this->utils->isFieldType($this, $fieldName, NumberField::TYPE) && $this->utils->hasCast()) {
             return $this->utils->getNumericCastExpression($valueAlias);
         }
 
-        if ($isBoolOrIntKey) {
+        if ($isBoolOrIntValue || ($operator != '=' )) {
             $value = current(JsonHelper::wrapJsonFunction($valueAlias, $fieldName, $this->em->getConnection()));
         } else {
             $value = JsonHelper::wrapJsonSearch($valueAlias, $fieldName, $this->em->getConnection());
