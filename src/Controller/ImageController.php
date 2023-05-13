@@ -119,7 +119,7 @@ class ImageController
 
     private function buildResponse(string $filename): Response
     {
-        if (! $this->filesStorage->fileExists($filename)) {
+        if (! $this->filesystemManager->get('files')->fileExists($filename)) {
             // $notice = sprintf("The file '%s' does not exist.", $filepath);
 
             return $this->sendErrorImage();
@@ -127,7 +127,7 @@ class ImageController
 
         // In case we're trying to "thumbnail" an svg, just return the whole thing.
         if ($this->isSvg($filename)) {
-            $response = new Response(file_get_contents($this->filesStorage->read($filename)));
+            $response = new Response(file_get_contents($this->filesystemManager->get('files')->read($filename)));
             $response->headers->set('Content-Type', 'image/svg+xml');
 
             return $response;
