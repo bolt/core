@@ -12,15 +12,14 @@
     </thead>
 
     {% for file in finder %}
-
-        {% set extension = file.extension() %}
-        {% set filename = path ~ file.getRelativePathname() %}
+        {% set extension = file_extension(file)%}
+        {% set filename = file.path() %}
         {% set icon = 'fa-file' %}
         {% set link = path('bolt_file_edit', {'location': location.key, 'file': filename }) %}
         {% set thumbnail = '' %}
         {% set title = '' %}
         {% set dimensions = '' %}
-        {% set original = asset((path != '/' ? path|trim('/') ~ '/') ~ file.filename, 'files') %}
+        {% set original = filesystem_url(file, location) %}
 
         {% if extension in imageformats %}
 
@@ -42,7 +41,7 @@
             <td>
                 <b>
                     <a href="{{ link }}" class="text-decoration-none">
-                        {{ file.getRelativePathname|shy }}
+                        {{ file.path|shy }}
                     </a>
                 </b>
                 {% if title %}<br><small>{{ title }}</small>{% endif %}
@@ -58,12 +57,12 @@
                 {%- endif -%}
             </td>
             <td>
-                <small style="white-space:nowrap;">{{ file.getSize()|format_bytes(1) }}
+                <small style="white-space:nowrap;">{{ file.fileSize()|format_bytes(1) }}
                 {% if dimensions %}<br>{{ dimensions }}{% endif %}
                 </small>
             </td>
             <td>
-                <small>{{ file.getCTime()|date('Y-m-d H:i:s') }}</small>
+                <small>{{ file.lastModified()|date('Y-m-d H:i:s') }}</small>
             </td>
             <td>
                 {% include '@bolt/finder/_files_actions.html.twig' %}

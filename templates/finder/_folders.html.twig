@@ -23,15 +23,15 @@
         </tr>
     {% endif %}
 
-    {% for directory in folders.directories() %}
-        {% set dirname = path ~ directory.getRelativePathname() %}
+    {% for directory in folders %}
+        {% set dirname = directory.path() %}
         <tr>
             <td>
                 <b>
                     {% if path != '/' %}<i class="folder-indent"></i>{% endif %}
                     <a href="{{ path('bolt_filemanager', {'location': location.key, 'path': dirname }) }}" class="text-decoration-none">
                         <i class="fas fa-folder"></i>
-                        {{ directory.getRelativePathname }}/
+                        {{ directory.path() }}/
                     </a>
                 </b>
             </td>

@@ -5,22 +5,23 @@ declare(strict_types=1);
 namespace Bolt\Controller\Backend;
 
 use Bolt\Common\Str;
+use Bolt\Configuration\FileLocation;
 use Bolt\Configuration\FileLocations;
 use Bolt\Controller\CsrfTrait;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Repository\MediaRepository;
 use Bolt\Utils\Excerpt;
-use Bolt\Utils\PathCanonicalize;
+use Bolt\Utils\FilesystemManager;
+use League\Flysystem\DirectoryAttributes;
+use League\Flysystem\DirectoryListing;
+use League\Flysystem\FileAttributes;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\Filesystem\Exception\IOException;
-use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Path;
-use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 
@@ -39,14 +40,14 @@ class FilemanagerController extends TwigAwareController implements BackendZoneIn
 
     private const PAGESIZE = 60;
 
-    /** @var Filesystem */
-    private $filesystem;
+    /** @var FilesystemManager */
+    private $filesystemManager;
 
-    public function __construct(FileLocations $fileLocations, MediaRepository $mediaRepository, RequestStack $requestStack, Filesystem $filesystem)
+    public function __construct(FileLocations $fileLocations, MediaRepository $mediaRepository, RequestStack $requestStack, FilesystemManager $filesystemManager)
     {
         $this->fileLocations = $fileLocations;
         $this->mediaRepository = $mediaRepository;
-        $this->filesystem = $filesystem;
+        $this->filesystemManager = $filesystemManager;
         $this->requestStack = $requestStack;
     }
 
@@ -76,8 +77,8 @@ class FilemanagerController extends TwigAwareController implements BackendZoneIn
 
         $location = $this->fileLocations->get($location);
 
-        $finder = $this->findFiles($location->getBasepath(), $path);
-        $folders = $this->findFolders($location->getBasepath(), $path);
+        $finder = $this->findFiles($location, $path);
+        $folders = $this->findFolders($location, $path);
 
         $currentPage = (int) $this->getFromRequest('page', '1');
         $pager = $this->createPaginator($finder, $currentPage);
@@ -91,7 +92,7 @@ class FilemanagerController extends TwigAwareController implements BackendZoneIn
             'folders' => $folders,
             'parent' => $parent,
             'media' => $this->mediaRepository->findAll(),
-            'allfiles' => $location->isShowAll() ? $this->buildIndex($location->getBasepath()) : false,
+            'allfiles' => $location->isShowAll() ? $this->buildIndex('/', $location) : false,
             'view' => $view,
         ]);
     }
@@ -117,14 +118,14 @@ class FilemanagerController extends TwigAwareController implements BackendZoneIn
         $this->denyAccessUnlessGranted('managefiles:' . $location);
 
         $location = $this->fileLocations->get($location);
+        $folder =  '/' . $path;
+        $filesystem = $this->filesystemManager->get($location->getKey());
 
-        $folder = Path::canonicalize($location->getBasepath() . '/' . $path);
-
-        if (! $this->filesystem->exists($folder)) {
+        if (! $filesystem->directoryExists($folder)) {
             $this->addFlash('warning', 'filemanager.delete_folder_missing');
         } else {
             try {
-                $this->filesystem->remove($folder);
+                $filesystem->deleteDirectory($folder);
                 $this->addFlash('success', 'filemanager.delete_folder_successful');
             } catch (IOException $e) {
                 $this->addFlash('danger', 'filemanager.delete_folder_error');
@@ -158,15 +159,15 @@ class FilemanagerController extends TwigAwareController implements BackendZoneIn
         $this->denyAccessUnlessGranted('managefiles:' . $location);
 
         $location = $this->fileLocations->get($location);
+        $folder =  '/' . $path;
+        $filesystem = $this->filesystemManager->get($location->getKey());
 
-        $folder = Path::canonicalize($location->getBasepath() . '/' . $path);
-
-        if ($this->filesystem->exists($folder)) {
+        if ($filesystem->directoryExists($folder)) {
             $this->addFlash('warning', 'filemanager.create_folder_already_exists');
             $this->addFlash('danger', 'filemanager.create_folder_error');
         } else {
             try {
-                $this->filesystem->mkdir($folder);
+                $filesystem->createDirectory($folder, ['visibility' => 'public']);
                 $this->addFlash('success', 'filemanager.create_folder_success');
             } catch (IOException $exception) {
                 $this->addFlash('danger', 'filemanager.create_folder_error');
@@ -179,48 +180,45 @@ class FilemanagerController extends TwigAwareController implements BackendZoneIn
         ]);
     }
 
-    private function findFiles(string $base, string $path): Finder
+    private function findFiles(FileLocation $location, string $path): DirectoryListing
     {
-        $fullpath = PathCanonicalize::canonicalize($base, $path);
-
-        $finder = new Finder();
-        $finder->in($fullpath)->depth('== 0')->files()->sortByName();
-
-        return $finder;
+        return $this->filesystemManager->get($location->getKey())
+            ->listContents($path, false)
+            ->filter(fn($item) => $item instanceof FileAttributes);
     }
 
-    private function findFolders(string $base, string $path): Finder
+    private function findFolders(FileLocation $location, string $path): DirectoryListing
     {
-        $fullpath = PathCanonicalize::canonicalize($base, $path);
-
-        $finder = new Finder();
-        $finder->in($fullpath)->depth('== 0')->directories()->sortByName();
-
-        return $finder;
+        return $this->filesystemManager->get($location->getKey())
+            ->listContents($path, false)
+            ->filter(fn($item) => $item instanceof DirectoryAttributes);
     }
 
-    private function createPaginator(Finder $finder, int $page): Pagerfanta
+    private function createPaginator(DirectoryListing $listing, int $page): Pagerfanta
     {
-        $paginator = new Pagerfanta(new ArrayAdapter(iterator_to_array($finder, true)));
+        $paginator = new Pagerfanta(new ArrayAdapter(iterator_to_array($listing->getIterator(), true)));
         $paginator->setMaxPerPage(self::PAGESIZE);
         $paginator->setCurrentPage($page);
 
         return $paginator;
     }
 
-    private function buildIndex(string $base)
+    private function buildIndex(string $base, FileLocation $location)
     {
-        $fullpath = Path::canonicalize($base);
+        $filesystem = $this->filesystemManager->get($location->getKey());
 
-        $finder = new Finder();
-        $finder->in($fullpath)->depth('< 5')->sortByName()->files();
+        $files = $filesystem
+            ->listContents($base, true)
+            ->filter(fn($item) => $item instanceof FileAttributes);
 
         $index = [];
 
-        foreach ($finder as $file) {
-            $contents = $this->getFileSummary($file->getContents());
+        foreach ($files as $file) {
+            $contents = $this->getFileSummary(
+                $filesystem->read($file->path())
+            );
             $index[] = [
-                'filename' => $file->getRelativePathname(),
+                'filename' => $file->path(),
                 'description' => $contents,
             ];
         }

@@ -8,6 +8,7 @@ use Bolt\Configuration\Config;
 use Bolt\Configuration\FileLocations;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
+use League\Flysystem\FilesystemOperator;
 use PhpZip\ZipFile;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\ConsoleOutput;
@@ -20,16 +21,21 @@ class ImageFetchFixtures extends BaseFixture implements FixtureGroupInterface
     /** @var FileLocations */
     private $fileLocations;
 
+    /** @var FilesystemOperator */
+    private $filesStorage;
+
     private const MAX_AMOUNT = 50;
 
     /** @var array */
     private $curlOptions;
 
-    public function __construct(FileLocations $fileLocations, Config $config)
+    public function __construct(FileLocations $fileLocations, Config $config, FilesystemOperator $filesStorage)
     {
         $this->curlOptions = $config->get('general/curl_options')->all();
 
         $this->fileLocations = $fileLocations;
+
+        $this->filesStorage = $filesStorage;
     }
 
     public static function getGroups(): array
@@ -39,10 +45,8 @@ class ImageFetchFixtures extends BaseFixture implements FixtureGroupInterface
 
     public function load(ObjectManager $manager): void
     {
-        $path = $this->fileLocations->get('files')->getBasepath();
-
         // We only fetch more images, if we're currently under the MAX_AMOUNT
-        if ($this->getImagesIndex($path)->count() <= self::MAX_AMOUNT) {
+        if (count($this->filesStorage->listContents('/stock')->toArray()) <= self::MAX_AMOUNT) {
             $this->fetchImages();
         }
     }
@@ -50,7 +54,6 @@ class ImageFetchFixtures extends BaseFixture implements FixtureGroupInterface
     private function fetchImages(): void
     {
         $output = new ConsoleOutput();
-        $resource = fopen($this->getOutputFile(), 'w');
 
         $progress = new ProgressBar($output, 100);
         $progress->setRedrawFrequency(5);
@@ -65,26 +68,25 @@ class ImageFetchFixtures extends BaseFixture implements FixtureGroupInterface
         $client = HttpClient::create();
         $file = $client->request('GET', self::URL, $this->curlOptions)->getContent();
 
-        fwrite($resource, $file);
-        fclose($resource);
+        $this->filesStorage->write($this->getOutputFile(), $file, ['visibility' => 'public']);
 
         $progress->finish();
 
         $zipFile = new ZipFile();
-        $zipFile->openFile($this->getOutputFile())->extractTo($this->getOutputPath());
+
+        $basePath = $this->fileLocations->get('files')->getBasepath();
+        $zipFile->openFile($basePath . $this->getOutputFile())->extractTo($basePath . '/stock');
 
         $output->writeln('');
     }
 
     private function getOutputPath(): string
     {
-        $outputPath = $this->fileLocations->get('files')->getBasepath() . '/stock/';
-
-        if (! is_dir($outputPath)) {
-            mkdir($outputPath);
+        if (! $this->filesStorage->directoryExists('/stock')) {
+            $this->filesStorage->createDirectory('/stock');
         }
 
-        return $outputPath;
+        return '/stock/';
     }
 
     private function getOutputFile(): string

@@ -31,14 +31,14 @@
 
         <a class="dropdown-item"
            href="{{ path('bolt_file_duplicate',
-               {'location': location.key|default('files'), 'path': path ~ file.getRelativePathname, '_csrf_token': csrf_token('file-duplicate')}) }}">
+               {'location': location.key|default('files'), 'path': file.path(), '_csrf_token': csrf_token('file-duplicate')}) }}">
             <i class="far fa-w fa-copy"></i>
-            {{ 'files_cards.action_duplicate'|trans }} {{ file.getRelativePathname|excerpt(22) }}
+            {{ 'files_cards.action_duplicate'|trans }} {{ file.path()|excerpt(22) }}
         </a>
 
         <a class="dropdown-item delete"
            href="{{ path('bolt_file_delete',
-               {'location': location.key|default('files'), 'path': path ~ file.getRelativePathname, '_csrf_token': csrf_token('file-delete')}) }}"
+               {'location': location.key|default('files'), 'path': file.path(), '_csrf_token': csrf_token('file-delete')}) }}"
            data-modal-title="{{ 'file.delete_confirm'|trans }}"
            data-modal-body="{{ 'file.delete_confirm'|trans }}"
            data-modal-button-deny="Cancel"
@@ -46,7 +46,7 @@
            data-bs-toggle="modal"
            data-bs-target="#resourcesModal">
             <i class="fas fa-w fa-trash"></i>
-            {{ 'files_cards.action_delete'|trans }} {{ file.getRelativePathname|excerpt(22) }}
+            {{ 'files_cards.action_delete'|trans }} {{ file.path()|excerpt(22) }}
         </a>
 
         <div class="dropdown-divider"></div>
@@ -54,7 +54,7 @@
         <span class="dropdown-item-text">
                             <i class="fas fa-link fa-w"></i>
                             {{ 'files_cards.label_filename'|trans }}
-                            <code :title="file.fieldValues.slug">{{ file.getRelativePathname }}</code>
+                            <code :title="file.fieldValues.slug">{{ file.path() }}</code>
                         </span>
 
         {% if title %}
@@ -73,13 +73,13 @@
 
         <span class="dropdown-item-text">
                             <i class="fas fa-asterisk fa-w"></i>
-                            {{ 'files_cards.label_filesize'|trans }} {{ file.getSize()|format_bytes(1) }}
+                            {{ 'files_cards.label_filesize'|trans }} {{ file.fileSize()|format_bytes(1) }}
                         </span>
 
         <span class="dropdown-item-text">
                             <i class="far fa-calendar-alt fa-w"></i>
                             {{ 'files_cards.label_created_on'|trans }}
-                            <strong>{{ file.getCTime()|date('Y-m-d H:i:s') }}</strong>
+                            <strong>{{ file.lastModified()|date('Y-m-d H:i:s') }}</strong>
                         </span>
 
     </div>

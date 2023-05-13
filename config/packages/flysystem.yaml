@@ -1,0 +1,41 @@
+# Read the documentation at https://github.com/thephpleague/flysystem-bundle/blob/master/docs/1-getting-started.md
+flysystem:
+    storages:
+        files.storage.local:
+            adapter: 'local'
+            options:
+                directory: '%kernel.project_dir%/public/files'
+                permissions:
+                    file:
+                        public: 0o644
+                        private: 0o600
+                    dir:
+                        public: 0o775
+                        private: 0o700
+            visibility: public
+        files.storage:
+            adapter: 'lazy'
+            options:
+                source: '%env(FILES_STORAGE_SOURCE)%'
+        themes.storage:
+            adapter: 'local'
+            options:
+                directory: '%kernel.project_dir%/public/theme'
+                permissions:
+                    file:
+                        public: 0o644
+                        private: 0o600
+                    dir:
+                        public: 0o775
+                        private: 0o700
+            visibility: public
+        config.storage:
+            adapter: 'local'
+            options:
+                directory: '%kernel.project_dir%/config'
+            visibility: public
+        extension_config.storage:
+            adapter: 'local'
+            options:
+                directory: '%kernel.project_dir%/config/extensions'
+            visibility: public
