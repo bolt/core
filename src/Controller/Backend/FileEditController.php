@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Backend;
 
-use Bolt\Common\Str;
 use Bolt\Controller\CsrfTrait;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Repository\MediaRepository;
+use Bolt\Utils\FilesystemManager;
 use Bolt\Utils\PathCanonicalize;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Path;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -20,8 +19,6 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
-use Webimpress\SafeWriter\Exception\ExceptionInterface;
-use Webimpress\SafeWriter\FileWriter;
 
 class FileEditController extends TwigAwareController implements BackendZoneInterface
 {
@@ -33,14 +30,14 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
     /** @var EntityManagerInterface */
     private $em;
 
-    /** @var Filesystem */
-    private $filesystem;
+    /** @var FilesystemManager */
+    private $filesystemManager;
 
-    public function __construct(MediaRepository $mediaRepository, EntityManagerInterface $em)
+    public function __construct(MediaRepository $mediaRepository, EntityManagerInterface $em, FilesystemManager $filesystemManager)
     {
         $this->mediaRepository = $mediaRepository;
         $this->em = $em;
-        $this->filesystem = new Filesystem();
+        $this->filesystemManager = $filesystemManager;
     }
 
     /**
@@ -51,17 +48,15 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
         $this->denyAccessUnlessGranted('managefiles:' . $location);
 
         $file = $this->getFromRequest('file');
-        $basepath = $this->config->getPath($location);
 
-        $filename = PathCanonicalize::canonicalize($basepath, $file);
-
-        $contents = file_get_contents($filename);
+        $filesystem = $this->filesystemManager->get($location);
+        $contents = $filesystem->read($file);
 
         $context = [
             'location' => $location,
             'file' => $file,
             'contents' => $contents,
-            'writable' => is_writable($filename),
+            'writable' => $filesystem->visibility($file) === 'public',
         ];
 
         return $this->render('@bolt/finder/editfile.html.twig', $context);
@@ -82,12 +77,8 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
         $contents = $this->getFromRequestRaw('editfile');
         $extension = Path::getExtension($file);
 
-        $basepath = $this->config->getPath($locationName);
-        $filename = $this->config->getPath($basepath, true, $file);
-
         // Make sure we don't rename the file to something that we're not allowed to, or move it out of the root
-        if ((! $this->config->getFileTypes()->contains($extension)) ||
-            (Str::startsWith(path::makeRelative($filename, $basepath), '../'))) {
+        if ((! $this->config->getFileTypes()->contains($extension))) {
             $this->addFlash('warning', "You are not allowed to do that.");
             return $this->redirectToRoute('bolt_dashboard');
         }
@@ -97,21 +88,23 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
             'file' => $file,
         ]);
 
+        $filesystem = $this->filesystemManager->get($locationName);
+
         if (in_array($extension, ['yml', 'yaml'], true) && ! $this->verifyYaml($contents)) {
             $context = [
                 'location' => $locationName,
                 'file' => $file,
                 'contents' => $contents,
-                'writable' => is_writable($filename),
+                'writable' => $filesystem->visibility($file) === 'public',
             ];
 
             return $this->render('@bolt/finder/editfile.html.twig', $context);
         }
 
         try {
-            FileWriter::writeFile($filename, $contents);
+            $filesystem->write($file, $contents);
             $this->addFlash('success', 'editfile.updated_successfully');
-        } catch (ExceptionInterface $e) {
+        } catch (\Throwable $e) {
             $this->addFlash('warning', 'editfile.could_not_write');
         }
 
@@ -147,10 +140,8 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
             $this->em->flush();
         }
 
-        $filePath = PathCanonicalize::canonicalize($locationName, $path);
-
         try {
-            $this->filesystem->remove($filePath);
+            $this->filesystemManager->get($locationName)->delete($path);
         } catch (\Throwable $e) {
             // something wrong happened, we don't need the uploaded files anymore
             throw $e;
@@ -187,12 +178,12 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
 
         $path = $this->getFromRequest('path', '');
 
-        $originalFilepath = PathCanonicalize::canonicalize($locationName, $path);
+        $originalFilepath = PathCanonicalize::canonicalize('/', $path);
 
-        $copyFilePath = $this->getCopyFilepath($originalFilepath);
+        $copyFilePath = $this->getCopyFilepath($locationName, $originalFilepath);
 
         try {
-            $this->filesystem->copy($originalFilepath, $copyFilePath);
+            $this->filesystemManager->get($locationName)->copy($originalFilepath, $copyFilePath);
         } catch (\Throwable $e) {
             // something wrong happened, we don't need the uploaded files anymore
             throw $e;
@@ -210,12 +201,12 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
     /**
      * @return string Returns the copy file path. E.g. 'files/foal.jpg' -> 'files/foal (1).jpg'
      */
-    private function getCopyFilepath(string $path): string
+    private function getCopyFilepath(string $location, string $path): string
     {
         $copyPath = $path;
 
         $i = 1;
-        while ($this->filesystem->exists($copyPath)) {
+        while ($this->filesystemManager->get($location)->fileExists($copyPath)) {
             $pathinfo = pathinfo($path);
             $basename = basename($pathinfo['basename'], '.' . $pathinfo['extension']) . ' (' . $i . ')' . '.' . $pathinfo['extension'];
             $copyPath = PathCanonicalize::canonicalize($pathinfo['dirname'], $basename);

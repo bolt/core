@@ -59,7 +59,7 @@ homepage:
 # "grouping taxonomy". This way you can easily group sets of pages that logically
 # belong together. If your site has a 'services' section, in which you'd like to
 # list the different types of services a company provides, you can group these
-# together.
+# together 2.
 
 pages:
     name: Pages
