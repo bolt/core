@@ -21,5 +21,6 @@ class ConfigCacheClearer implements CacheClearerInterface
     public function clear(string $cacheDir): void
     {
         $this->cache->delete(Config::CACHE_KEY);
+        $this->cache->delete(Config::OPTIONS_CACHE_KEY);
     }
 }

@@ -642,7 +642,7 @@ class SelectQuery implements QueryInterface
         $isBoolOrIntValue = filter_var($currentParameter, FILTER_VALIDATE_BOOLEAN) !== false || filter_var($currentParameter, FILTER_VALIDATE_INT) !== false;
 
         // Grab the operator
-        $operator = preg_match("/(=|<|>|<=|>=|<>|!=)/", $filter->getExpression(), $matches) ? $matches[0]: null;
+        $operator = preg_match("/(=|<|>|<=|>=|<>|!=)/", $filter->getExpression(), $matches) ? $matches[0] : null;
 
         if ($this->utils->isFieldType($this, $fieldName, NumberField::TYPE) && $this->utils->hasCast()) {
             return $this->utils->getNumericCastExpression($valueAlias);
