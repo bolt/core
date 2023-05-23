@@ -18,6 +18,7 @@ use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Contracts\Cache\CacheInterface;
+use Symfony\Contracts\Cache\ItemInterface;
 use Tightenco\Collect\Support\Collection;
 use Webimpress\SafeWriter\FileWriter;
 
@@ -326,7 +327,7 @@ class Config
 
     public function writePreParseCache(string $filename, $options): void
     {
-        $this->cache->get($filename, function() use ($options) {
+        $this->cache->get($filename, function(ItemInterface $item) use ($options) {
             $item->expiresAfter($this->get('general/caching/options_preparse'));
             $item->tag('options_preparse');
 
@@ -336,11 +337,10 @@ class Config
 
     public function readPreParseCache(string $filename): ?array
     {
-        $options = $this->cache->get($filename, function(){
+        $options = $this->cache->get($filename, function() {
             return null;
         });
 
         return $options;
     }
-
 }

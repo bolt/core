@@ -182,14 +182,14 @@ class RelatedExtension extends AbstractExtension
 
     public function writeRelatedOptionsCache(string $toContentTypeSlug, string $order, string $format, int $maxAmount, $options)
     {
-        $key = sprintf('related_%s_%s_%s', $toContentTypeSlug, $maxAmount, substr(md5($order . $format), 0, 8));
+        $key = sprintf('related_%s_%s_%s', $toContentTypeSlug, $maxAmount, mb_substr(md5($order . $format), 0, 8));
 
         $this->config->writePreParseCache($key, $options);
     }
 
     public function readOptionsCache(string $toContentTypeSlug, string $order, string $format, int $maxAmount): ?array
     {
-        $key = sprintf('related_%s_%s_%s', $toContentTypeSlug, $maxAmount, substr(md5($order . $format), 0, 8));
+        $key = sprintf('related_%s_%s_%s', $toContentTypeSlug, $maxAmount, mb_substr(md5($order . $format), 0, 8));
 
         return $this->config->readPreParseCache($key);
     }
