@@ -166,9 +166,32 @@ class RelatedExtension extends AbstractExtension
             $order = $contentType->get('order');
         }
 
+        // Check if we have it available as pre-parsed values
+        $options = $this->readOptionsCache($toContentTypeSlug, $order, $format, $maxAmount);
+        if ($options) {
+            return new Collection($options);
+        }
+
         $options = $this->optionsUtility->fetchRelatedOptions($fromContentType, $toContentTypeSlug, $order, $format, $required, $allowEmpty, $maxAmount, $linkToRecord);
 
+        // Write the pre-parsed options.
+        $this->writeRelatedOptionsCache($toContentTypeSlug, $order, $format, $maxAmount, $options);
+
         return new Collection($options);
+    }
+
+    public function writeRelatedOptionsCache(string $toContentTypeSlug, string $order, string $format, int $maxAmount, $options)
+    {
+        $key = sprintf('related_%s_%s_%s', $toContentTypeSlug, $maxAmount, substr(md5($order . $format), 0, 8));
+
+        $this->config->writePreParseCache($key, $options);
+    }
+
+    public function readOptionsCache(string $toContentTypeSlug, string $order, string $format, int $maxAmount): ?array
+    {
+        $key = sprintf('related_%s_%s_%s', $toContentTypeSlug, $maxAmount, substr(md5($order . $format), 0, 8));
+
+        return $this->config->readPreParseCache($key);
     }
 
     public function getRelatedValues(Content $source, string $contentType): Collection

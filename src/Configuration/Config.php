@@ -16,12 +16,15 @@ use Bolt\Configuration\Parser\ThemeParser;
 use Bolt\Controller\Backend\ClearCacheController;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Stopwatch\Stopwatch;
+use Symfony\Component\Yaml\Yaml;
 use Symfony\Contracts\Cache\CacheInterface;
 use Tightenco\Collect\Support\Collection;
+use Webimpress\SafeWriter\FileWriter;
 
 class Config
 {
     public const CACHE_KEY = 'config_cache';
+    public const OPTIONS_CACHE_KEY = 'options_preparse';
 
     /** @var Collection */
     protected $data;
@@ -320,4 +323,24 @@ class Config
 
         return $value;
     }
+
+    public function writePreParseCache(string $filename, $options): void
+    {
+        $this->cache->get($filename, function() use ($options) {
+            $item->expiresAfter($this->get('general/caching/options_preparse'));
+            $item->tag('options_preparse');
+
+            return $options;
+        });
+    }
+
+    public function readPreParseCache(string $filename): ?array
+    {
+        $options = $this->cache->get($filename, function(){
+            return null;
+        });
+
+        return $options;
+    }
+
 }

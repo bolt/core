@@ -120,7 +120,18 @@ class GeneralParser extends BaseParser
                 'extensions_allowed' => ['png', 'jpeg', 'jpg', 'gif'],
                 'default_avatar' => '',
             ],
-            'user_show_sort&filter' => false
+            'user_show_sort&filter' => false,
+            'caching' => [
+                'related_options' => null,
+                'options_preparse' => null,
+                'canonical' => null,
+                'formatter' => null,
+                'selectoptions' => null,
+                'content_array' => null,
+                'frontend_menu' => null,
+                'backend_menu' => null,
+                'files_index' => null,
+            ],
         ];
     }
 }
