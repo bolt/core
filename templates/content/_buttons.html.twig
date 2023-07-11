@@ -46,7 +46,7 @@
             <strong>{{ __('label.current_status') }}:</strong>
             <span class="status mx-1 is-{{ record.status}} me-2"></span>{{ __('status.' ~ record.status) }}<br>
             {% if record.status == 'published' %}
-                <small>
+                <small class="admin__modified-at">
                     ({{ 'field.modifiedAt'|trans }}: {{ macro.relative_datetime(record.modifiedAt) }}                    )
                 </small>
             {% endif %}

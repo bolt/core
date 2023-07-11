@@ -25,6 +25,7 @@ use Bolt\Repository\MediaRepository;
 use Bolt\Repository\RelationRepository;
 use Bolt\Repository\TaxonomyRepository;
 use Bolt\Security\ContentVoter;
+use Bolt\Utils\ContentHelper;
 use Bolt\Utils\TranslationsManager;
 use Bolt\Validator\ContentValidatorInterface;
 use Carbon\Carbon;
@@ -78,6 +79,9 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
     /** @var TranslatorInterface */
     private $translator;
 
+    /** @var ContentHelper */
+    private $contentHelper;
+
     public function __construct(
         TaxonomyRepository $taxonomyRepository,
         RelationRepository $relationRepository,
@@ -88,7 +92,8 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         ContentFillListener $contentFillListener,
         EventDispatcherInterface $dispatcher,
         string $defaultLocale,
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        ContentHelper $contentHelper,
     ) {
         $this->taxonomyRepository = $taxonomyRepository;
         $this->relationRepository = $relationRepository;
@@ -100,6 +105,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         $this->dispatcher = $dispatcher;
         $this->defaultLocale = $defaultLocale;
         $this->translator = $translator;
+        $this->contentHelper = $contentHelper;
     }
 
     /**
@@ -221,6 +227,13 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
 
         // If we're "Saving Ajaxy"
         if ($this->request->isXmlHttpRequest()) {
+
+            $modified = sprintf(
+                '(%s: %s)',
+                $this->translator->trans('field.modifiedAt', [], null, $locale),
+                $this->contentHelper->get($content, "{modifiedAt}")
+            );
+
             return new JsonResponse([
                 'url' => $url,
                 'status' => 'success',
@@ -228,6 +241,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
                 'message' => $this->translator->trans('content.updated_successfully', [], null, $locale),
                 'notification' => $this->translator->trans('flash_messages.notification', [], null, $locale),
                 'title' => $content->getExtras()['title'],
+                'modified' => $modified,
             ], 200
             );
         }

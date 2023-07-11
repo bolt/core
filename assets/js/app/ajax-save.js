@@ -7,7 +7,7 @@ let record_id = form.data('record');
 let element = $('button[name="save"][type="button"]'); //type="button" because it should only work when ajaxy is enabled
 
 let dom_element =
-    '<div class="admin__notifications"><div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="6000"><div id="toastTitle" ><strong id="toastNotification" class="mr-auto"></strong><small id="toastType"></small><button class="ml-2 mb-1 close" aria-label="Close" data-dismiss="toast" type="button"><span aria-hidden="true">&times;</span></button></div><div id="toastBody" class="toast-body"></div></div></div>';
+    '<div class="admin__notifications"><div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="6000"><div id="toastTitle" ><strong id="toastNotification" class="me-auto"></strong><small id="toastType"></small><button class="ml-2 mb-1 btn-close" aria-label="Close" data-bs-dismiss="toast" type="button"></button></div><div id="toastBody" class="toast-body"></div></div></div>';
 
 record_id = JSON.stringify(record_id);
 /**
@@ -39,7 +39,7 @@ $(document).ready(function() {
         notification = 'Notification',
         dom_element = dom_element,
     ) {
-        let typeClass = 'alert-' + toastStatus;
+        let typeClass = 'bg-toast-' + toastStatus + ' toast-header';
 
         $('.admin__notifications').replaceWith(dom_element);
         $('#toastTitle').addClass(['toast-header', typeClass]);
@@ -83,6 +83,8 @@ $(document).ready(function() {
                 } else if (textStatus === 'success') {
                     showToast(data.type, data.message, data.status, data.notification, dom_element);
                     $('div[class="admin__header--title-inner"]').html(data.title);
+                    $('small[class="admin__modified-at"]').html(data.modified);
+                    console.log('joe');
                 } else if (data.status !== 'success') {
                     showToast();
                 }
