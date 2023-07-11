@@ -93,7 +93,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         EventDispatcherInterface $dispatcher,
         string $defaultLocale,
         TranslatorInterface $translator,
-        ContentHelper $contentHelper,
+        ContentHelper $contentHelper
     ) {
         $this->taxonomyRepository = $taxonomyRepository;
         $this->relationRepository = $relationRepository;
