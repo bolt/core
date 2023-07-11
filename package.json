@@ -100,7 +100,7 @@
         "sass-loader": "^9.0.3",
         "source-sans-pro": "^3.6.0",
         "stimulus": "^2.0.0",
-        "stylelint": "^13.13.1",
+        "stylelint": "^15.10.1",
         "stylelint-config-standard": "^19.0.0",
         "vue-jest": "^3.0.7",
         "vue-loader": "^15.10.1",
