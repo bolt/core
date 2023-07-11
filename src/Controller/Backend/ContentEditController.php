@@ -227,7 +227,6 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
 
         // If we're "Saving Ajaxy"
         if ($this->request->isXmlHttpRequest()) {
-
             $modified = sprintf(
                 '(%s: %s)',
                 $this->translator->trans('field.modifiedAt', [], null, $locale),
