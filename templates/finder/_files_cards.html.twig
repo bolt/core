@@ -1,14 +1,14 @@
 <div class="row" id="files-cards">
     {% for file in finder %}
 
-        {% set extension = file.extension() %}
-        {% set filename = path ~ file.getRelativePathname() %}
+        {% set extension = file_extension(file) %}
+        {% set filename = file.path() %}
         {% set icon = 'fa-file' %}
         {% set link = path('bolt_file_edit', {'location': location.key, 'file': filename }) %}
         {% set thumbnail = '' %}
         {% set title = '' %}
         {% set dimensions = '' %}
-        {% set original = asset((path != '/' ? path|trim('/') ~ '/') ~ file.filename, 'files') %}
+        {% set original = filesystem_url(file, location) %}
 
         {% if extension in imageformats %}
             {% set thumbnail = filename|thumbnail(width = 400, height = 300, location = location.key, fit = 'crop') %}
@@ -36,7 +36,7 @@
             {%- endif -%}
 
             <div class="card-body p-2">
-                <a href="{{ link }}" class="text-decoration-none" style="font-size: 85%;">{{ file.getRelativePathname|excerpt(15) }}</a>
+                <a href="{{ link }}" class="text-decoration-none" style="font-size: 85%;">{{ file.path()|excerpt(15) }}</a>
 
                 {% include '@bolt/finder/_files_actions.html.twig' %}
             </div>

@@ -176,4 +176,6 @@ services:
 
     Bolt\Api\ContentDataPersister:
         decorates: 'api_platform.doctrine.orm.data_persister'
-
+    
+    Bolt\Utils\FilesystemManager:
+        arguments: [ { files: '@files.storage', themes: '@themes.storage', config: '@config.storage', extension_config: '@extension_config.storage' }]

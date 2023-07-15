@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Bolt\Controller;
 
 use Bolt\Configuration\Config;
+use Bolt\Utils\FilesystemManager;
 use League\Glide\Responses\SymfonyResponseFactory;
 use League\Glide\Server;
 use League\Glide\ServerFactory;
-use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Filesystem as SymfonyFilesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ImageController
@@ -23,16 +23,20 @@ class ImageController
     /** @var Server */
     private $server;
 
+    /** @var FilesystemManager */
+    private $filesystemManager;
+
     /** @var array */
     private $parameters = [];
 
     /** @var Request */
     private $request;
 
-    public function __construct(Config $config, RequestStack $requestStack)
+    public function __construct(Config $config, RequestStack $requestStack, FilesystemManager $filesystemManager)
     {
         $this->config = $config;
         $this->request = $requestStack->getCurrentRequest();
+        $this->filesystemManager = $filesystemManager;
     }
 
     /**
@@ -55,7 +59,7 @@ class ImageController
     {
         $this->server = ServerFactory::create([
             'response' => new SymfonyResponseFactory(),
-            'source' => $this->getPath(),
+            'source' => $this->filesystemManager->get('files'),
             'cache' => $this->getPath('cache', true, 'thumbnails'),
         ]);
     }
@@ -80,7 +84,7 @@ class ImageController
             return;
         }
 
-        $filesystem = new Filesystem();
+        $filesystem = new SymfonyFilesystem();
         $filePath = sprintf('%s%s%s%s%s', $this->getPath('thumbs'), DIRECTORY_SEPARATOR, $paramString, DIRECTORY_SEPARATOR, $filename);
         $folderMode = $this->config->get('general/filepermissions/folders', 0775);
         $fileMode = $this->config->get('general/filepermissions/files', 0664);
@@ -115,9 +119,7 @@ class ImageController
 
     private function buildResponse(string $filename): Response
     {
-        $filepath = $this->getPath(null, false, $filename);
-
-        if (! (new Filesystem())->exists($filepath)) {
+        if (! $this->filesystemManager->get('files')->fileExists($filename)) {
             // $notice = sprintf("The file '%s' does not exist.", $filepath);
 
             return $this->sendErrorImage();
@@ -125,7 +127,7 @@ class ImageController
 
         // In case we're trying to "thumbnail" an svg, just return the whole thing.
         if ($this->isSvg($filename)) {
-            $response = new Response(file_get_contents($filepath));
+            $response = new Response(file_get_contents($this->filesystemManager->get('files')->read($filename)));
             $response->headers->set('Content-Type', 'image/svg+xml');
 
             return $response;
