@@ -13,6 +13,7 @@ use Bolt\Entity\Field;
 use Bolt\Entity\Field\SelectField;
 use Bolt\Enum\Statuses;
 use Bolt\Repository\FieldRepository;
+use Bolt\Twig\ContentExtension;
 use Bolt\Utils\FakeContent;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -45,7 +46,10 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
     /** @var TagAwareCacheInterface */
     private $cache;
 
-    public function __construct(Config $config, FileLocations $fileLocations, TagAwareCacheInterface $cache, string $defaultLocale)
+    /** @var ContentExtension */
+    private $contentExtension;
+
+    public function __construct(Config $config, FileLocations $fileLocations, TagAwareCacheInterface $cache, string $defaultLocale, ContentExtension $contentExtension)
     {
         $this->config = $config;
         $this->faker = Factory::create();
@@ -58,6 +62,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
         $this->fileLocations = $fileLocations;
         $this->defaultLocale = $defaultLocale;
         $this->cache = $cache;
+        $this->contentExtension = $contentExtension;
     }
 
     public function getDependencies()
@@ -114,6 +119,8 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 $content->setCreatedAt($this->faker->dateTimeBetween('-1 year'));
                 $content->setModifiedAt($this->faker->dateTimeBetween('-1 year'));
                 $content->setPublishedAt($this->faker->dateTimeBetween('-1 year'));
+
+                $content->setContentExtension($this->contentExtension);
 
                 $preset = $this->getPreset($contentType['slug']);
 

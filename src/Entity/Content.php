@@ -14,6 +14,7 @@ use Bolt\Entity\Field\ScalarCastable;
 use Bolt\Entity\Field\SetField;
 use Bolt\Enum\Statuses;
 use Bolt\Repository\FieldRepository;
+use Bolt\Utils\ContentHelper;
 use DateTimeZone;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -122,6 +123,16 @@ class Content
     private $depublishedAt = null;
 
     /**
+     * @ORM\Column(type="string", length=191, nullable=true)
+     */
+    private $title;
+
+    /**
+     * @ORM\Column(type="string", length=191, nullable=true)
+     */
+    private $listFormat;
+
+    /**
      * @var Collection|Field[]
      *
      * @ApiSubresource(maxDepth=1)
@@ -164,6 +175,11 @@ class Content
      * @ORM\OneToMany(targetEntity="Relation", mappedBy="toContent")
      */
     private $relationsToThisContent;
+
+    /**
+     * @var ContentHelper
+     */
+    private $contentHelper;
 
     public function __construct(?ContentType $contentTypeDefinition = null)
     {
@@ -872,4 +888,32 @@ class Content
 
         return $fieldValues;
     }
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function setTitle(): self
+    {
+        $this->title = $this->getExtras()['title'];
+
+        return $this;
+    }
+
+    public function getListFormat(): ?string
+    {
+        return $this->listFormat;
+    }
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function setListFormat(): self
+    {
+        $this->listFormat = $this->getExtras()['listFormat'];
+
+        return $this;
+    }
+
 }

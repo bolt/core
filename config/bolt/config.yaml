@@ -30,6 +30,7 @@ caching:
     frontend_menu: ~
     backend_menu: ~
     files_index: ~
+    list_format: true
     
 # The theme to use.
 #
@@ -256,4 +257,4 @@ reset_password_settings:
 user_show_sort&filter: true
 
 # Use Ajaxy saving ("Stay on page"), or traditional saving
-ajaxy_saving: true
+ajaxy_saving: false
