@@ -13,7 +13,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class ClearListFormatCommand extends Command
 {
     /** @var string */
-    protected static $defaultName = 'cache:clear-list-format';
+    protected static $defaultName = 'cache:list-format-clear';
 
     /** @var ListFormatHelper */
     private $listFormatHelper;

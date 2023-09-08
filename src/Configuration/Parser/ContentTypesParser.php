@@ -201,7 +201,7 @@ class ContentTypesParser extends BaseParser
         }
 
         if (! isset($contentType['list_format'])) {
-            $contentType['list_format'] = '[{contenttype} Nº{id} - {status}] {title}';
+            $contentType['list_format'] = '[{contenttype} Nº {id} - {status}] {title}';
         }
 
         // Make sure taxonomy is an array.

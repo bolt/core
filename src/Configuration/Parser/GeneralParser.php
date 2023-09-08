@@ -131,6 +131,7 @@ class GeneralParser extends BaseParser
                 'frontend_menu' => null,
                 'backend_menu' => null,
                 'files_index' => null,
+                'list_format' => null,
             ],
         ];
     }
