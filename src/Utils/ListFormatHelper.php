@@ -25,13 +25,17 @@ class ListFormatHelper
     /** @var EntityManagerInterface */
     private $em;
 
-    public function __construct(Config $config, Connection $connection, ContentRepository $contentRepository, string $tablePrefix = 'bolt_', EntityManagerInterface $em)
+    /** @var string */
+    private $backendUrl = '/bolt';
+
+    public function __construct(Config $config, Connection $connection, ContentRepository $contentRepository, string $tablePrefix = 'bolt_', EntityManagerInterface $em, string $backendUrl = 'bolt')
     {
         $this->config = $config;
         $this->connection = $connection;
         $this->prefix = $tablePrefix;
         $this->contentRepository = $contentRepository;
         $this->em = $em;
+        $this->backendUrl = preg_replace('/[^\pL\d,]+/u', '', $backendUrl);
     }
 
     public function clearColumns(): bool
@@ -100,6 +104,30 @@ class ListFormatHelper
 
         return $options;
     }
+
+    public function getMenuLinks(ContentType $contentType, int $amount, string $order): array
+    {
+        $order = $this->fixOrder($order);
+
+        $query = sprintf(
+            'SELECT id, title FROM %scontent WHERE content_type = "%s" ORDER BY %s LIMIT %d ',
+            $this->prefix,
+            $contentType['slug'],
+            $order,
+            $amount
+        );
+
+        $rows = $this->connection->fetchAllAssociative($query);
+
+        $options = [];
+
+        foreach ($rows as $row) {
+            $options[] = ['id' => (int) $row['id'], 'name' => $row['title'], 'link' => $this->backendUrl . '/edit/' . $row['id']];
+        }
+
+        return $options;
+    }
+
 
     public function getSelect(string $contentType, array $params): array
     {

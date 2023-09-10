@@ -324,7 +324,6 @@ class FieldExtension extends AbstractExtension
      */
     public function selectOptionsHelper(string $contentTypeSlug, array $params, Field $field, string $format): array
     {
-        dump($params);
         // If we use `cache/list_format`, delegate it to that Helper
         if ($this->config->get('general/caching/list_format')) {
             $options = $this->listFormatHelper->getSelect($contentTypeSlug, $params);

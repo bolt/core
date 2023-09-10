@@ -15,6 +15,7 @@ use Bolt\Entity\Field\SetField;
 use Bolt\Enum\Statuses;
 use Bolt\Repository\FieldRepository;
 use Bolt\Utils\ContentHelper;
+use Bolt\Utils\Excerpt;
 use DateTimeZone;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -895,7 +896,7 @@ class Content
      */
     public function setTitle(): self
     {
-        $this->title = $this->getExtras()['title'];
+        $this->title = Excerpt::getExcerpt($this->getExtras()['title'], 191);
 
         return $this;
     }
@@ -911,7 +912,7 @@ class Content
      */
     public function setListFormat(): self
     {
-        $this->listFormat = $this->getExtras()['listFormat'];
+        $this->listFormat = Excerpt::getExcerpt($this->getExtras()['listFormat'], 191);
 
         return $this;
     }
