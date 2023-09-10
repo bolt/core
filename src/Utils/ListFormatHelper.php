@@ -44,6 +44,12 @@ class ListFormatHelper
 
     public function updateColumns(int $limit = 100): bool
     {
+        $query = sprintf('SELECT COUNT(id) FROM %scontent WHERE title = "" OR list_format = "" LIMIT %d', $this->prefix, $limit);
+
+        $result = $this->connection->fetchAssociative($query);
+
+        printf("%d records to go", $result['COUNT(id)']);
+
         $query = sprintf('SELECT id FROM %scontent WHERE title = "" OR list_format = "" LIMIT %d', $this->prefix, $limit);
 
         $rows = $this->connection->fetchAllAssociative($query);

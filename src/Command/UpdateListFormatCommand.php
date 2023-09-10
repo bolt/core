@@ -47,7 +47,7 @@ HELP
     {
         $io = new SymfonyStyle($input, $output);
 
-        $io->text('// Clearing the Bolt Content `list_format` and `title` columns.');
+        $io->text('// Updating the Bolt Content `list_format` and `title` columns.');
 
         $amount = 10000;
 
