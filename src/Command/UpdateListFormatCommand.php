@@ -16,6 +16,9 @@ class UpdateListFormatCommand extends Command
     /** @var string */
     protected static $defaultName = 'bolt:update-list-format';
 
+    /** @var ListFormatHelper */
+    private $listFormatHelper;
+
     public function __construct(ListFormatHelper $listFormatHelper)
     {
         $this->listFormatHelper = $listFormatHelper;

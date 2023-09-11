@@ -173,9 +173,6 @@ class Content
      */
     private $relationsToThisContent;
 
-    /** @var ContentHelper */
-    private $contentHelper;
-
     public function __construct(?ContentType $contentTypeDefinition = null)
     {
         $this->createdAt = $this->convertToUTCFromLocal(new \DateTime());

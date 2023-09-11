@@ -414,7 +414,7 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
 
         $result = [];
 
-        /** @var Content $record */
+        /** @var Content|array $record */
         foreach ($records as $record) {
             try {
                 if ($record instanceof Content) {

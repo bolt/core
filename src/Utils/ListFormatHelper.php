@@ -7,12 +7,10 @@ use Bolt\Configuration\Content\ContentType;
 use Bolt\Repository\ContentRepository;
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManagerInterface;
+use Tightenco\Collect\Support\Collection;
 
 class ListFormatHelper
 {
-    /** @var Config */
-    private $config;
-
     /** @var Connection */
     private $connection;
 
@@ -28,9 +26,13 @@ class ListFormatHelper
     /** @var string */
     private $backendUrl = '/bolt';
 
-    public function __construct(Config $config, Connection $connection, ContentRepository $contentRepository, string $tablePrefix = 'bolt_', EntityManagerInterface $em, string $backendUrl = 'bolt')
+    public function __construct(
+        Connection $connection,
+        ContentRepository $contentRepository,
+        EntityManagerInterface $em,
+        string $tablePrefix = 'bolt_',
+        string $backendUrl = 'bolt')
     {
-        $this->config = $config;
         $this->connection = $connection;
         $this->prefix = $tablePrefix;
         $this->contentRepository = $contentRepository;
@@ -81,7 +83,7 @@ class ListFormatHelper
     }
 
 
-    public function getRelated(ContentType $contentType, int $amount, string $order): array
+    public function getRelated(Collection $contentType, int $amount, string $order): array
     {
         $order = $this->fixOrder($order);
 
@@ -121,7 +123,11 @@ class ListFormatHelper
         $options = [];
 
         foreach ($rows as $row) {
-            $options[] = ['id' => (int) $row['id'], 'name' => $row['title'], 'link' => $this->backendUrl . '/edit/' . $row['id']];
+            $options[] = [
+                'id' => (int) $row['id'],
+                'name' => $row['title'],
+                'link' => sprintf('/%s/edit/%s', $this->backendUrl, $row['id'])
+            ];
         }
 
         return $options;
