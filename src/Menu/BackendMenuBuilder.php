@@ -424,7 +424,6 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
                         'editLink' => $this->contentExtension->getEditLink($record),
                         'icon' => $record->getContentTypeIcon(),
                     ];
-
                 } else {
                     $definition =  $this->config->get('contenttypes/' . $contentType->getSlug());
 

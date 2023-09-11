@@ -123,14 +123,10 @@ class Content
      */
     private $depublishedAt = null;
 
-    /**
-     * @ORM\Column(type="string", length=191, nullable=true)
-     */
+    /** @ORM\Column(type="string", length=191, nullable=true) */
     private $title;
 
-    /**
-     * @ORM\Column(type="string", length=191, nullable=true)
-     */
+    /** @ORM\Column(type="string", length=191, nullable=true) */
     private $listFormat;
 
     /**
@@ -177,9 +173,7 @@ class Content
      */
     private $relationsToThisContent;
 
-    /**
-     * @var ContentHelper
-     */
+    /** @var ContentHelper */
     private $contentHelper;
 
     public function __construct(?ContentType $contentTypeDefinition = null)
@@ -916,5 +910,4 @@ class Content
 
         return $this;
     }
-
 }

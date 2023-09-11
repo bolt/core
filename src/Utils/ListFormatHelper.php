@@ -73,7 +73,6 @@ class ListFormatHelper
                 $this->em->flush();
                 $counter = 0;
             }
-
         }
 
         $this->em->flush();
@@ -177,10 +176,10 @@ class ListFormatHelper
             'modifiedat' => 'modified_at',
             'published' => 'published_at',
             'publishedat' => 'published_at',
-            '_atat' => '_at',
+            '_at_at' => '_at',
         ];
 
-        $order = str_replace(array_keys($replacements), array_values($replacements), strtolower($order));
+        $order = str_replace(array_keys($replacements), array_values($replacements), mb_strtolower($order));
 
         if (!in_array($order, ['id', 'content_type', 'status', 'created_at', 'published_at', 'modified_at', 'title', 'list_format'])) {
             $order = 'title';
@@ -188,6 +187,4 @@ class ListFormatHelper
 
         return $order . ' ' . $direction;
     }
-
-
 }

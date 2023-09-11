@@ -56,8 +56,7 @@ class FieldExtension extends AbstractExtension
         Query $query,
         UrlGeneratorInterface $router,
         ListFormatHelper $listFormatHelper
-        )
-    {
+        ) {
         $this->notifications = $notifications;
         $this->contentRepository = $contentRepository;
         $this->config = $config;

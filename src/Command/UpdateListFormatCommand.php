@@ -35,8 +35,6 @@ class UpdateListFormatCommand extends Command
 The <info>%command.name%</info> updates clears the `list_format` and `title` columns in the database.
 HELP
             );
-            //            ->addArgument('amount', InputArgument::OPTIONAL, 'The number of rows to update in one invocation', 100);
-
     }
 
     /**
