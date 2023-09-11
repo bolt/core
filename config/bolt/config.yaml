@@ -11,7 +11,7 @@ secret: '%env(APP_SECRET)%'
 # The expires_after is counted in seconds.
 #caching:
 #    related_options: 3600
-#    options_preparse: 1800
+#    options_preparse: 1800 # Run `bin/console app:pre-parse` to rebuild these
 #    canonical: 1800
 #    formatter: 180
 #    selectoptions: 3600
@@ -19,10 +19,11 @@ secret: '%env(APP_SECRET)%'
 #    frontend_menu: 3600
 #    backend_menu: 3600
 #    files_index: 3600
+#    list_format: true  # Run `bin/console cache:list-format; bin/console bolt:update-list-format` to clear and rebuild these
 
 caching:
     related_options: ~
-    options_preparse: ~
+    options_preparse: ~ # Run `bin/console app:pre-parse` to rebuild these
     canonical: ~
     formatter: ~
     selectoptions: ~
@@ -30,7 +31,7 @@ caching:
     frontend_menu: ~
     backend_menu: ~
     files_index: ~
-    list_format: true
+    list_format: false # Run `bin/console cache:list-format; bin/console bolt:update-list-format` to clear and rebuild these
     
 # The theme to use.
 #
