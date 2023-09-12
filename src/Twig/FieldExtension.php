@@ -306,14 +306,14 @@ class FieldExtension extends AbstractExtension
 
     public function writeOptionsCache(string $toContentTypeSlug, string $order, string $format, int $maxAmount, $options)
     {
-        $key = sprintf('options_%s_%s_%s', $toContentTypeSlug, $maxAmount, mb_substr(md5($order . $format), 0, 8));
+        $key = sprintf('options_%s', mb_substr(md5($toContentTypeSlug . $maxAmount . $order . $format), 0, 8));
 
         $this->config->writePreParseCache($key, $options);
     }
 
     public function readOptionsCache(string $toContentTypeSlug, string $order, string $format, int $maxAmount): ?array
     {
-        $key = sprintf('options_%s_%s_%s', $toContentTypeSlug, $maxAmount, mb_substr(md5($order . $format), 0, 8));
+        $key = sprintf('options_%s', mb_substr(md5($toContentTypeSlug . $maxAmount . $order . $format), 0, 8));
 
         return $this->config->readPreParseCache($key);
     }

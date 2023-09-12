@@ -175,7 +175,7 @@ class RelatedExtension extends AbstractExtension
         // If we use `cache/list_format`, delegate it to that Helper
         if ($this->config->get('general/caching/list_format')) {
             $options = $this->listFormatHelper->getRelated($contentType, $maxAmount, $order);
-            // dump($options);
+
             return new Collection($options);
         }
 
@@ -191,21 +191,19 @@ class RelatedExtension extends AbstractExtension
         // Write the pre-parsed options.
         $this->writeRelatedOptionsCache($toContentTypeSlug, $order, $format, $maxAmount, $options);
 
-        // dump($options);
-
         return new Collection($options);
     }
 
     public function writeRelatedOptionsCache(string $toContentTypeSlug, string $order, string $format, int $maxAmount, $options)
     {
-        $key = sprintf('related_%s_%s_%s', $toContentTypeSlug, $maxAmount, mb_substr(md5($order . $format), 0, 8));
+        $key = sprintf('related_%s', mb_substr(md5($toContentTypeSlug . $maxAmount . $order . $format), 0, 8));
 
         $this->config->writePreParseCache($key, $options);
     }
 
     public function readOptionsCache(string $toContentTypeSlug, string $order, string $format, int $maxAmount): ?array
     {
-        $key = sprintf('related_%s_%s_%s', $toContentTypeSlug, $maxAmount, mb_substr(md5($order . $format), 0, 8));
+        $key = sprintf('related_%s', mb_substr(md5($toContentTypeSlug . $maxAmount . $order . $format), 0, 8));
 
         return $this->config->readPreParseCache($key);
     }
