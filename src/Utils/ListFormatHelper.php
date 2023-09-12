@@ -137,13 +137,13 @@ class ListFormatHelper
     public function getSelect(string $contentType, array $params): array
     {
         $order = $this->fixOrder($params['order']);
-
+        $contentTypes = $this->split($contentType);
         $amount = (int) $params['limit'];
 
         $query = sprintf(
-            'SELECT id, list_format FROM %scontent WHERE content_type = "%s" ORDER BY %s LIMIT %d ',
+            'SELECT id, list_format FROM %scontent WHERE content_type IN (%s) ORDER BY %s LIMIT %d ',
             $this->prefix,
-            $contentType,
+            $contentTypes,
             $order,
             $amount
         );
@@ -192,5 +192,13 @@ class ListFormatHelper
         }
 
         return $order . ' ' . $direction;
+    }
+
+    private function split($contenttypes): string
+    {
+        $parts = explode(',', preg_replace('/^\((.*)\)$/', '$1', $contenttypes));
+        $result = sprintf('"%s"', implode('", "', $parts));
+
+        return $result;
     }
 }
