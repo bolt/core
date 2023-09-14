@@ -324,23 +324,4 @@ class Config
 
         return $value;
     }
-
-    public function writePreParseCache(string $filename, $options): void
-    {
-        $this->cache->get($filename, function(ItemInterface $item) use ($options) {
-            $item->expiresAfter($this->get('general/caching/options_preparse'));
-            $item->tag('options_preparse');
-
-            return $options;
-        });
-    }
-
-    public function readPreParseCache(string $filename): ?array
-    {
-        $options = $this->cache->get($filename, function() {
-            return null;
-        });
-
-        return $options;
-    }
 }

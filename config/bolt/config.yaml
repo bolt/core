@@ -11,7 +11,6 @@ secret: '%env(APP_SECRET)%'
 # The expires_after is counted in seconds.
 #caching:
 #    related_options: 3600
-#    options_preparse: 1800 # Run `bin/console app:pre-parse` to rebuild these
 #    canonical: 1800
 #    formatter: 180
 #    selectoptions: 3600
@@ -23,7 +22,6 @@ secret: '%env(APP_SECRET)%'
 
 caching:
     related_options: ~
-    options_preparse: ~ # Run `bin/console app:pre-parse` to rebuild these
     canonical: ~
     formatter: ~
     selectoptions: ~

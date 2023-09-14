@@ -272,12 +272,6 @@ class FieldExtension extends AbstractExtension
 
         $order = $field->getDefinition()->get('order', '');
 
-        // Check if we have it available as pre-parsed values
-        $options = $this->readOptionsCache($contentTypeSlug, $order, $format, $maxAmount);
-        if ($options) {
-            return new Collection($options);
-        }
-
         $options = [];
 
         // We need to add this as a 'dummy' option for when the user is allowed
@@ -298,24 +292,7 @@ class FieldExtension extends AbstractExtension
 
         $options = array_merge($options, $this->selectOptionsHelper($contentTypeSlug, $params, $field, $format));
 
-        // Write the pre-parsed options.
-        $this->writeOptionsCache($contentTypeSlug, $order, $format, $maxAmount, $options);
-
         return new Collection($options);
-    }
-
-    public function writeOptionsCache(string $toContentTypeSlug, string $order, string $format, int $maxAmount, $options)
-    {
-        $key = sprintf('options_%s', mb_substr(md5($toContentTypeSlug . $maxAmount . $order . $format), 0, 8));
-
-        $this->config->writePreParseCache($key, $options);
-    }
-
-    public function readOptionsCache(string $toContentTypeSlug, string $order, string $format, int $maxAmount): ?array
-    {
-        $key = sprintf('options_%s', mb_substr(md5($toContentTypeSlug . $maxAmount . $order . $format), 0, 8));
-
-        return $this->config->readPreParseCache($key);
     }
 
     /**
