@@ -14,6 +14,7 @@ use Bolt\Entity\Field\ScalarCastable;
 use Bolt\Entity\Field\SetField;
 use Bolt\Enum\Statuses;
 use Bolt\Repository\FieldRepository;
+use Bolt\Twig\ContentExtension;
 use Bolt\Utils\ContentHelper;
 use Bolt\Utils\Excerpt;
 use DateTimeZone;
@@ -887,7 +888,11 @@ class Content
      */
     public function setTitle(): self
     {
-        $this->title = Excerpt::getExcerpt($this->getExtras()['title'], 191);
+        if ($this->contentExtension instanceof ContentExtension) {
+            $this->title = Excerpt::getExcerpt($this->getExtras()['title'], 191);
+        } else {
+            $this->title = '';
+        }
 
         return $this;
     }
@@ -903,7 +908,11 @@ class Content
      */
     public function setListFormat(): self
     {
-        $this->listFormat = Excerpt::getExcerpt($this->getExtras()['listFormat'], 191);
+        if ($this->contentExtension instanceof ContentExtension) {
+            $this->listFormat = Excerpt::getExcerpt($this->getExtras()['listFormat'], 191);
+        } else {
+            $this->title = '';
+        }
 
         return $this;
     }
