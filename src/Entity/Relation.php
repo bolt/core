@@ -106,7 +106,7 @@ class Relation
         return $this;
     }
 
-    public function getFromContent(): Content
+    public function getFromContent(): ?Content
     {
         return $this->fromContent;
     }
@@ -116,7 +116,7 @@ class Relation
         $this->fromContent = $content;
     }
 
-    public function getToContent(): Content
+    public function getToContent(): ?Content
     {
         return $this->toContent;
     }
