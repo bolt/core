@@ -629,9 +629,11 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
                 $currentRelations
                     ->first(
                         static function (Relation $relation) use ($id) {
+                            $fromId = $relation->getFromContent() ? $relation->getFromContent()->getId() : null;
+                            $toId = $relation->getToContent() ? $relation->getToContent()->getId() : null;
                             return \in_array(
                                 $id,
-                                [$relation->getFromContent()->getId(), $relation->getToContent()->getId()],
+                                [$fromId, $toId],
                                 true
                             );
                         }

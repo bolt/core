@@ -12,7 +12,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  */
 trait ContentExtrasTrait
 {
-    /** @var ContentExtension */
+    /** @var ContentExtension|null */
     private $contentExtension;
 
     public function setContentExtension(ContentExtension $contentExtension): void
