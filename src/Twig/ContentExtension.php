@@ -287,7 +287,8 @@ class ContentExtension extends AbstractExtension
 
     public function getListFormat($content)
     {
-        $listFormat = $this->contentHelper->get($content, $content->getDefinition()->get('list_format'));
+        $format = $content->getDefinition()->get('list_format', '[{contenttype} Nº {id} - {status}] {title}');
+        $listFormat = $this->contentHelper->get($content, $format);
 
         return $listFormat;
     }
