@@ -38,7 +38,7 @@ class ContentType extends DeepCollection
             'slug' => $name,
             'singular_slug' => $name,
             'singular_name' => $name,
-            'locales' => [],
+            'locales' => new Collection(),
             'fields' => new Collection(),
             // when it is created on the fly
             'virtual' => true,
