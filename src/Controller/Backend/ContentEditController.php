@@ -555,29 +555,40 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         }
     }
 
-    public function updateTaxonomy(Content $content, string $key, $taxonomy, int $order): void
+    public function updateTaxonomy(Content $content, string $key, $postedTaxonomy, int $order): void
     {
-        $taxonomy = (new Collection(Json::findArray($taxonomy)))->filter();
+        $postedTaxonomy = (new Collection(Json::findArray($postedTaxonomy)))->filter();
+        $contentTaxoSlugs = [];
 
-        // Remove old ones
+        // Remove old ones, if they are not in the current ones
         foreach ($content->getTaxonomies($key) as $current) {
-            $content->removeTaxonomy($current);
+            // If it's not still present, remove it
+            if (! in_array($current->getSlug(), $postedTaxonomy->all())) {
+                $content->removeTaxonomy($current);
+            }
+
+            $contentTaxoSlugs[] = $current->getSlug();
         }
 
         // Then (re-) add selected ones
-        foreach ($taxonomy as $slug) {
-            $taxonomy = $this->taxonomyRepository->findOneBy([
+        foreach ($postedTaxonomy as $slug) {
+            // If we already have it, continue.
+            if (in_array($slug, $contentTaxoSlugs)) {
+                continue;
+            }
+
+            $repoTaxonomy = $this->taxonomyRepository->findOneBy([
                 'type' => $key,
                 'slug' => $slug,
             ]);
 
-            if ($taxonomy === null) {
-                $taxonomy = $this->taxonomyRepository->factory($key, (string) $slug);
+            if ($repoTaxonomy === null) {
+                $repoTaxonomy = $this->taxonomyRepository->factory($key, (string) $slug);
             }
 
-            $taxonomy->setSortorder($order);
+            $repoTaxonomy->setSortorder($order);
 
-            $content->addTaxonomy($taxonomy);
+            $content->addTaxonomy($repoTaxonomy);
         }
     }
 
