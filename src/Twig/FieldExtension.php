@@ -85,6 +85,7 @@ class FieldExtension extends AbstractExtension
             new TwigFunction('field_factory', [$this, 'fieldFactory']),
             new TwigFunction('list_templates', [$this, 'getListTemplates']),
             new TwigFunction('select_options', [$this, 'selectOptions']),
+            new TwigFunction('select_options_url', [$this, 'selectOptionsUrl']),
         ];
     }
 
@@ -208,6 +209,17 @@ class FieldExtension extends AbstractExtension
         }
 
         return new Collection($options);
+    }
+
+    public function selectOptionsUrl(Field\SelectField $field): String
+    {
+        return $this->router->generate('bolt_async_select_options', [
+            'name'   => $field->getDefinition()->get('name', ''),
+            'values' => $field->getDefinition()->get('values'),
+            'limit'  => $field->getDefinition()->get('limit', ''),
+            'order'  => $field->getDefinition()->get('order', ''),
+
+        ]);
     }
 
     public function selectOptions(Field $field): Collection

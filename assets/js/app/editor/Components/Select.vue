@@ -16,6 +16,7 @@
             tag-placeholder="Add this as new tag"
             tag-position="bottom"
             track-by="key"
+            :loading="isLoading"
             @tag="addTag"
         >
             <template v-if="name === 'status'" slot="singleLabel" slot-scope="props">
@@ -77,6 +78,7 @@
 <script>
 import Multiselect from 'vue-multiselect';
 import $ from 'jquery';
+//import axios from 'axios';
 
 export default {
     name: 'EditorSelect',
@@ -95,6 +97,7 @@ export default {
         autocomplete: Boolean,
         errormessage: String | Boolean, //string if errormessage is set, and false otherwise
         required: String | Boolean,
+        fetchurl: String,
     },
     data: () => {
         return {
@@ -119,28 +122,54 @@ export default {
         },
     },
     mounted() {
-        const _values = !this.value ? [] : this.value.map ? this.value : [this.value];
-        const _options = this.options;
-
         /**
          * Filter method is necessary for required fields because the empty option is not
          * set. If the field is empty, "filterSelectedItems" will contain an undefined
          * element and "select" will not be filled with the first available option.
          */
-        let filterSelectedItems = _values
-            .map(value => {
-                const item = _options.filter(opt => opt.key === value);
-                if (item.length > 0) {
-                    return item[0];
-                }
-            })
-            .filter(item => undefined !== item);
+        const fixSelectedItems = function() {
+            const _values = !this.value ? [] : this.value.map ? this.value : [this.value];
 
-        if (!!this._props.required && filterSelectedItems.length === 0) {
-            filterSelectedItems = [_options[0]];
+            let filterSelectedItems = _values
+                .map(value => {
+                    const item = this.options.filter(opt => opt.key === value);
+                    if (item.length > 0) {
+                        return item[0];
+                    }
+                })
+                .filter(item => undefined !== item);
+
+            if (!!this._props.required && filterSelectedItems.length === 0) {
+                filterSelectedItems = [this.options[0]];
+            }
+
+            this.selected = filterSelectedItems;
+        };
+
+        /**
+         * If `fetchurl` is defined then pre-fill using a call. One problem is that on initialization
+         * for existing selects, multiple requests will be done at the same time. Subsequent queries
+         * can make use of the cache. Important part here is to have server-side caching.
+         */
+        if (this.fetchurl) {
+            window.selectCache = window.selectCache || {};
+            if (window.selectCache[this.fetchurl]) {
+                this.options = window.selectCache[this.fetchurl];
+                fixSelectedItems.call(this);
+            } else {
+                this.isLoading = true;
+
+                $.ajax({ url: this.fetchurl, dataType: 'json', cache: true }).then(response => {
+                    this.options = response;
+                    window.selectCache[this.fetchurl] = response;
+                    this.isLoading = false;
+
+                    fixSelectedItems.call(this);
+                });
+            }
+        } else {
+            fixSelectedItems.call(this);
         }
-
-        this.selected = filterSelectedItems;
     },
     methods: {
         addTag(newTag) {
