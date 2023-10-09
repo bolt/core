@@ -195,11 +195,13 @@ class ContentTypesParser extends BaseParser
         }
 
         // Make sure title_format is set
-        if (isset($contentType['title_format'])) {
-            $contentType['title_format'] = $contentType['title_format'];
-        } else {
+        if (! isset($contentType['title_format'])) {
             $fields = $contentType['fields']['slug']['uses'];
             $contentType['title_format'] = '{' . implode('} {', $fields) . '}';
+        }
+
+        if (! isset($contentType['list_format'])) {
+            $contentType['list_format'] = '[{contenttype} Nº {id} - {status}] {title}';
         }
 
         // Make sure taxonomy is an array.

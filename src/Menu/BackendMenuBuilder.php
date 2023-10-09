@@ -10,6 +10,7 @@ use Bolt\Entity\Content;
 use Bolt\Repository\ContentRepository;
 use Bolt\Security\ContentVoter;
 use Bolt\Twig\ContentExtension;
+use Bolt\Utils\ListFormatHelper;
 use Bolt\Version;
 use Cocur\Slugify\Slugify;
 use Knp\Menu\FactoryInterface;
@@ -18,6 +19,7 @@ use Knp\Menu\MenuItem;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Tightenco\Collect\Support\Collection;
 
 /**
  * Class BackendMenuBuilder
@@ -50,6 +52,9 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
     /** @var AuthorizationCheckerInterface */
     private $authorizationChecker;
 
+    /** @var ListFormatHelper */
+    private $listFormatHelper;
+
     public function __construct(
         FactoryInterface $menuFactory,
         iterable $extensionMenus,
@@ -58,7 +63,8 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
         UrlGeneratorInterface $urlGenerator,
         TranslatorInterface $translator,
         ContentExtension $contentExtension,
-        AuthorizationCheckerInterface $authorizationChecker
+        AuthorizationCheckerInterface $authorizationChecker,
+        ListFormatHelper $listFormatHelper
     ) {
         $this->menuFactory = $menuFactory;
         $this->config = $config;
@@ -68,6 +74,7 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
         $this->contentExtension = $contentExtension;
         $this->extensionMenus = $extensionMenus;
         $this->authorizationChecker = $authorizationChecker;
+        $this->listFormatHelper = $listFormatHelper;
     }
 
     private function createAdminMenu(): ItemInterface
@@ -397,20 +404,36 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
 
     private function getLatestRecords(ContentType $contentType): array
     {
-        $records = $this->contentRepository->findLatest($contentType, 1, self::MAX_LATEST_RECORDS);
+        // If we use `cache/list_format`, delegate it to that Helper
+        if ($this->config->get('general/caching/list_format')) {
+            $records = $this->listFormatHelper->getMenuLinks($contentType, self::MAX_LATEST_RECORDS, 'modified_at');
+        } else {
+            $records = $this->contentRepository->findLatest($contentType, 1, self::MAX_LATEST_RECORDS);
+        }
+
 
         $result = [];
 
-        /** @var Content $record */
+        /** @var Content|array $record */
         foreach ($records as $record) {
             try {
-                $additionalResult = [
-                    'id' => $record->getId(),
-                    'name' => $this->contentExtension->getTitle($record),
-                    'link' => $this->contentExtension->getLink($record),
-                    'editLink' => $this->contentExtension->getEditLink($record),
-                    'icon' => $record->getContentTypeIcon(),
-                ];
+                if ($record instanceof Content) {
+                    $additionalResult = [
+                        'id' => $record->getId(),
+                        'name' => $this->contentExtension->getTitle($record),
+                        'editLink' => $this->contentExtension->getEditLink($record),
+                        'icon' => $record->getContentTypeIcon(),
+                    ];
+                } else {
+                    $definition =  $this->config->get('contenttypes/' . $contentType->getSlug());
+
+                    $additionalResult = [
+                        'id' => $record['id'],
+                        'name' => $record['name'],
+                        'editLink' => $record['link'],
+                        'icon' => $definition['icon_one'] ?: $definition['icon_many'],
+                    ];
+                }
 
                 $result[] = $additionalResult;
             } catch (\RuntimeException $exception) {

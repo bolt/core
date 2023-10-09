@@ -176,8 +176,9 @@ class ImageController
         $pathinfo = pathinfo($filename);
 
         $imageExtensions = ['gif', 'png', 'jpg', 'jpeg', 'svg', 'avif', 'webp'];
+        $ext = mb_strtolower($pathinfo['extension']);
 
-        return array_key_exists('extension', $pathinfo) && in_array($pathinfo['extension'], $imageExtensions, true);
+        return array_key_exists('extension', $pathinfo) && in_array($ext, $imageExtensions, true);
     }
 
     private function testFit(string $fit): bool

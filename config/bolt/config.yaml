@@ -18,6 +18,7 @@ secret: '%env(APP_SECRET)%'
 #    frontend_menu: 3600
 #    backend_menu: 3600
 #    files_index: 3600
+#    list_format: true  # Run `bin/console cache:list-format; bin/console bolt:update-list-format` to clear and rebuild these
 
 caching:
     related_options: ~
@@ -28,6 +29,7 @@ caching:
     frontend_menu: ~
     backend_menu: ~
     files_index: ~
+    list_format: false # Run `bin/console cache:list-format; bin/console bolt:update-list-format` to clear and rebuild these
     
 # The theme to use.
 #
@@ -148,7 +150,7 @@ query_search:
 
 # Maximum amount of items to show in a `<select>` for picking a record. For
 # example in `type: select`.
-maximum_listing_select: 1000
+maximum_listing_select: 50000
 
 # Template for showing the search results. If not defined, uses the settings for
 # listing_template and listing_records.
@@ -254,4 +256,4 @@ reset_password_settings:
 user_show_sort&filter: true
 
 # Use Ajaxy saving ("Stay on page"), or traditional saving
-ajaxy_saving: true
+ajaxy_saving: false

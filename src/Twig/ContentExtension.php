@@ -268,7 +268,8 @@ class ContentExtension extends AbstractExtension
         }
 
         if (ContentHelper::isSuitable($content, 'excerpt_format')) {
-            $excerpt = $this->contentHelper->get($content, $content->getDefinition()->get('excerpt_format'), $this->requestStack->getCurrentRequest()->getLocale());
+            $locale = $this->requestStack->getCurrentRequest() ? $this->requestStack->getCurrentRequest()->getLocale() : null;
+            $excerpt = $this->contentHelper->get($content, $content->getDefinition()->get('excerpt_format'), $locale);
         } else {
             $excerpt = $this->getFieldBasedExcerpt($content, $length, $includeTitle);
         }
@@ -283,6 +284,15 @@ class ContentExtension extends AbstractExtension
 
         return $pre . Excerpt::getExcerpt($excerpt, $length, $focus) . $post;
     }
+
+    public function getListFormat($content)
+    {
+        $format = $content->getDefinition()->get('list_format', '[{contenttype} Nº {id} - {status}] {title}');
+        $listFormat = $this->contentHelper->get($content, $format);
+
+        return $listFormat;
+    }
+
 
     private function getFieldBasedExcerpt(Content $content, int $length, bool $includeTitle = false): string
     {

@@ -16,12 +16,16 @@ use Bolt\Configuration\Parser\ThemeParser;
 use Bolt\Controller\Backend\ClearCacheController;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Stopwatch\Stopwatch;
+use Symfony\Component\Yaml\Yaml;
 use Symfony\Contracts\Cache\CacheInterface;
+use Symfony\Contracts\Cache\ItemInterface;
 use Tightenco\Collect\Support\Collection;
+use Webimpress\SafeWriter\FileWriter;
 
 class Config
 {
     public const CACHE_KEY = 'config_cache';
+    public const OPTIONS_CACHE_KEY = 'options_preparse';
 
     /** @var Collection */
     protected $data;

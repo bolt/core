@@ -621,17 +621,39 @@ class SelectQuery implements QueryInterface
         $originalLeftExpression = 'content.' . $filter->getKey();
         $valueWhere = $filter->getExpression();
 
-        $newLeftExpression = $this->getRegularFieldLeftExpression($valueAlias, $filter->getKey());
+        $newLeftExpression = $this->getRegularFieldLeftExpression($valueAlias, $filter);
+
+        if (mb_strpos($newLeftExpression, 'IS NOT NULL') !== false) {
+            // Replace key like `:slug`, with `:slug_1`
+            $res = str_replace(':' . $filter->getKey(), ':' . key($filter->getParameters()), $newLeftExpression);
+
+            return $res;
+        }
 
         return str_replace($originalLeftExpression, $newLeftExpression, $valueWhere);
     }
 
-    private function getRegularFieldLeftExpression(string $valueAlias, string $fieldName, $value = null): string
+    private function getRegularFieldLeftExpression(string $valueAlias, Filter $filter): string
     {
+        $fieldName = $filter->getKey();
+
+        // Grab the current value is a Bool or Int
+        $currentParameter = current($filter->getParameters());
+        $isBoolOrIntValue = filter_var($currentParameter, FILTER_VALIDATE_BOOLEAN) !== false || filter_var($currentParameter, FILTER_VALIDATE_INT) !== false;
+
+        // Grab the operator
+        $operator = preg_match("/(=|<|>|<=|>=|<>|!=)/", $filter->getExpression(), $matches) ? $matches[0] : null;
+
         if ($this->utils->isFieldType($this, $fieldName, NumberField::TYPE) && $this->utils->hasCast()) {
             return $this->utils->getNumericCastExpression($valueAlias);
         }
 
-        return JsonHelper::wrapJsonFunction($valueAlias, null, $this->em->getConnection());
+        if ($isBoolOrIntValue || ($operator != '=' )) {
+            $value = current(JsonHelper::wrapJsonFunction($valueAlias, $fieldName, $this->em->getConnection()));
+        } else {
+            $value = JsonHelper::wrapJsonSearch($valueAlias, $fieldName, $this->em->getConnection());
+        }
+
+        return $value;
     }
 }

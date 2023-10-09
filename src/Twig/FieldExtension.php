@@ -14,6 +14,7 @@ use Bolt\Repository\ContentRepository;
 use Bolt\Repository\FieldRepository;
 use Bolt\Storage\Query;
 use Bolt\Utils\ContentHelper;
+use Bolt\Utils\ListFormatHelper;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -43,6 +44,9 @@ class FieldExtension extends AbstractExtension
     /** @var UrlGeneratorInterface */
     private $router;
 
+    /** @var ListFormatHelper */
+    private $listFormatHelper;
+
 
     public function __construct(
         Notifications $notifications,
@@ -50,14 +54,16 @@ class FieldExtension extends AbstractExtension
         Config $config,
         ContentHelper $contentHelper,
         Query $query,
-        UrlGeneratorInterface $router)
-    {
+        UrlGeneratorInterface $router,
+        ListFormatHelper $listFormatHelper
+        ) {
         $this->notifications = $notifications;
         $this->contentRepository = $contentRepository;
         $this->config = $config;
         $this->contentHelper = $contentHelper;
         $this->query = $query;
         $this->router = $router;
+        $this->listFormatHelper = $listFormatHelper;
     }
 
     /**
@@ -260,6 +266,12 @@ class FieldExtension extends AbstractExtension
     {
         [ $contentTypeSlug, $format ] = explode('/', $field->getDefinition()->get('values'));
 
+        if (empty($maxAmount = $field->getDefinition()->get('limit'))) {
+            $maxAmount = $this->config->get('general/maximum_listing_select', 200);
+        }
+
+        $order = $field->getDefinition()->get('order', '');
+
         $options = [];
 
         // We need to add this as a 'dummy' option for when the user is allowed
@@ -272,12 +284,6 @@ class FieldExtension extends AbstractExtension
                 'selected' => false,
             ];
         }
-
-        if (empty($maxAmount = $field->getDefinition()->get('limit'))) {
-            $maxAmount = $this->config->get('general/maximum_listing_select', 200);
-        }
-
-        $order = $field->getDefinition()->get('order', '');
 
         $params = [
             'limit' => $maxAmount,
@@ -294,6 +300,13 @@ class FieldExtension extends AbstractExtension
      */
     public function selectOptionsHelper(string $contentTypeSlug, array $params, Field $field, string $format): array
     {
+        // If we use `cache/list_format`, delegate it to that Helper
+        if ($this->config->get('general/caching/list_format')) {
+            $options = $this->listFormatHelper->getSelect($contentTypeSlug, $params);
+//            dump($options);
+            return $options;
+        }
+
         /** @var Content[] $records */
         $records = iterator_to_array($this->query->getContent($contentTypeSlug, $params)->getCurrentPageResults());
 
@@ -313,6 +326,8 @@ class FieldExtension extends AbstractExtension
                 $options[$key]["link_to_record_url"] = $this->router->generate('bolt_content_edit', ['id' => $record->getId()]);
             }
         }
+
+//        dump($options);
 
         return $options;
     }

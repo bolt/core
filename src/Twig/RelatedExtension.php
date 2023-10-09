@@ -10,6 +10,7 @@ use Bolt\Entity\Content;
 use Bolt\Entity\Relation;
 use Bolt\Enum\Statuses;
 use Bolt\Repository\RelationRepository;
+use Bolt\Utils\ListFormatHelper;
 use Bolt\Utils\RelatedOptionsUtility;
 use Tightenco\Collect\Support\Collection;
 use Twig\Extension\AbstractExtension;
@@ -30,16 +31,21 @@ class RelatedExtension extends AbstractExtension
     /** @var RelatedOptionsUtility */
     private $optionsUtility;
 
+    /** @var ListFormatHelper */
+    private $listFormatHelper;
+
     public function __construct(
         RelationRepository $relationRepository,
         Config $config,
         Notifications $notifications,
-        RelatedOptionsUtility $optionsUtility)
+        RelatedOptionsUtility $optionsUtility,
+        ListFormatHelper $listFormatHelper)
     {
         $this->relationRepository = $relationRepository;
         $this->config = $config;
         $this->notifications = $notifications;
         $this->optionsUtility = $optionsUtility;
+        $this->listFormatHelper = $listFormatHelper;
     }
 
     /**
@@ -164,6 +170,13 @@ class RelatedExtension extends AbstractExtension
 
         if (! $order) {
             $order = $contentType->get('order');
+        }
+
+        // If we use `cache/list_format`, delegate it to that Helper
+        if ($this->config->get('general/caching/list_format')) {
+            $options = $this->listFormatHelper->getRelated($contentType, $maxAmount, $order);
+
+            return new Collection($options);
         }
 
         $options = $this->optionsUtility->fetchRelatedOptions($fromContentType, $toContentTypeSlug, $order, $format, $required, $allowEmpty, $maxAmount, $linkToRecord);

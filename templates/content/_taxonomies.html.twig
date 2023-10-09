@@ -30,7 +30,7 @@
                 </div>
                 </div>
                 {% endif %}
-                {% if definition.has_sortorder %}<div class="row"><div class="col-9">{% else %}<div>{% endif %}
+                {% if definition.has_sortorder %}<div class="row"><div class="col-9 AAA">{% else %}<div>{% endif %}
                     <editor-select
                             :value="{{ value.0 }}"
                             :name="'taxonomy[{{ definition.slug }}]'"
@@ -39,18 +39,16 @@
                             :multiple="{{ definition.multiple ? 'true' : 'false' }}"
                             :taggable="{{ (definition.behaves_like == 'tags') ? 'true' : 'false' }}"
                     ></editor-select>
-                    </div>
                 {% if definition.has_sortorder %}
-                    </div>
-                    <div class="col-3">
+                    </div><div class="col-3 BBB">
                         <editor-number
                             :id="'taxonomy-{{ definition.slug }}-sortorder'"
                             :name="'taxonomy[{{ definition.slug }}-sortorder]'"
                             value="{{ value.1.first() }}"
                             :step="1"
                         ></editor-number>
-                    </div>
                 {% endif %}
+                </div>
 
                 {# Print postfix #}
                 {% if definition['postfix']|default() is not empty %}

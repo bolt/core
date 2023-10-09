@@ -54,4 +54,31 @@ class JsonHelper
 
         return [$resultWhere, $resultSlug];
     }
+
+    public static function wrapJsonSearch(?string $where, $slug, Connection $connection)
+    {
+        if ($slug === 'slug') {
+            return self::wrapJsonFunction($where, null, $connection);
+        }
+
+        $version = new Version($connection);
+
+        if ($version->hasJson()) {
+            //PostgreSQL handles JSON differently than MySQL
+            if ($version->getPlatform()['driver_name'] === 'pgsql') {
+                // PostgreSQL
+                $resultWhere = 'JSON_GET_TEXT(' . $where . ', 0)';
+            } elseif ($version->getPlatform()['driver_name'] === 'mysql') {
+                // MySQL, _with_ a slug
+                $resultWhere = "JSON_SEARCH(JSON_UNQUOTE(" . $where . "), 'one', :" . $slug . ") IS NOT NULL";
+            } else {
+                // SQLite
+                $resultWhere = 'JSON_EXTRACT(' . $where . ", '$[0]')";
+            }
+        } else {
+            $resultWhere = $where;
+        }
+
+        return $resultWhere;
+    }
 }

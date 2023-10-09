@@ -25,6 +25,7 @@ use Bolt\Repository\MediaRepository;
 use Bolt\Repository\RelationRepository;
 use Bolt\Repository\TaxonomyRepository;
 use Bolt\Security\ContentVoter;
+use Bolt\Utils\ContentHelper;
 use Bolt\Utils\TranslationsManager;
 use Bolt\Validator\ContentValidatorInterface;
 use Carbon\Carbon;
@@ -78,6 +79,9 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
     /** @var TranslatorInterface */
     private $translator;
 
+    /** @var ContentHelper */
+    private $contentHelper;
+
     public function __construct(
         TaxonomyRepository $taxonomyRepository,
         RelationRepository $relationRepository,
@@ -88,7 +92,8 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         ContentFillListener $contentFillListener,
         EventDispatcherInterface $dispatcher,
         string $defaultLocale,
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        ContentHelper $contentHelper
     ) {
         $this->taxonomyRepository = $taxonomyRepository;
         $this->relationRepository = $relationRepository;
@@ -100,6 +105,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         $this->dispatcher = $dispatcher;
         $this->defaultLocale = $defaultLocale;
         $this->translator = $translator;
+        $this->contentHelper = $contentHelper;
     }
 
     /**
@@ -221,6 +227,12 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
 
         // If we're "Saving Ajaxy"
         if ($this->request->isXmlHttpRequest()) {
+            $modified = sprintf(
+                '(%s: %s)',
+                $this->translator->trans('field.modifiedAt', [], null, $locale),
+                $this->contentHelper->get($content, "{modifiedAt}")
+            );
+
             return new JsonResponse([
                 'url' => $url,
                 'status' => 'success',
@@ -228,6 +240,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
                 'message' => $this->translator->trans('content.updated_successfully', [], null, $locale),
                 'notification' => $this->translator->trans('flash_messages.notification', [], null, $locale),
                 'title' => $content->getExtras()['title'],
+                'modified' => $modified,
             ], 200
             );
         }
@@ -542,29 +555,40 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         }
     }
 
-    public function updateTaxonomy(Content $content, string $key, $taxonomy, int $order): void
+    public function updateTaxonomy(Content $content, string $key, $postedTaxonomy, int $order): void
     {
-        $taxonomy = (new Collection(Json::findArray($taxonomy)))->filter();
+        $postedTaxonomy = (new Collection(Json::findArray($postedTaxonomy)))->filter();
+        $contentTaxoSlugs = [];
 
-        // Remove old ones
+        // Remove old ones, if they are not in the current ones
         foreach ($content->getTaxonomies($key) as $current) {
-            $content->removeTaxonomy($current);
+            // If it's not still present, remove it
+            if (! in_array($current->getSlug(), $postedTaxonomy->all())) {
+                $content->removeTaxonomy($current);
+            }
+
+            $contentTaxoSlugs[] = $current->getSlug();
         }
 
         // Then (re-) add selected ones
-        foreach ($taxonomy as $slug) {
-            $taxonomy = $this->taxonomyRepository->findOneBy([
+        foreach ($postedTaxonomy as $slug) {
+            // If we already have it, continue.
+            if (in_array($slug, $contentTaxoSlugs)) {
+                continue;
+            }
+
+            $repoTaxonomy = $this->taxonomyRepository->findOneBy([
                 'type' => $key,
                 'slug' => $slug,
             ]);
 
-            if ($taxonomy === null) {
-                $taxonomy = $this->taxonomyRepository->factory($key, (string) $slug);
+            if ($repoTaxonomy === null) {
+                $repoTaxonomy = $this->taxonomyRepository->factory($key, (string) $slug);
             }
 
-            $taxonomy->setSortorder($order);
+            $repoTaxonomy->setSortorder($order);
 
-            $content->addTaxonomy($taxonomy);
+            $content->addTaxonomy($repoTaxonomy);
         }
     }
 
@@ -617,9 +641,11 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
                 $currentRelations
                     ->first(
                         static function (Relation $relation) use ($id) {
+                            $fromId = $relation->getFromContent() ? $relation->getFromContent()->getId() : null;
+                            $toId = $relation->getToContent() ? $relation->getToContent()->getId() : null;
                             return \in_array(
                                 $id,
-                                [$relation->getFromContent()->getId(), $relation->getToContent()->getId()],
+                                [$fromId, $toId],
                                 true
                             );
                         }

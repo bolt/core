@@ -131,6 +131,9 @@ final class FrontendMenuBuilder implements FrontendMenuBuilderInterface
 
         /** @var ContentType $contentType */
         $contentType = $this->config->getContentType($contentTypeSlug);
+        if (! $contentType instanceof ContentType) {
+            return null;
+        }
 
         return $this->contentRepository->findOneBySlug($slug, $contentType);
     }

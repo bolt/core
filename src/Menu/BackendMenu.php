@@ -78,7 +78,7 @@ final class BackendMenu implements BackendMenuBuilderInterface
         $cacheKey = 'bolt.backendMenu_' . $locale . '_' . $this->backendUrl . '_' . $username;
 
         $menu = $this->cache->get($cacheKey, function (ItemInterface $item) {
-            $item->expiresAfter($this->config->get('general/caching/backend_menu'));
+            $item->expiresAfter((int) $this->config->get('general/caching/backend_menu'));
             $item->tag('backendmenu');
 
             return $this->menuBuilder->buildAdminMenu();

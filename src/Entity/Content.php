@@ -14,6 +14,9 @@ use Bolt\Entity\Field\ScalarCastable;
 use Bolt\Entity\Field\SetField;
 use Bolt\Enum\Statuses;
 use Bolt\Repository\FieldRepository;
+use Bolt\Twig\ContentExtension;
+use Bolt\Utils\ContentHelper;
+use Bolt\Utils\Excerpt;
 use DateTimeZone;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -120,6 +123,12 @@ class Content
      * @Groups({"get_content","api_write"})
      */
     private $depublishedAt = null;
+
+    /** @ORM\Column(type="string", length=191, nullable=true) */
+    private $title;
+
+    /** @ORM\Column(type="string", length=191, nullable=true) */
+    private $listFormat;
 
     /**
      * @var Collection|Field[]
@@ -871,5 +880,40 @@ class Content
         }
 
         return $fieldValues;
+    }
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function setTitle(): self
+    {
+        if ($this->contentExtension instanceof ContentExtension) {
+            $this->title = Excerpt::getExcerpt($this->getExtras()['title'], 191);
+        } else {
+            $this->title = '';
+        }
+
+        return $this;
+    }
+
+    public function getListFormat(): ?string
+    {
+        return $this->listFormat;
+    }
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function setListFormat(): self
+    {
+        if ($this->contentExtension instanceof ContentExtension) {
+            $this->listFormat = Excerpt::getExcerpt($this->getExtras()['listFormat'], 191);
+        } else {
+            $this->title = '';
+        }
+
+        return $this;
     }
 }

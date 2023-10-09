@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="ru" trgLang="ru">
-  <file id="messages.en">
+  <file id="messages.ru">
     <unit id="tbB2gib" name="not_available">
       <notes>
         <note>templates/debug/source_code.twig:26</note>
@@ -35,9 +35,9 @@
       <notes>
         <note>templates/bundles/TwigBundle/Exception/error.html.twig:21</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>http_error.suggestion</source>
-        <target><![CDATA[Попробуйте загрузить эту страницу еще раз через несколько минут или <a href="%url%">вернитесь на главную страницу</a>.]]></target>
+        <target><![CDATA[Попробуйте загрузить эту страницу ещё раз через несколько минут или <a href="%url%">вернитесь на главную страницу</a>.]]></target>
       </segment>
     </unit>
     <unit id="Qn5rwdU" name="http_error_403.description">
@@ -89,9 +89,9 @@
       <notes>
         <note>templates/bundles/TwigBundle/Exception/error500.html.twig:21</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>http_error_500.suggestion</source>
-        <target><![CDATA[Try loading this page again in some minutes or <a href="%url%">вернитесь на главную страницу</a>.]]></target>
+        <target><![CDATA[Попробуйте загрузить эту страницу ещё раз через несколько минут или <a href="%url%">вернитесь на главную страницу</a>.]]></target>
       </segment>
     </unit>
     <unit id="9RwuNlf" name="title.source_code">
@@ -185,18 +185,18 @@
       <notes>
         <note>templates/debug/source_code.twig:3</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>help.show_code</source>
-        <target><![CDATA[Нажмите эту кнопку, чтобы отобразить исходный код <strong>Контроллера</strong> and <strong>шаблона</strong>, которые используются для рендеринга этой страницы.]]></target>
+        <target><![CDATA[Нажмите эту кнопку, чтобы отобразить исходный код <strong>Контроллера</strong> и <strong>шаблона</strong>, которые используются для рендеринга этой страницы.]]></target>
       </segment>
     </unit>
     <unit id="wtG.cxy" name="info.change_password">
       <notes>
         <note>templates/users/change_password.twig:12</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>info.change_password</source>
-        <target>После изменения пароля вы выйдете из приложения.</target>
+        <target>После изменения пароля вы автоматически выйдете из приложения.</target>
       </segment>
     </unit>
     <unit id="80JoLd0" name="title.login">
@@ -360,9 +360,9 @@
       <notes>
         <note>templates/editcontent/media_edit.twig:119</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>field.filesize</source>
-        <target>Filesize</target>
+        <target>Размер файла</target>
       </segment>
     </unit>
     <unit id="RMPnq6o" name="label.username_or_email">
@@ -387,9 +387,9 @@
       <notes>
         <note>templates/pages/about.twig:25</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>about.visit_bolt</source>
-        <target>Перейти на Boltcms.io</target>
+        <target>Перейти на boltcms.io</target>
       </segment>
     </unit>
     <unit id="UZFanGF" name="about.bolt_documentation">
@@ -448,14 +448,24 @@
         <target>Адрес электронной почты</target>
       </segment>
     </unit>
+	    <unit id="D2N7_cP" name="label.about">
+      <notes>
+        <note>src/Form/UserType.php:38</note>
+        <note>new</note>
+      </notes>
+      <segment state="translated">
+        <source>label.about</source>
+        <target>Подробности</target>
+      </segment>
+    </unit>
     <unit id="OBmPOoB" name="user.updated_successfully">
       <notes>
         <note>src/Controller/Backend/UserController.php:33</note>
         <note>new</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>user.updated_successfully</source>
-        <target>Обновление успешно</target>
+        <target>Обновление успешно завершено</target>
       </segment>
     </unit>
     <unit id="3hkt.eH" name="content.updated_successfully">
@@ -484,9 +494,9 @@
         <note>src/Controller/Backend/EditFileController.php:101</note>
         <note>new</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>editfile.could_not_write</source>
-        <target>Не удалось записать Медиа-элемент</target>
+        <target>Не удалось записать медиа-элемент</target>
       </segment>
     </unit>
     <unit id="mEDsKHk" name="label.locale">
@@ -502,15 +512,15 @@
       </segment>
     </unit>
     <unit id="Z84BVRW" name="English (en)">
-      <segment>
+      <segment state="translated">
         <source>English (en)</source>
-        <target>English (en)</target>
+        <target>English (UK &amp; USA, en)</target>
       </segment>
     </unit>
     <unit id="eG9ABZd" name="Nederlands (dutch, nl)">
-      <segment>
+      <segment state="translated">
         <source>Nederlands (dutch, nl)</source>
-        <target>Nederlands (dutch, nl)</target>
+        <target>Nederlands (Dutch, nl)</target>
       </segment>
     </unit>
     <unit id="57LcBXV" name="Español (Spanish, es)">
@@ -520,9 +530,9 @@
       </segment>
     </unit>
     <unit id="e7RdvJ0" name="français (French, fr)">
-      <segment>
+      <segment state="translated">
         <source>français (French, fr)</source>
-        <target>français (French, fr)</target>
+        <target>Français (French, fr)</target>
       </segment>
     </unit>
     <unit id="U1vrep2" name="Deutsch (German, de)">
@@ -556,15 +566,15 @@
       </segment>
     </unit>
     <unit id="C389Knp" name="The Default Dark theme">
-      <segment>
+      <segment state="translated">
         <source>The Default Dark theme</source>
-        <target>Темная тема по умолчанию</target>
+        <target>Тёмная тема по умолчанию</target>
       </segment>
     </unit>
     <unit id="kouGbMq" name="WoordPers: Kinda looks like that other CMS">
-      <segment>
+      <segment state="translated">
         <source>WoordPers: Kinda looks like that other CMS</source>
-        <target>WoordPers: Kinda looks like that other CMS</target>
+        <target>WoordPers: Вроде как похоже на ту другую CMS</target>
       </segment>
     </unit>
     <unit id="7aLIA3c" name="caption.dashboard">
@@ -574,9 +584,9 @@
       </segment>
     </unit>
     <unit id="xuNRuUu" name="caption.translations: messages">
-      <segment>
+      <segment state="translated">
         <source>caption.translations: messages</source>
-        <target>caption.translations: messages</target>
+        <target>Переводы: сообщения</target>
       </segment>
     </unit>
     <unit id="K6TmK4B" name="caption.clear_cache">
@@ -592,9 +602,9 @@
       </segment>
     </unit>
     <unit id="cIiIXu_" name="caption.routing set up">
-      <segment>
+      <segment state="translated">
         <source>caption.routing set up</source>
-        <target>caption.routing set up</target>
+        <target>Настройка маршрутизации</target>
       </segment>
     </unit>
     <unit id="2RUXD4A" name="caption.menu_setup">
@@ -688,9 +698,9 @@
       </segment>
     </unit>
     <unit id="xN1kSQQ" name="caption.bolt_payoff">
-      <segment>
+      <segment state="translated">
         <source>caption.bolt_payoff</source>
-        <target><![CDATA[Изысканная, легкая и простая CMS]]></target>
+        <target><![CDATA[Изысканная, лёгкая и простая CMS]]></target>
       </segment>
     </unit>
     <unit id="HK7XTUX" name="caption.edit">
@@ -706,9 +716,9 @@
       </segment>
     </unit>
     <unit id="LaDIuZA" name="caption.meta_information">
-      <segment>
+      <segment state="translated">
         <source>caption.meta_information</source>
-        <target>Мета информация</target>
+        <target>Мета-информация</target>
       </segment>
     </unit>
     <unit id="DodjLNR" name="date">
@@ -724,9 +734,9 @@
       </segment>
     </unit>
     <unit id="gPYflhh" name="thumbnail">
-      <segment>
+      <segment state="translated">
         <source>thumbnail</source>
-        <target>Эскиз</target>
+        <target>Миниатюра</target>
       </segment>
     </unit>
     <unit id="_XSgfqS" name="filename">
@@ -832,9 +842,9 @@
       </segment>
     </unit>
     <unit id="hGJoUs5" name="caption.fixtures_dummy_content">
-      <segment>
+      <segment state="translated">
         <source>caption.fixtures_dummy_content</source>
-        <target>Фикстуры (Контент для примера)</target>
+        <target>Фикстуры (контент для примера)</target>
       </segment>
     </unit>
     <unit id="P1FHg3Q" name="caption.edit_file">
@@ -898,15 +908,15 @@
       </segment>
     </unit>
     <unit id="TVU.FCV" name="general.phrase.missing-about-page">
-      <segment>
+      <segment state="translated">
         <source>general.phrase.missing-about-page</source>
-        <target>Страница "About" отсутствует.</target>
+        <target>Страница "Подробности" отсутствует.</target>
       </segment>
     </unit>
     <unit id="7iq8jIG" name="general.phrase.missing-about-page-block">
-      <segment>
+      <segment state="translated">
         <source>general.phrase.missing-about-page-block</source>
-        <target>Блок "About" отсутствует.</target>
+        <target>Блок "Подробности" отсутствует.</target>
       </segment>
     </unit>
     <unit id="AGegYAN" name="contenttypes.generic.recent">
@@ -925,12 +935,6 @@
       <segment>
         <source>general.phrase.search</source>
         <target>Поиск</target>
-      </segment>
-    </unit>
-    <unit id="z0k8hRg" name="9fb3e6e">
-      <segment>
-        <source>9fb3e6e</source>
-        <target>Этот сайт &lt;a href='https://boltcms.io' target='_blank' title='Изысканная, легкая и простая CMS'&gt;сделан на Bolt&lt;/a&gt;.</target>
       </segment>
     </unit>
     <unit id="wNEwZy_" name="contenttypes.generic.overview">
@@ -976,9 +980,9 @@
       </segment>
     </unit>
     <unit id="Wou02nK" name="caption.kitchensink">
-      <segment>
+      <segment state="translated">
         <source>caption.kitchensink</source>
-        <target>The Kitchensink</target>
+        <target>Кухонная раковина</target>
       </segment>
     </unit>
     <unit id="wrUiAsV" name="general.phrase.search-results-for-variable">
@@ -1024,9 +1028,9 @@
       </segment>
     </unit>
     <unit id="psOa_9x" name="general.phrase.built-with-bolt">
-      <segment>
+      <segment state="translated">
         <source>general.phrase.built-with-bolt</source>
-        <target><![CDATA[Этот сайт <a href='https://boltcms.io' target='_blank' title='Изысканная, легкая и простая CMS'>сделан на Bolt</a>.]]></target>
+        <target><![CDATA[Этот сайт <a href='https://boltcms.io' target='_blank' title='Изысканная, лёгкая и простая CMS'>сделан на Bolt</a>.]]></target>
       </segment>
     </unit>
     <unit id="5IxD63c" name="general.latest_bolt_news">
@@ -1042,9 +1046,9 @@
       </segment>
     </unit>
     <unit id="ok6YulQ" name="action.view_saved">
-      <segment>
+      <segment state="translated">
         <source>action.view_saved</source>
-        <target>Посмотреть сохраненную версию</target>
+        <target>Посмотреть сохранённую версию</target>
       </segment>
     </unit>
     <unit id="SeTqePC" name="label.display_name">
@@ -1078,9 +1082,9 @@
       </segment>
     </unit>
     <unit id="Iyry5.g" name="editfile.updated_successfully">
-      <segment>
+      <segment state="translated">
         <source>editfile.updated_successfully</source>
-        <target>Файл обновлен успешно!</target>
+        <target>Файл обновлён успешно!</target>
       </segment>
     </unit>
     <unit id="3zlZmRK" name="action.add_user">
@@ -1096,9 +1100,9 @@
       </segment>
     </unit>
     <unit id="YDH.7uR" name="user.updated_profile">
-      <segment>
+      <segment state="translated">
         <source>user.updated_profile</source>
-        <target>Профиль пользователя обновлен!</target>
+        <target>Профиль пользователя обновлён!</target>
       </segment>
     </unit>
     <unit id="iD6CNOO" name="label.roles">
@@ -1162,27 +1166,27 @@
       </segment>
     </unit>
     <unit id="PoauAuK" name="listing_table.actions.status_to_publish">
-      <segment>
+      <segment state="translated">
         <source>listing_table.actions.status_to_publish</source>
-        <target>Измените статус на "опубликовать"</target>
+        <target>Измените статус на «опубликовать»</target>
       </segment>
     </unit>
     <unit id="ZJxfdD6" name="listing_table.actions.status_to_held">
-      <segment>
+      <segment state="translated">
         <source>listing_table.actions.status_to_held</source>
-        <target>Изменить статус на "неактивно"</target>
+        <target>Изменить статус на «неактивно»</target>
       </segment>
     </unit>
     <unit id="apyOs0o" name="listing_table.actions.status_to_draft">
-      <segment>
+      <segment state="translated">
         <source>listing_table.actions.status_to_draft</source>
-        <target>Изменить статус на "черновик"</target>
+        <target>Изменить статус на «черновик»</target>
       </segment>
     </unit>
     <unit id="5H60Xq6" name="listing_table.actions.duplicate">
-      <segment>
+      <segment state="translated">
         <source>listing_table.actions.duplicate</source>
-        <target>Клонировать</target>
+        <target>Создать дубликат</target>
       </segment>
     </unit>
     <unit id="hR8ri.m" name="listing_table.actions.delete">
@@ -1210,9 +1214,9 @@
       </segment>
     </unit>
     <unit id="kHkjS5U" name="listing_table.actions.last_modified_on">
-      <segment>
+      <segment state="translated">
         <source>listing_table.actions.last_modified_on</source>
-        <target>Изменен</target>
+        <target>Изменён</target>
       </segment>
     </unit>
     <unit id="BdhsE_X" name="listing_select_box.card_header.selected">
@@ -1264,9 +1268,9 @@
       </segment>
     </unit>
     <unit id="zATju4V" name="editor_embed.label_preview">
-      <segment>
+      <segment state="translated">
         <source>editor_embed.label_preview</source>
-        <target>Preview</target>
+        <target>Предпросмотр</target>
       </segment>
     </unit>
     <unit id="9SQ0oaR" name="editor_embed.label_size">
@@ -1300,15 +1304,15 @@
       </segment>
     </unit>
     <unit id="jXAelLe" name="admin_sidebar_toggler.toggle">
-      <segment>
+      <segment state="translated">
         <source>admin_sidebar_toggler.toggle</source>
-        <target><![CDATA[<span class="sr-only">Вкл./Выкл. </span>меню]]></target>
+        <target><![CDATA[<span class="sr-only">Вкл./Откл.</span> меню]]></target>
       </segment>
     </unit>
     <unit id="BINgtmK" name="editor_date.toggle">
-      <segment>
+      <segment state="translated">
         <source>editor_date.toggle</source>
-        <target>Вкл./Выкл.</target>
+        <target>Вкл./Откл.</target>
       </segment>
     </unit>
     <unit id="VQ2t655" name="file.label_filename">
@@ -1366,9 +1370,9 @@
       </segment>
     </unit>
     <unit id="3o0LPHj" name="geolocation.placeholder_address">
-      <segment>
+      <segment state="translated">
         <source>geolocation.placeholder_address</source>
-        <target>Улица, почтовый индекс, город или другое…</target>
+        <target>Улица, почтовый индекс, город или другие данные…</target>
       </segment>
     </unit>
     <unit id="CC5QTmy" name="geolocation.label_lat">
@@ -1420,9 +1424,9 @@
       </segment>
     </unit>
     <unit id="ypPzS03" name="localeswitcher.button_info">
-      <segment>
+      <segment state="translated">
         <source>localeswitcher.button_info</source>
-        <target>См. Информацию о локализации</target>
+        <target>Подробная информация о локализации</target>
       </segment>
     </unit>
     <unit id="wQ0WYAT" name="listing.title_sortby">
@@ -1456,9 +1460,9 @@
       </segment>
     </unit>
     <unit id="doNsgm0" name="listing.button_clear">
-      <segment>
+      <segment state="translated">
         <source>listing.button_clear</source>
-        <target>Очистить сортировку/фильтр</target>
+        <target>Очистить сортировку / фильтр</target>
       </segment>
     </unit>
     <unit id="37kJiIe" name="view_locales.badge_default">
@@ -1486,9 +1490,9 @@
       </segment>
     </unit>
     <unit id="gtC_ujD" name="files_cards.action_edit_image_info">
-      <segment>
+      <segment state="translated">
         <source>files_cards.action_edit_image_info</source>
-        <target>Редактировать инфо. об изображении</target>
+        <target>Редактировать информацию об изображении</target>
       </segment>
     </unit>
     <unit id="5LXvJfE" name="files_cards.action_edit_file">
@@ -1504,9 +1508,9 @@
       </segment>
     </unit>
     <unit id="ZoY6ADX" name="files_cards.action_duplicate">
-      <segment>
+      <segment state="translated">
         <source>files_cards.action_duplicate</source>
-        <target>Клонировать</target>
+        <target>Создать дубликат</target>
       </segment>
     </unit>
     <unit id="JjU6ZQP" name="files_cards.action_delete">
@@ -1594,9 +1598,9 @@
       </segment>
     </unit>
     <unit id="piuatxC" name="extensions.info_not_installed">
-      <segment>
+      <segment state="translated">
         <source>extensions.info_not_installed</source>
-        <target>Это локальный пакет, не установлен через Composer</target>
+        <target>Это локальный пакет, он не установлен через Composer</target>
       </segment>
     </unit>
     <unit id="3j1gEmk" name="extensions.title_class">
@@ -1636,9 +1640,9 @@
       </segment>
     </unit>
     <unit id="7JK6jNv" name="extensions.message_not_implemented">
-      <segment>
+      <segment state="translated">
         <source>extensions.message_not_implemented</source>
-        <target>Еще не реализовано.</target>
+        <target>Ещё не реализовано.</target>
       </segment>
     </unit>
     <unit id="Hlf9c1s" name="listing.title_overview">
@@ -1654,15 +1658,15 @@
       </segment>
     </unit>
     <unit id="pcq1NGk" name="listing_filter.button_compact">
-      <segment>
+      <segment state="translated">
         <source>listing_filter.button_compact</source>
-        <target>Свернуто</target>
+        <target>Свёрнуто</target>
       </segment>
     </unit>
     <unit id="xIztVmp" name="listing_filter.button_expanded">
-      <segment>
+      <segment state="translated">
         <source>listing_filter.button_expanded</source>
-        <target>Развернуто</target>
+        <target>Развёрнуто</target>
       </segment>
     </unit>
     <unit id="73A2bWM" name="finder.label_view">
@@ -1714,15 +1718,15 @@
       </segment>
     </unit>
     <unit id="a3UNsKw" name="controller.omnisearch.title">
-      <segment>
+      <segment state="translated">
         <source>controller.omnisearch.title</source>
-        <target>Всенаправленный поиск</target>
+        <target>Всеохватывающий поиск</target>
       </segment>
     </unit>
     <unit id="4N41oTU" name="controller.omnisearch.subtitle">
-      <segment>
+      <segment state="translated">
         <source>controller.omnisearch.subtitle</source>
-        <target>To search, in an omni-like fashion</target>
+        <target>Для поиска во всеохватывающем режиме</target>
       </segment>
     </unit>
     <unit id="7cXqH5s" name="listing.title_display_name">
@@ -1738,9 +1742,9 @@
       </segment>
     </unit>
     <unit id="RN1tdtJ" name="listing.title_email">
-      <segment>
+      <segment state="translated">
         <source>listing.title_email</source>
-        <target>Эл. адрес</target>
+        <target>Email</target>
       </segment>
     </unit>
     <unit id="0pjZ.GV" name="listing.title_roles">
@@ -1948,9 +1952,9 @@
       </segment>
     </unit>
     <unit id="nj8qBZ5" name="user.disabled_successfully">
-      <segment>
+      <segment state="translated">
         <source>user.disabled_successfully</source>
-        <target>Пользователь был успешно отключен!</target>
+        <target>Пользователь был успешно отключён!</target>
       </segment>
     </unit>
     <unit id="Npkio79" name="listing.title_session_expires">
@@ -2122,9 +2126,9 @@
       </segment>
     </unit>
     <unit id="S0f6iTL" name="label.timestamp">
-      <segment>
+      <segment state="translated">
         <source>label.timestamp</source>
-        <target>Timestamp</target>
+        <target>Временная метка</target>
       </segment>
     </unit>
     <unit id="O2X4xZH" name="label.user">
@@ -2134,9 +2138,9 @@
       </segment>
     </unit>
     <unit id="3MuwWwe" name="listing.disabled">
-      <segment>
+      <segment state="translated">
         <source>listing.disabled</source>
-        <target>Вывод отключен</target>
+        <target>Вывод отключён</target>
       </segment>
     </unit>
     <unit id="XQ2U6fN" name="slug.button_unlocked">
@@ -2224,9 +2228,9 @@
       </segment>
     </unit>
     <unit id="v7ZTnja" name="file.delete_success">
-      <segment>
+      <segment state="translated">
         <source>file.delete_success</source>
-        <target>Файл успешно удален!</target>
+        <target>Файл успешно удалён!</target>
       </segment>
     </unit>
     <unit id="wHPoBzP" name="file.delete_confirm">
@@ -2242,15 +2246,15 @@
       </segment>
     </unit>
     <unit id="Zssh7In" name="content.status_changed_successfully">
-      <segment>
+      <segment state="translated">
         <source>content.status_changed_successfully</source>
-        <target>Статус успешно изменен</target>
+        <target>Статус успешно изменён</target>
       </segment>
     </unit>
     <unit id="GOhQBY9" name="content.deleted_successfully">
-      <segment>
+      <segment state="translated">
         <source>content.deleted_successfully</source>
-        <target>Контент успешно удален</target>
+        <target>Контент успешно удалён</target>
       </segment>
     </unit>
     <unit id=".I3mIHo" name="label.current_status">
@@ -2290,9 +2294,9 @@
       </segment>
     </unit>
     <unit id="YZJO3Ul" name="upload.allow_file_types">
-      <segment>
+      <segment state="translated">
         <source>upload.allow_file_types</source>
-        <target>Типы файлов, разрешенные для загрузки</target>
+        <target>Типы файлов, разрешённые для загрузки</target>
       </segment>
     </unit>
     <unit id="noOf4ML" name="upload.max_size">
@@ -2350,13 +2354,13 @@
       </segment>
     </unit>
     <unit id="pXtciRI" name="content.edit_missing_definition">
-      <segment>
+      <segment state="translated">
         <source>content.edit_missing_definition</source>
-        <target>Определение этого Типа контента отсутствует! Редактирование этой записи не будет работать должным образом. Пожалуйста, проверьте свой contenttypes.yaml, чтобы убедиться, что он содержит% contenttype%.</target>
+        <target>Определение этого Типа контента отсутствует! Редактирование этой записи не будет работать должным образом. Пожалуйста, проверьте свой contenttypes.yaml, чтобы убедиться, что он содержит %contenttype%.</target>
       </segment>
     </unit>
     <unit id="RBJ0NMl" name="collection.select">
-      <segment>
+      <segment state="translated">
         <source>collection.select</source>
         <target>Выбрать …</target>
       </segment>
@@ -2416,9 +2420,9 @@
       </segment>
     </unit>
     <unit id="lZxOEzh" name="filemanager.delete_folder_successful">
-      <segment>
+      <segment state="translated">
         <source>filemanager.delete_folder_successful</source>
-        <target>Папка успешно удалена</target>
+        <target>Папка успешно удалена.</target>
       </segment>
     </unit>
     <unit id="a6Xhtq0" name="folder.create_new">
@@ -2437,6 +2441,318 @@
       <segment>
         <source>label.avatar</source>
         <target>Аватар</target>
+      </segment>
+    </unit>
+    <unit id="NF.vvAN" name="You have to login in order to access this page.">
+      <segment state="translated">
+        <source>You have to login in order to access this page.</source>
+        <target>Вы должны войти в систему, чтобы получить доступ к этой странице.</target>
+      </segment>
+    </unit>
+    <unit id="dp42qbF" name="reset_password.email_title">
+      <segment state="translated">
+        <source>reset_password.email_title</source>
+        <target>Привет!</target>
+      </segment>
+    </unit>
+    <unit id="apkSD11" name="reset_password.email_expire">
+      <segment state="translated">
+        <source>reset_password.email_expire</source>
+        <target>Срок действия этой ссылки истечёт через %hours% час(а/ов).</target>
+      </segment>
+    </unit>
+    <unit id="lpzL089" name="Email">
+      <segment>
+        <source>Email</source>
+        <target>Email</target>
+      </segment>
+    </unit>
+    <unit id="0yPnNMd" name="modal.title.image_field">
+      <segment state="translated">
+        <source>modal.title.image_field</source>
+        <target>Выберите изображение</target>
+      </segment>
+    </unit>
+    <unit id="5Xr92sQ" name="reset_password.problem_with_request">
+      <segment state="translated">
+        <source>reset_password.problem_with_request</source>
+        <target>Возникла проблема с обработкой вашего запроса на сброс пароля - %s</target>
+      </segment>
+    </unit>
+    <unit id="Y7ajNNN" name="placeholder.email">
+      <segment state="translated">
+        <source>placeholder.email</source>
+        <target>ваш email</target>
+      </segment>
+    </unit>
+    <unit id="U6qdalg" name="reset_password.check_email_sent_header">
+      <segment state="translated">
+        <source>reset_password.check_email_sent_header</source>
+        <target>Электронное письмо для сброса пароля - отправлено</target>
+      </segment>
+    </unit>
+    <unit id="i37ZNqN" name="login.forgotpassword">
+      <segment state="translated">
+        <source>login.forgotpassword</source>
+        <target>Забыл пароль</target>
+      </segment>
+    </unit>
+    <unit id="y.dIywE" name="reset_password.request_header">
+      <segment state="translated">
+        <source>reset_password.request_header</source>
+        <target>Сбросить пароль</target>
+      </segment>
+    </unit>
+    <unit id="W7z__Yi" name="action.impersonate">
+      <segment state="translated">
+        <source>action.impersonate</source>
+        <target>выдавать себя за</target>
+      </segment>
+    </unit>
+    <unit id="k9hekeu" name="reset_password.back-to-login">
+      <segment state="translated">
+        <source>reset_password.back-to-login</source>
+        <target>Вернуться к входу в систему</target>
+      </segment>
+    </unit>
+    <unit id="SjuOnue" name="reset_password.reset_successful">
+      <segment state="translated">
+        <source>reset_password.reset_successful</source>
+        <target>Ваш пароль был успешно сброшен.</target>
+      </segment>
+    </unit>
+    <unit id="VlfWDQr" name="modal.button_save">
+      <segment state="translated">
+        <source>modal.button_save</source>
+        <target>Сохранить</target>
+      </segment>
+    </unit>
+    <unit id="1JZeWxG" name="reset_password.minimum_length">
+      <segment state="translated">
+        <source>reset_password.minimum_length</source>
+        <target>Ваш пароль должен содержать не менее %s символов</target>
+      </segment>
+    </unit>
+    <unit id=".l3zbrq" name="listing_details_box.slug">
+      <segment state="translated">
+        <source>listing_details_box.slug</source>
+        <target>Сегмент адреса: %slug% (в ед. числе: %singularSlug%)</target>
+      </segment>
+    </unit>
+    <unit id="z8r0TY6" name="action.edit_permissions">
+      <segment state="translated">
+        <source>action.edit_permissions</source>
+        <target>Редактировать права</target>
+      </segment>
+    </unit>
+    <unit id="qlucRr7" name="maintenance.activated_warning">
+      <segment state="translated">
+        <source>maintenance.activated_warning</source>
+        <target>Активирован режим технического обслуживания</target>
+      </segment>
+    </unit>
+    <unit id="OYUVA5." name="general.label.search">
+      <segment state="translated">
+        <source>general.label.search</source>
+        <target>Поиск</target>
+      </segment>
+    </unit>
+    <unit id="_gg3hPE" name="reset_password.email_thanks">
+      <segment state="translated">
+        <source>reset_password.email_thanks</source>
+        <target>Всего самого хорошего!</target>
+      </segment>
+    </unit>
+    <unit id="qoZwSEY" name="action.preview_secure_share">
+      <segment state="translated">
+        <source>action.preview_secure_share</source>
+        <target>Поделиться защищенной ссылкой для предварительного просмотра</target>
+      </segment>
+    </unit>
+    <unit id="zYeSeNJ" name="action.stop_impersonating">
+      <segment state="translated">
+        <source>action.stop_impersonating</source>
+        <target>перестать выдавать себя за</target>
+      </segment>
+    </unit>
+    <unit id="tsc7_G3" name="listing_details_box.listing_template">
+      <segment state="translated">
+        <source>listing_details_box.listing_template</source>
+        <target>Шаблон списка: %template% (%listingRecords% записей)</target>
+      </segment>
+    </unit>
+    <unit id="SwOgM7K" name="reset_password.request_description">
+      <segment state="translated">
+        <source>reset_password.request_description</source>
+        <target>Введите свой адрес электронной почты, и мы вышлем вам ссылку для сброса вашего пароля.</target>
+      </segment>
+    </unit>
+    <unit id="CvNi3GD" name="action.refresh">
+      <segment state="translated">
+        <source>action.refresh</source>
+        <target>Обновить</target>
+      </segment>
+    </unit>
+    <unit id="harDiJR" name="reset_password.enter_pwd">
+      <segment state="translated">
+        <source>reset_password.enter_pwd</source>
+        <target>Пожалуйста, введите пароль</target>
+      </segment>
+    </unit>
+    <unit id="f8zXapF" name="form.empty_email">
+      <segment state="translated">
+        <source>form.empty_email</source>
+        <target>Пожалуйста, введите email</target>
+      </segment>
+    </unit>
+    <unit id="KIN.Ehy" name="modal.title.upload_from_url">
+      <segment state="translated">
+        <source>modal.title.upload_from_url</source>
+        <target>Загрузить с URL-адреса</target>
+      </segment>
+    </unit>
+    <unit id="ct_I4w3" name="modal.button_deny">
+      <segment state="translated">
+        <source>modal.button_deny</source>
+        <target>Закрыть</target>
+      </segment>
+    </unit>
+    <unit id="MjY7.cg" name="modal.title.file_field">
+      <segment state="translated">
+        <source>modal.title.file_field</source>
+        <target>Выберите файл</target>
+      </segment>
+    </unit>
+    <unit id="2hoKa1k" name="label.remembermeduration">
+      <segment state="translated">
+        <source>label.remembermeduration</source>
+        <target>Запомнить меня? (на %duration% дня(ей))</target>
+      </segment>
+    </unit>
+    <unit id="eJ9YbdG" name="listing_details_box.record_template">
+      <segment state="translated">
+        <source>listing_details_box.record_template</source>
+        <target>Шаблон записи: %template%</target>
+      </segment>
+    </unit>
+    <unit id="pPz9Ocx" name="listing_details_box.locales">
+      <segment state="translated">
+        <source>listing_details_box.locales</source>
+        <target>Локали: %locales%</target>
+      </segment>
+    </unit>
+    <unit id="RX0Iuzi" name="reset_password.request_send">
+      <segment state="translated">
+        <source>reset_password.request_send</source>
+        <target>Подтвердить</target>
+      </segment>
+    </unit>
+    <unit id="a_COwtV" name="image.button_upload_options">
+      <segment state="translated">
+        <source>image.button_upload_options</source>
+        <target>Параметры загрузки</target>
+      </segment>
+    </unit>
+    <unit id="9UKAP.V" name="listing_details_box.showing_records">
+      <segment state="translated">
+        <source>listing_details_box.showing_records</source>
+        <target>Показано %current% из %total% записей</target>
+      </segment>
+    </unit>
+    <unit id="gVc0Uf4" name="reset_password.reset_header">
+      <segment state="translated">
+        <source>reset_password.reset_header</source>
+        <target>Сбросьте свой пароль</target>
+      </segment>
+    </unit>
+    <unit id="u3DMmBH" name="label.filtered_by">
+      <segment state="translated">
+        <source>label.filtered_by</source>
+        <target>отфильтровано по</target>
+      </segment>
+    </unit>
+    <unit id="UrywY0R" name="listing_details_box.name">
+      <segment state="translated">
+        <source>listing_details_box.name</source>
+        <target>Имя: %name% (в ед. числе: %singularName%)</target>
+      </segment>
+    </unit>
+    <unit id="rU9cSfq" name="label.repeat_password">
+      <segment state="translated">
+        <source>label.repeat_password</source>
+        <target>Повторите пароль</target>
+      </segment>
+    </unit>
+    <unit id="a_CQgly" name="Order">
+      <segment state="translated">
+        <source>Order</source>
+        <target>Порядок</target>
+      </segment>
+    </unit>
+    <unit id="ODb3pJA" name="modal.text.loading">
+      <segment state="translated">
+        <source>modal.text.loading</source>
+        <target>Загрузка...</target>
+      </segment>
+    </unit>
+    <unit id="OEqzPDO" name="listing_table.actions.select_all">
+      <segment state="translated">
+        <source>listing_table.actions.select_all</source>
+        <target>Выбрать все</target>
+      </segment>
+    </unit>
+    <unit id="z25k4DS" name="reset_password.check_email_sent_text_2">
+      <segment state="translated">
+        <source>reset_password.check_email_sent_text_2</source>
+        <target>Если вы не получили электронное письмо, пожалуйста, проверьте свою папку со спамом или %tryagain%.</target>
+      </segment>
+    </unit>
+    <unit id="wG04eAa" name="image.image_preview">
+      <segment state="translated">
+        <source>image.image_preview</source>
+        <target>Предварительный просмотр изображения</target>
+      </segment>
+    </unit>
+    <unit id="GUQYLn2" name="reset_password.no_token">
+      <segment state="translated">
+        <source>reset_password.no_token</source>
+        <target>Токен сброса пароля не найден ни в URL-адресе, ни в сеансе.</target>
+      </segment>
+    </unit>
+    <unit id="QpUMHfK" name="reset_password.reset_btn">
+      <segment state="translated">
+        <source>reset_password.reset_btn</source>
+        <target>Сбросить пароль</target>
+      </segment>
+    </unit>
+    <unit id="xS2vvXw" name="reset_password.email_description">
+      <segment state="translated">
+        <source>reset_password.email_description</source>
+        <target>Чтобы сбросить свой пароль, пожалуйста, перейдите по следующей ссылке</target>
+      </segment>
+    </unit>
+    <unit id="eJG2.4P" name="listing.current_sessions_header">
+      <segment state="translated">
+        <source>listing.current_sessions_header</source>
+        <target>Текущие сессии</target>
+      </segment>
+    </unit>
+    <unit id="Tg5zdeo" name="reset_password.not_matching_pwds">
+      <segment state="translated">
+        <source>reset_password.not_matching_pwds</source>
+        <target>Пароли должны совпадать.</target>
+      </segment>
+    </unit>
+    <unit id="hKmDb7q" name="Share secure preview link">
+      <segment state="translated">
+        <source>Share secure preview link</source>
+        <target>Поделитесь защищённой ссылкой для предварительного просмотра</target>
+      </segment>
+    </unit>
+    <unit id="SxW1D3L" name="reset_password.check_email_sent_text_1">
+      <segment state="translated">
+        <source>reset_password.check_email_sent_text_1</source>
+        <target>Было отправлено электронное письмо, содержащее ссылку, по которой вы можете перейти, чтобы сбросить свой пароль. Срок действия этой ссылки истечёт через %hours% час(а/ов).</target>
       </segment>
     </unit>
   </file>
