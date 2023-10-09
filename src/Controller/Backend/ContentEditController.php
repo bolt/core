@@ -630,6 +630,11 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
             ) {
                 $currentRelation->getFromContent()->removeRelationsFromThisContent($currentRelation);
             }
+            $currentRelations = $currentRelations->filter(
+                static function (Relation $r) use ($currentRelation) {
+                    return $r !== $currentRelation;
+                }
+            );
             $this->em->remove($currentRelation);
         }
 
