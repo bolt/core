@@ -153,19 +153,28 @@ export default {
          */
         if (this.fetchurl) {
             window.selectCache = window.selectCache || {};
+            window.requestCache = window.requestCache || {};
+
             if (window.selectCache[this.fetchurl]) {
                 this.options = window.selectCache[this.fetchurl];
                 fixSelectedItems.call(this);
+            } else if (window.requestCache[this.fetchurl]) {
+                window.requestCache[this.fetchurl].then(response => {
+                    this.options = response;
+                    fixSelectedItems.call(this);
+                });
             } else {
                 this.isLoading = true;
 
-                $.ajax({ url: this.fetchurl, dataType: 'json', cache: true }).then(response => {
-                    this.options = response;
-                    window.selectCache[this.fetchurl] = response;
-                    this.isLoading = false;
-
-                    fixSelectedItems.call(this);
-                });
+                window.requestCache[this.fetchurl] = $.ajax({ url: this.fetchurl, dataType: 'json', cache: true });
+                window.requestCache[this.fetchurl].then(
+                    response => {
+                        this.options = response;
+                        window.selectCache[this.fetchurl] = response;
+                        this.isLoading = false;
+                        fixSelectedItems.call(this);
+                    },
+                );
             }
         } else {
             fixSelectedItems.call(this);
