@@ -218,7 +218,6 @@ class FieldExtension extends AbstractExtension
             'values' => $field->getDefinition()->get('values'),
             'limit'  => $field->getDefinition()->get('limit', ''),
             'order'  => $field->getDefinition()->get('order', ''),
-
         ]);
     }
 
@@ -315,7 +314,6 @@ class FieldExtension extends AbstractExtension
         // If we use `cache/list_format`, delegate it to that Helper
         if ($this->config->get('general/caching/list_format')) {
             $options = $this->listFormatHelper->getSelect($contentTypeSlug, $params);
-//            dump($options);
             return $options;
         }
 
@@ -338,8 +336,6 @@ class FieldExtension extends AbstractExtension
                 $options[$key]["link_to_record_url"] = $this->router->generate('bolt_content_edit', ['id' => $record->getId()]);
             }
         }
-
-//        dump($options);
 
         return $options;
     }

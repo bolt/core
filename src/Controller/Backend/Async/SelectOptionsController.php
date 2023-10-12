@@ -10,35 +10,24 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Annotation\Route;
 use Tightenco\Collect\Support\Collection;
-use Bolt\Cache\SelectOptionsCacher;
 
 /**
  * @Security("is_granted('upload')")
  */
 class SelectOptionsController extends AbstractController implements AsyncZoneInterface
 {
-    // use CsrfTrait;
-
     /** @var Config */
     private $config;
-
-    /** @var Request */
-    private $request;
 
     /** @var FieldExtension */
     private $fieldExtension;
 
-
-    public function __construct(Config              $config,
-                                RequestStack        $requestStack,
-                                SelectOptionsCacher $selectOptionsCacher)
+    public function __construct(Config $config, FieldExtension $fieldExtension)
     {
         $this->config = $config;
-        $this->request = $requestStack->getCurrentRequest();
-        $this->fieldExtension = $selectOptionsCacher;
+        $this->fieldExtension = $fieldExtension;
     }
 
     /**
@@ -48,8 +37,6 @@ class SelectOptionsController extends AbstractController implements AsyncZoneInt
      */
     public function handleSelectOptions(Request $request): JsonResponse
     {
-        // TODO: Need to get a field definition somewhere ...
-
         [ $contentTypeSlug, $format ] = explode('/', $request->get('values'));
 
         if (empty($maxAmount = $request->get('limit'))) {
@@ -80,19 +67,8 @@ class SelectOptionsController extends AbstractController implements AsyncZoneInt
 
         $field = $this->fieldExtension->fieldFactory($request->get('name'));
 
-        $options = array_merge($options, $this->fieldExtension->selectOptionsHelper($contentTypeSlug, $params, $field, $format)); // is this part cached?
+        $options = array_merge($options, $this->fieldExtension->selectOptionsHelper($contentTypeSlug, $params, $field, $format));
 
-        $response = new JsonResponse(new Collection($options));
-        /* -- This does NOT seem to work, we want to store responses so we won't DDOS ourselves.
-        $response->setCache([
-            'must_revalidate' => false,
-            'no_cache' => false,
-            'max_age'  => 36000,
-        ]);
-        */
-
-        return $response;
+        return new JsonResponse(new Collection($options));
     }
-
-
 }
