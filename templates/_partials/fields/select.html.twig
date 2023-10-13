@@ -13,6 +13,14 @@
     {% endif %}
 {% endblock %}
 
+{% set fetchUrl = '' %}
+{% if field is defined
+    and field.definition.get('values') is not iterable
+    and field.definition.get('lazy')|default(false) %}
+    {% set options = [] %}
+    {% set fetchUrl = select_options_url(field) %}
+{% endif %}
+
 {% if options is not defined %}
     {% set options = select_options(field) %}
 {% endif %}
@@ -43,5 +51,6 @@
         :readonly="{{ readonly|json_encode }}"
         :errormessage='{{ errormessage|json_encode }}'
         :required='{{ required|json_encode }}'
+        :fetchurl='{{ fetchUrl|json_encode }}'
     ></editor-select>
 {% endblock %}
