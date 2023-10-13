@@ -78,7 +78,6 @@
 <script>
 import Multiselect from 'vue-multiselect';
 import $ from 'jquery';
-//import axios from 'axios';
 
 export default {
     name: 'EditorSelect',
