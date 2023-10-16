@@ -7,6 +7,10 @@
     {% set options = related_options(fromContentType, toContentTypeSlug, relation.order|default(), relation.format|default(), relation.required, relation.allow_empty, relation.link_to_record|default(false), ) %}
     {% set value = record|related_values(toContentTypeSlug) %}
 
+    {% if limit is not defined %}
+        {% set limit = relation.get('limit')|default(2000) %}
+    {% endif %}
+
     <div class="mb-4">
 
         {# Print prefix #}
@@ -26,6 +30,7 @@
                     :name="'relationship[{{ toContentTypeSlug }}]'"
                     :id="'relationship-{{ toContentTypeSlug }}'"
                     :options="{{ options }}"
+                    :optionslimit="{{ limit }}"
                     :multiple="{{ relation.multiple ? 'true' : 'false' }}"
                     :taggable=false
                     :autocomplete=true
