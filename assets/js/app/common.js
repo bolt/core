@@ -78,7 +78,7 @@ $(document).ready(function() {
      ** When a field from another group is invalid, show it.
      */
     $('#editor button[type="submit"]').click(function() {
-        $('input:invalid').each(function() {
+        $('#editor input:invalid').each(function() {
             // Find the tab-pane that this element is inside, and get the id
             let $closest = $(this).closest('.tab-pane');
             let id = $closest.attr('id');
