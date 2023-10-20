@@ -19,7 +19,10 @@ $bolt-blue: #255687; // Nice and bright, pretty light
 $bolt-bluegray: #2f3e4d; // Nice dark and desaturated
 $bolt-saturated: #003e7c; // Very saturated. Use with care
 
+$gray-200: #e9ecef; // Use default Bootstrap value for now
+
 $body-bg: $background;
+$body-secondary-bg:         $gray-200; // Use default Bootstrap value for now
 
 $theme-colors: (
   "primary":   $primary,
@@ -67,7 +70,7 @@ $font-weight-bold:              700;
 $headings-font-weight:          600;
 
 // Links
-$link-color:                var(--primary);
+$link-color:                $primary;
 $link-hover-color:          var(--primary-600);
 
 //buttons
@@ -139,6 +142,7 @@ $min-contrast-ratio:  4.5;
 
 $popover-header-padding-y:          0.5rem;
 $popover-header-padding-x:          0.75rem;
+$popover-header-bg:                 $body-secondary-bg;
 
 $popover-body-padding-y:            0.5rem;
 $popover-body-padding-x:            0.75rem;
