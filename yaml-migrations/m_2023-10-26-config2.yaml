@@ -1,0 +1,9 @@
+# Remove `allow_upscale`
+# See: https://github.com/bolt/core/pull/3383
+
+file: bolt/config.yaml
+since: 5.2.0
+
+remove:
+    thumbnails:
+        allow_upscale: ~
