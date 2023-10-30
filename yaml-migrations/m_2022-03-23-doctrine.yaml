@@ -1,0 +1,12 @@
+# Adding JSON_VALUE, see https://github.com/bolt/core/pull/3135
+# From: https://github.com/bolt/core/issues/2088#issuecomment-1076232230
+
+file: packages/doctrine.yaml
+since: 5.1.6
+
+add:
+    doctrine:
+        orm:
+            dql:
+                string_functions:
+                    JSON_VALUE: Bolt\Doctrine\Functions\JsonValue
