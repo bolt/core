@@ -1,0 +1,11 @@
+# See: https://github.com/bolt/project/commit/f33248d487b5b6a09a38224f890d259f9ea07003#diff-79c1dc283ac8f8d1d02991db661137a22a20b13cd277962eae1d0dbfb2d96467
+
+file: packages/prod/doctrine.yaml
+since: 5.2.0
+
+add:
+    framework:
+        cache:
+            pools:
+                doctrine.system_cache_pool:
+                    adapter: cache.app
