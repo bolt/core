@@ -143,7 +143,7 @@ class ImageController
         $raw = explode('×', preg_replace('/([0-9])(x)([0-9a-z])/i', '\1×\3', $paramString));
 
         $this->parameters = [
-            'w' => (isset($raw[0] && is_numeric($raw[0])) ? (int) $raw[0] : 400,
+            'w' => (isset($raw[0]) && is_numeric($raw[0])) ? (int) $raw[0] : 400,
             'h' => (isset($raw[1]) && is_numeric($raw[1])) ? (int) $raw[1] : 300,
             'fit' => isset($raw[2]) ? $raw[2] : $this->config->get('general/thumbnails/default_cropping', 'default'),
             'location' => 'files',
