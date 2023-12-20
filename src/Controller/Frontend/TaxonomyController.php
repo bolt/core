@@ -34,6 +34,10 @@ class TaxonomyController extends TwigAwareController implements FrontendZoneInte
 
         $taxonomy = TaxonomyType::factory($taxonomyslug, $this->config->get('taxonomies'));
 
+        if ($taxonomy->has('listing_records')) {
+            $amountPerPage = $taxonomy->get('listing_records');
+        }
+
         /** @var Content[] $records */
         $records = $contentRepository->findForTaxonomy($page, $taxonomy, $slug, $amountPerPage);
 
