@@ -33,8 +33,9 @@
 	{% set autocomplete = field.definition.get('autocomplete')|default ? 'true' : 'false' %}
 {% endif %}
 
-{% if limit is not defined %}
-	{% set limit = field.definition.get('limit')|default(2000) %}
+{% set limit = config.get('general/maximum_listing_select', 2000) %}
+{% if field.definition.get('limit') is defined and field.definition.get('limit') is not empty %}
+    {% set limit = field.definition.get('limit') %}
 {% endif %}
 
 {% block field %}

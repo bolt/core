@@ -6,9 +6,10 @@
 
     {% set options = related_options(fromContentType, toContentTypeSlug, relation.order|default(), relation.format|default(), relation.required, relation.allow_empty, relation.link_to_record|default(false), ) %}
     {% set value = record|related_values(toContentTypeSlug) %}
+    {% set limit = config.get('general/maximum_listing_select', 2000) %}
 
-    {% if limit is not defined %}
-        {% set limit = relation.get('limit')|default(2000) %}
+    {% if relation.get('limit') is defined and relation.get('limit') is not empty %}
+        {% set limit = relation.get('limit') %}
     {% endif %}
 
     <div class="mb-4">
@@ -26,14 +27,14 @@
 
         <div>
             <editor-select
-                    :value="{{ value }}"
-                    :name="'relationship[{{ toContentTypeSlug }}]'"
-                    :id="'relationship-{{ toContentTypeSlug }}'"
-                    :options="{{ options }}"
-                    :optionslimit="{{ limit }}"
-                    :multiple="{{ relation.multiple ? 'true' : 'false' }}"
-                    :taggable=false
-                    :autocomplete=true
+                :value="{{ value }}"
+                :name="'relationship[{{ toContentTypeSlug }}]'"
+                :id="'relationship-{{ toContentTypeSlug }}'"
+                :options="{{ options }}"
+                :optionslimit="{{ limit }}"
+                :multiple="{{ relation.multiple ? 'true' : 'false' }}"
+                :taggable=false
+                :autocomplete=true
             ></editor-select>
         </div>
 
