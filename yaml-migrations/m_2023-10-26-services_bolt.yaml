@@ -1,0 +1,10 @@
+# Add `bind`
+# See: https://github.com/bolt/core/commit/a5ffe5df95cac71faa76a95eca1a7720c40532ed
+
+file: services_bolt.yaml
+since: 5.2.0
+
+add:
+    services:
+        _defaults:
+            bind: {  }

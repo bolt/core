@@ -30,7 +30,7 @@ caching:
     backend_menu: ~
     files_index: ~
     list_format: false # Run `bin/console cache:list-format; bin/console bolt:update-list-format` to clear and rebuild these
-    
+
 # The theme to use.
 #
 # Dont edit the provided templates directly, because they _will_ get updated
@@ -65,7 +65,7 @@ headers:
 # canonical, so its clear which is the primary address of the site.
 #
 # If you include `https://`, it will be included in the canonical urls.
-canonical: https://example.org
+#canonical: https://example.org
 
 # If you want to override the canonical template, from the theme:
 #canonical_template: 'partials/_canonical.html.twig'
