@@ -214,6 +214,12 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         $this->em->persist($content);
         $this->em->flush();
 
+        // Set the list_format of the Record in the bolt_content table. This has to be done in a 2nd iteration because
+        // $content does not have id set untill the Entity Manager is flushed.
+        $content->setListFormat();
+        $this->em->persist($content);
+        $this->em->flush();
+
         $urlParams = [
             'id' => $content->getId(),
             'edit_locale' => $this->getEditLocale($content) ?: null,

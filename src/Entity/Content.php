@@ -911,7 +911,7 @@ class Content
         if ($this->contentExtension instanceof ContentExtension) {
             $this->listFormat = Excerpt::getExcerpt($this->getExtras()['listFormat'], 191);
         } else {
-            $this->title = '';
+            $this->listFormat = '';
         }
 
         return $this;
