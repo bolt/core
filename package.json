@@ -32,7 +32,7 @@
     "dependencies": {
         "@popperjs/core": "^2.11.8",
         "@vue/cli-service": "^4.5.19",
-        "axios": "^0.27.2",
+        "axios": "^1.6.0",
         "baguettebox.js": "^1.11.1",
         "bootstrap": "5.3.*",
         "browserslist": "^4.22.1",
