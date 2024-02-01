@@ -363,6 +363,48 @@
         <target>Usernamen oder Email eingeben</target>
       </segment>
     </unit>
+    <unit id="BWi_f4Q" name="import_export_content_translations">
+      <segment>
+        <source>import_export_content_translations</source>
+        <target>Import/Export Inhalts-Übersetzungen</target>
+      </segment>
+    </unit>
+    <unit id="WrGgEr5" name="export_all_content_translations">
+      <segment>
+        <source>export_all_content_translations</source>
+        <target>Alle Inhalts-Übersetzungen exportieren</target>
+      </segment>
+    </unit>
+    <unit id="1GruCMx" name="export">
+      <segment>
+        <source>export</source>
+        <target>Exportieren</target>
+      </segment>
+    </unit>
+    <unit id="2UL2SIZ" name="import">
+      <segment>
+        <source>import</source>
+        <target>Importieren</target>
+      </segment>
+    </unit>
+    <unit id="Vet5xFg" name="bolt_content_translations_files">
+      <segment>
+        <source>bolt_content_translations_files</source>
+        <target>Übersetzungsdateien</target>
+      </segment>
+    </unit>
+    <unit id="IcINlR." name="bolt_content_translations_send">
+      <segment>
+        <source>bolt_content_translations_send</source>
+        <target>Inhalts-Übersetzungen importieren</target>
+      </segment>
+    </unit>
+    <unit id="B6SWRS6" name="caption.content_translations">
+      <segment>
+        <source>caption.content_translations</source>
+        <target>Inhalts-Übersetzungen</target>
+      </segment>
+    </unit>
     <unit id="xgYhRkc" name="placeholder.password">
       <notes>
         <note category="file-source" priority="1">bolt-core/src/Form/LoginType.php:63</note>

@@ -42,7 +42,7 @@ class FieldRepository extends ServiceEntityRepository
 
     public function findOneBySlug(string $slug): ?Field
     {
-        $qb = $this->getQueryBuilder();
+        $qb         = $this->getQueryBuilder();
         $connection = $qb->getEntityManager()->getConnection();
 
         [$where, $slug] = JsonHelper::wrapJsonFunction('translations.value', $slug, $connection);
@@ -56,12 +56,13 @@ class FieldRepository extends ServiceEntityRepository
             ->setParameter('type', 'slug')
             ->setMaxResults(1)
             ->getQuery()
-            ->getOneOrNullResult();
+            ->getOneOrNullResult()
+        ;
     }
 
     public function findAllBySlug(string $slug): array
     {
-        $qb = $this->getQueryBuilder();
+        $qb         = $this->getQueryBuilder();
         $connection = $qb->getEntityManager()->getConnection();
 
         [$where, $slug] = JsonHelper::wrapJsonFunction('translations.value', $slug, $connection);
@@ -74,12 +75,13 @@ class FieldRepository extends ServiceEntityRepository
             ->andWhere('field INSTANCE OF :type')
             ->setParameter('type', 'slug')
             ->getQuery()
-            ->getResult();
+            ->getResult()
+        ;
     }
 
     public function findAllByParent(Field $field): ?array
     {
-        if (! $field instanceof FieldParentInterface || ! $field->getId()) {
+        if (!$field instanceof FieldParentInterface || !$field->getId()) {
             return [];
         }
 
@@ -90,12 +92,13 @@ class FieldRepository extends ServiceEntityRepository
             ->setParameter('parentId', $field->getId())
             ->orderBy('field.sortorder', 'ASC')
             ->getQuery()
-            ->getResult();
+            ->getResult()
+        ;
     }
 
     public static function factory(Collection $definition, string $name = '', string $label = ''): Field
     {
-        $type = $definition['type'];
+        $type      = $definition['type'];
         $classname = self::getFieldClassname($type);
 
         if ($classname && class_exists($classname)) {
@@ -136,7 +139,8 @@ class FieldRepository extends ServiceEntityRepository
         $allFields = collect($classes)
             ->filter(function ($class) {
                 return in_array('Bolt\\Entity\\FieldInterface', class_implements($class), true);
-            });
+            })
+        ;
 
         // Classnames that end with $classname
         $match = $allFields->filter(function ($class) use ($classname) {
@@ -144,5 +148,22 @@ class FieldRepository extends ServiceEntityRepository
         });
 
         return $match->isNotEmpty() ? $match->first() : null;
+    }
+
+    public function findOneByTranslationValue(string $value)
+    {
+        $connection = $this->getEntityManager()->getConnection();
+
+        $result = $this->getQueryBuilder()
+            ->leftJoin('field.translations', 'field_translation')
+            ->where(JsonHelper::wrapJsonFunction('field_translation.value', null, $connection) . ' = :value')
+            ->setParameter('value', $value)
+            ->getQuery()
+            ->getResult()
+        ;
+
+        if (isset($result[0])) {
+            return $result[0];
+        }
     }
 }

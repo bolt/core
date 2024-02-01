@@ -1,0 +1,28 @@
+{% extends '@bolt/_base/layout.html.twig' %}
+{% import '@bolt/_macro/_macro.html.twig' as macro %}
+
+{% block title %}
+    {{ macro.icon('language') }} {{ 'import_export_content_translations'|trans }}
+{% endblock %}
+
+{% block main %}
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>
+                    {{- 'export'|trans -}}
+                </h2>
+                <a class="btn btn-secondary btn-small" href="{{ path('bolt_content_translations_export') }}" target="_blank">
+                    {{- 'export_all_content_translations'|trans -}}
+                </a>
+            </div>
+
+            <div class="col-md-6">
+                <h2>
+                    {{- 'import'|trans -}}
+                </h2>
+                {{ form(form) }}
+            </div>
+        </div>
+    </nav>
+{% endblock %}
