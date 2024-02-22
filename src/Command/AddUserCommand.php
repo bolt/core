@@ -66,7 +66,10 @@ class AddUserCommand extends Command
     /** @var Config */
     private $config;
 
-    public function __construct(EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasher, ValidatorInterface $validator, Config $config)
+    /** @var UserRepository */
+    private $userRepository;
+
+    public function __construct(EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasher, ValidatorInterface $validator, Config $config, UserRepository $userRepository)
     {
         parent::__construct();
 
@@ -74,6 +77,7 @@ class AddUserCommand extends Command
         $this->passwordHasher = $passwordHasher;
         $this->validator = $validator;
         $this->config = $config;
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -268,6 +272,16 @@ class AddUserCommand extends Command
         $hashedPassword = $this->passwordHasher->hashPassword($user, $user->getPlainPassword());
         $user->setPassword($hashedPassword);
         $user->eraseCredentials();
+
+        if (null === $this->userRepository->find(1)) {
+            $firstAdmin = $this->userRepository->getFirstAdminUser();
+            if (null !== $firstAdmin) {
+                $firstAdmin->setId(1);
+                $this->entityManager->persist($firstAdmin);
+            } else {
+                $user->setId(1);
+            }
+        }
 
         $this->entityManager->persist($user);
         $this->entityManager->flush();
