@@ -52,7 +52,7 @@ class Cast extends FunctionNode
         $this->first = $parser->ArithmeticPrimary();
         $parser->match(Lexer::T_AS);
         $parser->match(Lexer::T_IDENTIFIER);
-        $this->second = $parser->getLexer()->token['value'];
+        $this->second = $parser->getLexer()->token->value;
         $parser->match(Lexer::T_CLOSE_PARENTHESIS);
     }
 }
