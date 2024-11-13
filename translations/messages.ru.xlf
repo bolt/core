@@ -476,7 +476,7 @@
       </notes>
       <segment>
         <source>content.updated_successfully</source>
-        <target>Контент успешно обновлен</target>
+        <target>Контент успешно обновлён</target>
       </segment>
     </unit>
     <unit id="IB0mNQh" name="content.created_successfully">
@@ -1948,7 +1948,7 @@
     <unit id="29MN3Ip" name="user.enabled_successfully">
       <segment>
         <source>user.enabled_successfully</source>
-        <target>Пользователь успешно включен!</target>
+        <target>Пользователь успешно включён!</target>
       </segment>
     </unit>
     <unit id="nj8qBZ5" name="user.disabled_successfully">
@@ -2566,7 +2566,7 @@
     <unit id="qoZwSEY" name="action.preview_secure_share">
       <segment state="translated">
         <source>action.preview_secure_share</source>
-        <target>Поделиться защищенной ссылкой для предварительного просмотра</target>
+        <target>Поделиться защищённой ссылкой для предварительного просмотра</target>
       </segment>
     </unit>
     <unit id="zYeSeNJ" name="action.stop_impersonating">
