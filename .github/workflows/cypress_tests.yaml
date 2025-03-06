@@ -1,7 +1,9 @@
 name: Cypress Tests
 
 on:
-    pull_request:
+    workflow_dispatch:
+    # Disabled, as they are currently broken. See #3531
+    # pull_request:
 
 jobs:
     cypress-tests:
@@ -16,31 +18,32 @@ jobs:
             matrix:
                 containers: [1, 2, 3] # number of parallel containers
         steps:
-            -   uses: actions/checkout@v2
+            -   uses: actions/checkout@v4
             -   uses: shivammathur/setup-php@v2
                 with:
                     # test the lowest version, to make sure checks pass on it
-                    php-version: 7.2
+                    php-version: 8.2
                     extensions: json, mbstring, pdo, curl, pdo_sqlite
                     coverage: none
-            -   uses: actions/setup-node@v1
+            -   uses: actions/setup-node@v4
                 with:
-                    node-version: 12.5
+                    node-version: 20
             # See https://github.community/t/sudo-apt-install-fails-with-failed-to-fetch-http-security-ubuntu-com-404-not-found-ip/17075
             -   run: sudo apt update
-            -   name: Install dependencies
+            -   name: Install composer dependencies
+                run: composer install --prefer-dist --no-progress
+            -   name: Show Bolt info
+                run: ./bin/console bolt:info --ansi
+            -   name: Install NPM dependencies
+                run: npm ci
+            -   name: Install other dependencies
                 run: |
-                    sudo composer self-update -q
-                    sudo COMPOSER_MEMORY_LIMIT=-1 COMPOSER_PROCESS_TIMEOUT=60 composer update --prefer-dist --no-progress
-                    ./bin/console bolt:info	--ansi
-                    npm set progress=false
-                    npm ci
                     mkdir -p ./var/log/e2e-reports/report/features/
                     touch ./var/log/e2e-reports/report/features/.gitkeep
                     # Install latest stable Chrome for e2e tests
                     sudo apt --fix-broken install
-                    sudo apt-get install libxss1 libappindicator1 libindicator7
-                    wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+                    sudo apt-get install libxss1 libindicator7
+                    wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
                     sudo apt install ./google-chrome*.deb
             -   name: Prepare environment
                 run: |
@@ -55,7 +58,7 @@ jobs:
                     ./bin/console server:start 127.0.0.1:8088
                     # test if web server works
                     sleep 3
-                    wget "http://127.0.0.1:8088/bolt/login"
+                    curl --silent --show-error --fail "http://127.0.0.1:8088/bolt/login"
 
             -   name: Cypress run
                 uses: cypress-io/github-action@v2
@@ -64,7 +67,7 @@ jobs:
                 env:
                     CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
                     GITHUB_TOKEN: ${{ secrets.CYPRESS_GITHUB_TOKEN }}
-            -   uses: actions/upload-artifact@v1
+            -   uses: actions/upload-artifact@v4
                 if: failure()
                 with:
                     name: cypress-evidence

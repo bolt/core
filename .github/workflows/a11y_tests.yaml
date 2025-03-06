@@ -1,15 +1,17 @@
 name: Accessibility (a11y) Tests
 
 on:
-    pull_request:
+    workflow_dispatch:
+    # Disabled, as they are currently broken. See #3531
+    # pull_request:
 
 jobs:
     a11y_tests:
         strategy:
             fail-fast: false
             matrix:
-                php-version: ['7.2']
-                node-version: ['12.5']
+                php-version: ['8.2']
+                node-version: ['20']
                 actions:
                     -
                         name: Run pa11yci
@@ -19,12 +21,12 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
-            -   uses: actions/checkout@v2
+            -   uses: actions/checkout@v4
 
             # see https://github.com/actions/starter-workflows/blob/main/ci/node.js.yml
             -
-                name: Use Node.js 12.5
-                uses: actions/setup-node@v1
+                name: Use Node.js
+                uses: actions/setup-node@v4
                 with:
                     node-version: ${{ matrix.node-version }}
                     coverage: none
@@ -34,13 +36,12 @@ jobs:
                     php-version: ${{ matrix.php-version }}
                     extensions: json, mbstring, pdo, curl, pdo_sqlite
                     coverage: none
-            -   name: Install dependencies
-                run: |
-                    sudo composer self-update -q
-                    sudo COMPOSER_MEMORY_LIMIT=-1 COMPOSER_PROCESS_TIMEOUT=60 composer update --prefer-dist --no-progress	
-                    ./bin/console bolt:info	--ansi
-                    npm set progress=false	
-                    npm ci	
+            -   name: Install composer dependencies
+                run: composer install --prefer-dist --no-progress
+            -   name: Show Bolt info
+                run: ./bin/console bolt:info --ansi
+            -   name: Install NPM dependencies
+                run: npm ci
             -   name: Prepare environment
                 run: |
                     # build assets	
@@ -53,6 +54,6 @@ jobs:
                     ./bin/console server:start 127.0.0.1:8088	
                     # test if web server works	
                     sleep 3	
-                    wget "http://127.0.0.1:8088/bolt/login"
+                    curl --silent --show-error --fail "http://127.0.0.1:8088/bolt/login"
 
             -   run: ${{ matrix.actions.run }}

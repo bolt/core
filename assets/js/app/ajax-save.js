@@ -84,7 +84,6 @@ $(document).ready(function() {
                     showToast(data.type, data.message, data.status, data.notification, dom_element);
                     $('div[class="admin__header--title-inner"]').html(data.title);
                     $('small[class="admin__modified-at"]').html(data.modified);
-                    console.log('joe');
                 } else if (data.status !== 'success') {
                     showToast();
                 }

@@ -1,67 +1,54 @@
 Changelog
 =========
 
-## 5.1.24
+## 5.2.1
 
-Released: 2023-02-19
+Released: 2025-03-06
 
-### 🐛 Bug fixes
+Fixes the internal version numbers to reflect the latest 5.2.1 release.
 
- - Fixed thumbnail sizes, which did not fit because of a incomplete RegEx replace #3411
- - Fix default thumbnail crop config #3403
- - Update `UserFixtures.php`
- - Strict use of strings as keys in TaxonomyFixtures #3415
+## 5.2.0
 
+Released: 2025-03-06
 
-## 5.1.23
+It has been some time since the last release as the main maintainer and my namesake has passed last year (rest in peace Bob).
 
-Released: 2023-02-03
+From a recent discussion three new maintainers have been granted access to the project, which means we are now able to move forward with this awesome project. The main goal for future releases is to clean up deprecations and update to Symfony 7.4 when released at the end of this year.
 
-### 🐛 Bug fixes
+This release is almost the same as 5.2.0-rc1 release, with only one additional fix.
 
- - Partial reverse of #3395, we really need those \Iterators #3400
+## 5.2.0 Beta 4 - 5.2.0 RC 1
 
+These changes were never documented in this file.
 
-## 5.1.22
+Please take a look at the GitHub releases for more information:
 
-Released: 2023-01-31
-
-### 🐛 Bug fixes
-
- - Fix language switcher failing to set a default "type" value #3398
- - Fix excerpt of search result when there is no whitespace after search… #3399
-
-
-## 5.1.21
-
-Released: 2023-01-27
-
-### 🐛 Bug fixes
-
-- Fix PHPStan errors (on PHP 8.x) #3395
-
-
-
-## 5.1.20
-
-Released: 2023-01-20
-
-### 🐛 Bug fixes
-
-- Do not display twig value for SetField #3390
-
-
-## 5.1.19
-
-Released: 2022-12-08
-
-### 🐛 Bug fixes
-
-- Pass other `_route_params` into a forwarded request #3342
-- Fix excerpt when content would be too short _after_ trimming #3367
-- Make `guesstimateAuthor` return type nullable #3358
-- Made the `isCurrent`-filter remove the current locale #3368
-
+- https://github.com/bolt/core/releases/tag/5.2.0-rc.1
+- https://github.com/bolt/core/releases/tag/5.2.0-beta.26
+- https://github.com/bolt/core/releases/tag/5.2.0-beta.25
+- https://github.com/bolt/core/releases/tag/5.2.0-beta.24.1
+- https://github.com/bolt/core/releases/tag/5.2.0-beta.24
+- https://github.com/bolt/core/releases/tag/5.2.0-beta.23
+- https://github.com/bolt/core/releases/tag/5.2.0-beta.22
+- https://github.com/bolt/core/releases/tag/5.2.0-beta.21
+- https://github.com/bolt/core/releases/tag/5.2.0-beta.20
+- https://github.com/bolt/core/releases/tag/5.2.0-beta.18.1
+- https://github.com/bolt/core/releases/tag/5.2.0-beta.18
+- https://github.com/bolt/core/releases/tag/5.2.0-beta.17
+- https://github.com/bolt/core/releases/tag/5.2.0-beta.16
+- https://github.com/bolt/core/releases/tag/5.2.0-beta.15.1
+- https://github.com/bolt/core/releases/tag/5.2.0-beta.15
+- https://github.com/bolt/core/releases/tag/5.2.0-beta.14
+- https://github.com/bolt/core/releases/tag/5.2.0-beta.13
+- https://github.com/bolt/core/releases/tag/5.2.0-beta.12
+- https://github.com/bolt/core/releases/tag/5.2.0-beta.11
+- https://github.com/bolt/core/releases/tag/5.2.0-beta.10
+- https://github.com/bolt/core/releases/tag/5.2.0-beta.9
+- https://github.com/bolt/core/releases/tag/5.2.0-beta.8
+- https://github.com/bolt/core/releases/tag/5.2.0-beta.7
+- https://github.com/bolt/core/releases/tag/5.2.0-beta.6
+- https://github.com/bolt/core/releases/tag/5.2.0-beta.5
+- https://github.com/bolt/core/releases/tag/5.2.0-beta.4
 
 ## 5.2.0 Beta 3
 
@@ -108,6 +95,61 @@ Released: 2022-07-05
 - Separate methods for Pager from `pagerParams`. (vlad-ghita, [#3205](https://github.com/bolt/core/pull/3205))
 - Add `isTranslatable` condition in `get`-method [#3250](https://github.com/bolt/core/pull/3250)
 - Additional fix for `type: number` field, set default to `min: 0`. [#3252](https://github.com/bolt/core/pull/3252)
+
+## 5.1.24
+
+Released: 2023-02-19
+
+### 🐛 Bug fixes
+
+ - Fixed thumbnail sizes, which did not fit because of a incomplete RegEx replace #3411
+ - Fix default thumbnail crop config #3403
+ - Update `UserFixtures.php`
+ - Strict use of strings as keys in TaxonomyFixtures #3415
+
+## 5.1.23
+
+Released: 2023-02-03
+
+### 🐛 Bug fixes
+
+ - Partial reverse of #3395, we really need those \Iterators #3400
+
+## 5.1.22
+
+Released: 2023-01-31
+
+### 🐛 Bug fixes
+
+ - Fix language switcher failing to set a default "type" value #3398
+ - Fix excerpt of search result when there is no whitespace after search… #3399
+
+## 5.1.21
+
+Released: 2023-01-27
+
+### 🐛 Bug fixes
+
+- Fix PHPStan errors (on PHP 8.x) #3395
+
+## 5.1.20
+
+Released: 2023-01-20
+
+### 🐛 Bug fixes
+
+- Do not display twig value for SetField #3390
+
+## 5.1.19
+
+Released: 2022-12-08
+
+### 🐛 Bug fixes
+
+- Pass other `_route_params` into a forwarded request #3342
+- Fix excerpt when content would be too short _after_ trimming #3367
+- Make `guesstimateAuthor` return type nullable #3358
+- Made the `isCurrent`-filter remove the current locale #3368
 
 ## 5.1.18
 

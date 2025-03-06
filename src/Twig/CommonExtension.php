@@ -75,6 +75,7 @@ class CommonExtension extends AbstractExtension
             $localepattern = '/^[a-z]{2}((-|_)[a-z]{2})?$/m';
             preg_match_all($localepattern, $item, $matches);
 
+            /** @phpstan-ignore empty.variable */
             return ! empty($matches) ? $item : null;
         } elseif ($item instanceof Collection) {
             return $this->getLocale($item->get('code', null));
