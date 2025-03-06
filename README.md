@@ -46,13 +46,13 @@ There are multiple ways to help the Bolt project going forward:
 * Star this repository
 * Learn how to [spread the word](https://docs.bolt.cm/other/contributing)
 * Help by writing and [contributing code or documentation](https://docs.bolt.cm/other/contributing)
-* [Sponsor Bob](https://github.com/sponsors/bobdenotter): Bolt's creator and chief developer
 
 
 ## Credits
 
-The ongoing Bolt development takes place under the care of:
+Bolt development has benefited from:
 
+- [Bob den Otter](https://github.com/bobdenotter)
 - [Two Kings - Artisinal Web Development](https://www.twokings.nl/)
 
 ## License
