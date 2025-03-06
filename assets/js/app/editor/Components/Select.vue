@@ -29,7 +29,9 @@
             </template>
 
             <template v-if="props.option.link_to_record_url" slot="singleLabel" slot-scope="props">
+                <!-- eslint-disable vue/no-v-html -->
                 <span v-html="props.option.value"></span>
+                <!--eslint-enable-->
                 <div class="multiselect__tag__edit">
                     <a :href="props.option.link_to_record_url" target="_blank" rel="noopener noreferrer">
                         <i class="far fa-edit me-0"></i>
@@ -166,14 +168,12 @@ export default {
                 this.isLoading = true;
 
                 window.requestCache[this.fetchurl] = $.ajax({ url: this.fetchurl, dataType: 'json', cache: true });
-                window.requestCache[this.fetchurl].then(
-                    response => {
-                        this.options = response;
-                        window.selectCache[this.fetchurl] = response;
-                        this.isLoading = false;
-                        fixSelectedItems.call(this);
-                    },
-                );
+                window.requestCache[this.fetchurl].then(response => {
+                    this.options = response;
+                    window.selectCache[this.fetchurl] = response;
+                    this.isLoading = false;
+                    fixSelectedItems.call(this);
+                });
             }
         } else {
             fixSelectedItems.call(this);

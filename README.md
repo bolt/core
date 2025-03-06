@@ -32,6 +32,12 @@ or through extensions installed from the Composer ecosystem.
 * **Dummy content** to test your site in development or show it to a client
 * **Best rich content editors** Fully licensed Redactor and Article fields to fit any content, for free.
 
+## Repository state
+
+Sadly, the main maintainer Bob den Otter has passed early 2024 (rest in peace).
+Since then, little updates have been done, but luckily new maintainers have been found.
+We are in the process of taking over the organisation and are happy to review incoming PRs once again!
+
 ## How To Use
 
 To create a new Bolt Project, check out the instructions in Bolt's
@@ -46,13 +52,13 @@ There are multiple ways to help the Bolt project going forward:
 * Star this repository
 * Learn how to [spread the word](https://docs.bolt.cm/other/contributing)
 * Help by writing and [contributing code or documentation](https://docs.bolt.cm/other/contributing)
-* [Sponsor Bob](https://github.com/sponsors/bobdenotter): Bolt's creator and chief developer
 
 
 ## Credits
 
-The ongoing Bolt development takes place under the care of:
+Bolt development has benefited from:
 
+- [Bob den Otter](https://github.com/bobdenotter)
 - [Two Kings - Artisinal Web Development](https://www.twokings.nl/)
 
 ## License
