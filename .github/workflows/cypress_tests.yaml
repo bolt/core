@@ -64,7 +64,7 @@ jobs:
                 env:
                     CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
                     GITHUB_TOKEN: ${{ secrets.CYPRESS_GITHUB_TOKEN }}
-            -   uses: actions/upload-artifact@v1
+            -   uses: actions/upload-artifact@v4
                 if: failure()
                 with:
                     name: cypress-evidence
