@@ -1,4 +1,3 @@
-version: '3.4'
 services:
   php:
     build:
@@ -59,13 +58,6 @@ services:
       - 8099:80
     links:
       - database:db
-
-  blackfire:
-    image: blackfire/blackfire
-    env_file:
-      - .env
-    ports:
-      - 8707 # for blackfire probe
 
 #  maildev:
 #    image: djfarrelly/maildev
