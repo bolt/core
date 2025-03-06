@@ -19,7 +19,7 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
-            -   uses: actions/checkout@v2
+            -   uses: actions/checkout@v4
 
             # see https://github.com/actions/starter-workflows/blob/main/ci/node.js.yml
             -
@@ -34,13 +34,14 @@ jobs:
                     php-version: ${{ matrix.php-version }}
                     extensions: json, mbstring, pdo, curl, pdo_sqlite
                     coverage: none
-            -   name: Install dependencies
-                run: |
-                    sudo composer self-update -q
-                    sudo COMPOSER_MEMORY_LIMIT=-1 COMPOSER_PROCESS_TIMEOUT=60 composer update --prefer-dist --no-progress	
-                    ./bin/console bolt:info	--ansi
-                    npm set progress=false	
-                    npm ci	
+            -   name: Install composer dependencies
+                uses: php-actions/composer@v6
+                with:
+                    php_version: 7.2
+            -   name: Show Bolt info
+                run: ./bin/console bolt:info --ansi
+            -   name: Install NPM dependencies
+                run: npm ci
             -   name: Prepare environment
                 run: |
                     # build assets	

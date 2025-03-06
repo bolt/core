@@ -16,7 +16,7 @@ jobs:
             matrix:
                 containers: [1, 2, 3] # number of parallel containers
         steps:
-            -   uses: actions/checkout@v2
+            -   uses: actions/checkout@v4
             -   uses: shivammathur/setup-php@v2
                 with:
                     # test the lowest version, to make sure checks pass on it
@@ -28,13 +28,16 @@ jobs:
                     node-version: 20
             # See https://github.community/t/sudo-apt-install-fails-with-failed-to-fetch-http-security-ubuntu-com-404-not-found-ip/17075
             -   run: sudo apt update
-            -   name: Install dependencies
+            -   name: Install composer dependencies
+                uses: php-actions/composer@v6
+                with:
+                    php_version: 7.2
+            -   name: Show Bolt info
+                run: ./bin/console bolt:info --ansi
+            -   name: Install NPM dependencies
+                run: npm ci
+            -   name: Install other dependencies
                 run: |
-                    sudo composer self-update -q
-                    sudo COMPOSER_MEMORY_LIMIT=-1 COMPOSER_PROCESS_TIMEOUT=60 composer update --prefer-dist --no-progress
-                    ./bin/console bolt:info	--ansi
-                    npm set progress=false
-                    npm ci
                     mkdir -p ./var/log/e2e-reports/report/features/
                     touch ./var/log/e2e-reports/report/features/.gitkeep
                     # Install latest stable Chrome for e2e tests

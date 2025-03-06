@@ -12,18 +12,16 @@ jobs:
         name: PHPUnit 
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v4
             - uses: shivammathur/setup-php@v2
               with:
                 # test the lowest version, to make sure checks pass on it
                 php-version: ${{ matrix.php-version }}
                 extensions: json, mbstring, pdo, curl, pdo_sqlite
                 coverage: none
-            - name: Initialise
-              run: |
-                  sudo composer self-update -q	
-            - name: Install dependencies
-              run: |
-                  sudo COMPOSER_MEMORY_LIMIT=-1 COMPOSER_PROCESS_TIMEOUT=60 composer update --prefer-dist --no-progress	--no-scripts
+            - name: Install composer dependencies
+              uses: php-actions/composer@v6
+              with:
+                  php_version: ${{ matrix.php-version }}
             - name: run PHP Unit
               run: ./vendor/bin/phpunit
