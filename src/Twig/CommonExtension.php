@@ -78,6 +78,7 @@ class CommonExtension extends AbstractExtension
         if (is_string($item)) {
             return preg_match('/^[a-z]{2}((-|_)[a-z]{2})?$/m', $item) === 1 ? $item : null;
         }
+
         if ($item instanceof Collection) {
             return $this->getLocale($item->get('code', null));
         }
