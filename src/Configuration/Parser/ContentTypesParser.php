@@ -33,7 +33,7 @@ class ContentTypesParser extends BaseParser
     }
 
     /**
-     * Read and parse the contenttypes.yml configuration file.
+     * Read and parse the contenttypes.yaml configuration file.
      *
      * @throws ConfigurationException
      */
@@ -71,19 +71,19 @@ class ContentTypesParser extends BaseParser
         // If neither 'name' nor 'slug' is set, we need to warn the user. Same goes for when
         // neither 'singular_name' nor 'singular_slug' is set.
         if (! isset($contentType['name']) && ! isset($contentType['slug'])) {
-            $error = sprintf("In content type <code>%s</code>, neither 'name' nor 'slug' is set. Please edit <code>contenttypes.yml</code>, and correct this.", $key);
+            $error = sprintf("In content type <code>%s</code>, neither 'name' nor 'slug' is set. Please edit <code>contenttypes.yaml</code>, and correct this.", $key);
 
             throw new ConfigurationException($error);
         }
         if (! isset($contentType['singular_name']) && ! isset($contentType['singular_slug'])) {
-            $error = sprintf("In content type <code>%s</code>, neither 'singular_name' nor 'singular_slug' is set. Please edit <code>contenttypes.yml</code>, and correct this.", $key);
+            $error = sprintf("In content type <code>%s</code>, neither 'singular_name' nor 'singular_slug' is set. Please edit <code>contenttypes.yaml</code>, and correct this.", $key);
 
             throw new ConfigurationException($error);
         }
 
         // Content types without fields make no sense.
         if (! isset($contentType['fields'])) {
-            $error = sprintf("In content type <code>%s</code>, no 'fields' are set. Please edit <code>contenttypes.yml</code>, and correct this.", $key);
+            $error = sprintf("In content type <code>%s</code>, no 'fields' are set. Please edit <code>contenttypes.yaml</code>, and correct this.", $key);
 
             throw new ConfigurationException($error);
         }
