@@ -8,7 +8,7 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                php-version: ['7.2']
+                php-version: ['8.2']
                 node-version: ['20']
                 actions:
                     -
@@ -37,7 +37,7 @@ jobs:
             -   name: Install composer dependencies
                 uses: php-actions/composer@v6
                 with:
-                    php_version: 7.2
+                    php_version: ${{ matrix.php-version }}
             -   name: Show Bolt info
                 run: ./bin/console bolt:info --ansi
             -   name: Install NPM dependencies
@@ -54,6 +54,6 @@ jobs:
                     ./bin/console server:start 127.0.0.1:8088	
                     # test if web server works	
                     sleep 3	
-                    curl -v "http://127.0.0.1:8088/bolt/login"
+                    curl --silent --show-error --fail "http://127.0.0.1:8088/bolt/login"
 
             -   run: ${{ matrix.actions.run }}

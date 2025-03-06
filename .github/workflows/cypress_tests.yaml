@@ -20,7 +20,7 @@ jobs:
             -   uses: shivammathur/setup-php@v2
                 with:
                     # test the lowest version, to make sure checks pass on it
-                    php-version: 7.2
+                    php-version: 8.2
                     extensions: json, mbstring, pdo, curl, pdo_sqlite
                     coverage: none
             -   uses: actions/setup-node@v4
@@ -31,7 +31,7 @@ jobs:
             -   name: Install composer dependencies
                 uses: php-actions/composer@v6
                 with:
-                    php_version: 7.2
+                    php_version: 8.2
             -   name: Show Bolt info
                 run: ./bin/console bolt:info --ansi
             -   name: Install NPM dependencies
@@ -43,7 +43,7 @@ jobs:
                     # Install latest stable Chrome for e2e tests
                     sudo apt --fix-broken install
                     sudo apt-get install libxss1 libindicator7
-                    wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+                    wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
                     sudo apt install ./google-chrome*.deb
             -   name: Prepare environment
                 run: |
@@ -58,7 +58,7 @@ jobs:
                     ./bin/console server:start 127.0.0.1:8088
                     # test if web server works
                     sleep 3
-                    curl -v "http://127.0.0.1:8088/bolt/login"
+                    curl --silent --show-error --fail "http://127.0.0.1:8088/bolt/login"
 
             -   name: Cypress run
                 uses: cypress-io/github-action@v2
