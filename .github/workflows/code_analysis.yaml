@@ -54,7 +54,9 @@ jobs:
                     php-version: ${{ matrix.php-version }}
                     extensions: json, mbstring, pdo, curl, pdo_sqlite
                     coverage: none
-                    tools: composer, symfony-cli
+                    tools: symfony-cli:5
+                env:
+                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
             -   run: composer install --no-progress --ansi
 

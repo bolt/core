@@ -25,7 +25,11 @@ jobs:
                     php-version: 8.2
                     extensions: json, mbstring, pdo, curl, pdo_sqlite
                     coverage: none
-                    tools: symfony-cli
+                    tools: symfony-cli:5
+                    # Configure PHP to disable Session garbage collector and fix the timezone to UTC like Bolt use to compare date.
+                    ini-values: session.gc_probability=0, date.timezone=UTC
+                env:
+                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             -   uses: actions/setup-node@v4
                 with:
                     node-version: 20
@@ -51,12 +55,6 @@ jobs:
                     # build assets
                     npm run build
                     sudo chmod -R 777 config/ public/files/ public/theme/ public/thumbs/ var/
-                    
-                    #Configure PHP to disable Session garbage collector and fix the timezone to UTC like Bolt use to compare date.
-                    echo "date.timezone=UTC" >> php.ini
-                    echo "session.gc_probability=0" >> php.ini
-                    echo "session.gc_divisor=100000" >> php.ini
-                    echo "session.gc_maxlifetime=1440000" >> php.ini
 
                     # prepare web server for e2e tests
                     ./bin/console doctrine:schema:create -q
