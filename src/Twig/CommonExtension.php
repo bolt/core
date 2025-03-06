@@ -76,7 +76,7 @@ class CommonExtension extends AbstractExtension
     private function getLocale($item): ?string
     {
         if (is_string($item)) {
-            return $preg_match('/^[a-z]{2}((-|_)[a-z]{2})?$/m', $item) === 1 ? $item : null;
+            return preg_match('/^[a-z]{2}((-|_)[a-z]{2})?$/m', $item) === 1 ? $item : null;
         }
         if ($item instanceof Collection) {
             return $this->getLocale($item->get('code', null));
