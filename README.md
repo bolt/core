@@ -32,6 +32,12 @@ or through extensions installed from the Composer ecosystem.
 * **Dummy content** to test your site in development or show it to a client
 * **Best rich content editors** Fully licensed Redactor and Article fields to fit any content, for free.
 
+## Repository state
+
+Sadly, the main maintainer Bob den Otter has passed early 2024 (rest in peace).
+Since then, little updates have been done, but luckily new maintainers have been found.
+We are in the process of taking over the organisation and are happy to review incoming PRs once again!
+
 ## How To Use
 
 To create a new Bolt Project, check out the instructions in Bolt's
