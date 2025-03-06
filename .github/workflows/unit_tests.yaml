@@ -20,8 +20,6 @@ jobs:
                 extensions: json, mbstring, pdo, curl, pdo_sqlite
                 coverage: none
             - name: Install composer dependencies
-              uses: php-actions/composer@v6
-              with:
-                  php_version: ${{ matrix.php-version }}
+              run: composer install --prefer-dist --no-progress
             - name: run PHP Unit
               run: ./vendor/bin/phpunit
