@@ -89,7 +89,7 @@
     },
     "conflict": {
         "symfony/dependency-injection": "5.3.7",
-        "symfony/security-http": "v5.3.0 v5.3.1",
+        "symfony/security-http": "v5.3.0 || v5.3.1",
         "doctrine/dbal": "^3.0"
     },
     "require-dev": {
