@@ -25,6 +25,7 @@ jobs:
                     php-version: 8.2
                     extensions: json, mbstring, pdo, curl, pdo_sqlite
                     coverage: none
+                    tools: symfony-cli
             -   uses: actions/setup-node@v4
                 with:
                     node-version: 20
@@ -50,25 +51,37 @@ jobs:
                     # build assets
                     npm run build
                     sudo chmod -R 777 config/ public/files/ public/theme/ public/thumbs/ var/
+                    
+                    #Configure PHP to disable Session garbage collector and fix the timezone to UTC like Bolt use to compare date.
+                    echo "date.timezone=UTC" >> php.ini
+                    echo "session.gc_probability=0" >> php.ini
+                    echo "session.gc_divisor=100000" >> php.ini
+                    echo "session.gc_maxlifetime=1440000" >> php.ini
+
                     # prepare web server for e2e tests
                     ./bin/console doctrine:schema:create -q
                     ./bin/console doctrine:migrations:sync-metadata-storage -q
                     ./bin/console doctrine:migrations:version --add --all -n -q
                     ./bin/console doctrine:fixtures:load --group=without-images -n
-                    ./bin/console server:start 127.0.0.1:8088
+                    symfony server:start --no-tls --port=8088 -d
                     # test if web server works
                     sleep 3
                     curl --silent --show-error --fail "http://127.0.0.1:8088/bolt/login"
 
             -   name: Cypress run
-                uses: cypress-io/github-action@v2
+                uses: cypress-io/github-action@v6
                 with:
                     command: "npm run cypress:ci"
+                    wait-on: 'http://127.0.0.1:8088'
+                    record: true
+                    parallel: true
                 env:
                     CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
                     GITHUB_TOKEN: ${{ secrets.CYPRESS_GITHUB_TOKEN }}
             -   uses: actions/upload-artifact@v4
                 if: failure()
                 with:
-                    name: cypress-evidence
-                    path: tests/cypress/evidence
+                    name: cypress-evidence-${{matrix.containers}}
+                    path: |
+                        tests/cypress/evidence
+                        var/log
