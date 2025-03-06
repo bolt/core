@@ -3,7 +3,7 @@ name: Accessibility (a11y) Tests
 on:
     workflow_dispatch:
     # Disabled, as they are currently broken. See #3531
-    # pull_request:
+    pull_request:
 
 jobs:
     a11y_tests:
@@ -11,7 +11,7 @@ jobs:
             fail-fast: false
             matrix:
                 php-version: ['8.2']
-                node-version: ['20']
+                node-version: ['12.22']
                 actions:
                     -
                         name: Run pa11yci
@@ -36,7 +36,7 @@ jobs:
                     php-version: ${{ matrix.php-version }}
                     extensions: json, mbstring, pdo, curl, pdo_sqlite
                     coverage: none
-                    tools: symfony-cli:5
+                    tools: symfony-cli
                 env:
                     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             -   name: Install composer dependencies
