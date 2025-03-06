@@ -1,6 +1,12 @@
 Changelog
 =========
 
+## 5.2.1
+
+Released: 2025-03-06
+
+Fixes the internal version numbers to reflect the latest 5.2.1 release.
+
 ## 5.2.0
 
 Released: 2025-03-06
