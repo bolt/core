@@ -123,7 +123,7 @@ contenttypes:
 # This is an example of how to define Contenttype specific permissions
 #
 # contenttypes:
-#    # Keys in this dictionary map to keys in the contenttypes.yml specification.
+#    # Keys in this dictionary map to keys in the contenttypes.yaml specification.
 #    showcases:
 #        # Rules defined here *override* rules defined in contenttype-default,
 #        # but *add* to rules in contenttype-base. This means that permissions
