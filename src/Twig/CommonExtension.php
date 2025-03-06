@@ -55,9 +55,13 @@ class CommonExtension extends AbstractExtension
     {
         if ($item instanceof Content) {
             return $this->contentExtension->isCurrent($env, $item);
-        } elseif (is_iterable($item) && array_key_exists('uri', $item)) {
+        }
+        
+        if (is_iterable($item) && array_key_exists('uri', $item)) {
             return $this->frontendMenuExtension->isCurrent($item);
-        } elseif ($this->getLocale($item)) {
+        }
+
+        if ($this->getLocale($item)) {
             return $this->localeExtension->getHtmlLang($env) === $this->getLocale($item);
         }
 
@@ -73,9 +77,9 @@ class CommonExtension extends AbstractExtension
     {
         if (is_string($item)) {
             $localepattern = '/^[a-z]{2}((-|_)[a-z]{2})?$/m';
-            preg_match_all($localepattern, $item, $matches);
+            $matchCount = preg_match_all($localepattern, $item);
 
-            return ! empty($matches) ? $item : null;
+            return $matchCount > 0 ? $item : null;
         } elseif ($item instanceof Collection) {
             return $this->getLocale($item->get('code', null));
         }
