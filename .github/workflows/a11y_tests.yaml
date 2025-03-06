@@ -1,7 +1,9 @@
 name: Accessibility (a11y) Tests
 
 on:
-    pull_request:
+    workflow_dispatch:
+    # Disabled, as they are currently broken. See #3531
+    # pull_request:
 
 jobs:
     a11y_tests:
