@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="ru" trgLang="ru">
-  <file id="validators.en">
+  <file id="validators.ru">
     <unit id="zh5oKD9" name="This value should be false.">
       <segment>
         <source>This value should be false.</source>
@@ -172,7 +172,7 @@
     <unit id="fIlB1B_" name="The file is too large. Allowed maximum size is {{ limit }} {{ suffix }}.">
       <segment>
         <source>The file is too large. Allowed maximum size is {{ limit }} {{ suffix }}.</source>
-        <target>Файл слишком большой. Допустимый максимальный размер: {{ limit }} {{суффикс}}.</target>
+        <target>Файл слишком большой. Допустимый максимальный размер файла: {{ limit }} {{суффикс}}.</target>
       </segment>
     </unit>
     <unit id="tW7o0t9" name="The file is too large.">
@@ -334,7 +334,7 @@
     <unit id="XSVzcbV" name="This is not a valid International Bank Account Number (IBAN).">
       <segment>
         <source>This is not a valid International Bank Account Number (IBAN).</source>
-        <target>Это недействительный международный номер банковского счета (IBAN).</target>
+        <target>Это недействительный международный номер банковского счёта (IBAN).</target>
       </segment>
     </unit>
     <unit id="yHirwNr" name="This value is not a valid ISBN-10.">
@@ -454,7 +454,7 @@
     <unit id="bcfVezI" name="The host could not be resolved.">
       <segment>
         <source>The host could not be resolved.</source>
-        <target>Хост не может быть решен.</target>
+        <target>Не удалось определить хост.</target>
       </segment>
     </unit>
     <unit id="NtzKvgt" name="This value does not match the expected {{ charset }} charset.">
@@ -538,7 +538,7 @@
     <unit id="A3Gr4fn" name="7e27e92">
       <segment>
         <source>7e27e92</source>
-        <target>Этот пароль просочился в результате утечки данных, его нельзя использовать. Пожалуйста, используйте другой пароль.</target>
+        <target>Этот пароль скомпрометирован в результате утечки данных, его нельзя использовать. Пожалуйста, используйте другой пароль.</target>
       </segment>
     </unit>
     <unit id="VvxxWas" name="This value should be between {{ min }} and {{ max }}.">
@@ -571,7 +571,7 @@
       </notes>
       <segment>
         <source>post.blank_summary</source>
-        <target>Дайте вашему посту резюме!</target>
+        <target>Дайте краткое содержание вашему посту!</target>
       </segment>
     </unit>
     <unit id="BZOzjk." name="post.blank_content">
