@@ -25,7 +25,7 @@ jobs:
                     php-version: 8.2
                     extensions: json, mbstring, pdo, curl, pdo_sqlite
                     coverage: none
-                    tools: symfony-cli:5
+                    tools: symfony-cli
                     # Configure PHP to disable Session garbage collector and fix the timezone to UTC like Bolt use to compare date.
                     ini-values: session.gc_probability=0, date.timezone=UTC
                 env:
