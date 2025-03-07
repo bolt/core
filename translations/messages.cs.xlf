@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="cs">
-  <file id="messages.en">
+  <file id="messages.cs">
     <unit id="tbB2gib" name="not_available">
       <notes>
         <note>templates/debug/source_code.twig:26</note>
@@ -1205,14 +1205,14 @@
     </unit>
     <unit id="eWLSFJs" name="editor_embed.label_pixel">
       <segment state="translated">
-        <source>editor_embed.label_pixel</source>
+        <source>pixel</source>
         <target>pixel</target>
       </segment>
     </unit>
     <unit id="EAtXrAm" name="editor_embed.label_matched_embed">
       <segment>
-        <source>editor_embed.label_matched_embed</source>
-        <target>Matched Embed</target>
+        <source>Matched Embed</source>
+        <target>Přiřazená vložená položka</target>
       </segment>
     </unit>
     <unit id="zATju4V" name="editor_embed.label_preview">
@@ -1368,7 +1368,7 @@
     <unit id="qQKx1lR" name="buttons.button_toggle">
       <segment>
         <source>buttons.button_toggle</source>
-        <target>Toggle Dropdown</target>
+        <target>Zobrazit rozbalovací nabídku</target>
       </segment>
     </unit>
     <unit id="ypPzS03" name="localeswitcher.button_info">
@@ -1433,8 +1433,8 @@
     </unit>
     <unit id="QQvRJe." name="files_cards.button_toggle">
       <segment>
-        <source>files_cards.button_toggle</source>
-        <target>Toggle Dropdown</target>
+        <source>Toggle Dropdown</source>
+        <target>Přepnout rozbalovací seznam</target>
       </segment>
     </unit>
     <unit id="gtC_ujD" name="files_cards.action_edit_image_info">
@@ -1494,13 +1494,13 @@
     <unit id="uiCjlwk" name="files_cards.label_created_on">
       <segment state="translated">
         <source>files_cards.label_created_on</source>
-        <target>Vytvrořeno:</target>
+        <target>Vytvořeno:</target>
       </segment>
     </unit>
     <unit id=".fL0AbE" name="files_list.remark">
       <segment>
-        <source>files_list.remark</source>
-        <target>No files are present in this folder. Select a folder to navigate to.</target>
+        <source>No files are present in this folder. Select a folder to navigate to.</source>
+        <target>V této složce nejsou žádné soubory. Vyberte složku, do které chcete přejít.</target>
       </segment>
     </unit>
     <unit id="v6cfPyt" name="quickselect.title_select">
@@ -1601,8 +1601,8 @@
     </unit>
     <unit id="8JeahIj" name="files_cards.message_no_files">
       <segment>
-        <source>files_cards.message_no_files</source>
-        <target>No files are present in this folder. Select a folder to navigate to, on the right-hand side.</target>
+        <source>No files are present in this folder. Select a folder to navigate to, on the right-hand side.</source>
+        <target>V této složce nejsou žádné soubory. Vyberte složku, do které chcete přejít, na pravé straně.</target>
       </segment>
     </unit>
     <unit id="pcq1NGk" name="listing_filter.button_compact">
@@ -1811,14 +1811,14 @@
     </unit>
     <unit id="Sd_AbmV" name="field.cropXPostfix">
       <segment>
-        <source>field.cropXPostfix</source>
-        <target>Position of crop on X-axis, range 0-100. </target>
+        <source>Position of crop on X-axis, range 0-100.</source>
+        <target>Pozice ořezu na ose X, rozsah 0-100.</target>
       </segment>
     </unit>
     <unit id="BQBmQHT" name="field.cropYPostfix">
       <segment>
-        <source>field.cropYPostfix</source>
-        <target>Position of crop on Y-axis, range 0-100. </target>
+        <source>Position of crop on Y-axis, range 0-100.</source>
+        <target>Pozice ořezu na ose Y, rozsah 0-100.</target>
       </segment>
     </unit>
     <unit id="hi98HIj" name="field.cropY">
@@ -1829,14 +1829,14 @@
     </unit>
     <unit id="PHOpD5y" name="field.cropZoom">
       <segment>
-        <source>field.cropZoom</source>
-        <target>Crop zoomfactor</target>
+        <source>Crop zoomfactor</source>
+        <target>Faktor přiblížení oříznutí</target>
       </segment>
     </unit>
     <unit id="tn6Z8wY" name="field.cropZoomPostfix">
       <segment>
-        <source>field.cropZoomPostfix</source>
-        <target>Zoom-level of crop, range 1-10. </target>
+        <source>Zoom-level of crop, range 1-10.</source>
+        <target>Úroveň přiblížení ořezu, rozsah 1-10.</target>
       </segment>
     </unit>
     <unit id="n.3JZvX" name="title.contentType">
@@ -2280,13 +2280,427 @@
     <unit id="60xy4WG" name="extensions.no_dependencies">
       <segment state="translated">
         <source>extensions.no_dependencies</source>
-        <target>Žádné známé závislosti</target>
+        <target>Žádné závislosti</target>
       </segment>
     </unit>
     <unit id="LfwezhR" name="extensions.title_dependencies">
       <segment state="translated">
         <source>extensions.title_dependencies</source>
         <target>Závislosti</target>
+      </segment>
+    </unit>
+    <unit id="H9knE.O" name="collection.expand_all">
+      <segment>
+        <source>collection.expand_all</source>
+        <target>Rozbalit všechny položky</target>
+      </segment>
+    </unit>
+    <unit id="JjvI6hp" name="collection.collapse_all">
+      <segment>
+        <source>collection.collapse_all</source>
+        <target>Zabalit všechny položky</target>
+      </segment>
+    </unit>
+    <unit id="pXtciRI" name="content.edit_missing_definition">
+      <segment>
+        <source>The definition for this ContentType is missing! Editing this record will not work as expected. Please check your contenttypes.yaml to make sure that it contains %contenttype%.</source>
+        <target>Definice tohoto ContentType chybí! Úprava tohoto záznamu nebude fungovat podle očekávání. Zkontrolujte prosím svůj soubor contenttypes.yaml a ujistěte se, že obsahuje %contenttype%.</target>
+      </segment>
+    </unit>
+    <unit id="RBJ0NMl" name="collection.select">
+      <segment>
+        <source>Select …</source>
+        <target>Vybrat …</target>
+      </segment>
+    </unit>
+    <unit id="2SSLP1K" name="form.empty_username_email">
+      <segment>
+        <source>Please enter your username or email</source>
+        <target>Zadejte prosím své uživatelské jméno nebo e-mail</target>
+      </segment>
+    </unit>
+    <unit id="5Qf_RiO" name="form.empty_password">
+      <segment>
+        <source>Please enter your password</source>
+        <target>Zadejte prosím své heslo</target>
+      </segment>
+    </unit>
+    <unit id="f8zXapF" name="form.empty_email">
+      <segment>
+        <source>Please enter your email</source>
+        <target>Zadejte prosím svůj e-mail</target>
+      </segment>
+    </unit>
+    <unit id="fAmcKUQ" name="listing.title_filterby_field">
+      <segment>
+        <source>Filter by field</source>
+        <target>Filtrovat podle pole</target>
+      </segment>
+    </unit>
+    <unit id="kciiidS" name="image.button_from_url">
+      <segment>
+        <source>From URL</source>
+        <target>Nahrát z URL</target>
+      </segment>
+    </unit>
+    <unit id="QcN1pi8" name="files_cards.copy_to_clipboard">
+      <segment>
+        <source>Copy link to file</source>
+        <target>Kopírovat odkaz na soubor</target>
+      </segment>
+    </unit>
+    <unit id="S9k1S7Z" name="warning">
+      <segment>
+        <source>Warning</source>
+        <target>Varování</target>
+      </segment>
+    </unit>
+    <unit id="4fyuUU." name="filemanager.create_folder_already_exists">
+      <segment>
+        <source>Folder already exists.</source>
+        <target>Složka již existuje.</target>
+      </segment>
+    </unit>
+    <unit id="aSxePCB" name="filemanager.create_folder_error">
+      <segment>
+        <source>Could not create folder.</source>
+        <target>Nepodařilo se vytvořit složku.</target>
+      </segment>
+    </unit>
+    <unit id="wbFKypA" name="filemanager.create_folder_success">
+      <segment>
+        <source>Folder created successfully.</source>
+        <target>Složka byla úspěšně vytvořena.</target>
+      </segment>
+    </unit>
+    <unit id="lZxOEzh" name="filemanager.delete_folder_successful">
+      <segment>
+        <source>Folder deleted successfully.</source>
+        <target>Složka byla úspěšně odstraněna.</target>
+      </segment>
+    </unit>
+    <unit id="a6Xhtq0" name="folder.create_new">
+      <segment>
+        <source>New folder</source>
+        <target>Nová složka</target>
+      </segment>
+    </unit>
+    <unit id="FcXvWL8" name="title.add_user">
+      <segment>
+        <source>Add User</source>
+        <target>Přidat uživatele</target>
+      </segment>
+    </unit>
+    <unit id="nWMH_Nr" name="label.avatar">
+      <segment>
+        <source>Avatar</source>
+        <target>Obrázek uživatele</target>
+      </segment>
+    </unit>
+    <unit id="i37ZNqN" name="login.forgotpassword">
+      <segment>
+        <source>Forgot Password</source>
+        <target>Zapomenuté heslo</target>
+      </segment>
+    </unit>
+    <unit id="y.dIywE" name="reset_password.request_header">
+      <segment>
+        <source>Reset Password</source>
+        <target>Resetovat heslo</target>
+      </segment>
+    </unit>
+    <unit id="SwOgM7K" name="reset_password.request_description">
+      <segment>
+        <source>Enter your email address and we will send you a link to reset your password.</source>
+        <target>Zadejte svou e-mailovou adresu a my Vám zašleme odkaz pro obnovení hesla.</target>
+      </segment>
+    </unit>
+    <unit id="RX0Iuzi" name="reset_password.request_send">
+      <segment>
+        <source>Submit</source>
+        <target>Zaslat e-mail na změnu hesla</target>
+      </segment>
+    </unit>
+    <unit id="lpzL089" name="Email">
+      <segment>
+        <source>Email</source>
+        <target>E-mail</target>
+      </segment>
+    </unit>
+    <unit id="k9hekeu" name="reset_password.back-to-login">
+      <segment>
+        <source>Back to Login</source>
+        <target>Zpět k přihlášení</target>
+      </segment>
+    </unit>
+    <unit id="gVc0Uf4" name="reset_password.reset_header">
+      <segment>
+        <source>Reset your password</source>
+        <target>Reset hesla</target>
+      </segment>
+    </unit>
+    <unit id="U6qdalg" name="reset_password.check_email_sent_header">
+      <segment>
+        <source>Password Reset Email Sent</source>
+        <target>E-mail s žádostí o obnovení hesla byl odeslán</target>
+      </segment>
+    </unit>
+    <unit id="SxW1D3L" name="reset_password.check_email_sent_text_1">
+      <segment>
+        <source>An email has been sent that contains a link you can click to reset your password. This link will expire in %hours% hour(s).</source>
+        <target>Byl Vám zaslán e-mail s odkazem, na který můžete kliknout a obnovit tak své heslo. Platnost tohoto odkazu vyprší za %hours% hodin.</target>
+      </segment>
+    </unit>
+    <unit id="z25k4DS" name="reset_password.check_email_sent_text_2">
+      <segment>
+        <source>If you don't receive an email please check your spam folder or %tryagain%.</source>
+        <target>Pokud e-mail neobdržíte, zkontrolujte složku se spamem nebo %tryagain%.</target>
+      </segment>
+    </unit>
+    <unit id="QpUMHfK" name="reset_password.reset_btn">
+      <segment>
+        <source>Reset Password</source>
+        <target>Reset hesla</target>
+      </segment>
+    </unit>
+    <unit id="dp42qbF" name="reset_password.email_title">
+      <segment>
+        <source>Password change request</source>
+        <target>Požadavek na změnu hesla</target>
+      </segment>
+    </unit>
+    <unit id="xS2vvXw" name="reset_password.email_description">
+      <segment>
+        <source>To reset your password, please visit the following link</source>
+        <target>Chcete-li obnovit své heslo, navštivte následující odkaz.</target>
+      </segment>
+    </unit>
+    <unit id="apkSD11" name="reset_password.email_expire">
+      <segment>
+        <source>This link will expire in %hours% hour(s).</source>
+        <target>Platnost tohoto odkazu vyprší za %hours% hodin.</target>
+      </segment>
+    </unit>
+    <unit id="_gg3hPE" name="reset_password.email_thanks">
+      <segment>
+        <source>Cheers!</source>
+        <target>Děkujeme!</target>
+      </segment>
+    </unit>
+    <unit id="harDiJR" name="reset_password.enter_pwd">
+      <segment>
+        <source>Please enter a password</source>
+        <target>Zadejte prosím heslo</target>
+      </segment>
+    </unit>
+    <unit id="rU9cSfq" name="label.repeat_password">
+      <segment>
+        <source>Repeat Password</source>
+        <target>Zopakování hesla</target>
+      </segment>
+    </unit>
+    <unit id="Tg5zdeo" name="reset_password.not_matching_pwds">
+      <segment>
+        <source>The password fields must match.</source>
+        <target>Hesla se musí shodovat!</target>
+      </segment>
+    </unit>
+    <unit id="1JZeWxG" name="reset_password.minimum_length">
+      <segment>
+        <source>Your password should be at least %s characters</source>
+        <target>Vaše heslo by mělo mít alespoň %s znaků</target>
+      </segment>
+    </unit>
+    <unit id="GUQYLn2" name="reset_password.no_token">
+      <segment>
+        <source>No reset password token found in the URL or in the session.</source>
+        <target>V adrese URL ani v relaci nebyl nalezen token pro resetování hesla.</target>
+      </segment>
+    </unit>
+    <unit id="SjuOnue" name="reset_password.reset_successful">
+      <segment>
+        <source>Your password has been reset successfully.</source>
+        <target>Vaše heslo bylo úspěšně resetováno.</target>
+      </segment>
+    </unit>
+    <unit id="5Xr92sQ" name="reset_password.problem_with_request">
+      <segment>
+        <source>There was a problem handling your password reset request - %s</source>
+        <target>Při zpracování Vašeho požadavku na reset hesla došlo k problému - %s</target>
+      </segment>
+    </unit>
+    <unit id="u3DMmBH" name="label.filtered_by">
+      <segment>
+        <source>Filtered by</source>
+        <target>Filtrováno podle</target>
+      </segment>
+    </unit>
+    <unit id="qoZwSEY" name="action.preview_secure_share">
+      <segment>
+        <source>Share secure preview link</source>
+        <target>Sdílet zabezpečený náhled odkazu</target>
+      </segment>
+    </unit>
+    <unit id="zYeSeNJ" name="action.stop_impersonating">
+      <segment>
+        <source>Stop impersonating</source>
+        <target>Zastavit napodobování</target>
+      </segment>
+    </unit>
+    <unit id="W7z__Yi" name="action.impersonate">
+      <segment>
+        <source>Impersonate</source>
+        <target>Vydávat se za</target>
+      </segment>
+    </unit>
+    <unit id="qlucRr7" name="maintenance.activated_warning">
+      <segment>
+        <source>Maintenance mode is activated</source>
+        <target>Je aktivován režim údržby</target>
+      </segment>
+    </unit>
+    <unit id="CvNi3GD" name="action.refresh">
+      <segment>
+        <source>Refresh</source>
+        <target>Obnovit</target>
+      </segment>
+    </unit>
+    <unit id="9UKAP.V" name="listing_details_box.showing_records">
+      <segment>
+        <source>Showing records %current% of %total%</source>
+        <target>Zobrazeno záznamů %current% z %total%</target>
+      </segment>
+    </unit>
+    <unit id="UrywY0R" name="listing_details_box.name">
+      <segment>
+        <source>Name: %name% (singular: %singularName%)</source>
+        <target>Jméno: %name% (singular: %singularName%)</target>
+      </segment>
+    </unit>
+    <unit id=".l3zbrq" name="listing_details_box.slug">
+      <segment>
+        <source>Slug: %slug% (singular: %singularSlug%)</source>
+        <target>Slug: %slug% (singular: %singularSlug%)</target>
+      </segment>
+    </unit>
+    <unit id="eJ9YbdG" name="listing_details_box.record_template">
+      <segment>
+        <source>Record template: %template%</source>
+        <target>Record template: %template%</target>
+      </segment>
+    </unit>
+    <unit id="tsc7_G3" name="listing_details_box.listing_template">
+      <segment>
+        <source>Listing template: %template% (%listingRecords% records)</source>
+        <target>Listing template: %template% (%listingRecords% záznamů)</target>
+      </segment>
+    </unit>
+    <unit id="pPz9Ocx" name="listing_details_box.locales">
+      <segment>
+        <source>listing_details_box.locales</source>
+        <target>Locales: %locales%</target>
+      </segment>
+    </unit>
+    <unit id="z8r0TY6" name="action.edit_permissions">
+      <segment>
+        <source>Edit Permissions</source>
+        <target>Upravit oprávnění</target>
+      </segment>
+    </unit>
+    <unit id="OYUVA5." name="general.label.search">
+      <segment>
+        <source>Search</source>
+        <target>Vyhledat</target>
+      </segment>
+    </unit>
+    <unit id="wG04eAa" name="image.image_preview">
+      <segment>
+        <source>Preview the image</source>
+        <target>Náhled obrázku</target>
+      </segment>
+    </unit>
+    <unit id="OEqzPDO" name="listing_table.actions.select_all">
+      <segment>
+        <source>Select all</source>
+        <target>Vybrat vše</target>
+      </segment>
+    </unit>
+    <unit id="2hoKa1k" name="label.remembermeduration">
+      <segment>
+        <source>Remember me? (%duration% days)</source>
+        <target>Zapamatovat přihlášení? (%duration% dnů)</target>
+      </segment>
+    </unit>
+    <unit id="eJG2.4P" name="listing.current_sessions_header">
+      <segment>
+        <source>Current sessions</source>
+        <target>Aktuální relace</target>
+      </segment>
+    </unit>
+    <unit id="a_COwtV" name="image.button_upload_options">
+      <segment>
+        <source>Upload Options</source>
+        <target>Možnosti nahrávání</target>
+      </segment>
+    </unit>
+    <unit id="hKmDb7q" name="Share secure preview link">
+      <segment>
+        <source>Share secure preview link</source>
+        <target>Sdílet zabezpečený náhled odkazu</target>
+      </segment>
+    </unit>
+    <unit id="a_CQgly" name="Order">
+      <segment>
+        <source>Order</source>
+        <target>Objednávka</target>
+      </segment>
+    </unit>
+    <unit id="Y7ajNNN" name="placeholder.email">
+      <segment>
+        <source>placeholder.email</source>
+        <target>Váš e-mail</target>
+      </segment>
+    </unit>
+    <unit id="NF.vvAN" name="You have to login in order to access this page.">
+      <segment>
+        <source>You have to login in order to access this page.</source>
+        <target>Pro přístup na tuto stránku se musíte přihlásit.</target>
+      </segment>
+    </unit>
+    <unit id="MjY7.cg" name="modal.title.file_field">
+      <segment>
+        <source>Select a file</source>
+        <target>Výběr souboru</target>
+      </segment>
+    </unit>
+    <unit id="0yPnNMd" name="modal.title.image_field">
+      <segment>
+        <source>Select an image</source>
+        <target>Výběr obrázku</target>
+      </segment>
+    </unit>
+    <unit id="KIN.Ehy" name="modal.title.upload_from_url">
+      <segment>
+        <source>Upload from URL</source>
+        <target>Nahrát z adresy URL</target>
+      </segment>
+    </unit>
+    <unit id="ODb3pJA" name="modal.text.loading">
+      <segment>
+        <source>Loading...</source>
+        <target>Načítání...</target>
+      </segment>
+    </unit>
+    <unit id="VlfWDQr" name="modal.button_save">
+      <segment>
+        <source>Save</source>
+        <target>Uložit</target>
+      </segment>
+    </unit>
+    <unit id="ct_I4w3" name="modal.button_deny">
+      <segment>
+        <source>Close</source>
+        <target>Zavřít</target>
       </segment>
     </unit>
   </file>

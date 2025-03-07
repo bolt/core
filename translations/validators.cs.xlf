@@ -1,568 +1,568 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="cs">
-  <file id="validators.en">
+  <file id="validators.cs">
     <unit id="zh5oKD9" name="This value should be false.">
       <segment>
         <source>This value should be false.</source>
-        <target>This value should be false.</target>
+        <target>Tato hodnota by měla být false.</target>
       </segment>
     </unit>
     <unit id="NN2_iru" name="This value should be true.">
       <segment>
         <source>This value should be true.</source>
-        <target>This value should be true.</target>
+        <target>Tato hodnota by měla být true.</target>
       </segment>
     </unit>
     <unit id="OjM_kpf" name="This value should be of type {{ type }}.">
       <segment>
         <source>This value should be of type {{ type }}.</source>
-        <target>This value should be of type {{ type }}.</target>
+        <target>Tato hodnota by měla být typu {{ type }}.</target>
       </segment>
     </unit>
     <unit id="f0P5pBD" name="This value should be blank.">
       <segment>
         <source>This value should be blank.</source>
-        <target>This value should be blank.</target>
+        <target>Tato hodnota by měla být prázdná.</target>
       </segment>
     </unit>
     <unit id="ih.4TRN" name="The value you selected is not a valid choice.">
       <segment>
         <source>The value you selected is not a valid choice.</source>
-        <target>The value you selected is not a valid choice.</target>
+        <target>Vámi vybraná hodnota není platnou volbou.</target>
       </segment>
     </unit>
     <unit id="7smtimf" name="0d999f2">
       <segment>
-        <source>0d999f2</source>
-        <target>You must select at least {{ limit }} choice.|You must select at least {{ limit }} choices.</target>
+        <source>You must select at least {{ limit }} choice.|You must select at least {{ limit }} choices.</source>
+        <target>Musíte vybrat alespoň {{ limit }} možnost.|Musíte vybrat alespoň {{ limit }} možností.</target>
       </segment>
     </unit>
     <unit id="JRlXq2Z" name="0824486">
       <segment>
-        <source>0824486</source>
-        <target>You must select at most {{ limit }} choice.|You must select at most {{ limit }} choices.</target>
+        <source>You must select at most {{ limit }} choice.|You must select at most {{ limit }} choices.</source>
+        <target>Musíte vybrat nejvýše {{ limit }} možnost.|Musíte vybrat nejvýše {{ limit }} možností.</target>
       </segment>
     </unit>
     <unit id="87zjiHi" name="One or more of the given values is invalid.">
       <segment>
         <source>One or more of the given values is invalid.</source>
-        <target>One or more of the given values is invalid.</target>
+        <target>Jedna nebo více zadaných hodnot je neplatná.</target>
       </segment>
     </unit>
     <unit id="3NeQftv" name="This field was not expected.">
       <segment>
         <source>This field was not expected.</source>
-        <target>This field was not expected.</target>
+        <target>Toto pole se neočekávalo.</target>
       </segment>
     </unit>
     <unit id="SwMV4zp" name="This field is missing.">
       <segment>
         <source>This field is missing.</source>
-        <target>This field is missing.</target>
+        <target>Toto pole chybí.</target>
       </segment>
     </unit>
     <unit id="LO2vFKN" name="This value is not a valid date.">
       <segment>
         <source>This value is not a valid date.</source>
-        <target>This value is not a valid date.</target>
+        <target>Tato hodnota neodpovídá platnému datu.</target>
       </segment>
     </unit>
     <unit id="86dU_nv" name="This value is not a valid datetime.">
       <segment>
         <source>This value is not a valid datetime.</source>
-        <target>This value is not a valid datetime.</target>
+        <target>Tato hodnota neodpovídá platnému datu a času.</target>
       </segment>
     </unit>
     <unit id="PSvNXdi" name="This value is not a valid email address.">
       <segment>
         <source>This value is not a valid email address.</source>
-        <target>This value is not a valid email address.</target>
+        <target>Tato hodnota není platnou e-mailovou adresou.</target>
       </segment>
     </unit>
     <unit id="3KeHbZy" name="The file could not be found.">
       <segment>
         <source>The file could not be found.</source>
-        <target>The file could not be found.</target>
+        <target>Soubor se nepodařilo najít.</target>
       </segment>
     </unit>
     <unit id="KtJhQZo" name="The file is not readable.">
       <segment>
         <source>The file is not readable.</source>
-        <target>The file is not readable.</target>
+        <target>Soubor není čitelný.</target>
       </segment>
     </unit>
     <unit id="2O3FbJ6" name="1ad411a">
       <segment>
-        <source>1ad411a</source>
-        <target>The file is too large ({{ size }} {{ suffix }}). Allowed maximum size is {{ limit }} {{ suffix }}.</target>
+        <source>The file is too large ({{ size }} {{ suffix }}). Allowed maximum size is {{ limit }} {{ suffix }}.</source>
+        <target>Soubor je příliš velký ({{ size }} {{ suffix }}). Maximální povolená velikost je {{ limit }} {{ suffix }}.</target>
       </segment>
     </unit>
     <unit id="p4L.BFV" name="30a318d">
       <segment>
-        <source>30a318d</source>
-        <target>The mime type of the file is invalid ({{ type }}). Allowed mime types are {{ types }}.</target>
+        <source>The mime type of the file is invalid ({{ type }}). Allowed mime types are {{ types }}.</source>
+        <target>Typ mime souboru je neplatný ({{ type }}). Povolené typy mime jsou {{ types }}.</target>
       </segment>
     </unit>
     <unit id="NubOmrs" name="This value should be {{ limit }} or less.">
       <segment>
         <source>This value should be {{ limit }} or less.</source>
-        <target>This value should be {{ limit }} or less.</target>
+        <target>Tato hodnota by měla být {{ limit }} nebo nižší.</target>
       </segment>
     </unit>
     <unit id="SjJg9Hy" name="0e0c1e1">
       <segment>
-        <source>0e0c1e1</source>
-        <target>This value is too long. It should have {{ limit }} character or less.|This value is too long. It should have {{ limit }} characters or less.</target>
+        <source>This value is too long. It should have {{ limit }} character or less.|This value is too long. It should have {{ limit }} characters or less.</source>
+        <target>Tato hodnota je příliš dlouhá. Měla by mít maximálně {{ limit }} znak nebo méně.|Tato hodnota je příliš dlouhá. Měla by mít maximálně {{ limit }} znaků nebo méně.</target>
       </segment>
     </unit>
     <unit id="qgR8M_U" name="This value should be {{ limit }} or more.">
       <segment>
         <source>This value should be {{ limit }} or more.</source>
-        <target>This value should be {{ limit }} or more.</target>
+        <target>Tato hodnota by měla být {{ limit }} nebo vyšší.</target>
       </segment>
     </unit>
     <unit id="JJVWzKj" name="5188ff9">
       <segment>
-        <source>5188ff9</source>
-        <target>This value is too short. It should have {{ limit }} character or more.|This value is too short. It should have {{ limit }} characters or more.</target>
+        <source>This value is too short. It should have {{ limit }} character or more.|This value is too short. It should have {{ limit }} characters or more.</source>
+        <target>Tato hodnota je příliš krátká. Měla by mít minimálně {{ limit }} znak nebo více.|Tato hodnota je příliš krátká. Měla by mít minimálně {{ limit }} znaků nebo více.</target>
       </segment>
     </unit>
     <unit id="1KV4L.t" name="This value should not be blank.">
       <segment>
         <source>This value should not be blank.</source>
-        <target>This value should not be blank.</target>
+        <target>Tato hodnota by neměla být prázdná.</target>
       </segment>
     </unit>
     <unit id="2G4Vepm" name="This value should not be null.">
       <segment>
         <source>This value should not be null.</source>
-        <target>This value should not be null.</target>
+        <target>Tato hodnota by neměla být null.</target>
       </segment>
     </unit>
     <unit id="yDc3m6E" name="This value should be null.">
       <segment>
         <source>This value should be null.</source>
-        <target>This value should be null.</target>
+        <target>Tato hodnota by měla být null.</target>
       </segment>
     </unit>
     <unit id="zKzWejA" name="This value is not valid.">
       <segment>
         <source>This value is not valid.</source>
-        <target>This value is not valid.</target>
+        <target>Tato hodnota není platná.</target>
       </segment>
     </unit>
     <unit id="HSuBZpQ" name="This value is not a valid time.">
       <segment>
         <source>This value is not a valid time.</source>
-        <target>This value is not a valid time.</target>
+        <target>Tato hodnota neodpovídá platné časové specifikaci.</target>
       </segment>
     </unit>
     <unit id="snWc_QT" name="This value is not a valid URL.">
       <segment>
         <source>This value is not a valid URL.</source>
-        <target>This value is not a valid URL.</target>
+        <target>Tato hodnota není platnou adresou URL.</target>
       </segment>
     </unit>
     <unit id="jpaLsb2" name="The two values should be equal.">
       <segment>
         <source>The two values should be equal.</source>
-        <target>The two values should be equal.</target>
+        <target>Obě hodnoty by se měly rovnat.</target>
       </segment>
     </unit>
     <unit id="fIlB1B_" name="The file is too large. Allowed maximum size is {{ limit }} {{ suffix }}.">
       <segment>
         <source>The file is too large. Allowed maximum size is {{ limit }} {{ suffix }}.</source>
-        <target>The file is too large. Allowed maximum size is {{ limit }} {{ suffix }}.</target>
+        <target>Soubor je příliš velký. Maximální povolená velikost je {{ limit }} {{ suffix }}.</target>
       </segment>
     </unit>
     <unit id="tW7o0t9" name="The file is too large.">
       <segment>
         <source>The file is too large.</source>
-        <target>The file is too large.</target>
+        <target>Soubor je příliš velký.</target>
       </segment>
     </unit>
     <unit id=".exF5Ww" name="The file could not be uploaded.">
       <segment>
         <source>The file could not be uploaded.</source>
-        <target>The file could not be uploaded.</target>
+        <target>Soubor se nepodařilo nahrát.</target>
       </segment>
     </unit>
     <unit id="d7sS5yw" name="This value should be a valid number.">
       <segment>
         <source>This value should be a valid number.</source>
-        <target>This value should be a valid number.</target>
+        <target>Tato hodnota by měla být platné číslo.</target>
       </segment>
     </unit>
     <unit id="BS2Ez6i" name="This file is not a valid image.">
       <segment>
         <source>This file is not a valid image.</source>
-        <target>This file is not a valid image.</target>
+        <target>Tento soubor není platným obrázkem.</target>
       </segment>
     </unit>
     <unit id="ydcT9kU" name="This is not a valid IP address.">
       <segment>
         <source>This is not a valid IP address.</source>
-        <target>This is not a valid IP address.</target>
+        <target>Toto není platná IP adresa.</target>
       </segment>
     </unit>
     <unit id="lDOGNFX" name="This value is not a valid language.">
       <segment>
         <source>This value is not a valid language.</source>
-        <target>This value is not a valid language.</target>
+        <target>Tato hodnota není platným jazykem.</target>
       </segment>
     </unit>
     <unit id="y9IdYkA" name="This value is not a valid locale.">
       <segment>
         <source>This value is not a valid locale.</source>
-        <target>This value is not a valid locale.</target>
+        <target>Tato hodnota neodpovídá platnému národnímu prostředí.</target>
       </segment>
     </unit>
     <unit id="1YC0pOd" name="This value is not a valid country.">
       <segment>
         <source>This value is not a valid country.</source>
-        <target>This value is not a valid country.</target>
+        <target>Tato hodnota není platnou zemí.</target>
       </segment>
     </unit>
     <unit id="B5ebaMp" name="This value is already used.">
       <segment>
         <source>This value is already used.</source>
-        <target>This value is already used.</target>
+        <target>Tato hodnota je již použita.</target>
       </segment>
     </unit>
     <unit id="L6097a6" name="The size of the image could not be detected.">
       <segment>
         <source>The size of the image could not be detected.</source>
-        <target>The size of the image could not be detected.</target>
+        <target>Velikost obrázku se nepodařilo zjistit.</target>
       </segment>
     </unit>
     <unit id="g9NoIBz" name="266051e">
       <segment>
-        <source>266051e</source>
-        <target>The image width is too big ({{ width }}px). Allowed maximum width is {{ max_width }}px.</target>
+        <source>The image width is too big ({{ width }}px). Allowed maximum width is {{ max_width }}px.</source>
+        <target>Šířka obrázku je příliš velká ({{ width }}px). Povolená maximální šířka je {{ max_width }}px.</target>
       </segment>
     </unit>
     <unit id="HTsQNva" name="c1c23f9">
       <segment>
-        <source>c1c23f9</source>
-        <target>The image width is too small ({{ width }}px). Minimum width expected is {{ min_width }}px.</target>
+        <source>The image width is too small ({{ width }}px). Minimum width expected is {{ min_width }}px.</source>
+        <target>Šířka obrázku je příliš malá ({{ width }}px). Minimální očekávaná šířka je {{ min_width }}px.</target>
       </segment>
     </unit>
     <unit id="h3PRqha" name="9a128f7">
       <segment>
-        <source>9a128f7</source>
-        <target>The image height is too big ({{ height }}px). Allowed maximum height is {{ max_height }}px.</target>
+        <source>The image height is too big ({{ height }}px). Allowed maximum height is {{ max_height }}px.</source>
+        <target>Výška obrázku je příliš velká ({{ height }}px). Povolená maximální výška je {{ max_height }}px.</target>
       </segment>
     </unit>
     <unit id="IVraZ3b" name="8a4cd70">
       <segment>
-        <source>8a4cd70</source>
-        <target>The image height is too small ({{ height }}px). Minimum height expected is {{ min_height }}px.</target>
+        <source>The image height is too small ({{ height }}px). Minimum height expected is {{ min_height }}px.</source>
+        <target>Výška obrázku je příliš malá ({{ height }}px). Minimální očekávaná výška je {{ min_height }}px.</target>
       </segment>
     </unit>
     <unit id="PSdMNab" name="This value should be the user's current password.">
       <segment>
         <source>This value should be the user's current password.</source>
-        <target>This value should be the user's current password.</target>
+        <target>Tato hodnota by měla odpovídat aktuálnímu uživatelskému heslu.</target>
       </segment>
     </unit>
     <unit id="Anek_FY" name="fd389d6">
       <segment>
-        <source>fd389d6</source>
-        <target>This value should have exactly {{ limit }} character.|This value should have exactly {{ limit }} characters.</target>
+        <source>This value should have exactly {{ limit }} character.|This value should have exactly {{ limit }} characters.</source>
+        <target>Tato hodnota by měla mít přesně {{ limit }} znak.|Tato hodnota by měla mít přesně {{ limit }} znaků.</target>
       </segment>
     </unit>
     <unit id="xJ2Bcr_" name="The file was only partially uploaded.">
       <segment>
         <source>The file was only partially uploaded.</source>
-        <target>The file was only partially uploaded.</target>
+        <target>Soubor byl nahrán pouze částečně.</target>
       </segment>
     </unit>
     <unit id="HzkJDtF" name="No file was uploaded.">
       <segment>
         <source>No file was uploaded.</source>
-        <target>No file was uploaded.</target>
+        <target>Nebyl nahrán žádný soubor.</target>
       </segment>
     </unit>
     <unit id="mHfEaB3" name="No temporary folder was configured in php.ini.">
       <segment>
         <source>No temporary folder was configured in php.ini.</source>
-        <target>No temporary folder was configured in php.ini, or the configured folder does not exist.</target>
+        <target>V souboru php.ini nebyla nakonfigurována žádná dočasná složka nebo nakonfigurovaná složka neexistuje.</target>
       </segment>
     </unit>
     <unit id="y9K3BGb" name="Cannot write temporary file to disk.">
       <segment>
         <source>Cannot write temporary file to disk.</source>
-        <target>Cannot write temporary file to disk.</target>
+        <target>Nelze zapsat dočasný soubor na disk.</target>
       </segment>
     </unit>
     <unit id="kx3yHIM" name="A PHP extension caused the upload to fail.">
       <segment>
         <source>A PHP extension caused the upload to fail.</source>
-        <target>A PHP extension caused the upload to fail.</target>
+        <target>Nahrávání se nezdařilo kvůli PHP rozšíření.</target>
       </segment>
     </unit>
     <unit id="YuLxmhd" name="b54c218">
       <segment>
-        <source>b54c218</source>
-        <target>This collection should contain {{ limit }} element or more.|This collection should contain {{ limit }} elements or more.</target>
+        <source>This collection should contain {{ limit }} element or more.|This collection should contain {{ limit }} elements or more.</source>
+        <target>Tato kolekce by měla obsahovat alespoň {{ limit }} prvek nebo více.|Tato kolekce by měla obsahovat alespoň {{ limit }} prvků nebo více.</target>
       </segment>
     </unit>
     <unit id="qXV2OMI" name="949632c">
       <segment>
-        <source>949632c</source>
-        <target>This collection should contain {{ limit }} element or less.|This collection should contain {{ limit }} elements or less.</target>
+        <source>This collection should contain {{ limit }} element or less.|This collection should contain {{ limit }} elements or less.</source>
+        <target>Tato kolekce by měla obsahovat maximálně {{ limit }} prvek.|Tato kolekce by měla obsahovat maximálně {{ limit }} prvků nebo méně.</target>
       </segment>
     </unit>
     <unit id="BnjGMFh" name="e0582dc">
       <segment>
-        <source>e0582dc</source>
-        <target>This collection should contain exactly {{ limit }} element.|This collection should contain exactly {{ limit }} elements.</target>
+        <source>This collection should contain exactly {{ limit }} element.|This collection should contain exactly {{ limit }} elements.</source>
+        <target>Tato kolekce by měla obsahovat právě {{ limit }} prvek.|Tato kolekce by měla obsahovat právě {{ limit }} prvků.</target>
       </segment>
     </unit>
     <unit id="MAzmID7" name="Invalid card number.">
       <segment>
         <source>Invalid card number.</source>
-        <target>Invalid card number.</target>
+        <target>Neplatné číslo karty.</target>
       </segment>
     </unit>
     <unit id="c3REGK3" name="Unsupported card type or invalid card number.">
       <segment>
         <source>Unsupported card type or invalid card number.</source>
-        <target>Unsupported card type or invalid card number.</target>
+        <target>Nepodporovaný typ karty nebo neplatné číslo karty.</target>
       </segment>
     </unit>
     <unit id="XSVzcbV" name="This is not a valid International Bank Account Number (IBAN).">
       <segment>
         <source>This is not a valid International Bank Account Number (IBAN).</source>
-        <target>This is not a valid International Bank Account Number (IBAN).</target>
+        <target>Toto není platné mezinárodní číslo bankovního účtu (IBAN).</target>
       </segment>
     </unit>
     <unit id="yHirwNr" name="This value is not a valid ISBN-10.">
       <segment>
         <source>This value is not a valid ISBN-10.</source>
-        <target>This value is not a valid ISBN-10.</target>
+        <target>Tato hodnota není platným ISBN-10.</target>
       </segment>
     </unit>
     <unit id="c_q0_ua" name="This value is not a valid ISBN-13.">
       <segment>
         <source>This value is not a valid ISBN-13.</source>
-        <target>This value is not a valid ISBN-13.</target>
+        <target>Tato hodnota není platným ISBN-13.</target>
       </segment>
     </unit>
     <unit id="M4FlD6n" name="This value is neither a valid ISBN-10 nor a valid ISBN-13.">
       <segment>
         <source>This value is neither a valid ISBN-10 nor a valid ISBN-13.</source>
-        <target>This value is neither a valid ISBN-10 nor a valid ISBN-13.</target>
+        <target>Tato hodnota není platným číslem ISBN-10 ani platným číslem ISBN-13.</target>
       </segment>
     </unit>
     <unit id="cuct0Ow" name="This value is not a valid ISSN.">
       <segment>
         <source>This value is not a valid ISSN.</source>
-        <target>This value is not a valid ISSN.</target>
+        <target>Tato hodnota není platným ISSN.</target>
       </segment>
     </unit>
     <unit id="JBLs1a1" name="This value is not a valid currency.">
       <segment>
         <source>This value is not a valid currency.</source>
-        <target>This value is not a valid currency.</target>
+        <target>Tato hodnota není platnou měnou.</target>
       </segment>
     </unit>
     <unit id="c.WxzFW" name="This value should be equal to {{ compared_value }}.">
       <segment>
         <source>This value should be equal to {{ compared_value }}.</source>
-        <target>This value should be equal to {{ compared_value }}.</target>
+        <target>Tato hodnota by se měla rovnat {{ compared_value }}.</target>
       </segment>
     </unit>
     <unit id="_jdjkwq" name="This value should be greater than {{ compared_value }}.">
       <segment>
         <source>This value should be greater than {{ compared_value }}.</source>
-        <target>This value should be greater than {{ compared_value }}.</target>
+        <target>Tato hodnota by měla být větší než {{ compared_value }}.</target>
       </segment>
     </unit>
     <unit id="o8A8a0H" name="This value should be greater than or equal to {{ compared_value }}.">
       <segment>
         <source>This value should be greater than or equal to {{ compared_value }}.</source>
-        <target>This value should be greater than or equal to {{ compared_value }}.</target>
+        <target>Tato hodnota by měla být větší nebo rovna {{ compared_value }}.</target>
       </segment>
     </unit>
     <unit id="SreIWoo" name="9670078">
       <segment>
-        <source>9670078</source>
-        <target>This value should be identical to {{ compared_value_type }} {{ compared_value }}.</target>
+        <source>This value should be identical to {{ compared_value_type }} {{ compared_value }}.</source>
+        <target>Tato hodnota by měla být shodná s {{ compared_value_type }} {{ compared_value }}.</target>
       </segment>
     </unit>
     <unit id="jG0QFKw" name="This value should be less than {{ compared_value }}.">
       <segment>
         <source>This value should be less than {{ compared_value }}.</source>
-        <target>This value should be less than {{ compared_value }}.</target>
+        <target>Tato hodnota by měla být menší než {{ compared_value }}.</target>
       </segment>
     </unit>
     <unit id="9lWrKmm" name="This value should be less than or equal to {{ compared_value }}.">
       <segment>
         <source>This value should be less than or equal to {{ compared_value }}.</source>
-        <target>This value should be less than or equal to {{ compared_value }}.</target>
+        <target>Tato hodnota by měla být menší nebo rovna {{ compared_value }}.</target>
       </segment>
     </unit>
     <unit id="ftTwGs." name="This value should not be equal to {{ compared_value }}.">
       <segment>
         <source>This value should not be equal to {{ compared_value }}.</source>
-        <target>This value should not be equal to {{ compared_value }}.</target>
+        <target>Tato hodnota by neměla být rovna {{ compared_value }}.</target>
       </segment>
     </unit>
     <unit id="JIjdvtb" name="0eedf91">
       <segment>
-        <source>0eedf91</source>
-        <target>This value should not be identical to {{ compared_value_type }} {{ compared_value }}.</target>
+        <source>This value should not be identical to {{ compared_value_type }} {{ compared_value }}.</source>
+        <target>Tato hodnota by neměla být totožná s {{ compared_value_type }} {{ compared_value }}.</target>
       </segment>
     </unit>
     <unit id="vzvxzpR" name="9c3ad0f">
       <segment>
-        <source>9c3ad0f</source>
-        <target>The image ratio is too big ({{ ratio }}). Allowed maximum ratio is {{ max_ratio }}.</target>
+        <source>The image ratio is too big ({{ ratio }}). Allowed maximum ratio is {{ max_ratio }}.</source>
+        <target>Poměr obrázku je příliš velký ({{ ratio }}). Maximálně povolený poměr je {{ max_ratio }}.</target>
       </segment>
     </unit>
     <unit id="LiDaIWN" name="4376d45">
       <segment>
-        <source>4376d45</source>
-        <target>The image ratio is too small ({{ ratio }}). Minimum ratio expected is {{ min_ratio }}.</target>
+        <source>The image ratio is too small ({{ ratio }}). Minimum ratio expected is {{ min_ratio }}.</source>
+        <target>Poměr obrázku je příliš malý ({{ ratio }}). Minimální očekávaný poměr je {{ min_ratio }}.</target>
       </segment>
     </unit>
     <unit id="rpajj.a" name="The image is square ({{ width }}x{{ height }}px). Square images are not allowed.">
       <segment>
         <source>The image is square ({{ width }}x{{ height }}px). Square images are not allowed.</source>
-        <target>The image is square ({{ width }}x{{ height }}px). Square images are not allowed.</target>
+        <target>Obrázek je čtvercový ({{ width }}x{{ height }}px). Čtvercové obrázky nejsou povoleny.</target>
       </segment>
     </unit>
     <unit id="501jWTO" name="1dc128a">
       <segment>
-        <source>1dc128a</source>
-        <target>The image is landscape oriented ({{ width }}x{{ height }}px). Landscape oriented images are not allowed.</target>
+        <source>The image is landscape oriented ({{ width }}x{{ height }}px). Landscape oriented images are not allowed.</source>
+        <target>Obrázek je orientován na šířku ({{ width }}x{{ height }}px). Obrázky orientované na šířku nejsou povoleny.</target>
       </segment>
     </unit>
     <unit id="J4L.QnM" name="9e27714">
       <segment>
-        <source>9e27714</source>
-        <target>The image is portrait oriented ({{ width }}x{{ height }}px). Portrait oriented images are not allowed.</target>
+        <source>The image is portrait oriented ({{ width }}x{{ height }}px). Portrait oriented images are not allowed.</source>
+        <target>Obrázek je orientován na výšku ({{ width }}x{{ height }}px). Obrázky orientované na výšku nejsou povoleny.</target>
       </segment>
     </unit>
     <unit id="jZgqcpL" name="An empty file is not allowed.">
       <segment>
         <source>An empty file is not allowed.</source>
-        <target>An empty file is not allowed.</target>
+        <target>Prázdný soubor není povolen.</target>
       </segment>
     </unit>
     <unit id="bcfVezI" name="The host could not be resolved.">
       <segment>
         <source>The host could not be resolved.</source>
-        <target>The host could not be resolved.</target>
+        <target>Název hostitele se nepodařilo přeložit.</target>
       </segment>
     </unit>
     <unit id="NtzKvgt" name="This value does not match the expected {{ charset }} charset.">
       <segment>
         <source>This value does not match the expected {{ charset }} charset.</source>
-        <target>This value does not match the expected {{ charset }} charset.</target>
+        <target>Tato hodnota neodpovídá očekávané {{ charset }} znakové sadě.</target>
       </segment>
     </unit>
     <unit id="Wi2y9.N" name="This is not a valid Business Identifier Code (BIC).">
       <segment>
         <source>This is not a valid Business Identifier Code (BIC).</source>
-        <target>This is not a valid Business Identifier Code (BIC).</target>
+        <target>Toto není platný identifikační kód podniku (BIC).</target>
       </segment>
     </unit>
     <unit id="VKDowX6" name="Error">
       <segment>
         <source>Error</source>
-        <target>Error</target>
+        <target>Chyba</target>
       </segment>
     </unit>
     <unit id="8zqt0Ik" name="This is not a valid UUID.">
       <segment>
         <source>This is not a valid UUID.</source>
-        <target>This is not a valid UUID.</target>
+        <target>Toto není platný identifikátor UUID.</target>
       </segment>
     </unit>
     <unit id="ru.4wkH" name="This value should be a multiple of {{ compared_value }}.">
       <segment>
         <source>This value should be a multiple of {{ compared_value }}.</source>
-        <target>This value should be a multiple of {{ compared_value }}.</target>
+        <target>Tato hodnota by měla být násobkem hodnoty{{ compared_value }}.</target>
       </segment>
     </unit>
     <unit id="M3vyK6s" name="This Business Identifier Code (BIC) is not associated with IBAN {{ iban }}.">
       <segment>
         <source>This Business Identifier Code (BIC) is not associated with IBAN {{ iban }}.</source>
-        <target>This Business Identifier Code (BIC) is not associated with IBAN {{ iban }}.</target>
+        <target>Tento obchodní identifikační kód (BIC) není spojen s IBAN {{ iban }}.</target>
       </segment>
     </unit>
     <unit id="2v2xpAh" name="This value should be valid JSON.">
       <segment>
         <source>This value should be valid JSON.</source>
-        <target>This value should be valid JSON.</target>
+        <target>Tato hodnota by měla být platný JSON.</target>
       </segment>
     </unit>
     <unit id="9CWVEGq" name="This collection should contain only unique elements.">
       <segment>
         <source>This collection should contain only unique elements.</source>
-        <target>This collection should contain only unique elements.</target>
+        <target>Tato kolekce by měla obsahovat pouze unikátní prvky</target>
       </segment>
     </unit>
     <unit id="WdvZfq." name="This value should be positive.">
       <segment>
         <source>This value should be positive.</source>
-        <target>This value should be positive.</target>
+        <target>Tato hodnota by měla být kladná.</target>
       </segment>
     </unit>
     <unit id="ubHMK2q" name="This value should be either positive or zero.">
       <segment>
         <source>This value should be either positive or zero.</source>
-        <target>This value should be either positive or zero.</target>
+        <target>Tato hodnota by měla být buď kladná, nebo nula.</target>
       </segment>
     </unit>
     <unit id="IwNTzo_" name="This value should be negative.">
       <segment>
         <source>This value should be negative.</source>
-        <target>This value should be negative.</target>
+        <target>Tato hodnota by měla být záporná.</target>
       </segment>
     </unit>
     <unit id="0GfwMfP" name="This value should be either negative or zero.">
       <segment>
         <source>This value should be either negative or zero.</source>
-        <target>This value should be either negative or zero.</target>
+        <target>Tato hodnota by měla být buď záporná, nebo nula.</target>
       </segment>
     </unit>
     <unit id="fs3qQZR" name="This value is not a valid timezone.">
       <segment>
         <source>This value is not a valid timezone.</source>
-        <target>This value is not a valid timezone.</target>
+        <target>Tato hodnota není platným časovým pásmem.</target>
       </segment>
     </unit>
     <unit id="A3Gr4fn" name="7e27e92">
       <segment>
         <source>7e27e92</source>
-        <target>This password has been leaked in a data breach, it must not be used. Please use another password.</target>
+        <target>Toto heslo uniklo při úniku dat a nesmí být použito. Použijte prosím jiné heslo.</target>
       </segment>
     </unit>
     <unit id="VvxxWas" name="This value should be between {{ min }} and {{ max }}.">
       <segment>
         <source>This value should be between {{ min }} and {{ max }}.</source>
-        <target>This value should be between {{ min }} and {{ max }}.</target>
+        <target>Tato hodnota by měla být mezi {{ min }} a {{ max }}.</target>
       </segment>
     </unit>
     <unit id=".SEaaBa" name="This form should not contain extra fields.">
       <segment>
         <source>This form should not contain extra fields.</source>
-        <target>This form should not contain extra fields.</target>
+        <target>Tento formulář by neměl obsahovat žádná další pole.</target>
       </segment>
     </unit>
     <unit id="WPnLAh9" name="The uploaded file was too large. Please try to upload a smaller file.">
       <segment>
         <source>The uploaded file was too large. Please try to upload a smaller file.</source>
-        <target>The uploaded file was too large. Please try to upload a smaller file.</target>
+        <target>Nahraný soubor je příliš velký. Zkuste prosím nahrát menší soubor.</target>
       </segment>
     </unit>
     <unit id="fvxWW3V" name="The CSRF token is invalid. Please try to resubmit the form.">
       <segment>
         <source>The CSRF token is invalid. Please try to resubmit the form.</source>
-        <target>The CSRF token is invalid. Please try to resubmit the form.</target>
+        <target>Token CSRF je neplatný. Zkuste prosím formulář odeslat znovu.</target>
       </segment>
     </unit>
     <unit id="TG1D5NO" name="post.blank_summary">
@@ -570,8 +570,8 @@
         <note priority="1">obsolete</note>
       </notes>
       <segment>
-        <source>post.blank_summary</source>
-        <target>Give your post a summary!</target>
+        <source>Give your post a summary!</source>
+        <target>Uveďte prosím shrnutí svého příspěvku!</target>
       </segment>
     </unit>
     <unit id="BZOzjk." name="post.blank_content">
@@ -579,8 +579,8 @@
         <note priority="1">obsolete</note>
       </notes>
       <segment>
-        <source>post.blank_content</source>
-        <target>Your post should have some content!</target>
+        <source>Your post should have some content!</source>
+        <target>Váš příspěvek by měl mít nějaký obsah!</target>
       </segment>
     </unit>
     <unit id="S6M.YWY" name="post.too_short_content">
@@ -588,8 +588,8 @@
         <note priority="1">obsolete</note>
       </notes>
       <segment>
-        <source>post.too_short_content</source>
-        <target>Post content is too short ({{ limit }} characters minimum)</target>
+        <source>Post content is too short ({{ limit }} characters minimum)</source>
+        <target>Obsah příspěvku je příliš krátký (minimálně {{ limit }} znaků)</target>
       </segment>
     </unit>
     <unit id="niM7JYj" name="post.too_many_tags">
@@ -597,8 +597,8 @@
         <note priority="1">obsolete</note>
       </notes>
       <segment>
-        <source>post.too_many_tags</source>
-        <target>Too many tags (add {{ limit }} tags or less)</target>
+        <source>Too many tags (add {{ limit }} tags or less)</source>
+        <target>Příliš mnoho značek (přidejte {{ limit }} značek nebo méně)</target>
       </segment>
     </unit>
     <unit id="ARUoKOV" name="comment.blank">
@@ -606,8 +606,8 @@
         <note priority="1">obsolete</note>
       </notes>
       <segment>
-        <source>comment.blank</source>
-        <target>Please don't leave your comment blank!</target>
+        <source>Please don't leave your comment blank!</source>
+        <target>Nenechávejte prosím svůj komentář prázdný!</target>
       </segment>
     </unit>
     <unit id="J.L_ppQ" name="comment.too_short">
@@ -615,8 +615,8 @@
         <note priority="1">obsolete</note>
       </notes>
       <segment>
-        <source>comment.too_short</source>
-        <target>Comment is too short ({{ limit }} characters minimum)</target>
+        <source>Comment is too short ({{ limit }} characters minimum)</source>
+        <target>Komentář je příliš krátký (minimálně {{ limit }} znaků)</target>
       </segment>
     </unit>
     <unit id=".bkQKXb" name="comment.too_long">
@@ -624,8 +624,8 @@
         <note priority="1">obsolete</note>
       </notes>
       <segment>
-        <source>comment.too_long</source>
-        <target>Comment is too long ({{ limit }} characters maximum)</target>
+        <source>Comment is too long ({{ limit }} characters maximum)</source>
+        <target>Komentář je příliš dlouhý ({{ limit }} maximálně znaků)</target>
       </segment>
     </unit>
     <unit id="cTT8h4_" name="comment.is_spam">
@@ -633,44 +633,44 @@
         <note priority="1">obsolete</note>
       </notes>
       <segment>
-        <source>comment.is_spam</source>
-        <target>The content of this comment is considered spam.</target>
+        <source>The content of this comment is considered spam.</source>
+        <target>Obsah tohoto komentáře je považován za spam.</target>
       </segment>
     </unit>
     <unit id="LDy5h0B" name="user.duplicate_email">
       <segment>
-        <source>user.duplicate_email</source>
-        <target>A user with {{ value }} email already exists.</target>
+        <source>A user with {{ value }} email already exists.</source>
+        <target>Uživatel s {{ value }} e-mailem již existuje.</target>
       </segment>
     </unit>
     <unit id="D4OMpCY" name="user.duplicate_username">
       <segment>
-        <source>user.duplicate_username</source>
-        <target>A user with {{ value }} username already exists.</target>
+        <source>A user with {{ value }} username already exists.</source>
+        <target>Uživatel s uživatelským jménem {{ value }} již existuje.</target>
       </segment>
     </unit>
     <unit id="HjWW.NS" name="user.not_valid_password">
       <segment>
-        <source>user.not_valid_password</source>
-        <target>Invalid password. The password should contain at least 6 characters.</target>
+        <source>Invalid password. The password should contain at least 6 characters.</source>
+        <target>Neplatné heslo. Heslo by mělo obsahovat alespoň 6 znaků.</target>
       </segment>
     </unit>
     <unit id="fkXL.k6" name="user.not_valid_email">
       <segment>
-        <source>user.not_valid_email</source>
-        <target>Invalid email</target>
+        <source>Invalid email</source>
+        <target>Neplatný e-mail</target>
       </segment>
     </unit>
     <unit id="4eH4IFY" name="user.username_invalid_characters">
       <segment>
-        <source>user.username_invalid_characters</source>
-        <target>The username must contain only lowercase latin characters, numbers and underscores.</target>
+        <source>The username must contain only lowercase latin characters, numbers and underscores.</source>
+        <target>Uživatelské jméno musí obsahovat pouze malá písmena latinky, čísla a podtržítka.</target>
       </segment>
     </unit>
     <unit id="4oq.CNw" name="user.not_valid_display_name">
       <segment>
-        <source>user.not_valid_display_name</source>
-        <target>Invalid display name</target>
+        <source>Invalid display name</source>
+        <target>Nesprávné zobrazované jméno</target>
       </segment>
     </unit>
   </file>
