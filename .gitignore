@@ -69,6 +69,7 @@ appveyor.yml
 /config/routes/local
 !/config/routes/local/_import_dev.yaml
 .php-version
+compose.override.yaml
 
 ###> symfony/framework-bundle ###
 /.env.local
