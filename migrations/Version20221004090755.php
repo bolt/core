@@ -12,14 +12,7 @@ use Psr\Log\LoggerInterface;
 final class Version20221004090755 extends AbstractMigration
 {
     /** @var string */
-    private $tablePrefix;
-
-    public function __construct(Connection $connection, LoggerInterface $logger)
-    {
-        parent::__construct($connection, $logger);
-
-        $this->tablePrefix = 'bolt';
-    }
+    private $tablePrefix = 'bolt';
 
     public function getDescription() : string
     {
