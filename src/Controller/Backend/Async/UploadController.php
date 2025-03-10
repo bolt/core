@@ -27,6 +27,8 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
+use Symfony\Component\Validator\Constraints\Url;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
 use Throwable;
 
@@ -78,7 +80,7 @@ class UploadController extends AbstractController implements AsyncZoneInterface
     /**
      * @Route("/upload-url", name="bolt_async_upload_url", methods={"POST"})
      */
-    public function handleURLUpload(Request $request): Response
+    public function handleURLUpload(Request $request, ValidatorInterface $validator): Response
     {
         try {
             $this->validateCsrf('upload');
@@ -91,18 +93,25 @@ class UploadController extends AbstractController implements AsyncZoneInterface
         }
 
         $url = $request->get('url', '');
-        $filename = basename($url);
 
-        $locationName = $request->get('location', '');
-        $path = $request->get('path') . $filename;
-        $folderpath = $this->config->getPath($locationName, true, 'tmp/');
-        $target = $this->config->getPath($locationName, true, 'tmp/' . $path);
+        // Make sure the submitting URL is a valid URL
+        $violations = $validator->validate($url, new Url());
+        if ($violations->count() !== 0) {
+            return new JsonResponse([
+                'error' => [
+                    'message' => $violations->get(0)->getMessage(),
+                ],
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+        $tmpFolder = $this->getParameter('kernel.cache_dir') . DIRECTORY_SEPARATOR . 'tmpupload';
+        $tmpFile = $tmpFolder . DIRECTORY_SEPARATOR . bin2hex(random_bytes(6));
 
         try {
             // Make sure temporary folder exists
-            $this->filesystem->mkdir($folderpath);
+            $this->filesystem->mkdir($tmpFolder);
             // Create temporary file
-            $this->filesystem->copy($url, $target);
+            $this->filesystem->copy($url, $tmpFile);
         } catch (Throwable $e) {
             return new JsonResponse([
                 'error' => [
@@ -111,7 +120,7 @@ class UploadController extends AbstractController implements AsyncZoneInterface
             ], Response::HTTP_BAD_REQUEST);
         }
 
-        $file = new UploadedFile($target, $filename);
+        $file = new UploadedFile($tmpFile, basename($url));
         $bag = new FileBag();
         $bag->add([$file]);
         $request->files = $bag;
@@ -119,7 +128,7 @@ class UploadController extends AbstractController implements AsyncZoneInterface
         $response = $this->handleUpload($request);
 
         // The file is automatically deleted. It may be that we don't need this.
-        $this->filesystem->remove($target);
+        $this->filesystem->remove($tmpFile);
 
         return $response;
     }
