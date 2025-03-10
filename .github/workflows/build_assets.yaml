@@ -1,0 +1,43 @@
+name: Build Assets
+
+on:
+    workflow_dispatch:
+    push:
+        tags:
+            - '*'
+
+jobs:
+    build_assets:
+        strategy:
+            fail-fast: false
+            matrix:
+                node-version: ['20']
+    
+        name: Build asset for production
+        runs-on: ubuntu-latest
+    
+        steps:
+            -   uses: actions/checkout@v4
+    
+            -   name: Use Node.js ${{ matrix.node-version }}
+                uses: actions/setup-node@v4
+                with:
+                    node-version: ${{ matrix.node-version }}
+    
+            -   name: Install NPM dependencies
+                run: npm ci
+            
+            -   name: Build assets
+                run: |
+                    npm run build
+                    mkdir package
+                    cd package
+                    cp -r ../public/assets .
+                    cp ../package.json ./package.json
+                    
+    
+            -   uses: actions/upload-artifact@v4
+                with:
+                    name: Assets-${{ github.ref_name }}
+                    path: package
+    
