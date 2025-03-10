@@ -9,7 +9,7 @@ jobs:
         strategy:
             matrix:
                 php-version: [ '8.1' ]
-                db-source-version: ['4.2', '5.0', '5.1']
+                db-source-version: ['empty','4.2', '5.0', '5.1']
 #                db-source-version: ['4.2']
             fail-fast: false
         services:
@@ -31,6 +31,7 @@ jobs:
 
             - name: restore database
               run: mysql -h 127.0.0.1 -u root --password=bolt bolt < tests/assets/database_dump/bolt-${{ matrix.db-source-version }}_database.sql
+              if: ${{ matrix.db-source-version != 'empty' }}
             
             - uses: shivammathur/setup-php@v2
               with:
