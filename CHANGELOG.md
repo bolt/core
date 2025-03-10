@@ -1,6 +1,16 @@
 Changelog
 =========
 
+## 5.2.2
+
+Released: 2025-03-10
+
+This release includes a security-related fix. Our thanks for identifying this issue and disclosing it to us responsibly! 👏🙏
+
+### 🔐 Security related changes
+
+- Validate submitted URL before processing it (bobvandevijver, [#3545](https://github.com/bolt/core/pull/3545))
+
 ## 5.2.1
 
 Released: 2025-03-06
