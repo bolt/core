@@ -1,6 +1,20 @@
 Changelog
 =========
 
+## 5.1.25
+
+Released: 2025-03-10
+
+This release includes a security-related fix. Our thanks for identifying this issue and disclosing it to us responsibly! 👏🙏
+
+### 🐛 Bug fixes
+
+- Fix incorrect focus in invalid editor input fields (napley, [#3491](https://github.com/bolt/core/pull/3491))
+
+### 🔐 Security related changes
+
+- Validate submitted URL before processing it (bobvandevijver, [#3545](https://github.com/bolt/core/pull/3545))
+
 ## 5.1.24
 
 Released: 2023-02-19
