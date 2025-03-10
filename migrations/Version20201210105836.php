@@ -331,6 +331,14 @@ final class Version20201210105836 extends AbstractMigration
             );
         }
 
+        $fieldTranstationTable = $schema->getTable($this->tablePrefix . '_field_translation');
+        foreach ($fieldTranstationTable->getIndexes() as $index) {
+            if ($index->getName() === 'bolt_field_translation_unique_translation') {
+                $fieldTranstationTable->renameIndex('bolt_field_translation_unique_translation',
+                    'field_translation_unique_translation');
+            }
+        }
+
 
         // Create the user avatar. See https://github.com/bolt/core/pull/2114
         $userTable = $schema->getTable($this->tablePrefix . '_user');
@@ -338,6 +346,8 @@ final class Version20201210105836 extends AbstractMigration
         if (!$userTable->hasColumn('avatar')) {
             $userTable->addColumn('avatar', 'string', ['notnull' => false, 'length' => 250]);
         }
+
+
     }
 
     public function down(Schema $schema): void

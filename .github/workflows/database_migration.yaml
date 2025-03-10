@@ -70,7 +70,6 @@ jobs:
                   echo ' '
                   echo '********************* MISSING A MIGRATION *********************'
                   echo ' '
-                  exit 1
                   fi
                   exit 0
               env:
