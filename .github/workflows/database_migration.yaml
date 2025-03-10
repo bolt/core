@@ -56,8 +56,21 @@ jobs:
                 bin/console doctrine:migration:list -n
               env:
                   DATABASE_URL: mysql://bolt:bolt@127.0.0.1/bolt?serverVersion=5.7&charset=utf8mb4
-              
-            - name: check if update is needed
-              run: bin/console doctrine:migrations:diff -n
+            - name: Check DB DIFF
+              run: |
+                  set +e
+                  bin/console doctrine:migrations:diff -n 
+                  result=$?
+                  if [ $result -eq 0 ]; then
+                  echo ' '
+                  echo '**************************** CHANGE ****************************'
+                  echo ' '
+                  cat migrations/$(ls -1 migrations | tail -n 1)
+                  echo ' '
+                  echo '********************* MISSING A MIGRATION *********************'
+                  echo ' '
+                  exit 1
+                  fi
+                  exit 0
               env:
                   DATABASE_URL: mysql://bolt:bolt@127.0.0.1/bolt?serverVersion=5.7&charset=utf8mb4
