@@ -54,22 +54,17 @@ class SetupCommand extends Command
         $exitCode = $command->run(new ArrayInput($options), $output);
         $this->processExitCode($exitCode, 'An error occurred when creating the database.');
 
-        $command = $this->getApplication()->find('doctrine:schema:create');
-        $exitCode = $command->run(new ArrayInput([]), new NullOutput());
-        $this->processExitCode($exitCode, 'An error occurred when creating the database schema.');
-
         $command = $this->getApplication()->find('doctrine:migrations:sync-metadata-storage');
         $exitCode = $command->run(new ArrayInput([]), new NullOutput());
         $this->processExitCode($exitCode, 'An error occurred when initialising the Doctrine Migrations metatada storage.');
 
-        $command = $this->getApplication()->find('doctrine:migrations:version');
+        $command = $this->getApplication()->find('doctrine:migrations:migrate');
         $commandInput = new ArrayInput([
-            '--add' => true,
-            '--all' => true,
+            '--no-interaction' => true,
         ]);
         $commandInput->setInteractive(false);
         $exitCode = $command->run($commandInput, new NullOutput());
-        $this->processExitCode($exitCode, 'An error occurred when initialising the Doctrine Migrations metatada storage.');
+        $this->processExitCode($exitCode, 'An error occurred when executing the Doctrine Migrations.');
 
         $command = $this->getApplication()->find('bolt:reset-secret');
         $exitCode = $command->run(new ArrayInput([]), new NullOutput());
