@@ -37,7 +37,7 @@ jobs:
               with:
                   # test the lowest version, to make sure checks pass on it
                   php-version: ${{ matrix.php-version }}
-                  extensions: json, mbstring, pdo, curl, pdo_sqlite
+                  extensions: json, mbstring, pdo, curl, pdo_mysql
                   coverage: none
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -63,13 +63,23 @@ jobs:
                   bin/console doctrine:migrations:diff -n 
                   result=$?
                   if [ $result -eq 0 ]; then
-                  echo ' '
-                  echo '**************************** CHANGE ****************************'
-                  echo ' '
-                  cat migrations/$(ls -1 migrations | tail -n 1)
-                  echo ' '
-                  echo '********************* MISSING A MIGRATION *********************'
-                  echo ' '
+                      migration_file=migrations/$(ls -1 migrations | tail -n 1)
+                      # The `$this->addSql('ALTER TABLE bolt_field_translation CHANGE value value JSON NOT NULL');` change is due doctrine/migration and database server misconfiguration
+                      count=$(grep -c 'ALTER TABLE bolt_field_translation CHANGE value value JSON NOT NULL' $migration_file || true)
+                      # count all `addSql` method call 
+                      countAddSql=$(grep -c 'addSql' $migration_file || true)
+                      if (( $countAddSql - $count > 0 )); then
+                          echo ' '
+                          echo '**************************** CHANGE ****************************'
+                          echo ' '
+                          cat $migration_file
+                          echo ' '
+                          echo '********************* MISSING A MIGRATION *********************'
+                          echo ' '
+                          exit 1
+                      else
+                          echo 'Great Job! No unexpected change!'
+                      fi
                   fi
                   exit 0
               env:
