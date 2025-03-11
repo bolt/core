@@ -28,7 +28,7 @@ final class Version20211123103530 extends AbstractMigration
         // Add index needed by foreign key before remove unique index
         $hasIndex = false;
         foreach ($indexes as $index) {
-            if ($index->getName() === 'IDX_8B90D313A76ED395') {
+            if (strtoupper($index->getName()) === 'IDX_8B90D313A76ED395') {
                 $hasIndex = true;
             }
         }
