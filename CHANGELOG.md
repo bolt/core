@@ -5,7 +5,7 @@ Changelog
 
 Released: 2025-03-10
 
-This release includes a security-related fix. Our thanks for identifying this issue and disclosing it to us responsibly! 👏🙏
+This release includes a security-related fix. Our thanks to @bmdyy for identifying this issue and disclosing it to us responsibly! 👏🙏
 
 ### 🔐 Security related changes
 
@@ -110,7 +110,7 @@ Released: 2022-07-05
 
 Released: 2025-03-10
 
-This release includes a security-related fix. Our thanks for identifying this issue and disclosing it to us responsibly! 👏🙏
+This release includes a security-related fix. Our thanks to @bmdyy for identifying this issue and disclosing it to us responsibly! 👏🙏
 
 ### 🐛 Bug fixes
 
