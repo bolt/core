@@ -7,7 +7,7 @@ parameters:
 
 doctrine:
     dbal:
-        charset: utf8mb4
+#        charset: utf8mb4
         url: '%env(resolve:DATABASE_URL)%'
 
         # For SQLite

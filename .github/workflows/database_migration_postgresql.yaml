@@ -42,19 +42,19 @@ jobs:
             - name: Install composer dependencies
               run: composer install --prefer-dist --no-progress
               env:
-                  DATABASE_URL: postgresql://bolt:bolt@127.0.0.1:5432/bolt?serverVersion=13
+                  DATABASE_URL: postgresql://bolt:bolt@127.0.0.1:5432/bolt?serverVersion=13&charset=utf8
               
             - name: upgrade
               run: bin/console doctrine:migrations:migrate -n
               env:
-                  DATABASE_URL: postgresql://bolt:bolt@127.0.0.1:5432/bolt?serverVersion=13
+                  DATABASE_URL: postgresql://bolt:bolt@127.0.0.1:5432/bolt?serverVersion=13&charset=utf8
               
             - name: list migration
               run: |
                 bin/console doctrine:migration:status -n
                 bin/console doctrine:migration:list -n
               env:
-                  DATABASE_URL: postgresql://bolt:bolt@127.0.0.1:5432/bolt?serverVersion=13
+                  DATABASE_URL: postgresql://bolt:bolt@127.0.0.1:5432/bolt?serverVersion=13&charset=utf8
             - name: Check DB DIFF
               run: |
                   set +e
@@ -81,4 +81,4 @@ jobs:
                   fi
                   exit 0
               env:
-                  DATABASE_URL: postgresql://bolt:bolt@127.0.0.1:5432/bolt?serverVersion=13
+                  DATABASE_URL: postgresql://bolt:bolt@127.0.0.1:5432/bolt?serverVersion=13&charset=utf8
