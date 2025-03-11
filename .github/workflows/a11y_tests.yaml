@@ -25,7 +25,7 @@ jobs:
 
             # see https://github.com/actions/starter-workflows/blob/main/ci/node.js.yml
             -
-                name: Use Node.js
+                name: Use Node.js ${{ matrix.node-version }}
                 uses: actions/setup-node@v4
                 with:
                     node-version: ${{ matrix.node-version }}
@@ -36,6 +36,9 @@ jobs:
                     php-version: ${{ matrix.php-version }}
                     extensions: json, mbstring, pdo, curl, pdo_sqlite
                     coverage: none
+                    tools: symfony-cli
+                env:
+                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             -   name: Install composer dependencies
                 run: composer install --prefer-dist --no-progress
             -   name: Show Bolt info
@@ -50,8 +53,8 @@ jobs:
                     # prepare web server for e2e tests	
                     ./bin/console doctrine:database:create	
                     ./bin/console doctrine:schema:create	
-                    ./bin/console doctrine:fixtures:load --group=without-images -n	
-                    ./bin/console server:start 127.0.0.1:8088	
+                    ./bin/console doctrine:fixtures:load --group=without-images -n
+                    symfony server:start --no-tls --port=8088 -d
                     # test if web server works	
                     sleep 3	
                     curl --silent --show-error --fail "http://127.0.0.1:8088/bolt/login"

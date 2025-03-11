@@ -1,6 +1,16 @@
 Changelog
 =========
 
+## 5.2.2
+
+Released: 2025-03-10
+
+This release includes a security-related fix. Our thanks to @bmdyy for identifying this issue and disclosing it to us responsibly! 👏🙏
+
+### 🔐 Security related changes
+
+- Validate submitted URL before processing it (bobvandevijver, [#3545](https://github.com/bolt/core/pull/3545))
+
 ## 5.2.1
 
 Released: 2025-03-06
@@ -95,6 +105,20 @@ Released: 2022-07-05
 - Separate methods for Pager from `pagerParams`. (vlad-ghita, [#3205](https://github.com/bolt/core/pull/3205))
 - Add `isTranslatable` condition in `get`-method [#3250](https://github.com/bolt/core/pull/3250)
 - Additional fix for `type: number` field, set default to `min: 0`. [#3252](https://github.com/bolt/core/pull/3252)
+
+## 5.1.25
+
+Released: 2025-03-10
+
+This release includes a security-related fix. Our thanks to @bmdyy for identifying this issue and disclosing it to us responsibly! 👏🙏
+
+### 🐛 Bug fixes
+
+- Fix incorrect focus in invalid editor input fields (napley, [#3491](https://github.com/bolt/core/pull/3491))
+
+### 🔐 Security related changes
+
+- Validate submitted URL before processing it (bobvandevijver, [#3545](https://github.com/bolt/core/pull/3545))
 
 ## 5.1.24
 

@@ -19,6 +19,8 @@ jobs:
                 php-version: ${{ matrix.php-version }}
                 extensions: json, mbstring, pdo, curl, pdo_sqlite
                 coverage: none
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             - name: Install composer dependencies
               run: composer install --prefer-dist --no-progress
             - name: run PHP Unit
