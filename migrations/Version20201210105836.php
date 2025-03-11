@@ -26,11 +26,19 @@ final class Version20201210105836 extends AbstractMigration
     public function up(Schema $schema): void
     {
         $schemaConfig = new SchemaConfig();
-        $schemaConfig->setDefaultTableOptions([
-            'engine' => 'InnoDB',
-            'charset' => 'utf8mb4',
-            'collate' => 'utf8mb4_unicode_ci'
-        ]);
+        $options = [
+            'charset' => 'utf8',
+        ];
+        if ($this->connection->getDatabasePlatform()->getName() === 'mysql') {
+            $options = [
+                'engine' => 'InnoDB',
+                'charset' => 'utf8mb4',
+                'collate' => 'utf8mb4_unicode_ci'
+            ];
+        }
+
+
+        $schemaConfig->setDefaultTableOptions($options);
 
         //Check if table exist, if not create directly in Bolt 5.1 format
         if ($schema->hasTable($this->tablePrefix . '_content') === false) {
