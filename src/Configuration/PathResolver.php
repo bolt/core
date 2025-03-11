@@ -6,7 +6,7 @@ namespace Bolt\Configuration;
 
 use Bolt\Exception\ConfigurationException;
 use Symfony\Component\Filesystem\Path;
-use Tightenco\Collect\Support\Collection;
+use Illuminate\Support\Collection;
 
 /**
  * A class to resolve and manage paths. Paths defined here are allowed to have variables within them.

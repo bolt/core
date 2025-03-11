@@ -17,7 +17,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 use Symfony\Component\Yaml\Yaml;
-use Tightenco\Collect\Support\Collection;
+use Illuminate\Support\Collection;
 
 class Kernel extends BaseKernel
 {

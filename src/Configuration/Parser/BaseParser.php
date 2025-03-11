@@ -8,7 +8,7 @@ use Bolt\Configuration\PathResolver;
 use Symfony\Component\Config\Exception\FileLocatorFileNotFoundException;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Yaml\Yaml;
-use Tightenco\Collect\Support\Collection;
+use Illuminate\Support\Collection;
 
 abstract class BaseParser
 {

@@ -7,7 +7,7 @@ namespace Bolt\Extension;
 use Cocur\Slugify\Slugify;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Yaml\Parser;
-use Tightenco\Collect\Support\Collection;
+use Illuminate\Support\Collection;
 
 trait ConfigTrait
 {

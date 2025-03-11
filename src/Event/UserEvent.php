@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Event;
 
 use Bolt\Entity\User;
-use Tightenco\Collect\Support\Collection;
+use Illuminate\Support\Collection;
 
 class UserEvent
 {

@@ -19,7 +19,7 @@ use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
-use Tightenco\Collect\Support\Collection;
+use Illuminate\Support\Collection;
 use Webimpress\SafeWriter\FileWriter;
 
 class Config

@@ -16,7 +16,7 @@ use Symfony\Component\Filesystem\Path;
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\HttpKernel\Exception\UnsupportedMediaTypeHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Tightenco\Collect\Support\Collection;
+use Illuminate\Support\Collection;
 
 class MediaFactory
 {

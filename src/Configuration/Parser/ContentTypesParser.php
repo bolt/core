@@ -10,7 +10,7 @@ use Bolt\Configuration\Content\ContentType;
 use Bolt\Configuration\Content\FieldType;
 use Bolt\Enum\Statuses;
 use Bolt\Exception\ConfigurationException;
-use Tightenco\Collect\Support\Collection;
+use Illuminate\Support\Collection;
 
 class ContentTypesParser extends BaseParser
 {

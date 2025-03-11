@@ -9,7 +9,7 @@ use Bolt\Entity\FieldInterface;
 use Bolt\Entity\IterableFieldTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Tightenco\Collect\Support\Collection;
+use Illuminate\Support\Collection;
 
 /**
  * @ORM\Entity

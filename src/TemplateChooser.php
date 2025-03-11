@@ -8,7 +8,7 @@ use Bolt\Configuration\Config;
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Entity\Content;
 use Bolt\Twig\ContentExtension;
-use Tightenco\Collect\Support\Collection;
+use Illuminate\Support\Collection;
 
 class TemplateChooser
 {

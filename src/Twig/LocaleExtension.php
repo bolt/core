@@ -9,7 +9,7 @@ use Bolt\Utils\LocaleHelper;
 use Carbon\Carbon;
 use Carbon\CarbonTimeZone;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Tightenco\Collect\Support\Collection;
+use Illuminate\Support\Collection;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
