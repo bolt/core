@@ -37,7 +37,7 @@ class TimedPublishSubscriber implements EventSubscriberInterface
     public function onKernelRequest(): void
     {
         $conn = $this->defaultConnection;
-        $now = (new Carbon())->tz('UTC');
+        $now = new Carbon(null, 'UTC');
 
         // Publish timed Content records when 'publish_at' has passed and Depublish published Content
         // records when 'depublish_at' has passed. Note: Placeholders in DBAL don't work for tablenames.
