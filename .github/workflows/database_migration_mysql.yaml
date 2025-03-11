@@ -1,0 +1,85 @@
+name: Test MySQL Database migration
+
+on:
+    pull_request:
+
+
+jobs:
+    db_migration:
+        strategy:
+            matrix:
+                php-version: [ '8.1' ]
+                db-source-version: ['4.2', '5.0', '5.1']
+            #                db-source-version: ['4.2']
+            fail-fast: false
+        services:
+            mysql:
+                image: mysql:5.7
+                ports:
+                    - "3306:3306"
+                env:
+                    MYSQL_DATABASE: bolt
+                    MYSQL_USER: bolt
+                    MYSQL_PASSWORD: bolt
+                    MYSQL_ROOT_PASSWORD: bolt
+                options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+        name: MySQL DB Migration test from ${{ matrix.db-source-version }}
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: restore database
+              run: mysql -h 127.0.0.1 -u root --password=bolt bolt < tests/assets/database_dump_mysql/bolt-${{ matrix.db-source-version }}_database.sql
+
+            - uses: shivammathur/setup-php@v2
+              with:
+                  # test the lowest version, to make sure checks pass on it
+                  php-version: ${{ matrix.php-version }}
+                  extensions: json, mbstring, pdo, curl, pdo_mysql
+                  coverage: none
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            - name: Install composer dependencies
+              run: composer install --prefer-dist --no-progress
+              env:
+                  DATABASE_URL: mysql://bolt:bolt@127.0.0.1/bolt?serverVersion=5.7&charset=utf8mb4
+
+            - name: upgrade
+              run: bin/console doctrine:migrations:migrate -n
+              env:
+                  DATABASE_URL: mysql://bolt:bolt@127.0.0.1/bolt?serverVersion=5.7&charset=utf8mb4
+
+            - name: list migration
+              run: |
+                  bin/console doctrine:migration:status -n
+                  bin/console doctrine:migration:list -n
+              env:
+                  DATABASE_URL: mysql://bolt:bolt@127.0.0.1/bolt?serverVersion=5.7&charset=utf8mb4
+            - name: Check DB DIFF
+              run: |
+                  set +e
+                  bin/console doctrine:migrations:diff -n 
+                  result=$?
+                  if [ $result -eq 0 ]; then
+                      migration_file=migrations/$(ls -1 migrations | tail -n 1)
+                      # The `$this->addSql('ALTER TABLE bolt_field_translation CHANGE value value JSON NOT NULL');` change is due doctrine/migration and database server misconfiguration
+                      count=$(grep -c 'ALTER TABLE bolt_field_translation CHANGE value value JSON NOT NULL' $migration_file || true)
+                      # count all `addSql` method call 
+                      countAddSql=$(grep -c 'addSql' $migration_file || true)
+                      if (( $countAddSql - $count > 0 )); then
+                          echo ' '
+                          echo '**************************** CHANGE ****************************'
+                          echo ' '
+                          cat $migration_file
+                          echo ' '
+                          echo '********************* MISSING A MIGRATION *********************'
+                          echo ' '
+                          exit 1
+                      else
+                          echo 'Great Job! No unexpected change!'
+                      fi
+                  fi
+                  exit 0
+              env:
+                  DATABASE_URL: mysql://bolt:bolt@127.0.0.1/bolt?serverVersion=5.7&charset=utf8mb4
