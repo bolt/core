@@ -72,10 +72,7 @@ RUN --mount=type=cache,target=/var/cache/apt \
     sed -i s'/pm.max_spare_servers = 3/pm.max_spare_servers = 35/' /usr/local/etc/php-fpm.d/www.conf && \
     echo 'ForwardAgent yes' >> /etc/ssh/ssh_config  && \
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
-    composer clear-cache && \
-    mkdir -p /root/.ssh/
-
-COPY know_hosts /root/.ssh/known_hosts
+    composer clear-cache
 
 EXPOSE 9000
 COPY confd/ /etc/confd/
