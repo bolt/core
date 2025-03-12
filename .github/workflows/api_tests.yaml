@@ -40,12 +40,15 @@ jobs:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             - name: Install composer dependencies
               run: composer install --prefer-dist --no-progress
+            - name: Initialise folders
+              run: sudo chmod -R 777 config/ public/files/ public/theme/ public/thumbs/ var/
+            - name: create the database
+              run: ./bin/console doctrine:database:create
+              if: ${{ startsWith('sqlite', matrix.database) }}
             - name: Initialise the database
-              run: |
-                  sudo chmod -R 777 config/ public/files/ public/theme/ public/thumbs/ var/
-                  ./bin/console doctrine:database:create
-                  ./bin/console doctrine:schema:create
-                  symfony server:start --no-tls --port=8088 -d
+              run: ./bin/console doctrine:schema:create
+            - name: Starting server
+              run: symfony server:start --no-tls --port=8088 -d
             - name: create api user
               run: php bin/console bolt:add-user apiuser apiuser%1 api@example.org API --roles=ROLE_WEBSERVICE
             - name: check API user gets content
