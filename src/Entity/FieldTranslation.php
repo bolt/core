@@ -59,6 +59,6 @@ class FieldTranslation implements TranslationInterface
      */
     public static function getTranslatableEntityClass(): string
     {
-        return 'Field';
+        return Field::class;
     }
 }

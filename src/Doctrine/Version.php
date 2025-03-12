@@ -6,11 +6,10 @@ namespace Bolt\Doctrine;
 
 use Bolt\Common\Str;
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\Driver\PDOConnection;
 use Doctrine\DBAL\Platforms\MariaDb1027Platform;
 use Doctrine\DBAL\Platforms\MySQL57Platform;
 use Doctrine\DBAL\Platforms\MySqlPlatform;
-use Doctrine\DBAL\Platforms\PostgreSQL92Platform;
+use Doctrine\DBAL\Platforms\PostgreSQLPlatform;
 use Doctrine\DBAL\Platforms\SqlitePlatform;
 
 class Version
@@ -33,13 +32,13 @@ class Version
      */
     public function getPlatform(): array
     {
-        $wrapped = $this->connection->getWrappedConnection();
+        $wrapped = $this->connection->getNativeConnection();
 
         // if the wrapped connection has itself a wrapped connection, use that one, etc.
         // This is the case in phpunit tests that use the dama/doctrine-test-bundle functionality
         while (true) {
-            if (method_exists($wrapped, 'getWrappedConnection')) {
-                $nextLevel = $wrapped->getWrappedConnection();
+            if (method_exists($wrapped, 'getNativeConnection')) {
+                $nextLevel = $wrapped->getNativeConnection();
                 if ($nextLevel) {
                     $wrapped = $nextLevel;
                 } else {
@@ -77,7 +76,7 @@ class Version
             $query
                 ->select('1')
                 ->from($this->tablePrefix . 'content');
-            $query->execute();
+            $query->executeStatement();
         } catch (\Throwable $e) {
             return false;
         }
@@ -124,7 +123,7 @@ class Version
         }
 
         // PostgreSQL supports JSON from v9.2 and above, later versions are implicitly included
-        if ($platform instanceof PostgreSQL92Platform) {
+        if ($platform instanceof PostgreSQLPlatform) {
             return true;
         }
 
@@ -138,14 +137,14 @@ class Version
             // MySQL & SQLite
             $query
                 ->select('CAST(1.1 AS DECIMAL)');
-            $query->execute();
+            $query->executeStatement();
         } catch (\Throwable $e) {
             try {
                 $query = $this->connection->createQueryBuilder();
                 // Postgree
                 $query
                     ->select('CAST(1.1 AS DOUBLE)');
-                $query->execute();
+                $query->executeStatement();
             } catch (\Throwable $e) {
                 return false;
             }
@@ -160,7 +159,7 @@ class Version
             $query = $this->connection->createQueryBuilder();
             $query
                 ->select('JSON_EXTRACT("{}", "one", "")');
-            $query->execute();
+            $query->executeStatement();
         } catch (\Throwable $e) {
             return false;
         }
@@ -180,7 +179,7 @@ class Version
             $query = $this->connection->createQueryBuilder();
             $query
                 ->select('JSON_EXTRACT(\'{"jsonfunctionalitytest":["succes"]}\', \'$.jsonfunctionalitytest\') as value');
-            $query->execute();
+            $query->executeStatement();
         } catch (\Throwable $e) {
             return false;
         }

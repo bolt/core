@@ -65,7 +65,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
         $this->contentExtension = $contentExtension;
     }
 
-    public function getDependencies()
+    public function getDependencies(): array
     {
         return [
             UserFixtures::class,
