@@ -56,7 +56,6 @@ use Twig\Markup;
  */
 class Field implements FieldInterface, TranslatableInterface
 {
-
     use TranslatablePropertiesTrait;
     use TranslatableMethodsTrait;
 

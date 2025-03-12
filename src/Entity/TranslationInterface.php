@@ -7,7 +7,6 @@ namespace Bolt\Entity;
 
 interface TranslationInterface
 {
-
     public static function getTranslatableEntityClass(): string;
 
     public function setTranslatable(TranslatableInterface $translatable): void;

@@ -47,7 +47,7 @@ trait TranslationMethodsTrait
                 continue;
             }
 
-            if (is_string($value) && strlen(trim($value)) > 0) {
+            if (is_string($value) && mb_strlen(trim($value)) > 0) {
                 return false;
             }
 

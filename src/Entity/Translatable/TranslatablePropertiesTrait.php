@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace Bolt\Entity\Translatable;
 
-use Doctrine\Common\Collections\Collection;
 use Bolt\Entity\TranslationInterface;
+use Doctrine\Common\Collections\Collection;
 
 trait TranslatablePropertiesTrait
 {
-    /**
-     * @var Collection<string, TranslationInterface>
-     */
+    /** @var Collection<string, TranslationInterface> */
     protected $translations;
 
     /**
@@ -27,8 +25,6 @@ trait TranslatablePropertiesTrait
      */
     protected $currentLocale;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $defaultLocale = 'en';
 }

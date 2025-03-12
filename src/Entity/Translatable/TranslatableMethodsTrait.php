@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Bolt\Entity\Translatable;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Bolt\Entity\TranslationInterface;
 use Bolt\Exception\TranslatableException;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 trait TranslatableMethodsTrait
 {
     /**
      * @return Collection<string, TranslationInterface>
      */
-    public function getTranslations()
+    public function getTranslations(): Collection
     {
         // initialize collection, usually in ctor
         if ($this->translations === null) {
@@ -169,7 +169,7 @@ trait TranslatableMethodsTrait
      *
      * @return mixed The translated value of the field for current locale
      */
-    protected function proxyCurrentLocaleTranslation(string $method, array $arguments = [])
+    protected function proxyCurrentLocaleTranslation(string $method, array $arguments = []): mixed
     {
         // allow $entity->name call $entity->getName() in templates
         if (! method_exists(self::getTranslationEntityClass(), $method)) {
@@ -203,8 +203,8 @@ trait TranslatableMethodsTrait
 
     protected function computeFallbackLocale(string $locale): ?string
     {
-        if (strrchr($locale, '_') !== false) {
-            return substr($locale, 0, -strlen(strrchr($locale, '_')));
+        if (mb_strrchr($locale, '_') !== false) {
+            return mb_substr($locale, 0, -mb_strlen(mb_strrchr($locale, '_')));
         }
 
         return null;

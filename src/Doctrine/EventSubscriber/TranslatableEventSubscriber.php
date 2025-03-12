@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Bolt\Doctrine\EventSubscriber;
 
+use Bolt\Entity\TranslatableInterface;
+use Bolt\Entity\TranslationInterface;
+use Bolt\Locale\LocaleProviderInterface;
 use Doctrine\Bundle\DoctrineBundle\Attribute\AsDoctrineListener;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Event\PostLoadEventArgs;
@@ -11,9 +14,6 @@ use Doctrine\ORM\Event\PrePersistEventArgs;
 use Doctrine\ORM\Events;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\Persistence\ObjectManager;
-use Bolt\Entity\TranslatableInterface;
-use Bolt\Entity\TranslationInterface;
-use Bolt\Locale\LocaleProviderInterface;
 use ReflectionClass;
 
 #[AsDoctrineListener(Events::loadClassMetadata)]

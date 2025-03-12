@@ -8,9 +8,7 @@ use Bolt\Entity\TranslatableInterface;
 
 trait TranslationPropertiesTrait
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $locale;
 
     /**

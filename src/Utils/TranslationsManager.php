@@ -7,8 +7,8 @@ namespace Bolt\Utils;
 use Bolt\Entity\Field;
 use Bolt\Entity\Field\CollectionField;
 use Bolt\Entity\FieldParentInterface;
-use Doctrine\Common\Collections\Collection;
 use Bolt\Entity\TranslationInterface;
+use Doctrine\Common\Collections\Collection;
 
 class TranslationsManager
 {
