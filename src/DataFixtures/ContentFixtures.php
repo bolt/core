@@ -11,6 +11,7 @@ use Bolt\Configuration\FileLocations;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Bolt\Entity\Field\SelectField;
+use Bolt\Entity\FieldTranslation;
 use Bolt\Enum\Statuses;
 use Bolt\Repository\FieldRepository;
 use Bolt\Twig\ContentExtension;
@@ -49,12 +50,17 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
     /** @var ContentExtension */
     private $contentExtension;
 
-    public function __construct(Config $config, FileLocations $fileLocations, TagAwareCacheInterface $cache, string $defaultLocale, ContentExtension $contentExtension)
-    {
+    public function __construct(
+        Config $config,
+        FileLocations $fileLocations,
+        TagAwareCacheInterface $cache,
+        string $defaultLocale,
+        ContentExtension $contentExtension
+    ) {
         $this->config = $config;
         $this->faker = Factory::create();
         $seed = $this->config->get('general/fixtures_seed');
-        if (! empty($seed)) {
+        if (!empty($seed)) {
             $this->faker->seed($seed);
         }
 
@@ -103,7 +109,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 continue;
             }
 
-            $amount = $contentType['singleton'] ? 1 : (int) ($contentType['listing_records'] * 3);
+            $amount = $contentType['singleton'] ? 1 : (int)($contentType['listing_records'] * 3);
 
             for ($i = 1; $i <= $amount; $i++) {
                 if ($i === 1) {
@@ -124,7 +130,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
 
                 $preset = $this->getPreset($contentType['slug']);
 
-                if ($i === 1 || ! empty($preset)) {
+                if ($i === 1 || !empty($preset)) {
                     $content->setStatus($preset['status'] ?? Statuses::PUBLISHED);
                 } else {
                     $content->setStatus($this->getRandomStatus());
@@ -180,8 +186,13 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
         }
     }
 
-    private function loadCollectionField(Content $content, Field $field, $fieldType, ContentType $contentType, array $preset): Field
-    {
+    private function loadCollectionField(
+        Content $content,
+        Field $field,
+        $fieldType,
+        ContentType $contentType,
+        array $preset
+    ): Field {
         $collectionItems = $field->getDefinition()->get('fields');
 
         $i = 0;
@@ -211,8 +222,14 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
         return $set;
     }
 
-    private function loadField(Content $content, string $name, $fieldType, ContentType $contentType, array $preset, bool $addToContent = true): Field
-    {
+    private function loadField(
+        Content $content,
+        string $name,
+        $fieldType,
+        ContentType $contentType,
+        array $preset,
+        bool $addToContent = true
+    ): Field {
         $sortorder = 1;
 
         $field = FieldRepository::factory($fieldType, $name);
@@ -242,7 +259,8 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
             $locales = $contentType['locales']->toArray();
             foreach ($locales as $locale) {
                 if ($locale !== $this->defaultLocale && array_search($locale, $locales, true) !== count($locales) - 1) {
-                    $value = $preset[$name] ?? $this->getValuesforFieldType($fieldType, $contentType['singleton'], $content);
+                    $value = $preset[$name] ?? $this->getValuesforFieldType($fieldType, $contentType['singleton'],
+                        $content);
                     $field->translate($locale, false)->setValue($value);
                 }
             }
@@ -273,19 +291,19 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
     {
         return [
             preg_replace_callback(
-                        '/{([\w]+)}/i',
-                        function ($match) {
-                            $match = $match[1];
+                '/{([\w]+)}/i',
+                function ($match) {
+                    $match = $match[1];
 
-                            try {
-                                return $this->faker->{$match};
-                            } finally {
-                            }
+                    try {
+                        return $this->faker->{$match};
+                    } finally {
+                    }
 
-                            return '(unknown)';
-                        },
-                        $format
-                    ),
+                    return '(unknown)';
+                },
+                $format
+            ),
         ];
     }
 
@@ -361,7 +379,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
 
                 break;
             case 'number':
-                $data = [(string) $this->faker->numberBetween(-100, 1000)];
+                $data = [(string)$this->faker->numberBetween(-100, 1000)];
 
                 break;
             case 'checkbox':
@@ -411,7 +429,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 $data = ['selected' => 'latlong', 'zoom' => '7', 'search' => ''];
                 $coordinates = $this->faker->localCoordinates();
                 $data['lat'] = $coordinates['latitude'];
-                $data['long'] =$coordinates['longitude'];
+                $data['long'] = $coordinates['longitude'];
                 $data = [json_encode($data)];
 
 
@@ -534,7 +552,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
 
     private function getPreset(string $slug): array
     {
-        if (isset($this->presetRecords[$slug]) && ! empty($this->presetRecords[$slug]) && ! $this->getOption('--append')) {
+        if (isset($this->presetRecords[$slug]) && !empty($this->presetRecords[$slug]) && !$this->getOption('--append')) {
             $preset = array_shift($this->presetRecords[$slug]);
         } else {
             $preset = [];
@@ -552,14 +570,14 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
             $contentDefaultLocale = $content->getDefaultLocale();
             $contentLocales = $content->getLocales();
             foreach ($content->getFields() as $field) {
-                if (! $this->isSelectFieldAndMappedWithContent($field)) {
+                if (!$this->isSelectFieldAndMappedWithContent($field)) {
                     continue;
                 }
 
                 /** @var SelectField $field */
                 $contentType = $field->getContentType();
 
-                if (! \is_string($contentType)) {
+                if (!\is_string($contentType)) {
                     continue;
                 }
 
@@ -590,14 +608,14 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
 
     private function isSelectFieldAndMappedWithContent(Field $field): bool
     {
-        if (! $field instanceof SelectField) {
-            return FALSE;
+        if (!$field instanceof SelectField) {
+            return false;
         }
 
-        if (! $field->isContentSelect()) {
-            return FALSE;
+        if (!$field->isContentSelect()) {
+            return false;
         }
 
-        return TRUE;
+        return true;
     }
 }
