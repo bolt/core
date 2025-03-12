@@ -53,6 +53,8 @@ use Twig\Markup;
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type", type="string", length=191)
  * @ORM\DiscriminatorMap({"generic" = "Field"})
+ *
+ * @method FieldTranslation translate(?string $locale = null, bool $fallbackToDefault = true)
  */
 class Field implements FieldInterface, TranslatableInterface
 {
