@@ -34,8 +34,12 @@ final class ContentExtension implements QueryCollectionExtensionInterface, Query
         })->values();
     }
 
-    public function applyToCollection(QueryBuilder $queryBuilder, QueryNameGeneratorInterface $queryNameGenerator, string $resourceClass, ?string $operationName = null): void
-    {
+    public function applyToCollection(
+        QueryBuilder $queryBuilder,
+        QueryNameGeneratorInterface $queryNameGenerator,
+        string $resourceClass,
+        ?string $operationName = null
+    ): void {
         /*
          * Note: We're not distinguishing between `viewless` and `viewless_listing` here. In the
          * context of the API it makes no sense to say "You can get a list, but not the details"
@@ -51,8 +55,14 @@ final class ContentExtension implements QueryCollectionExtensionInterface, Query
         }
     }
 
-    public function applyToItem(QueryBuilder $queryBuilder, QueryNameGeneratorInterface $queryNameGenerator, string $resourceClass, array $identifiers, ?string $operationName = null, array $context = []): void
-    {
+    public function applyToItem(
+        QueryBuilder $queryBuilder,
+        QueryNameGeneratorInterface $queryNameGenerator,
+        string $resourceClass,
+        array $identifiers,
+        ?string $operationName = null,
+        array $context = []
+    ): void {
         if ($resourceClass === Content::class) {
             $this->filterUnpublishedViewlessContent($queryBuilder);
         }
@@ -78,7 +88,10 @@ final class ContentExtension implements QueryCollectionExtensionInterface, Query
     private function filterUnpublishedViewlessFields(QueryBuilder $queryBuilder): void
     {
         $rootAlias = $queryBuilder->getRootAliases()[0];
-        $queryBuilder->join($rootAlias . '.content', 'c', Join::WITH, 'c.status = :status');
+
+        $queryBuilder->join($rootAlias . '.content', 'c');
+        $queryBuilder->andWhere('c.status = :status');
+
         $queryBuilder->setParameter('status', Statuses::PUBLISHED);
 
         //todo: Fix this when https://github.com/doctrine/orm/issues/3835 closed.
