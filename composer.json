@@ -4,7 +4,7 @@
     "description": "🧿 Bolt 5 Core",
     "license": "MIT",
     "require": {
-        "php": ">=7.2.9",
+        "php": ">=8.1",
         "ext-json": "*",
         "ext-mbstring": "*",
         "ext-pdo": "*",

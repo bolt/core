@@ -1,15 +1,17 @@
-# https://github.com/docker-library/php/blob/master/7.3/buster/fpm/Dockerfile
-FROM php:7.3-fpm-buster
+# https://github.com/docker-library/php/blob/master/8.1/bookworm/fpm/Dockerfile
+FROM php:8.1-fpm-bookworm
 
-ENV PHP_MEMORYLIMIT 2048M
-ENV PHP_TIMEZONE Europe/Warsaw
-ENV PHP_MAXFILESIZE 100M
-ENV PHP_MAXEXECTIME 300
+ENV PHP_MEMORYLIMIT=2048M
+ENV PHP_TIMEZONE=Europe/Warsaw
+ENV PHP_MAXFILESIZE=100M
+ENV PHP_MAXEXECTIME=300
 ARG CONFD_VERSION
-ENV CONFD_VERSION ${CONFD_VERSION:-0.11.0}
-ENV COMPOSER_ALLOW_SUPERUSER 1
+ENV CONFD_VERSION=${CONFD_VERSION:-0.11.0}
+ENV COMPOSER_ALLOW_SUPERUSER=1
 
-RUN extBuildDeps=" \
+RUN --mount=type=cache,target=/var/cache/apt \
+    --mount=type=cache,target=/var/lib/apt \
+    extBuildDeps=" \
         libfreetype6 \
 		libfreetype6-dev \
         libpng-dev \
@@ -20,6 +22,10 @@ RUN extBuildDeps=" \
 		libmcrypt-dev \
 		libldap2-dev \
 		zlib1g-dev \
+		libavif-dev \
+		libwebp-dev \
+		libpq-dev \
+    	libonig-dev \
 	"; \
 	set -x \
     && usermod -u 1000 www-data \
@@ -39,15 +45,15 @@ RUN extBuildDeps=" \
             libzip-dev \
             sendmail && \
     rm -rf /var/lib/apt/lists/* && \
-    docker-php-ext-configure gd --with-jpeg-dir=/usr/lib/x86_64-linux-gnu --with-png-dir=/usr/lib/x86_64-linux-gnu --with-freetype-dir=/usr/lib/x86_64-linux-gnu && \
+    docker-php-ext-configure gd --enable-gd --with-webp --with-avif --with-jpeg --with-freetype && \
     docker-php-ext-configure intl --enable-intl && \
     docker-php-ext-install \
             exif \
             pdo \
             pdo_mysql \
+            pdo_pgsql \
             zip \
             intl \
-            iconv \
             mbstring \
             gd \
             pcntl \
@@ -66,17 +72,7 @@ RUN extBuildDeps=" \
     sed -i s'/pm.max_spare_servers = 3/pm.max_spare_servers = 35/' /usr/local/etc/php-fpm.d/www.conf && \
     echo 'ForwardAgent yes' >> /etc/ssh/ssh_config  && \
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
-    composer clear-cache && \
-    mkdir -p /root/.ssh/ && \
-    ssh-keyscan github.com >> /root/.ssh/known_hosts
-
-RUN version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \
-    && curl -A "Docker" -o /tmp/blackfire-probe.tar.gz -D - -L -s https://blackfire.io/api/v1/releases/probe/php/linux/amd64/$version \
-    && mkdir -p /tmp/blackfire \
-    && tar zxpf /tmp/blackfire-probe.tar.gz -C /tmp/blackfire \
-    && mv /tmp/blackfire/blackfire-*.so $(php -r "echo ini_get('extension_dir');")/blackfire.so \
-    && printf "extension=blackfire.so\nblackfire.agent_socket=tcp://blackfire:8707\n" > $PHP_INI_DIR/conf.d/blackfire.ini \
-    && rm -rf /tmp/blackfire /tmp/blackfire-probe.tar.gz
+    composer clear-cache
 
 EXPOSE 9000
 COPY confd/ /etc/confd/
