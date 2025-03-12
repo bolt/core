@@ -8,6 +8,7 @@ use Bolt\Configuration\Parser\ContentTypesParser;
 use Bolt\Configuration\Parser\TaxonomyParser;
 use Bolt\Extension\ExtensionCompilerPass;
 use Bolt\Extension\ExtensionInterface;
+use Illuminate\Support\Collection;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Exception\LoaderLoadException;
 use Symfony\Component\Config\FileLocator;
@@ -17,7 +18,6 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 use Symfony\Component\Yaml\Yaml;
-use Illuminate\Support\Collection;
 
 class Kernel extends BaseKernel
 {

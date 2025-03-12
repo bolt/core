@@ -14,12 +14,12 @@ use Bolt\Configuration\Parser\PermissionsParser;
 use Bolt\Configuration\Parser\TaxonomyParser;
 use Bolt\Configuration\Parser\ThemeParser;
 use Bolt\Controller\Backend\ClearCacheController;
+use Illuminate\Support\Collection;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
-use Illuminate\Support\Collection;
 use Webimpress\SafeWriter\FileWriter;
 
 class Config

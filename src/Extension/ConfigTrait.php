@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Bolt\Extension;
 
 use Cocur\Slugify\Slugify;
+use Illuminate\Support\Collection;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Yaml\Parser;
-use Illuminate\Support\Collection;
 
 trait ConfigTrait
 {

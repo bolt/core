@@ -11,12 +11,12 @@ use Bolt\Widget\RequestAwareInterface;
 use Bolt\Widget\StopwatchAwareInterface;
 use Bolt\Widget\TwigAwareInterface;
 use Bolt\Widget\WidgetInterface;
+use Illuminate\Support\Collection;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Contracts\Cache\CacheInterface;
-use Illuminate\Support\Collection;
 use Twig\Environment;
 
 /**

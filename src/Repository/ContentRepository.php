@@ -13,9 +13,9 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
+use Illuminate\Support\Collection;
 use Pagerfanta\Doctrine\ORM\QueryAdapter;
 use Pagerfanta\Pagerfanta;
-use Illuminate\Support\Collection;
 
 /**
  * @method Content|null find($id, $lockMode = null, $lockVersion = null)

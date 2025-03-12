@@ -7,11 +7,11 @@ namespace Bolt\Security;
 use Bolt\Configuration\Config;
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Entity\Content;
+use Illuminate\Support\Collection;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Illuminate\Support\Collection;
 
 class ContentVoter extends Voter
 {

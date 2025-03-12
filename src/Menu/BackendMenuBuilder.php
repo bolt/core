@@ -13,13 +13,13 @@ use Bolt\Twig\ContentExtension;
 use Bolt\Utils\ListFormatHelper;
 use Bolt\Version;
 use Cocur\Slugify\Slugify;
+use Illuminate\Support\Collection;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
 use Knp\Menu\MenuItem;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Illuminate\Support\Collection;
 
 /**
  * Class BackendMenuBuilder

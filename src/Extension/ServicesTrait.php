@@ -8,6 +8,7 @@ use Bolt\Configuration\Config;
 use Bolt\Storage\Query;
 use Bolt\Widgets;
 use Doctrine\ORM\EntityManagerInterface;
+use Illuminate\Support\Collection;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,7 +16,6 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
-use Illuminate\Support\Collection;
 use Twig\Environment;
 
 trait ServicesTrait

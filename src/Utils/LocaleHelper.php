@@ -6,11 +6,11 @@ namespace Bolt\Utils;
 
 use Bolt\Configuration\Config;
 use Bolt\Repository\ContentRepository;
+use Illuminate\Support\Collection;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Intl\Exception\RuntimeException;
 use Symfony\Component\Intl\Locales;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Illuminate\Support\Collection;
 use Twig\Environment;
 
 class LocaleHelper
