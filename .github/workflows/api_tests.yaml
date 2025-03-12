@@ -28,7 +28,6 @@ jobs:
                   sudo chmod -R 777 config/ public/files/ public/theme/ public/thumbs/ var/
                   ./bin/console doctrine:database:create
                   ./bin/console doctrine:schema:create
-                  ./bin/console doctrine:fixtures:load -n
                   symfony server:start --no-tls --port=8088 -d
             - name: create api user
               run: php bin/console bolt:add-user apiuser apiuser%1 api@example.org API --roles=ROLE_WEBSERVICE
@@ -38,9 +37,3 @@ jobs:
               run: curl -fkI -u apiuser:apiuser%1 http://localhost:8088/api/fields
             - name: check API user gets relations
               run: curl -fkI -u apiuser:apiuser%1 http://localhost:8088/api/relations
-            - uses: actions/upload-artifact@v4
-              if: failure()
-              with:
-                 name: logs
-                 path: var/log
-
