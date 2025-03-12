@@ -8,7 +8,7 @@ use Bolt\Entity\Field;
 use Bolt\Entity\Field\CollectionField;
 use Bolt\Entity\FieldParentInterface;
 use Doctrine\Common\Collections\Collection;
-use Knp\DoctrineBehaviors\Contract\Entity\TranslationInterface;
+use Bolt\Entity\TranslationInterface;
 
 class TranslationsManager
 {

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Twig;
 
 use Bolt\Entity\Field;
-use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
+use Bolt\Entity\TranslatableInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
