@@ -2,22 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Doctrine\EventSubscriber;
+namespace Bolt\Event\Listener;
 
 use Bolt\Entity\TranslatableInterface;
 use Bolt\Entity\TranslationInterface;
 use Bolt\Locale\LocaleProviderInterface;
-use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Event\PostLoadEventArgs;
 use Doctrine\ORM\Event\PrePersistEventArgs;
-use Doctrine\ORM\Events;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\Persistence\ObjectManager;
 use ReflectionClass;
 
 
-final class TranslatableEventSubscriber implements EventSubscriber
+final class TranslatableListener
 {
     /**
      * @var string
@@ -35,15 +33,6 @@ final class TranslatableEventSubscriber implements EventSubscriber
     ) {
         $this->translatableFetchMode = $this->convertFetchString($translatableFetchMode);
         $this->translationFetchMode = $this->convertFetchString($translationFetchMode);
-    }
-
-    public function getSubscribedEvents(): array
-    {
-        return [
-            Events::loadClassMetadata,
-            Events::postLoad,
-            Events::prePersist,
-        ];
     }
 
     /**
