@@ -2,6 +2,9 @@ name: Unit Tests Checks
 
 on:
     pull_request:
+    push:
+        branches:
+            - issue_13551_upgrade_doctrine
 
 jobs:
     unittests:
