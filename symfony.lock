@@ -34,9 +34,6 @@
     "bolt/newswidget": {
         "version": "1.2.0"
     },
-    "brick/math": {
-        "version": "0.8.14"
-    },
     "clue/stream-filter": {
         "version": "v1.4.1"
     },
@@ -206,9 +203,6 @@
     "justinrainbow/json-schema": {
         "version": "5.2.9"
     },
-    "knplabs/doctrine-behaviors": {
-        "version": "v2.0.1"
-    },
     "knplabs/knp-menu": {
         "version": "v3.1.0"
     },
@@ -256,9 +250,6 @@
     },
     "nesbot/carbon": {
         "version": "2.30.0"
-    },
-    "nette/utils": {
-        "version": "v3.1.1"
     },
     "nikic/php-parser": {
         "version": "v4.3.0"
@@ -420,12 +411,6 @@
     },
     "ralouphie/getallheaders": {
         "version": "3.0.3"
-    },
-    "ramsey/collection": {
-        "version": "1.0.1"
-    },
-    "ramsey/uuid": {
-        "version": "3.9.3"
     },
     "react/promise": {
         "version": "v2.8.0"

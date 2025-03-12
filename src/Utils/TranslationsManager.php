@@ -7,9 +7,9 @@ namespace Bolt\Utils;
 use Bolt\Entity\Field;
 use Bolt\Entity\Field\CollectionField;
 use Bolt\Entity\FieldParentInterface;
+use Bolt\Entity\TranslationInterface;
 use Doctrine\Common\Collections\Collection;
 use InvalidArgumentException;
-use Knp\DoctrineBehaviors\Contract\Entity\TranslationInterface;
 
 class TranslationsManager
 {

@@ -9,14 +9,14 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Bolt\Common\Arr;
 use Bolt\Configuration\Content\FieldType;
+use Bolt\Entity\Translatable\TranslatableMethodsTrait;
+use Bolt\Entity\Translatable\TranslatablePropertiesTrait;
 use Bolt\Event\Listener\FieldFillListener;
 use Bolt\Repository\FieldRepository;
 use Bolt\Utils\Sanitiser;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Illuminate\Support\Collection;
-use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
-use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
 use RuntimeException;
 use Stringable;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -60,7 +60,8 @@ use Twig\Markup;
 #[ApiFilter(SearchFilter::class)]
 class Field implements FieldInterface, TranslatableInterface, Stringable
 {
-    use TranslatableTrait;
+    use TranslatablePropertiesTrait;
+    use TranslatableMethodsTrait;
 
     public const TYPE = 'generic';
 

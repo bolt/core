@@ -5,13 +5,15 @@ declare(strict_types=1);
 namespace Bolt\Entity;
 
 use Doctrine\DBAL\Types\Types;
+use Bolt\Entity\Translatable\TranslationMethodsTrait;
+use Bolt\Entity\Translatable\TranslationPropertiesTrait;
 use Doctrine\ORM\Mapping as ORM;
-use Knp\DoctrineBehaviors\Model\Translatable\TranslationTrait;
 
 #[ORM\Entity]
 class FieldTranslation implements TranslationInterface
 {
-    use TranslationTrait;
+    use TranslationPropertiesTrait;
+    use TranslationMethodsTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -56,6 +58,6 @@ class FieldTranslation implements TranslationInterface
      */
     public static function getTranslatableEntityClass(): string
     {
-        return 'Field';
+        return Field::class;
     }
 }
