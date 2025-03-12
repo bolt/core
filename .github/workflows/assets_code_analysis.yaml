@@ -5,6 +5,7 @@ on:
     push:
         branches:
             - master
+            - issue_13551_upgrade_doctrine
 
 jobs:
     asses_code_analysis:

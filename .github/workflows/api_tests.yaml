@@ -2,6 +2,9 @@ name: API tests
 
 on:
     pull_request:
+    push:
+        branches:
+            - issue_13551_upgrade_doctrine
 
 jobs:
     apicurltests:
