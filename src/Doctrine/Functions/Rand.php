@@ -33,7 +33,7 @@ class Rand extends FunctionNode
         $parser->match(Lexer::T_IDENTIFIER);
         $parser->match(Lexer::T_OPEN_PARENTHESIS);
 
-        if ($lexer->lookahead['type'] !== Lexer::T_CLOSE_PARENTHESIS) {
+        if ($lexer->lookahead->type !== Lexer::T_CLOSE_PARENTHESIS) {
             $this->expression = $parser->SimpleArithmeticExpression();
         }
 
