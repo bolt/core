@@ -41,7 +41,7 @@ class AssetsExtension extends AbstractExtension
      * If the package used to generate the path is an instance of
      * UrlPackage, you will always get a URL and not a path.
      */
-    public function getAssetUrl(string $path, string $packageName = null): string
+    public function getAssetUrl(string $path, ?string $packageName = null): string
     {
         $url = $this->assets->getAssetUrl($path, $packageName);
         $original = $url;

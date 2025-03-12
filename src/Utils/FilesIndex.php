@@ -48,7 +48,7 @@ class FilesIndex
         return new Collection($files);
     }
 
-    private function findFiles(string $path, string $glob = null): Finder
+    private function findFiles(string $path, ?string $glob = null): Finder
     {
         $finder = new Finder();
         $finder->in($path)->depth('0')->sortByType()->files();

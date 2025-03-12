@@ -50,7 +50,7 @@ class UserRepository extends ServiceEntityRepository
         return $user instanceof User ? $user : null;
     }
 
-    public function findUsers(string $like, string $orderBy = null)
+    public function findUsers(string $like, ?string $orderBy = null)
     {
         $alias = 'user';
         $qb = $this->createQueryBuilder($alias);
