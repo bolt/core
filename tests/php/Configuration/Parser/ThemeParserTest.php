@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Tests\Configuration\Parser;
 
 use Bolt\Configuration\Parser\ThemeParser;
-use Tightenco\Collect\Support\Collection;
+use Illuminate\Support\Collection;
 
 class ThemeParserTest extends ParserTestBase
 {
