@@ -28,6 +28,7 @@ jobs:
                   sudo chmod -R 777 config/ public/files/ public/theme/ public/thumbs/ var/
                   ./bin/console doctrine:database:create
                   ./bin/console doctrine:schema:create
+                  ./bin/console doctrine:fixtures:load -n
                   symfony server:start --no-tls --port=8088 -d
             - name: create api user
               run: php bin/console bolt:add-user apiuser apiuser%1 api@example.org API --roles=ROLE_WEBSERVICE
