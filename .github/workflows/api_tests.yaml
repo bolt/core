@@ -37,3 +37,9 @@ jobs:
               run: curl -fkI -u apiuser:apiuser%1 http://localhost:8088/api/fields
             - name: check API user gets relations
               run: curl -fkI -u apiuser:apiuser%1 http://localhost:8088/api/relations
+            - uses: actions/upload-artifact@v4
+              if: failure()
+              with:
+                 name: logs
+                 path: var/log
+
