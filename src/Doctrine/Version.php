@@ -6,11 +6,9 @@ namespace Bolt\Doctrine;
 
 use Bolt\Common\Str;
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\Driver\PDOConnection;
-use Doctrine\DBAL\Platforms\MariaDb1027Platform;
-use Doctrine\DBAL\Platforms\MySQL57Platform;
+use Doctrine\DBAL\Platforms\MariaDbPlatform;
 use Doctrine\DBAL\Platforms\MySqlPlatform;
-use Doctrine\DBAL\Platforms\PostgreSQL92Platform;
+use Doctrine\DBAL\Platforms\PostgreSQLPlatform;
 use Doctrine\DBAL\Platforms\SqlitePlatform;
 
 class Version
@@ -33,13 +31,13 @@ class Version
      */
     public function getPlatform(): array
     {
-        $wrapped = $this->connection->getWrappedConnection();
+        $wrapped = $this->connection->getNativeConnection();
 
         // if the wrapped connection has itself a wrapped connection, use that one, etc.
         // This is the case in phpunit tests that use the dama/doctrine-test-bundle functionality
         while (true) {
-            if (method_exists($wrapped, 'getWrappedConnection')) {
-                $nextLevel = $wrapped->getWrappedConnection();
+            if (method_exists($wrapped, 'getNativeConnection')) {
+                $nextLevel = $wrapped->getNativeConnection();
                 if ($nextLevel) {
                     $wrapped = $nextLevel;
                 } else {
@@ -77,7 +75,7 @@ class Version
             $query
                 ->select('1')
                 ->from($this->tablePrefix . 'content');
-            $query->execute();
+            $query->executeStatement();
         } catch (\Throwable $e) {
             return false;
         }
@@ -93,38 +91,8 @@ class Version
             return $this->hasSQLiteJSONSupport();
         }
 
-        // MySQL80Platform is implicitly included with MySQL57Platform
-        if ($platform instanceof MySQL57Platform || $platform instanceof MariaDb1027Platform) {
-            return true;
-        }
-
-        // Corner case where MySQL platform is not specialized.
-        // Was observed with deployment to platform.sh using oracle-mysql service.
-        if ($platform instanceof MySqlPlatform) {
-            // samples:
-            // 8.0.29
-            // 8.0.27-cluster
-            // 10.7.3-MariaDB-1:10.7.3+maria~focal
-            $serverVersion = $this->getPlatform()["server_version"];
-
-            if (!preg_match("/^\d+\.\d+\.\d+/", $serverVersion, $matches)) {
-                // should throw an error or something?
-                return false;
-            }
-
-            $actVersion = $matches[0];
-
-            $isMariaDb = is_int(mb_stripos($serverVersion, "maria"));
-            $minVersion = $isMariaDb
-                ? "10.2.7"  // taken from MariaDb1027Platform docs
-                : "5.7.9" // taken from MySQL57Platform docs
-            ;
-
-            return version_compare($actVersion, $minVersion, ">=");
-        }
-
-        // PostgreSQL supports JSON from v9.2 and above, later versions are implicitly included
-        if ($platform instanceof PostgreSQL92Platform) {
+        // DBAL 3 does not support MySQL, MaridDb, PostgeSQL older version without JSON support
+        if ($platform instanceof MySQLPlatform || $platform instanceof PostgreSQLPlatform) {
             return true;
         }
 
@@ -138,14 +106,14 @@ class Version
             // MySQL & SQLite
             $query
                 ->select('CAST(1.1 AS DECIMAL)');
-            $query->execute();
+            $query->executeStatement();
         } catch (\Throwable $e) {
             try {
                 $query = $this->connection->createQueryBuilder();
                 // Postgree
                 $query
                     ->select('CAST(1.1 AS DOUBLE)');
-                $query->execute();
+                $query->executeStatement();
             } catch (\Throwable $e) {
                 return false;
             }
@@ -160,7 +128,7 @@ class Version
             $query = $this->connection->createQueryBuilder();
             $query
                 ->select('JSON_EXTRACT("{}", "one", "")');
-            $query->execute();
+            $query->executeStatement();
         } catch (\Throwable $e) {
             return false;
         }
@@ -180,7 +148,7 @@ class Version
             $query = $this->connection->createQueryBuilder();
             $query
                 ->select('JSON_EXTRACT(\'{"jsonfunctionalitytest":["succes"]}\', \'$.jsonfunctionalitytest\') as value');
-            $query->execute();
+            $query->executeStatement();
         } catch (\Throwable $e) {
             return false;
         }
