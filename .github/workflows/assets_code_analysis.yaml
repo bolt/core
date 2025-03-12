@@ -5,6 +5,7 @@ on:
     push:
         branches:
             - master
+            - issue_3551_integrate_translation
 
 jobs:
     asses_code_analysis:
