@@ -74,7 +74,7 @@
         "symfony/var-dumper": "^5.4",
         "symfony/var-exporter": "^5.4",
         "symfony/web-profiler-bundle": "^5.4",
-        "symfony/webpack-encore-bundle": "^1.12",
+        "symfony/webpack-encore-bundle": "^2.2",
         "symfony/yaml": "^5.4",
         "symfonycasts/reset-password-bundle": "^1.9",
         "tightenco/collect": "^v8.34",
