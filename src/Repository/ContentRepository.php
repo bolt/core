@@ -56,7 +56,7 @@ class ContentRepository extends ServiceEntityRepository
                 ->setParameter('status', Statuses::PUBLISHED);
         }
 
-        [ $order, $direction, $sortByField ] = $this->createSortBy($taxonomy);
+        [$order, $direction, $sortByField] = $this->createSortBy($taxonomy);
 
         if (! $sortByField) {
             $qb->orderBy('content.' . $order, $direction);

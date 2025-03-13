@@ -242,10 +242,8 @@ class Field implements FieldInterface, TranslatableInterface
 
     /**
      * like getValue() but returns single value for single value fields
-     *
-     * @return array|mixed|null
      */
-    public function getParsedValue()
+    public function getParsedValue(): array|mixed|null
     {
         $value = $this->getValue();
         if (is_iterable($value)) {
@@ -260,10 +258,7 @@ class Field implements FieldInterface, TranslatableInterface
         return $value;
     }
 
-    /**
-     * @return string|array|Markup|bool
-     */
-    public function getTwigValue()
+    public function getTwigValue(): string|array|Markup|bool
     {
         $value = $this->getParsedValue();
 
@@ -279,7 +274,7 @@ class Field implements FieldInterface, TranslatableInterface
             $valueBeforeRenderingAsTwig = $value;
             try {
                 $template = self::getTwig()->createTemplate($value);
-                $value    = $template->render([
+                $value = $template->render([
                     // Edge case, if we try to generate a title or excerpt for a field that allows Twig
                     // and references {{ record }}
                     'record' => $this->getContent(),
@@ -479,12 +474,12 @@ class Field implements FieldInterface, TranslatableInterface
      */
     public static function settingsAllowEmpty(?bool $allowEmpty, ?bool $required): bool
     {
-        if (null !== $allowEmpty) {
+        if ($allowEmpty !== null) {
             return $allowEmpty;
         }
 
-        if (null !== $required) {
-            return !$required;
+        if ($required !== null) {
+            return ! $required;
         }
 
         return true;

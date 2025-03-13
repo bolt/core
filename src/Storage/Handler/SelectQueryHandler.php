@@ -19,10 +19,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class SelectQueryHandler
 {
-    /**
-     * @return Content|Pagerfanta|null
-     */
-    public function __invoke(ContentQueryParser $contentQuery)
+    public function __invoke(ContentQueryParser $contentQuery): Content|Pagerfanta|null
     {
         $repo = $contentQuery->getContentRepository();
         $qb = $repo->getQueryBuilder();

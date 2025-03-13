@@ -15,11 +15,15 @@ class RequestZone
     protected const KEY = 'zone';
 
     public const FRONTEND = 'frontend';
+
     public const BACKEND = 'backend';
+
     public const ASYNC = 'async';
 
     public const EVERYWHERE = 'everywhere';
+
     public const NOWHERE = 'nowhere';
+
     public const ERROR = 'error';
 
     /**
@@ -67,10 +71,10 @@ class RequestZone
      */
     public static function getFromRequest(?Request $request): string
     {
-        if (!$request) {
+        if (! $request) {
             return static::NOWHERE;
         }
-        
+
         return $request->attributes->get(static::KEY) ?: static::NOWHERE;
     }
 

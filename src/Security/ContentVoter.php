@@ -30,11 +30,17 @@ class ContentVoter extends Voter
 #                     in ways that may not be immediately obvious.
      */
     public const CONTENT_EDIT = 'edit';
+
     public const CONTENT_CREATE = 'create';
+
     public const CONTENT_CHANGE_STATUS = 'change-status';
+
     public const CONTENT_DELETE = 'delete';
+
     public const CONTENT_CHANGE_OWNERSHIP = 'change-ownership';
+
     public const CONTENT_VIEW = 'view';
+
     // used to determine of user can view an entry or see the listing/menu for it
     // this permission is not to be specified in the config, it is only used internally
     public const CONTENT_MENU_LISTING = 'menu_listing';
@@ -99,7 +105,7 @@ class ContentVoter extends Voter
                 || $this->voteOnAttribute(self::CONTENT_CHANGE_STATUS, $subject, $token)
                 || $this->voteOnAttribute(self::CONTENT_CHANGE_OWNERSHIP, $subject, $token)
                 || $this->voteOnAttribute(self::CONTENT_VIEW, $subject, $token)
-                ;
+            ;
         }
 
         // special case for CONTENT_VIEW -> we'll also grant this to users that have any of these edit/delete permissions

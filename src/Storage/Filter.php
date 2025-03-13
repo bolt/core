@@ -35,10 +35,8 @@ class Filter
 
     /**
      * Getter for key.
-     *
-     * @return string|array
      */
-    public function getKey()
+    public function getKey(): string|array
     {
         return $this->key;
     }

@@ -19,10 +19,8 @@ class JsonHelper
      * Newer SQLite, Mysql 5.7 -> [ "JSON_EXTRACT(foo, '$[0]')", 'bar' ]
      *
      * @param string|bool|null $slug
-     *
-     * @return string|array
      */
-    public static function wrapJsonFunction(?string $where, $slug, Connection $connection)
+    public static function wrapJsonFunction(?string $where, $slug, Connection $connection): string|array
     {
         $version = new Version($connection);
 
@@ -70,7 +68,7 @@ class JsonHelper
                 $resultWhere = 'JSON_GET_TEXT(' . $where . ', 0)';
             } elseif ($version->getPlatform()['driver_name'] === 'mysql') {
                 // MySQL, _with_ a slug
-                $resultWhere = "JSON_SEARCH(JSON_UNQUOTE(" . $where . "), 'one', :" . $slug . ") IS NOT NULL";
+                $resultWhere = 'JSON_SEARCH(JSON_UNQUOTE(' . $where . "), 'one', :" . $slug . ') IS NOT NULL';
             } else {
                 // SQLite
                 $resultWhere = 'JSON_EXTRACT(' . $where . ", '$[0]')";

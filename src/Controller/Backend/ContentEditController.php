@@ -35,7 +35,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
@@ -149,7 +148,6 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         return $this->renderEditor($content);
     }
 
-
     /**
      * @Route("/edit/{id}", name="bolt_content_edit_post", methods={"POST"}, requirements={"id": "\d+"})
      */
@@ -179,7 +177,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         // check for status changes
         if ($originalContent !== null) {
             // deny if we detect the status field being changed
-            if ($originalStatus !== $content->getStatus() ) {
+            if ($originalStatus !== $content->getStatus()) {
                 $this->denyAccessUnlessGranted(ContentVoter::CONTENT_CHANGE_STATUS, $content);
             }
 
@@ -236,18 +234,20 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
             $modified = sprintf(
                 '(%s: %s)',
                 $this->translator->trans('field.modifiedAt', [], null, $locale),
-                $this->contentHelper->get($content, "{modifiedAt}")
+                $this->contentHelper->get($content, '{modifiedAt}')
             );
 
-            return new JsonResponse([
-                'url' => $url,
-                'status' => 'success',
-                'type' => $this->translator->trans('success', [], null, $locale),
-                'message' => $this->translator->trans('content.updated_successfully', [], null, $locale),
-                'notification' => $this->translator->trans('flash_messages.notification', [], null, $locale),
-                'title' => $content->getExtras()['title'],
-                'modified' => $modified,
-            ], 200
+            return new JsonResponse(
+                [
+                    'url' => $url,
+                    'status' => 'success',
+                    'type' => $this->translator->trans('success', [], null, $locale),
+                    'message' => $this->translator->trans('content.updated_successfully', [], null, $locale),
+                    'notification' => $this->translator->trans('flash_messages.notification', [], null, $locale),
+                    'title' => $content->getExtras()['title'],
+                    'modified' => $modified,
+                ],
+                200
             );
         }
 
@@ -395,7 +395,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
 
         if (isset($formData['taxonomy'])) {
             foreach ($formData['taxonomy'] as $fieldName => $taxonomy) {
-                if (false !== mb_strpos($fieldName, 'sortorder')) {
+                if (mb_strpos($fieldName, 'sortorder') !== false) {
                     continue;
                 }
                 $order = 0;

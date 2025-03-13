@@ -3,7 +3,6 @@
 namespace Bolt\Utils;
 
 use Bolt\Configuration\Config;
-use Symfony\Component\Filesystem\Path;
 use Symfony\Component\Finder\Finder;
 use Tightenco\Collect\Support\Collection;
 
@@ -32,7 +31,7 @@ class FilesIndex
                 'group' => 'directories',
                 'value' => $dir->getPathname(),
                 'text' => $dir->getFilename(),
-                'base_url_path' => $baseUrlPath
+                'base_url_path' => $baseUrlPath,
             ];
         }
 
@@ -41,7 +40,7 @@ class FilesIndex
                 'group' => basename($baseFilePath),
                 'value' => $path . '/' . $file->getRelativePathname(),
                 'text' => $file->getFilename(),
-                'base_url_path' => $baseUrlPath
+                'base_url_path' => $baseUrlPath,
             ];
         }
 

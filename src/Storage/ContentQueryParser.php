@@ -65,16 +65,13 @@ class ContentQueryParser
     /** @var DirectiveHandler */
     private $directiveHandler;
 
-    /**
-     * Constructor.
-     */
     public function __construct(
         RequestStack $requestStack,
         ContentRepository $repo,
         Config $config,
         DirectiveHandler $directiveHandler,
-        ?QueryInterface $queryHandler = null)
-    {
+        ?QueryInterface $queryHandler = null
+    ) {
         $this->repo = $repo;
         $this->requestStack = $requestStack;
 
@@ -385,10 +382,8 @@ class ContentQueryParser
 
     /**
      * Runs the query and fetches the results.
-     *
-     * @return Pagerfanta|Content|null
      */
-    public function fetch()
+    public function fetch(): Pagerfanta|Content|null
     {
         $this->parse();
 

@@ -15,7 +15,6 @@ use Bolt\Entity\Field\SetField;
 use Bolt\Enum\Statuses;
 use Bolt\Repository\FieldRepository;
 use Bolt\Twig\ContentExtension;
-use Bolt\Utils\ContentHelper;
 use Bolt\Utils\Excerpt;
 use DateTimeZone;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -520,10 +519,7 @@ class Content
         return $taxonomyValues;
     }
 
-    /**
-     * @return array|mixed|null
-     */
-    public function getFieldValue(string $fieldName)
+    public function getFieldValue(string $fieldName): array|mixed|null
     {
         if ($this->hasField($fieldName) === false) {
             return null;
@@ -709,7 +705,7 @@ class Content
             throw new \RuntimeException(sprintf('Invalid field name or method call on %s: %s', $this->__toString(), $name));
         }
 
-        if (!$field instanceof SetField && ($field instanceof Excerptable || $field instanceof ScalarCastable)) {
+        if (! $field instanceof SetField && ($field instanceof Excerptable || $field instanceof ScalarCastable)) {
             return $field->getTwigValue();
         }
 
@@ -728,7 +724,7 @@ class Content
             return null;
         }
 
-        $dateTimeUTC = new \DateTime($dateTime->format('Y-m-d H:i:s'), new \DateTimeZone('UTC'));
+        $dateTimeUTC = new \DateTime($dateTime->format('Y-m-d H:i:s'), new DateTimeZone('UTC'));
 
         return $dateTimeUTC->setTimezone($dateTime->getTimezone());
     }
@@ -746,7 +742,7 @@ class Content
         }
 
         // Prevent dates before the year `0000`, because MySQL chokes on those
-        if ($dateTime instanceof \DateTime && (int) $dateTime->format("Y") < 1) {
+        if ($dateTime instanceof \DateTime && (int) $dateTime->format('Y') < 1) {
             $dateTime = null;
         }
 
@@ -765,7 +761,6 @@ class Content
             $this->getDefinition()->get('fields')->keys()->all()
             : [];
         // If the definition is missing, we cannot filter out keys. ¯\_(ツ)_/¯
-
 
         return $this->fields->filter(function (Field $field) use ($keys) {
             return ! $field->hasParent() &&

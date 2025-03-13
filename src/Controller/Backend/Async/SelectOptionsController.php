@@ -37,7 +37,7 @@ class SelectOptionsController extends AbstractController implements AsyncZoneInt
      */
     public function handleSelectOptions(Request $request): JsonResponse
     {
-        [ $contentTypeSlug, $format ] = explode('/', $request->get('values'));
+        [$contentTypeSlug, $format] = explode('/', $request->get('values'));
 
         if (empty($maxAmount = $request->get('limit'))) {
             $maxAmount = $this->config->get('general/maximum_listing_select', 200);

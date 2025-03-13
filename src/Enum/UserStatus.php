@@ -9,6 +9,7 @@ use Tightenco\Collect\Support\Collection;
 class UserStatus
 {
     public const ENABLED = 'enabled';
+
     public const DISABLED = 'disabled';
 
     /**

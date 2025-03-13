@@ -5,13 +5,11 @@ declare(strict_types=1);
 namespace Bolt\Menu;
 
 use Bolt\Configuration\Config;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
 use Twig\Environment;
-
 
 final class FrontendMenu implements FrontendMenuBuilderInterface
 {

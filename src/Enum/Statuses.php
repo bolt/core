@@ -9,8 +9,11 @@ use Tightenco\Collect\Support\Collection;
 class Statuses
 {
     public const PUBLISHED = 'published';
+
     public const HELD = 'held';
+
     public const TIMED = 'timed';
+
     public const DRAFT = 'draft';
 
     /**

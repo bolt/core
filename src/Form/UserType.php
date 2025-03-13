@@ -109,7 +109,7 @@ class UserType extends AbstractType
                 ],
             ])
             ->add('about', TextareaType::class, [
-                'required' => false
+                'required' => false,
             ])
         ;
 
@@ -132,10 +132,10 @@ class UserType extends AbstractType
                 ]);
         }
 
-//            ->add('lastseenAt')
-//            ->add('lastIp')
-//            ->add('backendTheme')
-//            ->add('userAuthToken')
+        //            ->add('lastseenAt')
+        //            ->add('lastIp')
+        //            ->add('backendTheme')
+        //            ->add('userAuthToken')
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -41,10 +41,8 @@ class Query
      *
      * Used by the twig command {% setcontent %} but also directly.
      * For reference refer to @see https://docs.bolt.cm/templating/content-fetching
-     *
-     * @return Pagerfanta|Content|null
      */
-    public function getContent(string $textQuery, array $parameters = [])
+    public function getContent(string $textQuery, array $parameters = []): Pagerfanta|Content|null
     {
         $this->parser->setQuery($textQuery);
         $this->parser->setParameters($parameters);
@@ -52,10 +50,7 @@ class Query
         return $this->parser->fetch();
     }
 
-    /**
-     * @return Pagerfanta|Content|null
-     */
-    public function getContentByScope(string $scopeName, string $textQuery, array $parameters = [])
+    public function getContentByScope(string $scopeName, string $textQuery, array $parameters = []): Pagerfanta|Content|null
     {
         $scope = $this->getScope($scopeName);
         if ($scope) {
@@ -74,10 +69,8 @@ class Query
      *
      * @param string $textQuery The base part like `pages` or `pages/1`
      * @param array $parameters Parameters like `printquery` and `paging`, but also `where` parameters taken from `... where { foo: bar } ...`
-     *
-     * @return Pagerfanta|Content|null
      */
-    public function getContentForTwig(string $textQuery, array $parameters = [])
+    public function getContentForTwig(string $textQuery, array $parameters = []): Pagerfanta|Content|null
     {
         if (empty($textQuery)) {
             return new Pagerfanta(new ArrayAdapter([]));

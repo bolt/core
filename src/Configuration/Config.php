@@ -16,15 +16,13 @@ use Bolt\Configuration\Parser\ThemeParser;
 use Bolt\Controller\Backend\ClearCacheController;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Stopwatch\Stopwatch;
-use Symfony\Component\Yaml\Yaml;
 use Symfony\Contracts\Cache\CacheInterface;
-use Symfony\Contracts\Cache\ItemInterface;
 use Tightenco\Collect\Support\Collection;
-use Webimpress\SafeWriter\FileWriter;
 
 class Config
 {
     public const CACHE_KEY = 'config_cache';
+
     public const OPTIONS_CACHE_KEY = 'options_preparse';
 
     /** @var Collection */
@@ -283,7 +281,8 @@ class Config
 
     public function getMaxUploadDescription(): string
     {
-        return sprintf('This value is the minimum of these constraints:<br> <strong>Bolt\'s <code>config.yaml</code></strong>:<br>
+        return sprintf(
+            'This value is the minimum of these constraints:<br> <strong>Bolt\'s <code>config.yaml</code></strong>:<br>
 <code>accept_upload_size</code>: <code>%s</code><br><br>
 <strong>PHP\'s <code>php.ini</code></strong>:<br>
 <code>post_max_size</code>: <code>%s</code><br> <code>upload_max_filesize</code>: <code>%s</code>',

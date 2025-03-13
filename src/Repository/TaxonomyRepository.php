@@ -57,9 +57,9 @@ class TaxonomyRepository extends ServiceEntityRepository
         return $taxonomy;
     }
 
-//    /**
-//     * @return Taxonomy[] Returns an array of Taxonomy objects
-//     */
+    //    /**
+    //     * @return Taxonomy[] Returns an array of Taxonomy objects
+    //     */
     /*
     public function findByExampleField($value)
     {

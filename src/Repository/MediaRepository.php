@@ -22,9 +22,9 @@ class MediaRepository extends ServiceEntityRepository
         parent::__construct($registry, Media::class);
     }
 
-//    /**
-//     * @return Media[] Returns an array of Media objects
-//     */
+    //    /**
+    //     * @return Media[] Returns an array of Media objects
+    //     */
     /*
     public function findByExampleField($value)
     {

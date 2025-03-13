@@ -36,8 +36,8 @@ class ContentFactory
         Security $security,
         Query $query,
         Config $config,
-        EntityManagerInterface $em)
-    {
+        EntityManagerInterface $em
+    ) {
         $this->contentFillListener = $contentFillListener;
         $this->security = $security;
         $this->query = $query;
