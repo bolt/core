@@ -243,7 +243,7 @@ class Field implements FieldInterface, TranslatableInterface
     /**
      * like getValue() but returns single value for single value fields
      */
-    public function getParsedValue(): array|mixed|null
+    public function getParsedValue(): mixed
     {
         $value = $this->getValue();
         if (is_iterable($value)) {

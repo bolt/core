@@ -519,7 +519,7 @@ class Content
         return $taxonomyValues;
     }
 
-    public function getFieldValue(string $fieldName): array|mixed|null
+    public function getFieldValue(string $fieldName): mixed
     {
         if ($this->hasField($fieldName) === false) {
             return null;

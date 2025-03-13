@@ -52,7 +52,7 @@ class AuthSubscriber implements EventSubscriberInterface
 
     public function onLogout(LogoutEvent $event): void
     {
-        if (null === $event->getToken()) {
+        if ($event->getToken() === null) {
             return;
         }
 

@@ -56,7 +56,7 @@ class SelectField extends Field implements FieldInterface, RawPersistable, \Iter
         return array_filter((array) $value);
     }
 
-    public function getParsedValue()
+    public function getParsedValue(): mixed
     {
         $parsedValue = parent::getParsedValue();
 
