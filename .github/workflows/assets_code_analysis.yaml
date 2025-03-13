@@ -5,7 +5,6 @@ on:
     push:
         branches:
             - master
-            - issue_3551_symplify_easy-coding-standard
 
 jobs:
     asses_code_analysis:

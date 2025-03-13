@@ -2,9 +2,6 @@ name: Unit Tests Checks
 
 on:
     pull_request:
-    push:
-        branches:
-            - issue_3551_symplify_easy-coding-standard
 
 jobs:
     unittests:
