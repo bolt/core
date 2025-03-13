@@ -6,7 +6,7 @@ namespace Bolt\Controller\Backend\Async;
 
 use Bolt\Controller\CsrfTrait;
 use Embed\Embed as EmbedFactory;
-use Embed\Exceptions\InvalidUrlException;
+use Psr\Http\Client\RequestExceptionInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -47,21 +47,21 @@ class EmbedController implements AsyncZoneInterface
 
         try {
             $url = $this->request->request->get('url');
-            $info = EmbedFactory::create($url);
-            $oembed = $info->getProviders()['oembed'];
+            $info = (new EmbedFactory())->get($url);
+            $oembed = $info->getOEmbed();
 
-            $response = $oembed->getBag()->getAll();
+            $response = $oembed->all();
 
-            if ($oembed->getProviderName() === 'YouTube') {
-                $html = $oembed->getCode();
+            if ($oembed->get('provider_name') === 'YouTube') {
+                $html = $oembed->get('html');
 
                 if (! preg_match('/title=([^\s]+)/', $html)) {
-                    $response['html'] = preg_replace('/>/', sprintf(' title="%s">', $oembed->getTitle()), $html, 1);
+                    $response['html'] = preg_replace('/>/', sprintf(' title="%s">', $oembed->get('title')), $html, 1);
                 }
             }
 
             return new JsonResponse($response);
-        } catch (InvalidUrlException $e) {
+        } catch (RequestExceptionInterface $e) {
             return new JsonResponse([
                 'error' => [
                     'message' => $e->getMessage(),
