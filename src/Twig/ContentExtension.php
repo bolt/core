@@ -322,7 +322,7 @@ class ContentExtension extends AbstractExtension
             return $excerpt . $part . ' ';
         }, '');
 
-        return rtrim($excerpt, '. ');
+        return mb_rtrim($excerpt, '. ');
     }
 
     public function getPreviousContent(?Content $content, string $byColumn = 'id', bool $sameContentType = true): ?Content

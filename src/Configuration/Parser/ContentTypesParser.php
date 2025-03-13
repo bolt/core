@@ -419,7 +419,7 @@ class ContentTypesParser extends BaseParser
 
         $order = str_replace(array_keys($replacements), array_values($replacements), $order);
 
-        $orderName = trim($order, '-');
+        $orderName = mb_trim($order, '-');
 
         if (! in_array($orderName, array_keys($contentType['fields']), true) &&
             ! in_array($orderName, ['createdAt', 'modifiedAt', 'publishedAt', 'id'], true)) {

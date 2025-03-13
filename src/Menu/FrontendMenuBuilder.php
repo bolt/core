@@ -101,7 +101,7 @@ final class FrontendMenuBuilder implements FrontendMenuBuilderInterface
 
     private function generateUri(string $link = ''): array
     {
-        $trimmedLink = trim($link, '/');
+        $trimmedLink = mb_trim($link, '/');
 
         // Special case for "Homepage"
         if ($trimmedLink === 'homepage' || $trimmedLink === $this->config->get('general/homepage')) {

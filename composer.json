@@ -62,6 +62,7 @@
         "symfony/monolog-bundle": "^3.7",
         "symfony/password-hasher": "^5.4",
         "symfony/polyfill-php72": "^1.23",
+        "symfony/polyfill-php84": "^1.31",
         "symfony/security-bundle": "^5.4",
         "symfony/security-csrf": "^5.4",
         "symfony/serializer": "^5.4",

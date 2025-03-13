@@ -227,7 +227,7 @@ class Config
 
     public function getContentType(string $name): ?Collection
     {
-        $name = trim($name);
+        $name = mb_trim($name);
 
         if ($this->has('contenttypes/' . $name)) {
             return $this->get('contenttypes/' . $name);
@@ -247,7 +247,7 @@ class Config
 
     public function getTaxonomy(string $name): ?Collection
     {
-        $name = trim($name);
+        $name = mb_trim($name);
 
         if ($this->has('taxonomies/' . $name)) {
             return $this->get('taxonomies/' . $name);

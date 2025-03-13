@@ -110,7 +110,7 @@ class Kernel extends BaseKernel
         $result = [];
         foreach ($array as $key => $value) {
             if (is_int($key)) {
-                $result[trim($prefix, '.')][] = $value;
+                $result[mb_trim($prefix, '.')][] = $value;
             } elseif (is_array($value)) {
                 $result += $this->flattenKeys($value, $prefix . $key . '.');
             } else {
