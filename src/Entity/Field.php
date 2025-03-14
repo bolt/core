@@ -9,11 +9,11 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Bolt\Common\Arr;
 use Bolt\Configuration\Content\FieldType;
+use Bolt\Entity\Translatable\TranslatableMethodsTrait;
+use Bolt\Entity\Translatable\TranslatablePropertiesTrait;
 use Bolt\Event\Listener\FieldFillListener;
 use Bolt\Utils\Sanitiser;
 use Doctrine\ORM\Mapping as ORM;
-use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
-use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 use Tightenco\Collect\Support\Collection;
@@ -53,10 +53,13 @@ use Twig\Markup;
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type", type="string", length=191)
  * @ORM\DiscriminatorMap({"generic" = "Field"})
+ *
+ * @method FieldTranslation translate(?string $locale = null, bool $fallbackToDefault = true)
  */
 class Field implements FieldInterface, TranslatableInterface
 {
-    use TranslatableTrait;
+    use TranslatablePropertiesTrait;
+    use TranslatableMethodsTrait;
 
     public const TYPE = 'generic';
 

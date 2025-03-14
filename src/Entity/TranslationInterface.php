@@ -4,14 +4,18 @@ declare(strict_types=1);
 
 namespace Bolt\Entity;
 
-use Knp\DoctrineBehaviors\Contract\Entity\TranslationInterface as KnpTranslationInterface;
 
-interface TranslationInterface extends KnpTranslationInterface
+interface TranslationInterface
 {
-}
+    public static function getTranslatableEntityClass(): string;
 
-/*
- * The following prevents a 'Class "Knp\DoctrineBehaviors\Model\Translatable\TranslationInterface" does not exist'-Exception
- * See screenshot: https://github.com/bolt/core/pull/2496#issuecomment-808725120
- */
-class_alias(TranslationInterface::class, 'Knp\DoctrineBehaviors\Model\Translatable\TranslationInterface');
+    public function setTranslatable(TranslatableInterface $translatable): void;
+
+    public function getTranslatable(): TranslatableInterface;
+
+    public function setLocale(string $locale): void;
+
+    public function getLocale(): string;
+
+    public function isEmpty(): bool;
+}
