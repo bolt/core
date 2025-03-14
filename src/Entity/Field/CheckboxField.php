@@ -38,7 +38,10 @@ class CheckboxField extends Field implements FieldInterface, ScalarCastable, Raw
         return parent::setValue($value);
     }
 
-    public function getTwigValue(): string|array|Markup|bool
+    /**
+     * @return string|array|Markup|bool
+     */
+    public function getTwigValue()
     {
         return current($this->getValue()) ? true : false;
     }

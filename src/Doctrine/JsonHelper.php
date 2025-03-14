@@ -19,8 +19,10 @@ class JsonHelper
      * Newer SQLite, Mysql 5.7 -> [ "JSON_EXTRACT(foo, '$[0]')", 'bar' ]
      *
      * @param string|bool|null $slug
+     *
+     * @return string|array
      */
-    public static function wrapJsonFunction(?string $where, $slug, Connection $connection): string|array
+    public static function wrapJsonFunction(?string $where, $slug, Connection $connection)
     {
         $version = new Version($connection);
 

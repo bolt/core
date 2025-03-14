@@ -90,10 +90,10 @@ return ECSConfig::configure()
         NoSinglelineWhitespaceBeforeSemicolonsFixer::class,
         NoWhitespaceBeforeCommaInArrayFixer::class,
         WhitespaceAfterCommaInArrayFixer::class,
-        PhpdocToReturnTypeFixer::class,
         FullyQualifiedStrictTypesFixer::class,
         DisallowYodaComparisonSniff::class,
     ])
+    ->withConfiguredRule(PhpdocToReturnTypeFixer::class, ['union_types' => false])
     ->withConfiguredRule(NoSuperfluousPhpdocTagsFixer::class, ['remove_inheritdoc' => false])
     ->withConfiguredRule(
         ConcatSpaceFixer::class,
@@ -131,6 +131,4 @@ return ECSConfig::configure()
     ->withConfiguredRule(
         ClassAttributesSeparationFixer::class,
         ['elements' => ['property' => 'one', 'method' => 'one', 'const' => 'none']]
-    )
-
-;
+    );

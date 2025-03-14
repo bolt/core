@@ -214,7 +214,10 @@ class ContentExtension extends AbstractExtension
         return ContentHelper::guessTitleFields($content);
     }
 
-    public function getImage(?Content $content, bool $onlyValues = false): ImageField|array|null
+    /**
+     * @return ImageField|array|null
+     */
+    public function getImage(?Content $content, bool $onlyValues = false)
     {
         if (! $content) {
             return null;

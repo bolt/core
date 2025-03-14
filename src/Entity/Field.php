@@ -242,8 +242,10 @@ class Field implements FieldInterface, TranslatableInterface
 
     /**
      * like getValue() but returns single value for single value fields
+     *
+     * @return array|mixed|null
      */
-    public function getParsedValue(): mixed
+    public function getParsedValue()
     {
         $value = $this->getValue();
         if (is_iterable($value)) {
@@ -258,7 +260,10 @@ class Field implements FieldInterface, TranslatableInterface
         return $value;
     }
 
-    public function getTwigValue(): string|array|Markup|bool
+    /**
+     * @return string|array|Markup|bool
+     */
+    public function getTwigValue()
     {
         $value = $this->getParsedValue();
 

@@ -382,8 +382,10 @@ class ContentQueryParser
 
     /**
      * Runs the query and fetches the results.
+     *
+     * @return Pagerfanta|Content|null
      */
-    public function fetch(): Pagerfanta|Content|null
+    public function fetch()
     {
         $this->parse();
 

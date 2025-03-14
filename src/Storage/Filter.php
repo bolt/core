@@ -34,9 +34,9 @@ class Filter
     }
 
     /**
-     * Getter for key.
+     * @return string|array
      */
-    public function getKey(): string|array
+    public function getKey()
     {
         return $this->key;
     }

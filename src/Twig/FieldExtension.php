@@ -124,7 +124,10 @@ class FieldExtension extends AbstractExtension
         return $field->getType();
     }
 
-    public function getSelected(SelectField $field, $returnsingle = false, $returnarray = false): array|Content|null
+    /**
+     * @return array|Content|null
+     */
+    public function getSelected(SelectField $field, $returnsingle = false, $returnarray = false)
     {
         $definition = $field->getDefinition();
 
@@ -207,7 +210,7 @@ class FieldExtension extends AbstractExtension
         return new Collection($options);
     }
 
-    public function selectOptionsUrl(SelectField $field): String
+    public function selectOptionsUrl(SelectField $field): string
     {
         return $this->router->generate('bolt_async_select_options', [
             'name' => $field->getDefinition()->get('name', ''),
