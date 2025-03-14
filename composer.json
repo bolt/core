@@ -34,7 +34,7 @@
         "miljar/php-exif": "^0.6.4",
         "nelexa/zip": "^3.3 || ^4.0",
         "nelmio/cors-bundle": "^2.1",
-        "nesbot/carbon": "^2.53",
+        "nesbot/carbon": "^3.8",
         "pagerfanta/doctrine-orm-adapter": "^4.7",
         "php-translation/symfony-bundle": "^0.15",
         "phpdocumentor/reflection-docblock": "^5.3",
