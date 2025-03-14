@@ -8,8 +8,8 @@ use Bolt\Entity\Field;
 use Bolt\Entity\FieldInterface;
 use Bolt\Entity\IterableFieldTrait;
 use Doctrine\ORM\Mapping as ORM;
+use Illuminate\Support\Collection;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Tightenco\Collect\Support\Collection;
 
 /**
  * @ORM\Entity

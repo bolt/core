@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Bolt\Storage\Directive;
 
+use Illuminate\Support\Collection;
 use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use Tightenco\Collect\Support\Collection;
 
 /**
  * Handles directives on behalf of

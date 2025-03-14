@@ -3,9 +3,9 @@
 namespace Bolt\Utils;
 
 use Bolt\Configuration\Config;
+use Illuminate\Support\Collection;
 use Symfony\Component\Filesystem\Path;
 use Symfony\Component\Finder\Finder;
-use Tightenco\Collect\Support\Collection;
 
 class FilesIndex
 {

@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\Cache\Adapter\TraceableAdapter;
 use Symfony\Component\Stopwatch\Stopwatch;
-use Tightenco\Collect\Support\Collection;
+use Illuminate\Support\Collection;
 
 class ConfigTest extends TestCase
 {

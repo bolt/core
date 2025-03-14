@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Configuration\Parser;
 
 use Bolt\Common\Arr;
-use Tightenco\Collect\Support\Collection;
+use Illuminate\Support\Collection;
 
 class GeneralParser extends BaseParser
 {

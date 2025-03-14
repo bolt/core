@@ -9,7 +9,7 @@ use Bolt\Configuration\Parser\GeneralParser;
 use Bolt\Exception\ConfigurationException;
 use Symfony\Component\Config\Exception\FileLocatorFileNotFoundException;
 use Symfony\Component\Yaml\Exception\ParseException;
-use Tightenco\Collect\Support\Collection;
+use Illuminate\Support\Collection;
 
 class ContentTypesParserTest extends ParserTestBase
 {
