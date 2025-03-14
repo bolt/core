@@ -117,4 +117,8 @@ return ECSConfig::configure()
             'elements' => ['const', 'method', 'property'],
         ])
     ->withConfiguredRule(PhpdocLineSpanFixer::class,
-        ['property' => 'single']);
+        ['property' => 'single'])
+    ->withConfiguredRule(ClassAttributesSeparationFixer::class,
+        ['elements' => ['property' => 'one', 'method' => 'one', 'const' => 'none']])
+
+    ;
