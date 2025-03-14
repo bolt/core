@@ -131,11 +131,6 @@ class UserType extends AbstractType
                     'choices' => UserStatus::all(),
                 ]);
         }
-
-        //            ->add('lastseenAt')
-        //            ->add('lastIp')
-        //            ->add('backendTheme')
-        //            ->add('userAuthToken')
     }
 
     public function configureOptions(OptionsResolver $resolver): void
