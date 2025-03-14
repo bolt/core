@@ -88,6 +88,7 @@
         "xemlock/htmlpurifier-html5": "^0.1.11"
     },
     "conflict": {
+        "doctrine/dbal": ">=4.0",
         "cocur/slugify": "4.5.0"
     },
     "require-dev": {
