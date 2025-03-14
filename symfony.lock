@@ -46,12 +46,6 @@
     "cocur/slugify": {
         "version": "v4.0.0"
     },
-    "coduo/php-matcher": {
-        "version": "4.0.0"
-    },
-    "coduo/php-to-string": {
-        "version": "3.0.0"
-    },
     "composer/ca-bundle": {
         "version": "1.2.6"
     },
@@ -453,9 +447,6 @@
     },
     "psr/log": {
         "version": "1.1.2"
-    },
-    "psr/simple-cache": {
-        "version": "1.0.1"
     },
     "ralouphie/getallheaders": {
         "version": "3.0.3"
@@ -859,15 +850,6 @@
             "config/packages/test/web_profiler.yaml",
             "config/routes/dev/web_profiler.yaml"
         ]
-    },
-    "symfony/web-server-bundle": {
-        "version": "3.3",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "3.3",
-            "ref": "dae9b39fd6717970be7601101ce5aa960bf53d9a"
-        }
     },
     "symfony/webpack-encore-bundle": {
         "version": "1.9",

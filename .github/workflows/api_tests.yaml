@@ -8,8 +8,25 @@ jobs:
         strategy:
             matrix:
                 php-version: [ '8.1', '8.2', '8.3', '8.4' ]
+                database:
+                    - 'sqlite:///%kernel.project_dir%/var/data/bolt.sqlite'
+                    - 'mysql://bolt:bolt@127.0.0.1/bolt?serverVersion=5.7&charset=utf8mb4'
         name: curl tests
+        services:
+            mysql:
+                image: mysql:5.7
+                ports:
+                    - "3306:3306"
+                env:
+                    MYSQL_DATABASE: bolt
+                    MYSQL_USER: bolt
+                    MYSQL_PASSWORD: bolt
+                    MYSQL_ROOT_PASSWORD: bolt
+                options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+                
         runs-on: ubuntu-latest
+        env:
+            DATABASE_URL: ${{matrix.database}}
         steps:
             - uses: actions/checkout@v4
             - uses: shivammathur/setup-php@v2
@@ -23,12 +40,15 @@ jobs:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             - name: Install composer dependencies
               run: composer install --prefer-dist --no-progress
+            - name: Initialise folders
+              run: sudo chmod -R 777 config/ public/files/ public/theme/ public/thumbs/ var/
+            - name: create the database
+              run: ./bin/console doctrine:database:create
+              if: ${{ startsWith('sqlite', matrix.database) }}
             - name: Initialise the database
-              run: |
-                  sudo chmod -R 777 config/ public/files/ public/theme/ public/thumbs/ var/
-                  ./bin/console doctrine:database:create
-                  ./bin/console doctrine:schema:create
-                  symfony server:start --no-tls --port=8088 -d
+              run: ./bin/console doctrine:schema:create
+            - name: Starting server
+              run: symfony server:start --no-tls --port=8088 -d
             - name: create api user
               run: php bin/console bolt:add-user apiuser apiuser%1 api@example.org API --roles=ROLE_WEBSERVICE
             - name: check API user gets content
