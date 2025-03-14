@@ -40,7 +40,7 @@
         "psr/event-dispatcher": "^1.0",
         "scienta/doctrine-json-functions": "^4.4",
         "sensio/framework-extra-bundle": "^6.2",
-        "siriusphp/upload": "^3.0.1",
+        "siriusphp/upload": "^4.0",
         "squirrelphp/twig-php-syntax": "^1.6",
         "symfony/asset": "^5.4",
         "symfony/cache": "^5.4",
