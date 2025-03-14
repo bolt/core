@@ -5,7 +5,7 @@ on:
     push:
         branches:
             - master
-            - issue_13551_upgrade_doctrine
+            - issue_3551_upgrade_doctrine2
 
 jobs:
     code_analysis:
