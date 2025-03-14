@@ -10,11 +10,11 @@ use Bolt\Widget\Injector\HtmlInjector;
 class HtmlInjector2Test extends StringTestCase
 {
     public const HTML = '<html><body class="something"
-    >foo<p><p 
+    >foo<p><p
     class="inner">bar</p></p><script></script><script
      /></body></html>';
 
-    public function providerInjectBeforeTagStart()
+    public static function providerInjectBeforeTagStart(): array
     {
         return [
             [
@@ -36,7 +36,7 @@ class HtmlInjector2Test extends StringTestCase
         ];
     }
 
-    public function providerInjectBeforeTagEnd()
+    public static function providerInjectBeforeTagEnd(): array
     {
         return [
             [
@@ -58,7 +58,7 @@ class HtmlInjector2Test extends StringTestCase
         ];
     }
 
-    public function providerInjectAfterTagStart()
+    public static function providerInjectAfterTagStart():array
     {
         return [
             [
@@ -80,7 +80,7 @@ class HtmlInjector2Test extends StringTestCase
         ];
     }
 
-    public function providerInjectAfterTagEnd()
+    public static function providerInjectAfterTagEnd():array
     {
         return [
             [
