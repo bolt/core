@@ -10,9 +10,13 @@ use Bolt\Widget\Injector\Target;
 class SnippetWidget extends BaseWidget
 {
     protected $name;
+
     protected $type;
+
     protected $targets;
+
     protected $zone;
+
     protected $priority;
 
     public function __construct(

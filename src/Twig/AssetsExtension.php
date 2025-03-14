@@ -63,7 +63,8 @@ class AssetsExtension extends AbstractExtension
 
     private function getAbsolutePath(string $url): string
     {
-        return sprintf('%s/%s%s',
+        return sprintf(
+            '%s/%s%s',
             $this->container->getParameter('kernel.project_dir'),
             $this->container->getParameter('bolt.public_folder'),
             $url

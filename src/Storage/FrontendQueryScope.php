@@ -26,9 +26,6 @@ class FrontendQueryScope implements QueryScopeInterface
     /** @var DirectiveHandler */
     private $directiveHandler;
 
-    /**
-     * Constructor.
-     */
     public function __construct(Config $config, DirectiveHandler $directiveHandler)
     {
         $this->config = $config;

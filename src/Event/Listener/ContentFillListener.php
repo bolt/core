@@ -34,9 +34,13 @@ class ContentFillListener
     /** @var string */
     private $defaultLocale;
 
-    public function __construct(Config $config, ContentExtension $contentExtension,
-                                UserRepository $users, FieldRepository $fieldRepository, string $defaultLocale)
-    {
+    public function __construct(
+        Config $config,
+        ContentExtension $contentExtension,
+        UserRepository $users,
+        FieldRepository $fieldRepository,
+        string $defaultLocale
+    ) {
         $this->config = $config;
         $this->contentExtension = $contentExtension;
         $this->users = $users;
@@ -44,7 +48,7 @@ class ContentFillListener
         $this->defaultLocale = $defaultLocale;
     }
 
-    public function preUpdate(LifeCycleEventArgs $args): void
+    public function preUpdate(LifecycleEventArgs $args): void
     {
         $entity = $args->getEntity();
 
@@ -216,9 +220,8 @@ class ContentFillListener
 
     private function intersectFieldsAndDefinition(array $fields, FieldType $definition): array
     {
-        return
-            collect($fields)->filter(function (Field $field) use ($definition) {
-                return $definition->get('fields') && $definition->get('fields')->has($field->getName());
-            })->values()->toArray();
+        return collect($fields)->filter(function (Field $field) use ($definition) {
+            return $definition->get('fields') && $definition->get('fields')->has($field->getName());
+        })->values()->toArray();
     }
 }

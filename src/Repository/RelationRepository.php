@@ -24,7 +24,7 @@ class RelationRepository extends ServiceEntityRepository
         parent::__construct($registry, Relation::class);
     }
 
-    public function findRelations(Content $from, ?string $name, ?int $limit = null, bool $publishedOnly = true, string $direction = "both"): array
+    public function findRelations(Content $from, ?string $name, ?int $limit = null, bool $publishedOnly = true, string $direction = 'both'): array
     {
         // Only get existing Relations from content that was persisted before
         if ($from->getId() === null) {
@@ -45,7 +45,7 @@ class RelationRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
-    private function buildRelationQuery(Content $from, ?string $name, bool $publishedOnly = true, string $direction = "both"): QueryBuilder
+    private function buildRelationQuery(Content $from, ?string $name, bool $publishedOnly = true, string $direction = 'both'): QueryBuilder
     {
         $qb = $this->createQueryBuilder('r')
             ->select('r, cfrom, cto')
@@ -62,26 +62,26 @@ class RelationRepository extends ServiceEntityRepository
 
         if ($name === null) {
             switch (true) {
-                case $direction === "both":
+                case $direction === 'both':
                     $qb->andWhere('r.fromContent = :from OR r.toContent = :from');
                     break;
-                case $direction === "to":
+                case $direction === 'to':
                     $qb->andWhere('r.toContent = :from');
                     break;
-                case $direction === "from":
+                case $direction === 'from':
                     $qb->andWhere('r.fromContent = :from');
                     break;
             }
         } else {
             switch (true) {
-                case $direction === "both":
-                    $qb->andWhere("(cfrom.contentType = :name AND r.toContent = :from) OR (cto.contentType = :name AND r.fromContent = :from)");
+                case $direction === 'both':
+                    $qb->andWhere('(cfrom.contentType = :name AND r.toContent = :from) OR (cto.contentType = :name AND r.fromContent = :from)');
                     break;
-                case $direction === "to":
-                    $qb->andWhere("(cfrom.contentType = :name AND r.toContent = :from)");
+                case $direction === 'to':
+                    $qb->andWhere('(cfrom.contentType = :name AND r.toContent = :from)');
                     break;
-                case $direction === "from":
-                    $qb->andWhere("(cto.contentType = :name AND r.fromContent = :from)");
+                case $direction === 'from':
+                    $qb->andWhere('(cto.contentType = :name AND r.fromContent = :from)');
                     break;
             }
             $qb->setParameter('name', $name, \PDO::PARAM_STR);

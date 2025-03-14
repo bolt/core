@@ -20,7 +20,6 @@ use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 
@@ -60,10 +59,10 @@ class FilemanagerController extends TwigAwareController implements BackendZoneIn
         $this->denyAccessUnlessGranted('managefiles:' . $location);
 
         $path = $this->getFromRequest('path', '');
-        if (str::endsWith($path, '/') === false) {
+        if (Str::endsWith($path, '/') === false) {
             $path .= '/';
         }
-        if (str::startsWith($path, '/') === false) {
+        if (Str::startsWith($path, '/') === false) {
             $path = '/' . $path;
         }
 

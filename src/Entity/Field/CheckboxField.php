@@ -7,6 +7,7 @@ namespace Bolt\Entity\Field;
 use Bolt\Entity\Field;
 use Bolt\Entity\FieldInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Twig\Markup;
 
 /**
  * @ORM\Entity
@@ -37,6 +38,9 @@ class CheckboxField extends Field implements FieldInterface, ScalarCastable, Raw
         return parent::setValue($value);
     }
 
+    /**
+     * @return string|array|Markup|bool
+     */
     public function getTwigValue()
     {
         return current($this->getValue()) ? true : false;

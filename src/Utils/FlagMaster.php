@@ -41,7 +41,7 @@ class FlagMaster
      *
      * @param string $code (2 or more letter code)
      *
-     * @throws \Exception
+     * @throws Exception
      */
     private static function code2unicode($code): string
     {
@@ -59,7 +59,7 @@ class FlagMaster
      *
      * @param string $char (one character)
      *
-     * @throws \Exception
+     * @throws Exception
      */
     private static function enclosedUnicode($char): string
     {

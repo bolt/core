@@ -35,11 +35,12 @@ class Cast extends FunctionNode
             }
         }
 
-        if (!mb_strpos($backend_driver, 'sqlite') && $this->second === 'TEXT') {
+        if (! mb_strpos($backend_driver, 'sqlite') && $this->second === 'TEXT') {
             $this->second = 'CHAR';
         }
 
-        return sprintf('CAST(%s AS %s)',
+        return sprintf(
+            'CAST(%s AS %s)',
             $this->first->dispatch($sqlWalker),
             $this->second
         );

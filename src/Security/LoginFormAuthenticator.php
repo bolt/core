@@ -58,7 +58,7 @@ class LoginFormAuthenticator extends AbstractAuthenticator implements Authentica
             $credentials['username']
         );
 
-        $badge = new UserBadge($credentials['username'], function(string $identifier) {
+        $badge = new UserBadge($credentials['username'], function (string $identifier) {
             return $this->userRepository->findOneByCredentials($identifier);
         });
 

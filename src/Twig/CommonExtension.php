@@ -56,7 +56,7 @@ class CommonExtension extends AbstractExtension
         if ($item instanceof Content) {
             return $this->contentExtension->isCurrent($env, $item);
         }
-        
+
         if (is_iterable($item) && array_key_exists('uri', $item)) {
             return $this->frontendMenuExtension->isCurrent($item);
         }

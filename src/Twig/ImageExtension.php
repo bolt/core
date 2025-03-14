@@ -41,8 +41,8 @@ class ImageExtension extends AbstractExtension
         ContentExtension $contentExtension,
         Packages $assets,
         string $publicFolder,
-        string $projectDir)
-    {
+        string $projectDir
+    ) {
         $this->mediaRepository = $mediaRepository;
         $this->notifications = $notifications;
         $this->thumbnailHelper = $thumbnailHelper;

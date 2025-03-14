@@ -39,8 +39,8 @@ class RelatedExtension extends AbstractExtension
         Config $config,
         Notifications $notifications,
         RelatedOptionsUtility $optionsUtility,
-        ListFormatHelper $listFormatHelper)
-    {
+        ListFormatHelper $listFormatHelper
+    ) {
         $this->relationRepository = $relationRepository;
         $this->config = $config;
         $this->notifications = $notifications;
@@ -92,7 +92,7 @@ class RelatedExtension extends AbstractExtension
         }
 
         if (is_bool($bidirectional)) {
-            $bidirectional = $bidirectional ? "both" : "to";
+            $bidirectional = $bidirectional ? 'both' : 'to';
         }
 
         $relations = $this->relationRepository->findRelations($content, null, $limit, $publishedOnly, $bidirectional);
@@ -123,7 +123,7 @@ class RelatedExtension extends AbstractExtension
         }
 
         if (is_bool($bidirectional)) {
-            $bidirectional = $bidirectional ? "both" : "to";
+            $bidirectional = $bidirectional ? 'both' : 'to';
         }
 
         $relations = $this->relationRepository->findRelations($content, $name, $limit, $publishedOnly, $bidirectional);

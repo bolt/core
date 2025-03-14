@@ -10,7 +10,6 @@ use Bolt\Enum\UserStatus;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Security;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Tightenco\Collect\Support\Collection;
 
 class GlobalVoter extends Voter

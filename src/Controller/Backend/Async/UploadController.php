@@ -60,14 +60,15 @@ class UploadController extends AbstractController implements AsyncZoneInterface
     /** @var TagAwareCacheInterface */
     private $cache;
 
-    public function __construct(MediaFactory           $mediaFactory,
-                                EntityManagerInterface $em,
-                                Config                 $config,
-                                TextExtension          $textExtension,
-                                RequestStack           $requestStack,
-                                Filesystem             $filesystem,
-                                TagAwareCacheInterface $cache)
-    {
+    public function __construct(
+        MediaFactory $mediaFactory,
+        EntityManagerInterface $em,
+        Config $config,
+        TextExtension $textExtension,
+        RequestStack $requestStack,
+        Filesystem $filesystem,
+        TagAwareCacheInterface $cache
+    ) {
         $this->mediaFactory = $mediaFactory;
         $this->em = $em;
         $this->config = $config;
@@ -155,10 +156,10 @@ class UploadController extends AbstractController implements AsyncZoneInterface
         $target = $this->config->getPath($locationName, true, $path);
 
         // Make sure we don't move it out of the root.
-        if (Str::startsWith(path::makeRelative($target, $basepath), '../')) {
+        if (Str::startsWith(Path::makeRelative($target, $basepath), '../')) {
             return new JsonResponse([
                 'error' => [
-                    'message' => "You are not allowed to do that.",
+                    'message' => 'You are not allowed to do that.',
                 ],
             ], Response::HTTP_BAD_REQUEST);
         }
@@ -202,7 +203,7 @@ class UploadController extends AbstractController implements AsyncZoneInterface
         try {
             /** @var UploadedFile|File|ResultInterface|Collection $result */
             $result = $uploadHandler->process($request->files->all());
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             return new JsonResponse([
                 'error' => [
                     'message' => $e->getMessage() . ' Ensure the upload does <em><u>not</u></em> exceed the maximum filesize of <b>' . $this->textExtension->formatBytes($maxSize) . '</b>, and that the destination folder (on the webserver) is writable.',
@@ -220,7 +221,7 @@ class UploadController extends AbstractController implements AsyncZoneInterface
                 }
 
                 return new JsonResponse($media->getFilenamePath());
-            } catch (\Throwable $e) {
+            } catch (Throwable $e) {
                 // something wrong happened, we don't need the uploaded files anymore
                 $result->clear();
 
@@ -261,7 +262,6 @@ class UploadController extends AbstractController implements AsyncZoneInterface
             return false;
         }
 
-        return (mb_strpos(preg_replace('/\s+/', '', mb_strtolower($svgFile)), '<script') === false);
+        return mb_strpos(preg_replace('/\s+/', '', mb_strtolower($svgFile)), '<script') === false;
     }
 }
-

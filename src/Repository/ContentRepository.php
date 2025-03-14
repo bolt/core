@@ -56,7 +56,7 @@ class ContentRepository extends ServiceEntityRepository
                 ->setParameter('status', Statuses::PUBLISHED);
         }
 
-        [ $order, $direction, $sortByField ] = $this->createSortBy($taxonomy);
+        [$order, $direction, $sortByField] = $this->createSortBy($taxonomy);
 
         if (! $sortByField) {
             $qb->orderBy('content.' . $order, $direction);
@@ -116,7 +116,7 @@ class ContentRepository extends ServiceEntityRepository
 
         // The search term must match the format of the content in the database
         // Therefore, it is JSON encoded and escaped with backslashes
-        $encodedSearchTerm = addslashes(trim(json_encode($searchTerm, JSON_UNESCAPED_UNICODE), '"'));
+        $encodedSearchTerm = addslashes(mb_trim(json_encode($searchTerm, JSON_UNESCAPED_UNICODE), '"'));
 
         $qb->addSelect('f')
             ->innerJoin('content.fields', 'f')
