@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\DataFixtures;
 
 use Bolt\Configuration\FileLocations;
+use Bolt\Entity\User;
 use Bolt\Factory\MediaFactory;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\DataFixtures;
 
+use Bolt\Entity\Taxonomy;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\Filesystem\Path;
 use Symfony\Component\Finder\Finder;
@@ -30,10 +31,11 @@ abstract class BaseFixture extends Fixture
     {
         if (isset($this->referencesIndex[$entityName]) === false) {
             $this->referencesIndex[$entityName] = [];
-
-            foreach (array_keys($this->referenceRepository->getReferences()) as $key) {
-                if (mb_strpos($key, $entityName . '_') === 0) {
-                    $this->referencesIndex[$entityName][] = $key;
+            foreach ($this->referenceRepository->getReferencesByClass() as $class => $references) {
+                foreach (array_keys($references) as $key) {
+                    if (mb_strpos($key, $entityName . '_') === 0) {
+                        $this->referencesIndex[$entityName][] = ['key' => $key, 'class' => $class];
+                    }
                 }
             }
         }
@@ -42,13 +44,13 @@ abstract class BaseFixture extends Fixture
         }
         $randomReferenceKey = array_rand($this->referencesIndex[$entityName], 1);
 
-        return $this->getReference($this->referencesIndex[$entityName][$randomReferenceKey]);
+        return $this->getReference($this->referencesIndex[$entityName][$randomReferenceKey]['key'], $this->referencesIndex[$entityName][$randomReferenceKey]['class']);
     }
 
     protected function getRandomTaxonomies(string $type, int $amount): array
     {
         if (empty($this->taxonomyIndex)) {
-            foreach (array_keys($this->referenceRepository->getReferences()) as $key) {
+            foreach (array_keys($this->referenceRepository->getReferencesByClass()[Taxonomy::class]) as $key) {
                 if (mb_strpos($key, 'taxonomy_') === 0) {
                     $tuples = explode('_', $key);
                     $this->taxonomyIndex[$tuples[1]][] = $key;
@@ -62,8 +64,8 @@ abstract class BaseFixture extends Fixture
 
         $taxonomies = [];
 
-        foreach ((array) array_rand($this->taxonomyIndex[$type], $amount) as $key) {
-            $taxonomies[] = $this->getReference($this->taxonomyIndex[$type][$key]);
+        foreach ((array)array_rand($this->taxonomyIndex[$type], $amount) as $key) {
+            $taxonomies[] = $this->getReference($this->taxonomyIndex[$type][$key], Taxonomy::class);
         }
 
         return $taxonomies;
