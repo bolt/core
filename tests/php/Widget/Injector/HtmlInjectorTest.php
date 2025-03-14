@@ -15,7 +15,7 @@ class HtmlInjectorTest extends StringTestCase
 {
     private const TEST_TEMPLATES_BASE_PATH = __DIR__ . '/../../../fixtures/HtmlInjector/';
 
-    public function providerTarget()
+    public static function providerTarget(): array
     {
         $list = (new Target())->listAll();
         $constants = (new Collection(array_keys($list)))
@@ -33,7 +33,7 @@ class HtmlInjectorTest extends StringTestCase
         return $constants->toArray();
     }
 
-    public function providerAlwaysWorkingTarget()
+    public static function providerAlwaysWorkingTarget(): array
     {
         $list = (new Target())->listAll();
         $constants = (new Collection(array_keys($list)))

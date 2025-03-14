@@ -120,7 +120,7 @@ class SetcontentTokenParserTest extends TokenParserTestCase
         ]);
 
         $compiler = $this->getMockBuilder(Compiler::class)
-            ->setMethods(['raw', 'subcompile', 'write'])
+            ->onlyMethods(['raw', 'subcompile', 'write'])
             ->setConstructorArgs([$env])
             ->getMock();
 
