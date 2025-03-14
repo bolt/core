@@ -23,7 +23,7 @@
         "doctrine/lexer": "^2 || ^3",
         "doctrine/orm": "^2.10",
         "drupol/composer-packages": "^2.0",
-        "embed/embed": "^3.4",
+        "embed/embed": "^4.4",
         "erusev/parsedown": "^1.7",
         "erusev/parsedown-extra": "^0.8.1",
         "fakerphp/faker": "^1.16",
