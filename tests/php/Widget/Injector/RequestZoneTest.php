@@ -11,7 +11,7 @@ use Tightenco\Collect\Support\Collection;
 
 class RequestZoneTest extends TestCase
 {
-    public function providerZone()
+    public static function providerZone(): array
     {
         $o = new \ReflectionClass(RequestZone::class);
         $constants = (new Collection(array_keys($o->getConstants())))
