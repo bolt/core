@@ -30,15 +30,10 @@ class ContentVoter extends Voter
 #                     in ways that may not be immediately obvious.
      */
     public const CONTENT_EDIT = 'edit';
-
     public const CONTENT_CREATE = 'create';
-
     public const CONTENT_CHANGE_STATUS = 'change-status';
-
     public const CONTENT_DELETE = 'delete';
-
     public const CONTENT_CHANGE_OWNERSHIP = 'change-ownership';
-
     public const CONTENT_VIEW = 'view';
 
     // used to determine of user can view an entry or see the listing/menu for it

@@ -95,16 +95,22 @@ return ECSConfig::configure()
         DisallowYodaComparisonSniff::class,
     ])
     ->withConfiguredRule(NoSuperfluousPhpdocTagsFixer::class, ['remove_inheritdoc' => false])
-    ->withConfiguredRule(ConcatSpaceFixer::class,
-        ['spacing' => 'one'])
-    ->withConfiguredRule(OrderedImportsFixer::class,
+    ->withConfiguredRule(
+        ConcatSpaceFixer::class,
+        ['spacing' => 'one']
+    )
+    ->withConfiguredRule(
+        OrderedImportsFixer::class,
         [
             'imports_order' => ['class', 'const', 'function'],
-        ])
-    ->withConfiguredRule(DeclareEqualNormalizeFixer::class,
-        ['space' => 'none'])
-    ->withConfiguredRule(BracesFixer::class,
-
+        ]
+    )
+    ->withConfiguredRule(
+        DeclareEqualNormalizeFixer::class,
+        ['space' => 'none']
+    )
+    ->withConfiguredRule(
+        BracesFixer::class,
         [
             'allow_single_line_closure' => false,
             'position_after_functions_and_oop_constructs' => 'next',
@@ -112,13 +118,19 @@ return ECSConfig::configure()
             'position_after_anonymous_constructs' => 'same',
         ]
     )
-    ->withConfiguredRule(VisibilityRequiredFixer::class,
+    ->withConfiguredRule(
+        VisibilityRequiredFixer::class,
         [
             'elements' => ['const', 'method', 'property'],
-        ])
-    ->withConfiguredRule(PhpdocLineSpanFixer::class,
-        ['property' => 'single'])
-    ->withConfiguredRule(ClassAttributesSeparationFixer::class,
-        ['elements' => ['property' => 'one', 'method' => 'one', 'const' => 'none']])
+        ]
+    )
+    ->withConfiguredRule(
+        PhpdocLineSpanFixer::class,
+        ['property' => 'single']
+    )
+    ->withConfiguredRule(
+        ClassAttributesSeparationFixer::class,
+        ['elements' => ['property' => 'one', 'method' => 'one', 'const' => 'none']]
+    )
 
-    ;
+;

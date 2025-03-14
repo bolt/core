@@ -16,7 +16,6 @@ use Twig\TwigTest;
 class JsonExtension extends AbstractExtension
 {
     private const SERIALIZE_GROUP = 'get_content';
-
     private const SERIALIZE_GROUP_DEFINITION = 'get_definition';
 
     /** @var bool */

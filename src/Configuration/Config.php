@@ -22,7 +22,6 @@ use Tightenco\Collect\Support\Collection;
 class Config
 {
     public const CACHE_KEY = 'config_cache';
-
     public const OPTIONS_CACHE_KEY = 'options_preparse';
 
     /** @var Collection */
