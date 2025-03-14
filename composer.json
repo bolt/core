@@ -35,7 +35,7 @@
         "nelexa/zip": "^3.3 || ^4.0",
         "nelmio/cors-bundle": "^2.1",
         "nesbot/carbon": "^2.53",
-        "php-translation/symfony-bundle": "^0.12",
+        "php-translation/symfony-bundle": "^0.15",
         "phpdocumentor/reflection-docblock": "^5.3",
         "psr/event-dispatcher": "^1.0",
         "scienta/doctrine-json-functions": "^4.4",
