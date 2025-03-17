@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 5.2.3
+
+- Fix any URI starting with bolt.backend_url is treated as restricted (macintoshplus, [#3504](https://github.com/bolt/core/issues/3504)
+
 ## 5.2.2
 
 Released: 2025-03-10
