@@ -2584,7 +2584,181 @@
     <unit id="7f2x41k" name="reset_password.problem_with_request">
       <segment>
         <source>reset_password.problem_with_request</source>
-        <target>Un problème est survenu lors du traitement de votre demande de réinitialisation de mot de passe - %s</target>
+          <target>Un problème est survenu lors du traitement de votre demande de réinitialisation de mot de passe - %s</target>
+      </segment>
+    </unit>
+    <unit id="u3DMmBH" name="label.filtered_by">
+      <segment>
+        <source>label.filtered_by</source>
+        <target>filtré par</target>
+      </segment>
+    </unit>
+    <unit id="qoZwSEY" name="action.preview_secure_share">
+      <segment>
+        <source>action.preview_secure_share</source>
+        <target>Partager un lien d'aperçu sécurisé</target>
+      </segment>
+    </unit>
+    <unit id="zYeSeNJ" name="action.stop_impersonating">
+      <segment>
+        <source>action.stop_impersonating</source>
+        <target>arreter l'usurpation</target>
+      </segment>
+    </unit>
+    <unit id="W7z__Yi" name="action.impersonate">
+      <segment>
+        <source>action.impersonate</source>
+        <target>usurper</target>
+      </segment>
+    </unit>
+    <unit id="qlucRr7" name="maintenance.activated_warning">
+      <segment>
+        <source>maintenance.activated_warning</source>
+        <target>Le mode maintenance est activé</target>
+      </segment>
+    </unit>
+    <unit id="CvNi3GD" name="action.refresh">
+      <segment>
+        <source>action.refresh</source>
+        <target>Actualiser</target>
+      </segment>
+    </unit>
+    <unit id="9UKAP.V" name="listing_details_box.showing_records">
+      <segment>
+        <source>listing_details_box.showing_records</source>
+        <target>Affichage des enregistrements %current% de %total%</target>
+      </segment>
+    </unit>
+    <unit id="UrywY0R" name="listing_details_box.name">
+      <segment>
+        <source>listing_details_box.name</source>
+        <target>Nom : %name% (singulier : %singularName%)</target>
+      </segment>
+    </unit>
+    <unit id=".l3zbrq" name="listing_details_box.slug">
+      <segment>
+        <source>listing_details_box.slug</source>
+        <target>Slug : %slug% (singulier : %singularSlug%)</target>
+      </segment>
+    </unit>
+    <unit id="eJ9YbdG" name="listing_details_box.record_template">
+      <segment>
+        <source>listing_details_box.record_template</source>
+        <target>Modèle de l'enregistrement : %template%</target>
+      </segment>
+    </unit>
+    <unit id="tsc7_G3" name="listing_details_box.listing_template">
+      <segment>
+        <source>listing_details_box.listing_template</source>
+        <target>Modèle de liste : %template% (%listingRecords% enregistrements)</target>
+      </segment>
+    </unit>
+    <unit id="pPz9Ocx" name="listing_details_box.locales">
+      <segment>
+        <source>listing_details_box.locales</source>
+        <target>Locales: %locales%</target>
+      </segment>
+    </unit>
+    <unit id="z8r0TY6" name="action.edit_permissions">
+      <segment>
+        <source>action.edit_permissions</source>
+        <target>Modifier les permissions</target>
+      </segment>
+    </unit>
+    <unit id="OYUVA5." name="general.label.search">
+      <segment>
+        <source>general.label.search</source>
+        <target>Rechercher</target>
+      </segment>
+    </unit>
+    <unit id="wG04eAa" name="image.image_preview">
+      <segment>
+        <source>image.image_preview</source>
+        <target>Prévisualiser l'image</target>
+      </segment>
+    </unit>
+    <unit id="OEqzPDO" name="listing_table.actions.select_all">
+      <segment>
+        <source>listing_table.actions.select_all</source>
+        <target>Tout sélectionner</target>
+      </segment>
+    </unit>
+    <unit id="2hoKa1k" name="label.remembermeduration">
+      <segment>
+        <source>label.remembermeduration</source>
+        <target>Se souvenir de moi ? (%duration% days)</target>
+      </segment>
+    </unit>
+    <unit id="eJG2.4P" name="listing.current_sessions_header">
+      <segment>
+        <source>listing.current_sessions_header</source>
+        <target>Sessions en cours</target>
+      </segment>
+    </unit>
+    <unit id="a_COwtV" name="image.button_upload_options">
+      <segment>
+        <source>image.button_upload_options</source>
+        <target>Option de téléversement</target>
+      </segment>
+    </unit>
+    <unit id="hKmDb7q" name="Share secure preview link">
+      <segment>
+        <source>Share secure preview link</source>
+        <target>Partager un lien d'aperçu sécurisé</target>
+      </segment>
+    </unit>
+    <unit id="a_CQgly" name="Order">
+      <segment>
+        <source>Order</source>
+        <target>Ordre</target>
+      </segment>
+    </unit>
+    <unit id="Y7ajNNN" name="placeholder.email">
+      <segment>
+        <source>placeholder.email</source>
+        <target>votre email</target>
+      </segment>
+    </unit>
+    <unit id="NF.vvAN" name="You have to login in order to access this page.">
+      <segment>
+        <source>You have to login in order to access this page.</source>
+        <target>Vous devez vous connecter pour accéder à cette page.</target>
+      </segment>
+    </unit>
+    <unit id="MjY7.cg" name="modal.title.file_field">
+      <segment>
+        <source>modal.title.file_field</source>
+        <target>Sélectionner un fichier</target>
+      </segment>
+    </unit>
+    <unit id="0yPnNMd" name="modal.title.image_field">
+      <segment>
+        <source>modal.title.image_field</source>
+        <target>Sélectionner une image</target>
+      </segment>
+    </unit>
+    <unit id="KIN.Ehy" name="modal.title.upload_from_url">
+      <segment>
+        <source>modal.title.upload_from_url</source>
+        <target>Téléverser à partir d'une URL</target>
+      </segment>
+    </unit>
+    <unit id="ODb3pJA" name="modal.text.loading">
+      <segment>
+        <source>modal.text.loading</source>
+        <target>Chargement...</target>
+      </segment>
+    </unit>
+    <unit id="VlfWDQr" name="modal.button_save">
+      <segment>
+        <source>modal.button_save</source>
+        <target>Enregistrer</target>
+      </segment>
+    </unit>
+    <unit id="ct_I4w3" name="modal.button_deny">
+      <segment>
+        <source>modal.button_deny</source>
+        <target>Fermer</target>
       </segment>
     </unit>
   </file>
