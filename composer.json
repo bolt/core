@@ -105,7 +105,6 @@
         "php-http/discovery": "^1.14",
         "php-http/httplug-bundle": "^1.19",
         "php-http/message": "^1.12",
-        "php-translation/loco-adapter": "^0.11",
         "phpstan/phpstan": "^1.2.0",
         "phpstan/phpstan-doctrine": "^1.0",
         "phpstan/phpstan-symfony": "^1.0.1",

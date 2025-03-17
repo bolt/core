@@ -2,14 +2,3 @@
 translation:
     symfony_profiler:
         enabled: true
-    configs:
-        bolt:
-            remote_storage: ["php_translation.adapter.loco"]
-
-# php_translation_adapter_loco_adapter
-translation_adapter_loco:
-    index_parameter: 'id' # 'text' or 'name'. Leave blank for "auto"  See https://localise.biz/api/docs/export/exportlocale
-    projects:
-        bolt:
-            api_key: '%env(LOCO_PROJECT_API_KEY)%'
-            domains: ['messages']
