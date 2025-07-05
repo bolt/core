@@ -2584,7 +2584,7 @@
     <unit id="7f2x41k" name="reset_password.problem_with_request">
       <segment>
         <source>reset_password.problem_with_request</source>
-          <target>Un problème est survenu lors du traitement de votre demande de réinitialisation de mot de passe - %s</target>
+        <target>Un problème est survenu lors du traitement de votre demande de réinitialisation de mot de passe - %s</target>
       </segment>
     </unit>
     <unit id="u3DMmBH" name="label.filtered_by">
