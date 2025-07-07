@@ -12,7 +12,7 @@ use Bolt\Enum\Statuses;
 use Bolt\Repository\RelationRepository;
 use Bolt\Utils\ListFormatHelper;
 use Bolt\Utils\RelatedOptionsUtility;
-use Tightenco\Collect\Support\Collection;
+use Illuminate\Support\Collection;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;

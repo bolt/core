@@ -13,7 +13,7 @@ use Bolt\Entity\IterableFieldTrait;
 use Bolt\Entity\ListFieldInterface;
 use Bolt\Repository\FieldRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Tightenco\Collect\Support\Collection;
+use Illuminate\Support\Collection;
 
 /**
  * @ORM\Entity

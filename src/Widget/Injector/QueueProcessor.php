@@ -8,10 +8,10 @@ use Bolt\Widget\CacheAwareInterface;
 use Bolt\Widget\RequestAwareInterface;
 use Bolt\Widget\ResponseAwareInterface;
 use Bolt\Widget\WidgetInterface;
+use Illuminate\Support\Collection;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Cache\CacheInterface;
-use Tightenco\Collect\Support\Collection;
 
 class QueueProcessor
 {

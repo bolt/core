@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Configuration\Content;
 
 use Bolt\Collection\DeepCollection;
-use Tightenco\Collect\Support\Collection;
+use Illuminate\Support\Collection;
 
 class TaxonomyType extends DeepCollection
 {
