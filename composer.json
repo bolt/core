@@ -110,6 +110,7 @@
         "phpstan/phpstan-doctrine": "^1.0",
         "phpstan/phpstan-symfony": "^1.0.1",
         "phpunit/phpunit": "^9.6",
+        "rector/rector": "^1.2",
         "se/selenium-server-standalone": "^3.141",
         "symfony/browser-kit": "^5.4",
         "symfony/css-selector": "^5.4",
