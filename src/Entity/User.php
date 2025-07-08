@@ -137,6 +137,11 @@ class User implements UserInterface, \Serializable, PasswordAuthenticatedUserInt
         return $this->id;
     }
 
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
+
     public function setDisplayName(?string $displayName): void
     {
         $this->displayName = $displayName;
@@ -257,7 +262,7 @@ class User implements UserInterface, \Serializable, PasswordAuthenticatedUserInt
     {
         return serialize($this->__serialize());
     }
-    
+
     public function __serialize(): array
     {
         return [$this->id, $this->username, $this->password];
@@ -270,7 +275,7 @@ class User implements UserInterface, \Serializable, PasswordAuthenticatedUserInt
     {
         $this->__unserialize(unserialize($serialized, ['allowed_classes' => false]));
     }
-    
+
     public function __unserialize(array $data): void
     {
         // add $this->salt too if you don't use Bcrypt or Argon2i
