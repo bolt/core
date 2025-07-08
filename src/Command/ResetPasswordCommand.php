@@ -38,9 +38,12 @@ class ResetPasswordCommand extends Command
     /** @var UserRepository */
     private $userRepository;
 
-    public function __construct(EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasher,
-                                UserRepository $userRepository, ValidatorInterface $validator)
-    {
+    public function __construct(
+        EntityManagerInterface $em,
+        UserPasswordHasherInterface $passwordHasher,
+        UserRepository $userRepository,
+        ValidatorInterface $validator
+    ) {
         parent::__construct();
 
         $this->entityManager = $em;
@@ -62,7 +65,7 @@ class ResetPasswordCommand extends Command
         $io = new SymfonyStyle($input, $output);
         $username = $input->getArgument('username');
 
-        /** @var User|null */
+        /** @var User|null $user */
         $user = $this->userRepository->findOneBy(['username' => $username]);
 
         if ($user === null) {

@@ -7,7 +7,7 @@ namespace Bolt\Entity;
 use Tightenco\Collect\Support\Collection;
 
 /**
- * @see \Bolt\Entity\Content
+ * @see Content
  */
 trait ContentLocalizeTrait
 {

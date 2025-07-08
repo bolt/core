@@ -147,7 +147,7 @@ class Canonical
      */
     public function setScheme(string $scheme): void
     {
-        $this->scheme = trim($scheme, ':/');
+        $this->scheme = mb_trim($scheme, ':/');
     }
 
     public function getPort(): ?int

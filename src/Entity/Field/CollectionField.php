@@ -111,6 +111,6 @@ class CollectionField extends Field implements Excerptable, FieldInterface, Fiel
             }
         }
 
-        return implode(" ", $result);
+        return implode(' ', $result);
     }
 }

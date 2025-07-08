@@ -133,6 +133,6 @@ class SetField extends Field implements Excerptable, FieldInterface, FieldParent
             }
         }
 
-        return implode(" ", $result);
+        return implode(' ', $result);
     }
 }

@@ -12,7 +12,6 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ImageController
@@ -147,7 +146,7 @@ class ImageController
             'h' => (isset($raw[1]) && is_numeric($raw[1])) ? (int) $raw[1] : 300,
             'fit' => isset($raw[2]) ? $raw[2] : $this->config->get('general/thumbnails/default_cropping', 'default'),
             'location' => 'files',
-            'q' => (!empty($raw[2]) && 0 <= $raw[2] && $raw[2] <= 100) ? (int) $raw[2] : 80
+            'q' => (! empty($raw[2]) && 0 <= $raw[2] && $raw[2] <= 100) ? (int) $raw[2] : 80,
         ];
 
         if (isset($raw[4])) {

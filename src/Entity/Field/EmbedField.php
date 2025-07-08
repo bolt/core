@@ -15,6 +15,7 @@ use Twig\Markup;
 class EmbedField extends Field implements FieldInterface
 {
     public const TYPE = 'embed';
+
     private $encoding = 'UTF-8';
 
     public function getValue(): ?array

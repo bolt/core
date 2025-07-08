@@ -34,7 +34,7 @@ class AuthenticationController extends TwigAwareController implements BackendZon
 
         // last authentication error (if any)
         $error = $authenticationUtils->getLastAuthenticationError();
-        
+
         $templates = $this->templateChooser->forLogin();
 
         return $this->render($templates, [

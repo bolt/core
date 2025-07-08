@@ -55,7 +55,7 @@ class OrderDirective
         $separatedOrders = $this->getOrderBys($order);
 
         foreach ($separatedOrders as $order) {
-            [ $order, $direction ] = $this->createSortBy($order);
+            [$order, $direction] = $this->createSortBy($order);
 
             if ($order === 'title' && $this->getTitleFormat($query) !== null) {
                 $order = ContentHelper::getFieldNames($this->getTitleFormat($query));
@@ -78,7 +78,7 @@ class OrderDirective
     private function setOrderBy(QueryInterface $query, string $order, string $direction, string $locale): void
     {
         $field = 'name';
-        if (false !== $pos = mb_strpos($order, '.')) {
+        if (($pos = mb_strpos($order, '.')) !== false) {
             $field = mb_substr($order, $pos + 1);
             $order = mb_substr($order, 0, $pos);
         }
@@ -133,8 +133,10 @@ class OrderDirective
             }
             $query->incrementIndex();
         } else {
-            $this->notifications->warning('Incorrect OrderBy clause for field that does not exist',
-                "A query with ordering on a Field or Taxonomy (`{$order}`) that's not defined, will yield unexpected results. Update your `{% setcontent %}`-statement");
+            $this->notifications->warning(
+                'Incorrect OrderBy clause for field that does not exist',
+                "A query with ordering on a Field or Taxonomy (`{$order}`) that's not defined, will yield unexpected results. Update your `{% setcontent %}`-statement"
+            );
         }
     }
 

@@ -279,7 +279,7 @@ class Field implements FieldInterface, TranslatableInterface
             $valueBeforeRenderingAsTwig = $value;
             try {
                 $template = self::getTwig()->createTemplate($value);
-                $value    = $template->render([
+                $value = $template->render([
                     // Edge case, if we try to generate a title or excerpt for a field that allows Twig
                     // and references {{ record }}
                     'record' => $this->getContent(),
@@ -479,12 +479,12 @@ class Field implements FieldInterface, TranslatableInterface
      */
     public static function settingsAllowEmpty(?bool $allowEmpty, ?bool $required): bool
     {
-        if (null !== $allowEmpty) {
+        if ($allowEmpty !== null) {
             return $allowEmpty;
         }
 
-        if (null !== $required) {
-            return !$required;
+        if ($required !== null) {
+            return ! $required;
         }
 
         return true;

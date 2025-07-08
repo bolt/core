@@ -18,7 +18,6 @@ class AdditionalTarget extends Target
     public const WIDGET_FRONT_ASIDE_MIDDLE = 'aside_middle';
     public const WIDGET_FRONT_ASIDE_BOTTOM = 'aside_bottom';
     public const WIDGET_FRONT_FOOTER = 'footer';
-
     public const WIDGET_BACK_DASHBOARD_ASIDE_TOP = 'dashboard_aside_top';
     public const WIDGET_BACK_DASHBOARD_ASIDE_MIDDLE = 'dashboard_aside_middle';
     public const WIDGET_BACK_DASHBOARD_ASIDE_BOTTOM = 'dashboard_aside_bottom';

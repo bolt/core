@@ -48,7 +48,7 @@ class WidgetSubscriber implements EventSubscriberInterface
      */
     public function onKernelRequest(RequestEvent $event): void
     {
-        if (!$event->isMainRequest()) {
+        if (! $event->isMainRequest()) {
             return;
         }
 

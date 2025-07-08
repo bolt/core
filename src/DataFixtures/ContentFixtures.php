@@ -89,7 +89,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
 
         $this->cache->invalidateTags([
             'backendmenu',
-            'frontendmenu'
+            'frontendmenu',
         ]);
 
         $this->setSelectFieldsMappedWithContent($manager);
@@ -262,8 +262,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
 
     private function getValuesforFieldType(DeepCollection $field, bool $singleton, Content $content): array
     {
-        return
-            isset($field['fixture_format']) ?
+        return isset($field['fixture_format']) ?
                 $this->getFixtureFormatValues($field['fixture_format'])
                 :
                 $this->getFieldTypeValue($field, $singleton, $content);
@@ -273,19 +272,19 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
     {
         return [
             preg_replace_callback(
-                        '/{([\w]+)}/i',
-                        function ($match) {
-                            $match = $match[1];
+                '/{([\w]+)}/i',
+                function ($match) {
+                    $match = $match[1];
 
-                            try {
-                                return $this->faker->{$match};
-                            } finally {
-                            }
+                    try {
+                        return $this->faker->{$match};
+                    } finally {
+                    }
 
-                            return '(unknown)';
-                        },
-                        $format
-                    ),
+                    return '(unknown)';
+                },
+                $format
+            ),
         ];
     }
 
@@ -411,9 +410,8 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 $data = ['selected' => 'latlong', 'zoom' => '7', 'search' => ''];
                 $coordinates = $this->faker->localCoordinates();
                 $data['lat'] = $coordinates['latitude'];
-                $data['long'] =$coordinates['longitude'];
+                $data['long'] = $coordinates['longitude'];
                 $data = [json_encode($data)];
-
 
                 break;
             case 'seo':
@@ -591,13 +589,13 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
     private function isSelectFieldAndMappedWithContent(Field $field): bool
     {
         if (! $field instanceof SelectField) {
-            return FALSE;
+            return false;
         }
 
         if (! $field->isContentSelect()) {
-            return FALSE;
+            return false;
         }
 
-        return TRUE;
+        return true;
     }
 }

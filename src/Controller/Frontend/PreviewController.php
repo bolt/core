@@ -32,8 +32,8 @@ class PreviewController extends TwigAwareController implements FrontendZoneInter
     public function __construct(
         ContentEditController $contentEditController,
         EventDispatcherInterface $dispatcher,
-        UrlGeneratorInterface $urlGenerator)
-    {
+        UrlGeneratorInterface $urlGenerator
+    ) {
         $this->contentEditController = $contentEditController;
         $this->dispatcher = $dispatcher;
         $this->urlGenerator = $urlGenerator;
