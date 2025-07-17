@@ -95,7 +95,7 @@
         "ext-curl": "*",
         "ext-pdo_sqlite": "*",
         "acmecorp/reference-extension": "^1.2",
-        "bobdenotter/configuration-notices": "^1.2",
+        "bolt/configuration-settings-notices": "^1.2",
         "bobdenotter/weatherwidget": "^1.1",
         "bolt/newswidget": "^1.3",
         "dama/doctrine-test-bundle": "^6.6.0",
