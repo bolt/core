@@ -10,7 +10,7 @@ use Bolt\Storage\Directive\LimitDirective;
 use Bolt\Storage\Directive\PageDirective;
 use Bolt\Storage\SelectQuery;
 use Doctrine\ORM\Query;
-use Pagerfanta\Adapter\DoctrineORMAdapter;
+use Pagerfanta\Doctrine\ORM\QueryAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -73,7 +73,7 @@ class SelectQueryHandler
 
     private function createPaginator(?Request $request, Query $query, int $amountPerPage, ?int $page = null): Pagerfanta
     {
-        $paginator = new Pagerfanta(new DoctrineORMAdapter($query, true, true));
+        $paginator = new Pagerfanta(new QueryAdapter($query, true, true));
         $paginator->setMaxPerPage($amountPerPage);
 
         // If current page was not set explicitly.

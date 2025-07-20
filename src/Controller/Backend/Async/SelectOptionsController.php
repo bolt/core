@@ -6,12 +6,12 @@ namespace Bolt\Controller\Backend\Async;
 
 use Bolt\Configuration\Config;
 use Bolt\Twig\FieldExtension;
+use Illuminate\Support\Collection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Tightenco\Collect\Support\Collection;
 
 /**
  * @Security("is_granted('upload')")
@@ -37,7 +37,7 @@ class SelectOptionsController extends AbstractController implements AsyncZoneInt
      */
     public function handleSelectOptions(Request $request): JsonResponse
     {
-        [ $contentTypeSlug, $format ] = explode('/', $request->get('values'));
+        [$contentTypeSlug, $format] = explode('/', $request->get('values'));
 
         if (empty($maxAmount = $request->get('limit'))) {
             $maxAmount = $this->config->get('general/maximum_listing_select', 200);

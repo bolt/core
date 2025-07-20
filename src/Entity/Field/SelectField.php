@@ -8,8 +8,8 @@ use Bolt\Entity\Field;
 use Bolt\Entity\FieldInterface;
 use Bolt\Entity\IterableFieldTrait;
 use Doctrine\ORM\Mapping as ORM;
+use Illuminate\Support\Collection;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Tightenco\Collect\Support\Collection;
 
 /**
  * @ORM\Entity
@@ -44,7 +44,7 @@ class SelectField extends Field implements FieldInterface, RawPersistable, \Iter
     {
         $value = parent::getValue();
 
-        if (empty($value) && !$this->allowEmpty()) {
+        if (empty($value) && ! $this->allowEmpty()) {
             $value = $this->getDefinition()->get('values');
 
             // Pick the first key from Collection, or the full value as string, like `entries/id,title`

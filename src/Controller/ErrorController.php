@@ -55,8 +55,8 @@ class ErrorController extends SymfonyErrorController implements ErrorZoneInterfa
         ParameterBagInterface $parameterBag,
         RequestStack $requestStack,
         UrlGeneratorInterface $urlGenerator,
-        Security $security)
-    {
+        Security $security
+    ) {
         $this->config = $config;
         $this->templateController = $templateController;
 

@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Bolt\Extension;
 
 use Cocur\Slugify\Slugify;
+use Illuminate\Support\Collection;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Yaml\Parser;
-use Tightenco\Collect\Support\Collection;
 
 trait ConfigTrait
 {
@@ -46,7 +46,7 @@ trait ConfigTrait
 
         foreach ($filenames as $filename) {
             if (is_readable($filename)) {
-                $config = array_merge($config, $yamlParser->parseFile($filename) ?? [] );
+                $config = array_merge($config, $yamlParser->parseFile($filename) ?? []);
             }
         }
 

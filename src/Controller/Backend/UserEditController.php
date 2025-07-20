@@ -236,10 +236,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
         return $result;
     }
 
-    /**
-     * @return RedirectResponse|Response
-     */
-    private function handleEdit(bool $is_profile_edit, User $user, $submitted_data)
+    private function handleEdit(bool $is_profile_edit, User $user, $submitted_data): Response
     {
         $redirectRouteAfterSubmit = $is_profile_edit ? 'bolt_profile_edit' : 'bolt_users';
         $event = new UserEvent($user);

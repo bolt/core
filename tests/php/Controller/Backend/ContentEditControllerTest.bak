@@ -9,7 +9,7 @@ use Bolt\Entity\User;
 use Bolt\Repository\ContentRepository;
 use Bolt\Tests\DbAwareTestCase;
 use Bolt\Twig\FieldExtension;
-use Tightenco\Collect\Support\Collection;
+use Illuminate\Support\Collection;
 
 class ContentEditControllerTest extends DbAwareTestCase
 {
@@ -51,8 +51,8 @@ X-Robots-Tag:           noindex
 
     public function testCreateNewComplexNestedContent(): void
     {
-        // (2) use self::$container to access the service container
-        $container = self::$container;
+        // (2) use self::getContainer() to access the service container
+        $container = self::getContainer();
 
         $admin = $this->getEm()->getRepository(User::class)->findOneByUsername('admin');
         $this->client->loginUser($admin);

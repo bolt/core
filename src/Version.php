@@ -24,6 +24,7 @@ final class Version
      *   Development — 3.1.0 alpha 1
      */
     public const VERSION = '5.2.2';
+
     public const CODENAME = '';
 
     /**

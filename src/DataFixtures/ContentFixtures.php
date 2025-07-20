@@ -21,8 +21,8 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
+use Illuminate\Support\Collection;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
-use Tightenco\Collect\Support\Collection;
 
 class ContentFixtures extends BaseFixture implements DependentFixtureInterface, FixtureGroupInterface
 {
@@ -95,7 +95,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
 
         $this->cache->invalidateTags([
             'backendmenu',
-            'frontendmenu'
+            'frontendmenu',
         ]);
 
         $this->setSelectFieldsMappedWithContent($manager);
@@ -280,8 +280,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
 
     private function getValuesforFieldType(DeepCollection $field, bool $singleton, Content $content): array
     {
-        return
-            isset($field['fixture_format']) ?
+        return isset($field['fixture_format']) ?
                 $this->getFixtureFormatValues($field['fixture_format'])
                 :
                 $this->getFieldTypeValue($field, $singleton, $content);
@@ -431,7 +430,6 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 $data['lat'] = $coordinates['latitude'];
                 $data['long'] = $coordinates['longitude'];
                 $data = [json_encode($data)];
-
 
                 break;
             case 'seo':
@@ -608,11 +606,11 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
 
     private function isSelectFieldAndMappedWithContent(Field $field): bool
     {
-        if (!$field instanceof SelectField) {
+        if (! $field instanceof SelectField) {
             return false;
         }
 
-        if (!$field->isContentSelect()) {
+        if (! $field->isContentSelect()) {
             return false;
         }
 

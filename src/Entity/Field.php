@@ -14,9 +14,9 @@ use Bolt\Entity\Translatable\TranslatablePropertiesTrait;
 use Bolt\Event\Listener\FieldFillListener;
 use Bolt\Utils\Sanitiser;
 use Doctrine\ORM\Mapping as ORM;
+use Illuminate\Support\Collection;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\SerializedName;
-use Tightenco\Collect\Support\Collection;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\SyntaxError;
@@ -282,7 +282,7 @@ class Field implements FieldInterface, TranslatableInterface
             $valueBeforeRenderingAsTwig = $value;
             try {
                 $template = self::getTwig()->createTemplate($value);
-                $value    = $template->render([
+                $value = $template->render([
                     // Edge case, if we try to generate a title or excerpt for a field that allows Twig
                     // and references {{ record }}
                     'record' => $this->getContent(),
@@ -482,12 +482,12 @@ class Field implements FieldInterface, TranslatableInterface
      */
     public static function settingsAllowEmpty(?bool $allowEmpty, ?bool $required): bool
     {
-        if (null !== $allowEmpty) {
+        if ($allowEmpty !== null) {
             return $allowEmpty;
         }
 
-        if (null !== $required) {
-            return !$required;
+        if ($required !== null) {
+            return ! $required;
         }
 
         return true;

@@ -13,9 +13,9 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
-use Pagerfanta\Adapter\DoctrineORMAdapter;
+use Illuminate\Support\Collection;
+use Pagerfanta\Doctrine\ORM\QueryAdapter;
 use Pagerfanta\Pagerfanta;
-use Tightenco\Collect\Support\Collection;
 
 /**
  * @method Content|null find($id, $lockMode = null, $lockVersion = null)
@@ -56,7 +56,7 @@ class ContentRepository extends ServiceEntityRepository
                 ->setParameter('status', Statuses::PUBLISHED);
         }
 
-        [ $order, $direction, $sortByField ] = $this->createSortBy($taxonomy);
+        [$order, $direction, $sortByField] = $this->createSortBy($taxonomy);
 
         if (! $sortByField) {
             $qb->orderBy('content.' . $order, $direction);
@@ -116,7 +116,7 @@ class ContentRepository extends ServiceEntityRepository
 
         // The search term must match the format of the content in the database
         // Therefore, it is JSON encoded and escaped with backslashes
-        $encodedSearchTerm = addslashes(trim(json_encode($searchTerm, JSON_UNESCAPED_UNICODE), '"'));
+        $encodedSearchTerm = addslashes(mb_trim(json_encode($searchTerm, JSON_UNESCAPED_UNICODE), '"'));
 
         $qb->addSelect('f')
             ->innerJoin('content.fields', 'f')
@@ -212,7 +212,7 @@ class ContentRepository extends ServiceEntityRepository
 
     protected function createPaginator(Query $query, int $page, int $amountPerPage): Pagerfanta
     {
-        $paginator = new Pagerfanta(new DoctrineORMAdapter($query, true, true));
+        $paginator = new Pagerfanta(new QueryAdapter($query, true, true));
         $paginator->setMaxPerPage($amountPerPage);
         $paginator->setCurrentPage($page);
 

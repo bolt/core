@@ -7,11 +7,10 @@ namespace Bolt\Security;
 use Bolt\Configuration\Config;
 use Bolt\Entity\User;
 use Bolt\Enum\UserStatus;
+use Illuminate\Support\Collection;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Security;
-use Symfony\Component\Security\Core\User\UserInterface;
-use Tightenco\Collect\Support\Collection;
 
 class GlobalVoter extends Voter
 {

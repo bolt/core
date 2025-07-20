@@ -53,7 +53,7 @@ class Query
     }
 
     /**
-     * @return Pagerfanta|Content|null
+     * @return Content|Pagerfanta|null
      */
     public function getContentByScope(string $scopeName, string $textQuery, array $parameters = [])
     {
@@ -74,7 +74,6 @@ class Query
      *
      * @param string $textQuery The base part like `pages` or `pages/1`
      * @param array $parameters Parameters like `printquery` and `paging`, but also `where` parameters taken from `... where { foo: bar } ...`
-     *
      * @return Pagerfanta|Content|null
      */
     public function getContentForTwig(string $textQuery, array $parameters = [])

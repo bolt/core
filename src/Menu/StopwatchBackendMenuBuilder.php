@@ -20,6 +20,5 @@ final class StopwatchBackendMenuBuilder implements BackendMenuBuilderInterface
     public function buildAdminMenu(): array
     {
         return $this->menuBuilder->buildAdminMenu();
-        ;
     }
 }

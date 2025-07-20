@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Bolt\Entity;
 
-use Tightenco\Collect\Support\Collection;
+use Illuminate\Support\Collection;
 
 /**
- * @see \Bolt\Entity\Content
+ * @see Content
  */
 trait ContentLocalizeTrait
 {

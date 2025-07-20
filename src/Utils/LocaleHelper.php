@@ -6,11 +6,11 @@ namespace Bolt\Utils;
 
 use Bolt\Configuration\Config;
 use Bolt\Repository\ContentRepository;
+use Illuminate\Support\Collection;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Intl\Exception\RuntimeException;
 use Symfony\Component\Intl\Locales;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Tightenco\Collect\Support\Collection;
 use Twig\Environment;
 
 class LocaleHelper
@@ -110,7 +110,7 @@ class LocaleHelper
                 $routeParams['slugOrId'] = $slug;
             }
 
-            if ($route && (mb_stripos($route, "bolt_") === 0 || (!isset($content) || isset($routeParams['slugOrId'])))) {
+            if ($route && (mb_stripos($route, 'bolt_') === 0 || (! isset($content) || isset($routeParams['slugOrId'])))) {
                 $locale->put('link', $this->getLink($route, $routeParams, $locale));
             } else {
                 // For edge-cases like '404', the `_route` is null.

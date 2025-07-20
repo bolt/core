@@ -19,8 +19,6 @@ use Twig\Node\Node;
 class SetcontentNode extends Node
 {
     /**
-     * Constructor.
-     *
      * @param string $name
      * @param int $lineNo
      */

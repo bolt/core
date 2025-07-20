@@ -173,11 +173,13 @@ class ExtensionsConfigureCommand extends Command
 
     private function getExtensionConfigPath(string $namespace, string $name): string
     {
-        return sprintf('%s/config/extensions/%s%s%s.yaml',
+        return sprintf(
+            '%s/config/extensions/%s%s%s.yaml',
             $this->projectDir,
             $namespace,
             (! empty($name) ? '-' : ''),
-            $name);
+            $name
+        );
     }
 
     private function getPackagePath(BaseExtension $package): string

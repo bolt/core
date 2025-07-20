@@ -123,8 +123,8 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
                 $value = current($value);
             }
 
-            if (str::endsWith($key, '--like')) {
-                $key = str::removeLast($key, '--like');
+            if (Str::endsWith($key, '--like')) {
+                $key = Str::removeLast($key, '--like');
                 $value = '%' . $value . '%';
             }
 

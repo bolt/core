@@ -16,7 +16,6 @@ use Twig\TwigTest;
 class JsonExtension extends AbstractExtension
 {
     private const SERIALIZE_GROUP = 'get_content';
-
     private const SERIALIZE_GROUP_DEFINITION = 'get_definition';
 
     /** @var bool */
@@ -132,6 +131,6 @@ class JsonExtension extends AbstractExtension
 
     public function jsonDecode(string $json, $assoc = false, $depth = 512, $options = 0)
     {
-        return json::json_decode($json, $assoc, $depth, $options);
+        return Json::json_decode($json, $assoc, $depth, $options);
     }
 }

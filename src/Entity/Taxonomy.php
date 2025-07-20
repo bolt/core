@@ -9,8 +9,8 @@ use Bolt\Configuration\Content\TaxonomyType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Illuminate\Support\Collection as LaravelCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Tightenco\Collect\Support\Collection as LaravelCollection;
 
 /**
  * @ORM\Entity(repositoryClass="Bolt\Repository\TaxonomyRepository")

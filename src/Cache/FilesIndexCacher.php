@@ -3,7 +3,7 @@
 namespace Bolt\Cache;
 
 use Bolt\Utils\FilesIndex;
-use Tightenco\Collect\Support\Collection;
+use Illuminate\Support\Collection;
 
 class FilesIndexCacher extends FilesIndex implements CachingInterface
 {

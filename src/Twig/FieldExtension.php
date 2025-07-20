@@ -15,10 +15,10 @@ use Bolt\Repository\FieldRepository;
 use Bolt\Storage\Query;
 use Bolt\Utils\ContentHelper;
 use Bolt\Utils\ListFormatHelper;
+use Illuminate\Support\Collection;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Tightenco\Collect\Support\Collection;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
@@ -47,7 +47,6 @@ class FieldExtension extends AbstractExtension
     /** @var ListFormatHelper */
     private $listFormatHelper;
 
-
     public function __construct(
         Notifications $notifications,
         ContentRepository $contentRepository,
@@ -56,7 +55,7 @@ class FieldExtension extends AbstractExtension
         Query $query,
         UrlGeneratorInterface $router,
         ListFormatHelper $listFormatHelper
-        ) {
+    ) {
         $this->notifications = $notifications;
         $this->contentRepository = $contentRepository;
         $this->config = $config;
@@ -128,7 +127,7 @@ class FieldExtension extends AbstractExtension
     /**
      * @return array|Content|null
      */
-    public function getSelected(Field\SelectField $field, $returnsingle = false, $returnarray = false)
+    public function getSelected(SelectField $field, $returnsingle = false, $returnarray = false)
     {
         $definition = $field->getDefinition();
 
@@ -211,13 +210,13 @@ class FieldExtension extends AbstractExtension
         return new Collection($options);
     }
 
-    public function selectOptionsUrl(Field\SelectField $field): String
+    public function selectOptionsUrl(SelectField $field): string
     {
         return $this->router->generate('bolt_async_select_options', [
-            'name'   => $field->getDefinition()->get('name', ''),
+            'name' => $field->getDefinition()->get('name', ''),
             'values' => $field->getDefinition()->get('values'),
-            'limit'  => $field->getDefinition()->get('limit', ''),
-            'order'  => $field->getDefinition()->get('order', ''),
+            'limit' => $field->getDefinition()->get('limit', ''),
+            'order' => $field->getDefinition()->get('order', ''),
         ]);
     }
 
@@ -275,7 +274,7 @@ class FieldExtension extends AbstractExtension
 
     private function selectOptionsContentType(Field $field): Collection
     {
-        [ $contentTypeSlug, $format ] = explode('/', $field->getDefinition()->get('values'));
+        [$contentTypeSlug, $format] = explode('/', $field->getDefinition()->get('values'));
 
         if (empty($maxAmount = $field->getDefinition()->get('limit'))) {
             $maxAmount = $this->config->get('general/maximum_listing_select', 200);
@@ -333,7 +332,7 @@ class FieldExtension extends AbstractExtension
 
             // Generate URL for related record if the link_to_record option is defined in relations in the contenttypes.yaml
             if ($field->getDefinition()->get('link_to_record')) {
-                $options[$key]["link_to_record_url"] = $this->router->generate('bolt_content_edit', ['id' => $record->getId()]);
+                $options[$key]['link_to_record_url'] = $this->router->generate('bolt_content_edit', ['id' => $record->getId()]);
             }
         }
 

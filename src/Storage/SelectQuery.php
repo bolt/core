@@ -9,8 +9,6 @@ use Bolt\Configuration\Content\ContentType;
 use Bolt\Doctrine\JsonHelper;
 use Bolt\Entity\Field\CheckboxField;
 use Bolt\Entity\Field\NumberField;
-use Bolt\Entity\Field\SelectField;
-use Carbon\Carbon;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query\Expr\Andx;
 use Doctrine\ORM\Query\Expr\Base;
@@ -106,9 +104,6 @@ class SelectQuery implements QueryInterface
     /** @var EntityManagerInterface */
     private $em;
 
-    /**
-     * Constructor.
-     */
     public function __construct(
         QueryParameterParser $parser,
         Config $config,
@@ -578,7 +573,7 @@ class SelectQuery implements QueryInterface
             $value = $isSqlite ? true : 'true';
         }
 
-        $filter->setParameters([key($filter->getParameters()) => $value ]);
+        $filter->setParameters([key($filter->getParameters()) => $value]);
 
         return $this->getRegularFieldExpression($filter);
     }
@@ -642,13 +637,13 @@ class SelectQuery implements QueryInterface
         $isBoolOrIntValue = filter_var($currentParameter, FILTER_VALIDATE_BOOLEAN) !== false || filter_var($currentParameter, FILTER_VALIDATE_INT) !== false;
 
         // Grab the operator
-        $operator = preg_match("/(=|<|>|<=|>=|<>|!=)/", $filter->getExpression(), $matches) ? $matches[0] : null;
+        $operator = preg_match('/(=|<|>|<=|>=|<>|!=)/', $filter->getExpression(), $matches) ? $matches[0] : null;
 
         if ($this->utils->isFieldType($this, $fieldName, NumberField::TYPE) && $this->utils->hasCast()) {
             return $this->utils->getNumericCastExpression($valueAlias);
         }
 
-        if ($isBoolOrIntValue || ($operator != '=' )) {
+        if ($isBoolOrIntValue || ($operator != '=')) {
             $value = current(JsonHelper::wrapJsonFunction($valueAlias, $fieldName, $this->em->getConnection()));
         } else {
             $value = JsonHelper::wrapJsonSearch($valueAlias, $fieldName, $this->em->getConnection());

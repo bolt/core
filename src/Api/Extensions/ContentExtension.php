@@ -11,9 +11,8 @@ use Bolt\Configuration\Config;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Bolt\Enum\Statuses;
-use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
-use Tightenco\Collect\Support\Collection;
+use Illuminate\Support\Collection;
 
 final class ContentExtension implements QueryCollectionExtensionInterface, QueryItemExtensionInterface
 {

@@ -2,12 +2,11 @@
 
 namespace Bolt\Utils;
 
-use Bolt\Configuration\Config;
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Repository\ContentRepository;
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManagerInterface;
-use Tightenco\Collect\Support\Collection;
+use Illuminate\Support\Collection;
 
 class ListFormatHelper
 {
@@ -31,8 +30,8 @@ class ListFormatHelper
         ContentRepository $contentRepository,
         EntityManagerInterface $em,
         string $tablePrefix = 'bolt_',
-        string $backendUrl = 'bolt')
-    {
+        string $backendUrl = 'bolt'
+    ) {
         $this->connection = $connection;
         $this->prefix = $tablePrefix;
         $this->contentRepository = $contentRepository;
@@ -54,7 +53,7 @@ class ListFormatHelper
 
         $result = $this->connection->fetchAssociative($query);
 
-        printf("%d records to go", $result['COUNT(id)']);
+        printf('%d records to go', $result['COUNT(id)']);
 
         $query = sprintf('SELECT id FROM %scontent WHERE title = ""  OR title IS NULL OR list_format = "" LIMIT %d', $this->prefix, $limit);
 
@@ -68,7 +67,6 @@ class ListFormatHelper
             $record->setListFormat();
             $this->em->persist($record);
 
-
             $counter++;
             if ($counter > 20) {
                 echo '.';
@@ -81,7 +79,6 @@ class ListFormatHelper
 
         return true;
     }
-
 
     public function getRelated(Collection $contentType, int $amount, string $order): array
     {
@@ -126,13 +123,12 @@ class ListFormatHelper
             $options[] = [
                 'id' => (int) $row['id'],
                 'name' => $row['title'],
-                'link' => sprintf('/%s/edit/%s', $this->backendUrl, $row['id'])
+                'link' => sprintf('/%s/edit/%s', $this->backendUrl, $row['id']),
             ];
         }
 
         return $options;
     }
-
 
     public function getSelect(string $contentType, array $params): array
     {
@@ -187,7 +183,7 @@ class ListFormatHelper
 
         $order = str_replace(array_keys($replacements), array_values($replacements), mb_strtolower($order));
 
-        if (!in_array($order, ['id', 'content_type', 'status', 'created_at', 'published_at', 'modified_at', 'title', 'list_format'])) {
+        if (! in_array($order, ['id', 'content_type', 'status', 'created_at', 'published_at', 'modified_at', 'title', 'list_format'])) {
             $order = 'title';
         }
 

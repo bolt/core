@@ -14,6 +14,7 @@ use Bolt\Storage\Query;
 use Bolt\TemplateChooser;
 use Bolt\Twig\CommonExtension;
 use Bolt\Utils\Sanitiser;
+use Illuminate\Support\Collection;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\Asset\PathPackage;
@@ -22,7 +23,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Tightenco\Collect\Support\Collection;
 use Twig\Environment;
 use Twig\Loader\ChainLoader;
 use Twig\Loader\FilesystemLoader;
@@ -271,7 +271,7 @@ class TwigAwareController extends AbstractController
 
     public function getFromRequest(string $parameter, ?string $default = null): ?string
     {
-        $parameter = trim($this->sanitiser->clean($this->request->get($parameter, '')));
+        $parameter = mb_trim($this->sanitiser->clean($this->request->get($parameter, '')));
 
         // `clean` returns a string, but we want to be able to get `null`.
         return empty($parameter) ? $default : $parameter;

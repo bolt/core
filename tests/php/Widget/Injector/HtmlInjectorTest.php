@@ -9,7 +9,7 @@ use Bolt\Widget\Injector\HtmlInjector;
 use Bolt\Widget\Injector\Target;
 use Bolt\Widget\SnippetWidget;
 use Symfony\Component\HttpFoundation\Response;
-use Tightenco\Collect\Support\Collection;
+use Illuminate\Support\Collection;
 
 class HtmlInjectorTest extends StringTestCase
 {

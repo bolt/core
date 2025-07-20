@@ -11,7 +11,6 @@ use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Bolt\Entity\Field\Excerptable;
 use Bolt\Entity\Field\ImageField;
-use Bolt\Entity\Field\ImagelistField;
 use Bolt\Entity\ListFieldInterface;
 use Bolt\Entity\Taxonomy;
 use Bolt\Enum\Statuses;
@@ -24,6 +23,7 @@ use Bolt\Utils\ContentHelper;
 use Bolt\Utils\Excerpt;
 use Bolt\Utils\Html;
 use Bolt\Utils\Sanitiser;
+use Illuminate\Support\Collection;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Exception\InvalidParameterException;
@@ -31,7 +31,6 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Tightenco\Collect\Support\Collection;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\Markup;
@@ -293,7 +292,6 @@ class ContentExtension extends AbstractExtension
         return $listFormat;
     }
 
-
     private function getFieldBasedExcerpt(Content $content, int $length, bool $includeTitle = false): string
     {
         $excerptParts = [];
@@ -327,7 +325,7 @@ class ContentExtension extends AbstractExtension
             return $excerpt . $part . ' ';
         }, '');
 
-        return rtrim($excerpt, '. ');
+        return mb_rtrim($excerpt, '. ');
     }
 
     public function getPreviousContent(?Content $content, string $byColumn = 'id', bool $sameContentType = true): ?Content
@@ -351,18 +349,19 @@ class ContentExtension extends AbstractExtension
     private function getAdjacentContent(Content $content, string $direction, string $byColumn = 'id', bool $sameContentType = true): ?Content
     {
         switch ($byColumn) {
-            case "id":
+            case 'id':
                 $value = $content->getId();
                 break;
-            case "createdAt":
+            case 'createdAt':
                 $value = $content->getCreatedAt();
-            case "publishedAt":
+                break;
+            case 'publishedAt':
                 $value = $content->getPublishedAt();
                 break;
-            case "depublishedAt":
+            case 'depublishedAt':
                 $value = $content->getDepublishedAt();
                 break;
-            case "modifiedAt":
+            case 'modifiedAt':
                 $value = $content->getModifiedAt();
                 break;
             default:
@@ -598,7 +597,7 @@ class ContentExtension extends AbstractExtension
             $orders = $orders[$taxonomy['slug']] ?? [];
         }
 
-        if (empty($values) && !Field::definitionAllowsEmpty($taxonomy)) {
+        if (empty($values) && ! Field::definitionAllowsEmpty($taxonomy)) {
             $values[] = key($taxonomy['options']);
             $orders = array_fill(0, count($values), 0);
         }
