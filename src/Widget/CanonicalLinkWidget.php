@@ -13,11 +13,8 @@ use Twig\Environment;
 class CanonicalLinkWidget extends BaseWidget
 {
     protected $name = 'Canonical Link';
-
     protected $target = Target::END_OF_HEAD;
-
     protected $zone = RequestZone::FRONTEND;
-
     protected $priority = 200;
 
     /** @var Canonical */

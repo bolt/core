@@ -123,5 +123,5 @@ return ECSConfig::configure()
     )
     ->withConfiguredRule(
         ClassAttributesSeparationFixer::class,
-        ['elements' => ['property' => 'one', 'method' => 'one', 'const' => 'none']]
+        ['elements' => ['property' => 'none', 'method' => 'one', 'const' => 'none']]
     );
