@@ -84,9 +84,3 @@ compose.override.yaml
 /.phpunit.result.cache
 /.phpunit.cache
 ###< phpunit/phpunit ###
-
-
-###> squizlabs/php_codesniffer ###
-/.phpcs-cache
-/phpcs.xml
-###< squizlabs/php_codesniffer ###

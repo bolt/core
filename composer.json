@@ -111,7 +111,6 @@
         "phpstan/phpstan-symfony": "^1.0.1",
         "phpunit/phpunit": "^9.6",
         "se/selenium-server-standalone": "^3.141",
-        "slevomat/coding-standard": "^8.16",
         "symfony/browser-kit": "^5.4",
         "symfony/css-selector": "^5.4",
         "symplify/easy-coding-standard": "^12.5"
@@ -125,8 +124,7 @@
             "composer/package-versions-deprecated": true,
             "drupol/composer-packages": true,
             "symfony/flex": true,
-            "php-http/discovery": true,
-            "dealerdirect/phpcodesniffer-composer-installer": false
+            "php-http/discovery": true
         }
     },
     "extra": {

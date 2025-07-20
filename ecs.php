@@ -38,7 +38,6 @@ use PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer;
 use PhpCsFixer\Fixer\PhpUnit\PhpUnitMethodCasingFixer;
 use PhpCsFixer\Fixer\Semicolon\NoSinglelineWhitespaceBeforeSemicolonsFixer;
 use PhpCsFixer\Fixer\Whitespace\NoTrailingWhitespaceFixer;
-use SlevomatCodingStandard\Sniffs\ControlStructures\DisallowYodaComparisonSniff;
 use Symplify\CodingStandard\Fixer\ArrayNotation\ArrayListItemNewlineFixer;
 use Symplify\CodingStandard\Fixer\ArrayNotation\ArrayOpenerAndCloserNewlineFixer;
 use Symplify\CodingStandard\Fixer\ArrayNotation\StandaloneLineInMultilineArrayFixer;
@@ -91,7 +90,6 @@ return ECSConfig::configure()
         NoWhitespaceBeforeCommaInArrayFixer::class,
         WhitespaceAfterCommaInArrayFixer::class,
         FullyQualifiedStrictTypesFixer::class,
-        DisallowYodaComparisonSniff::class,
     ])
     ->withConfiguredRule(PhpdocToReturnTypeFixer::class, ['union_types' => false])
     ->withConfiguredRule(NoSuperfluousPhpdocTagsFixer::class, ['remove_inheritdoc' => false])
