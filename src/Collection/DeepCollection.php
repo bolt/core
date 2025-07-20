@@ -28,7 +28,7 @@ class DeepCollection extends Collection
         return $this->has($key) && (
             ($this->get($key) instanceof Collection && $this->get($key)->isEmpty())
             || empty($this->get($key))
-            );
+        );
     }
 
     public function isKeyNotEmpty($key): bool

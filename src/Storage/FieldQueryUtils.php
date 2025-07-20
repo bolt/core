@@ -61,6 +61,6 @@ class FieldQueryUtils
 
     public function isSqlite(): bool
     {
-        return ($this->em->getConnection()->getDatabasePlatform() instanceof SqlitePlatform);
+        return $this->em->getConnection()->getDatabasePlatform() instanceof SqlitePlatform;
     }
 }

@@ -101,13 +101,13 @@ trait ServicesTrait
 
     public function getWidgets(): ?Widgets
     {
-        return $this->getService(\Bolt\Widgets::class);
+        return $this->getService(Widgets::class);
     }
 
     public function getBoltConfig(): Config
     {
         if (! $this->boltConfig instanceof Config) {
-            $this->boltConfig = $this->getService(\Bolt\Configuration\Config::class);
+            $this->boltConfig = $this->getService(Config::class);
         }
 
         return $this->boltConfig;

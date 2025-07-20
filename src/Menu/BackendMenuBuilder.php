@@ -19,11 +19,7 @@ use Knp\Menu\MenuItem;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Tightenco\Collect\Support\Collection;
 
-/**
- * Class BackendMenuBuilder
- */
 final class BackendMenuBuilder implements BackendMenuBuilderInterface
 {
     public const MAX_LATEST_RECORDS = 5;
@@ -411,7 +407,6 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
             $records = $this->contentRepository->findLatest($contentType, 1, self::MAX_LATEST_RECORDS);
         }
 
-
         $result = [];
 
         /** @var Content|array $record */
@@ -425,7 +420,7 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
                         'icon' => $record->getContentTypeIcon(),
                     ];
                 } else {
-                    $definition =  $this->config->get('contenttypes/' . $contentType->getSlug());
+                    $definition = $this->config->get('contenttypes/' . $contentType->getSlug());
 
                     $additionalResult = [
                         'id' => $record['id'],

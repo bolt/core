@@ -34,16 +34,12 @@ class Target
     // substructure
     public const BEFORE_HEAD_META = 'beforeheadmeta';
     public const AFTER_HEAD_META = 'afterheadmeta';
-
     public const BEFORE_HEAD_CSS = 'beforeheadcss';
     public const AFTER_HEAD_CSS = 'afterheadcss';
-
     public const BEFORE_HEAD_JS = 'beforeheadjs';
     public const AFTER_HEAD_JS = 'afterheadjs';
-
     public const BEFORE_BODY_CSS = 'beforebodycss';
     public const AFTER_BODY_CSS = 'afterbodycss';
-
     public const BEFORE_BODY_JS = 'beforebodyjs';
     public const AFTER_BODY_JS = 'afterbodyjs';
 

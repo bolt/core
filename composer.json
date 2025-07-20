@@ -62,6 +62,7 @@
         "symfony/monolog-bundle": "^3.7",
         "symfony/password-hasher": "^5.4",
         "symfony/polyfill-php72": "^1.23",
+        "symfony/polyfill-php84": "^1.31",
         "symfony/security-bundle": "^5.4",
         "symfony/security-csrf": "^5.4",
         "symfony/serializer": "^5.4",
@@ -112,7 +113,7 @@
         "se/selenium-server-standalone": "^3.141",
         "symfony/browser-kit": "^5.4",
         "symfony/css-selector": "^5.4",
-        "symplify/easy-coding-standard": "^10.0"
+        "symplify/easy-coding-standard": "^12.5"
     },
     "config": {
         "preferred-install": {
@@ -123,8 +124,7 @@
             "composer/package-versions-deprecated": true,
             "drupol/composer-packages": true,
             "symfony/flex": true,
-            "php-http/discovery": true,
-            "dealerdirect/phpcodesniffer-composer-installer": false
+            "php-http/discovery": true
         }
     },
     "extra": {

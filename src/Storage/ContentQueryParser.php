@@ -65,16 +65,13 @@ class ContentQueryParser
     /** @var DirectiveHandler */
     private $directiveHandler;
 
-    /**
-     * Constructor.
-     */
     public function __construct(
         RequestStack $requestStack,
         ContentRepository $repo,
         Config $config,
         DirectiveHandler $directiveHandler,
-        ?QueryInterface $queryHandler = null)
-    {
+        ?QueryInterface $queryHandler = null
+    ) {
         $this->repo = $repo;
         $this->requestStack = $requestStack;
 

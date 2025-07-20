@@ -106,7 +106,7 @@ trait CachingTrait
     {
         $tags = explode(',', $contentTypeSlug);
 
-        $tags = array_map(function($t) {
+        $tags = array_map(function ($t) {
             return preg_replace('/[^\pL\d,]+/u', '', $t);
         }, $tags);
 

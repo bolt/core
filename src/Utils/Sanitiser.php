@@ -61,9 +61,9 @@ class Sanitiser
         $definition->addAttribute('iframe', 'src', 'Text');
 
         // Create non supported elements
-        $this->createNonSupportedElements($definition, explode(',',$allowedTags));
+        $this->createNonSupportedElements($definition, explode(',', $allowedTags));
 
-        $this->purifier = new \HTMLPurifier($purifierConfig);
+        $this->purifier = new HTMLPurifier($purifierConfig);
 
         return $this->purifier;
     }
