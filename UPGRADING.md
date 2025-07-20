@@ -1,12 +1,14 @@
-# From Bolt 5.2
+# From Bolt 5.2 to 6.0
 
-## Drop knplabs/doctrine-behaviors dependency
+## Replaced `tightenco/collect` with `illuminate/collections`
 
-The `knplabs/doctrine-behaviors` package has been removed from the Bolt core.
+If you were using classes from `Tightenco\Collect\Support`, you should replace them with `Illuminate\Support\` or install the deprecated `tightenco/collect` library yourself.
 
-The translation behavior has been integrated.
+## Dropped `knplabs/doctrine-behaviors` dependency
 
-Namespace changes:
+The `knplabs/doctrine-behaviors` package has been removed from the Bolt core, but the translation behavior that was used by Bolt core has been integrated.
+
+The following classes have replaced:
 
 | Old class                                                            | New class                                            |
 |----------------------------------------------------------------------|------------------------------------------------------|

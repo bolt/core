@@ -3,9 +3,15 @@ Changelog
 
 ## 6.0.0 (unreleased)
 
+Make sure to check the [upgrade notes](https://github.com/bolt/core/blob/main/UPGRADING.md) for instructions when upgrading your installation!
+
 - `master` branch has been renamed to the now more common `main`.
+
+### ⚙️ Dependency updates
+
 - Bump `nesbot/carbon` from version 2 to version 3.8+. (macintoshplus, [#3551](https://github.com/bolt/core/issues/3551))
 - Replaced `tightenco/collect` with `illuminate/collections`. The namespace has changed from `Tightenco\Collect\Support\*` to `Illuminate\Support\*`. (macintoshplus, [#3555](https://github.com/bolt/core/issues/3555))
+- The `knplabs/doctrine-behaviors` package has been removed from the Bolt core, but its functionality has been integrated. (macintoshplus, [#3561](https://github.com/bolt/core/issues/3561))
 
 ## 5.2.2
 
