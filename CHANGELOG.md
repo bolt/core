@@ -3,14 +3,22 @@ Changelog
 
 ## 6.0.0 (unreleased)
 
+Make sure to check the [upgrade notes](https://github.com/bolt/core/blob/main/UPGRADING.md) for instructions when upgrading your installation!
+
 - `master` branch has been renamed to the now more common `main`.
+
+### ⚙️ Dependency updates
+
 - Bump `nesbot/carbon` from version 2 to version 3.8+. (macintoshplus, [#3551](https://github.com/bolt/core/issues/3551))
 - Replaced `tightenco/collect` with `illuminate/collections`. The namespace has changed from `Tightenco\Collect\Support\*` to `Illuminate\Support\*`. (macintoshplus, [#3555](https://github.com/bolt/core/issues/3555))
 - Replaced `bobdenotter/weatherwidget` with `bolt/weatherwidget`. The namespace has changed from `BobdenOtter\WeatherWidget` to `Bolt\WeatherWidget`. Your configuration should be migrated automatically, but if you weren't using the weather widget you might need to remove the newly added configuration manually. (macintoshplus and bobvandevijver, [#3587](https://github.com/bolt/core/issues/3587))
 - Replaced `bobdenotter/configuration-notices` with `bolt/configuration-notices-widget`. The namespace has changed from `BobdenOtter\ConfigurationNotices` to `Bolt\ConfigurationNoticesWidget`. Your configuration should be migrated automatically, but if you weren't using the configuration notices widget you might need to remove the newly added configuration manually. (macintoshplus and bobvandevijver, [#3588](https://github.com/bolt/core/issues/3588))
+- The `knplabs/doctrine-behaviors` package has been removed from the Bolt core, but its functionality has been integrated. (macintoshplus, [#3561](https://github.com/bolt/core/issues/3561))
+
+### Other noteworthy updates
 - We have migrated away from annotations and fully adopted attributes. If you are relying on annotations you will need to either re-enable annotation support, or migrate them as well (the latter is the recommended approach). (bobvandevijver, [#3608](https://github.com/bolt/core/issues/3608))
-- In line with Symfony, the `getUserName()` method on `User` has been deprecated. Use `getUserIdentifier()` instead.
 - Return types have been changed where needed to resolve deprecation and PHPStan issues. This might affect you if you were extending the inner workings of Bolt. We apologise for the inconvenience, but it will be better in the long run.
+- In line with Symfony, the `getUserName()` method on `User` has been deprecated. Use `getUserIdentifier()` instead.
 
 ## 5.2.2
 
