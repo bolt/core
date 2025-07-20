@@ -16,7 +16,7 @@ class TextExtensionTestCase extends DbAwareTestCase
     {
         parent::setUp();
 
-        $this->extension = self::$container->get(TextExtension::class);
+        $this->extension = self::getContainer()->get(TextExtension::class);
     }
 
     public function testPlainText(): void

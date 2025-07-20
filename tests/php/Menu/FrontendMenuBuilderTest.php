@@ -32,7 +32,7 @@ class FrontendMenuBuilderTest extends DbAwareTestCase
     {
         parent::setUp();
 
-        $this->menuBuilder = self::$container->get(FrontendMenuBuilder::class);
+        $this->menuBuilder = self::getContainer()->get(FrontendMenuBuilder::class);
 
         // Setup mocks for testing the localized menu
         $this->twig = $this->createMock(Environment::class);

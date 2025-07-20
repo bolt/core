@@ -24,7 +24,7 @@ class FieldExtensionTestCase extends DbAwareTestCase
     {
         parent::setUp();
 
-        $this->extension = self::$container->get(FieldExtension::class);
+        $this->extension = self::getContainer()->get(FieldExtension::class);
 
         $this->field = $this->createMock(Field::class);
         $this->fieldType = $this->createMock(FieldType::class);

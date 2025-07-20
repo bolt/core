@@ -36,7 +36,7 @@ class ContentExtensionTestCase extends DbAwareTestCase
     {
         parent::setUp();
 
-        $this->extension = self::$container->get(ContentExtension::class);
+        $this->extension = self::getContainer()->get(ContentExtension::class);
         $this->content = $this->createMock(Content::class);
         $this->definition = $this->createMock(ContentType::class);
         $this->content->method('getDefinition')
