@@ -122,7 +122,7 @@ To edit a test you need to make sure you will still be testing the functionality
 So try to fix the test within your custom written code. If that is not possible then you need to edit the test.
 
 [cypress]: https://docs.cypress.io/guides/overview/why-cypress
-[dev]: https://github.com/bolt/core/tree/master#progress
+[dev]: https://github.com/bolt/core/tree/main#progress
 [electron]: https://www.electronjs.org
 [guide]: https://docs.cypress.io/guides/guides/launching-browsers
 [options]: https://docs.cypress.io/guides/guides/command-line#Commands

@@ -271,7 +271,7 @@ class TwigAwareController extends AbstractController
 
     public function getFromRequest(string $parameter, ?string $default = null): ?string
     {
-        $parameter = trim($this->sanitiser->clean($this->request->get($parameter, '')));
+        $parameter = mb_trim($this->sanitiser->clean($this->request->get($parameter, '')));
 
         // `clean` returns a string, but we want to be able to get `null`.
         return empty($parameter) ? $default : $parameter;

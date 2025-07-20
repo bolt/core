@@ -13,7 +13,6 @@ use Bolt\Twig\ContentExtension;
 use Bolt\Utils\ListFormatHelper;
 use Bolt\Version;
 use Cocur\Slugify\Slugify;
-use Illuminate\Support\Collection;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
 use Knp\Menu\MenuItem;
@@ -21,9 +20,6 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- * Class BackendMenuBuilder
- */
 final class BackendMenuBuilder implements BackendMenuBuilderInterface
 {
     public const MAX_LATEST_RECORDS = 5;
@@ -411,7 +407,6 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
             $records = $this->contentRepository->findLatest($contentType, 1, self::MAX_LATEST_RECORDS);
         }
 
-
         $result = [];
 
         /** @var Content|array $record */
@@ -425,7 +420,7 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
                         'icon' => $record->getContentTypeIcon(),
                     ];
                 } else {
-                    $definition =  $this->config->get('contenttypes/' . $contentType->getSlug());
+                    $definition = $this->config->get('contenttypes/' . $contentType->getSlug());
 
                     $additionalResult = [
                         'id' => $record['id'],

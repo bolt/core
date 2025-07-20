@@ -41,7 +41,7 @@ class HomepageController extends TwigAwareController implements FrontendZoneInte
         if (! $contentType->get('singleton') && ! isset($homepageTokens[1])) {
             $params = array_merge($this->request->query->all(), [
                 'contentTypeSlug' => $homepage,
-                '_locale' => $this->request->getLocale()
+                '_locale' => $this->request->getLocale(),
             ]);
 
             return $this->forward('Bolt\Controller\Frontend\ListingController::listing', $params);

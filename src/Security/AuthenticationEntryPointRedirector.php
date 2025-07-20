@@ -13,7 +13,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class AuthenticationEntryPointRedirector implements AuthenticationEntryPointInterface
 {
     private $translator;
-
     private $urlGenerator;
 
     public function __construct(TranslatorInterface $translator, UrlGeneratorInterface $urlGenerator)

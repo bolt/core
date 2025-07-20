@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Bolt\Storage;
 
 /**
- * Interface QueryScopeInterface
  * Interface defines a class that provides additional scoping for a Content Query.
  *
  * @author Ross Riley <riley.ross@gmail.com>

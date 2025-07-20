@@ -17,10 +17,7 @@ use Bolt\Controller\Backend\ClearCacheController;
 use Illuminate\Support\Collection;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Stopwatch\Stopwatch;
-use Symfony\Component\Yaml\Yaml;
 use Symfony\Contracts\Cache\CacheInterface;
-use Symfony\Contracts\Cache\ItemInterface;
-use Webimpress\SafeWriter\FileWriter;
 
 class Config
 {
@@ -229,7 +226,7 @@ class Config
 
     public function getContentType(string $name): ?Collection
     {
-        $name = trim($name);
+        $name = mb_trim($name);
 
         if ($this->has('contenttypes/' . $name)) {
             return $this->get('contenttypes/' . $name);
@@ -249,7 +246,7 @@ class Config
 
     public function getTaxonomy(string $name): ?Collection
     {
-        $name = trim($name);
+        $name = mb_trim($name);
 
         if ($this->has('taxonomies/' . $name)) {
             return $this->get('taxonomies/' . $name);
@@ -283,7 +280,8 @@ class Config
 
     public function getMaxUploadDescription(): string
     {
-        return sprintf('This value is the minimum of these constraints:<br> <strong>Bolt\'s <code>config.yaml</code></strong>:<br>
+        return sprintf(
+            'This value is the minimum of these constraints:<br> <strong>Bolt\'s <code>config.yaml</code></strong>:<br>
 <code>accept_upload_size</code>: <code>%s</code><br><br>
 <strong>PHP\'s <code>php.ini</code></strong>:<br>
 <code>post_max_size</code>: <code>%s</code><br> <code>upload_max_filesize</code>: <code>%s</code>',

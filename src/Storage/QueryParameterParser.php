@@ -29,9 +29,6 @@ class QueryParameterParser
     /** @var Filter[] */
     protected $filterHandlers = [];
 
-    /**
-     * Constructor.
-     */
     public function __construct(Expr $expr)
     {
         $this->expr = $expr;

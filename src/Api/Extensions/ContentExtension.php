@@ -11,7 +11,6 @@ use Bolt\Configuration\Config;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Bolt\Enum\Statuses;
-use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use Illuminate\Support\Collection;
 

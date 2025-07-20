@@ -37,8 +37,8 @@ class EntityServiceProvider implements EventSubscriberInterface
         EntityManagerInterface $em,
         ContainerInterface $container,
         Sanitiser $sanitiser,
-        Environment $twig)
-    {
+        Environment $twig
+    ) {
         $this->em = $em;
         $this->container = $container;
         $this->sanitiser = $sanitiser;

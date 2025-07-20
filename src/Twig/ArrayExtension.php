@@ -32,7 +32,7 @@ final class ArrayExtension extends AbstractExtension
 
     /** @var string */
     private $defaultLocale;
-    
+
     /** @var RequestStack */
     private $requestStack;
 
@@ -143,7 +143,7 @@ final class ArrayExtension extends AbstractExtension
         );
         //Set the default page to 1 if the page is not set
         if (array_key_exists('page', $currentPage)) {
-            $array->setCurrentPage((int) $currentPage["page"]);
+            $array->setCurrentPage((int) $currentPage['page']);
         } else {
             $array->setCurrentPage(1);
         }
