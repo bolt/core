@@ -1,11 +1,11 @@
 Changelog
 =========
 
-## Unreleased
+## 6.0.0 (unreleased)
 
-- `master` branch has been renamed to the now more common `main`
-- Bump `nesbot/carbon` from version 2 to version 3.8+ (macintoshplus, [#3551](https://github.com/bolt/core/issues/3551))
-- Replaced `tightenco/collect` with `illuminate/collections`. The namespace has changed from `Tightenco\Collect\Support\*` to `Illuminate\Support\*`.
+- `master` branch has been renamed to the now more common `main`.
+- Bump `nesbot/carbon` from version 2 to version 3.8+. (macintoshplus, [#3551](https://github.com/bolt/core/issues/3551))
+- Replaced `tightenco/collect` with `illuminate/collections`. The namespace has changed from `Tightenco\Collect\Support\*` to `Illuminate\Support\*`. (macintoshplus, [#3555](https://github.com/bolt/core/issues/3555))
 
 ## 5.2.2
 
