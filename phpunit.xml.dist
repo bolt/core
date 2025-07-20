@@ -4,6 +4,7 @@
          xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.6/phpunit.xsd"
          backupGlobals="false"
          colors="true"
+         failOnWarning="true"
          bootstrap="phpunit.bootstrap.php">
     <php>
         <ini name="error_reporting" value="-1" force="true"/>
@@ -11,7 +12,7 @@
         <env name="APP_ENV" value="test" force="true"/>
         <env name="APP_DEBUG" value="1" force="true"/>
         <env name="APP_SECRET" value="5a79a1c866efef9ca1800f971d689f3e"/>
-        <env name="SYMFONY_PHPUNIT_VERSION" value="10.5"/>
+        <env name="SYMFONY_PHPUNIT_VERSION" value="9.6"/>
         <!-- define your env variables for the test env here -->
         <!-- ###+ doctrine/doctrine-bundle ### -->
         <env name="DATABASE_URL" value="sqlite::memory:" force="true"/>
