@@ -16,6 +16,7 @@ use Bolt\Twig\FieldExtension;
 use Doctrine\Common\Collections\ArrayCollection;
 use PHPUnit\Framework\MockObject\MockObject;
 use Twig\Environment;
+use RuntimeException;
 
 class ContentExtensionTestCase extends DbAwareTestCase
 {
@@ -35,7 +36,7 @@ class ContentExtensionTestCase extends DbAwareTestCase
     {
         parent::setUp();
 
-        $this->extension = self::$container->get(ContentExtension::class);
+        $this->extension = self::getContainer()->get(ContentExtension::class);
         $this->content = $this->createMock(Content::class);
         $this->definition = $this->createMock(ContentType::class);
         $this->content->method('getDefinition')
@@ -45,20 +46,50 @@ class ContentExtensionTestCase extends DbAwareTestCase
 
     public function testTitle(): void
     {
-        $this->definition->method('has')
-            ->withConsecutive(['title_format'])
-            ->willReturn(true);
-        $this->definition->method('get')
-            ->withConsecutive(['title_format'])
-            ->willReturn('{number}: {title}');
+        $this->definition
+            ->expects($matcher = $this->exactly(1))
+            ->method('has')
+            ->willReturnCallback(function (...$parameters) use ($matcher) {
+                if ($matcher->getInvocationCount() === 1) {
+                    $this->assertSame('title_format', $parameters[0]);
+                }
+                return true;
+            });
+        $this->definition
+            ->expects($matcher = $this->exactly(1))
+            ->method('get')
+            ->willReturnCallback(function (...$parameters) use ($matcher) {
+                if ($matcher->getInvocationCount() === 1) {
+                    $this->assertSame('title_format', $parameters[0]);
+                }
+                return '{number}: {title}';
+            });
         $this->content->method('getId')
             ->willReturn(1);
-        $this->content->method('hasField')
-            ->withConsecutive(['number'], ['title'])
-            ->willReturnOnConsecutiveCalls(false, true);
-        $this->content->method('getField')
-            ->withConsecutive(['title'])
-            ->willReturn($this->field);
+        $this->content
+            ->expects($matcher = $this->exactly(2))
+            ->method('hasField')
+            ->willReturnCallback(function (...$parameters) use ($matcher) {
+                if ($matcher->getInvocationCount() === 1) {
+                    $this->assertSame('number', $parameters[0]);
+                    return false;
+                }
+                if ($matcher->getInvocationCount() === 2) {
+                    $this->assertSame('title', $parameters[0]);
+                    return true;
+                }
+
+                throw new RuntimeException('Unexpected call');
+            });
+        $this->content
+            ->expects($matcher = $this->exactly(1))
+            ->method('getField')
+            ->willReturnCallback(function (...$parameters) use ($matcher) {
+                if ($matcher->getInvocationCount() === 1) {
+                    $this->assertSame('title', $parameters[0]);
+                }
+                return $this->field;
+            });
         $this->field->method('isTranslatable')
             ->willReturn(false);
         $this->field->method('__toString')
@@ -69,17 +100,41 @@ class ContentExtensionTestCase extends DbAwareTestCase
 
     public function testTitleFields(): void
     {
-        $this->definition->method('has')
-            ->withConsecutive(['title_format'])
-            ->willReturn(true);
-        $this->definition->method('get')
-            ->withConsecutive(['title_format'])
-            ->willReturn('{number}: {title}');
+        $this->definition
+            ->expects($matcher = $this->exactly(1))
+            ->method('has')
+            ->willReturnCallback(function (...$parameters) use ($matcher) {
+                if ($matcher->getInvocationCount() === 1) {
+                    $this->assertSame('title_format', $parameters[0]);
+                }
+                return true;
+            });
+        $this->definition
+            ->expects($matcher = $this->exactly(1))
+            ->method('get')
+            ->willReturnCallback(function (...$parameters) use ($matcher) {
+                if ($matcher->getInvocationCount() === 1) {
+                    $this->assertSame('title_format', $parameters[0]);
+                }
+                return '{number}: {title}';
+            });
         $this->content->method('getId')
             ->willReturn(1);
-        $this->content->method('hasField')
-            ->withConsecutive(['number'], ['title'])
-            ->willReturnOnConsecutiveCalls(false, true);
+        $this->content
+            ->expects($matcher = $this->exactly(2))
+            ->method('hasField')
+            ->willReturnCallback(function (...$parameters) use ($matcher) {
+                if ($matcher->getInvocationCount() === 1) {
+                    $this->assertSame('number', $parameters[0]);
+                    return false;
+                }
+                if ($matcher->getInvocationCount() === 2) {
+                    $this->assertSame('title', $parameters[0]);
+                    return true;
+                }
+
+                throw new RuntimeException('Unexpected call');
+        });
 
         $this->assertSame(['number', 'title'], $this->extension->getTitleFieldsNames($this->content));
     }
@@ -96,9 +151,15 @@ class ContentExtensionTestCase extends DbAwareTestCase
 
         $this->assertNull($this->extension->getImage($this->content));
 
-        $imagefield->method('get')
-            ->withConsecutive(['filename'])
-            ->willReturn('example.jpg');
+        $imagefield
+            ->expects($matcher = $this->exactly(1))
+            ->method('get')
+            ->willReturnCallback(function (...$parameters) use ($matcher) {
+                if ($matcher->getInvocationCount() === 1) {
+                    $this->assertSame('filename', $parameters[0]);
+                }
+                return 'example.jpg';
+            });
         $this->assertSame($imagefield, $this->extension->getImage($this->content));
     }
 
@@ -107,9 +168,14 @@ class ContentExtensionTestCase extends DbAwareTestCase
         $field1 = $this->createMock(Field::class);
         $field2 = $this->createMock(Field::class);
         $image1 = $this->createMock(ImageField::class);
-        $image1->method('get')
-            ->withConsecutive(['filename'])
-            ->willReturn('testimage.jpg');
+        $image1->expects($matcher = $this->exactly(1))
+            ->method('get')
+            ->willReturnCallback(function (...$parameters) use ($matcher) {
+                if ($matcher->getInvocationCount() === 1) {
+                    $this->assertSame('filename', $parameters[0]);
+                }
+                return 'testimage.jpg';
+            });
         $image2 = $this->createMock(ImageField::class);
         $imagelist = $this->createMock(ImagelistField::class);
         $field3 = $this->createMock(Field::class);
@@ -128,24 +194,66 @@ class ContentExtensionTestCase extends DbAwareTestCase
 
     public function testExceptFromFormatShort(): void
     {
-        $this->definition->method('get')
-            ->withConsecutive(['excerpt_format'])
-            ->willReturn('{subheading}: {body}');
+        $this->definition
+            ->expects($matcher = $this->exactly(1))
+            ->method('get')
+            ->willReturnCallback(function (...$parameters) use ($matcher) {
+                if ($matcher->getInvocationCount() === 1) {
+                    $this->assertSame('excerpt_format', $parameters[0]);
+                }
+                return '{subheading}: {body}';
+            });
 
-        $this->content->method('hasField')
-            ->withConsecutive(['subheading'], ['body'])
-            ->willReturnOnConsecutiveCalls(true, true);
+        $this->content
+            ->expects($matcher = $this->exactly(2))
+            ->method('hasField')
+            ->willReturnCallback(function (...$parameters) use ($matcher) {
+                if ($matcher->getInvocationCount() === 1) {
+                    $this->assertSame('subheading', $parameters[0]);
+                    return true;
+                }
+                if ($matcher->getInvocationCount() === 2) {
+                    $this->assertSame('body', $parameters[0]);
+                    return true;
+                }
+
+                throw new RuntimeException('Unexpected call');
+            });
 
         $field1 = $this->createMock(Field::class);
         $field2 = $this->createMock(Field::class);
         $field1->method('__toString')->willReturn("In this week's news");
         $field2->method('__toString')->willReturn('Bolt 4 is pretty awesome.');
-        $this->content->method('getField')
-            ->withConsecutive(['subheading'], ['body'])
-            ->willReturnOnConsecutiveCalls($field1, $field2);
-        $this->definition->method('has')
-            ->withConsecutive(['excerpt_format'], ['subheading'], ['body'])
-            ->willReturn(true);
+        $this->content
+            ->expects($matcher = $this->exactly(2))
+            ->method('getField')
+            ->willReturnCallback(function (...$parameters) use ($matcher, $field1, $field2) {
+                if ($matcher->getInvocationCount() === 1) {
+                    $this->assertSame('subheading', $parameters[0]);
+                    return $field1;
+                }
+                if ($matcher->getInvocationCount() === 2) {
+                    $this->assertSame('body', $parameters[0]);
+                    return $field2;
+                }
+
+                throw new RuntimeException('Unexpected call');
+            });
+        $this->definition
+            ->expects($matcher = $this->exactly(3))
+            ->method('has')
+            ->willReturnCallback(function (...$parameters) use ($matcher) {
+                if ($matcher->getInvocationCount() === 1) {
+                    $this->assertSame('excerpt_format', $parameters[0]);
+                }
+                if ($matcher->getInvocationCount() === 2) {
+                    $this->assertSame('subheading', $parameters[0]);
+                }
+                if ($matcher->getInvocationCount() === 3) {
+                    $this->assertSame('body', $parameters[0]);
+                }
+                return true;
+            });
         $this->content->method('getId')
             ->willReturn(1);
 
@@ -154,24 +262,66 @@ class ContentExtensionTestCase extends DbAwareTestCase
 
     public function testExceptFromFormatFull(): void
     {
-        $this->definition->method('get')
-            ->withConsecutive(['excerpt_format'])
-            ->willReturn('{subheading}: {body}');
+        $this->definition
+            ->expects($matcher = $this->exactly(1))
+            ->method('get')
+            ->willReturnCallback(function (...$parameters) use ($matcher) {
+                if ($matcher->getInvocationCount() === 1) {
+                    $this->assertSame('excerpt_format', $parameters[0]);
+                }
+                return '{subheading}: {body}';
+            });
 
-        $this->content->method('hasField')
-            ->withConsecutive(['subheading'], ['body'])
-            ->willReturnOnConsecutiveCalls(true, true);
+        $this->content
+            ->expects($matcher = $this->exactly(2))
+            ->method('hasField')
+            ->willReturnCallback(function (...$parameters) use ($matcher) {
+                if ($matcher->getInvocationCount() === 1) {
+                    $this->assertSame('subheading', $parameters[0]);
+                    return true;
+                }
+                if ($matcher->getInvocationCount() === 2) {
+                    $this->assertSame('body', $parameters[0]);
+                    return true;
+                }
+
+                throw new RuntimeException('Unexpected call');
+            });
 
         $field1 = $this->createMock(Field::class);
         $field2 = $this->createMock(Field::class);
         $field1->method('__toString')->willReturn("In this week's news");
         $field2->method('__toString')->willReturn('Bolt 4 is pretty awesome.');
-        $this->content->method('getField')
-            ->withConsecutive(['subheading'], ['body'])
-            ->willReturnOnConsecutiveCalls($field1, $field2);
-        $this->definition->method('has')
-            ->withConsecutive(['excerpt_format'], ['subheading'], ['body'])
-            ->willReturn(true);
+        $this->content
+            ->expects($matcher = $this->exactly(2))
+            ->method('getField')
+            ->willReturnCallback(function (...$parameters) use ($matcher, $field1, $field2) {
+                if ($matcher->getInvocationCount() === 1) {
+                    $this->assertSame('subheading', $parameters[0]);
+                    return $field1;
+                }
+                if ($matcher->getInvocationCount() === 2) {
+                    $this->assertSame('body', $parameters[0]);
+                    return $field2;
+                }
+
+                throw new RuntimeException('Unexpected call');
+            });
+        $this->definition
+            ->expects($matcher = $this->exactly(3))
+            ->method('has')
+            ->willReturnCallback(function (...$parameters) use ($matcher) {
+                if ($matcher->getInvocationCount() === 1) {
+                    $this->assertSame('excerpt_format', $parameters[0]);
+                }
+                if ($matcher->getInvocationCount() === 2) {
+                    $this->assertSame('subheading', $parameters[0]);
+                }
+                if ($matcher->getInvocationCount() === 3) {
+                    $this->assertSame('body', $parameters[0]);
+                }
+                return true;
+            });
         $this->content->method('getId')
             ->willReturn(1);
 
