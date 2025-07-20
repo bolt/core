@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Tests\Widget\Injector;
 
+use ReflectionClass;
 use Bolt\Widget\Injector\RequestZone;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,7 +14,7 @@ class RequestZoneTest extends TestCase
 {
     public function providerZone()
     {
-        $o = new \ReflectionClass(RequestZone::class);
+        $o = new ReflectionClass(RequestZone::class);
         $constants = (new Collection(array_keys($o->getConstants())))
             ->filter(function ($v) {
                 return mb_strpos($v, 'NOWHERE') === false;

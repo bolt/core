@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Bolt\Tests\Utils;
 
+use PHPUnit\Framework\TestCase;
 use Bolt\Common\Str;
 
-class StrTest extends \PHPUnit\Framework\TestCase
+class StrTest extends TestCase
 {
     public function testSlug(): void
     {

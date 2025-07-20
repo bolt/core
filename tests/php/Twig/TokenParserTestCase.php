@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Bolt\Tests\Twig;
 
+use PHPUnit\Framework\TestCase;
+use ReflectionProperty;
 use Twig\Environment;
 use Twig\Loader\LoaderInterface;
 use Twig\Node\Node;
@@ -17,7 +19,7 @@ use Twig\TokenStream;
  * @author Gawain Lynch <gawain.lynch@gmail.com>
  * @author Bob den Otter <bobdenotter@gmail.com>
  */
-abstract class TokenParserTestCase extends \PHPUnit\Framework\TestCase
+abstract class TokenParserTestCase extends TestCase
 {
     protected function getParser(TokenStream $tokenStream, AbstractTokenParser $testParser): Parser
     {
@@ -26,7 +28,7 @@ abstract class TokenParserTestCase extends \PHPUnit\Framework\TestCase
         $parser = new Parser($env);
         $parser->setParent(new Node());
 
-        $p = new \ReflectionProperty($parser, 'stream');
+        $p = new ReflectionProperty($parser, 'stream');
         $p->setAccessible(true);
         $p->setValue($parser, $tokenStream);
 

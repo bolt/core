@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Tests\Menu;
 
+use RuntimeException;
 use Bolt\Collection\DeepCollection;
 use Bolt\Menu\FrontendMenuBuilder;
 use Bolt\Tests\DbAwareTestCase;
@@ -42,9 +43,21 @@ class FrontendMenuBuilderTest extends DbAwareTestCase
 
         $this->request->attributes = $this->createMock(ParameterBag::class);
         $this->request->attributes
+            ->expects($matcher = $this->atMost(2))
             ->method('get')
-            ->withConsecutive(['_route'], ['_route_params'])
-            ->willReturn('homepage_locale', []);
+            ->willReturnCallback(function (string $route) use ($matcher) {
+                if ($matcher->getInvocationCount() === 1) {
+                    $this->assertSame('_route', $route);
+                    return 'homepage_locale';
+                }
+
+                if ($matcher->getInvocationCount() === 2) {
+                    $this->assertSame('_route_params', $route);
+                    return [];
+                }
+
+                throw new RuntimeException('Unexpected call');
+            });
         $this->app = $this->createMock(AppVariable::class);
         $this->app->method('getRequest')->willReturn($this->request);
         $this->twig->method('getGlobals')->willReturn(['app' => $this->app]);
@@ -52,7 +65,7 @@ class FrontendMenuBuilderTest extends DbAwareTestCase
 
     public function testNonExistingMenu(): void
     {
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(RuntimeException::class);
         $this->menuBuilder->buildMenu($this->twig, 'foo');
     }
 
