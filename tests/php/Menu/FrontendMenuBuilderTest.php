@@ -43,15 +43,8 @@ class FrontendMenuBuilderTest extends DbAwareTestCase
         $this->request->attributes = $this->createMock(ParameterBag::class);
         $this->request->attributes
             ->method('get')
-            ->willReturnCallback(function ($param) {
-                if ($param === '_route') {
-                    return 'homepage';
-                }
-                if ($param === '_route_params') {
-                    return [];
-                }
-                return null;
-            });
+            ->withConsecutive(['_route'], ['_route_params'])
+            ->willReturn('homepage_locale', []);
         $this->app = $this->createMock(AppVariable::class);
         $this->app->method('getRequest')->willReturn($this->request);
         $this->twig->method('getGlobals')->willReturn(['app' => $this->app]);

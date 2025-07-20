@@ -35,7 +35,8 @@ class FieldExtensionTestCase extends DbAwareTestCase
     public function testFieldLabel(): void
     {
         $this->fieldType->method('get')
-            ->willReturnCallback(fn ($param) => $param === 'label' ? 'Test field' : null);
+            ->withConsecutive(['label'])
+            ->wilLReturn('Test field');
 
         $this->assertSame('Test field', $this->extension->getLabel($this->field));
     }
@@ -43,7 +44,8 @@ class FieldExtensionTestCase extends DbAwareTestCase
     public function testFieldType(): void
     {
         $this->fieldType->method('get')
-            ->willReturnCallback(fn ($param) => $param === 'type' ? 'embed' : null);
+            ->withConsecutive(['type'])
+            ->willReturn('embed');
 
         $this->assertSame('embed', $this->extension->getType($this->field));
     }

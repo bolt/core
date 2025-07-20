@@ -46,23 +46,19 @@ class ContentExtensionTestCase extends DbAwareTestCase
     public function testTitle(): void
     {
         $this->definition->method('has')
-            ->willReturnCallback(fn($param) => $param === 'title_format');
+            ->withConsecutive(['title_format'])
+            ->willReturn(true);
         $this->definition->method('get')
-            ->willReturnCallback(fn($param) => $param === 'title_format' ? '{number}: {title}' : null);
+            ->withConsecutive(['title_format'])
+            ->willReturn('{number}: {title}');
         $this->content->method('getId')
             ->willReturn(1);
         $this->content->method('hasField')
-            ->willReturnCallback(function ($param) {
-                if ($param === 'number') {
-                    return false;
-                }
-                if ($param === 'title') {
-                    return true;
-                }
-                return false;
-            });
+            ->withConsecutive(['number'], ['title'])
+            ->willReturnOnConsecutiveCalls(false, true);
         $this->content->method('getField')
-            ->willReturnCallback(fn($param) => $param === 'title' ? $this->field : null);
+            ->withConsecutive(['title'])
+            ->willReturn($this->field);
         $this->field->method('isTranslatable')
             ->willReturn(false);
         $this->field->method('__toString')
@@ -74,21 +70,17 @@ class ContentExtensionTestCase extends DbAwareTestCase
     public function testTitleFields(): void
     {
         $this->definition->method('has')
-            ->willReturnCallback(fn($param) => $param === 'title_format');
+            ->withConsecutive(['title_format'])
+            ->willReturn(true);
         $this->definition->method('get')
-            ->willReturnCallback(fn($param) => $param === 'title_format' ? '{number}: {title}' : null);
+            ->withConsecutive(['title_format'])
+            ->willReturn('{number}: {title}');
         $this->content->method('getId')
             ->willReturn(1);
         $this->content->method('hasField')
-            ->willReturnCallback(function ($param) {
-                if ($param === 'number') {
-                    return false;
-                }
-                if ($param === 'title') {
-                    return true;
-                }
-                return false;
-            });
+            ->withConsecutive(['number'], ['title'])
+            ->willReturnOnConsecutiveCalls(false, true);
+
         $this->assertSame(['number', 'title'], $this->extension->getTitleFieldsNames($this->content));
     }
 
@@ -105,7 +97,8 @@ class ContentExtensionTestCase extends DbAwareTestCase
         $this->assertNull($this->extension->getImage($this->content));
 
         $imagefield->method('get')
-            ->willReturnCallback(fn($param) => $param === 'filename' ? 'example.jpg' : null);
+            ->withConsecutive(['filename'])
+            ->willReturn('example.jpg');
         $this->assertSame($imagefield, $this->extension->getImage($this->content));
     }
 
@@ -115,7 +108,8 @@ class ContentExtensionTestCase extends DbAwareTestCase
         $field2 = $this->createMock(Field::class);
         $image1 = $this->createMock(ImageField::class);
         $image1->method('get')
-            ->willReturnCallback(fn($param) => $param === 'filename' ? 'testimage.jpg' : null);
+            ->withConsecutive(['filename'])
+            ->willReturn('testimage.jpg');
         $image2 = $this->createMock(ImageField::class);
         $imagelist = $this->createMock(ImagelistField::class);
         $field3 = $this->createMock(Field::class);
@@ -135,37 +129,23 @@ class ContentExtensionTestCase extends DbAwareTestCase
     public function testExceptFromFormatShort(): void
     {
         $this->definition->method('get')
-            ->willReturnCallback(fn($param) => $param === 'excerpt_format' ? '{subheading}: {body}' : null);
+            ->withConsecutive(['excerpt_format'])
+            ->willReturn('{subheading}: {body}');
 
         $this->content->method('hasField')
-            ->willReturnCallback(function ($param) {
-                if ($param === 'subheading' || $param === 'body') {
-                    return true;
-                }
-                return false;
-            })
+            ->withConsecutive(['subheading'], ['body'])
+            ->willReturnOnConsecutiveCalls(true, true);
 
         $field1 = $this->createMock(Field::class);
         $field2 = $this->createMock(Field::class);
         $field1->method('__toString')->willReturn("In this week's news");
         $field2->method('__toString')->willReturn('Bolt 4 is pretty awesome.');
         $this->content->method('getField')
-            ->willReturnCallback(function ($param) use($field1, $field2) {
-                if ($param === 'subheading') {
-                    return $field1;
-                }
-                if ($param === 'body') {
-                    return $field2;
-                }
-                return null;
-            });
+            ->withConsecutive(['subheading'], ['body'])
+            ->willReturnOnConsecutiveCalls($field1, $field2);
         $this->definition->method('has')
-            ->willReturnCallback(function ($param) {
-                if ($param === 'excerpt_format' || $param === 'subheading' || $param === 'body') {
-                    return true;
-                }
-                return false;
-            });
+            ->withConsecutive(['excerpt_format'], ['subheading'], ['body'])
+            ->willReturn(true);
         $this->content->method('getId')
             ->willReturn(1);
 
@@ -175,32 +155,27 @@ class ContentExtensionTestCase extends DbAwareTestCase
     public function testExceptFromFormatFull(): void
     {
         $this->definition->method('get')
-            ->willReturnCallback(fn($param) => $param === 'excerpt_format' ? '{subheading}: {body}' : null);
+            ->withConsecutive(['excerpt_format'])
+            ->willReturn('{subheading}: {body}');
 
         $this->content->method('hasField')
-            ->willReturnCallback(fn ($param) => $param === 'subheading' || $param === 'body');
+            ->withConsecutive(['subheading'], ['body'])
+            ->willReturnOnConsecutiveCalls(true, true);
 
         $field1 = $this->createMock(Field::class);
         $field2 = $this->createMock(Field::class);
         $field1->method('__toString')->willReturn("In this week's news");
         $field2->method('__toString')->willReturn('Bolt 4 is pretty awesome.');
         $this->content->method('getField')
-            ->willReturnCallback(function ($param) use($field1, $field2) {
-                if ($param === 'subheading') {
-                    return $field1;
-                }
-                if ($param === 'body') {
-                    return $field2;
-                }
-                return null;
-            });
+            ->withConsecutive(['subheading'], ['body'])
+            ->willReturnOnConsecutiveCalls($field1, $field2);
         $this->definition->method('has')
-            ->willReturnCallback(fn ($param) => $param === 'excerpt_format' || $param === 'subheading' || $param === 'body');
+            ->withConsecutive(['excerpt_format'], ['subheading'], ['body'])
+            ->willReturn(true);
         $this->content->method('getId')
             ->willReturn(1);
 
-        $this->assertSame("In this week's news: Bolt 4 is pretty awesome",
-            $this->extension->getExcerpt($this->content));
+        $this->assertSame("In this week's news: Bolt 4 is pretty awesome", $this->extension->getExcerpt($this->content));
     }
 
     public function testExcerptNoFormat(): void
@@ -223,8 +198,7 @@ class ContentExtensionTestCase extends DbAwareTestCase
         $this->content->method('getFields')
             ->willReturn(new ArrayCollection([$title, $subheading, $body]));
 
-        $this->assertSame('This subheading is OK. Here is the long body. It is OK too',
-            $this->extension->getExcerpt($this->content));
+        $this->assertSame('This subheading is OK. Here is the long body. It is OK too', $this->extension->getExcerpt($this->content));
         $this->assertSame('This subheading is OK. Here…', $this->extension->getExcerpt($this->content, 28));
     }
 
