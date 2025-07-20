@@ -3,6 +3,7 @@ Changelog
 
 ## Unreleased
 
+- `master` branch has been renamed to the now more common `main`
 - Bump `nesbot/carbon` from version 2 to version 3.8+ (macintoshplus, [#3551](https://github.com/bolt/core/issues/3551))
 
 

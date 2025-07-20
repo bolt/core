@@ -12,7 +12,7 @@ thoroughly. Then, proceed by filling out the rest of the details in the issue
 template below. The more details you can give us, the easier it will be for us
 to determine the cause of a problem.
 
-See: https://github.com/bolt/bolt/blob/master/.github/CONTRIBUTING.md
+See: https://github.com/bolt/bolt/blob/main/.github/CONTRIBUTING.md
 
 -->
 
@@ -21,7 +21,7 @@ Details
 
 | Question                                              | Answer                                                  
 |-------------------------------------------------------|---------------------------------------------------------
-| Relevant Bolt Version                                 | legacy / 5.1 / 5.2 / master                             
+| Relevant Bolt Version                                 | legacy / 5.1 / 5.2 / main
 | Install type                                          | Zip or tar install / Composer install / GitHub checkout 
 | <abbr title="Backwards Compatibility">BC</abbr> Break | yes/no                                                  
 | PHP version                                           | 7.4 / 8.0 / 8.1 / 8.2 / 8.3                                         
