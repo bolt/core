@@ -45,11 +45,6 @@ use Symplify\CodingStandard\Fixer\Commenting\RemoveUselessDefaultCommentFixer;
 use Symplify\CodingStandard\Fixer\Strict\BlankLineAfterStrictTypesFixer;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 
-// Suppress `Notice:`s in ECS 8.x This is probably fixed in the 9.x versions,
-// but we can't update to that version, because it's PHP > 7.3 only.
-// See: https://github.com/bolt/core/issues/2519
-error_reporting(error_reporting() & ~E_NOTICE);
-
 return ECSConfig::configure()
     ->withPaths([
         __DIR__ . '/src',
