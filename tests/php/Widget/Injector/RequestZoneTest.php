@@ -8,7 +8,7 @@ use ReflectionClass;
 use Bolt\Widget\Injector\RequestZone;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
-use Tightenco\Collect\Support\Collection;
+use Illuminate\Support\Collection;
 
 class RequestZoneTest extends TestCase
 {

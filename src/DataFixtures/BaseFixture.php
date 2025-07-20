@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Bolt\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Illuminate\Support\Collection;
 use Symfony\Component\Filesystem\Path;
 use Symfony\Component\Finder\Finder;
-use Tightenco\Collect\Support\Collection;
 
 abstract class BaseFixture extends Fixture
 {

@@ -6,7 +6,7 @@ use Bolt\Configuration\Content\ContentType;
 use Bolt\Repository\ContentRepository;
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManagerInterface;
-use Tightenco\Collect\Support\Collection;
+use Illuminate\Support\Collection;
 
 class ListFormatHelper
 {

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Entity;
 
-use Tightenco\Collect\Support\Collection;
+use Illuminate\Support\Collection;
 
 /**
  * Implements the methods of the FieldParentInterface.

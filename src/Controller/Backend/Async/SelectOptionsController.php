@@ -6,12 +6,12 @@ namespace Bolt\Controller\Backend\Async;
 
 use Bolt\Configuration\Config;
 use Bolt\Twig\FieldExtension;
+use Illuminate\Support\Collection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Tightenco\Collect\Support\Collection;
 
 /**
  * @Security("is_granted('upload')")

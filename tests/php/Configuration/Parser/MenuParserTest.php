@@ -7,7 +7,7 @@ namespace Bolt\Tests\Configuration\Parser;
 use Bolt\Configuration\Parser\MenuParser;
 use Symfony\Component\Config\Exception\FileLocatorFileNotFoundException;
 use Symfony\Component\Yaml\Exception\ParseException;
-use Tightenco\Collect\Support\Collection;
+use Illuminate\Support\Collection;
 
 class MenuParserTest extends ParserTestBase
 {
