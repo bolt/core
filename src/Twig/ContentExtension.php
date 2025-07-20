@@ -356,6 +356,7 @@ class ContentExtension extends AbstractExtension
                 break;
             case "createdAt":
                 $value = $content->getCreatedAt();
+                break;
             case "publishedAt":
                 $value = $content->getPublishedAt();
                 break;
