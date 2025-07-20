@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Bolt\Entity;
 
-
 interface TranslationInterface
 {
     public static function getTranslatableEntityClass(): string;

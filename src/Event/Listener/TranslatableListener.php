@@ -14,7 +14,6 @@ use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\Persistence\ObjectManager;
 use ReflectionClass;
 
-
 final class TranslatableListener
 {
     /**
@@ -23,7 +22,6 @@ final class TranslatableListener
     public const LOCALE = 'locale';
 
     private readonly int $translatableFetchMode;
-
     private readonly int $translationFetchMode;
 
     public function __construct(
@@ -41,7 +39,7 @@ final class TranslatableListener
     public function loadClassMetadata(LoadClassMetadataEventArgs $loadClassMetadataEventArgs): void
     {
         $classMetadata = $loadClassMetadataEventArgs->getClassMetadata();
-        if (!$classMetadata->reflClass instanceof ReflectionClass) {
+        if (! $classMetadata->reflClass instanceof ReflectionClass) {
             // Class has not yet been fully built, ignore this event
             return;
         }
@@ -110,7 +108,7 @@ final class TranslatableListener
 
     private function mapTranslation(ClassMetadataInfo $classMetadataInfo, ObjectManager $objectManager): void
     {
-        if (!$classMetadataInfo->hasAssociation('translatable')) {
+        if (! $classMetadataInfo->hasAssociation('translatable')) {
             $targetEntity = $classMetadataInfo->getReflectionClass()
                 ->getMethod('getTranslatableEntityClass')
                 ->invoke(null);
@@ -130,21 +128,21 @@ final class TranslatableListener
                         'name' => 'translatable_id',
                         'referencedColumnName' => $singleIdentifierFieldName,
                         'onDelete' => 'CASCADE',
-                    ]
+                    ],
                 ],
                 'targetEntity' => $targetEntity,
             ]);
         }
 
         $name = $classMetadataInfo->getTableName() . '_unique_translation';
-        if (!$this->hasUniqueTranslationConstraint($classMetadataInfo, $name) &&
+        if (! $this->hasUniqueTranslationConstraint($classMetadataInfo, $name) &&
             $classMetadataInfo->getName() === $classMetadataInfo->rootEntityName) {
             $classMetadataInfo->table['uniqueConstraints'][$name] = [
                 'columns' => ['translatable_id', self::LOCALE],
             ];
         }
 
-        if (!$classMetadataInfo->hasField(self::LOCALE) && !$classMetadataInfo->hasAssociation(self::LOCALE)) {
+        if (! $classMetadataInfo->hasField(self::LOCALE) && ! $classMetadataInfo->hasAssociation(self::LOCALE)) {
             $classMetadataInfo->mapField([
                 'fieldName' => self::LOCALE,
                 'type' => 'string',
@@ -155,7 +153,7 @@ final class TranslatableListener
 
     private function setLocales(object $entity): void
     {
-        if (!$entity instanceof TranslatableInterface) {
+        if (! $entity instanceof TranslatableInterface) {
             return;
         }
 
