@@ -33,8 +33,6 @@ services:
             $tablePrefix: '%bolt.table_prefix%'
             $backendUrl: '%bolt.backend_url%'
             $rememberLifetime: '%bolt.remember_lifetime%'
-            $translatableFetchMode: '%bolt.doctrine_behaviors_translatable_fetch_mode%'
-            $translationFetchMode: '%bolt.doctrine_behaviors_translation_fetch_mode%'
 
     _instanceof:
         Bolt\Menu\ExtensionBackendMenuInterface:
@@ -84,6 +82,9 @@ services:
             - { name: doctrine.event_listener, event: postLoad }
     
     Bolt\Event\Listener\TranslatableListener:
+        arguments:
+            $translatableFetchMode: '%bolt.doctrine_behaviors_translatable_fetch_mode%'
+            $translationFetchMode: '%bolt.doctrine_behaviors_translation_fetch_mode%'
         tags:
             - { name: doctrine.event_listener, event: loadClassMetadata }
             - { name: doctrine.event_listener, event: postLoad }
