@@ -49,8 +49,13 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
     /** @var ContentExtension */
     private $contentExtension;
 
-    public function __construct(Config $config, FileLocations $fileLocations, TagAwareCacheInterface $cache, string $defaultLocale, ContentExtension $contentExtension)
-    {
+    public function __construct(
+        Config $config,
+        FileLocations $fileLocations,
+        TagAwareCacheInterface $cache,
+        string $defaultLocale,
+        ContentExtension $contentExtension
+    ) {
         $this->config = $config;
         $this->faker = Factory::create();
         $seed = $this->config->get('general/fixtures_seed');
@@ -180,8 +185,13 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
         }
     }
 
-    private function loadCollectionField(Content $content, Field $field, $fieldType, ContentType $contentType, array $preset): Field
-    {
+    private function loadCollectionField(
+        Content $content,
+        Field $field,
+        $fieldType,
+        ContentType $contentType,
+        array $preset
+    ): Field {
         $collectionItems = $field->getDefinition()->get('fields');
 
         $i = 0;
@@ -211,8 +221,14 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
         return $set;
     }
 
-    private function loadField(Content $content, string $name, $fieldType, ContentType $contentType, array $preset, bool $addToContent = true): Field
-    {
+    private function loadField(
+        Content $content,
+        string $name,
+        $fieldType,
+        ContentType $contentType,
+        array $preset,
+        bool $addToContent = true
+    ): Field {
         $sortorder = 1;
 
         $field = FieldRepository::factory($fieldType, $name);
@@ -242,7 +258,11 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
             $locales = $contentType['locales']->toArray();
             foreach ($locales as $locale) {
                 if ($locale !== $this->defaultLocale && array_search($locale, $locales, true) !== count($locales) - 1) {
-                    $value = $preset[$name] ?? $this->getValuesforFieldType($fieldType, $contentType['singleton'], $content);
+                    $value = $preset[$name] ?? $this->getValuesforFieldType(
+                        $fieldType,
+                        $contentType['singleton'],
+                        $content
+                    );
                     $field->translate($locale, false)->setValue($value);
                 }
             }

@@ -13,6 +13,8 @@ parameters:
     #        foo_manager: foo_
     bolt.backend_url: /bolt
     bolt.remember_lifetime: 2592000 # 30 days in seconds
+    bolt.doctrine_behaviors_translatable_fetch_mode: LAZY
+    bolt.doctrine_behaviors_translation_fetch_mode: LAZY
 
 services:
     # default configuration for services in *this* file
@@ -78,6 +80,15 @@ services:
     Bolt\Event\Listener\UserAvatarLoadListener:
         tags:
             - { name: doctrine.event_listener, event: postLoad }
+    
+    Bolt\Event\Listener\TranslatableListener:
+        arguments:
+            $translatableFetchMode: '%bolt.doctrine_behaviors_translatable_fetch_mode%'
+            $translationFetchMode: '%bolt.doctrine_behaviors_translation_fetch_mode%'
+        tags:
+            - { name: doctrine.event_listener, event: loadClassMetadata }
+            - { name: doctrine.event_listener, event: postLoad }
+            - { name: doctrine.event_listener, event: prePersist }
 
     Bolt\Extension\RoutesLoader:
         tags: [routing.loader]
