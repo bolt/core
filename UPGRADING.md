@@ -24,3 +24,9 @@ The following classes have replaced:
 | Knp\DoctrineBehaviors\Exception\TranslatableException                | Bolt\Exception\TranslatableException                 |
 | Knp\DoctrineBehaviors\Provider\LocaleProvider                        | Bolt\Locale\LocaleProvider                           |
 | Knp\DoctrineBehaviors\Contract\Provider\LocaleProviderInterface      | Bolt\Locale\LocaleProviderInterface                  |
+
+Check if this line has been removed from your `config/bundles.php` file:
+
+```php
+Knp\DoctrineBehaviors\DoctrineBehaviorsBundle::class => ['all' => true],
+```
