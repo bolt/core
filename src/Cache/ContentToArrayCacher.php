@@ -16,6 +16,7 @@ class ContentToArrayCacher extends JsonExtension implements CachingInterface
         $this->setCacheKey([$content->getCacheKey($locale)]);
         $this->setCacheTags([$content->getCacheKey()]);
 
+        /** @phpstan-ignore argument.type */
         return $this->execute([parent::class, __FUNCTION__], [$content, $locale]);
     }
 }

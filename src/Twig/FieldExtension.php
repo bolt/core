@@ -111,6 +111,7 @@ class FieldExtension extends AbstractExtension
             $definition = new Collection(['type' => 'generic']);
         }
 
+        /** @var Collection $definition */
         return FieldRepository::factory($definition, $name);
     }
 

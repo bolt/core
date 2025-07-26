@@ -230,7 +230,7 @@ class Canonical
                 $params,
                 $canonical ? UrlGeneratorInterface::ABSOLUTE_URL : UrlGeneratorInterface::ABSOLUTE_PATH
             );
-        } catch (InvalidParameterException | MissingMandatoryParametersException | RouteNotFoundException | \TypeError $e) {
+        } catch (InvalidParameterException | MissingMandatoryParametersException | RouteNotFoundException $e) {
             // Just use the current URL /shrug
             return $canonical ? $this->getRequest()->getUri() : $this->getRequest()->getPathInfo();
         }

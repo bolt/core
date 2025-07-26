@@ -13,8 +13,6 @@ use Cocur\Slugify\Slugify;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sirius\Upload\Handler;
-use Sirius\Upload\Result\Collection;
-use Sirius\Upload\Result\ResultInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Path;
@@ -201,7 +199,6 @@ class UploadController extends AbstractController implements AsyncZoneInterface
         $this->cache->invalidateTags(['fileslisting']);
 
         try {
-            /** @var UploadedFile|File|ResultInterface|Collection $result */
             $result = $uploadHandler->process($request->files->all());
         } catch (Throwable $e) {
             return new JsonResponse([

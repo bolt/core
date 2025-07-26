@@ -8,6 +8,7 @@ use Bolt\Widget\Exception\WidgetException;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 
+/** @phpstan-ignore trait.unused (Used by widgets) */
 trait CacheTrait
 {
     /** @var CacheInterface */

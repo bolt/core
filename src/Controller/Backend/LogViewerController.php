@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Bolt\Controller\Backend;
 
 use Bolt\Controller\TwigAwareController;
-use Bolt\Entity\Log;
 use Bolt\Repository\LogRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,7 +23,6 @@ class LogViewerController extends TwigAwareController implements BackendZoneInte
         $amount = $this->config->get('general/log/amount', 10);
         $page = (int) $this->getFromRequest('page', '1');
 
-        /** @var Log $items */
         $items = $log->findLatest($page, $amount);
 
         return $this->render('@bolt/pages/logviewer.html.twig', [
