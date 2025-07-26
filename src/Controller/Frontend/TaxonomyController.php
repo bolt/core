@@ -6,7 +6,6 @@ namespace Bolt\Controller\Frontend;
 
 use Bolt\Configuration\Content\TaxonomyType;
 use Bolt\Controller\TwigAwareController;
-use Bolt\Entity\Content;
 use Bolt\Repository\ContentRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -38,7 +37,6 @@ class TaxonomyController extends TwigAwareController implements FrontendZoneInte
             $amountPerPage = $taxonomy->get('listing_records');
         }
 
-        /** @var Content[] $records */
         $records = $contentRepository->findForTaxonomy($page, $taxonomy, $slug, $amountPerPage);
 
         $this->canonical->setPath(

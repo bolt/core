@@ -20,7 +20,7 @@ class FlagMaster
      */
     public static function emojiFlag(string $code): string
     {
-        if (! is_string($code) || mb_strlen($code) < 2) {
+        if (mb_strlen($code) < 2) {
             throw new Exception('Argument code must be non-empty string');
         }
         $code = mb_strtolower($code);

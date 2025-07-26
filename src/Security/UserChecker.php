@@ -7,7 +7,6 @@ namespace Bolt\Security;
 use Bolt\Entity\User;
 use Bolt\Enum\UserStatus;
 use Bolt\Exception\DisabledUserLoginAttemptException;
-use Symfony\Component\Security\Core\Exception\AccountStatusException;
 use Symfony\Component\Security\Core\User\UserCheckerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -24,11 +23,6 @@ class UserChecker implements UserCheckerInterface
         }
     }
 
-    /**
-     * Checks the user account before authentication.
-     *
-     * @throws AccountStatusException
-     */
     public function checkPreAuth(UserInterface $user): void
     {
     }
