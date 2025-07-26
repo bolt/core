@@ -27,7 +27,6 @@ trait ContentExtrasTrait
      */
     public function getExtras(): array
     {
-        /** @var Content $content */
         $content = $this;
 
         return array_filter([

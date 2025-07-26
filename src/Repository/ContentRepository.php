@@ -38,6 +38,9 @@ class ContentRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('content');
     }
 
+    /**
+     * @return Pagerfanta<Content>
+     */
     public function findForTaxonomy(int $page, Collection $taxonomy, string $slug, int $amountPerPage, bool $onlyPublished = true): Pagerfanta
     {
         $qb = $this->getQueryBuilder()
@@ -65,6 +68,9 @@ class ContentRepository extends ServiceEntityRepository
         return $this->createPaginator($qb->getQuery(), $page, $amountPerPage);
     }
 
+    /**
+     * @return Pagerfanta<Content>
+     */
     public function findLatest(Collection $contentTypes, int $page = 1, int $amount = 6): Pagerfanta
     {
         $qb = $this->findLatestQb($contentTypes, $amount);
@@ -96,6 +102,9 @@ class ContentRepository extends ServiceEntityRepository
         return $qb;
     }
 
+    /**
+     * @return Pagerfanta<Content>
+     */
     public function searchNaive(string $searchTerm, int $page, int $amountPerPage, Collection $contentTypes, bool $onlyPublished = true): Pagerfanta
     {
         // todo: Optimise this, we probably don't need two separate queries.

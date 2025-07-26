@@ -14,6 +14,7 @@ class CanonicalCacher extends Canonical implements CachingInterface
     {
         $this->setCacheKey([$route, $canonical] + $params);
 
+        /** @phpstan-ignore argument.type */
         return $this->execute([parent::class, __FUNCTION__], [$route, $params, $canonical]);
     }
 }

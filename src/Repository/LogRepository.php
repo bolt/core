@@ -30,6 +30,9 @@ class LogRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('log');
     }
 
+    /**
+     * @return Pagerfanta<Log>
+     */
     public function findLatest(int $page = 1, int $amount = 6): Pagerfanta
     {
         $qb = $this->getQueryBuilder()
@@ -39,6 +42,9 @@ class LogRepository extends ServiceEntityRepository
         return $this->createPaginator($qb->getQuery(), $page, $amount);
     }
 
+    /**
+     * @return Pagerfanta<Log>
+     */
     private function createPaginator(Query $query, int $page, int $amountPerPage): Pagerfanta
     {
         $paginator = new Pagerfanta(new QueryAdapter($query, true, true));

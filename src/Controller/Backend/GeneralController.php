@@ -6,7 +6,6 @@ namespace Bolt\Controller\Backend;
 
 use Bolt\Configuration\Config;
 use Bolt\Controller\TwigAwareController;
-use Bolt\Entity\Content;
 use Bolt\Repository\ContentRepository;
 use Bolt\Version;
 use Symfony\Component\HttpFoundation\Response;
@@ -51,7 +50,6 @@ class GeneralController extends TwigAwareController implements BackendZoneInterf
 
         $contentTypes = $config->get('contenttypes');
 
-        /** @var Content $records */
         $records = $content->findLatest($contentTypes, 1, 4);
 
         $this->addFlash('success', '<strong>Well done!</strong> You successfully read this important alert message.');

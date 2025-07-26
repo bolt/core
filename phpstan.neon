@@ -4,6 +4,9 @@ parameters:
     paths:
         - src
 
+    treatPhpDocTypesAsCertain: false
+    reportUnmatchedIgnoredErrors: true
+
     scanDirectories:
         # In order to 'recognize' Twig and Carbon functions in global scope
         - %currentWorkingDirectory%/vendor/twig/twig/src/Extension
