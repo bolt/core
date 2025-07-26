@@ -6,6 +6,7 @@ namespace Bolt\Repository;
 
 use Bolt\Doctrine\JsonHelper;
 use Bolt\Entity\Field;
+use Bolt\Entity\FieldInterface;
 use Bolt\Entity\FieldParentInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -128,20 +129,20 @@ class FieldRepository extends ServiceEntityRepository
         // The classname we want
         $classname = ucwords($type) . 'Field';
 
-        $classes = array_map(function (ClassMetadata $entity) {
-            return $entity->getName();
-        }, self::$em->getMetadataFactory()->getAllMetadata());
+        $classes = array_map(
+            fn (ClassMetadata $entity) => $entity->getName(),
+            self::$em->getMetadataFactory()->getAllMetadata()
+        );
 
         // Classnames of all fields (classes that implement Bolt\Entity\FieldInterface)
-        $allFields = collect($classes)
-            ->filter(function ($class) {
-                return in_array('Bolt\\Entity\\FieldInterface', class_implements($class), true);
-            });
+        $allFields = collect($classes)->filter(
+            fn (string $class) => in_array(FieldInterface::class, class_implements($class), true)
+        );
 
         // Classnames that end with $classname
-        $match = $allFields->filter(function ($class) use ($classname) {
-            return substr_compare($class, $classname, mb_strlen($class) - mb_strlen($classname), mb_strlen($classname)) === 0;
-        });
+        $match = $allFields->filter(
+            fn (string $class) => substr_compare($class, $classname, mb_strlen($class) - mb_strlen($classname), mb_strlen($classname)) === 0
+        );
 
         return $match->isNotEmpty() ? $match->first() : null;
     }

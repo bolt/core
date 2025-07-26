@@ -18,19 +18,13 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 class ContentValidator implements ContentValidatorInterface
 {
-    /** @var ValidatorInterface */
-    private $validator;
-
-    /** @var Config */
-    private $config;
-
     /** @var ContentTypeConstraintLoader */
     private $loader;
 
-    public function __construct(ValidatorInterface $validator, Config $config)
-    {
-        $this->validator = $validator;
-        $this->config = $config;
+    public function __construct(
+        private readonly ValidatorInterface $validator,
+        private readonly Config $config
+    ) {
         $this->loader = new ContentTypeConstraintLoader();
     }
 

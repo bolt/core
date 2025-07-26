@@ -14,12 +14,9 @@ use Twig\Markup;
 
 class FieldFillListener
 {
-    /** @var Sanitiser */
-    private $sanitiser;
-
-    public function __construct(Sanitiser $sanitiser)
-    {
-        $this->sanitiser = $sanitiser;
+    public function __construct(
+        private readonly Sanitiser $sanitiser
+    ) {
     }
 
     public function preUpdate(LifecycleEventArgs $args): void

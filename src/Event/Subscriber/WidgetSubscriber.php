@@ -23,24 +23,12 @@ class WidgetSubscriber implements EventSubscriberInterface
 {
     public const PRIORITY = 100;
 
-    /** @var Widgets */
-    private $widgets;
-
-    /** @var Canonical */
-    private $canonical;
-
-    /** @var Config */
-    private $config;
-
-    /** @var Environment */
-    private $twig;
-
-    public function __construct(Widgets $widgets, Canonical $canonical, Config $config, Environment $twig)
-    {
-        $this->widgets = $widgets;
-        $this->canonical = $canonical;
-        $this->config = $config;
-        $this->twig = $twig;
+    public function __construct(
+        private readonly Widgets $widgets,
+        private readonly Canonical $canonical,
+        private readonly Config $config,
+        private readonly Environment $twig
+    ) {
     }
 
     /**

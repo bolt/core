@@ -15,13 +15,9 @@ class ExtensionsListCommand extends Command
     /** @var string */
     protected static $defaultName = 'extensions:list';
 
-    /** @var ExtensionRegistry */
-    private $extensionRegistry;
-
-    public function __construct(ExtensionRegistry $extensionRegistry)
-    {
-        $this->extensionRegistry = $extensionRegistry;
-
+    public function __construct(
+        private readonly ExtensionRegistry $extensionRegistry
+    ) {
         parent::__construct();
     }
 

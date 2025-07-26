@@ -23,15 +23,13 @@ class FrontendQueryScope implements QueryScopeInterface
     /** @var array */
     protected $orderBys = [];
 
-    /** @var DirectiveHandler */
-    private $directiveHandler;
-
-    public function __construct(Config $config, DirectiveHandler $directiveHandler)
-    {
+    public function __construct(
+        Config $config,
+        private readonly DirectiveHandler $directiveHandler
+    ) {
         $this->config = $config;
 
         $this->parseContentTypes();
-        $this->directiveHandler = $directiveHandler;
     }
 
     /**
@@ -41,11 +39,7 @@ class FrontendQueryScope implements QueryScopeInterface
     {
         $contentType = $query->getContentType();
 
-        if (isset($this->orderBys[$contentType])) {
-            return $this->orderBys[$contentType];
-        }
-
-        return 'id';
+        return $this->orderBys[$contentType] ?? 'id';
     }
 
     /**

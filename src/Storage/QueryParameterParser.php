@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Storage;
 
 use Doctrine\ORM\Query\Expr;
+use Exception;
 
 /**
  *  Handler class to convert the DSL for content query parameters
@@ -65,15 +66,11 @@ class QueryParameterParser
             'operator' => 'neq',
         ]);
         $this->addValueMatcher('!\s?\[([\p{L}\p{N} ,]+)\]', [
-            'value' => function ($val) {
-                return explode(',', $val);
-            },
+            'value' => fn ($val) => explode(',', (string) $val),
             'operator' => 'notIn',
         ]);
         $this->addValueMatcher('\[([\p{L}\p{N} ,]+)\]', [
-            'value' => function ($val) {
-                return explode(',', $val);
-            },
+            'value' => fn ($val) => explode(',', (string) $val),
             'operator' => 'in',
         ]);
         $this->addValueMatcher("(%{$word}|{$word}%|%{$word}%)", [
@@ -90,12 +87,12 @@ class QueryParameterParser
         ]);
         // @codingStandardsIgnoreEnd
 
-        $this->addFilterHandler([$this, 'defaultFilterHandler']);
-        $this->addFilterHandler([$this, 'booleanValueHandler']);
-        $this->addFilterHandler([$this, 'numericValueHandler']);
-        $this->addFilterHandler([$this, 'multipleValueHandler']);
-        $this->addFilterHandler([$this, 'multipleKeyAndValueHandler']);
-        $this->addFilterHandler([$this, 'incorrectQueryHandler']);
+        $this->addFilterHandler($this->defaultFilterHandler(...));
+        $this->addFilterHandler($this->booleanValueHandler(...));
+        $this->addFilterHandler($this->numericValueHandler(...));
+        $this->addFilterHandler($this->multipleValueHandler(...));
+        $this->addFilterHandler($this->multipleKeyAndValueHandler(...));
+        $this->addFilterHandler($this->incorrectQueryHandler(...));
     }
 
     /**
@@ -112,7 +109,7 @@ class QueryParameterParser
     public function getFilter(string $key, $value = null): ?Filter
     {
         if (! $this->expr instanceof Expr) {
-            throw new \Exception('Cannot call method without an Expression Builder parameter set', 1);
+            throw new Exception('Cannot call method without an Expression Builder parameter set', 1);
         }
 
         /** @var callable $callback */
@@ -136,7 +133,7 @@ class QueryParameterParser
         }
 
         if (mb_strpos($value, '&&') && mb_strpos($value, '||')) {
-            throw new \Exception('Mixed && and || operators are not supported', 1);
+            throw new Exception('Mixed && and || operators are not supported', 1);
         }
     }
 
@@ -348,7 +345,7 @@ class QueryParameterParser
                     preg_match($regex, $value, $output);
                     $values['value'] = $values['value']($output[1]);
                 } else {
-                    $values['value'] = preg_replace($regex, $values['value'], $value);
+                    $values['value'] = preg_replace($regex, (string) $values['value'], $value);
                 }
                 $values['matched'] = $matcher['token'];
 
@@ -356,7 +353,7 @@ class QueryParameterParser
             }
         }
 
-        throw new \Exception(sprintf('No matching value found for "%s"', $value));
+        throw new Exception(sprintf('No matching value found for "%s"', $value));
     }
 
     /**

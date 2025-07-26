@@ -16,6 +16,7 @@ use Doctrine\ORM\Query\Expr\Orx;
 use Doctrine\ORM\Query\Expr\Select;
 use Doctrine\ORM\Query\ParameterTypeInferer;
 use Doctrine\ORM\QueryBuilder;
+use Exception;
 
 /**
  *  This query class coordinates a select query build from Bolt's
@@ -95,29 +96,17 @@ class SelectQuery implements QueryInterface
     /** @var array */
     private $fieldJoins = [];
 
-    /** @var Config */
-    private $config;
-
-    /** @var FieldQueryUtils */
-    private $utils;
-
-    /** @var EntityManagerInterface */
-    private $em;
-
     public function __construct(
         QueryParameterParser $parser,
-        Config $config,
-        EntityManagerInterface $em,
-        FieldQueryUtils $utils,
+        private readonly Config $config,
+        private readonly EntityManagerInterface $em,
+        private readonly FieldQueryUtils $utils,
         ?QueryBuilder $qb = null
     ) {
         $this->qb = $qb;
         $this->parser = $parser;
-        $this->config = $config;
 
         $this->setTaxonomyFields();
-        $this->utils = $utils;
-        $this->em = $em;
     }
 
     /**
@@ -191,9 +180,7 @@ class SelectQuery implements QueryInterface
         // Filter out empty parameters, ignoring it if 'like' statement is empty
         $this->params = array_filter(
             $params,
-            function ($a) {
-                return $a !== '%%';
-            }
+            fn ($a) => $a !== '%%'
         );
 
         $this->processFilters();
@@ -296,9 +283,7 @@ class SelectQuery implements QueryInterface
 
     public function getFilter(string $key): ?Filter
     {
-        return array_filter($this->filters, function (Filter $filter) use ($key) {
-            return $filter->getKey() === $key;
-        })[0] ?? null;
+        return array_filter($this->filters, fn (Filter $filter) => $filter->getKey() === $key)[0] ?? null;
     }
 
     /**
@@ -326,8 +311,8 @@ class SelectQuery implements QueryInterface
         foreach ($this->getWhereParameters() as $key => $param) {
             $fieldName = preg_replace('/(_[0-9]+)$/', '', $key);
             // Use strtotime on 'date' fields to allow selections like "today", "in 3 weeks" or "this year"
-            if (in_array($fieldName, $dateFields, true) && (strtotime($param) !== false)) {
-                $param = date('Y-m-d H:i', strtotime($param));
+            if (in_array($fieldName, $dateFields, true) && (strtotime((string) $param) !== false)) {
+                $param = date('Y-m-d H:i', strtotime((string) $param));
             }
 
             if (in_array($fieldName, $this->regularFields, true) && ! in_array($fieldName, $numberFields, true)) {
@@ -389,7 +374,7 @@ class SelectQuery implements QueryInterface
      * the QueryParameterParser. This allows complicated expressions to
      * be turned into simple sql expressions.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     protected function processFilters(): void
     {

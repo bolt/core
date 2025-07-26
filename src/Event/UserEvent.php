@@ -14,16 +14,13 @@ class UserEvent
     public const ON_PRE_SAVE = 'bolt.users_post_save';
     public const ON_POST_SAVE = 'bolt.users_post_save';
 
-    /** @var User */
-    private $user;
-
     /** @var Collection */
     private $rolesOptions;
 
-    public function __construct(User $user, ?Collection $roleOptions = null)
-    {
-        $this->user = $user;
-
+    public function __construct(
+        private readonly User $user,
+        ?Collection $roleOptions = null
+    ) {
         if (! $roleOptions) {
             $this->rolesOptions = collect([]);
         } else {

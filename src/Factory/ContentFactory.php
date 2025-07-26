@@ -16,33 +16,13 @@ use Symfony\Component\Security\Core\Security;
 
 class ContentFactory
 {
-    /** @var ContentFillListener */
-    private $contentFillListener;
-
-    /** @var Security */
-    private $security;
-
-    /** @var Query */
-    private $query;
-
-    /** @var Config */
-    private $config;
-
-    /** @var EntityManagerInterface */
-    private $em;
-
     public function __construct(
-        ContentFillListener $contentFillListener,
-        Security $security,
-        Query $query,
-        Config $config,
-        EntityManagerInterface $em
+        private readonly ContentFillListener $contentFillListener,
+        private readonly Security $security,
+        private readonly Query $query,
+        private readonly Config $config,
+        private readonly EntityManagerInterface $em
     ) {
-        $this->contentFillListener = $contentFillListener;
-        $this->security = $security;
-        $this->query = $query;
-        $this->config = $config;
-        $this->em = $em;
     }
 
     public static function createStatic(ContentType $contentType): Content

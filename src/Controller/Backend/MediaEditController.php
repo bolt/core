@@ -25,29 +25,13 @@ class MediaEditController extends TwigAwareController implements BackendZoneInte
 {
     use CsrfTrait;
 
-    /** @var EntityManagerInterface */
-    private $em;
-
-    /** @var UrlGeneratorInterface */
-    private $urlGenerator;
-
-    /** @var FileLocations */
-    private $fileLocations;
-
-    /** @var MediaFactory */
-    private $mediaFactory;
-
     public function __construct(
-        EntityManagerInterface $em,
-        UrlGeneratorInterface $urlGenerator,
-        FileLocations $fileLocations,
-        MediaFactory $mediaFactory
+        private EntityManagerInterface $em,
+        private UrlGeneratorInterface $urlGenerator,
+        private FileLocations $fileLocations,
+        private MediaFactory $mediaFactory
     ) {
-        $this->em = $em;
-        $this->urlGenerator = $urlGenerator;
-        $this->fileLocations = $fileLocations;
-        $this->mediaFactory = $mediaFactory;
-        $this->urlGenerator = $urlGenerator;
+        $this->urlGenerator = $this->urlGenerator;
     }
 
     /**

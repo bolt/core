@@ -7,8 +7,11 @@ namespace Bolt\Entity;
 use Bolt\Common\Json;
 use Bolt\Enum\UserStatus;
 use Cocur\Slugify\Slugify;
+use DateTimeInterface;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Serializable;
+use Stringable;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -20,7 +23,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @UniqueEntity("email", message="user.duplicate_email", groups={"add_user", "edit_user", "edit_user_without_pw"})
  * @UniqueEntity("username", message="user.duplicate_username", groups={"add_user", "edit_user", "edit_user_without_pw"})
  */
-class User implements UserInterface, \Serializable, PasswordAuthenticatedUserInterface
+class User implements UserInterface, Serializable, PasswordAuthenticatedUserInterface, Stringable
 {
     /**
      * @var int
@@ -147,7 +150,7 @@ class User implements UserInterface, \Serializable, PasswordAuthenticatedUserInt
         return $this->displayName;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->getdisplayName();
     }
@@ -277,12 +280,12 @@ class User implements UserInterface, \Serializable, PasswordAuthenticatedUserInt
         [$this->id, $this->username, $this->password] = $data;
     }
 
-    public function getLastseenAt(): ?\DateTimeInterface
+    public function getLastseenAt(): ?DateTimeInterface
     {
         return $this->lastseenAt;
     }
 
-    public function setLastseenAt(\DateTimeInterface $lastseenAt): self
+    public function setLastseenAt(DateTimeInterface $lastseenAt): self
     {
         $this->lastseenAt = $lastseenAt;
 

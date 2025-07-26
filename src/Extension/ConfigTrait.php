@@ -6,6 +6,7 @@ namespace Bolt\Extension;
 
 use Cocur\Slugify\Slugify;
 use Illuminate\Support\Collection;
+use ReflectionClass;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Yaml\Parser;
 
@@ -72,7 +73,7 @@ trait ConfigTrait
 
         foreach ($this->getConfigFilenames() as $filename) {
             if (is_readable($filename)) {
-                $result[] = basename(dirname($filename)) . DIRECTORY_SEPARATOR . basename($filename);
+                $result[] = basename(dirname((string) $filename)) . DIRECTORY_SEPARATOR . basename((string) $filename);
             }
         }
 
@@ -81,11 +82,11 @@ trait ConfigTrait
 
     private function getDefaultConfigFilename(): string
     {
-        $reflection = new \ReflectionClass($this);
+        $reflection = new ReflectionClass($this);
 
         return sprintf(
             '%s%s%s%s%s',
-            dirname(dirname($reflection->getFilename())),
+            dirname($reflection->getFilename(), 2),
             DIRECTORY_SEPARATOR,
             'config',
             DIRECTORY_SEPARATOR,

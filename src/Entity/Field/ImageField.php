@@ -53,7 +53,7 @@ class ImageField extends Field implements FieldInterface, MediaAwareInterface, C
             $extra = $fieldTypeDefinition->get('extra');
             foreach ($extra as $extraField => $extraFieldProperty) {
                 if (! $extraFieldProperty->has('label')) {
-                    $extraFieldProperty['label'] = \ucwords($extraField);
+                    $extraFieldProperty['label'] = \ucwords((string) $extraField);
                 }
             }
         }
@@ -91,7 +91,7 @@ class ImageField extends Field implements FieldInterface, MediaAwareInterface, C
                 isset($fieldDefinition['thumbnails']['size']) ? $fieldDefinition['thumbnails']['size'][1] : 400,
                 null,
                 null,
-                isset($fieldDefinition['thumbnails']['cropping']) ? $fieldDefinition['thumbnails']['cropping'] : null
+                $fieldDefinition['thumbnails']['cropping'] ?? null
             )
             : $thumbnailHelper->path($this->get('filename'), 400, 400);
 

@@ -8,6 +8,7 @@ use Bolt\Configuration\Config;
 use Bolt\Controller\Frontend\DetailControllerInterface;
 use Bolt\Controller\Frontend\TemplateController;
 use Bolt\Widget\Injector\RequestZone;
+use LogicException;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\ErrorHandler\ErrorRenderer\ErrorRendererInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -20,60 +21,35 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Security;
+use Throwable;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 
 class ErrorController extends SymfonyErrorController implements ErrorZoneInterface
 {
-    /** @var Config */
-    private $config;
-
-    /** @var TemplateController */
-    private $templateController;
-
-    /** @var DetailControllerInterface */
-    private $detailController;
-
     /** @var Request */
     private $request;
 
-    /** @var UrlGeneratorInterface */
-    private $urlGenerator;
-
-    /** @var ParameterBagInterface */
-    private $parameterBag;
-
-    /** @var Security */
-    private $security;
-
     public function __construct(
         HttpKernelInterface $httpKernel,
-        Config $config,
-        DetailControllerInterface $detailController,
-        TemplateController $templateController,
+        private readonly Config $config,
+        private readonly DetailControllerInterface $detailController,
+        private readonly TemplateController $templateController,
         ErrorRendererInterface $errorRenderer,
-        ParameterBagInterface $parameterBag,
+        private readonly ParameterBagInterface $parameterBag,
         RequestStack $requestStack,
-        UrlGeneratorInterface $urlGenerator,
-        Security $security
+        private readonly UrlGeneratorInterface $urlGenerator,
+        private readonly Security $security
     ) {
-        $this->config = $config;
-        $this->templateController = $templateController;
-
-        parent::__construct($httpKernel, $templateController, $errorRenderer);
-
-        $this->detailController = $detailController;
+        parent::__construct($httpKernel, $this->templateController, $errorRenderer);
         $this->request = $requestStack->getParentRequest();
-        $this->urlGenerator = $urlGenerator;
-        $this->parameterBag = $parameterBag;
-        $this->security = $security;
     }
 
     /**
      * Show an exception. Mainly used for custom 404 pages, otherwise falls back
      * to Symfony's error handling
      */
-    public function showAction(Environment $twig, \Throwable $exception): Response
+    public function showAction(Environment $twig, Throwable $exception): Response
     {
         if (method_exists($exception, 'getStatusCode')) {
             $code = $exception->getStatusCode();
@@ -83,7 +59,7 @@ class ErrorController extends SymfonyErrorController implements ErrorZoneInterfa
 
         try {
             $twig->addGlobal('exception', $exception);
-        } catch (\LogicException $e) {
+        } catch (LogicException) {
             // Fine! We'll just _not_ add the exception to the global scope!
         }
 
@@ -191,7 +167,7 @@ class ErrorController extends SymfonyErrorController implements ErrorZoneInterfa
             // trigger a 404 within a 404 now, would we?
             try {
                 return $this->detailController->record($slug, $contentType, false, null);
-            } catch (NotFoundHttpException $e) {
+            } catch (NotFoundHttpException) {
                 // Just continue to the next one.
             }
         }
@@ -199,7 +175,7 @@ class ErrorController extends SymfonyErrorController implements ErrorZoneInterfa
         // Then, let's see if it's a template we can render.
         try {
             return $this->templateController->template($item);
-        } catch (LoaderError $e) {
+        } catch (LoaderError) {
             // Just continue to the next one.
         }
 

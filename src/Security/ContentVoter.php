@@ -7,6 +7,7 @@ namespace Bolt\Security;
 use Bolt\Configuration\Config;
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Entity\Content;
+use DomainException;
 use Illuminate\Support\Collection;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
@@ -40,9 +41,6 @@ class ContentVoter extends Voter
     // this permission is not to be specified in the config, it is only used internally
     public const CONTENT_MENU_LISTING = 'menu_listing';
 
-    /** @var Security */
-    private $security;
-
     /** @var Collection|null */
     private $contenttypeBasePermissions;
 
@@ -52,22 +50,22 @@ class ContentVoter extends Voter
     /** @var Collection|null */
     private $contenttypePermissions;
 
-    public function __construct(Security $security, Config $config)
-    {
-        $this->security = $security;
-
+    public function __construct(
+        private readonly Security $security,
+        Config $config
+    ) {
         $this->contenttypeBasePermissions = $config->get('permissions/contenttype-base', collect([]));
         $this->contenttypeDefaultPermissions = $config->get('permissions/contenttype-default', collect([]));
         $this->contenttypePermissions = $config->get('permissions/contenttypes', null);
 
         if (! ($this->contenttypeBasePermissions instanceof Collection)) {
-            throw new \DomainException('No suitable contenttype-base permissions config found');
+            throw new DomainException('No suitable contenttype-base permissions config found');
         }
         if (! ($this->contenttypeDefaultPermissions instanceof Collection)) {
-            throw new \DomainException('No suitable contenttype-default permissions config found');
+            throw new DomainException('No suitable contenttype-default permissions config found');
         }
         if (! ($this->contenttypePermissions === null || $this->contenttypePermissions instanceof Collection)) {
-            throw new \DomainException('No suitable contenttypes permissions config found');
+            throw new DomainException('No suitable contenttypes permissions config found');
         }
     }
 

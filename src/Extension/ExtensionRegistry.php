@@ -7,6 +7,7 @@ namespace Bolt\Extension;
 use Bolt\Event\Subscriber\ExtensionSubscriber;
 use Composer\Package\PackageInterface;
 use ComposerPackages\Types;
+use Exception;
 
 class ExtensionRegistry
 {
@@ -38,13 +39,13 @@ class ExtensionRegistry
             if (! array_key_exists('entrypoint', $extra)) {
                 $message = sprintf("The extension \"%s\" has no 'extra/entrypoint' defined in its 'composer.json' file.", $package->getName());
 
-                throw new \Exception($message);
+                throw new Exception($message);
             }
 
             if (! class_exists($extra['entrypoint'])) {
                 $message = sprintf("The extension \"%s\" has its 'extra/entrypoint' set to \"%s\", but that class does not exist", $package->getName(), $extra['entrypoint']);
 
-                throw new \Exception($message);
+                throw new Exception($message);
             }
 
             $this->extensionClasses[] = $extra['entrypoint'];

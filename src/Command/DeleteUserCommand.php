@@ -41,22 +41,12 @@ class DeleteUserCommand extends Command
     /** @var SymfonyStyle */
     private $io;
 
-    /** @var EntityManagerInterface */
-    private $entityManager;
-
-    /** @var ValidatorInterface */
-    private $validator;
-
-    /** @var UserRepository */
-    private $users;
-
-    public function __construct(EntityManagerInterface $em, ValidatorInterface $validator, UserRepository $users)
-    {
+    public function __construct(
+        private readonly EntityManagerInterface $entityManager,
+        private readonly ValidatorInterface $validator,
+        private readonly UserRepository $users
+    ) {
         parent::__construct();
-
-        $this->entityManager = $em;
-        $this->validator = $validator;
-        $this->users = $users;
     }
 
     /**

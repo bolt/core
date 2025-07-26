@@ -3,6 +3,7 @@
 namespace Bolt\Cache;
 
 use Bolt\Configuration\Config;
+use RuntimeException;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
@@ -54,6 +55,7 @@ trait CachingTrait
     public function setCacheTags(array $tags): void
     {
         foreach ($tags as $key => $tag) {
+            /** @var string $tag */
             $tags[$key] = preg_replace('/[^\pL\d,]+/u', '', $tag);
         }
 
@@ -104,12 +106,9 @@ trait CachingTrait
      */
     private function getTags(string $contentTypeSlug): array
     {
-        $tags = explode(',', $contentTypeSlug);
-
-        $tags = array_map(function ($t) {
-            return preg_replace('/[^\pL\d,]+/u', '', $t);
-        }, $tags);
-
-        return $tags;
+        return array_map(
+            fn ($t) => preg_replace('/[^\pL\d,]+/u', '', $t),
+            explode(',', $contentTypeSlug) ?: throw new RuntimeException('explode call failed')
+        );
     }
 }

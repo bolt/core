@@ -10,16 +10,10 @@ use Twig\Markup;
 
 class Notifications
 {
-    /** @var Environment */
-    private $environment;
-
-    /** @var Config */
-    private $config;
-
-    public function __construct(Environment $environment, Config $config)
-    {
-        $this->environment = $environment;
-        $this->config = $config;
+    public function __construct(
+        private readonly Environment $environment,
+        private readonly Config $config
+    ) {
     }
 
     public function success(string $subject, string $body)

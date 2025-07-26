@@ -29,13 +29,14 @@ class EmbedField extends Field implements FieldInterface
 
     private function getResponsive(): Markup
     {
+        /** @var string $html */
         $html = parent::getValue()['html'] ?? '';
 
         if (empty($html)) {
             return new Markup('', $this->encoding);
         }
 
-        $html = preg_replace("/width=(['\"])([0-9]+)(['\"])/i", '', $html);
+        $html = preg_replace("/width=(['\"])([0-9]+)(['\"])/i", '', $html) ?: '';
         $html = preg_replace("/height=(['\"])([0-9]+)(['\"])/i", '', $html);
 
         return new Markup('<div class="embed-responsive">' . $html . '</div>', $this->encoding);
@@ -43,6 +44,7 @@ class EmbedField extends Field implements FieldInterface
 
     private function getResponsiveInline(): Markup
     {
+        /** @var string $html */
         $html = parent::getValue()['html'] ?? '';
 
         if (empty($html)) {
@@ -54,7 +56,7 @@ class EmbedField extends Field implements FieldInterface
 
         $inline = 'style="left: 0; top: 0; height: 100%; width: 100%; position: absolute;"';
 
-        $html = preg_replace("/width=(['\"])([0-9]+)(['\"])/i", $inline, $html);
+        $html = preg_replace("/width=(['\"])([0-9]+)(['\"])/i", $inline, $html) ?: '';
         $html = preg_replace("/height=(['\"])([0-9]+)(['\"])/i", '', $html);
 
         return new Markup($wrapperOpening . $html . $wrapperClosing, $this->encoding);

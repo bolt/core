@@ -9,6 +9,7 @@ use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Stopwatch\Stopwatch;
+use Traversable;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigTest;
@@ -21,16 +22,10 @@ class JsonExtension extends AbstractExtension
     /** @var bool */
     private $includeDefinition = true;
 
-    /** @var NormalizerInterface */
-    private $normalizer;
-
-    /** @var Stopwatch */
-    private $stopwatch;
-
-    public function __construct(NormalizerInterface $normalizer, Stopwatch $stopwatch)
-    {
-        $this->normalizer = $normalizer;
-        $this->stopwatch = $stopwatch;
+    public function __construct(
+        private readonly NormalizerInterface $normalizer,
+        private readonly Stopwatch $stopwatch
+    ) {
     }
 
     /**
@@ -39,9 +34,9 @@ class JsonExtension extends AbstractExtension
     public function getFilters(): array
     {
         return [
-            new TwigFilter('normalize_records', [$this, 'normalizeRecords']),
-            new TwigFilter('json_records', [$this, 'jsonRecords']),
-            new TwigFilter('json_decode', [$this, 'jsonDecode']),
+            new TwigFilter('normalize_records', $this->normalizeRecords(...)),
+            new TwigFilter('json_records', $this->jsonRecords(...)),
+            new TwigFilter('json_decode', $this->jsonDecode(...)),
         ];
     }
 
@@ -51,7 +46,7 @@ class JsonExtension extends AbstractExtension
     public function getTests(): array
     {
         return [
-            new TwigTest('json', [$this, 'testJson']),
+            new TwigTest('json', $this->testJson(...)),
         ];
     }
 
@@ -69,7 +64,7 @@ class JsonExtension extends AbstractExtension
     }
 
     /**
-     * @param Content|array|\Traversable $records
+     * @param Content|array|Traversable $records
      */
     public function normalizeRecords($records, string $locale = ''): array
     {
@@ -83,9 +78,7 @@ class JsonExtension extends AbstractExtension
             $normalizedRecords = iterator_to_array($records);
         }
 
-        return array_map(function ($record) use ($locale) {
-            return $this->contentToArray($record, $locale);
-        }, $normalizedRecords);
+        return array_map(fn ($record) => $this->contentToArray($record, $locale), $normalizedRecords);
     }
 
     /**

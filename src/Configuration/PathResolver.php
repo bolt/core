@@ -51,7 +51,7 @@ class PathResolver
      */
     public function __construct(string $root, string $themeName = '', string $public = 'public')
     {
-        $paths = $this->defaultPaths($public);
+        $paths = static::defaultPaths($public);
 
         foreach ($paths as $name => $path) {
             $this->define($name, $path);
@@ -109,7 +109,7 @@ class PathResolver
             }
 
             // absolute if alias is at start of path
-            $absolute = mb_strpos($path, "%{$alias}%") === 0;
+            $absolute = mb_strpos((string) $path, "%{$alias}%") === 0;
 
             if (isset($this->resolving[$alias])) {
                 throw new ConfigurationException('Failed to resolve path. Infinite recursion detected.');

@@ -12,7 +12,7 @@ class DebugExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('backtrace', [$this, 'backtrace']),
+            new TwigFunction('backtrace', $this->backtrace(...)),
         ];
     }
 

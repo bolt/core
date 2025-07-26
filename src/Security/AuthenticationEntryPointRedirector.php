@@ -12,13 +12,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class AuthenticationEntryPointRedirector implements AuthenticationEntryPointInterface
 {
-    private $translator;
-    private $urlGenerator;
-
-    public function __construct(TranslatorInterface $translator, UrlGeneratorInterface $urlGenerator)
-    {
-        $this->translator = $translator;
-        $this->urlGenerator = $urlGenerator;
+    public function __construct(
+        private readonly TranslatorInterface $translator,
+        private readonly UrlGeneratorInterface $urlGenerator
+    ) {
     }
 
     public function start(Request $request, ?AuthenticationException $authException = null): RedirectResponse

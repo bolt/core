@@ -14,16 +14,10 @@ use Symfony\Component\Security\Core\Security;
 
 class MaintenanceModeSubscriber implements EventSubscriberInterface
 {
-    /** @var Config */
-    private $config;
-
-    /** @var Security */
-    private $security;
-
-    public function __construct(Config $config, Security $security)
-    {
-        $this->config = $config;
-        $this->security = $security;
+    public function __construct(
+        private readonly Config $config,
+        private readonly Security $security
+    ) {
     }
 
     public function onKernelController(ControllerEvent $event): void

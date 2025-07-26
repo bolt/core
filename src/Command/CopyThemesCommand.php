@@ -7,6 +7,8 @@ namespace Bolt\Command;
 use Bolt\Configuration\Config;
 use Bolt\Extension\ExtensionRegistry;
 use Bolt\Version;
+use Composer\Package\PackageInterface;
+use Illuminate\Support\Collection;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -14,36 +16,25 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
+use Throwable;
 
 class CopyThemesCommand extends Command
 {
     /** @var string */
     protected static $defaultName = 'bolt:copy-themes';
 
-    /** @var Filesystem */
-    private $filesystem;
-
     /** @var string */
     private $publicDirectory;
 
-    /** @var Config */
-    private $config;
-
-    /** @var ExtensionRegistry */
-    private $extensionRegistry;
-
-    /** @var string */
-    private $projectDir;
-
-    public function __construct(Filesystem $filesystem, string $publicFolder, string $projectDir, Config $config, ExtensionRegistry $extensionRegistry)
-    {
+    public function __construct(
+        private readonly Filesystem $filesystem,
+        string $publicFolder,
+        private readonly string $projectDir,
+        private readonly Config $config,
+        private readonly ExtensionRegistry $extensionRegistry
+    ) {
         parent::__construct();
-
-        $this->filesystem = $filesystem;
-        $this->projectDir = $projectDir;
-        $this->publicDirectory = $projectDir . '/' . $publicFolder;
-        $this->config = $config;
-        $this->extensionRegistry = $extensionRegistry;
+        $this->publicDirectory = $this->projectDir . '/' . $publicFolder;
     }
 
     protected function configure(): void
@@ -86,7 +77,7 @@ class CopyThemesCommand extends Command
                 $this->hardCopy($originDir, $targetDir);
 
                 $rows[] = [sprintf('<fg=green;options=bold>%s</>', "\xE2\x9C\x94"), $message, 'copied'];
-            } catch (\Throwable $e) {
+            } catch (Throwable $e) {
                 $exitCode = Command::FAILURE;
                 $rows[] = [sprintf('<fg=red;options=bold>%s</>', "\xE2\x9C\x98"), $message, $e->getMessage()];
             }
@@ -107,28 +98,30 @@ class CopyThemesCommand extends Command
 
     private function getThemes(InputInterface $input): array
     {
+        /** @var Collection<int, PackageInterface> $themes */
         $themes = collect($this->extensionRegistry->getThemes());
 
         // Is there a theme from the input?
         $theme = $input->hasArgument('theme') ? $input->getArgument('theme') : null;
 
         if ($theme) {
-            $themes = $themes->filter(function ($package) use ($theme) {
-                return mb_split('/', $package->getName())[1] === $theme;
-            });
+            $themes = $themes->filter(fn ($package) => mb_split('/', $package->getName())[1] === $theme);
         }
 
         return $themes->toArray();
     }
 
+    /**
+     * @return array<string, string>
+     */
     private function getBuiltinThemes(): array
     {
         // Determine if we can use ../themes or not.
-        if (! file_exists(dirname(dirname(dirname(__DIR__))) . '/themes')) {
+        if (! file_exists(dirname(__DIR__, 3) . '/themes')) {
             return [];
         }
 
-        $baseDir = dirname(dirname(dirname(__DIR__))) . '/themes';
+        $baseDir = dirname(__DIR__, 3) . '/themes';
         $publicDir = $this->getPublicDirectory();
 
         return [
@@ -155,6 +148,11 @@ class CopyThemesCommand extends Command
         return $this->publicDirectory;
     }
 
+    /**
+     * @param PackageInterface[] $themes
+     *
+     * @return array<string, string>
+     */
     private function getDirs(array $themes): array
     {
         $dirs = [];

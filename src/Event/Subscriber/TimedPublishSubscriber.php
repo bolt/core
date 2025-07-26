@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
+use Throwable;
 
 class TimedPublishSubscriber implements EventSubscriberInterface
 {
@@ -53,7 +54,7 @@ class TimedPublishSubscriber implements EventSubscriberInterface
         try {
             $conn->executeUpdate($queryPublish, [':now' => $now]);
             $conn->executeUpdate($queryDepublish, [':now' => $now]);
-        } catch (\Throwable $e) {
+        } catch (Throwable) {
             // Fail silently, output user-friendly exception elsewhere.
         }
     }

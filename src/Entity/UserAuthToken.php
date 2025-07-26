@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Entity;
 
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -56,12 +57,12 @@ class UserAuthToken
         return $this;
     }
 
-    public function getValidity(): ?\DateTimeInterface
+    public function getValidity(): ?DateTimeInterface
     {
         return $this->validity;
     }
 
-    public function setValidity(\DateTimeInterface $validity): self
+    public function setValidity(DateTimeInterface $validity): self
     {
         $this->validity = $validity;
 

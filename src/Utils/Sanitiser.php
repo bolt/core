@@ -7,6 +7,7 @@ namespace Bolt\Utils;
 use Bolt\Configuration\Config;
 use HTMLPurifier;
 use HTMLPurifier_HTML5Config;
+use HTMLPurifier_HTMLDefinition;
 
 class Sanitiser
 {
@@ -76,7 +77,7 @@ class Sanitiser
     /**
      * Handles the creation of non-supported HTML elements by HTMLPurifier out of the box
      */
-    private function createNonSupportedElements(\HTMLPurifier_HTMLDefinition $definition, array $allowedTags)
+    private function createNonSupportedElements(HTMLPurifier_HTMLDefinition $definition, array $allowedTags)
     {
         if (array_search('svg', $allowedTags)) {
             $definition->addElement('svg', 'Block', 'Flow', 'Common');

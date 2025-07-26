@@ -16,13 +16,19 @@ use Bolt\Enum\Statuses;
 use Bolt\Repository\FieldRepository;
 use Bolt\Twig\ContentExtension;
 use Bolt\Utils\Excerpt;
+use DateTime;
 use DateTimeZone;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Exception;
 use Illuminate\Support\Collection as LaravelCollection;
+use InvalidArgumentException;
+use RuntimeException;
+use Stringable;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
+use Twig\Template;
 
 /**
  * @ApiResource(
@@ -52,7 +58,7 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
  * })
  * @ORM\HasLifecycleCallbacks
  */
-class Content
+class Content implements Stringable
 {
     use ContentLocalizeTrait;
     use ContentExtrasTrait;
@@ -92,7 +98,7 @@ class Content
     private $status;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      *
      * @ORM\Column(type="datetime")
      * @Groups({"get_content","api_write"})
@@ -100,7 +106,7 @@ class Content
     private $createdAt;
 
     /**
-     * @var \DateTime|null
+     * @var DateTime|null
      *
      * @ORM\Column(type="datetime", nullable=true)
      * @Groups({"get_content","api_write"})
@@ -108,7 +114,7 @@ class Content
     private $modifiedAt = null;
 
     /**
-     * @var \DateTime|null
+     * @var DateTime|null
      *
      * @ORM\Column(type="datetime", nullable=true)
      * @Groups({"get_content","api_write"})
@@ -116,7 +122,7 @@ class Content
     private $publishedAt = null;
 
     /**
-     * @var \DateTime|null
+     * @var DateTime|null
      *
      * @ORM\Column(type="datetime", nullable=true)
      * @Groups({"get_content","api_write"})
@@ -175,7 +181,7 @@ class Content
 
     public function __construct(?ContentType $contentTypeDefinition = null)
     {
-        $this->createdAt = $this->convertToUTCFromLocal(new \DateTime());
+        $this->createdAt = $this->convertToUTCFromLocal(new DateTime());
         $this->status = Statuses::DRAFT;
         $this->taxonomies = new ArrayCollection();
         $this->fields = new ArrayCollection();
@@ -312,7 +318,7 @@ class Content
     public function getContentTypeSlug(): string
     {
         if ($this->getDefinition() === null) {
-            throw new \RuntimeException('Content not fully initialized');
+            throw new RuntimeException('Content not fully initialized');
         }
 
         return $this->getDefinition()->get('slug');
@@ -321,7 +327,7 @@ class Content
     public function getContentTypeSingularSlug(): string
     {
         if ($this->getDefinition() === null) {
-            throw new \RuntimeException('Content not fully initialized');
+            throw new RuntimeException('Content not fully initialized');
         }
 
         return $this->getDefinition()->get('singular_slug');
@@ -330,7 +336,7 @@ class Content
     public function getContentTypeName(): string
     {
         if ($this->getDefinition() === null) {
-            throw new \RuntimeException('Content not fully initialized');
+            throw new RuntimeException('Content not fully initialized');
         }
 
         return $this->getDefinition()->get('name') ?: $this->getContentTypeSlug();
@@ -339,7 +345,7 @@ class Content
     public function getContentTypeSingularName(): string
     {
         if ($this->getDefinition() === null) {
-            throw new \RuntimeException('Content not fully initialized');
+            throw new RuntimeException('Content not fully initialized');
         }
 
         return $this->getDefinition()->get('singular_name') ?: $this->getContentTypeSlug();
@@ -348,7 +354,7 @@ class Content
     public function hasContentTypeLocales(): bool
     {
         if ($this->getDefinition() === null) {
-            throw new \RuntimeException('Content not fully initialized');
+            throw new RuntimeException('Content not fully initialized');
         }
 
         return ! $this->getDefinition()->get('locales')->isEmpty();
@@ -357,11 +363,11 @@ class Content
     public function getContentTypeDefaultLocale(): string
     {
         if ($this->getDefinition() === null) {
-            throw new \RuntimeException('Content not fully initialized');
+            throw new RuntimeException('Content not fully initialized');
         }
 
         if (! $this->hasContentTypeLocales()) {
-            throw new \RuntimeException('Content does not have locales defined');
+            throw new RuntimeException('Content does not have locales defined');
         }
 
         return $this->getDefinition()->get('locales')->first();
@@ -370,7 +376,7 @@ class Content
     public function getContentTypeIcon(): ?string
     {
         if ($this->getDefinition() === null) {
-            throw new \RuntimeException('Content not fully initialized');
+            throw new RuntimeException('Content not fully initialized');
         }
 
         return $this->getDefinition()->get('icon_one') ?: $this->getDefinition()->get('icon_many');
@@ -402,30 +408,30 @@ class Content
         }
 
         if (! $this->getPublishedAt() && $status == Statuses::PUBLISHED) {
-            $this->setPublishedAt(new \DateTime());
+            $this->setPublishedAt(new DateTime());
         }
 
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTime
+    public function getCreatedAt(): ?DateTime
     {
         return $this->convertToLocalFromDatabase($this->createdAt);
     }
 
-    public function setCreatedAt(?\DateTime $createdAt): self
+    public function setCreatedAt(?DateTime $createdAt): self
     {
         $this->createdAt = $this->convertToUTCFromLocal($createdAt);
 
         return $this;
     }
 
-    public function getModifiedAt(): ?\DateTime
+    public function getModifiedAt(): ?DateTime
     {
         return $this->convertToLocalFromDatabase($this->modifiedAt);
     }
 
-    public function setModifiedAt(?\DateTime $modifiedAt): self
+    public function setModifiedAt(?DateTime $modifiedAt): self
     {
         $this->modifiedAt = $this->convertToUTCFromLocal($modifiedAt);
 
@@ -438,27 +444,27 @@ class Content
      */
     public function updateModifiedAt(): void
     {
-        $this->setModifiedAt(new \DateTime());
+        $this->setModifiedAt(new DateTime());
     }
 
-    public function getPublishedAt(): ?\DateTime
+    public function getPublishedAt(): ?DateTime
     {
         return $this->convertToLocalFromDatabase($this->publishedAt);
     }
 
-    public function setPublishedAt(?\DateTime $publishedAt): self
+    public function setPublishedAt(?DateTime $publishedAt): self
     {
         $this->publishedAt = $this->convertToUTCFromLocal($publishedAt);
 
         return $this;
     }
 
-    public function getDepublishedAt(): ?\DateTime
+    public function getDepublishedAt(): ?DateTime
     {
         return $this->convertToLocalFromDatabase($this->depublishedAt);
     }
 
-    public function setDepublishedAt(?\DateTime $depublishedAt): self
+    public function setDepublishedAt(?DateTime $depublishedAt): self
     {
         $this->depublishedAt = $this->convertToUTCFromLocal($depublishedAt);
 
@@ -546,7 +552,7 @@ class Content
     public function getField(string $fieldName): Field
     {
         if ($this->hasField($fieldName) === false) {
-            throw new \InvalidArgumentException(sprintf("Content does not have '%s' field", $fieldName));
+            throw new InvalidArgumentException(sprintf("Content does not have '%s' field", $fieldName));
         }
 
         return $this->standaloneFieldFilter($fieldName)->first();
@@ -581,7 +587,7 @@ class Content
     public function addField(Field $field): self
     {
         if (! $field->hasParent() && $this->hasField($field->getName())) {
-            throw new \InvalidArgumentException(sprintf("Content already has '%s' field", $field->getName()));
+            throw new InvalidArgumentException(sprintf("Content already has '%s' field", $field->getName()));
         }
 
         $this->fields[] = $field;
@@ -593,7 +599,7 @@ class Content
     public function addFieldByName(string $fieldName): void
     {
         if (! $this->hasFieldDefined($fieldName)) {
-            throw new \Exception(sprintf("Can't set Field '%s' of '%s'. Make sure the Field is defined in the %s ContentType.", $fieldName, $this->getDefinition()->get('slug'), $this->getDefinition()->get('name')));
+            throw new Exception(sprintf("Can't set Field '%s' of '%s'. Make sure the Field is defined in the %s ContentType.", $fieldName, $this->getDefinition()->get('slug'), $this->getDefinition()->get('name')));
         }
 
         $definition = $this->contentTypeDefinition->get('fields')->get($fieldName);
@@ -644,9 +650,7 @@ class Content
     {
         if ($type) {
             return $this->taxonomies->filter(
-                function (Taxonomy $taxonomy) use ($type) {
-                    return $taxonomy->getType() === $type;
-                }
+                fn (Taxonomy $taxonomy) => $taxonomy->getType() === $type
             );
         }
 
@@ -693,16 +697,16 @@ class Content
     {
         try {
             $field = $this->getField($name);
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             $backtrace = new LaravelCollection($e->getTrace());
 
-            if ($backtrace->contains('class', \Twig\Template::class)) {
+            if ($backtrace->contains('class', Template::class)) {
                 // Invoked from within a Template render, so be lenient.
                 return null;
             }
 
             // Invoked from code, throw Exception
-            throw new \RuntimeException(sprintf('Invalid field name or method call on %s: %s', $this->__toString(), $name));
+            throw new RuntimeException(sprintf('Invalid field name or method call on %s: %s', $this->__toString(), $name));
         }
 
         if (! $field instanceof SetField && ($field instanceof Excerptable || $field instanceof ScalarCastable)) {
@@ -718,13 +722,13 @@ class Content
      * timezone slapped onto it. This method converts it back to UTC, and
      * then re-applies the current local timezone to it.
      */
-    private function convertToLocalFromDatabase(?\DateTime $dateTime): ?\DateTime
+    private function convertToLocalFromDatabase(?DateTime $dateTime): ?DateTime
     {
         if (! $dateTime) {
             return null;
         }
 
-        $dateTimeUTC = new \DateTime($dateTime->format('Y-m-d H:i:s'), new DateTimeZone('UTC'));
+        $dateTimeUTC = new DateTime($dateTime->format('Y-m-d H:i:s'), new DateTimeZone('UTC'));
 
         return $dateTimeUTC->setTimezone($dateTime->getTimezone());
     }
@@ -734,15 +738,15 @@ class Content
      * Dates/timestamps must be stored in UTC in the database. This method converts
      * the local date to UTC.
      */
-    private function convertToUTCFromLocal(?\DateTime $dateTime): ?\DateTime
+    private function convertToUTCFromLocal(?DateTime $dateTime): ?DateTime
     {
-        if ($dateTime instanceof \DateTime && $dateTime->getTimezone()->getName() !== 'UTC') {
+        if ($dateTime instanceof DateTime && $dateTime->getTimezone()->getName() !== 'UTC') {
             $utc = new DateTimeZone('UTC');
             $dateTime->setTimezone($utc);
         }
 
         // Prevent dates before the year `0000`, because MySQL chokes on those
-        if ($dateTime instanceof \DateTime && (int) $dateTime->format('Y') < 1) {
+        if ($dateTime instanceof DateTime && (int) $dateTime->format('Y') < 1) {
             $dateTime = null;
         }
 
@@ -762,10 +766,8 @@ class Content
             : [];
         // If the definition is missing, we cannot filter out keys. ¯\_(ツ)_/¯
 
-        return $this->fields->filter(function (Field $field) use ($keys) {
-            return ! $field->hasParent() &&
-                (in_array($field->getName(), $keys, true) || empty($keys));
-        });
+        return $this->fields->filter(fn (Field $field) => ! $field->hasParent() &&
+            (in_array($field->getName(), $keys, true) || empty($keys)));
     }
 
     /**
@@ -773,9 +775,7 @@ class Content
      */
     private function standaloneFieldFilter(string $fieldName): Collection
     {
-        return $this->fields->filter(function (Field $field) use ($fieldName) {
-            return $field->getName() === $fieldName && ! $field->hasParent();
-        });
+        return $this->fields->filter(fn (Field $field) => $field->getName() === $fieldName && ! $field->hasParent());
     }
 
     public function toArray(): array

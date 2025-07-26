@@ -12,43 +12,20 @@ use Bolt\Repository\ContentRepository;
 use Bolt\Twig\ContentExtension;
 use Bolt\Twig\LocaleExtension;
 use Bolt\Utils\Html;
+use RuntimeException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Environment;
 
 final class FrontendMenuBuilder implements FrontendMenuBuilderInterface
 {
-    /** @var Config */
-    private $config;
-
-    /** @var UrlGeneratorInterface */
-    private $urlGenerator;
-
-    /** @var ContentRepository */
-    private $contentRepository;
-
-    /** @var ContentExtension */
-    private $contentExtension;
-
-    /** @var LocaleExtension */
-    private $localeExtension;
-
-    /** @var string */
-    private $defaultLocale;
-
     public function __construct(
-        Config $config,
-        UrlGeneratorInterface $urlGenerator,
-        ContentRepository $contentRepository,
-        ContentExtension $contentExtension,
-        LocaleExtension $localeExtension,
-        string $defaultLocale
+        private readonly Config $config,
+        private readonly UrlGeneratorInterface $urlGenerator,
+        private readonly ContentRepository $contentRepository,
+        private readonly ContentExtension $contentExtension,
+        private readonly LocaleExtension $localeExtension,
+        private readonly string $defaultLocale
     ) {
-        $this->config = $config;
-        $this->urlGenerator = $urlGenerator;
-        $this->contentRepository = $contentRepository;
-        $this->contentExtension = $contentExtension;
-        $this->localeExtension = $localeExtension;
-        $this->defaultLocale = $defaultLocale;
     }
 
     public function buildMenu(Environment $twig, ?string $name = null): array
@@ -61,12 +38,10 @@ final class FrontendMenuBuilder implements FrontendMenuBuilderInterface
         } elseif ($name !== '' && isset($menuConfig[$name])) {
             $menu = $menuConfig[$name]->toArray();
         } else {
-            throw new \RuntimeException("Tried to build non-existing menu: {$name}");
+            throw new RuntimeException("Tried to build non-existing menu: {$name}");
         }
 
-        return array_map(function ($item) use ($twig): array {
-            return $this->setUris($twig, $item);
-        }, $menu);
+        return array_map(fn ($item): array => $this->setUris($twig, $item), $menu);
     }
 
     private function setUris(Environment $twig, array $item): array
@@ -91,9 +66,7 @@ final class FrontendMenuBuilder implements FrontendMenuBuilderInterface
         }
 
         if (is_iterable($item['submenu'])) {
-            $item['submenu'] = array_map(function ($sub) use ($twig): array {
-                return $this->setUris($twig, $sub);
-            }, $item['submenu']);
+            $item['submenu'] = array_map(fn ($sub): array => $this->setUris($twig, $sub), $item['submenu']);
         }
 
         return $item;

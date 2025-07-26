@@ -8,6 +8,8 @@ use Bolt\Common\Str;
 use Bolt\Configuration\Config;
 use Bolt\Controller\CsrfTrait;
 use Bolt\Controller\TwigAwareController;
+use Bolt\Entity\Content;
+use Bolt\Entity\Media;
 use Bolt\Entity\User;
 use Bolt\Enum\UserStatus;
 use Bolt\Event\UserEvent;
@@ -29,18 +31,6 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
 {
     use CsrfTrait;
 
-    /** @var UrlGeneratorInterface */
-    private $urlGenerator;
-
-    /** @var EntityManagerInterface */
-    private $em;
-
-    /** @var UserPasswordHasherInterface */
-    private $passwordHasher;
-
-    /** @var EventDispatcherInterface */
-    private $dispatcher;
-
     /** @var string */
     protected $defaultLocale;
 
@@ -48,19 +38,15 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
     private $assignableRoles;
 
     public function __construct(
-        UrlGeneratorInterface $urlGenerator,
-        EntityManagerInterface $em,
-        UserPasswordHasherInterface $passwordHasher,
+        private UrlGeneratorInterface $urlGenerator,
+        private EntityManagerInterface $em,
+        private UserPasswordHasherInterface $passwordHasher,
         CsrfTokenManagerInterface $csrfTokenManager,
-        EventDispatcherInterface $dispatcher,
+        private EventDispatcherInterface $dispatcher,
         Config $config,
         string $defaultLocale
     ) {
-        $this->urlGenerator = $urlGenerator;
-        $this->em = $em;
-        $this->passwordHasher = $passwordHasher;
         $this->csrfTokenManager = $csrfTokenManager;
-        $this->dispatcher = $dispatcher;
         $this->defaultLocale = $defaultLocale;
         $this->assignableRoles = $config->get('permissions/assignable_roles')->all();
     }
@@ -95,10 +81,10 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
         if (! empty($submitted_data)) {
             // We need to transform to JSON.stringify value for the field "roles" into
             // an array so symfony forms validation works
-            $submitted_data['roles'] = json_decode($submitted_data['roles']);
+            $submitted_data['roles'] = json_decode((string) $submitted_data['roles']);
 
-            $submitted_data['locale'] = json_decode($submitted_data['locale'])[0];
-            $submitted_data['status'] = json_decode($submitted_data['status'])[0];
+            $submitted_data['locale'] = json_decode((string) $submitted_data['locale'])[0];
+            $submitted_data['status'] = json_decode((string) $submitted_data['status'])[0];
 
             // Transform media array to keep only filepath
             $submitted_data['avatar'] = $submitted_data['avatar']['filename'];
@@ -173,13 +159,13 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
         $this->validateCsrf('useredit');
 
         $this->em->remove($user);
-        $contentArray = $this->getDoctrine()->getManager()->getRepository(\Bolt\Entity\Content::class)->findBy(['author' => $user]);
+        $contentArray = $this->getDoctrine()->getManager()->getRepository(Content::class)->findBy(['author' => $user]);
         foreach ($contentArray as $content) {
             $content->setAuthor(null);
             $this->em->persist($content);
         }
 
-        $mediaArray = $this->getDoctrine()->getManager()->getRepository(\Bolt\Entity\Media::class)->findBy(['author' => $user]);
+        $mediaArray = $this->getDoctrine()->getManager()->getRepository(Media::class)->findBy(['author' => $user]);
         foreach ($mediaArray as $media) {
             $media->setAuthor(null);
             $this->em->persist($media);
@@ -267,18 +253,18 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
             // Since the username is disabled on edit form we need to set it here so Symfony Forms doesn't throw an error
             $submitted_data['username'] = $user->getUsername();
 
-            $submitted_data['locale'] = json_decode($submitted_data['locale'])[0];
+            $submitted_data['locale'] = json_decode((string) $submitted_data['locale'])[0];
 
             // Status is not available for profile edit on non admin users
             if (! empty($submitted_data['status'])) {
-                $submitted_data['status'] = json_decode($submitted_data['status'])[0];
+                $submitted_data['status'] = json_decode((string) $submitted_data['status'])[0];
             }
 
             // Roles is not available for profile edit on non admin users
             if (! empty($submitted_data['roles'])) {
                 // We need to transform to JSON.stringify value for the field "roles" into
                 // an array so symfony forms validation works
-                $submitted_data['roles'] = json_decode($submitted_data['roles']);
+                $submitted_data['roles'] = json_decode((string) $submitted_data['roles']);
             }
 
             // Transform media array to keep only filepath

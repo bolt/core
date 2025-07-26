@@ -21,12 +21,8 @@ class ContentType extends DeepCollection
         }
 
         $contentType = $contentTypesConfig
-            ->filter(function (Collection $contentTypeConfig) use ($name): bool {
-                return $contentTypeConfig['singular_slug'] === $name;
-            })
-            ->map(function (Collection $contentTypeConfig): self {
-                return new self($contentTypeConfig);
-            })
+            ->filter(fn (Collection $contentTypeConfig): bool => $contentTypeConfig['singular_slug'] === $name)
+            ->map(fn (Collection $contentTypeConfig): self => new self($contentTypeConfig))
             ->first();
 
         if ($contentType) {

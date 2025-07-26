@@ -12,6 +12,7 @@ use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Bolt\Entity\Field\CollectionField;
+use Bolt\Entity\Field\MediaAwareInterface;
 use Bolt\Entity\Field\SetField;
 use Bolt\Entity\FieldParentInterface;
 use Bolt\Entity\Relation;
@@ -31,6 +32,7 @@ use Bolt\Validator\ContentValidatorInterface;
 use Carbon\Carbon;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\ORMInvalidArgumentException;
+use Exception;
 use Illuminate\Support\Collection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -48,63 +50,23 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
 {
     use CsrfTrait;
 
-    /** @var TaxonomyRepository */
-    private $taxonomyRepository;
-
-    /** @var RelationRepository */
-    private $relationRepository;
-
-    /** @var ContentRepository */
-    private $contentRepository;
-
-    /** @var MediaRepository */
-    private $mediaRepository;
-
-    /** @var EntityManagerInterface */
-    private $em;
-
-    /** @var UrlGeneratorInterface */
-    private $urlGenerator;
-
-    /** @var ContentFillListener */
-    private $contentFillListener;
-
-    /** @var EventDispatcherInterface */
-    private $dispatcher;
-
     /** @var string */
     protected $defaultLocale;
 
-    /** @var TranslatorInterface */
-    private $translator;
-
-    /** @var ContentHelper */
-    private $contentHelper;
-
     public function __construct(
-        TaxonomyRepository $taxonomyRepository,
-        RelationRepository $relationRepository,
-        ContentRepository $contentRepository,
-        MediaRepository $mediaRepository,
-        EntityManagerInterface $em,
-        UrlGeneratorInterface $urlGenerator,
-        ContentFillListener $contentFillListener,
-        EventDispatcherInterface $dispatcher,
+        private TaxonomyRepository $taxonomyRepository,
+        private RelationRepository $relationRepository,
+        private ContentRepository $contentRepository,
+        private MediaRepository $mediaRepository,
+        private EntityManagerInterface $em,
+        private UrlGeneratorInterface $urlGenerator,
+        private ContentFillListener $contentFillListener,
+        private EventDispatcherInterface $dispatcher,
         string $defaultLocale,
-        TranslatorInterface $translator,
-        ContentHelper $contentHelper
+        private TranslatorInterface $translator,
+        private ContentHelper $contentHelper
     ) {
-        $this->taxonomyRepository = $taxonomyRepository;
-        $this->relationRepository = $relationRepository;
-        $this->contentRepository = $contentRepository;
-        $this->mediaRepository = $mediaRepository;
-        $this->em = $em;
-        $this->urlGenerator = $urlGenerator;
-        $this->contentFillListener = $contentFillListener;
-        $this->dispatcher = $dispatcher;
         $this->defaultLocale = $defaultLocale;
-        $this->translator = $translator;
-        $this->contentHelper = $contentHelper;
     }
 
     /**
@@ -395,7 +357,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
 
         if (isset($formData['taxonomy'])) {
             foreach ($formData['taxonomy'] as $fieldName => $taxonomy) {
-                if (mb_strpos($fieldName, 'sortorder') !== false) {
+                if (mb_strpos((string) $fieldName, 'sortorder') !== false) {
                     continue;
                 }
                 $order = 0;
@@ -435,9 +397,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
 
     public function updateCollections(Content $content, array $formData, ?string $locale): void
     {
-        $collections = $content->getFields()->filter(function (Field $field) {
-            return $field->getType() === CollectionField::TYPE;
-        });
+        $collections = $content->getFields()->filter(fn (Field $field) => $field->getType() === CollectionField::TYPE);
 
         $keys = $formData['keys-collections'] ?? [];
         $tm = new TranslationsManager($collections, $keys);
@@ -487,7 +447,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         $definition = empty($fieldDefinition) ? $content->getDefinition()->get('fields')->get($fieldName) : $fieldDefinition;
 
         if (empty($definition)) {
-            throw new \Exception("Content type `{$content->getContentType()}` doesn't have field `{$fieldName}`.");
+            throw new Exception("Content type `{$content->getContentType()}` doesn't have field `{$fieldName}`.");
         }
 
         if ($content->hasField($fieldName)) {
@@ -499,7 +459,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
             $content->removeField($field);
             try {
                 $this->em->remove($field);
-            } catch (ORMInvalidArgumentException $e) {
+            } catch (ORMInvalidArgumentException) {
                 // Suppress "Detached entity Array cannot be removed", because it'd break the Request
             }
             $this->em->flush();
@@ -556,7 +516,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         }
 
         // If the Field is MediaAwareInterface, link it to an existing Media Entity
-        if ($field instanceof Field\MediaAwareInterface) {
+        if ($field instanceof MediaAwareInterface) {
             $field->setLinkedMedia($this->mediaRepository);
         }
     }
@@ -604,11 +564,9 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         $currentRelations = new Collection($this->relationRepository->findRelations($content, $relationType, null, false));
         $currentRelationIds = $currentRelations
             ->map(
-                static function (Relation $relation) use ($content) {
-                    return $relation->getFromContent() === $content
-                        ? $relation->getToContent()->getId()
-                        : $relation->getFromContent()->getId();
-                }
+                static fn (Relation $relation) => $relation->getFromContent() === $content
+                    ? $relation->getToContent()->getId()
+                    : $relation->getFromContent()->getId()
             )
             ->unique();
 
@@ -637,9 +595,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
                 $currentRelation->getFromContent()->removeRelationsFromThisContent($currentRelation);
             }
             $currentRelations = $currentRelations->filter(
-                static function (Relation $r) use ($currentRelation) {
-                    return $r !== $currentRelation;
-                }
+                static fn (Relation $r) => $r !== $currentRelation
             );
             $this->em->remove($currentRelation);
         }

@@ -33,7 +33,7 @@ class DumpExtension extends AbstractExtension
         }
 
         return [
-            new TwigFunction('dump', [$this, 'dump']),
+            new TwigFunction('dump', $this->dump(...)),
         ];
     }
 

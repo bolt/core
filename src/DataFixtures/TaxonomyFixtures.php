@@ -13,16 +13,10 @@ use Doctrine\Persistence\ObjectManager;
 
 class TaxonomyFixtures extends BaseFixture implements FixtureGroupInterface
 {
-    /** @var Config */
-    private $config;
-
-    /** @var TaxonomyRepository */
-    private $taxonomyRepository;
-
-    public function __construct(Config $config, TaxonomyRepository $taxonomyRepository)
-    {
-        $this->config = $config;
-        $this->taxonomyRepository = $taxonomyRepository;
+    public function __construct(
+        private readonly Config $config,
+        private readonly TaxonomyRepository $taxonomyRepository
+    ) {
     }
 
     public function load(ObjectManager $manager): void

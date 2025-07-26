@@ -16,38 +16,18 @@ use Twig\TwigFunction;
 
 class ImageExtension extends AbstractExtension
 {
-    /** @var MediaRepository */
-    private $mediaRepository;
-
-    /** @var Notifications */
-    private $notifications;
-
-    /** @var ThumbnailHelper */
-    private $thumbnailHelper;
-
-    /** @var ContentExtension */
-    private $contentExtension;
-
-    /** @var Packages */
-    private $assets;
-
     /** @var string */
     private $publicFolder;
 
     public function __construct(
-        MediaRepository $mediaRepository,
-        Notifications $notifications,
-        ThumbnailHelper $thumbnailHelper,
-        ContentExtension $contentExtension,
-        Packages $assets,
+        private readonly MediaRepository $mediaRepository,
+        private readonly Notifications $notifications,
+        private readonly ThumbnailHelper $thumbnailHelper,
+        private readonly ContentExtension $contentExtension,
+        private readonly Packages $assets,
         string $publicFolder,
         string $projectDir
     ) {
-        $this->mediaRepository = $mediaRepository;
-        $this->notifications = $notifications;
-        $this->thumbnailHelper = $thumbnailHelper;
-        $this->contentExtension = $contentExtension;
-        $this->assets = $assets;
         $this->publicFolder = $projectDir . DIRECTORY_SEPARATOR . $publicFolder;
     }
 
@@ -61,11 +41,11 @@ class ImageExtension extends AbstractExtension
         ];
 
         return [
-            new TwigFilter('popup', [$this, 'popup'], $safe),
-            new TwigFilter('showimage', [$this, 'showImage'], $safe),
-            new TwigFilter('thumbnail', [$this, 'thumbnail'], $safe),
-            new TwigFilter('media', [$this, 'getMedia']),
-            new TwigFilter('svg', [$this, 'getSvg'], $safe),
+            new TwigFilter('popup', $this->popup(...), $safe),
+            new TwigFilter('showimage', $this->showImage(...), $safe),
+            new TwigFilter('thumbnail', $this->thumbnail(...), $safe),
+            new TwigFilter('media', $this->getMedia(...)),
+            new TwigFilter('svg', $this->getSvg(...), $safe),
         ];
     }
 
@@ -79,9 +59,9 @@ class ImageExtension extends AbstractExtension
         ];
 
         return [
-            new TwigFunction('popup', [$this, 'popup'], $safe),
-            new TwigFunction('showimage', [$this, 'showImage'], $safe),
-            new TwigFunction('thumbnail', [$this, 'thumbnail'], $safe),
+            new TwigFunction('popup', $this->popup(...), $safe),
+            new TwigFunction('showimage', $this->showImage(...), $safe),
+            new TwigFunction('thumbnail', $this->thumbnail(...), $safe),
             new TwigFunction('media', [$this, 'media']),
         ];
     }

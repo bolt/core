@@ -20,14 +20,11 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class UserController extends TwigAwareController implements BackendZoneInterface
 {
-    /** @var UserRepository */
-    private $users;
-
     private const PAGESIZE = 20;
 
-    public function __construct(UserRepository $users)
-    {
-        $this->users = $users;
+    public function __construct(
+        private readonly UserRepository $users
+    ) {
     }
 
     /**

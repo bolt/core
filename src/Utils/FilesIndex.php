@@ -8,12 +8,9 @@ use Symfony\Component\Finder\Finder;
 
 class FilesIndex
 {
-    /** @var Config */
-    private $config;
-
-    public function __construct(Config $config)
-    {
-        $this->config = $config;
+    public function __construct(
+        private readonly Config $config
+    ) {
     }
 
     public function get(string $path, string $type, string $baseUrlPath, string $baseFilePath): Collection

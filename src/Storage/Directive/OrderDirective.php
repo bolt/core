@@ -21,24 +21,12 @@ class OrderDirective
 {
     public const NAME = 'order';
 
-    /** @var LocaleHelper */
-    private $localeHelper;
-
-    /** @var Environment */
-    private $twig;
-
-    /** @var Notifications */
-    private $notifications;
-
-    /** @var FieldQueryUtils */
-    private $utils;
-
-    public function __construct(LocaleHelper $localeHelper, Environment $twig, Notifications $notifications, FieldQueryUtils $utils)
-    {
-        $this->localeHelper = $localeHelper;
-        $this->twig = $twig;
-        $this->notifications = $notifications;
-        $this->utils = $utils;
+    public function __construct(
+        private readonly LocaleHelper $localeHelper,
+        private readonly Environment $twig,
+        private readonly Notifications $notifications,
+        private readonly FieldQueryUtils $utils
+    ) {
     }
 
     public function __invoke(QueryInterface $query, string $order): void

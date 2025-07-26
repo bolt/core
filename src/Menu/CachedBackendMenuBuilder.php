@@ -9,12 +9,9 @@ namespace Bolt\Menu;
  */
 final class CachedBackendMenuBuilder implements BackendMenuBuilderInterface
 {
-    /** @var BackendMenu */
-    private $menuBuilder;
-
-    public function __construct(BackendMenu $menuBuilder)
-    {
-        $this->menuBuilder = $menuBuilder;
+    public function __construct(
+        private readonly BackendMenu $menuBuilder
+    ) {
     }
 
     public function buildAdminMenu(): array

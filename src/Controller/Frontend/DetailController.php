@@ -13,16 +13,10 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DetailController extends TwigAwareController implements FrontendZoneInterface, DetailControllerInterface
 {
-    /** @var ContentRepository */
-    private $contentRepository;
-
-    /** @var ContentHelper */
-    private $contentHelper;
-
-    public function __construct(ContentRepository $contentRepository, ContentHelper $contentHelper)
-    {
-        $this->contentRepository = $contentRepository;
-        $this->contentHelper = $contentHelper;
+    public function __construct(
+        private readonly ContentRepository $contentRepository,
+        private readonly ContentHelper $contentHelper
+    ) {
     }
 
     /**

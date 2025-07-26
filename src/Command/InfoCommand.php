@@ -11,6 +11,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Throwable;
 
 class InfoCommand extends Command
 {
@@ -19,22 +20,16 @@ class InfoCommand extends Command
     /** @var string */
     protected static $defaultName = 'bolt:info';
 
-    /** @var \Bolt\Doctrine\Version */
-    private $doctrineVersion;
-
     /** @var object */
     private $composer;
 
     /** @var SymfonyStyle */
     private $io;
 
-    private $projectDir;
-
-    public function __construct(\Bolt\Doctrine\Version $doctrineVersion, string $projectDir)
-    {
-        $this->doctrineVersion = $doctrineVersion;
-        $this->projectDir = $projectDir;
-
+    public function __construct(
+        private \Bolt\Doctrine\Version $doctrineVersion,
+        private string $projectDir
+    ) {
         parent::__construct();
     }
 
@@ -76,7 +71,7 @@ HELP
             $platform = $this->doctrineVersion->getPlatform();
             $tableExists = $this->doctrineVersion->tableContentExists() ? '' : sprintf(' - <error>Tables not initialised</error>');
             $withJson = $this->doctrineVersion->hasJson() ? 'with JSON' : 'without JSON';
-        } catch (\Throwable $e) {
+        } catch (Throwable) {
             $platform = [
                 'client_version' => '',
                 'driver_name' => '<error>Unknown - no database connection</error>',
@@ -109,7 +104,7 @@ HELP
     {
         try {
             Packages::get('bolt/core');
-        } catch (\Throwable $e) {
+        } catch (Throwable) {
             // bolt/core is not a dependency. Perhaps we're in bolt/core itself?
             return;
         }

@@ -15,6 +15,7 @@ use Bolt\Repository\FieldRepository;
 use Bolt\Storage\Query;
 use Bolt\Utils\ContentHelper;
 use Bolt\Utils\ListFormatHelper;
+use DateInterval;
 use Illuminate\Support\Collection;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
@@ -26,43 +27,15 @@ use Twig\TwigFunction;
 
 class FieldExtension extends AbstractExtension
 {
-    /** @var Notifications */
-    private $notifications;
-
-    /** @var ContentRepository */
-    private $contentRepository;
-
-    /** @var Config */
-    private $config;
-
-    /** @var ContentHelper */
-    private $contentHelper;
-
-    /** @var Query */
-    private $query;
-
-    /** @var UrlGeneratorInterface */
-    private $router;
-
-    /** @var ListFormatHelper */
-    private $listFormatHelper;
-
     public function __construct(
-        Notifications $notifications,
-        ContentRepository $contentRepository,
-        Config $config,
-        ContentHelper $contentHelper,
-        Query $query,
-        UrlGeneratorInterface $router,
-        ListFormatHelper $listFormatHelper
+        private readonly Notifications $notifications,
+        private readonly ContentRepository $contentRepository,
+        private readonly Config $config,
+        private readonly ContentHelper $contentHelper,
+        private readonly Query $query,
+        private readonly UrlGeneratorInterface $router,
+        private readonly ListFormatHelper $listFormatHelper
     ) {
-        $this->notifications = $notifications;
-        $this->contentRepository = $contentRepository;
-        $this->config = $config;
-        $this->contentHelper = $contentHelper;
-        $this->query = $query;
-        $this->router = $router;
-        $this->listFormatHelper = $listFormatHelper;
     }
 
     /**
@@ -71,26 +44,26 @@ class FieldExtension extends AbstractExtension
     public function getFilters(): array
     {
         return [
-            new TwigFilter('label', [$this, 'getLabel']),
-            new TwigFilter('type', [$this, 'getType']),
-            new TwigFilter('selected', [$this, 'getSelected']),
-            new TwigFilter('date', [$this, 'getDate'], ['needs_environment' => true]),
+            new TwigFilter('label', $this->getLabel(...)),
+            new TwigFilter('type', $this->getType(...)),
+            new TwigFilter('selected', $this->getSelected(...)),
+            new TwigFilter('date', $this->getDate(...), ['needs_environment' => true]),
         ];
     }
 
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('field_factory', [$this, 'fieldFactory']),
-            new TwigFunction('list_templates', [$this, 'getListTemplates']),
-            new TwigFunction('select_options', [$this, 'selectOptions']),
-            new TwigFunction('select_options_url', [$this, 'selectOptionsUrl']),
+            new TwigFunction('field_factory', $this->fieldFactory(...)),
+            new TwigFunction('list_templates', $this->getListTemplates(...)),
+            new TwigFunction('select_options', $this->selectOptions(...)),
+            new TwigFunction('select_options_url', $this->selectOptionsUrl(...)),
         ];
     }
 
     public function getDate(Environment $twig, $date, $format = null, $timezone = null)
     {
-        if ($format === null && ! $date instanceof \DateInterval) {
+        if ($format === null && ! $date instanceof DateInterval) {
             $format = $this->config->get('general/date_format', null);
         }
 
@@ -145,9 +118,7 @@ class FieldExtension extends AbstractExtension
 
         // Sort the results in the order of the $ids.
         $order = array_flip($ids);
-        $records = $records->sortBy(function (Content $record) use ($order) {
-            return $order[$record->getId()];
-        })->values()->toArray();
+        $records = $records->sortBy(fn (Content $record) => $order[$record->getId()])->values()->toArray();
 
         if ($returnsingle || (! $returnarray && $definition->get('multiple') === false)) {
             return current($records);
@@ -176,9 +147,7 @@ class FieldExtension extends AbstractExtension
             ->in($templatesPath)
             ->path($definition->get('path'))
             ->sortByName()
-            ->filter(function (SplFileInfo $file) use ($filter) {
-                return preg_match($filter, $file->getRelativePathname()) === 1;
-            });
+            ->filter(fn (SplFileInfo $file) => preg_match($filter, $file->getRelativePathname()) === 1);
 
         $options = [];
 
@@ -275,7 +244,7 @@ class FieldExtension extends AbstractExtension
 
     private function selectOptionsContentType(Field $field): Collection
     {
-        [$contentTypeSlug, $format] = explode('/', $field->getDefinition()->get('values'));
+        [$contentTypeSlug, $format] = explode('/', (string) $field->getDefinition()->get('values'));
 
         if (empty($maxAmount = $field->getDefinition()->get('limit'))) {
             $maxAmount = $this->config->get('general/maximum_listing_select', 200);

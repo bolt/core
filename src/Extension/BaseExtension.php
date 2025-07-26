@@ -10,6 +10,7 @@ use Cocur\Slugify\Slugify;
 use Composer\Package\CompletePackageInterface;
 use Composer\Package\PackageInterface;
 use ComposerPackages\Packages;
+use ReflectionClass;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Twig\Environment;
 use Twig\Loader\ChainLoader;
@@ -120,14 +121,14 @@ abstract class BaseExtension implements ExtensionInterface
 
     private function getTemplateFolder(): ?string
     {
-        $reflection = new \ReflectionClass($this);
+        $reflection = new ReflectionClass($this);
 
         $folder = dirname($reflection->getFilename()) . DIRECTORY_SEPARATOR . 'templates';
         if (realpath($folder)) {
             return realpath($folder);
         }
 
-        $folder = dirname(dirname($reflection->getFilename())) . DIRECTORY_SEPARATOR . 'templates';
+        $folder = dirname($reflection->getFilename(), 2) . DIRECTORY_SEPARATOR . 'templates';
         if (realpath($folder)) {
             return realpath($folder);
         }
@@ -151,9 +152,8 @@ abstract class BaseExtension implements ExtensionInterface
     {
         $className = $this->getClass();
 
-        $finder = static function (PackageInterface $package) use ($className) {
-            return array_key_exists('entrypoint', $package->getExtra()) && ($className === $package->getExtra()['entrypoint']);
-        };
+        $finder = static fn (PackageInterface $package) => array_key_exists('entrypoint', $package->getExtra())
+            && $className === $package->getExtra()['entrypoint'];
         $package = Packages::find($finder);
 
         return $package->current();

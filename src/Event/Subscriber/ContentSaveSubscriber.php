@@ -15,12 +15,9 @@ class ContentSaveSubscriber implements EventSubscriberInterface
 
     public const PRIORITY = 100;
 
-    /** @var TagAwareCacheInterface */
-    private $cache;
-
-    public function __construct(TagAwareCacheInterface $cache)
-    {
-        $this->cache = $cache;
+    public function __construct(
+        private TagAwareCacheInterface $cache
+    ) {
     }
 
     public function postSave(ContentEvent $event): ContentEvent

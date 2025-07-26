@@ -20,6 +20,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
+use Throwable;
 use Webimpress\SafeWriter\Exception\ExceptionInterface;
 use Webimpress\SafeWriter\FileWriter;
 
@@ -27,19 +28,13 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
 {
     use CsrfTrait;
 
-    /** @var MediaRepository */
-    private $mediaRepository;
-
-    /** @var EntityManagerInterface */
-    private $em;
-
     /** @var Filesystem */
     private $filesystem;
 
-    public function __construct(MediaRepository $mediaRepository, EntityManagerInterface $em)
-    {
-        $this->mediaRepository = $mediaRepository;
-        $this->em = $em;
+    public function __construct(
+        private MediaRepository $mediaRepository,
+        private EntityManagerInterface $em
+    ) {
         $this->filesystem = new Filesystem();
     }
 
@@ -111,7 +106,7 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
         try {
             FileWriter::writeFile($filename, $contents);
             $this->addFlash('success', 'editfile.updated_successfully');
-        } catch (ExceptionInterface $e) {
+        } catch (ExceptionInterface) {
             $this->addFlash('warning', 'editfile.could_not_write');
         }
 
@@ -151,14 +146,14 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
 
         try {
             $this->filesystem->remove($filePath);
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             // something wrong happened, we don't need the uploaded files anymore
             throw $e;
         }
 
         $this->addFlash('success', 'file.delete_success');
 
-        $folder = pathinfo($path, PATHINFO_DIRNAME);
+        $folder = pathinfo((string) $path, PATHINFO_DIRNAME);
 
         return $this->redirectToRoute('bolt_filemanager', [
             'location' => $locationName,
@@ -193,13 +188,13 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
 
         try {
             $this->filesystem->copy($originalFilepath, $copyFilePath);
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             // something wrong happened, we don't need the uploaded files anymore
             throw $e;
         }
 
         $this->addFlash('success', 'file.duplicate_success');
-        $folder = pathinfo($path, PATHINFO_DIRNAME);
+        $folder = pathinfo((string) $path, PATHINFO_DIRNAME);
 
         return $this->redirectToRoute('bolt_filemanager', [
             'location' => $locationName,

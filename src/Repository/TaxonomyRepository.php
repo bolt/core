@@ -17,14 +17,11 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class TaxonomyRepository extends ServiceEntityRepository
 {
-    /** @var Config */
-    private $config;
-
-    public function __construct(ManagerRegistry $registry, Config $config)
-    {
+    public function __construct(
+        ManagerRegistry $registry,
+        private readonly Config $config
+    ) {
         parent::__construct($registry, Taxonomy::class);
-
-        $this->config = $config;
     }
 
     public function factory(string $type, string $slug, ?string $name = null, int $sortorder = 0): Taxonomy

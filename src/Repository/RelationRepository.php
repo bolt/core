@@ -10,6 +10,7 @@ use Bolt\Enum\Statuses;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
+use PDO;
 
 /**
  * @method Relation|null find($id, $lockMode = null, $lockVersion = null)
@@ -57,7 +58,7 @@ class RelationRepository extends ServiceEntityRepository
         if ($publishedOnly === true) {
             $qb->andWhere('cto.status = :status')
                 ->andWhere('cfrom.status = :status')
-                ->setParameter('status', Statuses::PUBLISHED, \PDO::PARAM_STR);
+                ->setParameter('status', Statuses::PUBLISHED, PDO::PARAM_STR);
         }
 
         if ($name === null) {
@@ -84,7 +85,7 @@ class RelationRepository extends ServiceEntityRepository
                     $qb->andWhere('(cto.contentType = :name AND r.fromContent = :from)');
                     break;
             }
-            $qb->setParameter('name', $name, \PDO::PARAM_STR);
+            $qb->setParameter('name', $name, PDO::PARAM_STR);
         }
 
         return $qb;

@@ -2,6 +2,7 @@
 
 namespace Bolt\Twig;
 
+use Symfony\Bridge\Twig\Extension\AssetExtension;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Twig\Extension\AbstractExtension;
@@ -9,20 +10,11 @@ use Twig\TwigFunction;
 
 class AssetsExtension extends AbstractExtension
 {
-    /** @var \Symfony\Bridge\Twig\Extension\AssetExtension */
-    private $assets;
-
-    /** @var ContainerInterface */
-    private $container;
-
-    /** @var Filesystem */
-    private $filesystem;
-
-    public function __construct(\Symfony\Bridge\Twig\Extension\AssetExtension $assets, ContainerInterface $container, Filesystem $filesystem)
-    {
-        $this->assets = $assets;
-        $this->container = $container;
-        $this->filesystem = $filesystem;
+    public function __construct(
+        private readonly AssetExtension $assets,
+        private readonly ContainerInterface $container,
+        private readonly Filesystem $filesystem
+    ) {
     }
 
     /**
@@ -31,7 +23,7 @@ class AssetsExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('asset', [$this, 'getAssetUrl']),
+            new TwigFunction('asset', $this->getAssetUrl(...)),
         ];
     }
 

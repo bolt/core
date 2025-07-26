@@ -8,6 +8,7 @@ use Bolt\Entity\Content;
 use Bolt\Entity\Field\NumberField;
 use Bolt\Utils\ContentHelper;
 use Carbon\Carbon;
+use Exception;
 use Iterator;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
@@ -24,24 +25,12 @@ use Twig\TwigFunction;
  */
 final class ArrayExtension extends AbstractExtension
 {
-    /** @var ContentHelper */
-    private $contentHelper;
-
-    /** @var LocaleExtension */
-    private $localeExtension;
-
-    /** @var string */
-    private $defaultLocale;
-
-    /** @var RequestStack */
-    private $requestStack;
-
-    public function __construct(ContentHelper $contentHelper, LocaleExtension $localeExtension, string $defaultLocale, RequestStack $requestStack)
-    {
-        $this->contentHelper = $contentHelper;
-        $this->localeExtension = $localeExtension;
-        $this->defaultLocale = $defaultLocale;
-        $this->requestStack = $requestStack;
+    public function __construct(
+        private readonly ContentHelper $contentHelper,
+        private readonly LocaleExtension $localeExtension,
+        private readonly string $defaultLocale,
+        private readonly RequestStack $requestStack
+    ) {
     }
 
     /**
@@ -52,9 +41,9 @@ final class ArrayExtension extends AbstractExtension
         $env = ['needs_environment' => true];
 
         return [
-            new TwigFilter('order', [$this, 'order'], $env),
-            new TwigFilter('shuffle', [$this, 'shuffle']),
-            new TwigFilter('length', [$this, 'length'], $env),
+            new TwigFilter('order', $this->order(...), $env),
+            new TwigFilter('shuffle', $this->shuffle(...)),
+            new TwigFilter('length', $this->length(...), $env),
         ];
     }
 
@@ -64,7 +53,7 @@ final class ArrayExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('paginate', [$this, 'paginate']),
+            new TwigFunction('paginate', $this->paginate(...)),
         ];
     }
 
@@ -119,7 +108,7 @@ final class ArrayExtension extends AbstractExtension
 
                 return $this->orderHelper($a, $b, $orderOnSecondary, $orderAscendingSecondary, $locale);
             });
-        } catch (\Exception $e) {
+        } catch (Exception) {
             // If sorting failed, we don't sort..
         }
 

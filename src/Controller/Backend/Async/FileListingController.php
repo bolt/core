@@ -17,28 +17,22 @@ use Symfony\Component\Security\Core\Security;
 
 class FileListingController implements AsyncZoneInterface
 {
-    /** @var Config */
-    private $config;
-
     /** @var Request */
     private $request;
-
-    /** @var Security */
-    private $security;
 
     /** @var string */
     private $publicPath;
 
-    /** @var FilesIndex */
-    private $filesIndex;
-
-    public function __construct(Config $config, RequestStack $requestStack, Security $security, string $projectDir, string $publicFolder, FilesIndex $filesIndex)
-    {
-        $this->config = $config;
+    public function __construct(
+        private readonly Config $config,
+        RequestStack $requestStack,
+        private readonly Security $security,
+        string $projectDir,
+        string $publicFolder,
+        private readonly FilesIndex $filesIndex
+    ) {
         $this->request = $requestStack->getCurrentRequest();
-        $this->security = $security;
         $this->publicPath = $projectDir . DIRECTORY_SEPARATOR . $publicFolder;
-        $this->filesIndex = $filesIndex;
     }
 
     /**

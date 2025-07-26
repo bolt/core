@@ -15,6 +15,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Illuminate\Support\Collection;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
+use RuntimeException;
+use Stringable;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 use Twig\Environment;
@@ -54,7 +56,7 @@ use Twig\Markup;
  * @ORM\DiscriminatorColumn(name="type", type="string", length=191)
  * @ORM\DiscriminatorMap({"generic" = "Field"})
  */
-class Field implements FieldInterface, TranslatableInterface
+class Field implements FieldInterface, TranslatableInterface, Stringable
 {
     use TranslatableTrait;
 
@@ -180,7 +182,7 @@ class Field implements FieldInterface, TranslatableInterface
 
         if ($this->isNew() && $default !== null) {
             if (! $default instanceof Collection) {
-                throw new \RuntimeException('Default value of field ' . $this->getName() . ' is ' . gettype($default) . ' but it should be an array.');
+                throw new RuntimeException('Default value of field ' . $this->getName() . ' is ' . gettype($default) . ' but it should be an array.');
             }
 
             return $this->getDefaultValue()->get($key);
@@ -284,7 +286,7 @@ class Field implements FieldInterface, TranslatableInterface
                     // and references {{ record }}
                     'record' => $this->getContent(),
                 ]);
-            } catch (LoaderError|SyntaxError $e) {
+            } catch (LoaderError|SyntaxError) {
                 // Prevent saving error (translations getting cleared if Twig code contains errors)
                 $value = $valueBeforeRenderingAsTwig;
             }

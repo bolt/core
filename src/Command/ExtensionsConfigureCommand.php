@@ -7,6 +7,7 @@ namespace Bolt\Command;
 use Bolt\Common\Str;
 use Bolt\Extension\BaseExtension;
 use Bolt\Extension\ExtensionRegistry;
+use ReflectionClass;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -18,17 +19,10 @@ class ExtensionsConfigureCommand extends Command
     /** @var string */
     protected static $defaultName = 'extensions:configure';
 
-    /** @var ExtensionRegistry */
-    private $extensionRegistry;
-
-    /** @var string */
-    private $projectDir;
-
-    public function __construct(ExtensionRegistry $extensionRegistry, string $projectDir)
-    {
-        $this->extensionRegistry = $extensionRegistry;
-        $this->projectDir = $projectDir;
-
+    public function __construct(
+        private readonly ExtensionRegistry $extensionRegistry,
+        private readonly string $projectDir
+    ) {
         parent::__construct();
     }
 
@@ -184,14 +178,14 @@ class ExtensionsConfigureCommand extends Command
 
     private function getPackagePath(BaseExtension $package): string
     {
-        $reflection = new \ReflectionClass($package);
+        $reflection = new ReflectionClass($package);
 
-        return dirname(dirname($reflection->getFilename()));
+        return dirname($reflection->getFilename(), 2);
     }
 
     private function getNamespace(BaseExtension $package): string
     {
-        $reflection = new \ReflectionClass($package);
+        $reflection = new ReflectionClass($package);
 
         return $reflection->getNamespaceName();
     }

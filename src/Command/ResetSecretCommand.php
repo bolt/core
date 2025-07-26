@@ -16,14 +16,10 @@ class ResetSecretCommand extends Command
     /** @var string */
     protected static $defaultName = 'bolt:reset-secret';
 
-    /** @var string */
-    private $projectDir;
-
-    public function __construct(string $projectDir)
-    {
+    public function __construct(
+        private readonly string $projectDir
+    ) {
         parent::__construct();
-
-        $this->projectDir = $projectDir;
     }
 
     /**

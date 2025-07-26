@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Bolt\Entity;
 
+use ReturnTypeWillChange;
+
 trait IterableFieldTrait
 {
     private $iteratorCursor = 0;
@@ -32,7 +34,7 @@ trait IterableFieldTrait
     /**
      * @return Field|string
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function current()
     {
         return $this->fields[$this->iteratorCursor];

@@ -10,6 +10,7 @@ use Bolt\Controller\ErrorZoneInterface;
 use Bolt\Controller\Frontend\FrontendZoneInterface;
 use Bolt\Widget\Injector\RequestZone;
 use ReflectionClass;
+use ReflectionException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
@@ -77,7 +78,7 @@ class ZoneSubscriber implements EventSubscriberInterface
             } elseif ($reflection->implementsInterface(ErrorZoneInterface::class)) {
                 return RequestZone::ERROR;
             }
-        } catch (\ReflectionException $e) {
+        } catch (ReflectionException) {
             // Alas…
         }
 

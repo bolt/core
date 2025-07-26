@@ -10,11 +10,12 @@ use Bolt\Entity\FieldInterface;
 use Bolt\Entity\IterableFieldTrait;
 use Bolt\Entity\ListFieldInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Iterator;
 
 /**
  * @ORM\Entity
  */
-class ImagelistField extends Field implements FieldInterface, ListFieldInterface, RawPersistable, \Iterator
+class ImagelistField extends Field implements FieldInterface, ListFieldInterface, RawPersistable, Iterator
 {
     use IterableFieldTrait;
 
@@ -112,8 +113,6 @@ class ImagelistField extends Field implements FieldInterface, ListFieldInterface
             $values = $this->getValue();
         }
 
-        return json_encode(array_map(function (ImageField $i) {
-            return $i->getValue();
-        }, $values));
+        return json_encode(array_map(fn (ImageField $i) => $i->getValue(), $values));
     }
 }

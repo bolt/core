@@ -14,20 +14,17 @@ use Illuminate\Support\Collection;
 
 class ContentTypesParser extends BaseParser
 {
-    /** @var Collection */
-    private $generalConfig;
-
     /** @var array */
     private $localeCodes = [];
 
-    /** @var string defaultLocale */
-    private $defaultLocale;
-
-    public function __construct(string $projectDir, Collection $generalConfig, string $defaultLocale, ?string $locales = null, string $filename = 'contenttypes.yaml')
-    {
+    public function __construct(
+        string $projectDir,
+        private readonly Collection $generalConfig,
+        private readonly string $defaultLocale,
+        ?string $locales = null,
+        string $filename = 'contenttypes.yaml'
+    ) {
         $this->localeCodes = empty($locales) ? [] : explode('|', $locales);
-        $this->generalConfig = $generalConfig;
-        $this->defaultLocale = $defaultLocale;
 
         parent::__construct($projectDir, $filename);
     }
@@ -214,7 +211,7 @@ class ContentTypesParser extends BaseParser
         if (! empty($contentType['relations']) && is_array($contentType['relations'])) {
             foreach (array_keys($contentType['relations']) as $relkey) {
                 // Default `required` to `false` for Relations
-                $contentType['relations'][$relkey]['required'] = $contentType['relations'][$relkey]['required'] ?? false;
+                $contentType['relations'][$relkey]['required'] ??= false;
 
                 // Make sure Relations are added by their slug. Not their 'name' or 'singular name'.
                 if ($relkey !== Str::slug($relkey)) {

@@ -21,28 +21,12 @@ use Twig\Environment;
  */
 class EntityServiceProvider implements EventSubscriberInterface
 {
-    /** @var EntityManagerInterface */
-    private $em;
-
-    /** @var ContainerInterface */
-    private $container;
-
-    /** @var Sanitiser */
-    private $sanitiser;
-
-    /** @var Environment */
-    private $twig;
-
     public function __construct(
-        EntityManagerInterface $em,
-        ContainerInterface $container,
-        Sanitiser $sanitiser,
-        Environment $twig
+        private readonly EntityManagerInterface $em,
+        private readonly ContainerInterface $container,
+        private readonly Sanitiser $sanitiser,
+        private readonly Environment $twig
     ) {
-        $this->em = $em;
-        $this->container = $container;
-        $this->sanitiser = $sanitiser;
-        $this->twig = $twig;
     }
 
     public function run(): void

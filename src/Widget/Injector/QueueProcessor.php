@@ -34,7 +34,7 @@ class QueueProcessor
         // First, gather all html <!-- comments -->, because they shouldn't be
         // considered for replacements. We use a callback, so we can fill our
         // $this->matchedComments array
-        preg_replace_callback('/<!--(.*)-->/Uis', [$this, 'pregCallback'], $response->getContent());
+        preg_replace_callback('/<!--(.*)-->/Uis', $this->pregCallback(...), $response->getContent());
 
         $process($response);
 

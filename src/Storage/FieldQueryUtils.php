@@ -11,12 +11,9 @@ use Doctrine\ORM\Query\Expr;
 
 class FieldQueryUtils
 {
-    /** @var EntityManagerInterface */
-    private $em;
-
-    public function __construct(EntityManagerInterface $em)
-    {
-        $this->em = $em;
+    public function __construct(
+        private readonly EntityManagerInterface $em
+    ) {
     }
 
     public function isFieldType(QueryInterface $query, string $fieldname, string $type): bool

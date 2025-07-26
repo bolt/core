@@ -80,7 +80,7 @@ class TwigAwareController extends AbstractController
     public function render($template, array $parameters = [], ?Response $response = null): Response
     {
         // Set User in global Twig environment
-        $parameters['user'] = $parameters['user'] ?? $this->getUser();
+        $parameters['user'] ??= $this->getUser();
 
         // if theme.yaml was loaded, set it as global.
         if ($this->config->has('theme')) {
@@ -257,7 +257,7 @@ class TwigAwareController extends AbstractController
         }
 
         if ($this->request->get('taxonomy')) {
-            $taxonomy = explode('=', $this->getFromRequest('taxonomy'));
+            $taxonomy = explode('=', (string) $this->getFromRequest('taxonomy'));
             $params[$taxonomy[0]] = $taxonomy[1];
         }
 

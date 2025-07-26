@@ -9,6 +9,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\Mapping\Driver\MappingDriver;
+use LogicException;
+use ReflectionClass;
 
 /**
  * Greatly inspired by:
@@ -78,7 +80,7 @@ class FieldDiscriminatorListener
     {
         $fieldType = (new $class())->getType();
         if (in_array($fieldType, $this->tempMap, true) === true) {
-            throw new \LogicException("Found duplicate discriminator map entry '" . $fieldType . "' in " . $class);
+            throw new LogicException("Found duplicate discriminator map entry '" . $fieldType . "' in " . $class);
         }
 
         return $fieldType;
@@ -87,7 +89,7 @@ class FieldDiscriminatorListener
     private function checkFamily(string $className): void
     {
         $this->tempMap[$className] = $this->extractFieldType($className);
-        $reflection = new \ReflectionClass($className);
+        $reflection = new ReflectionClass($className);
         $parentClass = $reflection->getParentClass();
 
         if ($parentClass !== false) {

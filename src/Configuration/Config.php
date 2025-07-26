@@ -30,45 +30,20 @@ class Config
     /** @var PathResolver */
     private $pathResolver;
 
-    /** @var Stopwatch */
-    private $stopwatch;
-
-    /** @var string */
-    private $publicFolder;
-
-    /** @var CacheInterface */
-    private $cache;
-
-    /** @var string */
-    private $projectDir;
-
-    /** @var string */
-    private $locales;
-
-    /** @var string */
-    private $defaultLocale;
-
-    /** @var ClearCacheController */
-    private $clearCacheController;
-
-    /** @var KernelInterface */
-    private $kernel;
-
-    public function __construct(string $locales, string $defaultLocale, Stopwatch $stopwatch, string $projectDir, CacheInterface $cache, string $publicFolder, ClearCacheController $clearCacheController, KernelInterface $kernel)
-    {
-        $this->locales = $locales;
-        $this->stopwatch = $stopwatch;
-        $this->cache = $cache;
-        $this->projectDir = $projectDir;
-        $this->publicFolder = $publicFolder;
-        $this->defaultLocale = $defaultLocale;
-        $this->clearCacheController = $clearCacheController;
-        $this->kernel = $kernel;
-
+    public function __construct(
+        private readonly string $locales,
+        private readonly string $defaultLocale,
+        private readonly Stopwatch $stopwatch,
+        private readonly string $projectDir,
+        private readonly CacheInterface $cache,
+        private readonly string $publicFolder,
+        private readonly ClearCacheController $clearCacheController,
+        private readonly KernelInterface $kernel
+    ) {
         $this->data = $this->getConfig();
 
         // @todo PathResolver shouldn't be part of Config. Refactor to separate class
-        $this->pathResolver = new PathResolver($projectDir, $this->get('general/theme'), $this->publicFolder);
+        $this->pathResolver = new PathResolver($this->projectDir, $this->get('general/theme'), $this->publicFolder);
     }
 
     private function getConfig(): Collection
@@ -95,9 +70,7 @@ class Config
 
     private function getCache(): array
     {
-        return $this->cache->get(self::CACHE_KEY, function () {
-            return $this->parseConfig();
-        });
+        return $this->cache->get(self::CACHE_KEY, fn () => $this->parseConfig());
     }
 
     /**
@@ -272,9 +245,9 @@ class Config
     public function getMaxUpload(): int
     {
         return min(
-            $this->convertPHPSizeToBytes(ini_get('post_max_size')),
-            $this->convertPHPSizeToBytes(ini_get('upload_max_filesize')),
-            $this->convertPHPSizeToBytes($this->get('general/accept_upload_size', '8M'))
+            static::convertPHPSizeToBytes(ini_get('post_max_size')),
+            static::convertPHPSizeToBytes(ini_get('upload_max_filesize')),
+            static::convertPHPSizeToBytes($this->get('general/accept_upload_size', '8M'))
         );
     }
 

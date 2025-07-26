@@ -20,23 +20,11 @@ class PreviewController extends TwigAwareController implements FrontendZoneInter
 {
     use CsrfTrait;
 
-    /** @var ContentEditController */
-    private $contentEditController;
-
-    /** @var EventDispatcherInterface */
-    private $dispatcher;
-
-    /** @var UrlGeneratorInterface */
-    private $urlGenerator;
-
     public function __construct(
-        ContentEditController $contentEditController,
-        EventDispatcherInterface $dispatcher,
-        UrlGeneratorInterface $urlGenerator
+        private ContentEditController $contentEditController,
+        private EventDispatcherInterface $dispatcher,
+        private UrlGeneratorInterface $urlGenerator
     ) {
-        $this->contentEditController = $contentEditController;
-        $this->dispatcher = $dispatcher;
-        $this->urlGenerator = $urlGenerator;
     }
 
     /**

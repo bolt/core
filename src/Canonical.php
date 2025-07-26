@@ -17,12 +17,6 @@ use Symfony\Component\Routing\RouterInterface;
 
 class Canonical
 {
-    /** @var Config */
-    private $config;
-
-    /** @var UrlGeneratorInterface */
-    private $urlGenerator;
-
     /** @var Request */
     private $request = null;
 
@@ -38,22 +32,13 @@ class Canonical
     /** @var string */
     private $path = null;
 
-    /** @var string */
-    private $defaultLocale;
-
-    /** @var RouterInterface */
-    private $router;
-
-    /** @var RequestStack */
-    private $requestStack;
-
-    public function __construct(Config $config, UrlGeneratorInterface $urlGenerator, RequestStack $requestStack, RouterInterface $router, string $defaultLocale)
-    {
-        $this->config = $config;
-        $this->urlGenerator = $urlGenerator;
-        $this->defaultLocale = $defaultLocale;
-        $this->router = $router;
-        $this->requestStack = $requestStack;
+    public function __construct(
+        private readonly Config $config,
+        private UrlGeneratorInterface $urlGenerator,
+        private readonly RequestStack $requestStack,
+        private readonly RouterInterface $router,
+        private readonly string $defaultLocale
+    ) {
     }
 
     public function getRequest(): Request
@@ -214,7 +199,7 @@ class Canonical
             try {
                 $this->generateLink($routeWithoutLocale, $params);
                 $route = $routeWithoutLocale;
-            } catch (RouteNotFoundException $e) {
+            } catch (RouteNotFoundException) {
             }
         }
 
@@ -230,7 +215,7 @@ class Canonical
                 $params,
                 $canonical ? UrlGeneratorInterface::ABSOLUTE_URL : UrlGeneratorInterface::ABSOLUTE_PATH
             );
-        } catch (InvalidParameterException | MissingMandatoryParametersException | RouteNotFoundException $e) {
+        } catch (InvalidParameterException | MissingMandatoryParametersException | RouteNotFoundException) {
             // Just use the current URL /shrug
             return $canonical ? $this->getRequest()->getUri() : $this->getRequest()->getPathInfo();
         }

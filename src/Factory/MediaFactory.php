@@ -22,30 +22,22 @@ class MediaFactory
 {
     use UserTrait;
 
-    /** @var MediaRepository */
-    private $mediaRepository;
-
-    /** @var Config */
-    private $config;
-
     /** @var Reader */
     private $exif;
 
     /** @var Collection */
     private $allowedFileTypes;
 
-    /** @var FileLocations */
-    private $fileLocations;
-
-    public function __construct(Config $config, FileLocations $fileLocations, MediaRepository $mediaRepository, TokenStorageInterface $tokenStorage)
-    {
-        $this->config = $config;
-        $this->mediaRepository = $mediaRepository;
+    public function __construct(
+        private Config $config,
+        private FileLocations $fileLocations,
+        private MediaRepository $mediaRepository,
+        TokenStorageInterface $tokenStorage
+    ) {
         $this->tokenStorage = $tokenStorage;
 
         $this->exif = Reader::factory(Reader::TYPE_NATIVE);
-        $this->allowedFileTypes = $config->getMediaTypes()->merge($config->getFileTypes());
-        $this->fileLocations = $fileLocations;
+        $this->allowedFileTypes = $this->config->getMediaTypes()->merge($this->config->getFileTypes());
     }
 
     public function createOrUpdateMedia(SplFileInfo $file, string $fileLocation, ?string $title = null): Media

@@ -11,6 +11,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Illuminate\Support\Collection;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
+use ReflectionClass;
+use ReflectionException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -57,7 +59,7 @@ trait ServicesTrait
      * own code. If you have good ideas on how to accomplish that, we'd be
      * happy to hear from your ideas.
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function getService(string $name)
     {
@@ -67,7 +69,7 @@ trait ServicesTrait
             return $container->get($name);
         }
 
-        $reflectedContainer = new \ReflectionClass($container);
+        $reflectedContainer = new ReflectionClass($container);
         $reflectionProperty = $reflectedContainer->getProperty('privates');
         $reflectionProperty->setAccessible(true);
 
@@ -84,7 +86,7 @@ trait ServicesTrait
     {
         $container = $this->getContainer();
 
-        $reflectedContainer = new \ReflectionClass($container);
+        $reflectedContainer = new ReflectionClass($container);
         $reflectionProperty = $reflectedContainer->getProperty('services');
         $reflectionProperty->setAccessible(true);
         $publicServices = $reflectionProperty->getValue($container);

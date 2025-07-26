@@ -7,6 +7,7 @@ namespace Bolt\Security;
 use Bolt\Configuration\Config;
 use Bolt\Entity\User;
 use Bolt\Enum\UserStatus;
+use DomainException;
 use Illuminate\Support\Collection;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
@@ -14,24 +15,22 @@ use Symfony\Component\Security\Core\Security;
 
 class GlobalVoter extends Voter
 {
-    /** @var Security */
-    private $security;
-
     /** @var Collection */
     private $globalPermissions;
 
     /** @var array */
     private $supportedAttributes;
 
-    public function __construct(Security $security, Config $config)
-    {
-        $this->security = $security;
+    public function __construct(
+        private readonly Security $security,
+        Config $config
+    ) {
         $this->globalPermissions = $config->get('permissions/global');
 
         if ($this->globalPermissions instanceof Collection) {
             $this->supportedAttributes = $this->globalPermissions->keys()->toArray();
         } else {
-            throw new \DomainException('No global permissions config found');
+            throw new DomainException('No global permissions config found');
         }
     }
 
@@ -57,7 +56,7 @@ class GlobalVoter extends Voter
         }
 
         if (! isset($this->globalPermissions[$attribute])) {
-            throw new \DomainException("Global permission '{$attribute}' not defined, check your security and permissions configuration.");
+            throw new DomainException("Global permission '{$attribute}' not defined, check your security and permissions configuration.");
         }
 
         $rolesWithPermission = $this->globalPermissions[$attribute];

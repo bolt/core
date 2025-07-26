@@ -15,13 +15,9 @@ class ClearListFormatCommand extends Command
     /** @var string */
     protected static $defaultName = 'cache:list-format-clear';
 
-    /** @var ListFormatHelper */
-    private $listFormatHelper;
-
-    public function __construct(ListFormatHelper $listFormatHelper)
-    {
-        $this->listFormatHelper = $listFormatHelper;
-
+    public function __construct(
+        private readonly ListFormatHelper $listFormatHelper
+    ) {
         parent::__construct();
     }
 

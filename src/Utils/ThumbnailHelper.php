@@ -9,12 +9,9 @@ use Bolt\Configuration\Config;
 
 class ThumbnailHelper
 {
-    /** @var Config */
-    private $config;
-
-    public function __construct(?Config $config = null)
-    {
-        $this->config = $config;
+    public function __construct(
+        private readonly ?Config $config = null
+    ) {
     }
 
     private function parameters(?int $width = null, ?int $height = null, ?string $fit = null, ?string $location = null, ?int $quality = null): string

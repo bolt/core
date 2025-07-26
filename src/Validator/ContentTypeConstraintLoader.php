@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Validator;
 
+use Error;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Mapping\Loader\AbstractLoader;
 
@@ -49,6 +50,6 @@ class ContentTypeConstraintLoader extends AbstractLoader
      */
     public function loadClassMetadata(ClassMetadata $metadata): bool
     {
-        throw new \Error('not implemented');
+        throw new Error('not implemented');
     }
 }

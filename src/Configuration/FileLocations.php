@@ -9,12 +9,9 @@ class FileLocations
     /** @var array */
     private $locations = [];
 
-    /** @var Config */
-    private $config;
-
-    public function __construct(Config $config)
-    {
-        $this->config = $config;
+    public function __construct(
+        private readonly Config $config
+    ) {
         $this->initLocations();
     }
 
