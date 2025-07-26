@@ -8,6 +8,7 @@ use Bolt\Common\Str;
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Doctrine\JsonHelper;
 use Bolt\Entity\Content;
+use Bolt\Entity\Field\SlugField;
 use Bolt\Enum\Statuses;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
@@ -175,7 +176,7 @@ class ContentRepository extends ServiceEntityRepository
         $query = $qb
             ->innerJoin('content.fields', 'field')
             ->innerJoin(
-                \Bolt\Entity\Field\SlugField::class,
+                SlugField::class,
                 'slug',
                 'WITH',
                 'field.id = slug.id'
@@ -261,6 +262,7 @@ class ContentRepository extends ServiceEntityRepository
      */
     private function createSortBy(Collection $contentType): array
     {
+        /** @var string $order */
         $order = $contentType->get('sort', '');
 
         if (mb_strpos($order, '-') === 0) {

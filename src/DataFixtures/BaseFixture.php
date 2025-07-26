@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Exception;
 use Illuminate\Support\Collection;
 use Symfony\Component\Filesystem\Path;
 use Symfony\Component\Finder\Finder;
@@ -38,7 +39,7 @@ abstract class BaseFixture extends Fixture
             }
         }
         if (empty($this->referencesIndex[$entityName])) {
-            throw new \Exception(sprintf('Cannot find any references for Entity "%s"', $entityName));
+            throw new Exception(sprintf('Cannot find any references for Entity "%s"', $entityName));
         }
         $randomReferenceKey = array_rand($this->referencesIndex[$entityName], 1);
 

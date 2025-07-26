@@ -12,19 +12,13 @@ use Illuminate\Support\Collection;
 
 class RelationFactory
 {
-    /** @var EntityManagerInterface */
-    private $em;
-
-    /** @var RelationRepository */
-    private $repository;
-
     /** @var Collection */
     private $relations;
 
-    public function __construct(RelationRepository $repository, EntityManagerInterface $em)
-    {
-        $this->em = $em;
-        $this->repository = $repository;
+    public function __construct(
+        private readonly RelationRepository $repository,
+        private readonly EntityManagerInterface $em
+    ) {
         $this->relations = collect([]);
     }
 
@@ -51,10 +45,10 @@ class RelationFactory
 
     private function getFromMemory(Content $from, Content $to): ?Relation
     {
-        return $this->relations->filter(function (Relation $relation) use ($from, $to) {
-            return ($relation->getFromContent() === $from && $relation->getToContent() === $to)
-                || ($relation->getToContent() === $to && $relation->getToContent() === $from);
-        })->last(null, null);
+        return $this->relations->filter(
+            fn (Relation $relation) => ($relation->getFromContent() === $from && $relation->getToContent() === $to)
+                || ($relation->getToContent() === $to && $relation->getToContent() === $from)
+        )->last();
     }
 
     /**

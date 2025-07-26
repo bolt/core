@@ -13,20 +13,11 @@ use Twig\TwigFunction;
 
 class CommonExtension extends AbstractExtension
 {
-    /** @var ContentExtension */
-    private $contentExtension;
-
-    /** @var FrontendMenuExtension */
-    private $frontendMenuExtension;
-
-    /** @var LocaleExtension */
-    private $localeExtension;
-
-    public function __construct(ContentExtension $contentExtension, FrontendMenuExtension $frontendMenuExtension, LocaleExtension $localeExtension)
-    {
-        $this->contentExtension = $contentExtension;
-        $this->frontendMenuExtension = $frontendMenuExtension;
-        $this->localeExtension = $localeExtension;
+    public function __construct(
+        private readonly ContentExtension $contentExtension,
+        private readonly FrontendMenuExtension $frontendMenuExtension,
+        private readonly LocaleExtension $localeExtension
+    ) {
     }
 
     /**
@@ -37,7 +28,7 @@ class CommonExtension extends AbstractExtension
         $env = ['needs_environment' => true];
 
         return [
-            new TwigFilter('current', [$this, 'isCurrent'], $env),
+            new TwigFilter('current', $this->isCurrent(...), $env),
         ];
     }
 
@@ -47,7 +38,7 @@ class CommonExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('secret', [$this, 'generateSecret']),
+            new TwigFunction('secret', $this->generateSecret(...)),
         ];
     }
 

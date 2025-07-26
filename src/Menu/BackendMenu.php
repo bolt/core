@@ -9,48 +9,23 @@ use Bolt\Entity\User;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Stopwatch\Stopwatch;
-use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
 
 final class BackendMenu implements BackendMenuBuilderInterface
 {
-    /** @var CacheInterface */
-    private $cache;
-
-    /** @var BackendMenuBuilder */
-    private $menuBuilder;
-
-    /** @var RequestStack */
-    private $requestStack;
-
-    /** @var Stopwatch */
-    private $stopwatch;
-
-    /** @var Config */
-    private $config;
-
-    /** @var Security */
-    private $security;
-
     /** @var string */
     private $backendUrl = '/bolt';
 
     public function __construct(
-        BackendMenuBuilder $menuBuilder,
-        TagAwareCacheInterface $cache,
-        RequestStack $requestStack,
-        Stopwatch $stopwatch,
-        Config $config,
-        Security $security,
+        private readonly BackendMenuBuilder $menuBuilder,
+        private readonly TagAwareCacheInterface $cache,
+        private readonly RequestStack $requestStack,
+        private readonly Stopwatch $stopwatch,
+        private readonly Config $config,
+        private readonly Security $security,
         string $backendUrl = 'bolt'
     ) {
-        $this->cache = $cache;
-        $this->menuBuilder = $menuBuilder;
-        $this->requestStack = $requestStack;
-        $this->stopwatch = $stopwatch;
-        $this->config = $config;
-        $this->security = $security;
         $this->backendUrl = preg_replace('/[^\pL\d,]+/u', '', $backendUrl);
     }
 

@@ -11,12 +11,9 @@ use Twig\Environment;
  */
 final class StopwatchFrontendMenuBuilder implements FrontendMenuBuilderInterface
 {
-    /** @var FrontendMenu */
-    private $menuBuilder;
-
-    public function __construct(FrontendMenu $menuBuilder)
-    {
-        $this->menuBuilder = $menuBuilder;
+    public function __construct(
+        private readonly FrontendMenu $menuBuilder
+    ) {
     }
 
     public function buildMenu(Environment $twig, ?string $name = null): array

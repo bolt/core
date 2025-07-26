@@ -21,20 +21,11 @@ use Symfony\Component\Security\Http\Authenticator\Passport\PassportInterface;
 
 class LoginFormAuthenticator extends AbstractAuthenticator implements AuthenticatorInterface
 {
-    /** @var UserRepository */
-    private $userRepository;
-
-    /** @var Security */
-    private $security;
-
-    /** @var RouterInterface */
-    private $router;
-
-    public function __construct(Security $security, UserRepository $userRepository, RouterInterface $router)
-    {
-        $this->userRepository = $userRepository;
-        $this->security = $security;
-        $this->router = $router;
+    public function __construct(
+        private readonly Security $security,
+        private readonly UserRepository $userRepository,
+        private readonly RouterInterface $router
+    ) {
     }
 
     public function supports(Request $request): ?bool
@@ -58,9 +49,7 @@ class LoginFormAuthenticator extends AbstractAuthenticator implements Authentica
             $credentials['username']
         );
 
-        $badge = new UserBadge($credentials['username'], function (string $identifier) {
-            return $this->userRepository->findOneByCredentials($identifier);
-        });
+        $badge = new UserBadge($credentials['username'], fn (string $identifier) => $this->userRepository->findOneByCredentials($identifier));
 
         return new Passport($badge, new PasswordCredentials($credentials['password']), [
             new CsrfTokenBadge('login_csrf_token', $credentials['csrf_token']),

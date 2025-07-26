@@ -16,12 +16,9 @@ class RandomDirectiveHandler
 {
     public const NAME = 'random';
 
-    /** @var Version */
-    private $version;
-
-    public function __construct(Version $version)
-    {
-        $this->version = $version;
+    public function __construct(
+        private readonly Version $version
+    ) {
     }
 
     public function __invoke(QueryInterface $query, $value, &$directives): void

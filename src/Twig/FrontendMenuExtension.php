@@ -12,16 +12,10 @@ use Twig\TwigFunction;
 
 class FrontendMenuExtension extends AbstractExtension
 {
-    /** @var FrontendMenuBuilderInterface */
-    private $menuBuilder;
-
-    /** @var RequestStack */
-    private $requestStack;
-
-    public function __construct(FrontendMenuBuilderInterface $menuBuilder, RequestStack $requestStack)
-    {
-        $this->menuBuilder = $menuBuilder;
-        $this->requestStack = $requestStack;
+    public function __construct(
+        private readonly FrontendMenuBuilderInterface $menuBuilder,
+        private readonly RequestStack $requestStack
+    ) {
     }
 
     /**
@@ -35,8 +29,8 @@ class FrontendMenuExtension extends AbstractExtension
         $env = ['needs_environment' => true];
 
         return [
-            new TwigFunction('menu', [$this, 'renderMenu'], $env + $safe),
-            new TwigFunction('menu_array', [$this, 'getMenu'], $env + $safe),
+            new TwigFunction('menu', $this->renderMenu(...), $env + $safe),
+            new TwigFunction('menu_array', $this->getMenu(...), $env + $safe),
         ];
     }
 

@@ -15,13 +15,9 @@ class ClearThumbnailCacheCommand extends Command
     /** @var string */
     protected static $defaultName = 'cache:thumbs';
 
-    /** @var ThumbnailCacheClearer */
-    private $thumbnailCacheClearer;
-
-    public function __construct(ThumbnailCacheClearer $thumbnailCacheClearer)
-    {
-        $this->thumbnailCacheClearer = $thumbnailCacheClearer;
-
+    public function __construct(
+        private readonly ThumbnailCacheClearer $thumbnailCacheClearer
+    ) {
         parent::__construct();
     }
 

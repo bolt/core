@@ -19,12 +19,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ListingController extends TwigAwareController implements FrontendZoneInterface
 {
-    /** @var Query */
-    private $query;
-
-    public function __construct(Query $query)
-    {
-        $this->query = $query;
+    public function __construct(
+        private readonly Query $query
+    ) {
     }
 
     /**
@@ -139,9 +136,7 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
         $params['status'] = 'published';
 
         if ($this->config->get('general/query_search')->get('ignore_empty', false) === true) {
-            $params = array_filter($params, function ($param) {
-                return ! ($param === '' | $param === '%%');
-            });
+            $params = array_filter($params, fn ($param) => ! ($param === '' | $param === '%%'));
         }
 
         return $params;

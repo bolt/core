@@ -16,6 +16,7 @@ use Cocur\Slugify\Slugify;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
 use Knp\Menu\MenuItem;
+use RuntimeException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -24,53 +25,18 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
 {
     public const MAX_LATEST_RECORDS = 5;
 
-    /** @var FactoryInterface */
-    private $menuFactory;
-
-    /** @var Config */
-    private $config;
-
-    /** @var ContentRepository */
-    private $contentRepository;
-
-    /** @var UrlGeneratorInterface */
-    private $urlGenerator;
-
-    /** @var TranslatorInterface */
-    private $translator;
-
-    /** @var ContentExtension */
-    private $contentExtension;
-
-    /** @var ExtensionBackendMenuInterface[] */
-    private $extensionMenus;
-
-    /** @var AuthorizationCheckerInterface */
-    private $authorizationChecker;
-
-    /** @var ListFormatHelper */
-    private $listFormatHelper;
-
     public function __construct(
-        FactoryInterface $menuFactory,
-        iterable $extensionMenus,
-        Config $config,
-        ContentRepository $contentRepository,
-        UrlGeneratorInterface $urlGenerator,
-        TranslatorInterface $translator,
-        ContentExtension $contentExtension,
-        AuthorizationCheckerInterface $authorizationChecker,
-        ListFormatHelper $listFormatHelper
+        private readonly FactoryInterface $menuFactory,
+        /** @var ExtensionBackendMenuInterface[] */
+        private readonly iterable $extensionMenus,
+        private readonly Config $config,
+        private readonly ContentRepository $contentRepository,
+        private readonly UrlGeneratorInterface $urlGenerator,
+        private readonly TranslatorInterface $translator,
+        private readonly ContentExtension $contentExtension,
+        private readonly AuthorizationCheckerInterface $authorizationChecker,
+        private readonly ListFormatHelper $listFormatHelper
     ) {
-        $this->menuFactory = $menuFactory;
-        $this->config = $config;
-        $this->contentRepository = $contentRepository;
-        $this->urlGenerator = $urlGenerator;
-        $this->translator = $translator;
-        $this->contentExtension = $contentExtension;
-        $this->extensionMenus = $extensionMenus;
-        $this->authorizationChecker = $authorizationChecker;
-        $this->listFormatHelper = $listFormatHelper;
     }
 
     private function createAdminMenu(): ItemInterface
@@ -368,7 +334,7 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
             }
 
             $label = $contentType->get('show_in_menu') ?: $t->trans('caption.other_content');
-            $icon = $icon ?? $contentType->get('icon_many');
+            $icon ??= $contentType->get('icon_many');
 
             if (! $menu->getChild($label)) {
                 // Add the top level item
@@ -431,7 +397,7 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
                 }
 
                 $result[] = $additionalResult;
-            } catch (\RuntimeException $exception) {
+            } catch (RuntimeException) {
                 // When a record is not initialised (yet), don't break, but fail gracefully.
             }
         }

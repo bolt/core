@@ -37,43 +37,19 @@ class UploadController extends AbstractController implements AsyncZoneInterface
 {
     use CsrfTrait;
 
-    /** @var MediaFactory */
-    private $mediaFactory;
-
-    /** @var EntityManagerInterface */
-    private $em;
-
-    /** @var Config */
-    private $config;
-
-    /** @var TextExtension */
-    private $textExtension;
-
     /** @var Request */
     private $request;
 
-    /** @var Filesystem */
-    private $filesystem;
-
-    /** @var TagAwareCacheInterface */
-    private $cache;
-
     public function __construct(
-        MediaFactory $mediaFactory,
-        EntityManagerInterface $em,
-        Config $config,
-        TextExtension $textExtension,
+        private MediaFactory $mediaFactory,
+        private EntityManagerInterface $em,
+        private Config $config,
+        private TextExtension $textExtension,
         RequestStack $requestStack,
-        Filesystem $filesystem,
-        TagAwareCacheInterface $cache
+        private Filesystem $filesystem,
+        private TagAwareCacheInterface $cache
     ) {
-        $this->mediaFactory = $mediaFactory;
-        $this->em = $em;
-        $this->config = $config;
-        $this->textExtension = $textExtension;
         $this->request = $requestStack->getCurrentRequest();
-        $this->filesystem = $filesystem;
-        $this->cache = $cache;
     }
 
     /**
@@ -119,7 +95,7 @@ class UploadController extends AbstractController implements AsyncZoneInterface
             ], Response::HTTP_BAD_REQUEST);
         }
 
-        $file = new UploadedFile($tmpFile, basename($url));
+        $file = new UploadedFile($tmpFile, basename((string) $url));
         $bag = new FileBag();
         $bag->add([$file]);
         $request->files = $bag;
@@ -186,14 +162,12 @@ class UploadController extends AbstractController implements AsyncZoneInterface
 
         $uploadHandler->addRule(
             'callback',
-            ['callback' => [$this, 'checkJavascriptInSVG']],
+            ['callback' => $this->checkJavascriptInSVG(...)],
             'It is not allowed to upload SVG\'s with embedded Javascript.',
             'Upload file'
         );
 
-        $uploadHandler->setSanitizerCallback(function ($name) {
-            return $this->sanitiseFilename($name);
-        });
+        $uploadHandler->setSanitizerCallback(fn ($name) => $this->sanitiseFilename($name));
 
         // Clear the 'files_index' cache.
         $this->cache->invalidateTags(['fileslisting']);
@@ -259,6 +233,6 @@ class UploadController extends AbstractController implements AsyncZoneInterface
             return false;
         }
 
-        return mb_strpos(preg_replace('/\s+/', '', mb_strtolower($svgFile)), '<script') === false;
+        return mb_strpos((string) preg_replace('/\s+/', '', mb_strtolower($svgFile)), '<script') === false;
     }
 }

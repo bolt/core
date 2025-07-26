@@ -17,20 +17,11 @@ use Symfony\Component\Security\Http\Event\LoginSuccessEvent;
  */
 class UserLocaleSubscriber implements EventSubscriberInterface
 {
-    /** @var string */
-    private $defaultLocale;
-
-    /** @var Security */
-    private $security;
-
-    /** @var RequestStack */
-    private $requestStack;
-
-    public function __construct(RequestStack $requestStack, string $defaultLocale, Security $security)
-    {
-        $this->defaultLocale = $defaultLocale;
-        $this->security = $security;
-        $this->requestStack = $requestStack;
+    public function __construct(
+        private readonly RequestStack $requestStack,
+        private readonly string $defaultLocale,
+        private readonly Security $security
+    ) {
     }
 
     public function onLoginSuccess(LoginSuccessEvent $event): void

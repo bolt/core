@@ -21,12 +21,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class SwitchUserVoter extends Voter
 {
-    /** @var Security */
-    private $security;
-
-    public function __construct(Security $security)
-    {
-        $this->security = $security;
+    public function __construct(
+        private readonly Security $security
+    ) {
     }
 
     protected function supports($attribute, $subject): bool

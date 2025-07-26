@@ -15,18 +15,15 @@ use Twig\TwigTest;
  */
 class ExtensionExtension extends AbstractExtension
 {
-    /** @var ExtensionRegistry */
-    private $registry;
-
-    public function __construct(ExtensionRegistry $registry)
-    {
-        $this->registry = $registry;
+    public function __construct(
+        private readonly ExtensionRegistry $registry
+    ) {
     }
 
     public function getTests(): array
     {
         return [
-            new TwigTest('extension', [$this, 'extensionExists']),
+            new TwigTest('extension', $this->extensionExists(...)),
         ];
     }
 
@@ -36,8 +33,8 @@ class ExtensionExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('extension_exists', [$this, 'extensionExists']),
-            new TwigFunction('extensions', [$this, 'getExtensions']),
+            new TwigFunction('extension_exists', $this->extensionExists(...)),
+            new TwigFunction('extensions', $this->getExtensions(...)),
         ];
     }
 

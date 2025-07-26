@@ -15,7 +15,7 @@ class DeepCollection extends Collection
         }
 
         return parent::make($items)->map(function ($value) {
-            if (is_array($value) || $value instanceof \Traversable) {
+            if (is_iterable($value)) {
                 return static::deepMake($value);
             }
 

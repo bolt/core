@@ -9,12 +9,13 @@ use Bolt\Entity\FieldInterface;
 use Bolt\Entity\IterableFieldTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Illuminate\Support\Collection;
+use Iterator;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * @ORM\Entity
  */
-class SelectField extends Field implements FieldInterface, RawPersistable, \Iterator
+class SelectField extends Field implements FieldInterface, RawPersistable, Iterator
 {
     use IterableFieldTrait;
 

@@ -23,14 +23,14 @@ class TextExtension extends AbstractExtension
         ];
 
         return [
-            new TwigFilter('safestring', [$this, 'safeString'], $safe),
-            new TwigFilter('plaintext', [$this, 'plainText'], $safe),
-            new TwigFilter('title_case', [$this, 'titleCase'], $safe),
-            new TwigFilter('slug', [$this, 'slug']),
-            new TwigFilter('ucwords', [$this, 'ucwords']),
-            new TwigFilter('preg_replace', [$this, 'pregReplace']),
-            new TwigFilter('format_bytes', [$this, 'formatBytes']),
-            new TwigFilter('url_decode', [$this, 'urlDecode']),
+            new TwigFilter('safestring', $this->safeString(...), $safe),
+            new TwigFilter('plaintext', $this->plainText(...), $safe),
+            new TwigFilter('title_case', $this->titleCase(...), $safe),
+            new TwigFilter('slug', $this->slug(...)),
+            new TwigFilter('ucwords', $this->ucwords(...)),
+            new TwigFilter('preg_replace', $this->pregReplace(...)),
+            new TwigFilter('format_bytes', $this->formatBytes(...)),
+            new TwigFilter('url_decode', $this->urlDecode(...)),
         ];
     }
 
@@ -81,7 +81,7 @@ class TextExtension extends AbstractExtension
         $pow = floor(($bytes ? log($bytes) : 0) / log(1024));
         $pow = min($pow, count($units) - 1);
 
-        $bytes /= pow(1024, $pow);
+        $bytes /= 1024 ** $pow;
 
         return round($bytes, $precision) . ' ' . $units[$pow];
     }

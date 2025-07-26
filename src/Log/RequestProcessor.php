@@ -15,16 +15,15 @@ class RequestProcessor
     /** @var RequestStack */
     protected $request;
 
-    /** @var Security */
-    private $security;
-
     /** @var string */
     private $projectDir;
 
-    public function __construct(RequestStack $request, Security $security, KernelInterface $kernel)
-    {
+    public function __construct(
+        RequestStack $request,
+        private readonly Security $security,
+        KernelInterface $kernel
+    ) {
         $this->request = $request;
-        $this->security = $security;
         $this->projectDir = $kernel->getProjectDir();
     }
 

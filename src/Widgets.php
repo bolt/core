@@ -27,37 +27,17 @@ class Widgets
     /** @var Collection */
     private $queue;
 
-    /** @var RequestStack */
-    private $requestStack;
-
-    /** @var QueueProcessor */
-    private $queueProcessor;
-
     /** @var array */
     private $rendered = [];
 
-    /** @var Environment */
-    private $twig;
-
-    /** @var CacheInterface */
-    private $cache;
-
-    /** @var Stopwatch */
-    private $stopwatch;
-
     public function __construct(
-        RequestStack $requestStack,
-        QueueProcessor $queueProcessor,
-        Environment $twig,
-        CacheInterface $cache,
-        Stopwatch $stopwatch
+        private readonly RequestStack $requestStack,
+        private readonly QueueProcessor $queueProcessor,
+        private readonly Environment $twig,
+        private readonly CacheInterface $cache,
+        private readonly Stopwatch $stopwatch
     ) {
         $this->queue = new Collection([]);
-        $this->requestStack = $requestStack;
-        $this->queueProcessor = $queueProcessor;
-        $this->twig = $twig;
-        $this->cache = $cache;
-        $this->stopwatch = $stopwatch;
     }
 
     public function registerWidget(WidgetInterface $widget): void
@@ -71,9 +51,7 @@ class Widgets
 
     public function renderWidgetByName(string $name, array $params = []): string
     {
-        $widget = $this->queue->filter(function (WidgetInterface $widget) use ($name) {
-            return $widget->getName() === $name;
-        })->first();
+        $widget = $this->queue->filter(fn (WidgetInterface $widget) => $widget->getName() === $name)->first();
 
         if ($widget) {
             return (string) $this->invokeWidget($widget, $params);
@@ -102,11 +80,9 @@ class Widgets
 
     private function filteredWidgets(string $target): Collection
     {
-        return $this->queue->filter(function (WidgetInterface $widget) use ($target) {
-            return in_array($target, $widget->getTargets(), true);
-        })->sortBy(function (WidgetInterface $widget) {
-            return $widget->getPriority();
-        });
+        return $this->queue
+            ->filter(fn (WidgetInterface $widget) => in_array($target, $widget->getTargets(), true))
+            ->sortBy(fn (WidgetInterface $widget) => $widget->getPriority());
     }
 
     private function invokeWidget(WidgetInterface $widget, array $params = []): ?string

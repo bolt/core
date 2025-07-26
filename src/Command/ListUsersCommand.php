@@ -34,22 +34,12 @@ class ListUsersCommand extends Command
     /** @var string */
     protected static $defaultName = 'bolt:list-users';
 
-    /** @var MailerInterface */
-    private $mailer;
-
-    /** @var string */
-    private $emailSender;
-
-    /** @var UserRepository */
-    private $users;
-
-    public function __construct(MailerInterface $mailer, $emailSender, UserRepository $users)
-    {
+    public function __construct(
+        private readonly MailerInterface $mailer,
+        private readonly string $emailSender,
+        private readonly UserRepository $users
+    ) {
         parent::__construct();
-
-        $this->mailer = $mailer;
-        $this->emailSender = $emailSender;
-        $this->users = $users;
     }
 
     /**
@@ -94,15 +84,13 @@ HELP
         $allUsers = $this->users->findBy([], ['username' => 'ASC'], $maxResults);
 
         // Doctrine query returns an array of objects and we need an array of plain arrays
-        $usersAsPlainArrays = array_map(function (User $user) {
-            return [
-                $user->getId(),
-                $user->getDisplayName(),
-                $user->getUsername(),
-                $user->getEmail(),
-                implode(', ', $user->getRoles()),
-            ];
-        }, $allUsers);
+        $usersAsPlainArrays = array_map(fn (User $user) => [
+            $user->getId(),
+            $user->getDisplayName(),
+            $user->getUsername(),
+            $user->getEmail(),
+            implode(', ', $user->getRoles()),
+        ], $allUsers);
 
         // In your console commands you should always use the regular output type,
         // which outputs contents directly in the console window. However, this

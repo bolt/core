@@ -10,32 +10,16 @@ use Illuminate\Support\Collection;
 
 class ListFormatHelper
 {
-    /** @var Connection */
-    private $connection;
-
-    /** @var string */
-    private $prefix;
-
-    /** @var ContentRepository */
-    private $contentRepository;
-
-    /** @var EntityManagerInterface */
-    private $em;
-
     /** @var string */
     private $backendUrl = '/bolt';
 
     public function __construct(
-        Connection $connection,
-        ContentRepository $contentRepository,
-        EntityManagerInterface $em,
-        string $tablePrefix = 'bolt_',
+        private readonly Connection $connection,
+        private readonly ContentRepository $contentRepository,
+        private readonly EntityManagerInterface $em,
+        private readonly string $prefix = 'bolt_',
         string $backendUrl = 'bolt'
     ) {
-        $this->connection = $connection;
-        $this->prefix = $tablePrefix;
-        $this->contentRepository = $contentRepository;
-        $this->em = $em;
         $this->backendUrl = preg_replace('/[^\pL\d,]+/u', '', $backendUrl);
     }
 
@@ -192,7 +176,7 @@ class ListFormatHelper
 
     private function split($contenttypes): string
     {
-        $parts = explode(',', preg_replace('/^\((.*)\)$/', '$1', $contenttypes));
+        $parts = explode(',', (string) preg_replace('/^\((.*)\)$/', '$1', (string) $contenttypes));
         $result = sprintf('"%s"', implode('", "', $parts));
 
         return $result;

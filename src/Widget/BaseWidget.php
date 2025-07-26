@@ -7,6 +7,7 @@ namespace Bolt\Widget;
 use Bolt\Extension\ExtensionInterface;
 use Bolt\Widget\Exception\WidgetException;
 use Cocur\Slugify\Slugify;
+use ReflectionClass;
 use Twig\Error\LoaderError;
 use Twig\Loader\ChainLoader;
 use Twig\Loader\FilesystemLoader;
@@ -208,19 +209,19 @@ abstract class BaseWidget implements WidgetInterface
             return $this->templateFolder;
         }
 
-        $reflection = new \ReflectionClass($this);
+        $reflection = new ReflectionClass($this);
 
         $folder = dirname($reflection->getFilename()) . DIRECTORY_SEPARATOR . 'templates';
         if (realpath($folder)) {
             return realpath($folder);
         }
 
-        $folder = dirname(dirname($reflection->getFilename())) . DIRECTORY_SEPARATOR . 'templates';
+        $folder = dirname($reflection->getFilename(), 2) . DIRECTORY_SEPARATOR . 'templates';
         if (realpath($folder)) {
             return realpath($folder);
         }
 
-        $folder = dirname(dirname(dirname($reflection->getFilename()))) . DIRECTORY_SEPARATOR . 'templates';
+        $folder = dirname($reflection->getFilename(), 3) . DIRECTORY_SEPARATOR . 'templates';
         if (realpath($folder)) {
             return realpath($folder);
         }

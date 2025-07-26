@@ -13,12 +13,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Throwable;
 
 class ImageController
 {
-    /** @var Config */
-    private $config;
-
     /** @var Server */
     private $server;
 
@@ -28,9 +26,10 @@ class ImageController
     /** @var Request */
     private $request;
 
-    public function __construct(Config $config, RequestStack $requestStack)
-    {
-        $this->config = $config;
+    public function __construct(
+        private readonly Config $config,
+        RequestStack $requestStack
+    ) {
         $this->request = $requestStack->getCurrentRequest();
     }
 
@@ -89,7 +88,7 @@ class ImageController
             $filesystem->mkdir(dirname($filePath), $folderMode);
             $filesystem->dumpFile($filePath, $imageBlob);
             $filesystem->chmod($filePath, $fileMode);
-        } catch (\Throwable $e) {
+        } catch (Throwable) {
             // Fail silently, output user-friendly exception elsewhere.
         }
     }
@@ -139,12 +138,12 @@ class ImageController
 
     private function parseParameters(string $paramString): void
     {
-        $raw = explode('×', preg_replace('/([0-9])(x)([0-9a-z])/i', '\1×\3', $paramString));
+        $raw = explode('×', (string) preg_replace('/([0-9])(x)([0-9a-z])/i', '\1×\3', $paramString));
 
         $this->parameters = [
             'w' => (isset($raw[0]) && is_numeric($raw[0])) ? (int) $raw[0] : 400,
             'h' => (isset($raw[1]) && is_numeric($raw[1])) ? (int) $raw[1] : 300,
-            'fit' => isset($raw[2]) ? $raw[2] : $this->config->get('general/thumbnails/default_cropping', 'default'),
+            'fit' => $raw[2] ?? $this->config->get('general/thumbnails/default_cropping', 'default'),
             'location' => 'files',
             'q' => (! empty($raw[2]) && 0 <= $raw[2] && $raw[2] <= 100) ? (int) $raw[2] : 80,
         ];
@@ -187,31 +186,19 @@ class ImageController
 
     public function parseFit(string $fit): string
     {
-        switch ($fit) {
-            case 'n':
-            case 'contain':
-            case 'default':
-                return 'contain';
-            case 'm':
-            case 'max':
-                return 'max';
-            case 'f':
-            case 'fill':
-                return 'fill';
-            case 's':
-            case 'stretch':
-                return 'stretch';
-            case 'c':
-            case 'crop':
-                return 'crop';
-            default:
-                return $fit;
-        }
+        return match ($fit) {
+            'n', 'contain', 'default' => 'contain',
+            'm', 'max' => 'max',
+            'f', 'fill' => 'fill',
+            's', 'stretch' => 'stretch',
+            'c', 'crop' => 'crop',
+            default => $fit,
+        };
     }
 
     public function sendErrorImage(): Response
     {
-        $image404Path = dirname(dirname(__DIR__)) . '/assets/static/images/404-image.png';
+        $image404Path = dirname(__DIR__, 2) . '/assets/static/images/404-image.png';
         $response = new Response(file_get_contents($image404Path));
         $response->headers->set('Content-Type', 'image/png');
 

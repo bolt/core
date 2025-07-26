@@ -6,6 +6,7 @@ namespace Bolt\Repository;
 
 use Bolt\Entity\User;
 use Bolt\Entity\UserAuthToken;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -22,7 +23,7 @@ class UserAuthTokenRepository extends ServiceEntityRepository
         parent::__construct($registry, UserAuthToken::class);
     }
 
-    public static function factory(User $user, string $useragent, \DateTime $validity): UserAuthToken
+    public static function factory(User $user, string $useragent, DateTime $validity): UserAuthToken
     {
         $userAuthToken = new UserAuthToken();
 

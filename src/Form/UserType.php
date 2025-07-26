@@ -23,28 +23,18 @@ use Twig\Environment;
 
 class UserType extends AbstractType
 {
-    /** @var LocaleHelper */
-    private $localeHelper;
-
-    /** @var Environment */
-    private $twig;
-
     /** @var DeepCollection */
     private $avatarConfig;
 
-    /** @var Security */
-    private $security;
-
-    public function __construct(LocaleHelper $localeHelper, Environment $twig, Config $config, Security $security)
-    {
-        $this->localeHelper = $localeHelper;
-        $this->twig = $twig;
-
+    public function __construct(
+        private readonly LocaleHelper $localeHelper,
+        private readonly Environment $twig,
+        Config $config,
+        private readonly Security $security
+    ) {
         /** @var DeepCollection $config */
         $config = $config->get('general');
         $this->avatarConfig = $config->get('user_avatar');
-
-        $this->security = $security;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

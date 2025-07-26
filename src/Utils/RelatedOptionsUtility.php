@@ -15,20 +15,11 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  */
 class RelatedOptionsUtility
 {
-    /** @var Query */
-    private $query;
-
-    /** @var ContentHelper */
-    private $contentHelper;
-
-    /** @var UrlGeneratorInterface */
-    private $router;
-
-    public function __construct(Query $query, ContentHelper $contentHelper, UrlGeneratorInterface $router)
-    {
-        $this->query = $query;
-        $this->contentHelper = $contentHelper;
-        $this->router = $router;
+    public function __construct(
+        private readonly Query $query,
+        private readonly ContentHelper $contentHelper,
+        private readonly UrlGeneratorInterface $router
+    ) {
     }
 
     /**

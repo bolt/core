@@ -54,26 +54,13 @@ class AddUserCommand extends Command
     /** @var SymfonyStyle */
     private $io;
 
-    /** @var EntityManagerInterface */
-    private $entityManager;
-
-    /** @var UserPasswordHasherInterface */
-    private $passwordHasher;
-
-    /** @var ValidatorInterface */
-    private $validator;
-
-    /** @var Config */
-    private $config;
-
-    public function __construct(EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasher, ValidatorInterface $validator, Config $config)
-    {
+    public function __construct(
+        private readonly EntityManagerInterface $entityManager,
+        private readonly UserPasswordHasherInterface $passwordHasher,
+        private readonly ValidatorInterface $validator,
+        private readonly Config $config
+    ) {
         parent::__construct();
-
-        $this->entityManager = $em;
-        $this->passwordHasher = $passwordHasher;
-        $this->validator = $validator;
-        $this->config = $config;
     }
 
     /**

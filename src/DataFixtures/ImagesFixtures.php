@@ -16,17 +16,11 @@ class ImagesFixtures extends BaseFixture implements FixtureGroupInterface
     /** @var Generator */
     private $faker;
 
-    /** @var MediaFactory */
-    private $mediaFactory;
-
-    /** @var FileLocations */
-    private $fileLocations;
-
-    public function __construct(FileLocations $fileLocations, MediaFactory $mediaFactory)
-    {
+    public function __construct(
+        private readonly FileLocations $fileLocations,
+        private readonly MediaFactory $mediaFactory
+    ) {
         $this->faker = Factory::create();
-        $this->mediaFactory = $mediaFactory;
-        $this->fileLocations = $fileLocations;
     }
 
     public static function getGroups(): array

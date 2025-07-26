@@ -8,6 +8,7 @@ use Bolt\Configuration\Config;
 use Bolt\Utils\LocaleHelper;
 use Carbon\Carbon;
 use Carbon\CarbonTimeZone;
+use Datetime;
 use Illuminate\Support\Collection;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
@@ -17,28 +18,13 @@ use Twig\TwigFunction;
 
 class LocaleExtension extends AbstractExtension
 {
-    /** @var TranslatorInterface */
-    private $translator;
-
-    /** @var LocaleHelper */
-    private $localeHelper;
-
-    /** @var Config */
-    private $config;
-
-    /** @var string */
-    private $defaultLocale;
-
-    /** @var Environment */
-    private $twig;
-
-    public function __construct(TranslatorInterface $translator, LocaleHelper $localeHelper, Config $config, Environment $twig, string $defaultLocale)
-    {
-        $this->translator = $translator;
-        $this->localeHelper = $localeHelper;
-        $this->config = $config;
-        $this->defaultLocale = $defaultLocale;
-        $this->twig = $twig;
+    public function __construct(
+        private readonly TranslatorInterface $translator,
+        private readonly LocaleHelper $localeHelper,
+        private readonly Config $config,
+        private readonly Environment $twig,
+        private readonly string $defaultLocale
+    ) {
     }
 
     /**
@@ -51,7 +37,7 @@ class LocaleExtension extends AbstractExtension
         ];
 
         return [
-            new TwigFilter('localdate', [$this, 'localdate'], $safe),
+            new TwigFilter('localdate', $this->localdate(...), $safe),
         ];
     }
 
@@ -66,11 +52,11 @@ class LocaleExtension extends AbstractExtension
         $env = ['needs_environment' => true];
 
         return [
-            new TwigFunction('__', [$this, 'translate'], $safe),
-            new TwigFunction('htmllang', [$this, 'getHtmlLang'], $env),
-            new TwigFunction('locales', [$this, 'getLocales'], $env),
-            new TwigFunction('locale', [$this, 'getLocale']),
-            new TwigFunction('flag', [$this, 'flag'], $safe),
+            new TwigFunction('__', $this->translate(...), $safe),
+            new TwigFunction('htmllang', $this->getHtmlLang(...), $env),
+            new TwigFunction('locales', $this->getLocales(...), $env),
+            new TwigFunction('locale', $this->getLocale(...)),
+            new TwigFunction('flag', $this->flag(...), $safe),
         ];
     }
 
@@ -126,7 +112,7 @@ class LocaleExtension extends AbstractExtension
 
     public function localdate($dateTime, ?string $format = null, ?string $locale = null, ?string $timezone = null): string
     {
-        if ($dateTime instanceof \Datetime) {
+        if ($dateTime instanceof Datetime) {
             $dateTime = Carbon::createFromTimestamp($dateTime->getTimestamp(), $dateTime->getTimezone());
         } elseif (empty($dateTime)) {
             $dateTime = Carbon::now();

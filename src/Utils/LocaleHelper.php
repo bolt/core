@@ -18,38 +18,26 @@ class LocaleHelper
     /** @var Collection */
     private $localeCodes;
 
-    /** @var UrlGeneratorInterface */
-    private $urlGenerator;
-
     /** @var Collection */
     private $flagCodes;
-
-    /** @var Config */
-    private $config;
 
     /** @var Collection */
     private $codetoCountry;
 
-    /** @var ContentRepository */
-    private $contentRepository;
-
-    /** @var string */
-    private $defaultLocale;
-
     /** @var Collection */
     private $currentLocale;
 
-    public function __construct(string $locales, ContentRepository $contentRepository, UrlGeneratorInterface $urlGenerator, Config $config, string $defaultLocale)
-    {
+    public function __construct(
+        string $locales,
+        private readonly ContentRepository $contentRepository,
+        private readonly UrlGeneratorInterface $urlGenerator,
+        private readonly Config $config,
+        private readonly string $defaultLocale
+    ) {
         $this->localeCodes = new Collection(explode('|', $locales));
-        $this->urlGenerator = $urlGenerator;
-        $this->defaultLocale = $defaultLocale;
 
         $this->flagCodes = $this->getFlagCodes();
         $this->codetoCountry = $this->getCodetoCountry();
-        $this->config = $config;
-
-        $this->contentRepository = $contentRepository;
     }
 
     public function getCurrentLocale(Environment $twig): ?Collection
@@ -110,7 +98,7 @@ class LocaleHelper
                 $routeParams['slugOrId'] = $slug;
             }
 
-            if ($route && (mb_stripos($route, 'bolt_') === 0 || (! isset($content) || isset($routeParams['slugOrId'])))) {
+            if ($route && (mb_stripos((string) $route, 'bolt_') === 0 || (! isset($content) || isset($routeParams['slugOrId'])))) {
                 $locale->put('link', $this->getLink($route, $routeParams, $locale));
             } else {
                 // For edge-cases like '404', the `_route` is null.
@@ -168,7 +156,7 @@ class LocaleHelper
             $localeCode = $localeCode->get('code');
         }
 
-        $splitCode = preg_split('/[_-]/', $localeCode);
+        $splitCode = preg_split('/[_-]/', (string) $localeCode);
 
         if (isset($splitCode[1])) {
             $localeCode = sprintf('%s_%s', mb_strtolower($splitCode[0]), mb_strtoupper($splitCode[1]));
@@ -187,7 +175,7 @@ class LocaleHelper
         try {
             $locale['name'] = Locales::getName($localeCode);
             $locale['localizedname'] = Locales::getName($localeCode, $localeCode);
-        } catch (RuntimeException $e) {
+        } catch (RuntimeException) {
             $locale['name'] = 'unknown';
             $locale['localizedname'] = 'unknown';
         }
@@ -197,7 +185,7 @@ class LocaleHelper
 
     private function getFlagCode($localeCode): string
     {
-        $splitCode = preg_split('/[_-]/', $localeCode);
+        $splitCode = preg_split('/[_-]/', (string) $localeCode);
 
         // for codes like `en_GB`
         if (isset($splitCode[1]) && $this->flagCodes->get(mb_strtoupper($splitCode[1]))) {
@@ -213,7 +201,7 @@ class LocaleHelper
      */
     private function flagCodeFormatter($flag): string
     {
-        $flag = mb_strtolower($flag);
+        $flag = mb_strtolower((string) $flag);
 
         if ($this->codetoCountry->has($flag)) {
             return $this->codetoCountry->get($flag);

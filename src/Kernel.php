@@ -8,6 +8,7 @@ use Bolt\Configuration\Parser\ContentTypesParser;
 use Bolt\Configuration\Parser\TaxonomyParser;
 use Bolt\Extension\ExtensionCompilerPass;
 use Bolt\Extension\ExtensionInterface;
+use Exception;
 use Illuminate\Support\Collection;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Exception\LoaderLoadException;
@@ -60,7 +61,7 @@ class Kernel extends BaseKernel
         // Load auto-generated extension services first. Any overrides after take precedence.
         try {
             $loader->load($confDir . '/{services}_bolt' . self::CONFIG_EXTS, 'glob');
-        } catch (LoaderLoadException $e) {
+        } catch (LoaderLoadException) {
             // Ignore LoaderLoadExceptions. This is a race-condition that will occur when extensions
             // get added or deleted, before Bolt has a chance to update `services_bolt.yaml`.
             // The file will be updated on next `cache:clear` or when the container gets refreshed.
@@ -125,7 +126,7 @@ class Kernel extends BaseKernel
      * Set the ContentType requirements that are used in Routing.
      * Note: this functionality is partially duplicated in \Bolt\Configuration\Config.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     private function setContentTypeRequirements(ContainerBuilder $container): void
     {
@@ -145,7 +146,7 @@ class Kernel extends BaseKernel
      * Set the Taxonomy requirements that are used in Routing.
      * Note: this functionality is partially duplicated in \Bolt\Configuration\Config.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     private function setTaxonomyRequirements(ContainerBuilder $container): void
     {
@@ -167,7 +168,7 @@ class Kernel extends BaseKernel
      *
      * @return string path to the public folder for this project
      *
-     * @throws \Exception
+     * @throws Exception
      */
     protected function getPublicFolder(): string
     {
@@ -180,6 +181,6 @@ class Kernel extends BaseKernel
             }
         }
 
-        throw new \Exception('The Public Folder could not be determined. Expected folder `public`, `public_html`, `www`, `web`, `httpdocs`, `wwwroot`, `htdocs`, `http_public` or `private_html` to exist.');
+        throw new Exception('The Public Folder could not be determined. Expected folder `public`, `public_html`, `www`, `web`, `httpdocs`, `wwwroot`, `htdocs`, `http_public` or `private_html` to exist.');
     }
 }

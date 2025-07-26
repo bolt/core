@@ -14,27 +14,20 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserFixtures extends BaseFixture implements FixtureGroupInterface
 {
-    /** @var UserPasswordHasherInterface */
-    private $passwordHasher;
-
-    /** @var UserRepository */
-    private $users;
-
     /** @var bool */
     private $append = false;
 
     /** @var array */
     private $allUsers = [];
 
-    public function __construct(UserPasswordHasherInterface $passwordHasher, UserRepository $users)
-    {
-        $this->passwordHasher = $passwordHasher;
-
+    public function __construct(
+        private readonly UserPasswordHasherInterface $passwordHasher,
+        private readonly UserRepository $users
+    ) {
         // If ran with `--append` we append users, and use random passwords for them
         if ($this->getOption('--append')) {
             $this->append = true;
         }
-        $this->users = $users;
     }
 
     public function load(ObjectManager $manager): void

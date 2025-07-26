@@ -28,11 +28,11 @@ class Excerpt
     {
         $locations = [];
         foreach ($words as $word) {
-            $wordLen = mb_strlen($word);
-            $loc = mb_stripos($fulltext, $word);
+            $wordLen = mb_strlen((string) $word);
+            $loc = mb_stripos($fulltext, (string) $word);
             while ($loc !== false) {
                 $locations[] = $loc;
-                $loc = mb_stripos($fulltext, $word, $loc + $wordLen);
+                $loc = mb_stripos($fulltext, (string) $word, $loc + $wordLen);
             }
         }
         $locations = array_unique($locations);
@@ -129,7 +129,7 @@ class Excerpt
         // Highlight the words, using the `<mark>` tag.
         foreach ($words as $word) {
             if ($word) {
-                $relText = preg_replace('/(' . preg_quote($word, '/') . ')/i', '<mark>$1</mark>', $relText);
+                $relText = preg_replace('/(' . preg_quote((string) $word, '/') . ')/i', '<mark>$1</mark>', (string) $relText);
             }
         }
 

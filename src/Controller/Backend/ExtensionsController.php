@@ -18,15 +18,12 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ExtensionsController extends AbstractController implements BackendZoneInterface
 {
-    /** @var ExtensionRegistry */
-    private $extensionRegistry;
-
     /** @var Dependencies */
     private $dependenciesManager;
 
-    public function __construct(ExtensionRegistry $extensionRegistry)
-    {
-        $this->extensionRegistry = $extensionRegistry;
+    public function __construct(
+        private readonly ExtensionRegistry $extensionRegistry
+    ) {
         $this->dependenciesManager = new Dependencies();
     }
 

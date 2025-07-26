@@ -23,7 +23,7 @@ trait ImageTrait
 
     public function getImage(): string
     {
-        $filename = dirname(dirname(__DIR__)) . '/assets/static/images/bolt_logo_cli.png';
+        $filename = dirname(__DIR__, 2) . '/assets/static/images/bolt_logo_cli.png';
         $imageFile = base64_encode(file_get_contents($filename));
 
         return $this->unicodeString('\u001B]1337;File=inline=1;width=auto;height=3;preserveAspectRatio=1:' . $imageFile . '\u0007');
@@ -35,8 +35,10 @@ trait ImageTrait
             $encoding = ini_get('mbstring.internal_encoding') ?: 'UTF-8';
         }
 
-        return preg_replace_callback('/\\\\u([0-9a-fA-F]{4})/u', function ($match) use ($encoding) {
-            return mb_convert_encoding(pack('H*', $match[1]), $encoding, 'UTF-16BE');
-        }, $str);
+        return preg_replace_callback(
+            '/\\\\u([0-9a-fA-F]{4})/u',
+            fn ($match) => mb_convert_encoding(pack('H*', $match[1]), $encoding, 'UTF-16BE'),
+            $str,
+        );
     }
 }

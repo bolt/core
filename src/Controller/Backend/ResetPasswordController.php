@@ -30,17 +30,12 @@ class ResetPasswordController extends TwigAwareController
 {
     use ResetPasswordControllerTrait;
 
-    /** @var ResetPasswordHelperInterface */
-    private $resetPasswordHelper;
-
-    /** @var TranslatorInterface */
-    private $translator;
-
-    public function __construct(ResetPasswordHelperInterface $resetPasswordHelper, Config $config, TranslatorInterface $translator)
-    {
-        $this->resetPasswordHelper = $resetPasswordHelper;
+    public function __construct(
+        private ResetPasswordHelperInterface $resetPasswordHelper,
+        Config $config,
+        private TranslatorInterface $translator
+    ) {
         $this->config = $config;
-        $this->translator = $translator;
     }
 
     /**

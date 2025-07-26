@@ -25,12 +25,14 @@ use Bolt\Utils\Html;
 use Bolt\Utils\Sanitiser;
 use Illuminate\Support\Collection;
 use Pagerfanta\Pagerfanta;
+use RuntimeException;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Exception\InvalidParameterException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Throwable;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\Markup;
@@ -41,73 +43,21 @@ class ContentExtension extends AbstractExtension
 {
     use LoggerTrait;
 
-    /** @var UrlGeneratorInterface */
-    private $urlGenerator;
-
-    /** @var ContentRepository */
-    private $contentRepository;
-
-    /** @var CsrfTokenManagerInterface */
-    private $csrfTokenManager;
-
-    /** @var Security */
-    private $security;
-
-    /** @var Config */
-    private $config;
-
-    /** @var Query */
-    private $query;
-
-    /** @var TaxonomyRepository */
-    private $taxonomyRepository;
-
-    /** @var TranslatorInterface */
-    private $translator;
-
-    /** @var Canonical */
-    private $canonical;
-
-    /** @var ContentHelper */
-    private $contentHelper;
-
-    /** @var Notifications */
-    private $notifications;
-
-    /** @var Sanitiser */
-    private $sanitiser;
-
-    /** @var RequestStack */
-    private $requestStack;
-
     public function __construct(
-        UrlGeneratorInterface $urlGenerator,
-        ContentRepository $contentRepository,
-        CsrfTokenManagerInterface $csrfTokenManager,
-        Security $security,
-        RequestStack $requestStack,
-        Config $config,
-        Query $query,
-        TaxonomyRepository $taxonomyRepository,
-        TranslatorInterface $translator,
-        Canonical $canonical,
-        ContentHelper $contentHelper,
-        Notifications $notifications,
-        Sanitiser $sanitiser
+        private readonly UrlGeneratorInterface $urlGenerator,
+        private readonly ContentRepository $contentRepository,
+        private readonly CsrfTokenManagerInterface $csrfTokenManager,
+        private readonly Security $security,
+        private readonly RequestStack $requestStack,
+        private readonly Config $config,
+        private readonly Query $query,
+        private readonly TaxonomyRepository $taxonomyRepository,
+        private readonly TranslatorInterface $translator,
+        private readonly Canonical $canonical,
+        private readonly ContentHelper $contentHelper,
+        private readonly Notifications $notifications,
+        private readonly Sanitiser $sanitiser
     ) {
-        $this->urlGenerator = $urlGenerator;
-        $this->contentRepository = $contentRepository;
-        $this->csrfTokenManager = $csrfTokenManager;
-        $this->security = $security;
-        $this->config = $config;
-        $this->query = $query;
-        $this->taxonomyRepository = $taxonomyRepository;
-        $this->translator = $translator;
-        $this->canonical = $canonical;
-        $this->contentHelper = $contentHelper;
-        $this->notifications = $notifications;
-        $this->sanitiser = $sanitiser;
-        $this->requestStack = $requestStack;
     }
 
     /**
@@ -121,21 +71,20 @@ class ContentExtension extends AbstractExtension
         $env = ['needs_environment' => true];
 
         return [
-            new TwigFilter('title', [$this, 'getTitle'], $safe),
-            new TwigFilter('title_fields_names', [$this, 'getTitleFields']),
-            new TwigFilter('image', [$this, 'getImage']),
-            new TwigFilter('excerpt', [$this, 'getExcerpt'], $safe),
-            new TwigFilter('previous', [$this, 'getPreviousContent']),
-            new TwigFilter('next', [$this, 'getNextContent']),
-            new TwigFilter('link', [$this, 'getLink']),
-            new TwigFilter('edit_link', [$this, 'getEditLink']),
-            new TwigFilter('taxonomies', [$this, 'getTaxonomies']),
-            new TwigFilter('has_path', [$this, 'hasPath']),
-            new TwigFilter('allow_twig', [$this, 'allowTwig'], $env),
-            new TwigFilter('status_options', [$this, 'statusOptions']),
-            new TwigFilter('feature', [$this, 'getSpecialFeature']),
-            new TwigFilter('sanitise', [$this, 'sanitise']),
-            new TwigFilter('record', [$this, 'record']),
+            new TwigFilter('title', $this->getTitle(...), $safe),
+            new TwigFilter('title_fields_names', $this->getTitleFieldsNames(...)),
+            new TwigFilter('image', $this->getImage(...)),
+            new TwigFilter('excerpt', $this->getExcerpt(...), $safe),
+            new TwigFilter('previous', $this->getPreviousContent(...)),
+            new TwigFilter('next', $this->getNextContent(...)),
+            new TwigFilter('link', $this->getLink(...)),
+            new TwigFilter('edit_link', $this->getEditLink(...)),
+            new TwigFilter('taxonomies', $this->getTaxonomies(...)),
+            new TwigFilter('has_path', $this->hasPath(...)),
+            new TwigFilter('status_options', $this->statusOptions(...)),
+            new TwigFilter('feature', $this->getSpecialFeature(...)),
+            new TwigFilter('sanitise', $this->sanitise(...)),
+            new TwigFilter('record', $this->record(...)),
         ];
     }
 
@@ -150,13 +99,13 @@ class ContentExtension extends AbstractExtension
         $env = ['needs_environment' => true];
 
         return [
-            new TwigFunction('excerpt', [$this, 'getExcerpt'], $safe),
-            new TwigFunction('previous_record', [$this, 'getPreviousContent']),
-            new TwigFunction('next_record', [$this, 'getNextContent']),
-            new TwigFunction('pager', [$this, 'pager'], $env + $safe),
-            new TwigFunction('taxonomy_options', [$this, 'taxonomyOptions']),
-            new TwigFunction('taxonomy_values', [$this, 'taxonomyValues']),
-            new TwigFunction('icon', [$this, 'icon'], $safe),
+            new TwigFunction('excerpt', $this->getExcerpt(...), $safe),
+            new TwigFunction('previous_record', $this->getPreviousContent(...)),
+            new TwigFunction('next_record', $this->getNextContent(...)),
+            new TwigFunction('pager', $this->pager(...), $env + $safe),
+            new TwigFunction('taxonomy_options', $this->taxonomyOptions(...)),
+            new TwigFunction('taxonomy_values', $this->taxonomyValues(...)),
+            new TwigFunction('icon', $this->icon(...), $safe),
         ];
     }
 
@@ -348,25 +297,14 @@ class ContentExtension extends AbstractExtension
 
     private function getAdjacentContent(Content $content, string $direction, string $byColumn = 'id', bool $sameContentType = true): ?Content
     {
-        switch ($byColumn) {
-            case 'id':
-                $value = $content->getId();
-                break;
-            case 'createdAt':
-                $value = $content->getCreatedAt();
-                break;
-            case 'publishedAt':
-                $value = $content->getPublishedAt();
-                break;
-            case 'depublishedAt':
-                $value = $content->getDepublishedAt();
-                break;
-            case 'modifiedAt':
-                $value = $content->getModifiedAt();
-                break;
-            default:
-                throw new \RuntimeException('Ordering content by this column is not yet implemented');
-        }
+        $value = match ($byColumn) {
+            'id' => $content->getId(),
+            'createdAt' => $content->getCreatedAt(),
+            'publishedAt' => $content->getPublishedAt(),
+            'depublishedAt' => $content->getDepublishedAt(),
+            'modifiedAt' => $content->getModifiedAt(),
+            default => throw new RuntimeException('Ordering content by this column is not yet implemented'),
+        };
 
         $contentType = $sameContentType ? $content->getContentType() : null;
 
@@ -490,7 +428,7 @@ class ContentExtension extends AbstractExtension
     {
         try {
             $link = $this->canonical->generateLink($route, $params, $canonical);
-        } catch (InvalidParameterException $e) {
+        } catch (InvalidParameterException) {
             $this->logger->notice('Could not create URL for route \'' . $route . '\'. Perhaps the ContentType was changed or removed. Try clearing the cache');
             $link = '';
         }
@@ -632,7 +570,7 @@ class ContentExtension extends AbstractExtension
             $content = iterator_to_array($pager->getCurrentPageResults())[0];
 
             return $record === $content;
-        } catch (\Throwable $e) {
+        } catch (Throwable) {
         }
 
         return false;

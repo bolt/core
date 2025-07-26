@@ -14,13 +14,9 @@ use Symfony\Component\Process\Process;
 
 class ServerCommand extends Command
 {
-    /** @var string */
-    private $projectDir;
-
-    public function __construct(string $projectDir)
-    {
-        $this->projectDir = $projectDir;
-
+    public function __construct(
+        private readonly string $projectDir
+    ) {
         parent::__construct();
     }
 

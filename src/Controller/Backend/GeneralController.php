@@ -13,12 +13,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class GeneralController extends TwigAwareController implements BackendZoneInterface
 {
-    /** @var \Bolt\Doctrine\Version */
-    private $doctrineVersion;
-
-    public function __construct(\Bolt\Doctrine\Version $doctrineVersion)
-    {
-        $this->doctrineVersion = $doctrineVersion;
+    public function __construct(
+        private readonly \Bolt\Doctrine\Version $doctrineVersion
+    ) {
     }
 
     /**

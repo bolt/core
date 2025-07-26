@@ -13,28 +13,13 @@ use Twig\Environment;
 
 final class FrontendMenu implements FrontendMenuBuilderInterface
 {
-    /** @var TagAwareCacheInterface */
-    private $cache;
-
-    /** @var FrontendMenuBuilder */
-    private $menuBuilder;
-
-    /** @var Stopwatch */
-    private $stopwatch;
-
-    /** @var Config */
-    private $config;
-
-    /** @var RequestStack */
-    private $requestStack;
-
-    public function __construct(FrontendMenuBuilder $menuBuilder, TagAwareCacheInterface $cache, RequestStack $requestStack, Stopwatch $stopwatch, Config $config)
-    {
-        $this->cache = $cache;
-        $this->menuBuilder = $menuBuilder;
-        $this->stopwatch = $stopwatch;
-        $this->config = $config;
-        $this->requestStack = $requestStack;
+    public function __construct(
+        private readonly FrontendMenuBuilder $menuBuilder,
+        private readonly TagAwareCacheInterface $cache,
+        private readonly RequestStack $requestStack,
+        private readonly Stopwatch $stopwatch,
+        private readonly Config $config
+    ) {
     }
 
     public function buildMenu(Environment $twig, ?string $name = null): array

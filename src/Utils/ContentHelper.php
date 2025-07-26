@@ -15,24 +15,16 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 class ContentHelper
 {
-    /** @var Canonical */
-    private $canonical;
-
     /** @var Request */
     private $request;
 
-    /** @var Config */
-    private $config;
-
-    /** @var LocaleExtension */
-    private $localeExtension;
-
-    public function __construct(Canonical $canonical, RequestStack $requestStack, Config $config, LocaleExtension $localeExtension)
-    {
-        $this->canonical = $canonical;
+    public function __construct(
+        private readonly Canonical $canonical,
+        RequestStack $requestStack,
+        private readonly Config $config,
+        private readonly LocaleExtension $localeExtension
+    ) {
         $this->request = $requestStack->getCurrentRequest() ?? Request::createFromGlobals();
-        $this->config = $config;
-        $this->localeExtension = $localeExtension;
     }
 
     public function setCanonicalPath($record, ?string $locale = null): void
@@ -277,7 +269,7 @@ class ContentHelper
         }
 
         foreach ($configSetting as $item) {
-            $item = explode('/', $item);
+            $item = explode('/', (string) $item);
 
             // Discard candidate if contentTypes don't match
             if ($item[0] !== $content->getContentTypeSingularSlug() && $item[0] !== $content->getContentTypeSlug()) {

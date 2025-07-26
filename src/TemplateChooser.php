@@ -12,16 +12,10 @@ use Illuminate\Support\Collection;
 
 class TemplateChooser
 {
-    /** @var Config */
-    private $config;
-
-    /** @var ContentExtension */
-    private $contentExtension;
-
-    public function __construct(Config $config, ContentExtension $contentExtension)
-    {
-        $this->config = $config;
-        $this->contentExtension = $contentExtension;
+    public function __construct(
+        private readonly Config $config,
+        private readonly ContentExtension $contentExtension
+    ) {
     }
 
     public function forHomepage(?Content $content = null): array

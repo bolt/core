@@ -6,6 +6,7 @@ namespace Bolt\Controller\Frontend;
 
 use Bolt\Controller\TwigAwareController;
 use Bolt\Repository\ContentRepository;
+use Exception;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -34,7 +35,7 @@ class HomepageController extends TwigAwareController implements FrontendZoneInte
         if (! $contentType) {
             $message = sprintf('Homepage is set to `%s`, but that ContentType is not defined', $homepage);
 
-            throw new \Exception($message);
+            throw new Exception($message);
         }
 
         // Perhaps we need a listing instead. If so, forward the Request there

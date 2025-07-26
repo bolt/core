@@ -15,14 +15,14 @@ class TranslatableExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('find_translations', [$this, 'findTranslations']),
+            new TwigFunction('find_translations', $this->findTranslations(...)),
         ];
     }
 
     public function getFilters(): array
     {
         return [
-            new TwigFilter('translate', [$this, 'translate']),
+            new TwigFilter('translate', $this->translate(...)),
         ];
     }
 

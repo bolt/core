@@ -16,21 +16,17 @@ use Illuminate\Support\Collection;
 
 final class ContentExtension implements QueryCollectionExtensionInterface, QueryItemExtensionInterface
 {
-    /** @var Config */
-    private $config;
-
     /** @var Collection */
     private $viewlessContentTypes;
 
-    public function __construct(Config $config)
-    {
-        $this->config = $config;
-
-        $this->viewlessContentTypes = $this->config->get('contenttypes')->filter(function (Collection $ct) {
-            return $ct->get('viewless', false);
-        })->map(function (Collection $ct) {
-            return $ct->get('slug');
-        })->values();
+    public function __construct(
+        private readonly Config $config
+    ) {
+        $this->viewlessContentTypes = $this->config
+            ->get('contenttypes')
+            ->filter(fn (Collection $ct) => $ct->get('viewless', false))
+            ->map(fn (Collection $ct) => $ct->get('slug'))
+            ->values();
     }
 
     public function applyToCollection(

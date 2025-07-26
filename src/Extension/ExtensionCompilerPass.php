@@ -7,6 +7,7 @@ namespace Bolt\Extension;
 use Bolt\Common\Str;
 use Composer\Package\PackageInterface;
 use ComposerPackages\Types;
+use ReflectionClass;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Filesystem\Path;
@@ -43,7 +44,7 @@ class ExtensionCompilerPass implements CompilerPassInterface
                 '_defaults' => [
                     'autowire' => true,
                     'autoconfigure' => true,
-                    'bind' => isset($oldServices['services']['_defaults']['bind']) ? $oldServices['services']['_defaults']['bind'] : [],
+                    'bind' => $oldServices['services']['_defaults']['bind'] ?? [],
                 ],
             ],
         ];
@@ -70,7 +71,7 @@ class ExtensionCompilerPass implements CompilerPassInterface
             return [null, null];
         }
 
-        $reflection = new \ReflectionClass($package);
+        $reflection = new ReflectionClass($package);
 
         $namespace = Str::removeLast($reflection->getName(), Str::splitLast($reflection->getName(), '\\'));
         $path = $this->getRelativePath($package);
@@ -103,7 +104,7 @@ class ExtensionCompilerPass implements CompilerPassInterface
 
     private function getRelativePath(string $package): string
     {
-        $reflection = new \ReflectionClass($package);
+        $reflection = new ReflectionClass($package);
 
         // We add the `/foo` to make the path start with `../`
         return Path::makeRelative(dirname($reflection->getFileName()), $this->projectDir . '/foo');

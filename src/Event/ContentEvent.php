@@ -19,12 +19,9 @@ class ContentEvent extends Event
     public const PRE_DELETE = 'bolt.pre_delete';
     public const POST_DELETE = 'bolt.post_delete';
 
-    /** @var Content */
-    private $content;
-
-    public function __construct(Content $content)
-    {
-        $this->content = $content;
+    public function __construct(
+        private readonly Content $content
+    ) {
     }
 
     public function getContent(): Content

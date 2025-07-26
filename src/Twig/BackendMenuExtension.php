@@ -10,12 +10,9 @@ use Twig\TwigFunction;
 
 class BackendMenuExtension extends AbstractExtension
 {
-    /** @var BackendMenuBuilderInterface */
-    private $menuBuilder;
-
-    public function __construct(BackendMenuBuilderInterface $menuBuilder)
-    {
-        $this->menuBuilder = $menuBuilder;
+    public function __construct(
+        private readonly BackendMenuBuilderInterface $menuBuilder
+    ) {
     }
 
     /**
@@ -24,7 +21,7 @@ class BackendMenuExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('admin_menu_array', [$this, 'getAdminMenuArray']),
+            new TwigFunction('admin_menu_array', $this->getAdminMenuArray(...)),
         ];
     }
 

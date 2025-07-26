@@ -19,33 +19,13 @@ use Twig\TwigFunction;
 
 class RelatedExtension extends AbstractExtension
 {
-    /** @var RelationRepository */
-    private $relationRepository;
-
-    /** @var Config */
-    private $config;
-
-    /** @var Notifications */
-    private $notifications;
-
-    /** @var RelatedOptionsUtility */
-    private $optionsUtility;
-
-    /** @var ListFormatHelper */
-    private $listFormatHelper;
-
     public function __construct(
-        RelationRepository $relationRepository,
-        Config $config,
-        Notifications $notifications,
-        RelatedOptionsUtility $optionsUtility,
-        ListFormatHelper $listFormatHelper
+        private readonly RelationRepository $relationRepository,
+        private readonly Config $config,
+        private readonly Notifications $notifications,
+        private readonly RelatedOptionsUtility $optionsUtility,
+        private readonly ListFormatHelper $listFormatHelper
     ) {
-        $this->relationRepository = $relationRepository;
-        $this->config = $config;
-        $this->notifications = $notifications;
-        $this->optionsUtility = $optionsUtility;
-        $this->listFormatHelper = $listFormatHelper;
     }
 
     /**
@@ -54,11 +34,11 @@ class RelatedExtension extends AbstractExtension
     public function getFilters(): array
     {
         return [
-            new TwigFilter('related', [$this, 'getRelatedContent']),
-            new TwigFilter('related_by_type', [$this, 'getRelatedContentByType']),
-            new TwigFilter('related_first', [$this, 'getFirstRelatedContent']),
-            new TwigFilter('related_options', [$this, 'getRelatedOptions']),
-            new TwigFilter('related_values', [$this, 'getRelatedValues']),
+            new TwigFilter('related', $this->getRelatedContent(...)),
+            new TwigFilter('related_by_type', $this->getRelatedContentByType(...)),
+            new TwigFilter('related_first', $this->getFirstRelatedContent(...)),
+            new TwigFilter('related_options', $this->getRelatedOptions(...)),
+            new TwigFilter('related_values', $this->getRelatedValues(...)),
         ];
     }
 
@@ -68,11 +48,11 @@ class RelatedExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('related_content', [$this, 'getRelatedContent']),
-            new TwigFunction('related_content_by_type', [$this, 'getRelatedContentByType']),
-            new TwigFunction('first_related_content', [$this, 'getFirstRelatedContent']),
-            new TwigFunction('related_options', [$this, 'getRelatedOptions']),
-            new TwigFunction('related_values', [$this, 'getRelatedValues']),
+            new TwigFunction('related_content', $this->getRelatedContent(...)),
+            new TwigFunction('related_content_by_type', $this->getRelatedContentByType(...)),
+            new TwigFunction('first_related_content', $this->getFirstRelatedContent(...)),
+            new TwigFunction('related_options', $this->getRelatedOptions(...)),
+            new TwigFunction('related_values', $this->getRelatedValues(...)),
         ];
     }
 
@@ -129,9 +109,7 @@ class RelatedExtension extends AbstractExtension
         $relations = $this->relationRepository->findRelations($content, $name, $limit, $publishedOnly, $bidirectional);
 
         return (new Collection($relations))
-            ->map(function (Relation $relation) use ($content) {
-                return $this->extractContentFromRelation($relation, $content);
-            })
+            ->map(fn (Relation $relation) => $this->extractContentFromRelation($relation, $content))
             ->filter()
             ->toArray();
     }

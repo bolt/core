@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Command;
 
+use ReflectionClass;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -15,13 +16,9 @@ class ExtensionsServicesCommand extends Command
     /** @var string */
     protected static $defaultName = 'extensions:services';
 
-    /** @var ContainerInterface */
-    private $container;
-
-    public function __construct(ContainerInterface $container)
-    {
-        $this->container = $container;
-
+    public function __construct(
+        private readonly ContainerInterface $container
+    ) {
         parent::__construct();
     }
 
@@ -36,14 +33,14 @@ class ExtensionsServicesCommand extends Command
         $io = new SymfonyStyle($input, $output);
         $rows = [];
 
-        $reflectedContainer = new \ReflectionClass($this->container);
+        $reflectedContainer = new ReflectionClass($this->container);
         $reflectionProperty = $reflectedContainer->getProperty('services');
         $reflectionProperty->setAccessible(true);
 
         $publicServices = $reflectionProperty->getValue($this->container);
 
         foreach ($publicServices as $id => $name) {
-            $rows[] = [$id, get_class($name)];
+            $rows[] = [$id, $name::class];
         }
 
         $reflectionProperty = $reflectedContainer->getProperty('privates');
@@ -57,7 +54,7 @@ class ExtensionsServicesCommand extends Command
         $rows = [];
 
         foreach ($privateServices as $id => $name) {
-            $rows[] = [$id, get_class($name)];
+            $rows[] = [$id, $name::class];
         }
 
         $io->text('Private Services <info>(' . count($rows) . ')</info>:');

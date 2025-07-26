@@ -9,11 +9,9 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 class CanonicalSubscriber implements EventSubscriberInterface
 {
-    private $canonical;
-
-    public function __construct(Canonical $canonical)
-    {
-        $this->canonical = $canonical;
+    public function __construct(
+        private readonly Canonical $canonical
+    ) {
     }
 
     public function onKernelRequest(RequestEvent $event)

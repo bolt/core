@@ -14,11 +14,12 @@ use Bolt\Entity\ListFieldInterface;
 use Bolt\Repository\FieldRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Illuminate\Support\Collection;
+use Iterator;
 
 /**
  * @ORM\Entity
  */
-class SetField extends Field implements Excerptable, FieldInterface, FieldParentInterface, ListFieldInterface, RawPersistable, \Iterator
+class SetField extends Field implements Excerptable, FieldInterface, FieldParentInterface, ListFieldInterface, RawPersistable, Iterator
 {
     use FieldParentTrait;
     use IterableFieldTrait;

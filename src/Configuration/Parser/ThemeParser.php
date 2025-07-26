@@ -8,13 +8,11 @@ use Illuminate\Support\Collection;
 
 class ThemeParser extends BaseParser
 {
-    /** @var string */
-    private $path;
-
-    public function __construct(string $projectDir, string $path, string $filename = 'theme.yaml')
-    {
-        $this->path = $path;
-
+    public function __construct(
+        string $projectDir,
+        private readonly string $path,
+        string $filename = 'theme.yaml'
+    ) {
         parent::__construct($projectDir, $filename);
     }
 

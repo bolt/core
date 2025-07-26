@@ -22,17 +22,11 @@ class CheckboxField extends Field implements FieldInterface, ScalarCastable, Raw
             $value = current($value);
         }
 
-        switch ($value) {
-            // String values come from the ContentEditController.
-            case 'true':
-                $value = true;
-                break;
-            case 'false':
-                $value = false;
-                break;
-            default:
-                $value = $value ? true : false;
-        }
+        $value = match ($value) {
+            'true' => true,
+            'false' => false,
+            default => $value ? true : false,
+        };
 
         return parent::setValue($value);
     }

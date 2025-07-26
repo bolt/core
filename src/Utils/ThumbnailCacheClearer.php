@@ -11,12 +11,9 @@ use Symfony\Component\Finder\Finder;
 
 class ThumbnailCacheClearer
 {
-    /** @var Config */
-    private $config;
-
-    public function __construct(Config $config)
-    {
-        $this->config = $config;
+    public function __construct(
+        private readonly Config $config
+    ) {
     }
 
     public function run(): bool
@@ -35,7 +32,7 @@ class ThumbnailCacheClearer
 
             try {
                 $filesystem->remove($absPath);
-            } catch (IOException $e) {
+            } catch (IOException) {
                 $success = false;
             }
         }

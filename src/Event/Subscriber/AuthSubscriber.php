@@ -5,6 +5,7 @@ namespace Bolt\Event\Subscriber;
 use Bolt\Entity\User;
 use Bolt\Log\LoggerTrait;
 use Bolt\Repository\UserAuthTokenRepository;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -17,16 +18,10 @@ class AuthSubscriber implements EventSubscriberInterface
 {
     use LoggerTrait;
 
-    /** @var RequestStack */
-    private $requestStack;
-
-    /** @var EntityManagerInterface */
-    private $em;
-
-    public function __construct(RequestStack $requestStack, EntityManagerInterface $em)
-    {
-        $this->requestStack = $requestStack;
-        $this->em = $em;
+    public function __construct(
+        private RequestStack $requestStack,
+        private EntityManagerInterface $em
+    ) {
     }
 
     public function onAuthenticationSuccess(AuthenticationSuccessEvent $event): void
@@ -34,13 +29,13 @@ class AuthSubscriber implements EventSubscriberInterface
         /** @var User $user */
         $user = $event->getAuthenticationToken()->getUser();
         $request = $this->requestStack->getCurrentRequest();
-        $user->setLastseenAt(new \DateTime());
+        $user->setLastseenAt(new DateTime());
         $user->setLastIp($request->getClientIp());
         /** @var Parser $uaParser */
         $uaParser = Parser::create();
         $parsedUserAgent = $uaParser->parse($request->headers->get('User-Agent'))->toString();
         $sessionLifetime = $request->getSession()->getMetadataBag()->getLifetime();
-        $expirationTime = (new \DateTime())->modify('+' . $sessionLifetime . ' second');
+        $expirationTime = (new DateTime())->modify('+' . $sessionLifetime . ' second');
         $userAuthToken = UserAuthTokenRepository::factory($user, $parsedUserAgent, $expirationTime);
         $user->setUserAuthToken($userAuthToken);
 

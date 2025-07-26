@@ -38,7 +38,7 @@ trait TablePrefixTrait
             try {
                 $manager = $managerRegistry->getManager(is_int($em) ? 'default' : $em);
                 $this->setTablePrefix($manager, $prefix);
-            } catch (InvalidArgumentException $exception) {
+            } catch (InvalidArgumentException) {
                 throw new InvalidArgumentException(sprintf("'%s' entity manager not defined for table prefix '%s'", $em, $prefix));
             }
         }

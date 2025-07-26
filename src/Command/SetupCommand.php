@@ -18,16 +18,12 @@ class SetupCommand extends Command
     /** @var string */
     protected static $defaultName = 'bolt:setup';
 
-    /** @var Connection */
-    private $connection;
-
     /** @var array */
     private $errors = [];
 
-    public function __construct(Connection $connection)
-    {
-        $this->connection = $connection;
-
+    public function __construct(
+        private readonly Connection $connection
+    ) {
         parent::__construct();
     }
 

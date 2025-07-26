@@ -11,24 +11,26 @@ use Doctrine\DBAL\Platforms\MySQL57Platform;
 use Doctrine\DBAL\Platforms\MySqlPlatform;
 use Doctrine\DBAL\Platforms\PostgreSQL92Platform;
 use Doctrine\DBAL\Platforms\SqlitePlatform;
+use Exception;
+use PDO;
+use PDOException;
+use Throwable;
 
 class Version
 {
-    /** @var Connection */
-    private $connection;
-
     /** @var string */
     private $tablePrefix;
 
-    public function __construct(Connection $connection, $tablePrefix = 'bolt')
-    {
-        $this->connection = $connection;
+    public function __construct(
+        private readonly Connection $connection,
+        $tablePrefix = 'bolt'
+    ) {
         $tablePrefix = is_array($tablePrefix) ? $tablePrefix['default'] : $tablePrefix;
         $this->tablePrefix = Str::ensureEndsWith($tablePrefix, '_');
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function getPlatform(): array
     {
@@ -49,24 +51,24 @@ class Version
             }
         }
 
-        if ($wrapped instanceof \PDO) {
-            [$client_version] = explode(' - ', $wrapped->getAttribute(\PDO::ATTR_CLIENT_VERSION));
+        if ($wrapped instanceof PDO) {
+            [$client_version] = explode(' - ', (string) $wrapped->getAttribute(PDO::ATTR_CLIENT_VERSION));
 
             try {
-                $status = $wrapped->getAttribute(\PDO::ATTR_CONNECTION_STATUS);
-            } catch (\PDOException $e) {
+                $status = $wrapped->getAttribute(PDO::ATTR_CONNECTION_STATUS);
+            } catch (PDOException) {
                 $status = '';
             }
 
             return [
                 'client_version' => $client_version,
-                'driver_name' => $wrapped->getAttribute(\PDO::ATTR_DRIVER_NAME),
+                'driver_name' => $wrapped->getAttribute(PDO::ATTR_DRIVER_NAME),
                 'connection_status' => $status,
-                'server_version' => $wrapped->getAttribute(\PDO::ATTR_SERVER_VERSION),
+                'server_version' => $wrapped->getAttribute(PDO::ATTR_SERVER_VERSION),
             ];
         }
 
-        throw new \Exception("Wrapped connection is not an instanceof \PDO");
+        throw new Exception("Wrapped connection is not an instanceof \PDO");
     }
 
     public function tableContentExists(): bool
@@ -77,7 +79,7 @@ class Version
                 ->select('1')
                 ->from($this->tablePrefix . 'content');
             $query->execute();
-        } catch (\Throwable $e) {
+        } catch (Throwable) {
             return false;
         }
 
@@ -106,14 +108,14 @@ class Version
             // 10.7.3-MariaDB-1:10.7.3+maria~focal
             $serverVersion = $this->getPlatform()['server_version'];
 
-            if (! preg_match("/^\d+\.\d+\.\d+/", $serverVersion, $matches)) {
+            if (! preg_match("/^\d+\.\d+\.\d+/", (string) $serverVersion, $matches)) {
                 // should throw an error or something?
                 return false;
             }
 
             $actVersion = $matches[0];
 
-            $isMariaDb = is_int(mb_stripos($serverVersion, 'maria'));
+            $isMariaDb = is_int(mb_stripos((string) $serverVersion, 'maria'));
             $minVersion = $isMariaDb
                 ? '10.2.7'  // taken from MariaDb1027Platform docs
                 : '5.7.9' // taken from MySQL57Platform docs
@@ -138,14 +140,14 @@ class Version
             $query
                 ->select('CAST(1.1 AS DECIMAL)');
             $query->execute();
-        } catch (\Throwable $e) {
+        } catch (Throwable) {
             try {
                 $query = $this->connection->createQueryBuilder();
                 // Postgree
                 $query
                     ->select('CAST(1.1 AS DOUBLE)');
                 $query->execute();
-            } catch (\Throwable $e) {
+            } catch (Throwable) {
                 return false;
             }
         }
@@ -160,7 +162,7 @@ class Version
             $query
                 ->select('JSON_EXTRACT("{}", "one", "")');
             $query->execute();
-        } catch (\Throwable $e) {
+        } catch (Throwable) {
             return false;
         }
 
@@ -180,7 +182,7 @@ class Version
             $query
                 ->select('JSON_EXTRACT(\'{"jsonfunctionalitytest":["succes"]}\', \'$.jsonfunctionalitytest\') as value');
             $query->execute();
-        } catch (\Throwable $e) {
+        } catch (Throwable) {
             return false;
         }
 

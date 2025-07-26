@@ -8,6 +8,7 @@ use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\ORM\Mapping as ORM;
+use InvalidArgumentException;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -142,11 +143,11 @@ class Relation
     {
         $contentTypeDefinition = $this->fromContent->getDefinition();
         if ($contentTypeDefinition === null) {
-            throw new \InvalidArgumentException('Owning Content not fully initialized');
+            throw new InvalidArgumentException('Owning Content not fully initialized');
         }
 
         if (isset($contentTypeDefinition['relations'][$this->toContent->getContentTypeSlug()]) === false) {
-            throw new \InvalidArgumentException('Invalid Relation name');
+            throw new InvalidArgumentException('Invalid Relation name');
         }
 
         $this->definition = $contentTypeDefinition['relations'][$this->toContent->getContentTypeSlug()];

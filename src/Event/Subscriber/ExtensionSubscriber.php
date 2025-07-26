@@ -18,16 +18,15 @@ class ExtensionSubscriber implements EventSubscriberInterface
 {
     public const PRIORITY = 0;
 
-    /** @var ExtensionRegistry */
-    private $extensionRegistry;
-
     /** @var array */
     private $objects = [];
 
-    public function __construct(ContainerInterface $container, ExtensionRegistry $extensionRegistry, EntityManagerInterface $objectManager, Query $query)
-    {
-        $this->extensionRegistry = $extensionRegistry;
-
+    public function __construct(
+        ContainerInterface $container,
+        private readonly ExtensionRegistry $extensionRegistry,
+        EntityManagerInterface $objectManager,
+        Query $query
+    ) {
         $this->objects = [
             'manager' => $objectManager,
             'container' => $container,

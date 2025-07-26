@@ -21,9 +21,7 @@ class Recursion
         // The one we called from is [1]
         $callee = $backtrace[1];
 
-        $count = count(array_filter($backtrace, function ($a) use ($callee) {
-            return $a === $callee;
-        }));
+        $count = count(array_filter($backtrace, fn ($a) => $a === $callee));
 
         return $count > 1;
     }

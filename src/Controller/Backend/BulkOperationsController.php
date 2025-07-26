@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use Throwable;
 
 /**
  * @Security("is_granted('bulk_operations')")
@@ -30,13 +31,11 @@ class BulkOperationsController extends AbstractController implements BackendZone
     /** @var Request */
     private $request;
 
-    /** @var EventDispatcherInterface */
-    private $dispatcher;
-
-    public function __construct(RequestStack $requestStack, EventDispatcherInterface $dispatcher)
-    {
+    public function __construct(
+        RequestStack $requestStack,
+        private EventDispatcherInterface $dispatcher
+    ) {
         $this->request = $requestStack->getCurrentRequest();
-        $this->dispatcher = $dispatcher;
     }
 
     public function em(): ObjectManager
@@ -108,7 +107,7 @@ class BulkOperationsController extends AbstractController implements BackendZone
         foreach ($ids as $id) {
             try {
                 $records[] = $this->em()->find(Content::class, $id);
-            } catch (\Throwable $e) {
+            } catch (Throwable) {
             }
         }
 

@@ -13,12 +13,9 @@ use Twig\TwigFunction;
  */
 class WidgetExtension extends AbstractExtension
 {
-    /** @var Widgets */
-    private $widgetRenderer;
-
-    public function __construct(Widgets $widgetRenderer)
-    {
-        $this->widgetRenderer = $widgetRenderer;
+    public function __construct(
+        private readonly Widgets $widgetRenderer
+    ) {
     }
 
     /**
@@ -31,11 +28,11 @@ class WidgetExtension extends AbstractExtension
         ];
 
         return [
-            new TwigFunction('countwidgets', [$this, 'countWidgets']),
-            new TwigFunction('listwidgets', [$this, 'listWidgets']),
-            new TwigFunction('haswidgets', [$this, 'hasWidgets']),
-            new TwigFunction('widgets', [$this, 'renderWidgetsForTarget'], $safe),
-            new TwigFunction('widget', [$this, 'renderWidgetByName'], $safe),
+            new TwigFunction('countwidgets', $this->countWidgets(...)),
+            new TwigFunction('listwidgets', $this->listWidgets(...)),
+            new TwigFunction('haswidgets', $this->hasWidgets(...)),
+            new TwigFunction('widgets', $this->renderWidgetsForTarget(...), $safe),
+            new TwigFunction('widget', $this->renderWidgetByName(...), $safe),
         ];
     }
 

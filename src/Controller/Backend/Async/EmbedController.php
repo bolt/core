@@ -55,8 +55,8 @@ class EmbedController implements AsyncZoneInterface
             if ($oembed->get('provider_name') === 'YouTube') {
                 $html = $oembed->get('html');
 
-                if (! preg_match('/title=([^\s]+)/', $html)) {
-                    $response['html'] = preg_replace('/>/', sprintf(' title="%s">', $oembed->get('title')), $html, 1);
+                if (! preg_match('/title=([^\s]+)/', (string) $html)) {
+                    $response['html'] = preg_replace('/>/', sprintf(' title="%s">', $oembed->get('title')), (string) $html, 1);
                 }
             }
 

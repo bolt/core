@@ -6,6 +6,7 @@ namespace Bolt\Controller\Backend;
 
 use Bolt\Controller\TwigAwareController;
 use Bolt\Form\LoginType;
+use Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -53,6 +54,6 @@ class AuthenticationController extends TwigAwareController implements BackendZon
      */
     public function logout(): void
     {
-        throw new \Exception('This should never be reached!');
+        throw new Exception('This should never be reached!');
     }
 }

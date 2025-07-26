@@ -10,6 +10,7 @@ use Bolt\Repository\ContentRepository;
 use Bolt\Storage\Directive\DirectiveHandler;
 use Bolt\Storage\Handler\IdentifiedSelectHandler;
 use Bolt\Storage\Handler\SelectQueryHandler;
+use Exception;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -56,32 +57,20 @@ class ContentQueryParser
     /** @var QueryScopeInterface */
     protected $scope;
 
-    /** @var RequestStack */
-    private $requestStack;
-
-    /** @var Config */
-    private $config;
-
-    /** @var DirectiveHandler */
-    private $directiveHandler;
-
     public function __construct(
-        RequestStack $requestStack,
+        private readonly RequestStack $requestStack,
         ContentRepository $repo,
-        Config $config,
-        DirectiveHandler $directiveHandler,
+        private readonly Config $config,
+        private readonly DirectiveHandler $directiveHandler,
         ?QueryInterface $queryHandler = null
     ) {
         $this->repo = $repo;
-        $this->requestStack = $requestStack;
 
         if ($queryHandler !== null) {
             $this->addService('select', $queryHandler);
         }
 
         $this->setupDefaults();
-        $this->config = $config;
-        $this->directiveHandler = $directiveHandler;
     }
 
     /**
@@ -266,7 +255,7 @@ class ContentQueryParser
             if (! $configCT) {
                 $message = sprintf("Tried to get content from ContentType '%s', but no ContentType by that name/slug exists.", $value);
 
-                throw new \Exception($message);
+                throw new Exception($message);
             }
 
             $contentTypes[$key] = $configCT->get('slug');

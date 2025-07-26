@@ -13,12 +13,9 @@ class ProcessWidgetsQueueSubscriber implements EventSubscriberInterface
 {
     public const PRIORITY = 0;
 
-    /** @var Widgets */
-    private $widgets;
-
-    public function __construct(Widgets $widgets)
-    {
-        $this->widgets = $widgets;
+    public function __construct(
+        private readonly Widgets $widgets
+    ) {
     }
 
     /**

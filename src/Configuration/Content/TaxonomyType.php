@@ -21,12 +21,8 @@ class TaxonomyType extends DeepCollection
         }
 
         $taxonomyType = $taxonomyTypesConfig
-            ->filter(function (Collection $taxonomyTypeConfig) use ($name): bool {
-                return $taxonomyTypeConfig['singular_slug'] === $name;
-            })
-            ->map(function (Collection $taxonomyTypeConfig): self {
-                return new self($taxonomyTypeConfig);
-            })
+            ->filter(fn (Collection $taxonomyTypeConfig): bool => $taxonomyTypeConfig['singular_slug'] === $name)
+            ->map(fn (Collection $taxonomyTypeConfig): self => new self($taxonomyTypeConfig))
             ->first();
 
         if ($taxonomyType) {

@@ -11,28 +11,24 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
+use Throwable;
 
 class CopyAssetsCommand extends Command
 {
     /** @var string */
     protected static $defaultName = 'bolt:copy-assets';
 
-    /** @var Filesystem */
-    private $filesystem;
-
     /** @var string */
     private $publicDirectory;
 
-    /** @var Config */
-    private $config;
-
-    public function __construct(Filesystem $filesystem, string $publicFolder, string $projectDir, Config $config)
-    {
+    public function __construct(
+        private readonly Filesystem $filesystem,
+        string $publicFolder,
+        string $projectDir,
+        private readonly Config $config
+    ) {
         parent::__construct();
-
-        $this->filesystem = $filesystem;
         $this->publicDirectory = $projectDir . '/' . $publicFolder;
-        $this->config = $config;
     }
 
     protected function configure(): void
@@ -49,14 +45,14 @@ class CopyAssetsCommand extends Command
         $publicDir = $this->getPublicDirectory();
 
         // Determine if we can use ../assets or not.
-        if (file_exists(dirname(dirname(dirname(__DIR__))) . '/assets')) {
-            $baseDir = dirname(dirname(dirname(__DIR__))) . '/assets';
+        if (file_exists(dirname(__DIR__, 3) . '/assets')) {
+            $baseDir = dirname(__DIR__, 3) . '/assets';
             $dirs = [
                 $baseDir . '/assets' => $publicDir . '/assets/',
                 // $baseDir . '/translations' => $projectDir . '/translations/',
             ];
         } else {
-            $baseDir = dirname(dirname(__DIR__));
+            $baseDir = dirname(__DIR__, 2);
             $dirs = [
                 $baseDir . '/public/assets' => $publicDir . '/assets/',
                 // $baseDir . '/translations' => $projectDir . '/translations/',
@@ -78,7 +74,7 @@ class CopyAssetsCommand extends Command
                 $this->filesystem->remove($targetDir);
                 $this->hardCopy($originDir, $targetDir);
                 $rows[] = [sprintf('<fg=green;options=bold>%s</>', "\xE2\x9C\x94"), $message, 'copied'];
-            } catch (\Throwable $e) {
+            } catch (Throwable $e) {
                 $exitCode = 1;
                 $rows[] = [sprintf('<fg=red;options=bold>%s</>', "\xE2\x9C\x98"), $message, $e->getMessage()];
             }

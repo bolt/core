@@ -10,12 +10,9 @@ use Symfony\Contracts\Cache\CacheInterface;
 
 class ConfigCacheClearer implements CacheClearerInterface
 {
-    /** @var CacheInterface */
-    private $cache;
-
-    public function __construct(CacheInterface $cache)
-    {
-        $this->cache = $cache;
+    public function __construct(
+        private readonly CacheInterface $cache
+    ) {
     }
 
     public function clear(string $cacheDir): void

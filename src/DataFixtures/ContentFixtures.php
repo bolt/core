@@ -18,6 +18,7 @@ use Bolt\Utils\FakeContent;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Exception;
 use Faker\Factory;
 use Faker\Generator;
 use Illuminate\Support\Collection;
@@ -34,24 +35,13 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
     /** @var Collection */
     private $imagesIndex;
 
-    /** @var Config */
-    private $config;
-
-    /** @var FileLocations */
-    private $fileLocations;
-
-    /** @var string */
-    private $defaultLocale;
-
-    /** @var TagAwareCacheInterface */
-    private $cache;
-
-    /** @var ContentExtension */
-    private $contentExtension;
-
-    public function __construct(Config $config, FileLocations $fileLocations, TagAwareCacheInterface $cache, string $defaultLocale, ContentExtension $contentExtension)
-    {
-        $this->config = $config;
+    public function __construct(
+        private readonly Config $config,
+        private readonly FileLocations $fileLocations,
+        private readonly TagAwareCacheInterface $cache,
+        private readonly string $defaultLocale,
+        private readonly ContentExtension $contentExtension
+    ) {
         $this->faker = Factory::create();
         $seed = $this->config->get('general/fixtures_seed');
         if (! empty($seed)) {
@@ -59,10 +49,6 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
         }
 
         $this->presetRecords = $this->getPresetRecords();
-        $this->fileLocations = $fileLocations;
-        $this->defaultLocale = $defaultLocale;
-        $this->cache = $cache;
-        $this->contentExtension = $contentExtension;
     }
 
     public function getDependencies()
@@ -133,18 +119,14 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 $fields = collect($contentType['fields']);
 
                 // Load all fields, except slugs.
-                $fields->filter(function ($field) {
-                    return $field['type'] !== 'slug';
-                })->map(function ($fieldType, $name) use ($content, $contentType, $preset): void {
-                    $this->loadField($content, $name, $fieldType, $contentType, $preset);
-                });
+                $fields
+                    ->filter(fn ($field) => $field['type'] !== 'slug')
+                    ->map(fn ($fieldType, $name) => $this->loadField($content, $name, $fieldType, $contentType, $preset));
 
                 // Load slug fields, to make sure `uses` can be used.
-                $fields->filter(function ($field) {
-                    return $field['type'] === 'slug';
-                })->map(function ($fieldType, $name) use ($content, $contentType, $preset): void {
-                    $this->loadField($content, $name, $fieldType, $contentType, $preset);
-                });
+                $fields
+                    ->filter(fn ($field) => $field['type'] === 'slug')
+                    ->map(fn ($fieldType, $name) => $this->loadField($content, $name, $fieldType, $contentType, $preset));
 
                 foreach ($contentType['taxonomy'] as $taxonomySlug) {
                     if ($taxonomySlug === 'categories') {
@@ -507,7 +489,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
 
         // Only add this fixture if the file exists: It does in the "Git Clone", but not in the
         // "Composer create-project".
-        $file = dirname(dirname(__DIR__)) . '/public/theme/skeleton/custom/setcontent_1.twig';
+        $file = dirname(__DIR__, 2) . '/public/theme/skeleton/custom/setcontent_1.twig';
         if (file_exists($file)) {
             $records['pages'][] = [
                 'heading' => 'Setcontent test page',
@@ -518,7 +500,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
 
         // Only add this fixture if the file exists: It does in the "Git Clone", but not in the
         // "Composer create-project".
-        $file = dirname(dirname(__DIR__)) . '/public/theme/skeleton/custom/setwherecheckbox_1.twig';
+        $file = dirname(__DIR__, 2) . '/public/theme/skeleton/custom/setwherecheckbox_1.twig';
         if (file_exists($file)) {
             $records['pages'][] = [
                 'heading' => 'SetContent Where Checkbox test page',
@@ -564,7 +546,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 try {
                     /** @var Content $randomReference */
                     $randomReference = $this->getRandomReference(\sprintf('content_%s', $contentType));
-                } catch (\Exception $exception) {
+                } catch (Exception) {
                     continue;
                 }
 

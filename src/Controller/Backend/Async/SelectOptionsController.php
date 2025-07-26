@@ -18,16 +18,10 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class SelectOptionsController extends AbstractController implements AsyncZoneInterface
 {
-    /** @var Config */
-    private $config;
-
-    /** @var FieldExtension */
-    private $fieldExtension;
-
-    public function __construct(Config $config, FieldExtension $fieldExtension)
-    {
-        $this->config = $config;
-        $this->fieldExtension = $fieldExtension;
+    public function __construct(
+        private readonly Config $config,
+        private readonly FieldExtension $fieldExtension
+    ) {
     }
 
     /**
@@ -37,7 +31,7 @@ class SelectOptionsController extends AbstractController implements AsyncZoneInt
      */
     public function handleSelectOptions(Request $request): JsonResponse
     {
-        [$contentTypeSlug, $format] = explode('/', $request->get('values'));
+        [$contentTypeSlug, $format] = explode('/', (string) $request->get('values'));
 
         if (empty($maxAmount = $request->get('limit'))) {
             $maxAmount = $this->config->get('general/maximum_listing_select', 200);

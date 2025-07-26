@@ -10,16 +10,10 @@ use Bolt\Repository\FieldRepository;
 
 class ContentDataPersister implements ContextAwareDataPersisterInterface
 {
-    /** @var ContextAwareDataPersisterInterface */
-    private $decorated;
-
-    /** @var Config */
-    private $config;
-
-    public function __construct(ContextAwareDataPersisterInterface $decorated, Config $config)
-    {
-        $this->decorated = $decorated;
-        $this->config = $config;
+    public function __construct(
+        private readonly ContextAwareDataPersisterInterface $decorated,
+        private readonly Config $config
+    ) {
     }
 
     public function supports($data, array $context = []): bool

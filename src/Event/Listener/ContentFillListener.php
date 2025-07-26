@@ -15,37 +15,19 @@ use Bolt\Enum\Statuses;
 use Bolt\Repository\FieldRepository;
 use Bolt\Repository\UserRepository;
 use Bolt\Twig\ContentExtension;
+use DateTime;
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use InvalidArgumentException;
 
 class ContentFillListener
 {
-    /** @var Config */
-    private $config;
-
-    /** @var ContentExtension */
-    private $contentExtension;
-
-    /** @var UserRepository */
-    private $users;
-
-    /** @var FieldRepository */
-    private $fieldRepository;
-
-    /** @var string */
-    private $defaultLocale;
-
     public function __construct(
-        Config $config,
-        ContentExtension $contentExtension,
-        UserRepository $users,
-        FieldRepository $fieldRepository,
-        string $defaultLocale
+        private readonly Config $config,
+        private readonly ContentExtension $contentExtension,
+        private readonly UserRepository $users,
+        private readonly FieldRepository $fieldRepository,
+        private readonly string $defaultLocale
     ) {
-        $this->config = $config;
-        $this->contentExtension = $contentExtension;
-        $this->users = $users;
-        $this->fieldRepository = $fieldRepository;
-        $this->defaultLocale = $defaultLocale;
     }
 
     public function preUpdate(LifecycleEventArgs $args): void
@@ -67,7 +49,7 @@ class ContentFillListener
             }
 
             if ($entity->getPublishedAt() === null && $entity->getStatus() === Statuses::PUBLISHED) {
-                $entity->setPublishedAt(new \DateTime());
+                $entity->setPublishedAt(new DateTime());
             }
 
             $this->guaranteeUniqueSlug($entity);
@@ -114,7 +96,7 @@ class ContentFillListener
 
         try {
             $slugField = $content->getField('slug');
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException) {
             $slugField = null;
         }
 
@@ -220,8 +202,7 @@ class ContentFillListener
 
     private function intersectFieldsAndDefinition(array $fields, FieldType $definition): array
     {
-        return collect($fields)->filter(function (Field $field) use ($definition) {
-            return $definition->get('fields') && $definition->get('fields')->has($field->getName());
-        })->values()->toArray();
+        return collect($fields)->filter(fn (Field $field) => $definition->get('fields')
+            && $definition->get('fields')->has($field->getName()))->values()->toArray();
     }
 }

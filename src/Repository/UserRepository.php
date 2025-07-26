@@ -6,7 +6,7 @@ namespace Bolt\Repository;
 
 use Bolt\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\Query\Expr;
+use Doctrine\ORM\Query\Expr\OrderBy;
 use Doctrine\Persistence\ManagerRegistry;
 
 class UserRepository extends ServiceEntityRepository
@@ -95,15 +95,15 @@ class UserRepository extends ServiceEntityRepository
         return $user;
     }
 
-    private function createSortBy($order, $alias): Expr\OrderBy
+    private function createSortBy(?string $order, string $alias): OrderBy
     {
-        if (mb_strpos($order, '-') === 0) {
+        if ($order && mb_strpos($order, '-') === 0) {
             $direction = 'DESC';
             $order = sprintf('%s.%s', $alias, mb_substr($order, 1));
         } else {
             $direction = 'ASC';
             $order = sprintf('%s.%s', $alias, $order);
         }
-        return new Expr\OrderBy($order, $direction);
+        return new OrderBy($order, $direction);
     }
 }

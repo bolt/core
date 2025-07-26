@@ -17,22 +17,11 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class LoginType extends AbstractType
 {
-    /** @var AuthenticationUtils */
-    private $authenticationUtils;
-
-    /** @var TranslatorInterface */
-    private $translator;
-
-    /** @var int */
-    private $rememberLifetime;
-
-    public function __construct(AuthenticationUtils $authenticationUtils, TranslatorInterface $translator, int $rememberLifetime = 2592000)
-    {
-        $this->authenticationUtils = $authenticationUtils;
-        $this->translator = $translator;
-
-        // Defaults to 2592000, 30 days in seconds
-        $this->rememberLifetime = $rememberLifetime;
+    public function __construct(
+        private readonly AuthenticationUtils $authenticationUtils,
+        private readonly TranslatorInterface $translator,
+        private readonly int $rememberLifetime = 2592000, // Defaults to 2592000, 30 days in seconds
+    ) {
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

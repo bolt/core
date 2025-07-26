@@ -17,16 +17,10 @@ use Twig\TwigFunction;
  */
 class HtmlExtension extends AbstractExtension
 {
-    /** @var Markdown */
-    private $markdown;
-
-    /** @var Canonical */
-    private $canonical;
-
-    public function __construct(Markdown $markdown, Canonical $canonical)
-    {
-        $this->markdown = $markdown;
-        $this->canonical = $canonical;
+    public function __construct(
+        private readonly Markdown $markdown,
+        private readonly Canonical $canonical
+    ) {
     }
 
     /**
@@ -39,10 +33,10 @@ class HtmlExtension extends AbstractExtension
         ];
 
         return [
-            new TwigFunction('canonical', [$this, 'canonical']),
-            new TwigFunction('markdown', [$this, 'markdown'], $safe),
-            new TwigFunction('redirect', [$this, 'redirect']),
-            new TwigFunction('absolute_link', [$this, 'absoluteLink']),
+            new TwigFunction('canonical', $this->canonical(...)),
+            new TwigFunction('markdown', $this->markdown(...), $safe),
+            new TwigFunction('redirect', $this->redirect(...)),
+            new TwigFunction('absolute_link', $this->absoluteLink(...)),
         ];
     }
 
@@ -56,9 +50,9 @@ class HtmlExtension extends AbstractExtension
         ];
 
         return [
-            new TwigFilter('markdown', [$this, 'markdown'], $safe),
-            new TwigFilter('shy', [$this, 'shy'], $safe),
-            new TwigFilter('placeholders', [$this, 'placeholders'], $safe),
+            new TwigFilter('markdown', $this->markdown(...), $safe),
+            new TwigFilter('shy', $this->shy(...), $safe),
+            new TwigFilter('placeholders', $this->placeholders(...), $safe),
         ];
     }
 
