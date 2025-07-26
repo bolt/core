@@ -16,6 +16,7 @@ class SelectOptionsCacher extends FieldExtension implements CachingInterface
         $this->setCacheKey([$contentTypeSlug, $format] + $params);
         $this->setCacheTags($this->getTags($contentTypeSlug));
 
+        /** @phpstan-ignore argument.type */
         return $this->execute([parent::class, __FUNCTION__], [$contentTypeSlug, $params, $field, $format]);
     }
 }

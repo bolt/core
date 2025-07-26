@@ -7,6 +7,25 @@ on:
             - main
 
 jobs:
+    rector_analysis:
+        name: Rector analysis
+        runs-on: ubuntu-latest
+        steps:
+            -   uses: actions/checkout@v4
+
+            -   uses: shivammathur/setup-php@v2
+                with:
+                    php-version: 8.4
+                    extensions: json, mbstring, pdo, curl, pdo_sqlite
+                    coverage: none
+                    tools: symfony-cli
+                env:
+                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+            -   run: composer install --no-progress --ansi
+
+            -   run: vendor/bin/rector process -n --no-progress-bar --ansi
+
     code_analysis:
         strategy:
             fail-fast: false

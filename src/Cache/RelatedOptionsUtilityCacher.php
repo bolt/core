@@ -16,6 +16,7 @@ class RelatedOptionsUtilityCacher extends RelatedOptionsUtility implements Cachi
         $this->setCacheKey([$contentTypeSlug, $order, $format, (string) $required, $maxAmount]);
         $this->setCacheTags($this->getTags($contentTypeSlug));
 
+        /** @phpstan-ignore argument.type */
         return $this->execute([parent::class, __FUNCTION__], [$fromContentType, $contentTypeSlug, $order, $format, $required, $allowEmpty, $maxAmount, $linkToRecord]);
     }
 }

@@ -16,6 +16,7 @@ class GetFormatCacher extends ContentHelper implements CachingInterface
         $this->setCacheKey([$record->getId(), $format, $locale]);
         $this->setCacheTags($this->getTags($record->getContentTypeSlug()));
 
+        /** @phpstan-ignore argument.type */
         return $this->execute([parent::class, __FUNCTION__], [$record, $format, $locale]);
     }
 }
