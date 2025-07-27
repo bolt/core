@@ -16,6 +16,10 @@ return RectorConfig::configure()
     ->withPreparedSets(
         typeDeclarations: true,
     )
+    ->withComposerBased(
+        twig: true,
+        phpunit: true,
+    )
     ->withSkip([
         Rector\Php80\Rector\Class_\ClassPropertyAssignToConstructorPromotionRector::class => [
             'src/Entity/Relation.php',
