@@ -7,6 +7,7 @@ use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Bolt\Storage\Query;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Traversable;
 
 /**
  * Utility class to get the 'Related Records' as options to show as a pull-down in the Editor.
@@ -31,7 +32,9 @@ class RelatedOptionsUtility
             ->setMaxPerPage($maxAmount)
             ->setCurrentPage(1);
 
-        $records = iterator_to_array($pager->getCurrentPageResults());
+        // todo: When dropping PHP8.1 support the instanceof check can be dropped as well
+        $currentPageResults = $pager->getCurrentPageResults();
+        $records = $currentPageResults instanceof Traversable ? iterator_to_array($currentPageResults) : (array) $currentPageResults;
         $fromContentTypeRelationDefinition = $fromContentType->get('relations')->get($toContentTypeSlug);
         $options = [];
 

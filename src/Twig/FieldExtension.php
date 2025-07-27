@@ -20,6 +20,7 @@ use Illuminate\Support\Collection;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Traversable;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
@@ -286,8 +287,10 @@ class FieldExtension extends AbstractExtension
             return $options;
         }
 
+        $currentPageResults = $this->query->getContent($contentTypeSlug, $params)->getCurrentPageResults();
+        // todo: When dropping PHP8.1 support the instanceof check can be dropped as well
         /** @var Content[] $records */
-        $records = iterator_to_array($this->query->getContent($contentTypeSlug, $params)->getCurrentPageResults());
+        $records = $currentPageResults instanceof Traversable ? iterator_to_array($currentPageResults) : (array) $currentPageResults;
 
         $options = [];
 
