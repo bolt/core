@@ -33,6 +33,7 @@ use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Throwable;
+use Traversable;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\Markup;
@@ -574,7 +575,10 @@ class ContentExtension extends AbstractExtension
             $pager = $result
                 ->setMaxPerPage(1)
                 ->setCurrentPage(1);
-            $content = iterator_to_array($pager->getCurrentPageResults())[0];
+
+            $currentPageResults = $pager->getCurrentPageResults();
+            // todo: When dropping PHP8.1 support the instanceof check can be dropped as well
+            $content = ($currentPageResults instanceof Traversable ? iterator_to_array($currentPageResults) : (array) $currentPageResults)[0];
 
             return $record === $content;
         } catch (Throwable) {
