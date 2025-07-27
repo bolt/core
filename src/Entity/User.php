@@ -75,7 +75,7 @@ class User implements UserInterface, Serializable, PasswordAuthenticatedUserInte
      * @ORM\Column(type="datetime", nullable=true)
      * @Groups("get_user")
      */
-    private ?DateTime $lastseenAt = null;
+    private ?DateTimeInterface $lastseenAt = null;
 
     /** @ORM\Column(type="string", length=100, nullable=true) */
     private ?string $lastIp = null;
@@ -313,12 +313,10 @@ class User implements UserInterface, Serializable, PasswordAuthenticatedUserInte
         return $this->userAuthTokens->toArray();
     }
 
-    public function setUserAuthToken(?UserAuthToken $userAuthToken): self
+    public function setUserAuthToken(UserAuthToken $userAuthToken): self
     {
-        // set (or unset) the owning side of the relation if necessary
-        $newUser = $userAuthToken === null ? null : $this;
-        if ($userAuthToken->getUser() !== $newUser) {
-            $userAuthToken->setUser($newUser);
+        if ($userAuthToken->getUser() !== $this) {
+            $userAuthToken->setUser($this);
         }
 
         $this->userAuthTokens[] = $userAuthToken;

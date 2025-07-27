@@ -51,7 +51,7 @@ class Relation
      *
      * @Groups("get_relation")
      */
-    private Content $fromContent;
+    private ?Content $fromContent;
 
     /**
      * @ORM\ManyToOne(targetEntity="Content", inversedBy="relationsToThisContent", fetch="EAGER")
@@ -59,7 +59,7 @@ class Relation
      *
      * @Groups("get_relation")
      */
-    private Content $toContent;
+    private ?Content $toContent;
 
     /** @ORM\Column(type="integer") */
     private int $position = 0;
@@ -109,7 +109,7 @@ class Relation
         return $this->fromContent;
     }
 
-    public function setFromContent(Content $content): void
+    public function setFromContent(?Content $content): void
     {
         $this->fromContent = $content;
     }
@@ -119,7 +119,7 @@ class Relation
         return $this->toContent;
     }
 
-    public function setToContent(Content $content): void
+    public function setToContent(?Content $content): void
     {
         $this->toContent = $content;
     }
