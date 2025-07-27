@@ -26,14 +26,9 @@ use Symfony\Contracts\Cache\TagAwareCacheInterface;
 
 class ContentFixtures extends BaseFixture implements DependentFixtureInterface, FixtureGroupInterface
 {
-    /** @var Generator */
-    private $faker;
-
-    /** @var array */
-    private $presetRecords = [];
-
-    /** @var Collection */
-    private $imagesIndex;
+    private readonly Generator $faker;
+    private array $presetRecords;
+    private Collection $imagesIndex;
 
     public function __construct(
         private readonly Config $config,
@@ -120,13 +115,13 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
 
                 // Load all fields, except slugs.
                 $fields
-                    ->filter(fn ($field) => $field['type'] !== 'slug')
-                    ->map(fn ($fieldType, $name) => $this->loadField($content, $name, $fieldType, $contentType, $preset));
+                    ->filter(fn ($field): bool => $field['type'] !== 'slug')
+                    ->map(fn ($fieldType, $name): Field => $this->loadField($content, $name, $fieldType, $contentType, $preset));
 
                 // Load slug fields, to make sure `uses` can be used.
                 $fields
-                    ->filter(fn ($field) => $field['type'] === 'slug')
-                    ->map(fn ($fieldType, $name) => $this->loadField($content, $name, $fieldType, $contentType, $preset));
+                    ->filter(fn ($field): bool => $field['type'] === 'slug')
+                    ->map(fn ($fieldType, $name): Field => $this->loadField($content, $name, $fieldType, $contentType, $preset));
 
                 foreach ($contentType['taxonomy'] as $taxonomySlug) {
                     if ($taxonomySlug === 'categories') {
@@ -255,7 +250,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
         return [
             preg_replace_callback(
                 '/{([\w]+)}/i',
-                function ($match) {
+                function (array $match) {
                     $match = $match[1];
 
                     try {
@@ -311,7 +306,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
             case 'slug':
                 if (isset($field['uses'])) {
                     $fields = collect($field['uses']);
-                    $data = $fields->reduce(function (string $carry, string $current) use ($content) {
+                    $data = $fields->reduce(function (string $carry, string $current) use ($content): string {
                         $value = $content->hasField($current) ? $content->getFieldValue($current) : '';
 
                         return $carry . $value;

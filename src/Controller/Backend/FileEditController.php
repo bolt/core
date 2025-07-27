@@ -28,8 +28,7 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
 {
     use CsrfTrait;
 
-    /** @var Filesystem */
-    private $filesystem;
+    private Filesystem $filesystem;
 
     public function __construct(
         private MediaRepository $mediaRepository,

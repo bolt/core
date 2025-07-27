@@ -10,8 +10,7 @@ use Illuminate\Support\Collection;
 
 class ListFormatHelper
 {
-    /** @var string */
-    private $backendUrl = '/bolt';
+    private readonly ?string $backendUrl;
 
     public function __construct(
         private readonly Connection $connection,
@@ -139,7 +138,7 @@ class ListFormatHelper
         return $options;
     }
 
-    public function fixOrder(string $order)
+    public function fixOrder(string $order): string
     {
         if (mb_strpos($order, '-') === 0) {
             $direction = 'DESC';
@@ -174,7 +173,7 @@ class ListFormatHelper
         return $order . ' ' . $direction;
     }
 
-    private function split($contenttypes): string
+    private function split(string $contenttypes): string
     {
         $parts = explode(',', (string) preg_replace('/^\((.*)\)$/', '$1', (string) $contenttypes));
         $result = sprintf('"%s"', implode('", "', $parts));

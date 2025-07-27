@@ -18,8 +18,7 @@ use Throwable;
 
 class Version
 {
-    /** @var string */
-    private $tablePrefix;
+    private readonly string $tablePrefix;
 
     public function __construct(
         private readonly Connection $connection,

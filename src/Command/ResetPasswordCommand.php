@@ -61,7 +61,7 @@ class ResetPasswordCommand extends Command
 
         $passwordQuestion = new Question('Password (input is hidden)', Str::generatePassword());
         $passwordQuestion->setHidden(true);
-        $passwordQuestion->setValidator(function (?string $password) {
+        $passwordQuestion->setValidator(function (?string $password): ?string {
             $errors = $this->validator->validatePropertyValue(User::class, 'plainPassword', $password);
             if ($errors->count() > 0) {
                 throw new InvalidArgumentException($errors->get(0)->getMessage());

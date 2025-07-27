@@ -18,7 +18,7 @@ class FileField extends Field implements FieldInterface, Countable, RawPersistab
 
     public const TYPE = 'file';
 
-    private function getFieldBase()
+    private function getFieldBase(): array
     {
         return [
             'filename' => '',

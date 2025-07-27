@@ -13,12 +13,11 @@ use Knp\DoctrineBehaviors\Contract\Entity\TranslationInterface;
 
 class TranslationsManager
 {
-    /** @var array */
-    private $translations = [];
+    private array $translations;
 
     public function __construct(
         private readonly Collection $collections,
-        private array $keys
+        private readonly array $keys
     ) {
         $this->translations = $this->populateTranslations();
     }
@@ -76,7 +75,7 @@ class TranslationsManager
         $translations = $this->translations[$key];
 
         //do not return the translation for the current locale, so as to not override the newly submitted value
-        return $translations->filter(fn (TranslationInterface $translation) => $translation->getLocale() !== $field->getLocale());
+        return $translations->filter(fn (TranslationInterface $translation): bool => $translation->getLocale() !== $field->getLocale());
     }
 
     private function hasTranslations(Field $field, string $collectionName, $orderId): bool

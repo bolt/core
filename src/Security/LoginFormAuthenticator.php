@@ -2,6 +2,7 @@
 
 namespace Bolt\Security;
 
+use Bolt\Entity\User;
 use Bolt\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -49,7 +50,7 @@ class LoginFormAuthenticator extends AbstractAuthenticator implements Authentica
             $credentials['username']
         );
 
-        $badge = new UserBadge($credentials['username'], fn (string $identifier) => $this->userRepository->findOneByCredentials($identifier));
+        $badge = new UserBadge($credentials['username'], fn (string $identifier): ?User => $this->userRepository->findOneByCredentials($identifier));
 
         return new Passport($badge, new PasswordCredentials($credentials['password']), [
             new CsrfTokenBadge('login_csrf_token', $credentials['csrf_token']),

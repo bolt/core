@@ -6,8 +6,7 @@ namespace Bolt\Configuration;
 
 class FileLocations
 {
-    /** @var array */
-    private $locations = [];
+    private array $locations = [];
 
     public function __construct(
         private readonly Config $config

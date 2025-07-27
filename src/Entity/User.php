@@ -7,6 +7,7 @@ namespace Bolt\Entity;
 use Bolt\Common\Json;
 use Bolt\Enum\UserStatus;
 use Cocur\Slugify\Slugify;
+use DateTime;
 use DateTimeInterface;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -26,87 +27,70 @@ use Symfony\Component\Validator\Constraints as Assert;
 class User implements UserInterface, Serializable, PasswordAuthenticatedUserInterface, Stringable
 {
     /**
-     * @var int
-     *
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * @Groups("get_user")
      */
-    private $id;
+    private ?int $id = null;
 
     /**
-     * @var string
-     *
      * @ORM\Column(type="string")
      * @Assert\NotBlank(normalizer="trim", message="user.not_valid_display_name", groups={"add_user", "edit_user", "edit_user_without_pw"})
      * @Assert\Length(min=2, max=50, minMessage="user.not_valid_display_name", groups={"add_user", "edit_user", "edit_user_without_pw"})
      * @Groups({"get_content", "get_user"})
      */
-    private $displayName;
+    private string $displayName = '';
 
     /**
-     * @var string
-     *
      * @ORM\Column(type="string", unique=true, length=191)
      * @Assert\NotBlank(normalizer="trim", groups={"add_user"})
      * @Assert\Length(min=2, max=50, groups={"add_user"})
      * @Assert\Regex(pattern="/^[a-z0-9_]+$/", message="user.username_invalid_characters", groups={"add_user"})
      * @Groups("get_user")
      */
-    private $username;
+    private string $username = '';
 
     /**
-     * @var string
-     *
      * @ORM\Column(type="string", unique=true, length=191)
      * @Assert\NotBlank(normalizer="trim")
      * @Assert\Email(message="user.not_valid_email", groups={"add_user", "edit_user", "edit_user_without_pw"})
      * @Groups("get_user")
      */
-    private $email;
+    private string $email = '';
+
+    /** @ORM\Column(type="string", length=191) */
+    private string $password;
+
+    /** @Assert\Length(min="6", minMessage="user.not_valid_password", groups={"add_user", "edit_user"}) */
+    private ?string $plainPassword = null;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=191)
-     */
-    private $password;
-
-    /**
-     * @var string|null
-     * @Assert\Length(min="6", minMessage="user.not_valid_password", groups={"add_user", "edit_user"})
-     */
-    private $plainPassword;
-
-    /**
-     * @var array
-     *
      * @ORM\Column(type="json")
      * @Groups("get_user")
      */
-    private $roles = [];
+    private array $roles = [];
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      * @Groups("get_user")
      */
-    private $lastseenAt;
+    private ?DateTime $lastseenAt = null;
 
     /** @ORM\Column(type="string", length=100, nullable=true) */
-    private $lastIp;
+    private ?string $lastIp = null;
 
     /**
      * @ORM\Column(type="string", length=191, nullable=true)
      * @Groups("get_user")
      */
-    private $locale;
+    private ?string $locale = null;
 
     /** @ORM\Column(type="string", length=191, nullable=true) */
-    private $backendTheme;
+    private ?string $backendTheme = null;
 
     /** @ORM\Column(type="string", length=30, options={"default":"enabled"}) */
-    private $status = UserStatus::ENABLED;
+    private string $status = UserStatus::ENABLED;
 
     /** @ORM\OneToMany(
      *     targetEntity="Bolt\Entity\UserAuthToken",
@@ -116,21 +100,17 @@ class User implements UserInterface, Serializable, PasswordAuthenticatedUserInte
      *     orphanRemoval=true,
      *     cascade={"persist", "remove"}
      * )
-     * @var Collection|UserAuthToken[]
+     * @var Collection<int, UserAuthToken>
      */
-    private $userAuthTokens;
+    private Collection $userAuthTokens;
 
     /** @ORM\Column(type="string", length=250, nullable=true) */
-    private $avatar;
+    private ?string $avatar = null;
 
     /** @ORM\Column(type="string", length=1024, nullable=true) */
-    private $about;
+    private ?string $about = null;
 
-    public function __construct()
-    {
-    }
-
-    public function setId($id)
+    public function setId(int $id): void
     {
         $this->id = $id;
     }
@@ -140,7 +120,7 @@ class User implements UserInterface, Serializable, PasswordAuthenticatedUserInte
         return $this->id;
     }
 
-    public function setDisplayName(?string $displayName): void
+    public function setDisplayName(string $displayName): void
     {
         $this->displayName = $displayName;
     }

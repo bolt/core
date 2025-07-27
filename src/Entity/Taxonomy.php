@@ -23,7 +23,7 @@ class Taxonomy
      * @ORM\Column(type="integer")
      * @Groups("public")
      */
-    private $id;
+    private ?int $id = null;
 
     /** @ORM\ManyToMany(targetEntity="Bolt\Entity\Content", inversedBy="taxonomies") */
     private $content;
@@ -52,8 +52,7 @@ class Taxonomy
      */
     private $sortorder = 0;
 
-    /** @var TaxonomyType|null */
-    private $taxonomyTypeDefinition = null;
+    private ?TaxonomyType $taxonomyTypeDefinition = null;
 
     public function __construct(?TaxonomyType $taxonomyTypeDefinition = null)
     {

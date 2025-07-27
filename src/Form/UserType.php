@@ -72,8 +72,11 @@ class UserType extends AbstractType
                 'required' => $options['require_username'],
                 // Always disable this field if it is not required aka not on add user page
                 'disabled' => ! $options['require_username'],
+                'empty_data' => '',
             ])
-            ->add('displayName', TextType::class)
+            ->add('displayName', TextType::class, [
+                'empty_data' => '',
+            ])
             ->add('plainPassword', PasswordType::class, [
                 // We need that, otherwise the suggested password won't be auto filled in
                 'always_empty' => false,
@@ -83,7 +86,9 @@ class UserType extends AbstractType
                 'required' => $options['require_password'],
                 'empty_data' => '',
             ])
-            ->add('email', EmailType::class)
+            ->add('email', EmailType::class, [
+                'empty_data' => '',
+            ])
             ->add('locale', ChoiceType::class, [
                 'choices' => $locationOptions,
                 'empty_data' => $options['default_locale'],
@@ -133,7 +138,7 @@ class UserType extends AbstractType
             'require_password' => '',
             'default_locale' => '',
             'is_profile_edit' => false,
-            'validation_groups' => function (FormInterface $form) {
+            'validation_groups' => function (FormInterface $form): string {
                 /** @var User $entity */
                 $entity = $form->getData();
 

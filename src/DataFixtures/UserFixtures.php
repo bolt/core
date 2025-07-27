@@ -14,8 +14,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserFixtures extends BaseFixture implements FixtureGroupInterface
 {
-    /** @var bool */
-    private $append = false;
+    private bool $append = false;
 
     /** @var array */
     private $allUsers = [];

@@ -10,15 +10,12 @@ use Pagerfanta\Pagerfanta;
 
 class Query
 {
-    /** @var ContentQueryParser */
-    protected $parser;
-
     /** @var array */
     protected $scopes = [];
 
-    public function __construct(ContentQueryParser $parser)
-    {
-        $this->parser = $parser;
+    public function __construct(
+        protected ContentQueryParser $parser
+    ) {
         $this->scopes = [];
     }
 
@@ -44,7 +41,7 @@ class Query
      *
      * @return Pagerfanta|Content|null
      */
-    public function getContent(string $textQuery, array $parameters = [])
+    public function getContent(string $textQuery, array $parameters = []): mixed
     {
         $this->parser->setQuery($textQuery);
         $this->parser->setParameters($parameters);

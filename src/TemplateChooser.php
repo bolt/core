@@ -28,7 +28,7 @@ class TemplateChooser
         // Second candidate: Global config.yml file.
         $templates->push($this->config->get('general/homepage_template'));
 
-        if (empty($content)) {
+        if (! $content instanceof Content) {
             // Fallback if no content: index.twig
             $templates->push('index.html.twig')->push('index.twig');
         } else {

@@ -71,7 +71,7 @@ class LocaleExtension extends AbstractExtension
         return '';
     }
 
-    public function translate(string $id, array $parameters = [], $domain = null, $locale = null): string
+    public function translate(string $id, array $parameters = [], ?string $domain = null, ?string $locale = null): string
     {
         return $this->translator->trans($id, $parameters, $domain, $locale);
     }

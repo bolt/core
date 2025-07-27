@@ -97,7 +97,7 @@ class ServerCommand extends Command
         return 'php bin/console server:stop';
     }
 
-    protected function hasSymfonyCommand()
+    protected function hasSymfonyCommand(): bool
     {
         $process = new Process(['symfony', 'version']);
         $process->setTimeout(0);

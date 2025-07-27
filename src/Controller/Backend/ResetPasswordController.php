@@ -186,7 +186,7 @@ class ResetPasswordController extends TwigAwareController
         return $this->redirectToRoute('bolt_check_email');
     }
 
-    protected function buildResetEmail($config, $user, $resetToken): Email
+    protected function buildResetEmail(array $config, $user, $resetToken): Email
     {
         return (new TemplatedEmail())
             ->from(new Address($config['mail_from'], $config['mail_name']))

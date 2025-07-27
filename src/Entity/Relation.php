@@ -7,6 +7,7 @@ namespace Bolt\Entity;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use Bolt\Configuration\Content\ContentType;
 use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -42,28 +43,26 @@ class Relation
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id = null;
 
     /**
      * @ORM\ManyToOne(targetEntity="Content", inversedBy="relationsFromThisContent", fetch="EAGER")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      *
-     * @var Content
      * @Groups("get_relation")
      */
-    private $fromContent;
+    private Content $fromContent;
 
     /**
      * @ORM\ManyToOne(targetEntity="Content", inversedBy="relationsToThisContent", fetch="EAGER")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      *
-     * @var Content
      * @Groups("get_relation")
      */
-    private $toContent;
+    private Content $toContent;
 
     /** @ORM\Column(type="integer") */
-    private $position = 0;
+    private int $position = 0;
 
     /**
      * Definition contains properties like:
@@ -74,10 +73,8 @@ class Relation
      * - sortable
      * - min
      * - max
-     *
-     * @var array
      */
-    private $definition = [];
+    private ContentType|array $definition = [];
 
     public function __construct(Content $fromContent, Content $toContent)
     {
@@ -112,7 +109,7 @@ class Relation
         return $this->fromContent;
     }
 
-    public function setFromContent($content): void
+    public function setFromContent(Content $content): void
     {
         $this->fromContent = $content;
     }
@@ -122,12 +119,12 @@ class Relation
         return $this->toContent;
     }
 
-    public function setToContent($content): void
+    public function setToContent(Content $content): void
     {
         $this->toContent = $content;
     }
 
-    public function getDefinition(): array
+    public function getDefinition(): ContentType|array
     {
         if (empty($this->definition) && $this->fromContent instanceof Content) {
             $this->setDefinitionFromContentDefinition();

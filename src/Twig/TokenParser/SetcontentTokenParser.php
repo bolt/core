@@ -145,7 +145,7 @@ class SetcontentTokenParser extends AbstractTokenParser
 
         $this->parser->getStream()->expect(Token::BLOCK_END_TYPE);
 
-        return new SetcontentNode($name, $contentType, $arguments, $whereArguments, $lineno, $this->getTag());
+        return new SetcontentNode($name, $contentType, $arguments, $whereArguments, $lineno);
     }
 
     /**

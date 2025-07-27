@@ -21,18 +21,15 @@ class QueryParameterParser
     /** @var string */
     protected $key;
 
-    /** @var Expr */
-    protected $expr;
-
     /** @var array */
     protected $valueMatchers = [];
 
     /** @var Filter[] */
     protected $filterHandlers = [];
 
-    public function __construct(Expr $expr)
-    {
-        $this->expr = $expr;
+    public function __construct(
+        protected Expr $expr
+    ) {
         $this->setupDefaults();
     }
 

@@ -15,7 +15,7 @@ class EarliestDirectiveHandler
 {
     public const NAME = 'earliest';
 
-    public function __invoke(QueryInterface $query, $value, &$directives): void
+    public function __invoke(QueryInterface $query, $value, array &$directives): void
     {
         $directives[OrderDirective::NAME] = 'id';
     }

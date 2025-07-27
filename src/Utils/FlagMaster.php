@@ -61,7 +61,7 @@ class FlagMaster
      *
      * @throws Exception
      */
-    private static function enclosedUnicode($char): string
+    private static function enclosedUnicode(string $char): string
     {
         $arr = [
             'a' => '1F1E6',

@@ -31,12 +31,6 @@ use Exception;
  */
 class SelectQuery implements QueryInterface
 {
-    /** @var QueryBuilder */
-    protected $qb;
-
-    /** @var QueryParameterParser */
-    protected $parser;
-
     /** @var string */
     protected $contentType;
 
@@ -87,25 +81,17 @@ class SelectQuery implements QueryInterface
     /** @var string */
     protected $anything = 'anything';
 
-    /** @var array */
-    private $referenceJoins = [];
-
-    /** @var array */
-    private $taxonomyJoins = [];
-
-    /** @var array */
-    private $fieldJoins = [];
+    private array $referenceJoins = [];
+    private array $taxonomyJoins = [];
+    private array $fieldJoins = [];
 
     public function __construct(
-        QueryParameterParser $parser,
+        protected QueryParameterParser $parser,
         private readonly Config $config,
         private readonly EntityManagerInterface $em,
         private readonly FieldQueryUtils $utils,
-        ?QueryBuilder $qb = null
+        protected ?QueryBuilder $qb = null
     ) {
-        $this->qb = $qb;
-        $this->parser = $parser;
-
         $this->setTaxonomyFields();
     }
 
@@ -180,7 +166,7 @@ class SelectQuery implements QueryInterface
         // Filter out empty parameters, ignoring it if 'like' statement is empty
         $this->params = array_filter(
             $params,
-            fn ($a) => $a !== '%%'
+            fn ($a): bool => $a !== '%%'
         );
 
         $this->processFilters();
@@ -283,7 +269,7 @@ class SelectQuery implements QueryInterface
 
     public function getFilter(string $key): ?Filter
     {
-        return array_filter($this->filters, fn (Filter $filter) => $filter->getKey() === $key)[0] ?? null;
+        return array_filter($this->filters, fn (Filter $filter): bool => $filter->getKey() === $key)[0] ?? null;
     }
 
     /**
@@ -335,10 +321,8 @@ class SelectQuery implements QueryInterface
 
     /**
      * Allows replacing the default QueryBuilder.
-     *
-     * @param QueryBuilder $qb
      */
-    public function setQueryBuilder($qb): void
+    public function setQueryBuilder(QueryBuilder $qb): void
     {
         $this->qb = $qb;
     }

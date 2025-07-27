@@ -50,7 +50,10 @@ class FilelistField extends Field implements FieldInterface, ListFieldInterface,
         return $this->fields;
     }
 
-    public function getApiValue()
+    /**
+     * @return mixed[]
+     */
+    public function getApiValue(): array
     {
         $result = [];
 
@@ -113,6 +116,6 @@ class FilelistField extends Field implements FieldInterface, ListFieldInterface,
             $values = $this->getValue();
         }
 
-        return json_encode(array_map(fn (FileField $i) => $i->getValue(), $values));
+        return json_encode(array_map(fn (FileField $i): array => $i->getValue(), $values));
     }
 }

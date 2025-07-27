@@ -23,8 +23,7 @@ class InfoCommand extends Command
     /** @var object */
     private $composer;
 
-    /** @var SymfonyStyle */
-    private $io;
+    private SymfonyStyle $io;
 
     public function __construct(
         private \Bolt\Doctrine\Version $doctrineVersion,

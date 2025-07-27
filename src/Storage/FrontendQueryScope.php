@@ -17,18 +17,13 @@ use Bolt\Storage\Directive\OrderDirective;
  */
 class FrontendQueryScope implements QueryScopeInterface
 {
-    /** @var Config */
-    protected $config;
-
     /** @var array */
     protected $orderBys = [];
 
     public function __construct(
-        Config $config,
+        protected Config $config,
         private readonly DirectiveHandler $directiveHandler
     ) {
-        $this->config = $config;
-
         $this->parseContentTypes();
     }
 

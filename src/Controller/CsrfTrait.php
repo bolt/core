@@ -16,7 +16,7 @@ trait CsrfTrait
     /**
      * @required
      */
-    public function setCsrfTokenManager(CsrfTokenManagerInterface $csrfTokenManager)
+    public function setCsrfTokenManager(CsrfTokenManagerInterface $csrfTokenManager): void
     {
         $this->csrfTokenManager = $csrfTokenManager;
     }

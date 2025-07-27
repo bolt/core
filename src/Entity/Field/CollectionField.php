@@ -40,7 +40,10 @@ class CollectionField extends Field implements Excerptable, FieldInterface, Fiel
         return $result;
     }
 
-    public function getApiValue()
+    /**
+     * @return list<array{name: mixed, type: mixed, value: mixed}>
+     */
+    public function getApiValue(): array
     {
         $fields = $this->getValue();
         $result = [];
@@ -78,7 +81,10 @@ class CollectionField extends Field implements Excerptable, FieldInterface, Fiel
         return $this->fields;
     }
 
-    public function getDefaultValue()
+    /**
+     * @return Field[]
+     */
+    public function getDefaultValue(): array
     {
         $default = parent::getDefaultValue();
 

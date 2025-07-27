@@ -38,8 +38,7 @@ class DeleteUserCommand extends Command
     /** @var string */
     protected static $defaultName = 'bolt:delete-user';
 
-    /** @var SymfonyStyle */
-    private $io;
+    private SymfonyStyle $io;
 
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
@@ -96,7 +95,7 @@ HELP
             '',
         ]);
 
-        $username = $this->io->ask('Username', null, function (?string $username) {
+        $username = $this->io->ask('Username', null, function (?string $username): ?string {
             $errors = $this->validator->validatePropertyValue(User::class, 'username', $username);
             if ($errors->count() > 0) {
                 throw new InvalidArgumentException($errors->get(0)->getMessage());

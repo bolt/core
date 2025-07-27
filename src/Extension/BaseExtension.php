@@ -24,8 +24,7 @@ abstract class BaseExtension implements ExtensionInterface
     use ServicesTrait;
     use ConfigTrait;
 
-    /** @var string */
-    private $slug;
+    private ?string $slug = null;
 
     /**
      * Returns the descriptive name of the Extension
@@ -136,7 +135,7 @@ abstract class BaseExtension implements ExtensionInterface
         return null;
     }
 
-    public function addListener($event, $callback): void
+    public function addListener(string $event, $callback): void
     {
         /** @var EventDispatcher $dp */
         $dp = $this->getEventDispatcher();
@@ -152,7 +151,7 @@ abstract class BaseExtension implements ExtensionInterface
     {
         $className = $this->getClass();
 
-        $finder = static fn (PackageInterface $package) => array_key_exists('entrypoint', $package->getExtra())
+        $finder = static fn (PackageInterface $package): bool => array_key_exists('entrypoint', $package->getExtra())
             && $className === $package->getExtra()['entrypoint'];
         $package = Packages::find($finder);
 

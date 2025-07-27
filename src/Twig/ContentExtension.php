@@ -233,7 +233,7 @@ class ContentExtension extends AbstractExtension
         return $pre . Excerpt::getExcerpt($excerpt, $length, $focus) . $post;
     }
 
-    public function getListFormat($content)
+    public function getListFormat(Content $content): string
     {
         $format = $content->getDefinition()->get('list_format', '[{contenttype} Nº {id} - {status}] {title}');
         $listFormat = $this->contentHelper->get($content, $format);
@@ -424,7 +424,7 @@ class ContentExtension extends AbstractExtension
         return $this->generateLink('bolt_content_status', $params, $absolute);
     }
 
-    private function generateLink(string $route, array $params, $canonical = false): string
+    private function generateLink(string $route, array $params, bool $canonical = false): string
     {
         try {
             $link = $this->canonical->generateLink($route, $params, $canonical);
@@ -462,8 +462,15 @@ class ContentExtension extends AbstractExtension
         return new Collection($taxonomies);
     }
 
-    public function pager(Environment $twig, ?Pagerfanta $records = null, string $template = '@bolt/helpers/_pager_basic.html.twig', string $class = 'pagination', string $previousLinkClass = 'previous', string $nextLinkClass = 'next', int $surround = 3)
-    {
+    public function pager(
+        Environment $twig,
+        ?Pagerfanta $records = null,
+        string $template = '@bolt/helpers/_pager_basic.html.twig',
+        string $class = 'pagination',
+        string $previousLinkClass = 'previous',
+        string $nextLinkClass = 'next',
+        int $surround = 3
+    ): string {
         $params = array_merge(
             $this->requestStack->getCurrentRequest()->get('_route_params'),
             $this->requestStack->getCurrentRequest()->query->all()
@@ -576,7 +583,10 @@ class ContentExtension extends AbstractExtension
         return false;
     }
 
-    public function statusOptions(Content $record)
+    /**
+     * @return list<array{key: mixed, value: mixed, selected: bool}>
+     */
+    public function statusOptions(Content $record): array
     {
         $options = [];
 
@@ -643,7 +653,7 @@ class ContentExtension extends AbstractExtension
         return false;
     }
 
-    public function sanitise(string $html)
+    public function sanitise(string $html): string
     {
         return $this->sanitiser->clean($html);
     }

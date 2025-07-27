@@ -20,8 +20,7 @@ class FileListingController implements AsyncZoneInterface
     /** @var Request */
     private $request;
 
-    /** @var string */
-    private $publicPath;
+    private readonly string $publicPath;
 
     public function __construct(
         private readonly Config $config,
