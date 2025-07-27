@@ -9,7 +9,6 @@ use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\Security\Core\AuthenticationEvents;
 use Symfony\Component\Security\Core\Event\AuthenticationSuccessEvent;
 use Symfony\Component\Security\Http\Event\LogoutEvent;
 use UAParser\Parser;
@@ -70,7 +69,7 @@ class AuthSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            AuthenticationEvents::AUTHENTICATION_SUCCESS => ['onAuthenticationSuccess'],
+            AuthenticationSuccessEvent::class => ['onAuthenticationSuccess'],
             LogoutEvent::class => ['onLogout'],
         ];
     }

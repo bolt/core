@@ -20,6 +20,7 @@ return RectorConfig::configure()
         twig: true,
         doctrine: true,
         phpunit: true,
+        symfony: true,
     )
     ->withSkip([
         Rector\Php80\Rector\Class_\ClassPropertyAssignToConstructorPromotionRector::class => [
