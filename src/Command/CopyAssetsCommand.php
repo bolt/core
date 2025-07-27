@@ -18,8 +18,7 @@ class CopyAssetsCommand extends Command
     /** @var string */
     protected static $defaultName = 'bolt:copy-assets';
 
-    /** @var string */
-    private $publicDirectory;
+    private readonly string $publicDirectory;
 
     public function __construct(
         private readonly Filesystem $filesystem,

@@ -12,23 +12,18 @@ use Symfony\Component\Yaml\Yaml;
 
 abstract class BaseParser
 {
-    /** @var FileLocator */
-    protected $fileLocator;
-
-    /** @var PathResolver */
-    protected $pathResolver;
-
-    /** @var string */
-    protected $initialFilename;
+    protected FileLocator $fileLocator;
+    protected PathResolver $pathResolver;
 
     /** @var string[] */
-    protected $parsedFilenames = [];
+    protected array $parsedFilenames = [];
 
-    public function __construct(string $projectDir, string $initialFilename)
-    {
+    public function __construct(
+        string $projectDir,
+        protected string $initialFilename
+    ) {
         $this->fileLocator = new FileLocator([$projectDir . '/' . $this->getProjectConfigDir()]);
         $this->pathResolver = new PathResolver(dirname(__DIR__, 3));
-        $this->initialFilename = $initialFilename;
     }
 
     /**

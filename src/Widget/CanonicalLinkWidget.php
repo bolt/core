@@ -16,9 +16,7 @@ class CanonicalLinkWidget extends BaseWidget
     protected $target = Target::END_OF_HEAD;
     protected $zone = RequestZone::FRONTEND;
     protected $priority = 200;
-
-    /** @var string */
-    private $defaultTemplate = '@bolt/widget/canonical.html.twig';
+    private string $defaultTemplate = '@bolt/widget/canonical.html.twig';
 
     public function __construct(
         private readonly Canonical $canonical,

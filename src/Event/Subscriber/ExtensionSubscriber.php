@@ -18,8 +18,7 @@ class ExtensionSubscriber implements EventSubscriberInterface
 {
     public const PRIORITY = 0;
 
-    /** @var array */
-    private $objects = [];
+    private array $objects = [];
 
     public function __construct(
         ContainerInterface $container,

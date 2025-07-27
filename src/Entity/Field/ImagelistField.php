@@ -50,7 +50,10 @@ class ImagelistField extends Field implements FieldInterface, ListFieldInterface
         return $this->fields;
     }
 
-    public function getApiValue()
+    /**
+     * @return mixed[]
+     */
+    public function getApiValue(): array
     {
         $result = [];
 
@@ -113,6 +116,6 @@ class ImagelistField extends Field implements FieldInterface, ListFieldInterface
             $values = $this->getValue();
         }
 
-        return json_encode(array_map(fn (ImageField $i) => $i->getValue(), $values));
+        return json_encode(array_map(fn (ImageField $i): array => $i->getValue(), $values));
     }
 }

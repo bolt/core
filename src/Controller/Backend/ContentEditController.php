@@ -50,9 +50,6 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
 {
     use CsrfTrait;
 
-    /** @var string */
-    protected $defaultLocale;
-
     public function __construct(
         private TaxonomyRepository $taxonomyRepository,
         private RelationRepository $relationRepository,
@@ -62,11 +59,10 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         private UrlGeneratorInterface $urlGenerator,
         private ContentFillListener $contentFillListener,
         private EventDispatcherInterface $dispatcher,
-        string $defaultLocale,
+        protected string $defaultLocale,
         private TranslatorInterface $translator,
         private ContentHelper $contentHelper
     ) {
-        $this->defaultLocale = $defaultLocale;
     }
 
     /**
@@ -397,7 +393,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
 
     public function updateCollections(Content $content, array $formData, ?string $locale): void
     {
-        $collections = $content->getFields()->filter(fn (Field $field) => $field->getType() === CollectionField::TYPE);
+        $collections = $content->getFields()->filter(fn (Field $field): bool => $field->getType() === CollectionField::TYPE);
 
         $keys = $formData['keys-collections'] ?? [];
         $tm = new TranslationsManager($collections, $keys);
@@ -564,7 +560,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         $currentRelations = new Collection($this->relationRepository->findRelations($content, $relationType, null, false));
         $currentRelationIds = $currentRelations
             ->map(
-                static fn (Relation $relation) => $relation->getFromContent() === $content
+                static fn (Relation $relation): ?int => $relation->getFromContent() === $content
                     ? $relation->getToContent()->getId()
                     : $relation->getFromContent()->getId()
             )
@@ -595,7 +591,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
                 $currentRelation->getFromContent()->removeRelationsFromThisContent($currentRelation);
             }
             $currentRelations = $currentRelations->filter(
-                static fn (Relation $r) => $r !== $currentRelation
+                static fn (Relation $r): bool => $r !== $currentRelation
             );
             $this->em->remove($currentRelation);
         }
@@ -606,7 +602,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
                 // If this relation already exists, don't add it a second time. Do set a proper order on it, though.
                 $currentRelations
                     ->first(
-                        static function (Relation $relation) use ($id) {
+                        static function (Relation $relation) use ($id): bool {
                             $fromId = $relation->getFromContent() ? $relation->getFromContent()->getId() : null;
                             $toId = $relation->getToContent() ? $relation->getToContent()->getId() : null;
                             return \in_array(

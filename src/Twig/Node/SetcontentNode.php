@@ -18,11 +18,7 @@ use Twig\Node\Node;
  */
 class SetcontentNode extends Node
 {
-    /**
-     * @param string $name
-     * @param int $lineNo
-     */
-    public function __construct($name, Node $contentType, ArrayExpression $arguments, array $whereArguments, $lineNo, $tag = null)
+    public function __construct(string $name, Node $contentType, ArrayExpression $arguments, array $whereArguments, int $lineNo)
     {
         parent::__construct(
             $whereArguments,
@@ -32,7 +28,6 @@ class SetcontentNode extends Node
                 'arguments' => $arguments,
             ],
             $lineNo,
-            $tag
         );
     }
 

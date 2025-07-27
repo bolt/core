@@ -279,7 +279,7 @@ class ContentTypesParser extends BaseParser
         return [$fields, $groups];
     }
 
-    private function parseField($key, &$field, $acceptFileTypes, &$currentGroup): void
+    private function parseField(string $key, &$field, $acceptFileTypes, &$currentGroup): void
     {
         $key = str_replace('-', '_', mb_strtolower(Str::makeSafe($key, true)));
         if (! isset($field['type']) || empty($field['type'])) {

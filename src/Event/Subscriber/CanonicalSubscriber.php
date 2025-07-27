@@ -14,7 +14,7 @@ class CanonicalSubscriber implements EventSubscriberInterface
     ) {
     }
 
-    public function onKernelRequest(RequestEvent $event)
+    public function onKernelRequest(RequestEvent $event): void
     {
         // ensure initialization with real request
         $this->canonical->getRequest();

@@ -51,8 +51,7 @@ class AddUserCommand extends Command
      */
     protected static $defaultName = 'bolt:add-user';
 
-    /** @var SymfonyStyle */
-    private $io;
+    private SymfonyStyle $io;
 
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
@@ -125,7 +124,7 @@ class AddUserCommand extends Command
         if ($username !== null) {
             $this->io->text(' > <info>Username</info>: ' . $username);
         } else {
-            $username = $this->io->ask('Username', null, function (?string $username) {
+            $username = $this->io->ask('Username', null, function (?string $username): ?string {
                 $errors = $this->validator->validatePropertyValue(User::class, 'username', $username);
                 if ($errors->count() > 0) {
                     throw new InvalidArgumentException($errors->get(0)->getMessage());
@@ -143,7 +142,7 @@ class AddUserCommand extends Command
         } else {
             $passwordQuestion = new Question('Password (input is hidden)', Str::generatePassword());
             $passwordQuestion->setHidden(true);
-            $passwordQuestion->setValidator(function (?string $password) {
+            $passwordQuestion->setValidator(function (?string $password): ?string {
                 $errors = $this->validator->validatePropertyValue(User::class, 'plainPassword', $password);
                 if ($errors->count() > 0) {
                     throw new InvalidArgumentException($errors->get(0)->getMessage());
@@ -161,7 +160,7 @@ class AddUserCommand extends Command
         if ($email !== null) {
             $this->io->text(' > <info>Email</info>: ' . $email);
         } else {
-            $email = $this->io->ask('Email', null, function (?string $email) {
+            $email = $this->io->ask('Email', null, function (?string $email): ?string {
                 $errors = $this->validator->validatePropertyValue(User::class, 'email', $email);
                 if ($errors->count() > 0) {
                     throw new InvalidArgumentException($errors->get(0)->getMessage());
@@ -177,7 +176,7 @@ class AddUserCommand extends Command
         if ($displayName !== null) {
             $this->io->text(' > <info>Display Name</info>: ' . $displayName);
         } else {
-            $displayName = $this->io->ask('Display Name', null, function (?string $displayName) {
+            $displayName = $this->io->ask('Display Name', null, function (?string $displayName): ?string {
                 $errors = $this->validator->validatePropertyValue(User::class, 'displayName', $displayName);
                 if ($errors->count() > 0) {
                     throw new InvalidArgumentException($errors->get(0)->getMessage());

@@ -24,11 +24,8 @@ use Twig\Environment;
  */
 class Widgets
 {
-    /** @var Collection */
-    private $queue;
-
-    /** @var array */
-    private $rendered = [];
+    private readonly Collection $queue;
+    private array $rendered = [];
 
     public function __construct(
         private readonly RequestStack $requestStack,
@@ -51,7 +48,7 @@ class Widgets
 
     public function renderWidgetByName(string $name, array $params = []): string
     {
-        $widget = $this->queue->filter(fn (WidgetInterface $widget) => $widget->getName() === $name)->first();
+        $widget = $this->queue->filter(fn (WidgetInterface $widget): bool => $widget->getName() === $name)->first();
 
         if ($widget) {
             return (string) $this->invokeWidget($widget, $params);
@@ -81,8 +78,8 @@ class Widgets
     private function filteredWidgets(string $target): Collection
     {
         return $this->queue
-            ->filter(fn (WidgetInterface $widget) => in_array($target, $widget->getTargets(), true))
-            ->sortBy(fn (WidgetInterface $widget) => $widget->getPriority());
+            ->filter(fn (WidgetInterface $widget): bool => in_array($target, $widget->getTargets(), true))
+            ->sortBy(fn (WidgetInterface $widget): int => $widget->getPriority());
     }
 
     private function invokeWidget(WidgetInterface $widget, array $params = []): ?string

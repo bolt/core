@@ -14,8 +14,7 @@ use Symfony\Contracts\Cache\TagAwareCacheInterface;
 
 final class BackendMenu implements BackendMenuBuilderInterface
 {
-    /** @var string */
-    private $backendUrl = '/bolt';
+    private readonly string $backendUrl;
 
     public function __construct(
         private readonly BackendMenuBuilder $menuBuilder,
@@ -52,7 +51,7 @@ final class BackendMenu implements BackendMenuBuilderInterface
 
         $cacheKey = 'bolt.backendMenu_' . $locale . '_' . $this->backendUrl . '_' . $username;
 
-        $menu = $this->cache->get($cacheKey, function (ItemInterface $item) {
+        $menu = $this->cache->get($cacheKey, function (ItemInterface $item): array {
             $item->expiresAfter((int) $this->config->get('general/caching/backend_menu'));
             $item->tag('backendmenu');
 

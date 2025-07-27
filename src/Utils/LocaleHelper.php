@@ -15,14 +15,9 @@ use Twig\Environment;
 
 class LocaleHelper
 {
-    /** @var Collection */
-    private $localeCodes;
-
-    /** @var Collection */
-    private $flagCodes;
-
-    /** @var Collection */
-    private $codetoCountry;
+    private readonly Collection $localeCodes;
+    private readonly Collection $flagCodes;
+    private readonly Collection $codeToCountry;
 
     /** @var Collection */
     private $currentLocale;
@@ -37,7 +32,7 @@ class LocaleHelper
         $this->localeCodes = new Collection(explode('|', $locales));
 
         $this->flagCodes = $this->getFlagCodes();
-        $this->codetoCountry = $this->getCodetoCountry();
+        $this->codeToCountry = $this->getCodetoCountry();
     }
 
     public function getCurrentLocale(Environment $twig): ?Collection
@@ -183,7 +178,7 @@ class LocaleHelper
         return new Collection($locale);
     }
 
-    private function getFlagCode($localeCode): string
+    private function getFlagCode(string $localeCode): string
     {
         $splitCode = preg_split('/[_-]/', (string) $localeCode);
 
@@ -199,12 +194,12 @@ class LocaleHelper
      * Note: We're aware "Languages are not Flags", but if we _do_ want a
      * visual presentation there's no better alternative that we're aware of.
      */
-    private function flagCodeFormatter($flag): string
+    private function flagCodeFormatter(string $flag): string
     {
         $flag = mb_strtolower((string) $flag);
 
-        if ($this->codetoCountry->has($flag)) {
-            return $this->codetoCountry->get($flag);
+        if ($this->codeToCountry->has($flag)) {
+            return $this->codeToCountry->get($flag);
         }
 
         return $flag;

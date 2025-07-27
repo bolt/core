@@ -127,7 +127,7 @@ class ContentHelper
 
         return Str::decode(preg_replace_callback(
             '/{([\w]+)}/i',
-            function ($match) use ($record, $locale, $dateFormat) {
+            function (array $match) use ($record, $locale, $dateFormat) {
                 if ($match[1] === 'id') {
                     return $record->getId();
                 }

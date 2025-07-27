@@ -8,8 +8,7 @@ use Illuminate\Support\Collection;
 
 class MenuParser extends BaseParser
 {
-    /** @var array */
-    private $itemBase = [];
+    private array $itemBase = [];
 
     public function __construct(string $projectDir, string $initialFilename = 'menu.yaml')
     {

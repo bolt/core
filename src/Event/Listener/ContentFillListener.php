@@ -202,7 +202,7 @@ class ContentFillListener
 
     private function intersectFieldsAndDefinition(array $fields, FieldType $definition): array
     {
-        return collect($fields)->filter(fn (Field $field) => $definition->get('fields')
+        return collect($fields)->filter(fn (Field $field): bool => $definition->get('fields')
             && $definition->get('fields')->has($field->getName()))->values()->toArray();
     }
 }

@@ -46,7 +46,7 @@ class RelationFactory
     private function getFromMemory(Content $from, Content $to): ?Relation
     {
         return $this->relations->filter(
-            fn (Relation $relation) => ($relation->getFromContent() === $from && $relation->getToContent() === $to)
+            fn (Relation $relation): bool => ($relation->getFromContent() === $from && $relation->getToContent() === $to)
                 || ($relation->getToContent() === $to && $relation->getToContent() === $from)
         )->last();
     }

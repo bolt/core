@@ -28,7 +28,7 @@ final class FrontendMenu implements FrontendMenuBuilderInterface
 
         $key = 'bolt.frontendMenu_' . ($name ?: 'main') . '_' . $this->requestStack->getCurrentRequest()->getLocale();
 
-        $menu = $this->cache->get($key, function (ItemInterface $item) use ($name, $twig) {
+        $menu = $this->cache->get($key, function (ItemInterface $item) use ($name, $twig): array {
             $item->expiresAfter($this->config->get('general/caching/frontend_menu'));
             $item->tag('frontendmenu');
 

@@ -16,8 +16,7 @@ use Twig\TwigFunction;
 
 class ImageExtension extends AbstractExtension
 {
-    /** @var string */
-    private $publicFolder;
+    private readonly string $publicFolder;
 
     public function __construct(
         private readonly MediaRepository $mediaRepository,
@@ -103,7 +102,7 @@ class ImageExtension extends AbstractExtension
     /**
      * @param ImageField|array|string $image
      */
-    public function thumbnail($image, ?int $width = null, ?int $height = null, ?string $location = null, ?string $path = null, ?string $fit = null, ?int $quality = null)
+    public function thumbnail($image, ?int $width = null, ?int $height = null, ?string $location = null, ?string $path = null, ?string $fit = null, ?int $quality = null): string
     {
         $filename = $this->getFilename($image, true);
 

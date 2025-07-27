@@ -21,8 +21,7 @@ class SelectField extends Field implements FieldInterface, RawPersistable, Itera
 
     public const TYPE = 'select';
 
-    /** @var ContainerInterface|null */
-    private static $container = null;
+    private static ?ContainerInterface $container = null;
 
     public function setValue($value): Field
     {
@@ -102,12 +101,12 @@ class SelectField extends Field implements FieldInterface, RawPersistable, Itera
         return $this->getOptions()->intersectByKeys(array_flip(parent::getValue()));
     }
 
-    public function getSelectedIds()
+    public function getSelectedIds(): string
     {
         return implode(' || ', parent::getValue());
     }
 
-    public function getContentType()
+    public function getContentType(): string|false
     {
         $values = $this->getOptions();
 
@@ -129,7 +128,7 @@ class SelectField extends Field implements FieldInterface, RawPersistable, Itera
         return false;
     }
 
-    public function getDefaultValue()
+    public function getDefaultValue(): array
     {
         return [parent::getDefaultValue()];
     }

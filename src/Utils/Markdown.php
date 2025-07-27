@@ -8,8 +8,7 @@ use ParsedownExtra;
 
 class Markdown
 {
-    /** @var ParsedownExtra */
-    private $parser;
+    private readonly ParsedownExtra $parser;
 
     public function __construct()
     {

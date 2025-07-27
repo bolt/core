@@ -71,7 +71,10 @@ class SetField extends Field implements Excerptable, FieldInterface, FieldParent
         return parent::setContent($content);
     }
 
-    public function getApiValue()
+    /**
+     * @return mixed[]
+     */
+    public function getApiValue(): array
     {
         $result = [];
 
@@ -109,7 +112,10 @@ class SetField extends Field implements Excerptable, FieldInterface, FieldParent
         return $fields;
     }
 
-    public function getDefaultValue()
+    /**
+     * @return mixed[]
+     */
+    public function getDefaultValue(): array
     {
         $defaultValues = parent::getDefaultValue() ?? [];
         $value = $this->getFieldsFromDefinition();

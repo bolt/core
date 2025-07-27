@@ -24,7 +24,7 @@ class ImageField extends Field implements FieldInterface, MediaAwareInterface, C
 
     public const TYPE = 'image';
 
-    private function getFieldBase()
+    private function getFieldBase(): array
     {
         return [
             'filename' => '',

@@ -67,7 +67,7 @@ class Field implements FieldInterface, TranslatableInterface, Stringable
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id = 0;
+    private ?int $id = 0;
 
     /**
      * @ORM\Column(type="string", length=191)
@@ -94,17 +94,10 @@ class Field implements FieldInterface, TranslatableInterface, Stringable
      */
     private $parent;
 
-    /** @var ?FieldType */
-    private $fieldTypeDefinition;
-
-    /** @var bool */
-    private $useDefaultLocale = true;
-
-    /** @var Sanitiser */
-    private static $sanitiser;
-
-    /** @var Environment */
-    private static $twig;
+    private ?FieldType $fieldTypeDefinition = null;
+    private bool $useDefaultLocale = true;
+    private static ?Sanitiser $sanitiser = null;
+    private static ?Environment $twig = null;
 
     public function __toString(): string
     {
@@ -159,7 +152,7 @@ class Field implements FieldInterface, TranslatableInterface, Stringable
         }
     }
 
-    public function setDefinition($name, Collection $definition): void
+    public function setDefinition(string $name, Collection $definition): void
     {
         $this->fieldTypeDefinition = FieldType::mock($name, $definition);
     }

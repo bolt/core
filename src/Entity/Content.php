@@ -64,79 +64,63 @@ class Content implements Stringable
     use ContentExtrasTrait;
 
     /**
-     * @var int
-     *
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      * @Groups({"get_content", "api_write"})
      */
-    private $id;
+    private ?int $id = null;
 
     /**
-     * @var string
-     *
      * @ORM\Column(type="string", length=191)
      * @Groups({"get_content","api_write"})
      */
-    private $contentType;
+    private ?string $contentType = null;
 
     /**
-     * @var User
-     *
      * @ORM\ManyToOne(targetEntity="Bolt\Entity\User", fetch="EAGER")
      * @ORM\JoinColumn(nullable=true)
      */
-    private $author;
+    private ?User $author = null;
 
     /**
-     * @var string
-     *
      * @ORM\Column(type="string", length=191)
      * @Groups({"get_content","api_write"})
      */
-    private $status;
+    private ?string $status;
 
     /**
-     * @var DateTime
-     *
      * @ORM\Column(type="datetime")
      * @Groups({"get_content","api_write"})
      */
-    private $createdAt;
+    private ?DateTime $createdAt;
 
     /**
-     * @var DateTime|null
-     *
      * @ORM\Column(type="datetime", nullable=true)
      * @Groups({"get_content","api_write"})
      */
-    private $modifiedAt = null;
+    private ?DateTime $modifiedAt = null;
 
     /**
-     * @var DateTime|null
-     *
      * @ORM\Column(type="datetime", nullable=true)
      * @Groups({"get_content","api_write"})
      */
-    private $publishedAt = null;
+    private ?DateTime $publishedAt = null;
 
     /**
-     * @var DateTime|null
-     *
      * @ORM\Column(type="datetime", nullable=true)
      * @Groups({"get_content","api_write"})
      */
-    private $depublishedAt = null;
+    private ?DateTime $depublishedAt = null;
 
     /** @ORM\Column(type="string", length=191, nullable=true) */
-    private $title;
+    private ?string $title = null;
 
     /** @ORM\Column(type="string", length=191, nullable=true) */
-    private $listFormat;
+    private ?string $listFormat = null;
 
     /**
-     * @var Collection|Field[]
+     * @var Collection<int, Field>
      *
      * @ApiSubresource(maxDepth=1)
      * @MaxDepth(1)
@@ -152,32 +136,35 @@ class Content implements Stringable
      * @ORM\OrderBy({"sortorder": "ASC"})
      * @Groups("api_write")
      */
-    private $fields;
+    private Collection $fields;
 
     /**
-     * @var Collection|Taxonomy[]
+     * @var Collection<int, Taxonomy>
      * @MaxDepth(1)
      *
      * @ORM\ManyToMany(targetEntity="Bolt\Entity\Taxonomy", mappedBy="content", cascade={"persist"})
      */
-    private $taxonomies;
+    private Collection $taxonomies;
 
-    /** @var ContentType|null */
-    private $contentTypeDefinition = null;
+    private ?ContentType $contentTypeDefinition = null;
 
     /**
+     * @var Collection<int, Relation>
+     *
      * One content has many relations, to and from, these are relations pointing from this content.
      *
      * @ORM\OneToMany(targetEntity="Relation", mappedBy="fromContent")
      */
-    private $relationsFromThisContent;
+    private Collection $relationsFromThisContent;
 
     /**
+     * @var Collection<int, Relation>
+     *
      * One content has many relations, to and from, these are relations pointing to this content.
      *
      * @ORM\OneToMany(targetEntity="Relation", mappedBy="toContent")
      */
-    private $relationsToThisContent;
+    private Collection $relationsToThisContent;
 
     public function __construct(?ContentType $contentTypeDefinition = null)
     {
@@ -650,7 +637,7 @@ class Content implements Stringable
     {
         if ($type) {
             return $this->taxonomies->filter(
-                fn (Taxonomy $taxonomy) => $taxonomy->getType() === $type
+                fn (Taxonomy $taxonomy): bool => $taxonomy->getType() === $type
             );
         }
 
@@ -766,7 +753,7 @@ class Content implements Stringable
             : [];
         // If the definition is missing, we cannot filter out keys. ¯\_(ツ)_/¯
 
-        return $this->fields->filter(fn (Field $field) => ! $field->hasParent() &&
+        return $this->fields->filter(fn (Field $field): bool => ! $field->hasParent() &&
             (in_array($field->getName(), $keys, true) || empty($keys)));
     }
 
@@ -775,7 +762,7 @@ class Content implements Stringable
      */
     private function standaloneFieldFilter(string $fieldName): Collection
     {
-        return $this->fields->filter(fn (Field $field) => $field->getName() === $fieldName && ! $field->hasParent());
+        return $this->fields->filter(fn (Field $field): bool => $field->getName() === $fieldName && ! $field->hasParent());
     }
 
     public function toArray(): array
@@ -799,7 +786,7 @@ class Content implements Stringable
         return $result;
     }
 
-    public function getRelationsFromThisContent()
+    public function getRelationsFromThisContent(): Collection
     {
         return $this->relationsFromThisContent;
     }
@@ -827,7 +814,7 @@ class Content implements Stringable
         return $this;
     }
 
-    public function getRelationsToThisContent()
+    public function getRelationsToThisContent(): Collection
     {
         return $this->relationsToThisContent;
     }

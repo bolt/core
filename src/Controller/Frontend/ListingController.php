@@ -114,7 +114,7 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
             ['order', 'earliest', 'latest', 'offset', 'page', 'random', 'author', 'anyField', 'anything']
         );
 
-        $params = $queryParams->mapWithKeys(function ($value, $key) use ($allowedParams) {
+        $params = $queryParams->mapWithKeys(function ($value, $key) use ($allowedParams): array {
             // Ensure we don't have arrays, if we get something like `title[]=…` passed in.
             if (is_array($value)) {
                 $value = current($value);
@@ -136,7 +136,7 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
         $params['status'] = 'published';
 
         if ($this->config->get('general/query_search')->get('ignore_empty', false) === true) {
-            $params = array_filter($params, fn ($param) => ! ($param === '' | $param === '%%'));
+            $params = array_filter($params, fn ($param): bool => ! ($param === '' | $param === '%%'));
         }
 
         return $params;

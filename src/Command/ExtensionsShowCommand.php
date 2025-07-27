@@ -19,8 +19,7 @@ class ExtensionsShowCommand extends Command
     /** @var string */
     protected static $defaultName = 'extensions:show';
 
-    /** @var Dependencies */
-    private $dependenciesManager;
+    private readonly Dependencies $dependenciesManager;
 
     public function __construct(
         private readonly ExtensionRegistry $extensionRegistry

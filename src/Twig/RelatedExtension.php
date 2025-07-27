@@ -109,7 +109,7 @@ class RelatedExtension extends AbstractExtension
         $relations = $this->relationRepository->findRelations($content, $name, $limit, $publishedOnly, $bidirectional);
 
         return (new Collection($relations))
-            ->map(fn (Relation $relation) => $this->extractContentFromRelation($relation, $content))
+            ->map(fn (Relation $relation): ?Content => $this->extractContentFromRelation($relation, $content))
             ->filter()
             ->toArray();
     }

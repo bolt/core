@@ -27,18 +27,14 @@ class FilemanagerController extends TwigAwareController implements BackendZoneIn
 {
     use CsrfTrait;
 
-    /** @var RequestStack */
-    protected $requestStack;
-
     private const PAGESIZE = 60;
 
     public function __construct(
         private FileLocations $fileLocations,
         private MediaRepository $mediaRepository,
-        RequestStack $requestStack,
+        protected RequestStack $requestStack,
         private Filesystem $filesystem
     ) {
-        $this->requestStack = $requestStack;
     }
 
     /**
@@ -199,7 +195,10 @@ class FilemanagerController extends TwigAwareController implements BackendZoneIn
         return $paginator;
     }
 
-    private function buildIndex(string $base)
+    /**
+     * @return list<array{filename: mixed, description: mixed}>
+     */
+    private function buildIndex(string $base): array
     {
         $fullpath = Path::canonicalize($base);
 
@@ -219,7 +218,7 @@ class FilemanagerController extends TwigAwareController implements BackendZoneIn
         return $index;
     }
 
-    private function getFileSummary($contents)
+    private function getFileSummary($contents): string
     {
         $contents = str_replace(['<?php', '# ', "\n"], ['', '', " \n"], $contents);
 

@@ -11,11 +11,8 @@ use HTMLPurifier_HTMLDefinition;
 
 class Sanitiser
 {
-    /** @var HTMLPurifier|null */
-    private $purifier = null;
-
-    /** @var Config */
-    private $config;
+    private ?HTMLPurifier $purifier = null;
+    private Config $config;
 
     /**
      * @required
@@ -77,7 +74,7 @@ class Sanitiser
     /**
      * Handles the creation of non-supported HTML elements by HTMLPurifier out of the box
      */
-    private function createNonSupportedElements(HTMLPurifier_HTMLDefinition $definition, array $allowedTags)
+    private function createNonSupportedElements(HTMLPurifier_HTMLDefinition $definition, array $allowedTags): void
     {
         if (array_search('svg', $allowedTags)) {
             $definition->addElement('svg', 'Block', 'Flow', 'Common');

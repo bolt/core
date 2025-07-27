@@ -31,9 +31,6 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
 {
     use CsrfTrait;
 
-    /** @var string */
-    protected $defaultLocale;
-
     /** @var array */
     private $assignableRoles;
 
@@ -44,10 +41,9 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
         CsrfTokenManagerInterface $csrfTokenManager,
         private EventDispatcherInterface $dispatcher,
         Config $config,
-        string $defaultLocale
+        protected string $defaultLocale
     ) {
         $this->csrfTokenManager = $csrfTokenManager;
-        $this->defaultLocale = $defaultLocale;
         $this->assignableRoles = $config->get('permissions/assignable_roles')->all();
     }
 

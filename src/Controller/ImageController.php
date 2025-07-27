@@ -20,8 +20,7 @@ class ImageController
     /** @var Server */
     private $server;
 
-    /** @var array */
-    private $parameters = [];
+    private array $parameters = [];
 
     /** @var Request */
     private $request;
@@ -36,7 +35,7 @@ class ImageController
     /**
      * @Route("/thumbs/{paramString}/{filename}", methods={"GET"}, name="thumbnail", requirements={"filename"=".+"})
      */
-    public function thumbnail(string $paramString, string $filename)
+    public function thumbnail(string $paramString, string $filename): Response
     {
         if (! $this->isImage($filename)) {
             return $this->sendErrorImage();

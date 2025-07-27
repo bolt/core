@@ -15,7 +15,7 @@ class DateField extends Field implements FieldInterface, ScalarCastable
 {
     public const TYPE = 'date';
 
-    public function getDefaultValue()
+    public function getDefaultValue(): ?int
     {
         $default = parent::getDefaultValue();
 

@@ -20,8 +20,7 @@ class PathResolver
     /** @var array */
     protected $paths = [];
 
-    /** @var array */
-    private $resolving = [];
+    private array $resolving = [];
 
     /**
      * Default paths for Bolt installation.
@@ -101,7 +100,7 @@ class PathResolver
             $path = $this->paths[$path];
         }
 
-        $path = preg_replace_callback('#%(.+)%#', function ($match) use ($path) {
+        $path = preg_replace_callback('#%(.+)%#', function (array $match) use ($path): string {
             $alias = $match[1];
 
             if (! isset($this->paths[$alias])) {

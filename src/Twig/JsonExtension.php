@@ -19,8 +19,7 @@ class JsonExtension extends AbstractExtension
     private const SERIALIZE_GROUP = 'get_content';
     private const SERIALIZE_GROUP_DEFINITION = 'get_definition';
 
-    /** @var bool */
-    private $includeDefinition = true;
+    private ?bool $includeDefinition = true;
 
     public function __construct(
         private readonly NormalizerInterface $normalizer,
@@ -78,7 +77,7 @@ class JsonExtension extends AbstractExtension
             $normalizedRecords = iterator_to_array($records);
         }
 
-        return array_map(fn ($record) => $this->contentToArray($record, $locale), $normalizedRecords);
+        return array_map(fn ($record): array => $this->contentToArray($record, $locale), $normalizedRecords);
     }
 
     /**

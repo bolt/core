@@ -12,7 +12,7 @@ use Doctrine\Persistence\ManagerRegistry;
 class UserRepository extends ServiceEntityRepository
 {
     /** @var string[] */
-    private $userColumns = ['id', 'displayName', 'username', 'roles', 'email', 'lastIp'];
+    private array $userColumns = ['id', 'displayName', 'username', 'roles', 'email', 'lastIp'];
 
     public function __construct(ManagerRegistry $registry)
     {

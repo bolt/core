@@ -12,11 +12,8 @@ use Symfony\Component\Finder\Finder;
 
 abstract class BaseFixture extends Fixture
 {
-    /** @var array */
-    private $referencesIndex = [];
-
-    /** @var array */
-    private $taxonomyIndex = [];
+    private array $referencesIndex = [];
+    private array $taxonomyIndex = [];
 
     /**
      * During unit-tests, the fixtures are ran multiple times. Flush the
@@ -70,7 +67,7 @@ abstract class BaseFixture extends Fixture
         return $taxonomies;
     }
 
-    protected function getImagesIndex($path): Collection
+    protected function getImagesIndex(string $path): Collection
     {
         $finder = $this->findFiles($path);
 

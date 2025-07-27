@@ -13,6 +13,9 @@ return RectorConfig::configure()
     ->withSymfonyContainerXml(__DIR__ . '/var/cache/dev/App_KernelDevDebugContainer.xml')
     ->withSymfonyContainerPhp(__DIR__ . '/tests/rector/symfony-container.php')
     ->withPhpSets()
+    ->withPreparedSets(
+        typeDeclarations: true,
+    )
     ->withSkip([
         Rector\Php80\Rector\Class_\ClassPropertyAssignToConstructorPromotionRector::class => [
             'src/Entity/Relation.php',

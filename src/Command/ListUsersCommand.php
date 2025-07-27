@@ -84,7 +84,7 @@ HELP
         $allUsers = $this->users->findBy([], ['username' => 'ASC'], $maxResults);
 
         // Doctrine query returns an array of objects and we need an array of plain arrays
-        $usersAsPlainArrays = array_map(fn (User $user) => [
+        $usersAsPlainArrays = array_map(fn (User $user): array => [
             $user->getId(),
             $user->getDisplayName(),
             $user->getUsername(),

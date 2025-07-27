@@ -37,7 +37,7 @@ trait ImageTrait
 
         return preg_replace_callback(
             '/\\\\u([0-9a-fA-F]{4})/u',
-            fn ($match) => mb_convert_encoding(pack('H*', $match[1]), $encoding, 'UTF-16BE'),
+            fn ($match): string => mb_convert_encoding(pack('H*', $match[1]), $encoding, 'UTF-16BE'),
             $str,
         );
     }

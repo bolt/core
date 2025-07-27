@@ -24,11 +24,8 @@ class Config
     public const CACHE_KEY = 'config_cache';
     public const OPTIONS_CACHE_KEY = 'options_preparse';
 
-    /** @var Collection */
-    protected $data;
-
-    /** @var PathResolver */
-    private $pathResolver;
+    protected Collection $data;
+    private PathResolver $pathResolver;
 
     public function __construct(
         private readonly string $locales,
@@ -70,7 +67,7 @@ class Config
 
     private function getCache(): array
     {
-        return $this->cache->get(self::CACHE_KEY, fn () => $this->parseConfig());
+        return $this->cache->get(self::CACHE_KEY, fn (): array => $this->parseConfig());
     }
 
     /**

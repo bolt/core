@@ -23,8 +23,7 @@ class CopyThemesCommand extends Command
     /** @var string */
     protected static $defaultName = 'bolt:copy-themes';
 
-    /** @var string */
-    private $publicDirectory;
+    private readonly string $publicDirectory;
 
     public function __construct(
         private readonly Filesystem $filesystem,
@@ -105,7 +104,7 @@ class CopyThemesCommand extends Command
         $theme = $input->hasArgument('theme') ? $input->getArgument('theme') : null;
 
         if ($theme) {
-            $themes = $themes->filter(fn ($package) => mb_split('/', $package->getName())[1] === $theme);
+            $themes = $themes->filter(fn ($package): bool => mb_split('/', (string) $package->getName())[1] === $theme);
         }
 
         return $themes->toArray();

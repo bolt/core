@@ -19,7 +19,7 @@ class Log
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    private ?int $id = null;
 
     /** @ORM\Column(name="message", type="text") */
     private $message;

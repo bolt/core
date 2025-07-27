@@ -29,38 +29,30 @@ use Twig\Loader\FilesystemLoader;
 
 class TwigAwareController extends AbstractController
 {
-    /** @var Config */
-    protected $config;
-
-    /** @var Environment */
-    protected $twig;
-
-    /** @var Packages */
-    protected $packages;
-
-    /** @var Canonical */
-    protected $canonical;
-
-    /** @var Sanitiser */
-    protected $sanitiser;
-
-    /** @var Request */
-    protected $request;
-
-    /** @var TemplateChooser */
-    protected $templateChooser;
-
-    /** @var string */
-    protected $defaultLocale;
-
-    /** @var CommonExtension */
-    private $commonExtension;
+    protected Config $config;
+    protected Environment $twig;
+    protected Packages $packages;
+    protected Canonical $canonical;
+    protected Sanitiser $sanitiser;
+    protected Request $request;
+    protected TemplateChooser $templateChooser;
+    protected string $defaultLocale;
+    private CommonExtension $commonExtension;
 
     /**
      * @required
      */
-    public function setAutowire(Config $config, Environment $twig, Packages $packages, Canonical $canonical, Sanitiser $sanitiser, RequestStack $requestStack, TemplateChooser $templateChooser, string $defaultLocale, CommonExtension $commonExtension): void
-    {
+    public function setAutowire(
+        Config $config,
+        Environment $twig,
+        Packages $packages,
+        Canonical $canonical,
+        Sanitiser $sanitiser,
+        RequestStack $requestStack,
+        TemplateChooser $templateChooser,
+        string $defaultLocale,
+        CommonExtension $commonExtension
+    ): void {
         $this->config = $config;
         $this->twig = $twig;
         $this->packages = $packages;

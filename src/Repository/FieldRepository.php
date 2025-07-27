@@ -23,8 +23,7 @@ use Illuminate\Support\Collection;
  */
 class FieldRepository extends ServiceEntityRepository
 {
-    /** @var EntityManagerInterface */
-    private static $em;
+    private static ?EntityManagerInterface $em = null;
 
     public function __construct(ManagerRegistry $registry)
     {
@@ -136,12 +135,12 @@ class FieldRepository extends ServiceEntityRepository
 
         // Classnames of all fields (classes that implement Bolt\Entity\FieldInterface)
         $allFields = collect($classes)->filter(
-            fn (string $class) => in_array(FieldInterface::class, class_implements($class), true)
+            fn (string $class): bool => in_array(FieldInterface::class, class_implements($class), true)
         );
 
         // Classnames that end with $classname
         $match = $allFields->filter(
-            fn (string $class) => substr_compare($class, $classname, mb_strlen($class) - mb_strlen($classname), mb_strlen($classname)) === 0
+            fn (string $class): bool => substr_compare($class, $classname, mb_strlen($class) - mb_strlen($classname), mb_strlen($classname)) === 0
         );
 
         return $match->isNotEmpty() ? $match->first() : null;

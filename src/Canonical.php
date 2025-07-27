@@ -17,20 +17,11 @@ use Symfony\Component\Routing\RouterInterface;
 
 class Canonical
 {
-    /** @var Request */
-    private $request = null;
-
-    /** @var string */
-    private $scheme = null;
-
-    /** @var string */
-    private $host = null;
-
-    /** @var int */
-    private $port = null;
-
-    /** @var string */
-    private $path = null;
+    private ?Request $request = null;
+    private ?string $scheme = null;
+    private ?string $host = null;
+    private ?int $port = null;
+    private ?string $path = null;
 
     public function __construct(
         private readonly Config $config,

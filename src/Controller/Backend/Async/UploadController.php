@@ -167,7 +167,7 @@ class UploadController extends AbstractController implements AsyncZoneInterface
             'Upload file'
         );
 
-        $uploadHandler->setSanitizerCallback(fn ($name) => $this->sanitiseFilename($name));
+        $uploadHandler->setSanitizerCallback(fn ($name): string => $this->sanitiseFilename($name));
 
         // Clear the 'files_index' cache.
         $this->cache->invalidateTags(['fileslisting']);
@@ -221,7 +221,7 @@ class UploadController extends AbstractController implements AsyncZoneInterface
         return $filename . '.' . $extension;
     }
 
-    public function checkJavascriptInSVG($file)
+    public function checkJavascriptInSVG(array $file): bool
     {
         if (Path::getExtension($file['name']) != 'svg') {
             return true;

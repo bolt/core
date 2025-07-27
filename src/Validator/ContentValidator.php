@@ -9,7 +9,10 @@ use Bolt\Configuration\Content\ContentType;
 use Bolt\Configuration\Content\FieldType;
 use Bolt\Entity\Content;
 use Bolt\Entity\Relation;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\ConstraintViolationList;
+use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -18,8 +21,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 class ContentValidator implements ContentValidatorInterface
 {
-    /** @var ContentTypeConstraintLoader */
-    private $loader;
+    private readonly ContentTypeConstraintLoader $loader;
 
     public function __construct(
         private readonly ValidatorInterface $validator,
@@ -28,7 +30,7 @@ class ContentValidator implements ContentValidatorInterface
         $this->loader = new ContentTypeConstraintLoader();
     }
 
-    private function getFieldConstraints($contentType)
+    private function getFieldConstraints($contentType): Assert\Collection|array|null
     {
         // exception for single fields in collections, they don't have a 'fields' nesting layer
         if ($contentType->get('fields') === null && $contentType->get('constraints') !== null) {
@@ -114,7 +116,7 @@ class ContentValidator implements ContentValidatorInterface
         return null;
     }
 
-    private function getConstraints($contentTypeName)
+    private function getConstraints(?string $contentTypeName): Assert\Collection
     {
         $contentTypes = $this->config->get('contenttypes');
 
@@ -146,7 +148,12 @@ class ContentValidator implements ContentValidatorInterface
         ]);
     }
 
-    private function relationsToMap($relations)
+    /**
+     * @param Collection<int, Relation> $relations
+     *
+     * @return non-empty-list[]
+     */
+    private function relationsToMap(Collection $relations): array
     {
         $result = [];
         /** @var Relation $relation */
@@ -165,7 +172,7 @@ class ContentValidator implements ContentValidatorInterface
     /**
      * {@inheritdoc}
      */
-    public function validate(Content $content)
+    public function validate(Content $content): ConstraintViolationListInterface
     {
         $constraints = $this->getConstraints($content->getContentType());
 
@@ -182,6 +189,6 @@ class ContentValidator implements ContentValidatorInterface
         }
 
         // if no constraints are found -> always pass
-        return [];
+        return new ConstraintViolationList();
     }
 }

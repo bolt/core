@@ -24,9 +24,6 @@ use Symfony\Component\HttpFoundation\RequestStack;
  */
 class ContentQueryParser
 {
-    /** @var ContentRepository */
-    protected $repo;
-
     /** @var string */
     protected $query;
 
@@ -59,13 +56,11 @@ class ContentQueryParser
 
     public function __construct(
         private readonly RequestStack $requestStack,
-        ContentRepository $repo,
+        protected ContentRepository $repo,
         private readonly Config $config,
         private readonly DirectiveHandler $directiveHandler,
         ?QueryInterface $queryHandler = null
     ) {
-        $this->repo = $repo;
-
         if ($queryHandler !== null) {
             $this->addService('select', $queryHandler);
         }
@@ -374,7 +369,7 @@ class ContentQueryParser
      *
      * @return Pagerfanta|Content|null
      */
-    public function fetch()
+    public function fetch(): mixed
     {
         $this->parse();
 
