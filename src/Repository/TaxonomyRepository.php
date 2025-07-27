@@ -9,12 +9,7 @@ use Bolt\Entity\Taxonomy;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-/**
- * @method Taxonomy|null find($id, $lockMode = null, $lockVersion = null)
- * @method Taxonomy|null findOneBy(array $criteria, array $orderBy = null)
- * @method Taxonomy[] findAll()
- * @method Taxonomy[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- */
+/** @extends ServiceEntityRepository<Taxonomy> */
 class TaxonomyRepository extends ServiceEntityRepository
 {
     public function __construct(

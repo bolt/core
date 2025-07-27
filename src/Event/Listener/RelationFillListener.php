@@ -6,7 +6,7 @@ namespace Bolt\Event\Listener;
 
 use Bolt\Configuration\Config;
 use Bolt\Entity\Relation;
-use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\Event\PostLoadEventArgs;
 
 class RelationFillListener
 {
@@ -15,9 +15,9 @@ class RelationFillListener
     ) {
     }
 
-    public function postLoad(LifecycleEventArgs $args): void
+    public function postLoad(PostLoadEventArgs $args): void
     {
-        $entity = $args->getEntity();
+        $entity = $args->getObject();
 
         if ($entity instanceof Relation) {
             $this->fillRelation($entity);

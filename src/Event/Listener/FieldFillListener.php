@@ -9,7 +9,8 @@ use Bolt\Entity\Field\RawPersistable;
 use Bolt\Entity\FieldInterface;
 use Bolt\Entity\FieldTranslation;
 use Bolt\Utils\Sanitiser;
-use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\Event\PostLoadEventArgs;
+use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Twig\Markup;
 
 class FieldFillListener
@@ -19,9 +20,9 @@ class FieldFillListener
     ) {
     }
 
-    public function preUpdate(LifecycleEventArgs $args): void
+    public function preUpdate(PreUpdateEventArgs $args): void
     {
-        $entity = $args->getEntity();
+        $entity = $args->getObject();
         if ($entity instanceof FieldTranslation && $entity->getTranslatable() instanceof FieldInterface) {
             /** @var Field $field */
             $field = $entity->getTranslatable();
@@ -68,7 +69,7 @@ class FieldFillListener
     /**
      * @deprecated since Bolt 5.1.9
      */
-    public function postLoad(LifecycleEventArgs $args): void
+    public function postLoad(PostLoadEventArgs $args): void
     {
     }
 }

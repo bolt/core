@@ -18,12 +18,7 @@ use Illuminate\Support\Collection;
 use Pagerfanta\Doctrine\ORM\QueryAdapter;
 use Pagerfanta\Pagerfanta;
 
-/**
- * @method Content|null find($id, $lockMode = null, $lockVersion = null)
- * @method Content|null findOneBy(array $criteria, array $orderBy = null)
- * @method Content[] findAll()
- * @method Content[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- */
+/** @extends ServiceEntityRepository<Content> */
 class ContentRepository extends ServiceEntityRepository
 {
     /** @var string[] */

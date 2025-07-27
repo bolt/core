@@ -6,7 +6,7 @@ namespace Bolt\Event\Listener;
 
 use Bolt\Configuration\Config;
 use Bolt\Entity\Taxonomy;
-use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\Event\PostLoadEventArgs;
 
 class TaxonomyFillListener
 {
@@ -15,9 +15,9 @@ class TaxonomyFillListener
     ) {
     }
 
-    public function postLoad(LifecycleEventArgs $args): void
+    public function postLoad(PostLoadEventArgs $args): void
     {
-        $entity = $args->getEntity();
+        $entity = $args->getObject();
 
         if ($entity instanceof Taxonomy) {
             $this->fillTaxonomy($entity);

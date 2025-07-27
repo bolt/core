@@ -12,12 +12,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Pagerfanta\Doctrine\ORM\QueryAdapter;
 use Pagerfanta\Pagerfanta;
 
-/**
- * @method Log|null find($id, $lockMode = null, $lockVersion = null)
- * @method Log|null findOneBy(array $criteria, array $orderBy = null)
- * @method Log[] findAll()
- * @method Log[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- */
+/** @extends ServiceEntityRepository<Log> */
 class LogRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)

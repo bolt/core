@@ -12,12 +12,7 @@ use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use PDO;
 
-/**
- * @method Relation|null find($id, $lockMode = null, $lockVersion = null)
- * @method Relation|null findOneBy(array $criteria, array $orderBy = null)
- * @method Relation[] findAll()
- * @method Relation[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- */
+/** @extends ServiceEntityRepository<Relation> */
 class RelationRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
