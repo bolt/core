@@ -11,7 +11,6 @@ use Bolt\Entity\Content;
 use Bolt\Entity\Relation;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -176,19 +175,14 @@ class ContentValidator implements ContentValidatorInterface
     {
         $constraints = $this->getConstraints($content->getContentType());
 
-        if ($constraints) {
-            // set up a value that maps to the fields as used in the back-end forms, and can be passed to the
-            // validate function of the Symfony Validator
-            $value = [
-                'fields' => $content->getFieldValues(),
-                'taxonomy' => $content->getTaxonomyValues(),
-                'relations' => $this->relationsToMap($content->getRelationsFromThisContent()),
-            ];
+        // set up a value that maps to the fields as used in the back-end forms, and can be passed to the
+        // validate function of the Symfony Validator
+        $value = [
+            'fields' => $content->getFieldValues(),
+            'taxonomy' => $content->getTaxonomyValues(),
+            'relations' => $this->relationsToMap($content->getRelationsFromThisContent()),
+        ];
 
-            return $this->validator->validate($value, $constraints);
-        }
-
-        // if no constraints are found -> always pass
-        return new ConstraintViolationList();
+        return $this->validator->validate($value, $constraints);
     }
 }

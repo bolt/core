@@ -105,10 +105,6 @@ class QueryParameterParser
      */
     public function getFilter(string $key, $value = null): ?Filter
     {
-        if (! $this->expr instanceof Expr) {
-            throw new Exception('Cannot call method without an Expression Builder parameter set', 1);
-        }
-
         /** @var callable $callback */
         foreach ($this->filterHandlers as $callback) {
             $result = $callback($key, $value, $this->expr);
