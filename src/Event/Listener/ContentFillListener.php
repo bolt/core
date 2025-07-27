@@ -16,7 +16,9 @@ use Bolt\Repository\FieldRepository;
 use Bolt\Repository\UserRepository;
 use Bolt\Twig\ContentExtension;
 use DateTime;
-use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\Event\PostLoadEventArgs;
+use Doctrine\ORM\Event\PrePersistEventArgs;
+use Doctrine\ORM\Event\PreUpdateEventArgs;
 use InvalidArgumentException;
 
 class ContentFillListener
@@ -30,18 +32,18 @@ class ContentFillListener
     ) {
     }
 
-    public function preUpdate(LifecycleEventArgs $args): void
+    public function preUpdate(PreUpdateEventArgs $args): void
     {
-        $entity = $args->getEntity();
+        $entity = $args->getObject();
 
         if ($entity instanceof Content) {
             $this->guaranteeUniqueSlug($entity);
         }
     }
 
-    public function prePersist(LifecycleEventArgs $args): void
+    public function prePersist(PrePersistEventArgs $args): void
     {
-        $entity = $args->getEntity();
+        $entity = $args->getObject();
 
         if ($entity instanceof Content) {
             if ($entity->getAuthor() === null) {
@@ -56,9 +58,9 @@ class ContentFillListener
         }
     }
 
-    public function postLoad(LifecycleEventArgs $args): void
+    public function postLoad(PostLoadEventArgs $args): void
     {
-        $entity = $args->getEntity();
+        $entity = $args->getObject();
 
         if ($entity instanceof Content) {
             $this->fillContent($entity);

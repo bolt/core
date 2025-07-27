@@ -10,12 +10,7 @@ use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-/**
- * @method UserAuthToken|null find($id, $lockMode = null, $lockVersion = null)
- * @method UserAuthToken|null findOneBy(array $criteria, array $orderBy = null)
- * @method UserAuthToken[] findAll()
- * @method UserAuthToken[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- */
+/** @extends ServiceEntityRepository<UserAuthToken> */
 class UserAuthTokenRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
