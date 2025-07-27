@@ -1,5 +1,5 @@
 parameters:
-    level: 5
+    level: 8
 
     paths:
         - src
@@ -40,6 +40,7 @@ parameters:
             path: %currentWorkingDirectory%/src/Log/LogHandler.php
 
 includes:
+	- phpstan-baseline.php
 	- vendor/phpstan/phpstan-symfony/extension.neon
 	- vendor/phpstan/phpstan-doctrine/extension.neon
 #    - vendor/thecodingmachine/phpstan-safe-rule/phpstan-safe-rule.neon # make ON when thecodingmachine/safe will get stable
