@@ -205,11 +205,13 @@ htmlcleaner:
 
 # Define the file types (extensions to be exact) that are acceptable for upload
 # in either file fields or through the files screen.
-accept_file_types: [ yaml, twig, html, js, css, scss, gif, jpg, jpeg, png, ico, zip, tgz, txt, md, doc, docx, pdf, epub, xls, xlsx, ppt, pptx, mp3, ogg, wav, m4a, mp4, m4v, ogv, wmv, avi, webm, svg, webp, avif]
+# It only includes file types / extensions that are harder to exploit.
+accept_file_types: [ gif, jpg, jpeg, png, txt, md, pdf, epub, mp3 ]
 
-# Alternatively, if you wish to limit these, uncomment the following list
-# instead. It just includes file types / extensions that are harder to exploit.
-# accept_file_types: [ gif, jpg, jpeg, png, txt, md, pdf, epub, mp3 ]
+# Alternatively, if you wish to not limit these, uncomment the following list
+# instead. Note that this can open your installation to XSS or other vulnerabilities as files
+# are uploaded as is to a by default publicly accessible folder on the webserver.
+#accept_file_types: [ yaml, twig, html, js, css, scss, gif, jpg, jpeg, png, ico, zip, tgz, txt, md, doc, docx, pdf, epub, xls, xlsx, ppt, pptx, mp3, ogg, wav, m4a, mp4, m4v, ogv, wmv, avi, webm, svg, webp, avif]
 
 accept_media_types: [ gif, jpg, jpeg, png, svg, pdf, mp3, tiff, avif, webp ]
 
