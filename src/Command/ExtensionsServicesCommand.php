@@ -35,7 +35,6 @@ class ExtensionsServicesCommand extends Command
 
         $reflectedContainer = new ReflectionClass($this->container);
         $reflectionProperty = $reflectedContainer->getProperty('services');
-        $reflectionProperty->setAccessible(true);
 
         $publicServices = $reflectionProperty->getValue($this->container);
 
@@ -44,7 +43,6 @@ class ExtensionsServicesCommand extends Command
         }
 
         $reflectionProperty = $reflectedContainer->getProperty('privates');
-        $reflectionProperty->setAccessible(true);
 
         $privateServices = $reflectionProperty->getValue($this->container);
 

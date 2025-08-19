@@ -107,7 +107,7 @@ trait CachingTrait
     private function getTags(string $contentTypeSlug): array
     {
         return array_map(
-            fn ($t): string => preg_replace('/[^\pL\d,]+/u', '', $t),
+            fn (string $t): string => preg_replace('/[^\pL\d,]+/u', '', $t),
             explode(',', $contentTypeSlug) ?: throw new RuntimeException('explode call failed')
         );
     }

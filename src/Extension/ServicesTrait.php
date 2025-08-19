@@ -71,7 +71,6 @@ trait ServicesTrait
 
         $reflectedContainer = new ReflectionClass($container);
         $reflectionProperty = $reflectedContainer->getProperty('privates');
-        $reflectionProperty->setAccessible(true);
 
         $privateServices = $reflectionProperty->getValue($container);
 
@@ -88,11 +87,9 @@ trait ServicesTrait
 
         $reflectedContainer = new ReflectionClass($container);
         $reflectionProperty = $reflectedContainer->getProperty('services');
-        $reflectionProperty->setAccessible(true);
         $publicServices = $reflectionProperty->getValue($container);
 
         $reflectionProperty = $reflectedContainer->getProperty('privates');
-        $reflectionProperty->setAccessible(true);
         $privateServices = $reflectionProperty->getValue($container);
 
         $services = array_merge(array_keys($publicServices), array_keys($privateServices));

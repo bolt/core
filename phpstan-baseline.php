@@ -4550,12 +4550,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Storage/QueryParameterParser.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\Storage\\\\QueryParameterParser\\:\\:parseValue\\(\\) should return array but returns array\\|ArrayAccess\\.$#',
-	'identifier' => 'return.type',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Storage/QueryParameterParser.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Parameter \\#1 \\$array of function array_diff expects array, list\\<string\\>\\|false given\\.$#',
 	'identifier' => 'argument.type',
 	'count' => 1,
