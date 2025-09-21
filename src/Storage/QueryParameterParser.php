@@ -24,7 +24,7 @@ class QueryParameterParser
     /** @var array */
     protected $valueMatchers = [];
 
-    /** @var Filter[] */
+    /** @var callable[] */
     protected $filterHandlers = [];
 
     public function __construct(
@@ -63,11 +63,11 @@ class QueryParameterParser
             'operator' => 'neq',
         ]);
         $this->addValueMatcher('!\s?\[([\p{L}\p{N} ,]+)\]', [
-            'value' => fn ($val) => explode(',', (string) $val),
+            'value' => fn ($val): array => explode(',', (string) $val),
             'operator' => 'notIn',
         ]);
         $this->addValueMatcher('\[([\p{L}\p{N} ,]+)\]', [
-            'value' => fn ($val) => explode(',', (string) $val),
+            'value' => fn ($val): array => explode(',', (string) $val),
             'operator' => 'in',
         ]);
         $this->addValueMatcher("(%{$word}|{$word}%|%{$word}%)", [
@@ -105,7 +105,6 @@ class QueryParameterParser
      */
     public function getFilter(string $key, $value = null): ?Filter
     {
-        /** @var callable $callback */
         foreach ($this->filterHandlers as $callback) {
             $result = $callback($key, $value, $this->expr);
             if ($result instanceof Filter) {
@@ -352,7 +351,7 @@ class QueryParameterParser
     /**
      * The goal of this class is to turn any key:value into a Filter class.
      * Adding a handler here will push the new filter callback onto the top
-     * of the Queue along with the built in defaults.
+     * of the Queue along with the built-in defaults.
      *
      * Note: the callback should either return nothing or an instance of
      * \Bolt\Storage\Filter

@@ -1034,7 +1034,7 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Configuration/Parser/ContentTypesParser.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Parameter \\#2 \\$array of function implode expects array\\|null, iterable given\\.$#',
+	'message' => '#^Parameter \\#2 \\$array of function implode expects array, iterable given\\.$#',
 	'identifier' => 'argument.type',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Configuration/Parser/ContentTypesParser.php',
@@ -3458,12 +3458,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Extension/BaseExtension.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Parameter \\#1 \\$path of method Twig\\\\Loader\\\\FilesystemLoader\\:\\:prependPath\\(\\) expects string, string\\|null given\\.$#',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Extension/BaseExtension.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Parameter \\#3 \\$length of function mb_substr expects int\\|null, int\\<0, max\\>\\|false given\\.$#',
 	'identifier' => 'argument.type',
 	'count' => 1,
@@ -3746,25 +3740,25 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Log/RequestProcessor.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Offset \'class\' might not exist on array\\{function\\: string, line\\?\\: int, file\\?\\: string, class\\?\\: class\\-string, type\\?\\: \'\\-\\>\'\\|\'\\:\\:\', args\\?\\: array\\<mixed\\>, object\\?\\: object\\}\\.$#',
+	'message' => '#^Offset \'class\' might not exist on array\\{function\\: string, line\\?\\: int, file\\?\\: string, class\\?\\: class\\-string, type\\?\\: \'\\-\\>\'\\|\'\\:\\:\', args\\?\\: list\\<mixed\\>, object\\?\\: object\\}\\.$#',
 	'identifier' => 'offsetAccess.notFound',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Log/RequestProcessor.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Offset \'file\' might not exist on array\\{function\\: string, line\\?\\: int, file\\?\\: string, class\\?\\: class\\-string, type\\?\\: \'\\-\\>\'\\|\'\\:\\:\', args\\?\\: array\\<mixed\\>, object\\?\\: object\\}\\.$#',
+	'message' => '#^Offset \'file\' might not exist on array\\{function\\: string, line\\?\\: int, file\\?\\: string, class\\?\\: class\\-string, type\\?\\: \'\\-\\>\'\\|\'\\:\\:\', args\\?\\: list\\<mixed\\>, object\\?\\: object\\}\\.$#',
 	'identifier' => 'offsetAccess.notFound',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Log/RequestProcessor.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Offset \'line\' might not exist on array\\{function\\: string, line\\?\\: int, file\\?\\: string, class\\?\\: class\\-string, type\\?\\: \'\\-\\>\'\\|\'\\:\\:\', args\\?\\: array\\<mixed\\>, object\\?\\: object\\}\\.$#',
+	'message' => '#^Offset \'line\' might not exist on array\\{function\\: string, line\\?\\: int, file\\?\\: string, class\\?\\: class\\-string, type\\?\\: \'\\-\\>\'\\|\'\\:\\:\', args\\?\\: list\\<mixed\\>, object\\?\\: object\\}\\.$#',
 	'identifier' => 'offsetAccess.notFound',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Log/RequestProcessor.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Offset \'type\' might not exist on array\\{function\\: string, line\\?\\: int, file\\?\\: string, class\\?\\: class\\-string, type\\?\\: \'\\-\\>\'\\|\'\\:\\:\', args\\?\\: array\\<mixed\\>, object\\?\\: object\\}\\.$#',
+	'message' => '#^Offset \'type\' might not exist on array\\{function\\: string, line\\?\\: int, file\\?\\: string, class\\?\\: class\\-string, type\\?\\: \'\\-\\>\'\\|\'\\:\\:\', args\\?\\: list\\<mixed\\>, object\\?\\: object\\}\\.$#',
 	'identifier' => 'offsetAccess.notFound',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Log/RequestProcessor.php',
@@ -5618,8 +5612,8 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Twig/TextExtension.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\Twig\\\\TextExtension\\:\\:urlDecode\\(\\) has no return type specified\\.$#',
-	'identifier' => 'missingType.return',
+	'message' => '#^Method Bolt\\\\Twig\\\\TextExtension\\:\\:urlDecode\\(\\) return type has no value type specified in iterable type array\\.$#',
+	'identifier' => 'missingType.iterableValue',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Twig/TextExtension.php',
 ];
@@ -5960,13 +5954,13 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Utils/MomentFormatConverter.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Offset \'file\' might not exist on array\\{function\\: string, line\\?\\: int, file\\?\\: string, type\\?\\: \'\\-\\>\'\\|\'\\:\\:\', args\\?\\: array\\<mixed\\>, object\\?\\: object\\}\\.$#',
+	'message' => '#^Offset \'file\' might not exist on array\\{function\\: string, line\\?\\: int, file\\?\\: string, type\\?\\: \'\\-\\>\'\\|\'\\:\\:\', args\\?\\: list\\<mixed\\>, object\\?\\: object\\}\\.$#',
 	'identifier' => 'offsetAccess.notFound',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Utils/Recursion.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Offset \'type\' might not exist on array\\{function\\: string, line\\?\\: int, file\\?\\: string, class\\: class\\-string, type\\?\\: \'\\-\\>\'\\|\'\\:\\:\', args\\?\\: array\\<mixed\\>, object\\?\\: object\\}\\.$#',
+	'message' => '#^Offset \'type\' might not exist on array\\{function\\: string, line\\?\\: int, file\\?\\: string, class\\: class\\-string, type\\?\\: \'\\-\\>\'\\|\'\\:\\:\', args\\?\\: list\\<mixed\\>, object\\?\\: object\\}\\.$#',
 	'identifier' => 'offsetAccess.notFound',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Utils/Recursion.php',

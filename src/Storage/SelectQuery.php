@@ -295,7 +295,7 @@ class SelectQuery implements QueryInterface
         }
 
         foreach ($this->getWhereParameters() as $key => $param) {
-            $fieldName = preg_replace('/(_[0-9]+)$/', '', $key);
+            $fieldName = preg_replace('/(_[0-9]+)$/', '', (string) $key);
             // Use strtotime on 'date' fields to allow selections like "today", "in 3 weeks" or "this year"
             if (in_array($fieldName, $dateFields, true) && (strtotime((string) $param) !== false)) {
                 $param = date('Y-m-d H:i', strtotime((string) $param));

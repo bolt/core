@@ -11,7 +11,7 @@ use Exception;
 
 class ExtensionRegistry
 {
-    /** @var ExtensionInterface[] */
+    /** @var array<string, ExtensionInterface> */
     protected $extensions = [];
 
     /** @var array */
