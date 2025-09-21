@@ -86,7 +86,7 @@ class TextExtension extends AbstractExtension
         return round($bytes, $precision) . ' ' . $units[$pow];
     }
 
-    public function urlDecode(string $string)
+    public function urlDecode(string $string): string|array
     {
         if (! mb_strpos($string, '=')) {
             return urldecode($string);

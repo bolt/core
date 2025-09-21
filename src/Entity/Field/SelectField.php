@@ -103,7 +103,7 @@ class SelectField extends Field implements FieldInterface, RawPersistable, Itera
 
     public function getSelectedIds(): string
     {
-        return implode(' || ', parent::getValue());
+        return implode(' || ', parent::getValue() ?? []);
     }
 
     public function getContentType(): string|false
