@@ -28,9 +28,6 @@
     "bobdenotter/weatherwidget": {
         "version": "1.1.1"
     },
-    "bobdenotter/yaml-migrations": {
-        "version": "dev-main"
-    },
     "bolt/common": {
         "version": "2.1.5"
     },
@@ -209,9 +206,6 @@
     "justinrainbow/json-schema": {
         "version": "5.2.9"
     },
-    "kevinlebrun/colors.php": {
-        "version": "0.4.1"
-    },
     "knplabs/doctrine-behaviors": {
         "version": "v2.0.1"
     },
@@ -244,9 +238,6 @@
     },
     "myclabs/deep-copy": {
         "version": "1.9.5"
-    },
-    "nategood/commando": {
-        "version": "0.4.0"
     },
     "nelexa/zip": {
         "version": "3.3.3"
