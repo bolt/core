@@ -1,0 +1,4 @@
+file: extensions/bobdenotter-weatherwidget.yaml
+since: 6.0.0
+
+move: extensions/bolt-weatherwidget.yaml
