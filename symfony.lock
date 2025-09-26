@@ -22,8 +22,8 @@
     "beberlei/doctrineextensions": {
         "version": "v1.2.7"
     },
-    "bobdenotter/configuration-notices": {
-        "version": "1.0.2"
+    "bolt/configuration-notices-widget": {
+        "version": "2.0.0"
     },
     "bolt/weatherwidget": {
         "version": "2.0.0"
