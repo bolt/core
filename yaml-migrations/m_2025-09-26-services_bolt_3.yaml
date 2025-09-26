@@ -3,4 +3,4 @@ since: 6.0.0
 
 remove:
     services:
-        BobdenOtter\WeatherWidget\: ~
+        BobdenOtter\ConfigurationNotices\: ~
