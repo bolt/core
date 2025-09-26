@@ -1,0 +1,12 @@
+file: services_bolt.yaml
+since: 6.0.0
+
+remove:
+    services:
+        BobdenOtter\ConfigurationNotices\: ~
+
+add:
+    services:
+        Bolt\ConfigurationNoticesWidget\:
+            resource: '../vendor/bolt/configuration-notices-widget/src/*'
+            exclude: '../vendor/bolt/configuration-notices-widget/src/{Entity,Exception}'

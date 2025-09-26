@@ -8,9 +8,9 @@ services:
     AcmeCorp\ReferenceExtension\:
         resource: '../vendor/acmecorp/reference-extension/src/*'
         exclude: '../vendor/acmecorp/reference-extension/src/{Entity,Exception}'
-    BobdenOtter\ConfigurationNotices\:
-        resource: '../vendor/bobdenotter/configuration-notices/src/*'
-        exclude: '../vendor/bobdenotter/configuration-notices/src/{Entity,Exception}'
+    Bolt\ConfigurationNoticesWidget\:
+        resource: '../vendor/bolt/configuration-notices-widget/src/*'
+        exclude: '../vendor/bolt/configuration-notices-widget/src/{Entity,Exception}'
     Bolt\WeatherWidget\:
         resource: '../vendor/bolt/weatherwidget/src/*'
         exclude: '../vendor/bolt/weatherwidget/src/{Entity,Exception}'
