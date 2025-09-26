@@ -6,6 +6,7 @@ Changelog
 - `master` branch has been renamed to the now more common `main`.
 - Bump `nesbot/carbon` from version 2 to version 3.8+. (macintoshplus, [#3551](https://github.com/bolt/core/issues/3551))
 - Replaced `tightenco/collect` with `illuminate/collections`. The namespace has changed from `Tightenco\Collect\Support\*` to `Illuminate\Support\*`. (macintoshplus, [#3555](https://github.com/bolt/core/issues/3555))
+- Replaced `bobdenotter/weatherwidget` with `bolt/weatherwidget`. The namespace has changed from `BobdenOtter\WeatherWidget` to `Bolt\WeatherWidget`. Your configuration should be migrated automatically, but if you weren't using the weather widget you might need to remove the newly added configuration manually. (macintoshplus and bobvandevijver, [#3587](https://github.com/bolt/core/issues/3587))
 
 ## 5.2.2
 
