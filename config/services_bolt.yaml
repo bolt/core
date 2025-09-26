@@ -11,9 +11,9 @@ services:
     BobdenOtter\ConfigurationNotices\:
         resource: '../vendor/bobdenotter/configuration-notices/src/*'
         exclude: '../vendor/bobdenotter/configuration-notices/src/{Entity,Exception}'
-    BobdenOtter\WeatherWidget\:
-        resource: '../vendor/bobdenotter/weatherwidget/src/*'
-        exclude: '../vendor/bobdenotter/weatherwidget/src/{Entity,Exception}'
+    Bolt\WeatherWidget\:
+        resource: '../vendor/bolt/weatherwidget/src/*'
+        exclude: '../vendor/bolt/weatherwidget/src/{Entity,Exception}'
     Bolt\NewsWidget\:
         resource: '../vendor/bolt/newswidget/src/*'
         exclude: '../vendor/bolt/newswidget/src/{Entity,Exception}'
