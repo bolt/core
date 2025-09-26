@@ -6,7 +6,11 @@ namespace Bolt\Extension;
 
 use Bolt\Configuration\Config;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
+/**
+ * @property ContainerInterface $container
+ */
 class ExtensionController extends AbstractController
 {
     use ServicesTrait;
