@@ -5510,30 +5510,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Twig/Node/SetcontentNode.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\Twig\\\\Notifications\\:\\:danger\\(\\) has no return type specified\\.$#',
-	'identifier' => 'missingType.return',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Twig/Notifications.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\Twig\\\\Notifications\\:\\:info\\(\\) has no return type specified\\.$#',
-	'identifier' => 'missingType.return',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Twig/Notifications.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\Twig\\\\Notifications\\:\\:success\\(\\) has no return type specified\\.$#',
-	'identifier' => 'missingType.return',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Twig/Notifications.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\Twig\\\\Notifications\\:\\:warning\\(\\) has no return type specified\\.$#',
-	'identifier' => 'missingType.return',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Twig/Notifications.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Cannot call method get\\(\\) on Illuminate\\\\Support\\\\Collection\\|null\\.$#',
 	'identifier' => 'method.nonObject',
 	'count' => 1,
