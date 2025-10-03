@@ -16,15 +16,15 @@ use RuntimeException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Environment;
 
-final class FrontendMenuBuilder implements FrontendMenuBuilderInterface
+final readonly class FrontendMenuBuilder implements FrontendMenuBuilderInterface
 {
     public function __construct(
-        private readonly Config $config,
-        private readonly UrlGeneratorInterface $urlGenerator,
-        private readonly ContentRepository $contentRepository,
-        private readonly ContentExtension $contentExtension,
-        private readonly LocaleExtension $localeExtension,
-        private readonly string $defaultLocale
+        private Config $config,
+        private UrlGeneratorInterface $urlGenerator,
+        private ContentRepository $contentRepository,
+        private ContentExtension $contentExtension,
+        private LocaleExtension $localeExtension,
+        private string $defaultLocale
     ) {
     }
 

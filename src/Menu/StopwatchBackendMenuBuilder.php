@@ -7,10 +7,10 @@ namespace Bolt\Menu;
 /**
  * @deprecated since Bolt 5.1. This class is just an empty wrapper around BackendMenu now. Use that class instead
  */
-final class StopwatchBackendMenuBuilder implements BackendMenuBuilderInterface
+final readonly class StopwatchBackendMenuBuilder implements BackendMenuBuilderInterface
 {
     public function __construct(
-        private readonly BackendMenu $menuBuilder
+        private BackendMenu $menuBuilder
     ) {
     }
 

@@ -21,21 +21,21 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class BackendMenuBuilder implements BackendMenuBuilderInterface
+final readonly class BackendMenuBuilder implements BackendMenuBuilderInterface
 {
     public const MAX_LATEST_RECORDS = 5;
 
     public function __construct(
-        private readonly FactoryInterface $menuFactory,
+        private FactoryInterface $menuFactory,
         /** @var ExtensionBackendMenuInterface[] */
-        private readonly iterable $extensionMenus,
-        private readonly Config $config,
-        private readonly ContentRepository $contentRepository,
-        private readonly UrlGeneratorInterface $urlGenerator,
-        private readonly TranslatorInterface $translator,
-        private readonly ContentExtension $contentExtension,
-        private readonly AuthorizationCheckerInterface $authorizationChecker,
-        private readonly ListFormatHelper $listFormatHelper
+        private iterable $extensionMenus,
+        private Config $config,
+        private ContentRepository $contentRepository,
+        private UrlGeneratorInterface $urlGenerator,
+        private TranslatorInterface $translator,
+        private ContentExtension $contentExtension,
+        private AuthorizationCheckerInterface $authorizationChecker,
+        private ListFormatHelper $listFormatHelper
     ) {
     }
 

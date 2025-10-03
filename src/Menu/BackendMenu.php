@@ -12,17 +12,17 @@ use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
 
-final class BackendMenu implements BackendMenuBuilderInterface
+final readonly class BackendMenu implements BackendMenuBuilderInterface
 {
-    private readonly string $backendUrl;
+    private string $backendUrl;
 
     public function __construct(
-        private readonly BackendMenuBuilder $menuBuilder,
-        private readonly TagAwareCacheInterface $cache,
-        private readonly RequestStack $requestStack,
-        private readonly Stopwatch $stopwatch,
-        private readonly Config $config,
-        private readonly Security $security,
+        private BackendMenuBuilder $menuBuilder,
+        private TagAwareCacheInterface $cache,
+        private RequestStack $requestStack,
+        private Stopwatch $stopwatch,
+        private Config $config,
+        private Security $security,
         string $backendUrl = 'bolt'
     ) {
         $this->backendUrl = preg_replace('/[^\pL\d,]+/u', '', $backendUrl);
