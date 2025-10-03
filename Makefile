@@ -159,3 +159,6 @@ docker-command: ## to run command shell in php container
 
 docker-console: ## to run command with console symfony in php container
 	docker-compose exec -T php sh -c "bin/console $(c)"
+
+docker-shell: ## to open a shell in the php container
+	docker-compose exec php bash
