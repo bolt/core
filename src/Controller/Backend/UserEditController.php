@@ -16,7 +16,7 @@ use Bolt\Event\UserEvent;
 use Bolt\Form\UserType;
 use Bolt\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,6 +25,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class UserEditController extends TwigAwareController implements BackendZoneInterface
@@ -41,7 +42,8 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
         CsrfTokenManagerInterface $csrfTokenManager,
         private EventDispatcherInterface $dispatcher,
         Config $config,
-        protected string $defaultLocale
+        protected string $defaultLocale,
+        private readonly ManagerRegistry $managerRegistry
     ) {
         $this->csrfTokenManager = $csrfTokenManager;
         $this->assignableRoles = $config->get('permissions/assignable_roles')->all();
@@ -49,8 +51,8 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
 
     /**
      * @Route("/user-edit/add", methods={"GET","POST"}, name="bolt_user_add")
-     * @Security("is_granted('user:add')")
      */
+    #[IsGranted('user:add')]
     public function add(Request $request): Response
     {
         $user = UserRepository::factory();
@@ -95,15 +97,14 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
         }
 
         return $this->render('@bolt/users/add.html.twig', [
-            'userForm' => $form->createView(),
+            'userForm' => $form,
         ]);
     }
 
     /**
      * @Route("/profile-edit", methods={"GET","POST"}, name="bolt_profile_edit")
-     *
-     * @Security("is_granted('editprofile')")
      */
+    #[IsGranted('user:editprofile')]
     public function editProfile(Request $request): Response
     {
         $submitted_data = $request->request->get('user');
@@ -115,9 +116,8 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
 
     /**
      * @Route("/user-edit/{id}", methods={"GET","POST"}, name="bolt_user_edit", requirements={"id": "\d+"})
-     *
-     * @Security("is_granted('user:edit')")
      */
+    #[IsGranted('user:edit')]
     public function edit(User $user, Request $request): Response
     {
         $submitted_data = $request->request->get('user');
@@ -127,8 +127,8 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
 
     /**
      * @Route("/user-status/{id}", methods={"POST", "GET"}, name="bolt_user_update_status", requirements={"id": "\d+"})
-     * @Security("is_granted('user:status')") -- first check, more detailed checks in method
      */
+    #[IsGranted('user:status')]
     public function status(User $user): Response
     {
         $this->validateCsrf('useredit');
@@ -148,20 +148,20 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
 
     /**
      * @Route("/user-delete/{id}", methods={"POST", "GET"}, name="bolt_user_delete", requirements={"id": "\d+"})
-     * @Security("is_granted('user:delete')")
      */
+    #[IsGranted('user:delete')]
     public function delete(User $user): Response
     {
         $this->validateCsrf('useredit');
 
         $this->em->remove($user);
-        $contentArray = $this->getDoctrine()->getManager()->getRepository(Content::class)->findBy(['author' => $user]);
+        $contentArray = $this->managerRegistry->getManager()->getRepository(Content::class)->findBy(['author' => $user]);
         foreach ($contentArray as $content) {
             $content->setAuthor(null);
             $this->em->persist($content);
         }
 
-        $mediaArray = $this->getDoctrine()->getManager()->getRepository(Media::class)->findBy(['author' => $user]);
+        $mediaArray = $this->managerRegistry->getManager()->getRepository(Media::class)->findBy(['author' => $user]);
         foreach ($mediaArray as $media) {
             $media->setAuthor(null);
             $this->em->persist($media);
@@ -275,7 +275,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
         }
 
         return $this->render('@bolt/users/edit.html.twig', [
-            'userForm' => $form->createView(),
+            'userForm' => $form,
         ]);
     }
 }

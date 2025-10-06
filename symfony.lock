@@ -3,17 +3,17 @@
         "version": "1.2.0"
     },
     "api-platform/core": {
-        "version": "2.5",
+        "version": "4.0",
         "recipe": {
             "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "2.5",
-            "ref": "a93061567140e386f107be75340ac2aee3f86cbf"
+            "branch": "main",
+            "version": "4.0",
+            "ref": "cb9e6b8ceb9b62f32d41fc8ad72a25d5bd674c6d"
         },
         "files": [
             "config/packages/api_platform.yaml",
             "config/routes/api_platform.yaml",
-            "src/Entity/.gitignore"
+            "src/ApiResource/.gitignore"
         ]
     },
     "babdev/pagerfanta-bundle": {
@@ -22,17 +22,17 @@
     "beberlei/doctrineextensions": {
         "version": "v1.2.7"
     },
-    "bolt/configuration-notices-widget": {
-        "version": "2.0.0"
-    },
-    "bolt/weatherwidget": {
-        "version": "2.0.0"
-    },
     "bolt/common": {
         "version": "2.1.5"
     },
+    "bolt/configuration-notices-widget": {
+        "version": "2.0.0"
+    },
     "bolt/newswidget": {
         "version": "1.2.0"
+    },
+    "bolt/weatherwidget": {
+        "version": "2.0.0"
     },
     "brick/math": {
         "version": "0.8.14"
@@ -191,9 +191,6 @@
     "fakerphp/faker": {
         "version": "v1.10.1"
     },
-    "friendsofphp/proxy-manager-lts": {
-        "version": "v1.0.3"
-    },
     "guzzlehttp/psr7": {
         "version": "1.6.1"
     },
@@ -214,9 +211,6 @@
     },
     "knplabs/knp-menu-bundle": {
         "version": "v3.0.0"
-    },
-    "laminas/laminas-code": {
-        "version": "3.4.1"
     },
     "league/flysystem": {
         "version": "1.0.64"
@@ -475,18 +469,6 @@
     "seld/phar-utils": {
         "version": "1.1.0"
     },
-    "sensio/framework-extra-bundle": {
-        "version": "5.2",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "5.2",
-            "ref": "fb7e19da7f013d0d422fa9bce16f5c510e27609b"
-        },
-        "files": [
-            "config/packages/sensio_framework_extra.yaml"
-        ]
-    },
     "siriusphp/upload": {
         "version": "2.1.1"
     },
@@ -729,9 +711,6 @@
         "version": "v4.4.4"
     },
     "symfony/security-csrf": {
-        "version": "v4.4.4"
-    },
-    "symfony/security-guard": {
         "version": "v4.4.4"
     },
     "symfony/security-http": {

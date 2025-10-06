@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Command;
 
 use Doctrine\DBAL\Connection;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
@@ -13,11 +14,9 @@ use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+#[AsCommand(name: 'bolt:setup', description: 'Run Bolt setup / installation commands')]
 class SetupCommand extends Command
 {
-    /** @var string */
-    protected static $defaultName = 'bolt:setup';
-
     private array $errors = [];
 
     public function __construct(
@@ -29,7 +28,6 @@ class SetupCommand extends Command
     protected function configure(): void
     {
         $this
-            ->setDescription('Run Bolt setup / installation commands')
             ->addOption('no-fixtures', 'nf', InputOption::VALUE_NONE, 'If set, no data fixtures will be created and the user will not be prompted for it. An empty database wil be initialised.')
             ->addOption('fixtures', 'f', InputOption::VALUE_NONE, 'If set, data fixtures will be created, without prompting the user for it.');
     }

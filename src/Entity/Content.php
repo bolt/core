@@ -119,23 +119,6 @@ class Content implements Stringable
     /** @ORM\Column(type="string", length=191, nullable=true) */
     private ?string $listFormat = null;
 
-    /**
-     * @var Collection<int, Field>
-     *
-     * @ApiSubresource(maxDepth=1)
-     * @MaxDepth(1)
-     *
-     * @ORM\OneToMany(
-     *     targetEntity="Bolt\Entity\Field",
-     *     mappedBy="content",
-     *     indexBy="id",
-     *     fetch="EAGER",
-     *     orphanRemoval=true,
-     *     cascade={"persist"}
-     * )
-     * @ORM\OrderBy({"sortorder": "ASC"})
-     * @Groups("api_write")
-     */
     private Collection $fields;
 
     /**

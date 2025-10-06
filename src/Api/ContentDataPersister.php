@@ -2,26 +2,24 @@
 
 namespace Bolt\Api;
 
-use ApiPlatform\Core\DataPersister\ContextAwareDataPersisterInterface;
+use ApiPlatform\Doctrine\Common\State\PersistProcessor;
+use ApiPlatform\Doctrine\Common\State\RemoveProcessor;
+use ApiPlatform\Metadata\GraphQl\Operation;
 use Bolt\Configuration\Config;
 use Bolt\Configuration\Content\FieldType;
 use Bolt\Entity\Content;
 use Bolt\Repository\FieldRepository;
 
-class ContentDataPersister implements ContextAwareDataPersisterInterface
+readonly class ContentDataPersister
 {
     public function __construct(
-        private readonly ContextAwareDataPersisterInterface $decorated,
-        private readonly Config $config
+        private PersistProcessor $persistProcessor,
+        private RemoveProcessor $removeProcessor,
+        private Config           $config
     ) {
     }
 
-    public function supports($data, array $context = []): bool
-    {
-        return $this->decorated->supports($data, $context);
-    }
-
-    public function persist($data, array $context = []): void
+    public function persist($data): void
     {
         if ($data instanceof Content) {
             $contentTypes = $this->config->get('contenttypes');
@@ -42,11 +40,16 @@ class ContentDataPersister implements ContextAwareDataPersisterInterface
             }
         }
 
-        $this->decorated->persist($data, $context);
+        $this->persistProcessor->process($data, new Operation());
     }
 
-    public function remove($data, array $context = []): void
+    public function remove($data): void
     {
-        $this->decorated->remove($data, $context);
+        $this->removeProcessor->process($data, new Operation());
+    }
+
+    public function process(mixed $data, \ApiPlatform\Metadata\Operation $operation, array $uriVariables = [], array $context = [])
+    {
+        // TODO: Implement process() method.
     }
 }

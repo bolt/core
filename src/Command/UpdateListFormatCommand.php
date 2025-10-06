@@ -5,16 +5,15 @@ declare(strict_types=1);
 namespace Bolt\Command;
 
 use Bolt\Utils\ListFormatHelper;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+#[AsCommand(name: 'bolt:update-list-format', description: 'Update Bolt\'s cached ListFormat data. ')]
 class UpdateListFormatCommand extends Command
 {
-    /** @var string */
-    protected static $defaultName = 'bolt:update-list-format';
-
     public function __construct(
         private readonly ListFormatHelper $listFormatHelper
     ) {
@@ -27,7 +26,6 @@ class UpdateListFormatCommand extends Command
     protected function configure(): void
     {
         $this
-            ->setDescription('Update Bolt\'s cached ListFormat data. ')
             ->setHelp(
                 <<<'HELP'
 The <info>%command.name%</info> updates clears the `list_format` and `title` columns in the database.

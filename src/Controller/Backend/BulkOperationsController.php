@@ -7,20 +7,19 @@ namespace Bolt\Controller\Backend;
 use Bolt\Controller\CsrfTrait;
 use Bolt\Entity\Content;
 use Bolt\Event\ContentEvent;
+use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Persistence\ObjectManager;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Throwable;
 
-/**
- * @Security("is_granted('bulk_operations')")
- */
+#[IsGranted('bulk_operations')]
 class BulkOperationsController extends AbstractController implements BackendZoneInterface
 {
     use CsrfTrait;
@@ -33,7 +32,8 @@ class BulkOperationsController extends AbstractController implements BackendZone
 
     public function __construct(
         RequestStack $requestStack,
-        private EventDispatcherInterface $dispatcher
+        private EventDispatcherInterface $dispatcher,
+        private readonly ManagerRegistry $managerRegistry
     ) {
         $this->request = $requestStack->getCurrentRequest();
     }
@@ -41,7 +41,7 @@ class BulkOperationsController extends AbstractController implements BackendZone
     public function em(): ObjectManager
     {
         if ($this->em === null) {
-            $this->em = $this->getDoctrine()->getManager();
+            $this->em = $this->managerRegistry->getManager();
         }
 
         return $this->em;

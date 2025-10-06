@@ -8,14 +8,12 @@ use Bolt\Extension\BaseExtension;
 use Bolt\Extension\ExtensionRegistry;
 use ComposerPackages\Dependencies;
 use ComposerPackages\Versions;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-/**
- * @Security("is_granted('extensions')")
- */
+#[IsGranted('extensions')]
 class ExtensionsController extends AbstractController implements BackendZoneInterface
 {
     private readonly Dependencies $dependenciesManager;
@@ -43,7 +41,7 @@ class ExtensionsController extends AbstractController implements BackendZoneInte
     /**
      * @Route("/extensions/{name}", name="bolt_extensions_view", requirements={"name"=".+"})
      */
-    public function viewExtension($name): Response
+    public function viewExtension(string $name): Response
     {
         $name = str_replace('/', '\\', $name);
 

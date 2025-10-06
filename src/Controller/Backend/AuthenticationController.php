@@ -40,7 +40,7 @@ class AuthenticationController extends TwigAwareController implements BackendZon
 
         return $this->render($templates, [
             'error' => $error,
-            'loginForm' => $form->createView(),
+            'loginForm' => $form,
         ]);
     }
 

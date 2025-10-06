@@ -353,4 +353,9 @@ class User implements UserInterface, Serializable, PasswordAuthenticatedUserInte
     {
         $this->about = $about;
     }
+
+    public function getUserIdentifier(): string
+    {
+        return $this->username;
+    }
 }

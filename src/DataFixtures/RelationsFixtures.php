@@ -20,7 +20,7 @@ class RelationsFixtures extends BaseFixture implements DependentFixtureInterface
     ) {
     }
 
-    public function getDependencies()
+    public function getDependencies(): array
     {
         return [
             UserFixtures::class,

@@ -46,7 +46,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
         $this->presetRecords = $this->getPresetRecords();
     }
 
-    public function getDependencies()
+    public function getDependencies(): array
     {
         return [
             UserFixtures::class,

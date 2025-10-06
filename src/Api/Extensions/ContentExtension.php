@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Bolt\Api\Extensions;
 
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Extension\QueryCollectionExtensionInterface;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Extension\QueryItemExtensionInterface;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Util\QueryNameGeneratorInterface;
+use ApiPlatform\Doctrine\Orm\Extension\QueryCollectionExtensionInterface;
+use ApiPlatform\Doctrine\Orm\Extension\QueryItemExtensionInterface;
+use ApiPlatform\Doctrine\Orm\Util\QueryNameGeneratorInterface;
 use Bolt\Configuration\Config;
+use ApiPlatform\Metadata\Operation;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Bolt\Enum\Statuses;
@@ -16,8 +17,7 @@ use Illuminate\Support\Collection;
 
 final class ContentExtension implements QueryCollectionExtensionInterface, QueryItemExtensionInterface
 {
-    /** @var Collection */
-    private $viewlessContentTypes;
+    private Collection $viewlessContentTypes;
 
     public function __construct(
         private readonly Config $config
@@ -29,11 +29,16 @@ final class ContentExtension implements QueryCollectionExtensionInterface, Query
             ->values();
     }
 
+    /**
+     * @param class-string         $resourceClass
+     * @param array<string, mixed> $context
+     */
     public function applyToCollection(
         QueryBuilder $queryBuilder,
         QueryNameGeneratorInterface $queryNameGenerator,
         string $resourceClass,
-        ?string $operationName = null
+        ?Operation $operationName = null,
+        array $context = []
     ): void {
         /*
          * Note: We're not distinguishing between `viewless` and `viewless_listing` here. In the
@@ -55,7 +60,7 @@ final class ContentExtension implements QueryCollectionExtensionInterface, Query
         QueryNameGeneratorInterface $queryNameGenerator,
         string $resourceClass,
         array $identifiers,
-        ?string $operationName = null,
+        ?Operation $operationName = null,
         array $context = []
     ): void {
         if ($resourceClass === Content::class) {
