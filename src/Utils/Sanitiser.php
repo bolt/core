@@ -8,15 +8,14 @@ use Bolt\Configuration\Config;
 use HTMLPurifier;
 use HTMLPurifier_HTML5Config;
 use HTMLPurifier_HTMLDefinition;
+use Symfony\Contracts\Service\Attribute\Required;
 
 class Sanitiser
 {
     private ?HTMLPurifier $purifier = null;
     private Config $config;
 
-    /**
-     * @required
-     */
+    #[Required]
     public function init(Config $config): void
     {
         $this->config = $config;
