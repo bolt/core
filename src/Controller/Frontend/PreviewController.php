@@ -12,6 +12,7 @@ use Bolt\Event\ContentEvent;
 use Bolt\Security\ContentVoter;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -27,7 +28,7 @@ class PreviewController extends TwigAwareController implements FrontendZoneInter
     ) {
     }
 
-    #[Route(path: '/preview/{id}', name: 'bolt_content_edit_preview', requirements: ['id' => '\d+'], methods: ['POST'])]
+    #[Route(path: '/preview/{id}', name: 'bolt_content_edit_preview', requirements: ['id' => '\d+'], methods: [Request::METHOD_POST])]
     public function preview(?Content $content = null): Response
     {
         $this->validateCsrf('editrecord');
@@ -41,7 +42,7 @@ class PreviewController extends TwigAwareController implements FrontendZoneInter
         return $this->renderSingle($content, false);
     }
 
-    #[Route(path: '/preview/{id}', name: 'bolt_content_edit_get', requirements: ['id' => '\d+'], methods: ['GET'])]
+    #[Route(path: '/preview/{id}', name: 'bolt_content_edit_get', requirements: ['id' => '\d+'], methods: [Request::METHOD_GET])]
     public function previewThroughGet(int $id): RedirectResponse
     {
         $url = $this->urlGenerator->generate('bolt_content_edit', ['id' => $id]);

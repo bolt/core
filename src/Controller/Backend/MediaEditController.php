@@ -14,6 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Filesystem\Path;
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -34,7 +35,7 @@ class MediaEditController extends TwigAwareController implements BackendZoneInte
         $this->urlGenerator = $this->urlGenerator;
     }
 
-    #[Route(path: '/media/edit/{id}', name: 'bolt_media_edit', methods: ['GET'])]
+    #[Route(path: '/media/edit/{id}', name: 'bolt_media_edit', methods: [Request::METHOD_GET])]
     public function edit(?Media $media = null): Response
     {
         $context = [
@@ -44,7 +45,7 @@ class MediaEditController extends TwigAwareController implements BackendZoneInte
         return $this->render('@bolt/media/edit.html.twig', $context);
     }
 
-    #[Route(path: '/media/edit/{id}', name: 'bolt_media_edit_post', methods: ['POST'])]
+    #[Route(path: '/media/edit/{id}', name: 'bolt_media_edit_post', methods: [Request::METHOD_POST])]
     public function save(?Media $media = null): Response
     {
         $this->validateCsrf('media_edit');
@@ -69,7 +70,7 @@ class MediaEditController extends TwigAwareController implements BackendZoneInte
         return new RedirectResponse($url);
     }
 
-    #[Route(path: '/media/new', name: 'bolt_media_new', methods: ['GET'])]
+    #[Route(path: '/media/new', name: 'bolt_media_new', methods: [Request::METHOD_GET])]
     public function new(): RedirectResponse
     {
         $fileLocation = $this->getFromRequest('location', 'files');

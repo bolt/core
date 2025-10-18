@@ -7,13 +7,16 @@ namespace Bolt\Controller\Frontend;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Repository\ContentRepository;
 use Exception;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class HomepageController extends TwigAwareController implements FrontendZoneInterface
 {
-    #[Route(path: '/', name: 'homepage', methods: ['GET|POST'])]
-    #[Route(path: '/{_locale}/', name: 'homepage_locale', requirements: ['_locale' => '%app_locales%'], methods: ['GET|POST'])]
+    #[Route(path: '/', name: 'homepage', methods: [Request::METHOD_GET, Request::METHOD_POST])]
+    #[Route(path: '/{_locale}/', name: 'homepage_locale', requirements: [
+        '_locale' => '%app_locales%',
+    ], methods: [Request::METHOD_GET, Request::METHOD_POST])]
     public function homepage(ContentRepository $contentRepository): Response
     {
         $homepage = $this->config->get('theme/homepage') ?: $this->config->get('general/homepage');

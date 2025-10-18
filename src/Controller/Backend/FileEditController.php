@@ -14,6 +14,7 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Path;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -37,7 +38,7 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
         $this->filesystem = new Filesystem();
     }
 
-    #[Route(path: '/file-edit/{location}', name: 'bolt_file_edit', methods: ['GET'])]
+    #[Route(path: '/file-edit/{location}', name: 'bolt_file_edit', methods: [Request::METHOD_GET])]
     public function edit(string $location): Response
     {
         $this->denyAccessUnlessGranted('managefiles:' . $location);
@@ -59,7 +60,7 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
         return $this->render('@bolt/finder/editfile.html.twig', $context);
     }
 
-    #[Route(path: '/file-edit/{location}', name: 'bolt_file-edit_post', requirements: ['file' => '.+'], methods: ['POST'])]
+    #[Route(path: '/file-edit/{location}', name: 'bolt_file-edit_post', requirements: ['file' => '.+'], methods: [Request::METHOD_POST])]
     public function save(UrlGeneratorInterface $urlGenerator): Response
     {
         $this->validateCsrf('editfile');
@@ -108,7 +109,7 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
         return new RedirectResponse($url);
     }
 
-    #[Route(path: '/file-delete/', name: 'bolt_file_delete', methods: ['POST', 'GET'])]
+    #[Route(path: '/file-delete/', name: 'bolt_file_delete', methods: [Request::METHOD_GET, Request::METHOD_POST])]
     public function handleDelete(): Response
     {
         try {
@@ -154,7 +155,7 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
         ]);
     }
 
-    #[Route(path: '/file-duplicate/', name: 'bolt_file_duplicate', methods: ['POST', 'GET'])]
+    #[Route(path: '/file-duplicate/', name: 'bolt_file_duplicate', methods: [Request::METHOD_GET, Request::METHOD_POST])]
     public function handleDuplicate(): Response
     {
         try {

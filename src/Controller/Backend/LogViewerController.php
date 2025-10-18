@@ -7,6 +7,7 @@ namespace Bolt\Controller\Backend;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Repository\LogRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -15,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class LogViewerController extends TwigAwareController implements BackendZoneInterface
 {
-    #[Route(path: '/logviewer', name: 'bolt_logviewer', methods: ['GET'])]
+    #[Route(path: '/logviewer', name: 'bolt_logviewer', methods: [Request::METHOD_GET])]
     public function index(LogRepository $log): Response
     {
         $amount = $this->config->get('general/log/amount', 10);

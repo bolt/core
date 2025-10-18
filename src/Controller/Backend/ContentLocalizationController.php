@@ -7,6 +7,7 @@ namespace Bolt\Controller\Backend;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\Content;
 use Bolt\Security\ContentVoter;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -16,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ContentLocalizationController extends TwigAwareController implements BackendZoneInterface
 {
-    #[Route(path: '/edit_locales/{id}', name: 'bolt_content_edit_locales', methods: ['GET'])]
+    #[Route(path: '/edit_locales/{id}', name: 'bolt_content_edit_locales', methods: [Request::METHOD_GET])]
     public function locales(Content $content): Response
     {
         $this->denyAccessUnlessGranted(ContentVoter::CONTENT_VIEW, $content);
