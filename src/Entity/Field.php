@@ -25,38 +25,38 @@ use Twig\Error\LoaderError;
 use Twig\Error\SyntaxError;
 use Twig\Markup;
 
-/**
- * @ApiResource(
- *     denormalizationContext={"groups"={"api_write"},"enable_max_depth"=true},
- *     normalizationContext={"groups"={"get_field"}},
- *
- *     subresourceOperations={
- *         "api_contents_fields_get_subresource"={
- *             "method"="GET"
- *         },
- *     },
- *     collectionOperations={
- *          "get"={"security"="is_granted('api:get')"},
- *          "post"={"security"="is_granted('api:post')"}
- *     },
- *     itemOperations={
- *          "get"={"security"="is_granted('api:get')"},
- *          "put"={"security"="is_granted('api:post')"},
- *          "delete"={"security"="is_granted('api:delete')"}
- *     },
- *     graphql={
- *          "item_query"={"security"="is_granted('api:get')"},
- *          "collection_query"={"security"="is_granted('api:get')"},
- *          "create"={"security"="is_granted('api:post')"},
- *          "delete"={"security"="is_granted('api:delete')"}
- *     }
- * )
- * @ApiFilter(SearchFilter::class)
- */
 #[ORM\Entity(repositoryClass: FieldRepository::class)]
 #[ORM\InheritanceType('SINGLE_TABLE')]
 #[ORM\DiscriminatorColumn(name: 'type', type: 'string', length: 191)]
 #[ORM\DiscriminatorMap(['generic' => 'Field'])]
+#[ApiResource(
+    collectionOperations: [
+        'get' => ['security' => "is_granted('api:get')"],
+        'post' => ['security' => "is_granted('api:post')"],
+    ],
+    graphql: [
+        'item_query' => ['security' => "is_granted('api:get')"],
+        'collection_query' => ['security' => "is_granted('api:get')"],
+        'create' => ['security' => "is_granted('api:post')"],
+        'delete' => ['security' => "is_granted('api:delete')"],
+    ],
+    itemOperations: [
+        'get' => ['security' => "is_granted('api:get')"],
+        'put' => ['security' => "is_granted('api:post')"],
+        'delete' => ['security' => "is_granted('api:delete')"],
+    ],
+    subresourceOperations: [
+        'api_contents_fields_get_subresource' => ['method' => 'GET'],
+    ],
+    denormalizationContext: [
+        'groups' => ['api_write'],
+        'enable_max_depth' => true,
+    ],
+    normalizationContext: [
+        'groups' => ['get_field'],
+    ]
+)]
+#[ApiFilter(SearchFilter::class)]
 class Field implements FieldInterface, TranslatableInterface, Stringable
 {
     use TranslatableTrait;

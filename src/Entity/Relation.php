@@ -13,29 +13,47 @@ use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-/**
- * @ApiResource(
- *     normalizationContext={"groups"={"get_relation"}},
- *     collectionOperations={
- *          "get"={"security"="is_granted('api:get')"},
- *          "post"={"security"="is_granted('api:post')"}
- *     },
- *     itemOperations={
- *          "get"={"security"="is_granted('api:get')"},
- *          "put"={"security"="is_granted('api:post')"},
- *          "delete"={"security"="is_granted('api:delete')"}
- *     },
- *     graphql={
- *          "item_query"={"security"="is_granted('api:get')"},
- *          "collection_query"={"security"="is_granted('api:get')"},
- *          "create"={"security"="is_granted('api:post')"},
- *          "delete"={"security"="is_granted('api:delete')"}
- *     }
- * )
- * @ApiFilter(SearchFilter::class, strategy="partial")
- */
 #[ORM\Entity(repositoryClass: RelationRepository::class)]
 #[ORM\Table]
+#[ApiResource(
+    collectionOperations: [
+        'get' => [
+            'security' => "is_granted('api:get')",
+        ],
+        'post' => [
+            'security' => "is_granted('api:post')",
+        ],
+    ],
+    graphql: [
+        'item_query' => [
+            'security' => "is_granted('api:get')",
+        ],
+        'collection_query' => [
+            'security' => "is_granted('api:get')",
+        ],
+        'create' => [
+            'security' => "is_granted('api:post')",
+        ],
+        'delete' => [
+            'security' => "is_granted('api:delete')",
+        ],
+    ],
+    itemOperations: [
+        'get' => [
+            'security' => "is_granted('api:get')",
+        ],
+        'put' => [
+            'security' => "is_granted('api:post')",
+        ],
+        'delete' => [
+            'security' => "is_granted('api:delete')",
+        ],
+    ],
+    normalizationContext: [
+        'groups' => ['get_relation'],
+    ]
+)]
+#[ApiFilter(SearchFilter::class, strategy: 'partial')]
 class Relation
 {
     #[ORM\Id]

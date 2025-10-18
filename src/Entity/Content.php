@@ -31,33 +31,36 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Twig\Template;
 
-/**
- * @ApiResource(
- *     normalizationContext={"groups"={"get_content"}},
- *     denormalizationContext={"groups"={"api_write"},"enable_max_depth"=true},
- *     collectionOperations={
- *          "get"={"security"="is_granted('api:get')"},
- *          "post"={"security"="is_granted('api:post')"}
- *     },
- *     itemOperations={
- *          "get"={"security"="is_granted('api:get')"},
- *          "put"={"security"="is_granted('api:post')"},
- *          "delete"={"security"="is_granted('api:delete')"}
- *     },
- *     graphql={
- *          "item_query"={"security"="is_granted('api:get')"},
- *          "collection_query"={"security"="is_granted('api:get')"},
- *          "create"={"security"="is_granted('api:post')"},
- *          "delete"={"security"="is_granted('api:delete')"}
- *     }
- * )
- * @ApiFilter(SearchFilter::class)
- */
 #[ORM\Entity(repositoryClass: ContentRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 #[ORM\Table]
 #[ORM\Index(columns: ['content_type'], name: 'content_type_idx')]
 #[ORM\Index(columns: ['status'], name: 'status_idx')]
+#[ApiResource(
+    collectionOperations: [
+        'get' => ['security' => "is_granted('api:get')"],
+        'post' => ['security' => "is_granted('api:post')"],
+    ],
+    graphql: [
+        'item_query' => ['security' => "is_granted('api:get')"],
+        'collection_query' => ['security' => "is_granted('api:get')"],
+        'create' => ['security' => "is_granted('api:post')"],
+        'delete' => ['security' => "is_granted('api:delete')"],
+    ],
+    itemOperations: [
+        'get' => ['security' => "is_granted('api:get')"],
+        'put' => ['security' => "is_granted('api:post')"],
+        'delete' => ['security' => "is_granted('api:delete')"],
+    ],
+    denormalizationContext: [
+        'groups' => ['api_write'],
+        'enable_max_depth' => true,
+    ],
+    normalizationContext: [
+        'groups' => ['get_content'],
+    ]
+)]
+#[ApiFilter(SearchFilter::class)]
 class Content implements Stringable
 {
     use ContentLocalizeTrait;
@@ -103,15 +106,12 @@ class Content implements Stringable
     #[ORM\Column(type: 'string', length: 191, nullable: true)]
     private ?string $listFormat = null;
 
-    /**
-     * @var Collection<int, Field>
-     *
-     * @ApiSubresource(maxDepth=1)
-     */
+    /** @var Collection<int, Field> */
     #[MaxDepth(1)]
     #[Groups('api_write')]
     #[ORM\OneToMany(mappedBy: 'content', targetEntity: Field::class, cascade: ['persist'], fetch: 'EAGER', orphanRemoval: true, indexBy: 'id')]
     #[ORM\OrderBy(['sortorder' => 'ASC'])]
+    #[ApiSubresource(maxDepth: 1)]
     private Collection $fields;
 
     /** @var Collection<int, Taxonomy> */
