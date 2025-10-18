@@ -30,9 +30,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
 use Throwable;
 
-/**
- * @Security("is_granted('upload')")
- */
+#[Security("is_granted('upload')")]
 class UploadController extends AbstractController implements AsyncZoneInterface
 {
     use CsrfTrait;

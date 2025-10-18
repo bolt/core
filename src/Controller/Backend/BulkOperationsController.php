@@ -18,9 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Throwable;
 
-/**
- * @Security("is_granted('bulk_operations')")
- */
+#[Security("is_granted('bulk_operations')")]
 class BulkOperationsController extends AbstractController implements BackendZoneInterface
 {
     use CsrfTrait;

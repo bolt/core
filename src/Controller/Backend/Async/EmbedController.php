@@ -15,9 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 
-/**
- * @Security("is_granted('fetch_embed_data')")
- */
+#[Security("is_granted('fetch_embed_data')")]
 class EmbedController implements AsyncZoneInterface
 {
     use CsrfTrait;

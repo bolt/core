@@ -13,9 +13,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Security("is_granted('upload')")
- */
+#[Security("is_granted('upload')")]
 class SelectOptionsController extends AbstractController implements AsyncZoneInterface
 {
     public function __construct(
