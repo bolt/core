@@ -11,9 +11,9 @@ services:
     Bolt\ConfigurationNoticesWidget\:
         resource: '../vendor/bolt/configuration-notices-widget/src/*'
         exclude: '../vendor/bolt/configuration-notices-widget/src/{Entity,Exception}'
-    Bolt\WeatherWidget\:
-        resource: '../vendor/bolt/weatherwidget/src/*'
-        exclude: '../vendor/bolt/weatherwidget/src/{Entity,Exception}'
     Bolt\NewsWidget\:
         resource: '../vendor/bolt/newswidget/src/*'
         exclude: '../vendor/bolt/newswidget/src/{Entity,Exception}'
+    Bolt\WeatherWidget\:
+        resource: '../vendor/bolt/weatherwidget/src/*'
+        exclude: '../vendor/bolt/weatherwidget/src/{Entity,Exception}'
