@@ -19,9 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-/**
- * @Security("is_granted('media_edit')")
- */
+#[Security("is_granted('media_edit')")]
 class MediaEditController extends TwigAwareController implements BackendZoneInterface
 {
     use CsrfTrait;

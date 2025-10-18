@@ -15,9 +15,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Display the list of users, along with buttons to change them.
- *
- * @Security("is_granted('user:list')")
  */
+#[Security("is_granted('user:list')")]
 class UserController extends TwigAwareController implements BackendZoneInterface
 {
     private const PAGESIZE = 20;

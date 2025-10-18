@@ -13,9 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Security("is_granted('clearcache')")
- */
+#[Security("is_granted('clearcache')")]
 class ClearCacheController extends AbstractController implements BackendZoneInterface
 {
     #[Route(path: '/clearcache', name: 'bolt_clear_cache')]

@@ -11,9 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Security("is_granted('systemlog')")
- */
+#[Security("is_granted('systemlog')")]
 class LogViewerController extends TwigAwareController implements BackendZoneInterface
 {
     #[Route(path: '/logviewer', name: 'bolt_logviewer', methods: [Request::METHOD_GET])]
