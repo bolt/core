@@ -26,9 +26,7 @@ class ExtensionsController extends AbstractController implements BackendZoneInte
         $this->dependenciesManager = new Dependencies();
     }
 
-    /**
-     * @Route("/extensions", name="bolt_extensions")
-     */
+    #[Route(path: '/extensions', name: 'bolt_extensions')]
     public function index(): Response
     {
         $extensions = $this->extensionRegistry->getExtensions();
@@ -40,9 +38,7 @@ class ExtensionsController extends AbstractController implements BackendZoneInte
         return $this->render('@bolt/pages/extensions.html.twig', $twigvars);
     }
 
-    /**
-     * @Route("/extensions/{name}", name="bolt_extensions_view", requirements={"name"=".+"})
-     */
+    #[Route(path: '/extensions/{name}', name: 'bolt_extensions_view', requirements: ['name' => '.+'])]
     public function viewExtension($name): Response
     {
         $name = str_replace('/', '\\', $name);

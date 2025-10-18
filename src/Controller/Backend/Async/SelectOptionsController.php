@@ -26,9 +26,8 @@ class SelectOptionsController extends AbstractController implements AsyncZoneInt
 
     /**
      * Based on Bolt\Twig\FieldExtension.
-     *
-     * @Route("/select-options", name="bolt_async_select_options", methods={"GET"})
      */
+    #[Route(path: '/select-options', name: 'bolt_async_select_options', methods: ['GET'])]
     public function handleSelectOptions(Request $request): JsonResponse
     {
         [$contentTypeSlug, $format] = explode('/', (string) $request->get('values'));

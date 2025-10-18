@@ -65,9 +65,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
     ) {
     }
 
-    /**
-     * @Route("/new/{contentType}", name="bolt_content_new", methods={"GET|POST"})
-     */
+    #[Route(path: '/new/{contentType}', name: 'bolt_content_new', methods: ['GET|POST'])]
     public function new(string $contentType, ?ContentValidatorInterface $contentValidator = null): Response
     {
         $content = new Content();
@@ -93,9 +91,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         return $this->edit($content);
     }
 
-    /**
-     * @Route("/edit/{id}", name="bolt_content_edit", methods={"GET"}, requirements={"id": "\d+"})
-     */
+    #[Route(path: '/edit/{id}', name: 'bolt_content_edit', requirements: ['id' => '\d+'], methods: ['GET'])]
     public function edit(Content $content): Response
     {
         $this->denyAccessUnlessGranted(ContentVoter::CONTENT_EDIT, $content);
@@ -106,9 +102,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         return $this->renderEditor($content);
     }
 
-    /**
-     * @Route("/edit/{id}", name="bolt_content_edit_post", methods={"POST"}, requirements={"id": "\d+"})
-     */
+    #[Route(path: '/edit/{id}', name: 'bolt_content_edit_post', requirements: ['id' => '\d+'], methods: ['POST'])]
     public function save(?Content $originalContent = null, ?ContentValidatorInterface $contentValidator = null): Response
     {
         $this->validateCsrf('editrecord');
@@ -215,9 +209,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         return new RedirectResponse($url);
     }
 
-    /**
-     * @Route("/duplicate/{id}", name="bolt_content_duplicate", methods={"GET"}, requirements={"id": "\d+"})
-     */
+    #[Route(path: '/duplicate/{id}', name: 'bolt_content_duplicate', requirements: ['id' => '\d+'], methods: ['GET'])]
     public function duplicate(Content $content): Response
     {
         $this->denyAccessUnlessGranted(ContentVoter::CONTENT_CREATE, $content);
@@ -245,9 +237,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         return $this->render('@bolt/content/edit.html.twig', $twigvars);
     }
 
-    /**
-     * @Route("/duplicate/{id}", name="bolt_content_duplicate_post", methods={"POST"}, requirements={"id": "\d+"})
-     */
+    #[Route(path: '/duplicate/{id}', name: 'bolt_content_duplicate_post', requirements: ['id' => '\d+'], methods: ['POST'])]
     public function duplicateSave(?Content $content = null): Response
     {
         $this->denyAccessUnlessGranted(ContentVoter::CONTENT_CREATE, $content);
@@ -255,9 +245,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         return $this->new($content->getContentType());
     }
 
-    /**
-     * @Route("/status/{id}", name="bolt_content_status", methods={"GET"}, requirements={"id": "\d+"})
-     */
+    #[Route(path: '/status/{id}', name: 'bolt_content_status', requirements: ['id' => '\d+'], methods: ['GET'])]
     public function status(Content $content): Response
     {
         $this->validateCsrf('status');
@@ -283,9 +271,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         return new RedirectResponse($url);
     }
 
-    /**
-     * @Route("/delete/{id}", name="bolt_content_delete", methods={"GET"}, requirements={"id": "\d+"})
-     */
+    #[Route(path: '/delete/{id}', name: 'bolt_content_delete', requirements: ['id' => '\d+'], methods: ['GET'])]
     public function delete(Content $content): Response
     {
         $this->validateCsrf('delete');

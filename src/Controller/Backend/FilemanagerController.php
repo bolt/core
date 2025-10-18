@@ -37,9 +37,7 @@ class FilemanagerController extends TwigAwareController implements BackendZoneIn
     ) {
     }
 
-    /**
-     * @Route("/filemanager/{location}", name="bolt_filemanager", methods={"GET"})
-     */
+    #[Route(path: '/filemanager/{location}', name: 'bolt_filemanager', methods: ['GET'])]
     public function filemanager(string $location): Response
     {
         $session = $this->requestStack->getSession();
@@ -83,9 +81,7 @@ class FilemanagerController extends TwigAwareController implements BackendZoneIn
         ]);
     }
 
-    /**
-     * @Route("/filemanager-actions/delete/", name="bolt_filemanager_delete", methods={"POST", "GET"})
-     */
+    #[Route(path: '/filemanager-actions/delete/', name: 'bolt_filemanager_delete', methods: ['POST', 'GET'])]
     public function delete(): Response
     {
         try {
@@ -124,9 +120,7 @@ class FilemanagerController extends TwigAwareController implements BackendZoneIn
         ]);
     }
 
-    /**
-     * @Route("/filemanager-actions/create", name="bolt_filemanager_create", methods={"POST"})
-     */
+    #[Route(path: '/filemanager-actions/create', name: 'bolt_filemanager_create', methods: ['POST'])]
     public function create(): Response
     {
         try {

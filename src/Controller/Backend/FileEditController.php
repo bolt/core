@@ -37,9 +37,7 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
         $this->filesystem = new Filesystem();
     }
 
-    /**
-     * @Route("/file-edit/{location}", name="bolt_file_edit", methods={"GET"})
-     */
+    #[Route(path: '/file-edit/{location}', name: 'bolt_file_edit', methods: ['GET'])]
     public function edit(string $location): Response
     {
         $this->denyAccessUnlessGranted('managefiles:' . $location);
@@ -61,9 +59,7 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
         return $this->render('@bolt/finder/editfile.html.twig', $context);
     }
 
-    /**
-     * @Route("/file-edit/{location}", name="bolt_file-edit_post", methods={"POST"}, requirements={"file"=".+"})
-     */
+    #[Route(path: '/file-edit/{location}', name: 'bolt_file-edit_post', requirements: ['file' => '.+'], methods: ['POST'])]
     public function save(UrlGeneratorInterface $urlGenerator): Response
     {
         $this->validateCsrf('editfile');
@@ -112,9 +108,7 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
         return new RedirectResponse($url);
     }
 
-    /**
-     * @Route("/file-delete/", name="bolt_file_delete", methods={"POST", "GET"})
-     */
+    #[Route(path: '/file-delete/', name: 'bolt_file_delete', methods: ['POST', 'GET'])]
     public function handleDelete(): Response
     {
         try {
@@ -160,9 +154,7 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
         ]);
     }
 
-    /**
-     * @Route("/file-duplicate/", name="bolt_file_duplicate", methods={"POST", "GET"})
-     */
+    #[Route(path: '/file-duplicate/', name: 'bolt_file_duplicate', methods: ['POST', 'GET'])]
     public function handleDuplicate(): Response
     {
         try {

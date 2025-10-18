@@ -18,9 +18,7 @@ class GeneralController extends TwigAwareController implements BackendZoneInterf
     ) {
     }
 
-    /**
-     * @Route("/about", name="bolt_about")
-     */
+    #[Route(path: '/about', name: 'bolt_about')]
     public function about(): Response
     {
         $this->denyAccessUnlessGranted('about');
@@ -38,9 +36,7 @@ class GeneralController extends TwigAwareController implements BackendZoneInterf
         return $this->render('@bolt/pages/about.html.twig', $twigVars);
     }
 
-    /**
-     * @Route("/kitchensink", name="bolt_kitchensink")
-     */
+    #[Route(path: '/kitchensink', name: 'bolt_kitchensink')]
     public function kitchensink(ContentRepository $content, Config $config): Response
     {
         $this->denyAccessUnlessGranted('kitchensink');

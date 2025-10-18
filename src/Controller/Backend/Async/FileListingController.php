@@ -34,9 +34,7 @@ class FileListingController implements AsyncZoneInterface
         $this->publicPath = $projectDir . DIRECTORY_SEPARATOR . $publicFolder;
     }
 
-    /**
-     * @Route("/list_files", name="bolt_async_filelisting", methods={"GET"})
-     */
+    #[Route(path: '/list_files', name: 'bolt_async_filelisting', methods: ['GET'])]
     public function index(): JsonResponse
     {
         $locationName = $this->request->query->get('location', 'files');

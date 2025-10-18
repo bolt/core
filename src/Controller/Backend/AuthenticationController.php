@@ -14,9 +14,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class AuthenticationController extends TwigAwareController implements BackendZoneInterface
 {
-    /**
-     * @Route("/login", name="bolt_login")
-     */
+    #[Route(path: '/login', name: 'bolt_login')]
     public function login(Request $request, AuthenticationUtils $authenticationUtils): Response
     {
         // Always redirect to dashboard if a user is still logged in.
@@ -49,9 +47,8 @@ class AuthenticationController extends TwigAwareController implements BackendZon
      *
      * But, this will never be executed. Symfony will intercept this first
      * and handle the logout automatically. See logout in config/packages/security.yaml
-     *
-     * @Route("/logout", name="bolt_logout")
      */
+    #[Route(path: '/logout', name: 'bolt_logout')]
     public function logout(): void
     {
         throw new Exception('This should never be reached!');

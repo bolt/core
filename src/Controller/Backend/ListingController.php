@@ -14,9 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ListingController extends TwigAwareController implements BackendZoneInterface
 {
-    /**
-     * @Route("/content/{contentType}", name="bolt_content_overview")
-     */
+    #[Route(path: '/content/{contentType}', name: 'bolt_content_overview')]
     public function overview(Query $query, string $contentType = ''): Response
     {
         $contentTypeObject = ContentType::factory($contentType, $this->config->get('contenttypes'));

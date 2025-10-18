@@ -32,9 +32,7 @@ class ImageController
         $this->request = $requestStack->getCurrentRequest();
     }
 
-    /**
-     * @Route("/thumbs/{paramString}/{filename}", methods={"GET"}, name="thumbnail", requirements={"filename"=".+"})
-     */
+    #[Route(path: '/thumbs/{paramString}/{filename}', name: 'thumbnail', requirements: ['filename' => '.+'], methods: ['GET'])]
     public function thumbnail(string $paramString, string $filename): Response
     {
         if (! $this->isImage($filename)) {

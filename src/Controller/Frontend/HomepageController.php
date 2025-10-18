@@ -12,14 +12,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomepageController extends TwigAwareController implements FrontendZoneInterface
 {
-    /**
-     * @Route("/", methods={"GET|POST"}, name="homepage")
-     * @Route(
-     *     "/{_locale}/",
-     *     methods={"GET|POST"},
-     *     name="homepage_locale",
-     *     requirements={"_locale": "%app_locales%"})
-     */
+    #[Route(path: '/', name: 'homepage', methods: ['GET|POST'])]
+    #[Route(path: '/{_locale}/', name: 'homepage_locale', requirements: ['_locale' => '%app_locales%'], methods: ['GET|POST'])]
     public function homepage(ContentRepository $contentRepository): Response
     {
         $homepage = $this->config->get('theme/homepage') ?: $this->config->get('general/homepage');
