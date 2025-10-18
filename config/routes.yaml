@@ -14,7 +14,7 @@
 frontend:
   resource: '../src/Controller/Frontend/'
   prefix: /
-  type: annotation
+  type: attribute
 
 # ------------------------------------------------------------------------------
 # Place your own routes here, that have a LOWER priority than the default routes.
