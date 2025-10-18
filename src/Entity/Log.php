@@ -4,57 +4,55 @@ declare(strict_types=1);
 
 namespace Bolt\Entity;
 
+use Bolt\Repository\LogRepository;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass="Bolt\Repository\LogRepository")
- * @ORM\Table(name="log")
- * @ORM\HasLifecycleCallbacks
- */
+#[ORM\Entity(repositoryClass: LogRepository::class)]
+#[ORM\HasLifecycleCallbacks]
+#[ORM\Table(name: 'log')]
 class Log
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
+    #[ORM\Id]
+    #[ORM\Column(type: 'integer')]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
     private ?int $id = null;
 
-    /** @ORM\Column(name="message", type="text") */
-    private $message;
+    #[ORM\Column(name: 'message', type: 'text')]
+    private string $message = '';
 
-    /** @ORM\Column(name="context", type="array", nullable=true) */
-    private $context;
+    #[ORM\Column(name: 'context', type: 'array', nullable: true)]
+    private ?array $context = null;
 
-    /** @ORM\Column(name="level", type="smallint") */
-    private $level;
+    #[ORM\Column(name: 'level', type: 'smallint')]
+    private int $level = 0;
 
-    /** @ORM\Column(name="level_name", type="string", length=50) */
-    private $levelName;
+    #[ORM\Column(name: 'level_name', type: 'string', length: 50)]
+    private string $levelName = '';
 
-    /** @ORM\Column(name="created_at", type="datetime") */
-    private $createdAt;
+    #[ORM\Column(name: 'created_at', type: 'datetime')]
+    private DateTime $createdAt;
 
-    /** @ORM\Column(name="extra", type="array", nullable=true) */
-    private $extra;
+    #[ORM\Column(name: 'extra', type: 'array', nullable: true)]
+    private ?array $extra = null;
 
-    /** @ORM\Column(name="`user`", type="array", nullable=true) */
-    private $user;
+    #[ORM\Column(name: '`user`', type: 'array', nullable: true)]
+    private ?array $user = null;
 
-    /** @ORM\Column(type="content", type="integer", nullable=true) */
-    private $content;
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private ?int $content = null;
 
-    /** @ORM\Column(name="location", type="array", nullable=true) */
-    private $location;
+    #[ORM\Column(name: 'location', type: 'array', nullable: true)]
+    private ?array $location = null;
 
-    /**
-     * @ORM\PrePersist
-     */
-    public function onPrePersist(): void
+    public function __construct()
     {
         $this->createdAt = new DateTime();
+    }
 
+    #[ORM\PrePersist]
+    public function onPrePersist(): void
+    {
         if (array_key_exists('content_id', $this->getContext())) {
             $this->setContent($this->getContext()['content_id']);
         }

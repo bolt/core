@@ -13,6 +13,7 @@ use Bolt\Entity\Field\Excerptable;
 use Bolt\Entity\Field\ScalarCastable;
 use Bolt\Entity\Field\SetField;
 use Bolt\Enum\Statuses;
+use Bolt\Repository\ContentRepository;
 use Bolt\Repository\FieldRepository;
 use Bolt\Twig\ContentExtension;
 use Bolt\Utils\Excerpt;
@@ -51,87 +52,71 @@ use Twig\Template;
  *     }
  * )
  * @ApiFilter(SearchFilter::class)
- * @ORM\Entity(repositoryClass="Bolt\Repository\ContentRepository")
- * @ORM\Table(indexes={
- * @ORM\Index(name="content_type_idx", columns={"content_type"}),
- * @ORM\Index(name="status_idx", columns={"status"})
- * })
- * @ORM\HasLifecycleCallbacks
  */
+#[ORM\Entity(repositoryClass: ContentRepository::class)]
+#[ORM\HasLifecycleCallbacks]
+#[ORM\Table]
+#[ORM\Index(columns: ['content_type'], name: 'content_type_idx')]
+#[ORM\Index(columns: ['status'], name: 'status_idx')]
 class Content implements Stringable
 {
     use ContentLocalizeTrait;
     use ContentExtrasTrait;
 
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
     #[Groups(['get_content', 'api_write'])]
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    /** @ORM\Column(type="string", length=191) */
     #[Groups(['get_content', 'api_write'])]
+    #[ORM\Column(type: 'string', length: 191)]
     private ?string $contentType = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Bolt\Entity\User", fetch="EAGER")
-     * @ORM\JoinColumn(nullable=true)
-     */
+    #[ORM\ManyToOne(targetEntity: User::class, fetch: 'EAGER')]
+    #[ORM\JoinColumn(nullable: true)]
     private ?User $author = null;
 
-    /** @ORM\Column(type="string", length=191) */
     #[Groups(['get_content', 'api_write'])]
+    #[ORM\Column(type: 'string', length: 191)]
     private ?string $status;
 
-    /** @ORM\Column(type="datetime") */
     #[Groups(['get_content', 'api_write'])]
+    #[ORM\Column(type: 'datetime')]
     private ?DateTime $createdAt;
 
-    /** @ORM\Column(type="datetime", nullable=true) */
     #[Groups(['get_content', 'api_write'])]
+    #[ORM\Column(type: 'datetime', nullable: true)]
     private ?DateTime $modifiedAt = null;
 
-    /** @ORM\Column(type="datetime", nullable=true) */
     #[Groups(['get_content', 'api_write'])]
+    #[ORM\Column(type: 'datetime', nullable: true)]
     private ?DateTime $publishedAt = null;
 
-    /** @ORM\Column(type="datetime", nullable=true) */
     #[Groups(['get_content', 'api_write'])]
+    #[ORM\Column(type: 'datetime', nullable: true)]
     private ?DateTime $depublishedAt = null;
 
-    /** @ORM\Column(type="string", length=191, nullable=true) */
+    #[ORM\Column(type: 'string', length: 191, nullable: true)]
     private ?string $title = null;
 
-    /** @ORM\Column(type="string", length=191, nullable=true) */
+    #[ORM\Column(type: 'string', length: 191, nullable: true)]
     private ?string $listFormat = null;
 
     /**
      * @var Collection<int, Field>
      *
      * @ApiSubresource(maxDepth=1)
-     *
-     * @ORM\OneToMany(
-     *     targetEntity="Bolt\Entity\Field",
-     *     mappedBy="content",
-     *     indexBy="id",
-     *     fetch="EAGER",
-     *     orphanRemoval=true,
-     *     cascade={"persist"}
-     * )
-     * @ORM\OrderBy({"sortorder": "ASC"})
      */
     #[MaxDepth(1)]
     #[Groups('api_write')]
+    #[ORM\OneToMany(mappedBy: 'content', targetEntity: Field::class, cascade: ['persist'], fetch: 'EAGER', orphanRemoval: true, indexBy: 'id')]
+    #[ORM\OrderBy(['sortorder' => 'ASC'])]
     private Collection $fields;
 
-    /**
-     * @var Collection<int, Taxonomy>
-     *
-     * @ORM\ManyToMany(targetEntity="Bolt\Entity\Taxonomy", mappedBy="content", cascade={"persist"})
-     */
+    /** @var Collection<int, Taxonomy> */
     #[MaxDepth(1)]
+    #[ORM\ManyToMany(targetEntity: Taxonomy::class, mappedBy: 'content', cascade: ['persist'])]
     private Collection $taxonomies;
 
     private ?ContentType $contentTypeDefinition = null;
@@ -140,18 +125,16 @@ class Content implements Stringable
      * @var Collection<int, Relation>
      *
      * One content has many relations, to and from, these are relations pointing from this content.
-     *
-     * @ORM\OneToMany(targetEntity="Relation", mappedBy="fromContent")
      */
+    #[ORM\OneToMany(mappedBy: 'fromContent', targetEntity: Relation::class)]
     private Collection $relationsFromThisContent;
 
     /**
      * @var Collection<int, Relation>
      *
      * One content has many relations, to and from, these are relations pointing to this content.
-     *
-     * @ORM\OneToMany(targetEntity="Relation", mappedBy="toContent")
      */
+    #[ORM\OneToMany(mappedBy: 'toContent', targetEntity: Relation::class)]
     private Collection $relationsToThisContent;
 
     public function __construct(?ContentType $contentTypeDefinition = null)
@@ -411,10 +394,8 @@ class Content implements Stringable
         return $this;
     }
 
-    /**
-     * @ORM\PrePersist()
-     * @ORM\PreUpdate()
-     */
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
     public function updateModifiedAt(): void
     {
         $this->setModifiedAt(new DateTime());
@@ -844,10 +825,8 @@ class Content implements Stringable
         return $fieldValues;
     }
 
-    /**
-     * @ORM\PrePersist()
-     * @ORM\PreUpdate()
-     */
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
     public function setTitle(): self
     {
         if ($this->contentExtension instanceof ContentExtension) {
@@ -864,10 +843,8 @@ class Content implements Stringable
         return $this->listFormat;
     }
 
-    /**
-     * @ORM\PrePersist()
-     * @ORM\PreUpdate()
-     */
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
     public function setListFormat(): self
     {
         if ($this->contentExtension instanceof ContentExtension) {

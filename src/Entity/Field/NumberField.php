@@ -8,9 +8,7 @@ use Bolt\Entity\Field;
 use Bolt\Entity\FieldInterface;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity
- */
+#[ORM\Entity]
 class NumberField extends Field implements FieldInterface, ScalarCastable
 {
     public const TYPE = 'number';

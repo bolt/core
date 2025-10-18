@@ -6,43 +6,41 @@ namespace Bolt\Entity;
 
 use Bolt\Common\Str;
 use Bolt\Configuration\Content\TaxonomyType;
+use Bolt\Repository\TaxonomyRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Illuminate\Support\Collection as LaravelCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-/**
- * @ORM\Entity(repositoryClass="Bolt\Repository\TaxonomyRepository")
- */
+#[ORM\Entity(repositoryClass: TaxonomyRepository::class)]
 class Taxonomy
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
     #[Groups('public')]
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    /** @ORM\ManyToMany(targetEntity="Bolt\Entity\Content", inversedBy="taxonomies") */
-    private $content;
+    /** @var Collection<int, Content> */
+    #[ORM\ManyToMany(targetEntity: Content::class, inversedBy: 'taxonomies')]
+    private Collection $content;
 
-    /** @ORM\Column(type="string", length=191) */
     #[Groups(['get_content', 'public'])]
-    private $type;
+    #[ORM\Column(type: 'string', length: 191)]
+    private string $type = '';
 
-    /** @ORM\Column(type="string", length=191) */
     #[Groups(['get_content', 'public'])]
-    private $slug;
+    #[ORM\Column(type: 'string', length: 191)]
+    private string $slug = '';
 
-    /** @ORM\Column(type="string", length=191) */
     #[Groups(['get_content', 'public'])]
-    private $name;
+    #[ORM\Column(type: 'string', length: 191)]
+    private string $name = '';
 
-    /** @ORM\Column(type="integer") */
     #[Groups('public')]
-    private $sortorder = 0;
+    #[ORM\Column(type: 'integer')]
+    private int $sortorder = 0;
 
     private ?TaxonomyType $taxonomyTypeDefinition = null;
 
@@ -70,7 +68,7 @@ class Taxonomy
     }
 
     /**
-     * @return Collection|Content[]
+     * @return Collection<int, Content>
      */
     public function getContent(): Collection
     {
@@ -113,7 +111,7 @@ class Taxonomy
         return $this->getDefinition()->get('singular_slug');
     }
 
-    public function getType(): ?string
+    public function getType(): string
     {
         return $this->type;
     }
@@ -125,7 +123,7 @@ class Taxonomy
         return $this;
     }
 
-    public function getSlug(): ?string
+    public function getSlug(): string
     {
         return $this->slug;
     }
@@ -137,7 +135,7 @@ class Taxonomy
         return $this;
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }

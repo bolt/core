@@ -8,9 +8,7 @@ use Bolt\Entity\Field;
 use Bolt\Entity\FieldInterface;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity
- */
+#[ORM\Entity]
 class HtmlField extends Field implements Excerptable, FieldInterface
 {
     public const TYPE = 'html';

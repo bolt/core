@@ -9,9 +9,7 @@ use Bolt\Entity\FieldInterface;
 use Countable;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity
- */
+#[ORM\Entity]
 class FileField extends Field implements FieldInterface, Countable, RawPersistable
 {
     use FileExtrasTrait;

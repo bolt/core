@@ -15,9 +15,7 @@ use Bolt\Repository\FieldRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Iterator;
 
-/**
- * @ORM\Entity
- */
+#[ORM\Entity]
 class CollectionField extends Field implements Excerptable, FieldInterface, FieldParentInterface, ListFieldInterface, RawPersistable, Iterator
 {
     use FieldParentTrait;

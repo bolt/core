@@ -12,9 +12,7 @@ use Illuminate\Support\Collection;
 use Iterator;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-/**
- * @ORM\Entity
- */
+#[ORM\Entity]
 class SelectField extends Field implements FieldInterface, RawPersistable, Iterator
 {
     use IterableFieldTrait;

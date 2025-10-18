@@ -7,21 +7,17 @@ namespace Bolt\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslationTrait;
 
-/**
- * @ORM\Entity
- */
+#[ORM\Entity]
 class FieldTranslation implements TranslationInterface
 {
     use TranslationTrait;
 
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    /** @ORM\Column(type="json", options={"jsonb": true}) */
+    #[ORM\Column(type: 'json', options: ['jsonb' => true])]
     protected $value = [];
 
     public function getId(): ?int

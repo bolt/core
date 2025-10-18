@@ -12,9 +12,7 @@ use Bolt\Entity\ListFieldInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Iterator;
 
-/**
- * @ORM\Entity
- */
+#[ORM\Entity]
 class ImagelistField extends Field implements FieldInterface, ListFieldInterface, RawPersistable, Iterator
 {
     use IterableFieldTrait;

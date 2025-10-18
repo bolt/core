@@ -6,8 +6,8 @@ namespace Bolt\Entity;
 
 use Bolt\Common\Json;
 use Bolt\Enum\UserStatus;
+use Bolt\Repository\UserRepository;
 use Cocur\Slugify\Slugify;
-use DateTime;
 use DateTimeInterface;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -19,83 +19,71 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity(repositoryClass="Bolt\Repository\UserRepository")
- */
 #[UniqueEntity('email', message: 'user.duplicate_email', groups: ['add_user', 'edit_user', 'edit_user_without_pw'])]
 #[UniqueEntity('username', message: 'user.duplicate_username', groups: ['add_user', 'edit_user', 'edit_user_without_pw'])]
+#[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements UserInterface, Serializable, PasswordAuthenticatedUserInterface, Stringable
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
     #[Groups('get_user')]
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    /** @ORM\Column(type="string") */
     #[Assert\NotBlank(message: 'user.not_valid_display_name', normalizer: 'trim', groups: ['add_user', 'edit_user', 'edit_user_without_pw'])]
     #[Assert\Length(min: 2, max: 50, minMessage: 'user.not_valid_display_name', groups: ['add_user', 'edit_user', 'edit_user_without_pw'])]
     #[Groups(['get_content', 'get_user'])]
+    #[ORM\Column(type: 'string')]
     private string $displayName = '';
 
-    /** @ORM\Column(type="string", unique=true, length=191) */
     #[Assert\NotBlank(normalizer: 'trim', groups: ['add_user'])]
     #[Assert\Length(min: 2, max: 50, groups: ['add_user'])]
     #[Assert\Regex(pattern: '/^[a-z0-9_]+$/', message: 'user.username_invalid_characters', groups: ['add_user'])]
     #[Groups('get_user')]
+    #[ORM\Column(type: 'string', length: 191, unique: true)]
     private string $username = '';
 
-    /** @ORM\Column(type="string", unique=true, length=191) */
     #[Assert\NotBlank(normalizer: 'trim')]
     #[Assert\Email(message: 'user.not_valid_email', groups: ['add_user', 'edit_user', 'edit_user_without_pw'])]
     #[Groups('get_user')]
+    #[ORM\Column(type: 'string', length: 191, unique: true)]
     private string $email = '';
 
-    /** @ORM\Column(type="string", length=191) */
+    #[ORM\Column(type: 'string', length: 191)]
     private string $password;
 
     #[Assert\Length(min: 6, minMessage: 'user.not_valid_password', groups: ['add_user', 'edit_user'])]
     private ?string $plainPassword = null;
 
-    /** @ORM\Column(type="json") */
     #[Groups('get_user')]
+    #[ORM\Column(type: 'json')]
     private array $roles = [];
 
-    /** @ORM\Column(type="datetime", nullable=true) */
     #[Groups('get_user')]
+    #[ORM\Column(type: 'datetime', nullable: true)]
     private ?DateTimeInterface $lastseenAt = null;
 
-    /** @ORM\Column(type="string", length=100, nullable=true) */
+    #[ORM\Column(type: 'string', length: 100, nullable: true)]
     private ?string $lastIp = null;
 
-    /** @ORM\Column(type="string", length=191, nullable=true) */
     #[Groups('get_user')]
+    #[ORM\Column(type: 'string', length: 191, nullable: true)]
     private ?string $locale = null;
 
-    /** @ORM\Column(type="string", length=191, nullable=true) */
+    #[ORM\Column(type: 'string', length: 191, nullable: true)]
     private ?string $backendTheme = null;
 
-    /** @ORM\Column(type="string", length=30, options={"default":"enabled"}) */
+    #[ORM\Column(type: 'string', length: 30, options: ['default' => 'enabled'])]
     private string $status = UserStatus::ENABLED;
 
-    /** @ORM\OneToMany(
-     *     targetEntity="Bolt\Entity\UserAuthToken",
-     *     mappedBy="user",
-     *     indexBy="id",
-     *     fetch="EAGER",
-     *     orphanRemoval=true,
-     *     cascade={"persist", "remove"}
-     * )
-     * @var Collection<int, UserAuthToken>
-     */
+    /** @var Collection<int, UserAuthToken> */
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: UserAuthToken::class, cascade: ['persist', 'remove'], fetch: 'EAGER', orphanRemoval: true, indexBy: 'id')]
     private Collection $userAuthTokens;
 
-    /** @ORM\Column(type="string", length=250, nullable=true) */
+    #[ORM\Column(type: 'string', length: 250, nullable: true)]
     private ?string $avatar = null;
 
-    /** @ORM\Column(type="string", length=1024, nullable=true) */
+    #[ORM\Column(type: 'string', length: 1024, nullable: true)]
     private ?string $about = null;
 
     public function setId(int $id): void

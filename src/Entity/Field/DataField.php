@@ -9,9 +9,7 @@ use Bolt\Entity\Field;
 use Bolt\Entity\FieldInterface;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity
- */
+#[ORM\Entity]
 class DataField extends Field implements FieldInterface
 {
     public const TYPE = 'data';
