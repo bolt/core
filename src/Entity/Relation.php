@@ -48,17 +48,15 @@ class Relation
     /**
      * @ORM\ManyToOne(targetEntity="Content", inversedBy="relationsFromThisContent", fetch="EAGER")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
-     *
-     * @Groups("get_relation")
      */
+    #[Groups('get_relation')]
     private ?Content $fromContent;
 
     /**
      * @ORM\ManyToOne(targetEntity="Content", inversedBy="relationsToThisContent", fetch="EAGER")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
-     *
-     * @Groups("get_relation")
      */
+    #[Groups('get_relation')]
     private ?Content $toContent;
 
     /** @ORM\Column(type="integer") */
