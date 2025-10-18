@@ -69,10 +69,8 @@ class Field implements FieldInterface, TranslatableInterface, Stringable
      */
     private ?int $id = 0;
 
-    /**
-     * @ORM\Column(type="string", length=191)
-     * @Groups({"get_field","api_write"})
-     */
+    /** @ORM\Column(type="string", length=191) */
+    #[Groups(['get_field', 'api_write'])]
     public $name;
 
     /** @ORM\Column(type="integer") */
@@ -84,8 +82,8 @@ class Field implements FieldInterface, TranslatableInterface, Stringable
     /**
      * @ORM\ManyToOne(targetEntity="Bolt\Entity\Content", inversedBy="fields", fetch="EAGER")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups("api_write")
      */
+    #[Groups('api_write')]
     private $content;
 
     /**
@@ -130,9 +128,7 @@ class Field implements FieldInterface, TranslatableInterface, Stringable
         return $this->id;
     }
 
-    /**
-     * @Groups("get_field")
-     */
+    #[Groups('get_field')]
     public function getDefinition(): FieldType
     {
         if ($this->fieldTypeDefinition === null) {
@@ -188,10 +184,8 @@ class Field implements FieldInterface, TranslatableInterface, Stringable
         return $this->translate($this->getDefaultLocale(), false)->get($key);
     }
 
-    /**
-     * @Groups("get_field")
-     * @SerializedName("value")
-     */
+    #[Groups('get_field')]
+    #[SerializedName('value')]
     public function getApiValue()
     {
         if (! $this->isTranslatable()) {
@@ -304,9 +298,7 @@ class Field implements FieldInterface, TranslatableInterface, Stringable
         return $this;
     }
 
-    /**
-     * @Groups("api_write")
-     */
+    #[Groups('api_write')]
     public function setValue($value): self
     {
         $this->translate($this->getLocale(), ! $this->isTranslatable())->setValue($value);
@@ -387,9 +379,7 @@ class Field implements FieldInterface, TranslatableInterface, Stringable
         return $this;
     }
 
-    /**
-     * @Groups("get_field")
-     */
+    #[Groups('get_field')]
     public function getType(): string
     {
         return static::TYPE;

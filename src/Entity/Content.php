@@ -67,14 +67,12 @@ class Content implements Stringable
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"get_content", "api_write"})
      */
+    #[Groups(['get_content', 'api_write'])]
     private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=191)
-     * @Groups({"get_content","api_write"})
-     */
+    /** @ORM\Column(type="string", length=191) */
+    #[Groups(['get_content', 'api_write'])]
     private ?string $contentType = null;
 
     /**
@@ -83,34 +81,24 @@ class Content implements Stringable
      */
     private ?User $author = null;
 
-    /**
-     * @ORM\Column(type="string", length=191)
-     * @Groups({"get_content","api_write"})
-     */
+    /** @ORM\Column(type="string", length=191) */
+    #[Groups(['get_content', 'api_write'])]
     private ?string $status;
 
-    /**
-     * @ORM\Column(type="datetime")
-     * @Groups({"get_content","api_write"})
-     */
+    /** @ORM\Column(type="datetime") */
+    #[Groups(['get_content', 'api_write'])]
     private ?DateTime $createdAt;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     * @Groups({"get_content","api_write"})
-     */
+    /** @ORM\Column(type="datetime", nullable=true) */
+    #[Groups(['get_content', 'api_write'])]
     private ?DateTime $modifiedAt = null;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     * @Groups({"get_content","api_write"})
-     */
+    /** @ORM\Column(type="datetime", nullable=true) */
+    #[Groups(['get_content', 'api_write'])]
     private ?DateTime $publishedAt = null;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     * @Groups({"get_content","api_write"})
-     */
+    /** @ORM\Column(type="datetime", nullable=true) */
+    #[Groups(['get_content', 'api_write'])]
     private ?DateTime $depublishedAt = null;
 
     /** @ORM\Column(type="string", length=191, nullable=true) */
@@ -123,7 +111,6 @@ class Content implements Stringable
      * @var Collection<int, Field>
      *
      * @ApiSubresource(maxDepth=1)
-     * @MaxDepth(1)
      *
      * @ORM\OneToMany(
      *     targetEntity="Bolt\Entity\Field",
@@ -134,16 +121,17 @@ class Content implements Stringable
      *     cascade={"persist"}
      * )
      * @ORM\OrderBy({"sortorder": "ASC"})
-     * @Groups("api_write")
      */
+    #[MaxDepth(1)]
+    #[Groups('api_write')]
     private Collection $fields;
 
     /**
      * @var Collection<int, Taxonomy>
-     * @MaxDepth(1)
      *
      * @ORM\ManyToMany(targetEntity="Bolt\Entity\Taxonomy", mappedBy="content", cascade={"persist"})
      */
+    #[MaxDepth(1)]
     private Collection $taxonomies;
 
     private ?ContentType $contentTypeDefinition = null;
@@ -247,9 +235,7 @@ class Content implements Stringable
         $this->contentTypeDefinition = $contentType;
     }
 
-    /**
-     * @Groups("get_definition")
-     */
+    #[Groups('get_definition')]
     public function getDefinition(): ?ContentType
     {
         return $this->contentTypeDefinition;
@@ -474,9 +460,7 @@ class Content implements Stringable
         return $this->standaloneFieldsFilter();
     }
 
-    /**
-     * @Groups("get_content")
-     */
+    #[Groups('get_content')]
     public function getFieldValues(): array
     {
         $fieldValues = $this->getFieldValuesFromDefinition();
@@ -496,9 +480,7 @@ class Content implements Stringable
         return $fieldValues;
     }
 
-    /**
-     * @Groups("get_content")
-     */
+    #[Groups('get_content')]
     public function getTaxonomyValues(): array
     {
         $taxonomyValues = [];
@@ -608,9 +590,7 @@ class Content implements Stringable
         return $this;
     }
 
-    /**
-     * @Groups("get_content")
-     */
+    #[Groups('get_content')]
     public function getAuthorName(): ?string
     {
         if ($this->getAuthor() !== null) {

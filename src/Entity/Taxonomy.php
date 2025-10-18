@@ -21,35 +21,27 @@ class Taxonomy
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups("public")
      */
+    #[Groups('public')]
     private ?int $id = null;
 
     /** @ORM\ManyToMany(targetEntity="Bolt\Entity\Content", inversedBy="taxonomies") */
     private $content;
 
-    /**
-     * @ORM\Column(type="string", length=191)
-     * @Groups({"get_content", "public"})
-     */
+    /** @ORM\Column(type="string", length=191) */
+    #[Groups(['get_content', 'public'])]
     private $type;
 
-    /**
-     * @ORM\Column(type="string", length=191)
-     * @Groups({"get_content", "public"})
-     */
+    /** @ORM\Column(type="string", length=191) */
+    #[Groups(['get_content', 'public'])]
     private $slug;
 
-    /**
-     * @ORM\Column(type="string", length=191)
-     * @Groups({"get_content", "public"})
-     */
+    /** @ORM\Column(type="string", length=191) */
+    #[Groups(['get_content', 'public'])]
     private $name;
 
-    /**
-     * @ORM\Column(type="integer")
-     * @Groups("public")
-     */
+    /** @ORM\Column(type="integer") */
+    #[Groups('public')]
     private $sortorder = 0;
 
     private ?TaxonomyType $taxonomyTypeDefinition = null;
@@ -174,9 +166,7 @@ class Taxonomy
         $this->taxonomyTypeDefinition = $taxonomyType;
     }
 
-    /**
-     * @Groups("get_definition")
-     */
+    #[Groups('get_definition')]
     public function getDefinition(): ?TaxonomyType
     {
         return $this->taxonomyTypeDefinition;

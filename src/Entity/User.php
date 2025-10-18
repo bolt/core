@@ -21,69 +21,57 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="Bolt\Repository\UserRepository")
- * @UniqueEntity("email", message="user.duplicate_email", groups={"add_user", "edit_user", "edit_user_without_pw"})
- * @UniqueEntity("username", message="user.duplicate_username", groups={"add_user", "edit_user", "edit_user_without_pw"})
  */
+#[UniqueEntity('email', message: 'user.duplicate_email', groups: ['add_user', 'edit_user', 'edit_user_without_pw'])]
+#[UniqueEntity('username', message: 'user.duplicate_username', groups: ['add_user', 'edit_user', 'edit_user_without_pw'])]
 class User implements UserInterface, Serializable, PasswordAuthenticatedUserInterface, Stringable
 {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups("get_user")
      */
+    #[Groups('get_user')]
     private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string")
-     * @Assert\NotBlank(normalizer="trim", message="user.not_valid_display_name", groups={"add_user", "edit_user", "edit_user_without_pw"})
-     * @Assert\Length(min=2, max=50, minMessage="user.not_valid_display_name", groups={"add_user", "edit_user", "edit_user_without_pw"})
-     * @Groups({"get_content", "get_user"})
-     */
+    /** @ORM\Column(type="string") */
+    #[Assert\NotBlank(message: 'user.not_valid_display_name', normalizer: 'trim', groups: ['add_user', 'edit_user', 'edit_user_without_pw'])]
+    #[Assert\Length(min: 2, max: 50, minMessage: 'user.not_valid_display_name', groups: ['add_user', 'edit_user', 'edit_user_without_pw'])]
+    #[Groups(['get_content', 'get_user'])]
     private string $displayName = '';
 
-    /**
-     * @ORM\Column(type="string", unique=true, length=191)
-     * @Assert\NotBlank(normalizer="trim", groups={"add_user"})
-     * @Assert\Length(min=2, max=50, groups={"add_user"})
-     * @Assert\Regex(pattern="/^[a-z0-9_]+$/", message="user.username_invalid_characters", groups={"add_user"})
-     * @Groups("get_user")
-     */
+    /** @ORM\Column(type="string", unique=true, length=191) */
+    #[Assert\NotBlank(normalizer: 'trim', groups: ['add_user'])]
+    #[Assert\Length(min: 2, max: 50, groups: ['add_user'])]
+    #[Assert\Regex(pattern: '/^[a-z0-9_]+$/', message: 'user.username_invalid_characters', groups: ['add_user'])]
+    #[Groups('get_user')]
     private string $username = '';
 
-    /**
-     * @ORM\Column(type="string", unique=true, length=191)
-     * @Assert\NotBlank(normalizer="trim")
-     * @Assert\Email(message="user.not_valid_email", groups={"add_user", "edit_user", "edit_user_without_pw"})
-     * @Groups("get_user")
-     */
+    /** @ORM\Column(type="string", unique=true, length=191) */
+    #[Assert\NotBlank(normalizer: 'trim')]
+    #[Assert\Email(message: 'user.not_valid_email', groups: ['add_user', 'edit_user', 'edit_user_without_pw'])]
+    #[Groups('get_user')]
     private string $email = '';
 
     /** @ORM\Column(type="string", length=191) */
     private string $password;
 
-    /** @Assert\Length(min="6", minMessage="user.not_valid_password", groups={"add_user", "edit_user"}) */
+    #[Assert\Length(min: 6, minMessage: 'user.not_valid_password', groups: ['add_user', 'edit_user'])]
     private ?string $plainPassword = null;
 
-    /**
-     * @ORM\Column(type="json")
-     * @Groups("get_user")
-     */
+    /** @ORM\Column(type="json") */
+    #[Groups('get_user')]
     private array $roles = [];
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     * @Groups("get_user")
-     */
+    /** @ORM\Column(type="datetime", nullable=true) */
+    #[Groups('get_user')]
     private ?DateTimeInterface $lastseenAt = null;
 
     /** @ORM\Column(type="string", length=100, nullable=true) */
     private ?string $lastIp = null;
 
-    /**
-     * @ORM\Column(type="string", length=191, nullable=true)
-     * @Groups("get_user")
-     */
+    /** @ORM\Column(type="string", length=191, nullable=true) */
+    #[Groups('get_user')]
     private ?string $locale = null;
 
     /** @ORM\Column(type="string", length=191, nullable=true) */

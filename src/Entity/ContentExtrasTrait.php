@@ -22,9 +22,8 @@ trait ContentExtrasTrait
 
     /**
      * @internal This should not be used outside of API. Use ContentExtension or Twig filters instead.
-     *
-     * @Groups("get_content")
      */
+    #[Groups('get_content')]
     public function getExtras(): array
     {
         $content = $this;
