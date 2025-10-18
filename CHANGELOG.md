@@ -8,6 +8,7 @@ Changelog
 - Replaced `tightenco/collect` with `illuminate/collections`. The namespace has changed from `Tightenco\Collect\Support\*` to `Illuminate\Support\*`. (macintoshplus, [#3555](https://github.com/bolt/core/issues/3555))
 - Replaced `bobdenotter/weatherwidget` with `bolt/weatherwidget`. The namespace has changed from `BobdenOtter\WeatherWidget` to `Bolt\WeatherWidget`. Your configuration should be migrated automatically, but if you weren't using the weather widget you might need to remove the newly added configuration manually. (macintoshplus and bobvandevijver, [#3587](https://github.com/bolt/core/issues/3587))
 - Replaced `bobdenotter/configuration-notices` with `bolt/configuration-notices-widget`. The namespace has changed from `BobdenOtter\ConfigurationNotices` to `Bolt\ConfigurationNoticesWidget`. Your configuration should be migrated automatically, but if you weren't using the configuration notices widget you might need to remove the newly added configuration manually. (macintoshplus and bobvandevijver, [#3588](https://github.com/bolt/core/issues/3588))
+- We have migrated away from annotations and fully adopted attributes. If you are relying on annotations you will need to either re-enable annotation support, or migrate them as well (the latter is the recommended approach). (bobvandevijver, [#3608](https://github.com/bolt/core/issues/3608))
 
 ## 5.2.2
 
