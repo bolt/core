@@ -7,18 +7,19 @@ namespace Bolt\Controller\Frontend;
 use Bolt\Configuration\Content\TaxonomyType;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Repository\ContentRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class TaxonomyController extends TwigAwareController implements FrontendZoneInterface
 {
     #[Route(path: '/{taxonomyslug}/{slug}', name: 'taxonomy', requirements: [
-        'taxonomyslug' => '%bolt.requirement.taxonomies%'
-    ], methods: ['GET|POST'])]
+        'taxonomyslug' => '%bolt.requirement.taxonomies%',
+    ], methods: [Request::METHOD_GET, Request::METHOD_POST])]
     #[Route(path: '/{_locale}/{taxonomyslug}/{slug}', name: 'taxonomy_locale', requirements: [
         'taxonomyslug' => '%bolt.requirement.taxonomies%',
-        '_locale' => '%app_locales%'
-    ], methods: ['GET|POST'])]
+        '_locale' => '%app_locales%',
+    ], methods: [Request::METHOD_GET, Request::METHOD_POST])]
     public function listing(ContentRepository $contentRepository, string $taxonomyslug, string $slug): Response
     {
         $page = (int) $this->getFromRequest('page', '1');

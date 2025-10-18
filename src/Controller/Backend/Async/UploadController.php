@@ -52,7 +52,7 @@ class UploadController extends AbstractController implements AsyncZoneInterface
         $this->request = $requestStack->getCurrentRequest();
     }
 
-    #[Route(path: '/upload-url', name: 'bolt_async_upload_url', methods: ['POST'])]
+    #[Route(path: '/upload-url', name: 'bolt_async_upload_url', methods: [Request::METHOD_POST])]
     public function handleURLUpload(Request $request, ValidatorInterface $validator): Response
     {
         try {
@@ -106,7 +106,7 @@ class UploadController extends AbstractController implements AsyncZoneInterface
         return $response;
     }
 
-    #[Route(path: '/upload', name: 'bolt_async_upload', methods: ['POST'])]
+    #[Route(path: '/upload', name: 'bolt_async_upload', methods: [Request::METHOD_POST])]
     public function handleUpload(Request $request): JsonResponse
     {
         try {

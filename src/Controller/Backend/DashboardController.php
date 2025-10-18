@@ -6,12 +6,13 @@ namespace Bolt\Controller\Backend;
 
 use Bolt\Controller\TwigAwareController;
 use Bolt\Storage\Query;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DashboardController extends TwigAwareController implements BackendZoneInterface
 {
-    #[Route(path: '/', name: 'bolt_dashboard', methods: ['GET'])]
+    #[Route(path: '/', name: 'bolt_dashboard', methods: [Request::METHOD_GET])]
     public function index(Query $query): Response
     {
         $this->denyAccessUnlessGranted('dashboard');

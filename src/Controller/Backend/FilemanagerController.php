@@ -18,6 +18,7 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Path;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -37,7 +38,7 @@ class FilemanagerController extends TwigAwareController implements BackendZoneIn
     ) {
     }
 
-    #[Route(path: '/filemanager/{location}', name: 'bolt_filemanager', methods: ['GET'])]
+    #[Route(path: '/filemanager/{location}', name: 'bolt_filemanager', methods: [Request::METHOD_GET])]
     public function filemanager(string $location): Response
     {
         $session = $this->requestStack->getSession();
@@ -81,7 +82,7 @@ class FilemanagerController extends TwigAwareController implements BackendZoneIn
         ]);
     }
 
-    #[Route(path: '/filemanager-actions/delete/', name: 'bolt_filemanager_delete', methods: ['POST', 'GET'])]
+    #[Route(path: '/filemanager-actions/delete/', name: 'bolt_filemanager_delete', methods: [Request::METHOD_GET, Request::METHOD_POST])]
     public function delete(): Response
     {
         try {
@@ -120,7 +121,7 @@ class FilemanagerController extends TwigAwareController implements BackendZoneIn
         ]);
     }
 
-    #[Route(path: '/filemanager-actions/create', name: 'bolt_filemanager_create', methods: ['POST'])]
+    #[Route(path: '/filemanager-actions/create', name: 'bolt_filemanager_create', methods: [Request::METHOD_POST])]
     public function create(): Response
     {
         try {

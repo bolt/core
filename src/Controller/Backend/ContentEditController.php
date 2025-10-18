@@ -37,6 +37,7 @@ use Illuminate\Support\Collection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -65,7 +66,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
     ) {
     }
 
-    #[Route(path: '/new/{contentType}', name: 'bolt_content_new', methods: ['GET|POST'])]
+    #[Route(path: '/new/{contentType}', name: 'bolt_content_new', methods: [Request::METHOD_GET, Request::METHOD_POST])]
     public function new(string $contentType, ?ContentValidatorInterface $contentValidator = null): Response
     {
         $content = new Content();
@@ -91,7 +92,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         return $this->edit($content);
     }
 
-    #[Route(path: '/edit/{id}', name: 'bolt_content_edit', requirements: ['id' => '\d+'], methods: ['GET'])]
+    #[Route(path: '/edit/{id}', name: 'bolt_content_edit', requirements: ['id' => '\d+'], methods: [Request::METHOD_GET])]
     public function edit(Content $content): Response
     {
         $this->denyAccessUnlessGranted(ContentVoter::CONTENT_EDIT, $content);
@@ -102,7 +103,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         return $this->renderEditor($content);
     }
 
-    #[Route(path: '/edit/{id}', name: 'bolt_content_edit_post', requirements: ['id' => '\d+'], methods: ['POST'])]
+    #[Route(path: '/edit/{id}', name: 'bolt_content_edit_post', requirements: ['id' => '\d+'], methods: [Request::METHOD_POST])]
     public function save(?Content $originalContent = null, ?ContentValidatorInterface $contentValidator = null): Response
     {
         $this->validateCsrf('editrecord');
@@ -209,7 +210,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         return new RedirectResponse($url);
     }
 
-    #[Route(path: '/duplicate/{id}', name: 'bolt_content_duplicate', requirements: ['id' => '\d+'], methods: ['GET'])]
+    #[Route(path: '/duplicate/{id}', name: 'bolt_content_duplicate', requirements: ['id' => '\d+'], methods: [Request::METHOD_GET])]
     public function duplicate(Content $content): Response
     {
         $this->denyAccessUnlessGranted(ContentVoter::CONTENT_CREATE, $content);
@@ -237,7 +238,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         return $this->render('@bolt/content/edit.html.twig', $twigvars);
     }
 
-    #[Route(path: '/duplicate/{id}', name: 'bolt_content_duplicate_post', requirements: ['id' => '\d+'], methods: ['POST'])]
+    #[Route(path: '/duplicate/{id}', name: 'bolt_content_duplicate_post', requirements: ['id' => '\d+'], methods: [Request::METHOD_POST])]
     public function duplicateSave(?Content $content = null): Response
     {
         $this->denyAccessUnlessGranted(ContentVoter::CONTENT_CREATE, $content);
@@ -245,7 +246,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         return $this->new($content->getContentType());
     }
 
-    #[Route(path: '/status/{id}', name: 'bolt_content_status', requirements: ['id' => '\d+'], methods: ['GET'])]
+    #[Route(path: '/status/{id}', name: 'bolt_content_status', requirements: ['id' => '\d+'], methods: [Request::METHOD_GET])]
     public function status(Content $content): Response
     {
         $this->validateCsrf('status');
@@ -271,7 +272,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         return new RedirectResponse($url);
     }
 
-    #[Route(path: '/delete/{id}', name: 'bolt_content_delete', requirements: ['id' => '\d+'], methods: ['GET'])]
+    #[Route(path: '/delete/{id}', name: 'bolt_content_delete', requirements: ['id' => '\d+'], methods: [Request::METHOD_GET])]
     public function delete(Content $content): Response
     {
         $this->validateCsrf('delete');

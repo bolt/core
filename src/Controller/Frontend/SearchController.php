@@ -8,13 +8,14 @@ use Bolt\Controller\TwigAwareController;
 use Bolt\Repository\ContentRepository;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class SearchController extends TwigAwareController implements FrontendZoneInterface
 {
-    #[Route(path: '/search', name: 'search', methods: ['GET|POST'])]
-    #[Route(path: '/{_locale}/search', name: 'search_locale', methods: ['GET|POST'])]
+    #[Route(path: '/search', name: 'search', methods: [Request::METHOD_GET, Request::METHOD_POST])]
+    #[Route(path: '/{_locale}/search', name: 'search_locale', methods: [Request::METHOD_GET, Request::METHOD_POST])]
     public function search(ContentRepository $contentRepository): Response
     {
         $page = (int) $this->getFromRequest('page', '1');

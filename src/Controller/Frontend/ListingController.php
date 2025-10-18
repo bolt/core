@@ -25,12 +25,12 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
     }
 
     #[Route(path: '/{contentTypeSlug}', name: 'listing', requirements: [
-        'contentTypeSlug' => '%bolt.requirement.contenttypes%'
-    ], methods: ['GET|POST'])]
+        'contentTypeSlug' => '%bolt.requirement.contenttypes%',
+    ], methods: [Request::METHOD_GET, Request::METHOD_POST])]
     #[Route(path: '/{_locale}/{contentTypeSlug}', name: 'listing_locale', requirements: [
         'contentTypeSlug' => '%bolt.requirement.contenttypes%',
-        '_locale' => '%app_locales%'
-    ], methods: ['GET|POST'])]
+        '_locale' => '%app_locales%',
+    ], methods: [Request::METHOD_GET, Request::METHOD_POST])]
     public function listing(ContentRepository $contentRepository, string $contentTypeSlug, ?string $_locale = null): Response
     {
         if ($_locale === null && ! $this->getFromRequest('_locale', null)) {

@@ -47,7 +47,7 @@ class BulkOperationsController extends AbstractController implements BackendZone
         return $this->em;
     }
 
-    #[Route(path: '/bulk/status/{status}', name: 'bolt_bulk_status', methods: ['POST'])]
+    #[Route(path: '/bulk/status/{status}', name: 'bolt_bulk_status', methods: [Request::METHOD_POST])]
     public function status(string $status): Response
     {
         $this->validateCsrf('batch');
@@ -69,7 +69,7 @@ class BulkOperationsController extends AbstractController implements BackendZone
         return new RedirectResponse($url);
     }
 
-    #[Route(path: '/bulk/delete', name: 'bolt_bulk_delete', methods: ['POST'])]
+    #[Route(path: '/bulk/delete', name: 'bolt_bulk_delete', methods: [Request::METHOD_POST])]
     public function delete(): Response
     {
         $this->validateCsrf('batch');
