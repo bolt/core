@@ -18,9 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ClearCacheController extends AbstractController implements BackendZoneInterface
 {
-    /**
-     * @Route("/clearcache", name="bolt_clear_cache")
-     */
+    #[Route(path: '/clearcache', name: 'bolt_clear_cache')]
     public function index(KernelInterface $kernel): Response
     {
         $output = $this->clearcache($kernel);

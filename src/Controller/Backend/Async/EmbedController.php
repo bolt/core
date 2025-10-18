@@ -30,9 +30,7 @@ class EmbedController implements AsyncZoneInterface
         $this->request = $requestStack->getCurrentRequest();
     }
 
-    /**
-     * @Route("/embed", name="bolt_async_embed", methods={"POST"})
-     */
+    #[Route(path: '/embed', name: 'bolt_async_embed', methods: ['POST'])]
     public function fetchEmbed(): JsonResponse
     {
         try {

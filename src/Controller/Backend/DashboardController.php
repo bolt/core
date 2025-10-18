@@ -11,9 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DashboardController extends TwigAwareController implements BackendZoneInterface
 {
-    /**
-     * @Route("/", name="bolt_dashboard", methods={"GET"})
-     */
+    #[Route(path: '/', name: 'bolt_dashboard', methods: ['GET'])]
     public function index(Query $query): Response
     {
         $this->denyAccessUnlessGranted('dashboard');

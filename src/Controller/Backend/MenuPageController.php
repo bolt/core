@@ -10,9 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class MenuPageController extends TwigAwareController implements BackendZoneInterface
 {
-    /**
-     * @Route("/menu/{slug}", name="bolt_menupage", methods={"GET"})
-     */
+    #[Route(path: '/menu/{slug}', name: 'bolt_menupage', methods: ['GET'])]
     public function menuPage(string $slug): Response
     {
         $twigVars = [

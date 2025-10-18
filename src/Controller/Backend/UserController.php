@@ -27,9 +27,7 @@ class UserController extends TwigAwareController implements BackendZoneInterface
     ) {
     }
 
-    /**
-     * @Route("/users", name="bolt_users")
-     */
+    #[Route(path: '/users', name: 'bolt_users')]
     public function users(Query $query): Response
     {
         $order = 'username';

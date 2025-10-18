@@ -48,9 +48,9 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
     }
 
     /**
-     * @Route("/user-edit/add", methods={"GET","POST"}, name="bolt_user_add")
      * @Security("is_granted('user:add')")
      */
+    #[Route(path: '/user-edit/add', name: 'bolt_user_add', methods: ['GET', 'POST'])]
     public function add(Request $request): Response
     {
         $user = UserRepository::factory();
@@ -100,10 +100,9 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
     }
 
     /**
-     * @Route("/profile-edit", methods={"GET","POST"}, name="bolt_profile_edit")
-     *
      * @Security("is_granted('editprofile')")
      */
+    #[Route(path: '/profile-edit', name: 'bolt_profile_edit', methods: ['GET', 'POST'])]
     public function editProfile(Request $request): Response
     {
         $submitted_data = $request->request->get('user');
@@ -114,10 +113,9 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
     }
 
     /**
-     * @Route("/user-edit/{id}", methods={"GET","POST"}, name="bolt_user_edit", requirements={"id": "\d+"})
-     *
      * @Security("is_granted('user:edit')")
      */
+    #[Route(path: '/user-edit/{id}', name: 'bolt_user_edit', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
     public function edit(User $user, Request $request): Response
     {
         $submitted_data = $request->request->get('user');
@@ -126,9 +124,9 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
     }
 
     /**
-     * @Route("/user-status/{id}", methods={"POST", "GET"}, name="bolt_user_update_status", requirements={"id": "\d+"})
      * @Security("is_granted('user:status')") -- first check, more detailed checks in method
      */
+    #[Route(path: '/user-status/{id}', name: 'bolt_user_update_status', requirements: ['id' => '\d+'], methods: ['POST', 'GET'])]
     public function status(User $user): Response
     {
         $this->validateCsrf('useredit');
@@ -147,9 +145,9 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
     }
 
     /**
-     * @Route("/user-delete/{id}", methods={"POST", "GET"}, name="bolt_user_delete", requirements={"id": "\d+"})
      * @Security("is_granted('user:delete')")
      */
+    #[Route(path: '/user-delete/{id}', name: 'bolt_user_delete', requirements: ['id' => '\d+'], methods: ['POST', 'GET'])]
     public function delete(User $user): Response
     {
         $this->validateCsrf('useredit');

@@ -16,9 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ContentLocalizationController extends TwigAwareController implements BackendZoneInterface
 {
-    /**
-     * @Route("/edit_locales/{id}", name="bolt_content_edit_locales", methods={"GET"})
-     */
+    #[Route(path: '/edit_locales/{id}', name: 'bolt_content_edit_locales', methods: ['GET'])]
     public function locales(Content $content): Response
     {
         $this->denyAccessUnlessGranted(ContentVoter::CONTENT_VIEW, $content);

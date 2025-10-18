@@ -12,20 +12,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TaxonomyController extends TwigAwareController implements FrontendZoneInterface
 {
-    /**
-     * @Route(
-     *     "/{taxonomyslug}/{slug}",
-     *     name="taxonomy",
-     *     requirements={"taxonomyslug"="%bolt.requirement.taxonomies%"},
-     *     methods={"GET|POST"}
-     * )
-     * @Route(
-     *     "/{_locale}/{taxonomyslug}/{slug}",
-     *     name="taxonomy_locale",
-     *     requirements={"taxonomyslug"="%bolt.requirement.taxonomies%", "_locale": "%app_locales%"},
-     *     methods={"GET|POST"}
-     * )
-     */
+    #[Route(path: '/{taxonomyslug}/{slug}', name: 'taxonomy', requirements: [
+        'taxonomyslug' => '%bolt.requirement.taxonomies%'
+    ], methods: ['GET|POST'])]
+    #[Route(path: '/{_locale}/{taxonomyslug}/{slug}', name: 'taxonomy_locale', requirements: [
+        'taxonomyslug' => '%bolt.requirement.taxonomies%',
+        '_locale' => '%app_locales%'
+    ], methods: ['GET|POST'])]
     public function listing(ContentRepository $contentRepository, string $taxonomyslug, string $slug): Response
     {
         $page = (int) $this->getFromRequest('page', '1');

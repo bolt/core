@@ -15,9 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class LogViewerController extends TwigAwareController implements BackendZoneInterface
 {
-    /**
-     * @Route("/logviewer", name="bolt_logviewer", methods={"GET"})
-     */
+    #[Route(path: '/logviewer', name: 'bolt_logviewer', methods: ['GET'])]
     public function index(LogRepository $log): Response
     {
         $amount = $this->config->get('general/log/amount', 10);
