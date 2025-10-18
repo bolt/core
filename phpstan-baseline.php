@@ -2312,31 +2312,7 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Entity/Field.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Entity\\\\Field\\:\\:\\$content has no type specified\\.$#',
-	'identifier' => 'missingType.property',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Field.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Property Bolt\\\\Entity\\\\Field\\:\\:\\$name has no type specified\\.$#',
-	'identifier' => 'missingType.property',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Field.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Entity\\\\Field\\:\\:\\$parent has no type specified\\.$#',
-	'identifier' => 'missingType.property',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Field.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Entity\\\\Field\\:\\:\\$sortorder has no type specified\\.$#',
-	'identifier' => 'missingType.property',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Field.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Entity\\\\Field\\:\\:\\$version has no type specified\\.$#',
 	'identifier' => 'missingType.property',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Entity/Field.php',
@@ -2846,178 +2822,28 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Entity/Log.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Entity\\\\Log\\:\\:\\$content has no type specified\\.$#',
-	'identifier' => 'missingType.property',
+	'message' => '#^Property Bolt\\\\Entity\\\\Log\\:\\:\\$context type has no value type specified in iterable type array\\.$#',
+	'identifier' => 'missingType.iterableValue',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Entity/Log.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Entity\\\\Log\\:\\:\\$context has no type specified\\.$#',
-	'identifier' => 'missingType.property',
+	'message' => '#^Property Bolt\\\\Entity\\\\Log\\:\\:\\$extra type has no value type specified in iterable type array\\.$#',
+	'identifier' => 'missingType.iterableValue',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Entity/Log.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Entity\\\\Log\\:\\:\\$createdAt has no type specified\\.$#',
-	'identifier' => 'missingType.property',
+	'message' => '#^Property Bolt\\\\Entity\\\\Log\\:\\:\\$location type has no value type specified in iterable type array\\.$#',
+	'identifier' => 'missingType.iterableValue',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Entity/Log.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Entity\\\\Log\\:\\:\\$extra has no type specified\\.$#',
-	'identifier' => 'missingType.property',
+	'message' => '#^Property Bolt\\\\Entity\\\\Log\\:\\:\\$user type has no value type specified in iterable type array\\.$#',
+	'identifier' => 'missingType.iterableValue',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Entity/Log.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Entity\\\\Log\\:\\:\\$level has no type specified\\.$#',
-	'identifier' => 'missingType.property',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Log.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Entity\\\\Log\\:\\:\\$levelName has no type specified\\.$#',
-	'identifier' => 'missingType.property',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Log.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Entity\\\\Log\\:\\:\\$location has no type specified\\.$#',
-	'identifier' => 'missingType.property',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Log.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Entity\\\\Log\\:\\:\\$message has no type specified\\.$#',
-	'identifier' => 'missingType.property',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Log.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Entity\\\\Log\\:\\:\\$user has no type specified\\.$#',
-	'identifier' => 'missingType.property',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Log.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\Entity\\\\Media\\:\\:getCropX\\(\\) has no return type specified\\.$#',
-	'identifier' => 'missingType.return',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Media.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\Entity\\\\Media\\:\\:getCropY\\(\\) has no return type specified\\.$#',
-	'identifier' => 'missingType.return',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Media.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\Entity\\\\Media\\:\\:getCropZoom\\(\\) has no return type specified\\.$#',
-	'identifier' => 'missingType.return',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Media.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Entity\\\\Media\\:\\:\\$author \\(Bolt\\\\Entity\\\\User\\) does not accept Bolt\\\\Entity\\\\User\\|null\\.$#',
-	'identifier' => 'assign.propertyType',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Media.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Entity\\\\Media\\:\\:\\$copyright has no type specified\\.$#',
-	'identifier' => 'missingType.property',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Media.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Entity\\\\Media\\:\\:\\$createdAt has no type specified\\.$#',
-	'identifier' => 'missingType.property',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Media.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Entity\\\\Media\\:\\:\\$cropX has no type specified\\.$#',
-	'identifier' => 'missingType.property',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Media.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Entity\\\\Media\\:\\:\\$cropY has no type specified\\.$#',
-	'identifier' => 'missingType.property',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Media.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Entity\\\\Media\\:\\:\\$cropZoom has no type specified\\.$#',
-	'identifier' => 'missingType.property',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Media.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Entity\\\\Media\\:\\:\\$description has no type specified\\.$#',
-	'identifier' => 'missingType.property',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Media.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Entity\\\\Media\\:\\:\\$filename has no type specified\\.$#',
-	'identifier' => 'missingType.property',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Media.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Entity\\\\Media\\:\\:\\$filesize has no type specified\\.$#',
-	'identifier' => 'missingType.property',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Media.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Entity\\\\Media\\:\\:\\$height has no type specified\\.$#',
-	'identifier' => 'missingType.property',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Media.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Entity\\\\Media\\:\\:\\$location has no type specified\\.$#',
-	'identifier' => 'missingType.property',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Media.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Entity\\\\Media\\:\\:\\$modifiedAt has no type specified\\.$#',
-	'identifier' => 'missingType.property',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Media.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Entity\\\\Media\\:\\:\\$originalFilename has no type specified\\.$#',
-	'identifier' => 'missingType.property',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Media.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Entity\\\\Media\\:\\:\\$path has no type specified\\.$#',
-	'identifier' => 'missingType.property',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Media.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Entity\\\\Media\\:\\:\\$title has no type specified\\.$#',
-	'identifier' => 'missingType.property',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Media.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Entity\\\\Media\\:\\:\\$type has no type specified\\.$#',
-	'identifier' => 'missingType.property',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Media.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Entity\\\\Media\\:\\:\\$width has no type specified\\.$#',
-	'identifier' => 'missingType.property',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Media.php',
 ];
 $ignoreErrors[] = [
 	'message' => '#^Cannot call method getContentTypeSlug\\(\\) on Bolt\\\\Entity\\\\Content\\|null\\.$#',
@@ -3056,56 +2882,8 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Entity/Relation.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\Entity\\\\Taxonomy\\:\\:getContent\\(\\) return type with generic interface Doctrine\\\\Common\\\\Collections\\\\Collection does not specify its types\\: TKey, T$#',
-	'identifier' => 'missingType.generics',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Taxonomy.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\Entity\\\\Taxonomy\\:\\:getTaxonomyTypeSingularSlug\\(\\) should return string but returns string\\|null\\.$#',
-	'identifier' => 'return.type',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Taxonomy.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\Entity\\\\Taxonomy\\:\\:getTaxonomyTypeSlug\\(\\) should return string but returns string\\|null\\.$#',
-	'identifier' => 'return.type',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Taxonomy.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Method Bolt\\\\Entity\\\\Taxonomy\\:\\:setDefinitionFromTaxonomyTypesConfig\\(\\) has parameter \\$taxonomyTypesConfig with generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#',
 	'identifier' => 'missingType.generics',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Taxonomy.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Entity\\\\Taxonomy\\:\\:\\$content has no type specified\\.$#',
-	'identifier' => 'missingType.property',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Taxonomy.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Entity\\\\Taxonomy\\:\\:\\$name has no type specified\\.$#',
-	'identifier' => 'missingType.property',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Taxonomy.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Entity\\\\Taxonomy\\:\\:\\$slug has no type specified\\.$#',
-	'identifier' => 'missingType.property',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Taxonomy.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Entity\\\\Taxonomy\\:\\:\\$sortorder has no type specified\\.$#',
-	'identifier' => 'missingType.property',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Taxonomy.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Entity\\\\Taxonomy\\:\\:\\$type has no type specified\\.$#',
-	'identifier' => 'missingType.property',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Entity/Taxonomy.php',
 ];
@@ -3156,24 +2934,6 @@ $ignoreErrors[] = [
 	'identifier' => 'missingType.iterableValue',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Entity/User.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Entity\\\\UserAuthToken\\:\\:\\$user has no type specified\\.$#',
-	'identifier' => 'missingType.property',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/UserAuthToken.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Entity\\\\UserAuthToken\\:\\:\\$useragent has no type specified\\.$#',
-	'identifier' => 'missingType.property',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/UserAuthToken.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Entity\\\\UserAuthToken\\:\\:\\$validity has no type specified\\.$#',
-	'identifier' => 'missingType.property',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/UserAuthToken.php',
 ];
 $ignoreErrors[] = [
 	'message' => '#^Argument of an invalid type array\\|null supplied for foreach, only iterables are supported\\.$#',
