@@ -8,6 +8,7 @@ use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Bolt\Configuration\Content\ContentType;
+use Bolt\Repository\RelationRepository;
 use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -31,35 +32,28 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *          "delete"={"security"="is_granted('api:delete')"}
  *     }
  * )
- * @ORM\Entity(repositoryClass="Bolt\Repository\RelationRepository")
- * @ORM\Table(indexes={
- * })
  * @ApiFilter(SearchFilter::class, strategy="partial")
  */
+#[ORM\Entity(repositoryClass: RelationRepository::class)]
+#[ORM\Table]
 class Relation
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Content", inversedBy="relationsFromThisContent", fetch="EAGER")
-     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
-     */
     #[Groups('get_relation')]
+    #[ORM\ManyToOne(targetEntity: Content::class, fetch: 'EAGER', inversedBy: 'relationsFromThisContent')]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private ?Content $fromContent;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Content", inversedBy="relationsToThisContent", fetch="EAGER")
-     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
-     */
     #[Groups('get_relation')]
+    #[ORM\ManyToOne(targetEntity: Content::class, fetch: 'EAGER', inversedBy: 'relationsToThisContent')]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private ?Content $toContent;
 
-    /** @ORM\Column(type="integer") */
+    #[ORM\Column(type: 'integer')]
     private int $position = 0;
 
     /**

@@ -9,9 +9,7 @@ use Bolt\Entity\FieldInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Twig\Markup;
 
-/**
- * @ORM\Entity
- */
+#[ORM\Entity]
 class EmbedField extends Field implements FieldInterface
 {
     public const TYPE = 'embed';

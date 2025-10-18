@@ -10,6 +10,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Bolt\Common\Arr;
 use Bolt\Configuration\Content\FieldType;
 use Bolt\Event\Listener\FieldFillListener;
+use Bolt\Repository\FieldRepository;
 use Bolt\Utils\Sanitiser;
 use Doctrine\ORM\Mapping as ORM;
 use Illuminate\Support\Collection;
@@ -51,46 +52,40 @@ use Twig\Markup;
  *     }
  * )
  * @ApiFilter(SearchFilter::class)
- * @ORM\Entity(repositoryClass="Bolt\Repository\FieldRepository")
- * @ORM\InheritanceType("SINGLE_TABLE")
- * @ORM\DiscriminatorColumn(name="type", type="string", length=191)
- * @ORM\DiscriminatorMap({"generic" = "Field"})
  */
+#[ORM\Entity(repositoryClass: FieldRepository::class)]
+#[ORM\InheritanceType('SINGLE_TABLE')]
+#[ORM\DiscriminatorColumn(name: 'type', type: 'string', length: 191)]
+#[ORM\DiscriminatorMap(['generic' => 'Field'])]
 class Field implements FieldInterface, TranslatableInterface, Stringable
 {
     use TranslatableTrait;
 
     public const TYPE = 'generic';
 
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = 0;
 
-    /** @ORM\Column(type="string", length=191) */
     #[Groups(['get_field', 'api_write'])]
+    #[ORM\Column(type: 'string', length: 191)]
     public $name;
 
-    /** @ORM\Column(type="integer") */
-    private $sortorder = 0;
+    #[ORM\Column(type: 'integer')]
+    private int $sortorder = 0;
 
-    /** @ORM\Column(type="integer", nullable=true) */
-    private $version;
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private ?int $version = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Bolt\Entity\Content", inversedBy="fields", fetch="EAGER")
-     * @ORM\JoinColumn(nullable=false)
-     */
     #[Groups('api_write')]
-    private $content;
+    #[ORM\ManyToOne(targetEntity: Content::class, fetch: 'EAGER', inversedBy: 'fields')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Content $content = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Bolt\Entity\Field", cascade={"persist"})
-     * @ORM\JoinColumn(onDelete="CASCADE")
-     */
-    private $parent;
+    #[ORM\ManyToOne(targetEntity: self::class, cascade: ['persist'])]
+    #[ORM\JoinColumn(onDelete: 'CASCADE')]
+    private ?self $parent = null;
 
     private ?FieldType $fieldTypeDefinition = null;
     private bool $useDefaultLocale = true;
