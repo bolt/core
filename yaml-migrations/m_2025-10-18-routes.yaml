@@ -1,6 +1,0 @@
-file: routes.yaml
-since: 6.0.0
-
-add:
-    frontend:
-        type: attribute

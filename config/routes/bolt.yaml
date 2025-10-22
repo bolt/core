@@ -6,18 +6,18 @@
 control_panel:
     resource: '../../src/Controller/Backend/'
     prefix: '%bolt.backend_url%'
-    type: attribute
+    type: annotation
 
 # Async: Upload, Embed
 control_panel_async:
     resource: '../../src/Controller/Backend/Async/'
     prefix: '%bolt.backend_url%/async'
-    type: attribute
+    type: annotation
 
 # ImageController, Currently only used for thumbnails
 controllers:
     resource: '../../src/Controller/ImageController.php'
-    type: attribute
+    type: annotation
 
 # Routes added by Extensions get added here, by Bolt\Extension\RoutesLoader
 extensions:
