@@ -19,7 +19,11 @@ class DumpTokenParser extends AbstractTokenParser
         $lineno = $token->getLine();
 
         if (! $this->parser->getStream()->test(Token::BLOCK_END_TYPE)) {
-            $this->parser->getExpressionParser()->parseMultitargetExpression();
+            while (true) {
+                if (! $this->parser->getStream()->nextIf(Token::PUNCTUATION_TYPE, ',')) {
+                    break;
+                }
+            }
         }
         $this->parser->getStream()->expect(Token::BLOCK_END_TYPE);
 
