@@ -128,7 +128,7 @@ vendor/bin/ecs.bat check src --fix
 ```
 
 ```bash
-vendor/bin/phpstan.bat analyse -c phpstan.neon src
+vendor/bin/phpstan.bat analyse src
 ```
 
 Testing

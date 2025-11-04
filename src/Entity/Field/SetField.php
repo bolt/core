@@ -24,7 +24,7 @@ class SetField extends Field implements Excerptable, FieldInterface, FieldParent
 
     public const TYPE = 'set';
 
-    public function getValue(): ?array
+    public function getValue(): array
     {
         return $this->fields;
     }
@@ -48,6 +48,7 @@ class SetField extends Field implements Excerptable, FieldInterface, FieldParent
         }
 
         // Sorts the fields in the order specified in the definition
+        /** @var Field[] $value */
         $value = array_merge(array_flip(array_intersect(array_keys($definedFields), array_keys($value))), $value);
 
         $this->fields = $value;
