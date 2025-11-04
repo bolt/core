@@ -22,17 +22,17 @@
     "beberlei/doctrineextensions": {
         "version": "v1.2.7"
     },
-    "bolt/configuration-notices-widget": {
-        "version": "2.0.0"
-    },
-    "bolt/weatherwidget": {
-        "version": "2.0.0"
-    },
     "bolt/common": {
         "version": "2.1.5"
     },
+    "bolt/configuration-notices-widget": {
+        "version": "2.0.0"
+    },
     "bolt/newswidget": {
         "version": "1.2.0"
+    },
+    "bolt/weatherwidget": {
+        "version": "2.0.0"
     },
     "clue/stream-filter": {
         "version": "v1.4.1"
@@ -714,9 +714,6 @@
         "version": "v4.4.4"
     },
     "symfony/security-csrf": {
-        "version": "v4.4.4"
-    },
-    "symfony/security-guard": {
         "version": "v4.4.4"
     },
     "symfony/security-http": {
