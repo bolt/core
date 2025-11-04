@@ -9,6 +9,7 @@ use Bolt\Enum\UserStatus;
 use Bolt\Repository\UserRepository;
 use Cocur\Slugify\Slugify;
 use DateTimeInterface;
+use Deprecated;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -112,7 +113,15 @@ class User implements UserInterface, Serializable, PasswordAuthenticatedUserInte
         return $this->getdisplayName();
     }
 
+    #[Deprecated]
     public function getUsername(): string
+    {
+        trigger_deprecation('bolt/core', '6.0', '"%s()" has been deprecated, use "getUserIdentifier()" instead.', __METHOD__);
+
+        return $this->getUserIdentifier();
+    }
+
+    public function getUserIdentifier(): string
     {
         return $this->username;
     }

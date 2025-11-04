@@ -258,7 +258,7 @@ class AddUserCommand extends Command
         $this->entityManager->persist($user);
         $this->entityManager->flush();
 
-        $this->io->success(sprintf('User was successfully created: %s (%s) [%s]', $user->getUsername(), $user->getEmail(), implode(',', $user->getRoles())));
+        $this->io->success(sprintf('User was successfully created: %s (%s) [%s]', $user->getUserIdentifier(), $user->getEmail(), implode(',', $user->getRoles())));
 
         $event = $stopwatch->stop('add-user-command');
         if ($output->isVerbose()) {

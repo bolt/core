@@ -47,7 +47,7 @@ class UserFixtures extends BaseFixture implements FixtureGroupInterface
         foreach ($this->getUserData() as $userData) {
             /** @var User $allUser */
             foreach ($this->allUsers as $allUser) {
-                if (($allUser->getUsername() === $userData['username']) || ($allUser->getEmail() === $userData['username'])) {
+                if (($allUser->getUserIdentifier() === $userData['username']) || ($allUser->getEmail() === $userData['username'])) {
                     continue 2;
                 }
             }
@@ -74,7 +74,7 @@ class UserFixtures extends BaseFixture implements FixtureGroupInterface
 
         /** @var User $user */
         foreach ($this->allUsers as $user) {
-            $this->addReference('user_' . $user->getUsername(), $user);
+            $this->addReference('user_' . $user->getUserIdentifier(), $user);
         }
     }
 

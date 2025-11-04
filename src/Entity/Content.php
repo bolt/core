@@ -733,7 +733,7 @@ class Content implements Stringable
         if ($this->author !== null) {
             $result['author'] = [
                 'id' => $this->author->getId(),
-                'username' => $this->author->getUsername(),
+                'username' => $this->author->getUserIdentifier(),
             ];
         }
 

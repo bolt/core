@@ -38,13 +38,13 @@ final class BackendMenu implements BackendMenuBuilderInterface
         $user = $this->security->getUser();
 
         if ($user instanceof User) {
-            $username = $user->getUsername();
+            $username = $user->getUserIdentifier();
         } else {
             $username = '';
         }
 
         if ($user instanceof User) {
-            $username = $user->getUsername();
+            $username = $user->getUserIdentifier();
         } else {
             $username = '';
         }
