@@ -6,9 +6,9 @@ namespace Bolt\Doctrine\Query;
 
 use Doctrine\ORM\Query\AST\Functions\FunctionNode;
 use Doctrine\ORM\Query\AST\Node;
-use Doctrine\ORM\Query\Lexer;
 use Doctrine\ORM\Query\Parser;
 use Doctrine\ORM\Query\SqlWalker;
+use Doctrine\ORM\Query\TokenType;
 
 class Cast extends FunctionNode
 {
@@ -48,12 +48,12 @@ class Cast extends FunctionNode
 
     public function parse(Parser $parser): void
     {
-        $parser->match(Lexer::T_IDENTIFIER);
-        $parser->match(Lexer::T_OPEN_PARENTHESIS);
+        $parser->match(TokenType::T_IDENTIFIER);
+        $parser->match(TokenType::T_OPEN_PARENTHESIS);
         $this->first = $parser->ArithmeticPrimary();
-        $parser->match(Lexer::T_AS);
-        $parser->match(Lexer::T_IDENTIFIER);
+        $parser->match(TokenType::T_AS);
+        $parser->match(TokenType::T_IDENTIFIER);
         $this->second = $parser->getLexer()->token->value;
-        $parser->match(Lexer::T_CLOSE_PARENTHESIS);
+        $parser->match(TokenType::T_CLOSE_PARENTHESIS);
     }
 }
