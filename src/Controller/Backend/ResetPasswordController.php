@@ -68,7 +68,7 @@ class ResetPasswordController extends TwigAwareController
     public function checkEmail(): Response
     {
         // We prevent users from directly accessing this page
-        if (! $this->canCheckEmail()) {
+        if (! $this->getTokenObjectFromSession()) {
             return $this->redirectToRoute('bolt_forgot_password_request');
         }
 
@@ -147,9 +147,6 @@ class ResetPasswordController extends TwigAwareController
         $user = $this->em->getRepository(User::class)->findOneBy([
             'email' => $emailFormData,
         ]);
-
-        // Marks that you are allowed to see the bolt_check_email page.
-        $this->setCanCheckEmailInSession();
 
         // Do not reveal whether a user account was found or not.
         if (! $user) {
