@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Entity;
 
 use Bolt\Repository\UserAuthTokenRepository;
+use DateTime;
 use DateTimeInterface;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -24,7 +25,13 @@ class UserAuthToken
     private string $useragent = '';
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?DateTimeInterface $validity = null;
+    private DateTimeInterface $validity;
+
+    public function __construct()
+    {
+        // Default value, should be overridden in application code
+        $this->validity = new DateTime();
+    }
 
     public function getId(): ?int
     {
