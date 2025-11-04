@@ -2312,12 +2312,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Entity/Field.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Entity\\\\Field\\:\\:\\$name has no type specified\\.$#',
-	'identifier' => 'missingType.property',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Field.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Method Bolt\\\\Entity\\\\Field\\\\CheckboxField\\:\\:setValue\\(\\) has parameter \\$value with no type specified\\.$#',
 	'identifier' => 'missingType.parameter',
 	'count' => 1,
