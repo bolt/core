@@ -6,6 +6,7 @@ namespace Bolt\Entity;
 
 use Bolt\Repository\LogRepository;
 use DateTime;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: LogRepository::class)]
@@ -14,35 +15,35 @@ use Doctrine\ORM\Mapping as ORM;
 class Log
 {
     #[ORM\Id]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: Types::INTEGER)]
     #[ORM\GeneratedValue(strategy: 'AUTO')]
     private ?int $id = null;
 
-    #[ORM\Column(name: 'message', type: 'text')]
+    #[ORM\Column(name: 'message', type: Types::TEXT)]
     private string $message = '';
 
-    #[ORM\Column(name: 'context', type: 'array', nullable: true)]
+    #[ORM\Column(name: 'context', type: Types::ARRAY, nullable: true)]
     private ?array $context = null;
 
-    #[ORM\Column(name: 'level', type: 'smallint')]
+    #[ORM\Column(name: 'level', type: Types::SMALLINT)]
     private int $level = 0;
 
-    #[ORM\Column(name: 'level_name', type: 'string', length: 50)]
+    #[ORM\Column(name: 'level_name', type: Types::STRING, length: 50)]
     private string $levelName = '';
 
-    #[ORM\Column(name: 'created_at', type: 'datetime')]
+    #[ORM\Column(name: 'created_at', type: Types::DATETIME_MUTABLE)]
     private DateTime $createdAt;
 
-    #[ORM\Column(name: 'extra', type: 'array', nullable: true)]
+    #[ORM\Column(name: 'extra', type: Types::ARRAY, nullable: true)]
     private ?array $extra = null;
 
-    #[ORM\Column(name: '`user`', type: 'array', nullable: true)]
+    #[ORM\Column(name: '`user`', type: Types::ARRAY, nullable: true)]
     private ?array $user = null;
 
-    #[ORM\Column(type: 'integer', nullable: true)]
+    #[ORM\Column(type: Types::INTEGER, nullable: true)]
     private ?int $content = null;
 
-    #[ORM\Column(name: 'location', type: 'array', nullable: true)]
+    #[ORM\Column(name: 'location', type: Types::ARRAY, nullable: true)]
     private ?array $location = null;
 
     public function __construct()

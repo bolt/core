@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslationTrait;
 
@@ -14,10 +15,10 @@ class FieldTranslation implements TranslationInterface
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: Types::INTEGER)]
     private ?int $id = null;
 
-    #[ORM\Column(type: 'json', options: ['jsonb' => true])]
+    #[ORM\Column(type: Types::JSON, options: ['jsonb' => true])]
     protected $value = [];
 
     public function getId(): ?int
