@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace Bolt\Entity;
 
-use ReturnTypeWillChange;
-
 trait IterableFieldTrait
 {
-    private $iteratorCursor = 0;
+    private int $iteratorCursor = 0;
 
-    /** @var array Field */
-    private $fields = [];
+    /** @var array<Field|string> */
+    private array $fields = [];
 
     /**
      * Makes ListFieldInterface fields |length filter
@@ -31,11 +29,7 @@ trait IterableFieldTrait
         return $this->count();
     }
 
-    /**
-     * @return Field|string
-     */
-    #[ReturnTypeWillChange]
-    public function current()
+    public function current(): Field|string
     {
         return $this->fields[$this->iteratorCursor];
     }

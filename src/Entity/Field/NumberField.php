@@ -13,7 +13,7 @@ class NumberField extends Field implements FieldInterface, ScalarCastable
 {
     public const TYPE = 'number';
 
-    public function getValue(): ?array
+    public function getValue(): array
     {
         $pv = parent::getValue();
 

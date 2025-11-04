@@ -2318,18 +2318,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Entity/Field/CheckboxField.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Parameter \\#1 \\$array of function current expects array\\|object, array\\|null given\\.$#',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Field/CheckboxField.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Argument of an invalid type array\\|null supplied for foreach, only iterables are supported\\.$#',
-	'identifier' => 'foreach.nonIterable',
-	'count' => 3,
-	'path' => __DIR__ . '/src/Entity/Field/CollectionField.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Class Bolt\\\\Entity\\\\Field\\\\CollectionField implements generic interface Iterator but does not specify its types\\: TKey, TValue$#',
 	'identifier' => 'missingType.generics',
 	'count' => 1,
@@ -2350,30 +2338,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'message' => '#^Method Bolt\\\\Entity\\\\Field\\\\CollectionField\\:\\:shouldThisBeTranslatable\\(\\) has parameter \\$definition with generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#',
 	'identifier' => 'missingType.generics',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Field/CollectionField.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Parameter \\#1 \\$value of function count expects array\\|Countable, array\\|null given\\.$#',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Field/CollectionField.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Entity\\\\Field\\\\CollectionField\\:\\:\\$fields \\(array\\) does not accept array\\|null\\.$#',
-	'identifier' => 'assign.propertyType',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Field/CollectionField.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Entity\\\\Field\\\\CollectionField\\:\\:\\$fields type has no value type specified in iterable type array\\.$#',
-	'identifier' => 'missingType.iterableValue',
-	'count' => 2,
-	'path' => __DIR__ . '/src/Entity/Field/CollectionField.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Entity\\\\Field\\\\CollectionField\\:\\:\\$iteratorCursor has no type specified\\.$#',
-	'identifier' => 'missingType.property',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Entity/Field/CollectionField.php',
 ];
@@ -2438,24 +2402,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Entity/Field/FilelistField.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Parameter \\#1 \\$array of function current expects array\\|object, array\\|null given\\.$#',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Field/FilelistField.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Entity\\\\Field\\\\FilelistField\\:\\:\\$fields type has no value type specified in iterable type array\\.$#',
-	'identifier' => 'missingType.iterableValue',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Field/FilelistField.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Entity\\\\Field\\\\FilelistField\\:\\:\\$iteratorCursor has no type specified\\.$#',
-	'identifier' => 'missingType.property',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Field/FilelistField.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Method Bolt\\\\Entity\\\\Field\\\\HiddenField\\:\\:getValue\\(\\) return type has no value type specified in iterable type array\\.$#',
 	'identifier' => 'missingType.iterableValue',
 	'count' => 1,
@@ -2516,30 +2462,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Entity/Field/ImagelistField.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Parameter \\#1 \\$array of function current expects array\\|object, array\\|null given\\.$#',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Field/ImagelistField.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Entity\\\\Field\\\\ImagelistField\\:\\:\\$fields type has no value type specified in iterable type array\\.$#',
-	'identifier' => 'missingType.iterableValue',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Field/ImagelistField.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Entity\\\\Field\\\\ImagelistField\\:\\:\\$iteratorCursor has no type specified\\.$#',
-	'identifier' => 'missingType.property',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Field/ImagelistField.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Parameter \\#1 \\$array of function reset expects array\\|object, array\\|null given\\.$#',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Field/MarkdownField.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Method Bolt\\\\Entity\\\\Field\\\\NumberField\\:\\:getValue\\(\\) return type has no value type specified in iterable type array\\.$#',
 	'identifier' => 'missingType.iterableValue',
 	'count' => 1,
@@ -2588,42 +2510,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Entity/Field/SelectField.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Parameter \\#1 \\$array of function array_flip expects array\\<int\\|string\\>, array\\|null given\\.$#',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Field/SelectField.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Parameter \\#1 \\$value of function count expects array\\|Countable, array\\|null given\\.$#',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Field/SelectField.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Entity\\\\Field\\\\SelectField\\:\\:\\$fields \\(array\\) does not accept array\\|null\\.$#',
-	'identifier' => 'assign.propertyType',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Field/SelectField.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Entity\\\\Field\\\\SelectField\\:\\:\\$fields type has no value type specified in iterable type array\\.$#',
-	'identifier' => 'missingType.iterableValue',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Field/SelectField.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Entity\\\\Field\\\\SelectField\\:\\:\\$iteratorCursor has no type specified\\.$#',
-	'identifier' => 'missingType.property',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Field/SelectField.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Argument of an invalid type array\\|null supplied for foreach, only iterables are supported\\.$#',
-	'identifier' => 'foreach.nonIterable',
-	'count' => 4,
-	'path' => __DIR__ . '/src/Entity/Field/SetField.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Class Bolt\\\\Entity\\\\Field\\\\SetField implements generic interface Iterator but does not specify its types\\: TKey, TValue$#',
 	'identifier' => 'missingType.generics',
 	'count' => 1,
@@ -2656,36 +2542,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'message' => '#^Method Bolt\\\\Entity\\\\Field\\\\SetField\\:\\:shouldThisBeTranslatable\\(\\) has parameter \\$definition with generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#',
 	'identifier' => 'missingType.generics',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Field/SetField.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Parameter \\#1 \\$array of function array_intersect_key expects array, array\\|null given\\.$#',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Field/SetField.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Parameter \\#1 \\$value of function count expects array\\|Countable, array\\|null given\\.$#',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Field/SetField.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Entity\\\\Field\\\\SetField\\:\\:\\$fields \\(array\\) does not accept array\\|null\\.$#',
-	'identifier' => 'assign.propertyType',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Field/SetField.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Entity\\\\Field\\\\SetField\\:\\:\\$fields type has no value type specified in iterable type array\\.$#',
-	'identifier' => 'missingType.iterableValue',
-	'count' => 2,
-	'path' => __DIR__ . '/src/Entity/Field/SetField.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Entity\\\\Field\\\\SetField\\:\\:\\$iteratorCursor has no type specified\\.$#',
-	'identifier' => 'missingType.property',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Entity/Field/SetField.php',
 ];
@@ -4796,12 +4652,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Twig/CommonExtension.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Argument of an invalid type array\\|null supplied for foreach, only iterables are supported\\.$#',
-	'identifier' => 'foreach.nonIterable',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Twig/ContentExtension.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Cannot access property \\$query on Symfony\\\\Component\\\\HttpFoundation\\\\Request\\|null\\.$#',
 	'identifier' => 'property.nonObject',
 	'count' => 1,
@@ -5026,24 +4876,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'message' => '#^PHPDoc tag @var for variable \\$definition contains generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#',
 	'identifier' => 'missingType.generics',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Twig/FieldExtension.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Parameter \\#1 \\$array of function array_flip expects array\\<int\\|string\\>, array\\|null given\\.$#',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Twig/FieldExtension.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Parameter \\#1 \\$array of function current expects array\\|object, array\\|null given\\.$#',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Twig/FieldExtension.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Parameter \\#2 \\$haystack of function in_array expects array, array\\|null given\\.$#',
-	'identifier' => 'argument.type',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Twig/FieldExtension.php',
 ];
@@ -5764,7 +5596,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'message' => '#^Argument of an invalid type array\\|null supplied for foreach, only iterables are supported\\.$#',
 	'identifier' => 'foreach.nonIterable',
-	'count' => 2,
+	'count' => 1,
 	'path' => __DIR__ . '/src/Utils/TranslationsManager.php',
 ];
 $ignoreErrors[] = [

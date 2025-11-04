@@ -16,7 +16,7 @@ class EmbedField extends Field implements FieldInterface
 
     private string $encoding = 'UTF-8';
 
-    public function getValue(): ?array
+    public function getValue(): array
     {
         $value = parent::getValue();
         $value['responsive'] = $this->getResponsive();

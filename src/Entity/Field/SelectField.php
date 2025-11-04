@@ -38,7 +38,7 @@ class SelectField extends Field implements FieldInterface, RawPersistable, Itera
         return $this;
     }
 
-    public function getValue(): ?array
+    public function getValue(): array
     {
         $value = parent::getValue();
 
@@ -101,7 +101,7 @@ class SelectField extends Field implements FieldInterface, RawPersistable, Itera
 
     public function getSelectedIds(): string
     {
-        return implode(' || ', parent::getValue() ?? []);
+        return implode(' || ', parent::getValue());
     }
 
     public function getContentType(): string|false

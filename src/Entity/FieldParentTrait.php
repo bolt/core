@@ -11,8 +11,8 @@ use Illuminate\Support\Collection;
  */
 trait FieldParentTrait
 {
-    /** @var array Field */
-    private $fields = [];
+    /** @var array<Field|string> */
+    private array $fields = [];
 
     abstract public function getContent(): ?Content;
 

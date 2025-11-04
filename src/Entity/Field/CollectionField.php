@@ -58,11 +58,10 @@ class CollectionField extends Field implements Excerptable, FieldInterface, Fiel
     }
 
     /**
-     * @param FieldInterface[] $fields
+     * @param Field[] $fields
      */
     public function setValue($fields): Field
     {
-        /** @var Field $field */
         foreach ($fields as $field) {
             // todo: This should be able to handle an array of fields
             // in key-value format, not just Field.php types.
@@ -74,7 +73,7 @@ class CollectionField extends Field implements Excerptable, FieldInterface, Fiel
         return $this;
     }
 
-    public function getValue(): ?array
+    public function getValue(): array
     {
         return $this->fields;
     }

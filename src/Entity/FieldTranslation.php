@@ -26,7 +26,7 @@ class FieldTranslation implements TranslationInterface
         return $this->id;
     }
 
-    public function getValue(): ?array
+    public function getValue(): array
     {
         return $this->value;
     }
