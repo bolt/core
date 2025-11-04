@@ -84,3 +84,5 @@ compose.override.yaml
 /.phpunit.result.cache
 /.phpunit.cache
 ###< phpunit/phpunit ###
+
+phpstan.neon
