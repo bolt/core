@@ -58,7 +58,7 @@ class AuthSubscriber implements EventSubscriberInterface
 
         $this->logger->notice('User \'{username}\' logged out (manually, auth_token: {token_id}, {ip})', [
             'id' => $user->getId(),
-            'username' => $user->getUsername(),
+            'username' => $user->getUserIdentifier(),
             'token_id' => $authTokenId = $session->get('user_auth_token_id'),
             'ip' => $request->getClientIp(),
         ]);

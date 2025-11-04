@@ -124,7 +124,7 @@ HELP
         $this->entityManager->remove($user);
         $this->entityManager->flush();
 
-        $this->io->success(sprintf('User "%s" (ID: %d, email: %s) was successfully deleted.', $user->getUsername(), $userId, $user->getEmail()));
+        $this->io->success(sprintf('User "%s" (ID: %d, email: %s) was successfully deleted.', $user->getUserIdentifier(), $userId, $user->getEmail()));
 
         return Command::SUCCESS;
     }

@@ -235,7 +235,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
         // ON SUBMIT
         if (! empty($submitted_data)) {
             // Since the username is disabled on edit form we need to set it here so Symfony Forms doesn't throw an error
-            $submitted_data['username'] = $user->getUsername();
+            $submitted_data['username'] = $user->getUserIdentifier();
 
             $submitted_data['locale'] = json_decode((string) $submitted_data['locale'])[0];
 

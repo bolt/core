@@ -87,7 +87,7 @@ HELP
         $usersAsPlainArrays = array_map(fn (User $user): array => [
             $user->getId(),
             $user->getDisplayName(),
-            $user->getUsername(),
+            $user->getUserIdentifier(),
             $user->getEmail(),
             implode(', ', $user->getRoles()),
         ], $allUsers);

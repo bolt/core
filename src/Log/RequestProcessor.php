@@ -44,7 +44,7 @@ class RequestProcessor
         if ($user instanceof User) {
             $record['user'] = [
                 'id' => $user->getId(),
-                'username' => $user->getUsername(),
+                'username' => $user->getUserIdentifier(),
                 'roles' => $user->getRoles(),
             ];
         }

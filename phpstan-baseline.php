@@ -3764,12 +3764,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Security/SwitchUserVoter.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Cannot call method getUserName\\(\\) on Symfony\\\\Component\\\\Security\\\\Core\\\\User\\\\UserInterface\\|null\\.$#',
-	'identifier' => 'method.nonObject',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Security/TokenDeauthenticatedSubscriber.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Method Bolt\\\\Storage\\\\ContentQueryParser\\:\\:fetch\\(\\) return type with generic class Pagerfanta\\\\Pagerfanta does not specify its types\\: T$#',
 	'identifier' => 'missingType.generics',
 	'count' => 1,
