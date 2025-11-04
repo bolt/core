@@ -9,6 +9,7 @@ use Bolt\Configuration\Content\TaxonomyType;
 use Bolt\Repository\TaxonomyRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Illuminate\Support\Collection as LaravelCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -19,7 +20,7 @@ class Taxonomy
     #[Groups('public')]
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: Types::INTEGER)]
     private ?int $id = null;
 
     /** @var Collection<int, Content> */
@@ -27,19 +28,19 @@ class Taxonomy
     private Collection $content;
 
     #[Groups(['get_content', 'public'])]
-    #[ORM\Column(type: 'string', length: 191)]
+    #[ORM\Column(type: Types::STRING, length: 191)]
     private string $type = '';
 
     #[Groups(['get_content', 'public'])]
-    #[ORM\Column(type: 'string', length: 191)]
+    #[ORM\Column(type: Types::STRING, length: 191)]
     private string $slug = '';
 
     #[Groups(['get_content', 'public'])]
-    #[ORM\Column(type: 'string', length: 191)]
+    #[ORM\Column(type: Types::STRING, length: 191)]
     private string $name = '';
 
     #[Groups('public')]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: Types::INTEGER)]
     private int $sortorder = 0;
 
     private ?TaxonomyType $taxonomyTypeDefinition = null;

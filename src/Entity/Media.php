@@ -7,6 +7,7 @@ namespace Bolt\Entity;
 use Bolt\Repository\MediaRepository;
 use DateTime;
 use DateTimeInterface;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Filesystem\Path;
 
@@ -15,59 +16,59 @@ class Media
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: Types::INTEGER)]
     private ?int $id = null;
 
-    #[ORM\Column(type: 'string', length: 191)]
+    #[ORM\Column(type: Types::STRING, length: 191)]
     private string $location = '';
 
-    #[ORM\Column(type: 'text', length: 1000)]
+    #[ORM\Column(type: Types::TEXT, length: 1000)]
     private string $path = '';
 
-    #[ORM\Column(type: 'string', length: 191)]
+    #[ORM\Column(type: Types::STRING, length: 191)]
     private string $filename = '';
 
-    #[ORM\Column(type: 'string', length: 191)]
+    #[ORM\Column(type: Types::STRING, length: 191)]
     private string $type = '';
 
-    #[ORM\Column(type: 'integer', nullable: true)]
+    #[ORM\Column(type: Types::INTEGER, nullable: true)]
     private ?int $width = null;
 
-    #[ORM\Column(type: 'integer', nullable: true)]
+    #[ORM\Column(type: Types::INTEGER, nullable: true)]
     private ?int $height = null;
 
-    #[ORM\Column(type: 'integer', nullable: true)]
+    #[ORM\Column(type: Types::INTEGER, nullable: true)]
     private ?int $filesize = null;
 
-    #[ORM\Column(type: 'integer', nullable: true)]
+    #[ORM\Column(type: Types::INTEGER, nullable: true)]
     private ?int $cropX = null;
 
-    #[ORM\Column(type: 'integer', nullable: true)]
+    #[ORM\Column(type: Types::INTEGER, nullable: true)]
     private ?int $cropY = null;
 
-    #[ORM\Column(type: 'float', nullable: true)]
+    #[ORM\Column(type: Types::FLOAT, nullable: true)]
     private ?float $cropZoom = null;
 
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(nullable: true)]
     private ?User $author = null;
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private DateTimeInterface $createdAt;
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private DateTimeInterface $modifiedAt;
 
-    #[ORM\Column(type: 'string', length: 191, nullable: true)]
+    #[ORM\Column(type: Types::STRING, length: 191, nullable: true)]
     private ?string $title = null;
 
-    #[ORM\Column(type: 'string', length: 1000, nullable: true)]
+    #[ORM\Column(type: Types::STRING, length: 1000, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\Column(type: 'string', length: 1000, nullable: true)]
+    #[ORM\Column(type: Types::STRING, length: 1000, nullable: true)]
     private ?string $originalFilename = null;
 
-    #[ORM\Column(type: 'string', length: 191, nullable: true)]
+    #[ORM\Column(type: Types::STRING, length: 191, nullable: true)]
     private ?string $copyright = null;
 
     public function __construct()

@@ -12,6 +12,7 @@ use Bolt\Configuration\Content\FieldType;
 use Bolt\Event\Listener\FieldFillListener;
 use Bolt\Repository\FieldRepository;
 use Bolt\Utils\Sanitiser;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Illuminate\Support\Collection;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
@@ -27,7 +28,7 @@ use Twig\Markup;
 
 #[ORM\Entity(repositoryClass: FieldRepository::class)]
 #[ORM\InheritanceType('SINGLE_TABLE')]
-#[ORM\DiscriminatorColumn(name: 'type', type: 'string', length: 191)]
+#[ORM\DiscriminatorColumn(name: 'type', type: Types::STRING, length: 191)]
 #[ORM\DiscriminatorMap(['generic' => 'Field'])]
 #[ApiResource(
     collectionOperations: [
@@ -65,17 +66,17 @@ class Field implements FieldInterface, TranslatableInterface, Stringable
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: Types::INTEGER)]
     private ?int $id = 0;
 
     #[Groups(['get_field', 'api_write'])]
-    #[ORM\Column(type: 'string', length: 191)]
+    #[ORM\Column(type: Types::STRING, length: 191)]
     public string $name = '';
 
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: Types::INTEGER)]
     private int $sortorder = 0;
 
-    #[ORM\Column(type: 'integer', nullable: true)]
+    #[ORM\Column(type: Types::INTEGER, nullable: true)]
     private ?int $version = null;
 
     #[Groups('api_write')]

@@ -21,6 +21,7 @@ use DateTime;
 use DateTimeZone;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Exception;
 use Illuminate\Support\Collection as LaravelCollection;
@@ -68,11 +69,11 @@ class Content implements Stringable
     #[Groups(['get_content', 'api_write'])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: Types::INTEGER)]
     private ?int $id = null;
 
     #[Groups(['get_content', 'api_write'])]
-    #[ORM\Column(type: 'string', length: 191)]
+    #[ORM\Column(type: Types::STRING, length: 191)]
     private ?string $contentType = null;
 
     #[ORM\ManyToOne(targetEntity: User::class, fetch: 'EAGER')]
@@ -80,29 +81,29 @@ class Content implements Stringable
     private ?User $author = null;
 
     #[Groups(['get_content', 'api_write'])]
-    #[ORM\Column(type: 'string', length: 191)]
+    #[ORM\Column(type: Types::STRING, length: 191)]
     private ?string $status;
 
     #[Groups(['get_content', 'api_write'])]
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?DateTime $createdAt;
 
     #[Groups(['get_content', 'api_write'])]
-    #[ORM\Column(type: 'datetime', nullable: true)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?DateTime $modifiedAt = null;
 
     #[Groups(['get_content', 'api_write'])]
-    #[ORM\Column(type: 'datetime', nullable: true)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?DateTime $publishedAt = null;
 
     #[Groups(['get_content', 'api_write'])]
-    #[ORM\Column(type: 'datetime', nullable: true)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?DateTime $depublishedAt = null;
 
-    #[ORM\Column(type: 'string', length: 191, nullable: true)]
+    #[ORM\Column(type: Types::STRING, length: 191, nullable: true)]
     private ?string $title = null;
 
-    #[ORM\Column(type: 'string', length: 191, nullable: true)]
+    #[ORM\Column(type: Types::STRING, length: 191, nullable: true)]
     private ?string $listFormat = null;
 
     /** @var Collection<int, Field> */
