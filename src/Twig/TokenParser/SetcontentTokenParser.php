@@ -50,7 +50,7 @@ class SetcontentTokenParser extends AbstractTokenParser
         $this->parser->getStream()->expect(Token::OPERATOR_TYPE, '=');
 
         // ContentType, or simple expression to content.
-        $contentType = $this->parser->getExpressionParser()->parseExpression();
+        $contentType = $this->parser->parseExpression();
 
         $counter = 0;
 
@@ -59,14 +59,14 @@ class SetcontentTokenParser extends AbstractTokenParser
             if ($this->parser->getStream()->test(Token::NAME_TYPE, 'where')) {
                 $this->parser->getStream()->next();
                 $whereArguments = [
-                    'wherearguments' => $this->parser->getExpressionParser()->parseExpression(),
+                    'wherearguments' => $this->parser->parseExpression(),
                 ];
             }
 
             // limit parameter
             if ($this->parser->getStream()->test(Token::NAME_TYPE, LimitDirective::NAME)) {
                 $this->parser->getStream()->next();
-                $limit = $this->parser->getExpressionParser()->parseExpression();
+                $limit = $this->parser->parseExpression();
                 $arguments->addElement($limit, new ConstantExpression(LimitDirective::NAME, $lineno));
             }
 
@@ -74,14 +74,14 @@ class SetcontentTokenParser extends AbstractTokenParser
             if ($this->parser->getStream()->test(Token::NAME_TYPE, OrderDirective::NAME) ||
                 $this->parser->getStream()->test(Token::NAME_TYPE, 'orderby')) {
                 $this->parser->getStream()->next();
-                $order = $this->parser->getExpressionParser()->parseExpression();
+                $order = $this->parser->parseExpression();
                 $arguments->addElement($order, new ConstantExpression(OrderDirective::NAME, $lineno));
             }
 
             // page parameter
             if ($this->parser->getStream()->test(Token::NAME_TYPE, PageDirective::NAME)) {
                 $this->parser->getStream()->next();
-                $page = $this->parser->getExpressionParser()->parseExpression();
+                $page = $this->parser->parseExpression();
                 $arguments->addElement($page, new ConstantExpression(PageDirective::NAME, $lineno));
             }
 
