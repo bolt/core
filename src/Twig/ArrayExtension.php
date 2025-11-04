@@ -15,6 +15,7 @@ use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
+use Twig\Extension\CoreExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
 
@@ -76,9 +77,9 @@ final class ArrayExtension extends AbstractExtension
      * Overrides the default Twig |length filter
      * for accurate results with paginated content
      */
-    public function length(Environment $env, $thing)
+    public function length(Environment $env, $thing): int
     {
-        return twig_length_filter($env, $this->getArray($thing));
+        return CoreExtension::length($env->getCharset(), $this->getArray($thing));
     }
 
     /**

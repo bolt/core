@@ -4556,12 +4556,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Twig/ArrayExtension.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\Twig\\\\ArrayExtension\\:\\:length\\(\\) has no return type specified\\.$#',
-	'identifier' => 'missingType.return',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Twig/ArrayExtension.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Method Bolt\\\\Twig\\\\ArrayExtension\\:\\:length\\(\\) has parameter \\$thing with no type specified\\.$#',
 	'identifier' => 'missingType.parameter',
 	'count' => 1,
@@ -4792,12 +4786,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'message' => '#^Method Bolt\\\\Twig\\\\FieldExtension\\:\\:fieldFactory\\(\\) has parameter \\$definition with no type specified\\.$#',
 	'identifier' => 'missingType.parameter',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Twig/FieldExtension.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\Twig\\\\FieldExtension\\:\\:getDate\\(\\) has no return type specified\\.$#',
-	'identifier' => 'missingType.return',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Twig/FieldExtension.php',
 ];

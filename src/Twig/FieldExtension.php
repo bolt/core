@@ -23,6 +23,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Traversable;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
+use Twig\Extension\CoreExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
 
@@ -62,7 +63,7 @@ class FieldExtension extends AbstractExtension
         ];
     }
 
-    public function getDate(Environment $twig, $date, $format = null, $timezone = null)
+    public function getDate(Environment $twig, $date, $format = null, $timezone = null): string
     {
         if ($format === null && ! $date instanceof DateInterval) {
             $format = $this->config->get('general/date_format', null);
@@ -72,7 +73,7 @@ class FieldExtension extends AbstractExtension
             $timezone = $this->config->get('general/timezone', null);
         }
 
-        return twig_date_format_filter($twig, $date, $format, $timezone);
+        return $twig->getExtension(CoreExtension::class)->formatDate($date, $format, $timezone);
     }
 
     public function fieldFactory(string $name, $definition = null): Field
