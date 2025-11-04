@@ -14,7 +14,6 @@ use InvalidArgumentException;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: RelationRepository::class)]
-#[ORM\Table]
 #[ApiResource(
     collectionOperations: [
         'get' => [

@@ -33,7 +33,6 @@ use Twig\Template;
 
 #[ORM\Entity(repositoryClass: ContentRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-#[ORM\Table]
 #[ORM\Index(columns: ['content_type'], name: 'content_type_idx')]
 #[ORM\Index(columns: ['status'], name: 'status_idx')]
 #[ApiResource(
