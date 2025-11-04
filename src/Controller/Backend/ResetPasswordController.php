@@ -9,6 +9,7 @@ use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\User;
 use Bolt\Form\ChangePasswordFormType;
 use Bolt\Form\ResetPasswordRequestFormType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,9 +30,10 @@ class ResetPasswordController extends TwigAwareController
     use ResetPasswordControllerTrait;
 
     public function __construct(
-        private ResetPasswordHelperInterface $resetPasswordHelper,
+        private readonly ResetPasswordHelperInterface $resetPasswordHelper,
         Config $config,
-        private TranslatorInterface $translator
+        private readonly TranslatorInterface $translator,
+        private readonly EntityManagerInterface $em
     ) {
         $this->config = $config;
     }
@@ -122,7 +124,7 @@ class ResetPasswordController extends TwigAwareController
             );
 
             $user->setPassword($encodedPassword);
-            $this->getDoctrine()->getManager()->flush();
+            $this->em->flush();
 
             // The session is cleaned up after the password has been changed.
             $this->cleanSessionAfterReset();
@@ -142,7 +144,7 @@ class ResetPasswordController extends TwigAwareController
 
     protected function processSendingPasswordResetEmail(string $emailFormData, MailerInterface $mailer): RedirectResponse
     {
-        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy([
+        $user = $this->em->getRepository(User::class)->findOneBy([
             'email' => $emailFormData,
         ]);
 

@@ -143,13 +143,13 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
         $this->validateCsrf('useredit');
 
         $this->em->remove($user);
-        $contentArray = $this->getDoctrine()->getManager()->getRepository(Content::class)->findBy(['author' => $user]);
+        $contentArray = $this->em->getRepository(Content::class)->findBy(['author' => $user]);
         foreach ($contentArray as $content) {
             $content->setAuthor(null);
             $this->em->persist($content);
         }
 
-        $mediaArray = $this->getDoctrine()->getManager()->getRepository(Media::class)->findBy(['author' => $user]);
+        $mediaArray = $this->em->getRepository(Media::class)->findBy(['author' => $user]);
         foreach ($mediaArray as $media) {
             $media->setAuthor(null);
             $this->em->persist($media);

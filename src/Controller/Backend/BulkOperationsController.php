@@ -7,6 +7,7 @@ namespace Bolt\Controller\Backend;
 use Bolt\Controller\CsrfTrait;
 use Bolt\Entity\Content;
 use Bolt\Event\ContentEvent;
+use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,7 +32,8 @@ class BulkOperationsController extends AbstractController implements BackendZone
 
     public function __construct(
         RequestStack $requestStack,
-        private EventDispatcherInterface $dispatcher
+        private readonly EventDispatcherInterface $dispatcher,
+        private readonly ManagerRegistry $managerRegistry
     ) {
         $this->request = $requestStack->getCurrentRequest();
     }
@@ -39,7 +41,7 @@ class BulkOperationsController extends AbstractController implements BackendZone
     public function em(): ObjectManager
     {
         if ($this->em === null) {
-            $this->em = $this->getDoctrine()->getManager();
+            $this->em = $this->managerRegistry->getManager();
         }
 
         return $this->em;
