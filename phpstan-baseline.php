@@ -2216,6 +2216,24 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Entity/Content.php',
 ];
 $ignoreErrors[] = [
+	'message' => '#^Property Bolt\\\\Entity\\\\Content\\:\\:\\$contentType type mapping mismatch\\: property can contain string\\|null but database expects string\\.$#',
+	'identifier' => 'doctrine.columnType',
+	'count' => 1,
+	'path' => __DIR__ . '/src/Entity/Content.php',
+];
+$ignoreErrors[] = [
+	'message' => '#^Property Bolt\\\\Entity\\\\Content\\:\\:\\$createdAt type mapping mismatch\\: property can contain DateTime\\|null but database expects DateTimeInterface\\.$#',
+	'identifier' => 'doctrine.columnType',
+	'count' => 1,
+	'path' => __DIR__ . '/src/Entity/Content.php',
+];
+$ignoreErrors[] = [
+	'message' => '#^Property Bolt\\\\Entity\\\\Content\\:\\:\\$status type mapping mismatch\\: property can contain string\\|null but database expects string\\.$#',
+	'identifier' => 'doctrine.columnType',
+	'count' => 1,
+	'path' => __DIR__ . '/src/Entity/Content.php',
+];
+$ignoreErrors[] = [
 	'message' => '#^Method Bolt\\\\Entity\\\\Field\\:\\:__call\\(\\) has no return type specified\\.$#',
 	'identifier' => 'missingType.return',
 	'count' => 1,
@@ -2308,6 +2326,12 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'message' => '#^Method Bolt\\\\Entity\\\\Field\\:\\:shouldBeRenderedAsTwig\\(\\) has parameter \\$value with no type specified\\.$#',
 	'identifier' => 'missingType.parameter',
+	'count' => 1,
+	'path' => __DIR__ . '/src/Entity/Field.php',
+];
+$ignoreErrors[] = [
+	'message' => '#^Property Bolt\\\\Entity\\\\Field\\:\\:\\$content type mapping mismatch\\: property can contain Bolt\\\\Entity\\\\Content\\|null but database expects Bolt\\\\Entity\\\\Content\\.$#',
+	'identifier' => 'doctrine.associationType',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Entity/Field.php',
 ];
@@ -2730,6 +2754,24 @@ $ignoreErrors[] = [
 	'identifier' => 'missingType.iterableValue',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Entity/Relation.php',
+];
+$ignoreErrors[] = [
+	'message' => '#^Property Bolt\\\\Entity\\\\Relation\\:\\:\\$fromContent type mapping mismatch\\: property can contain Bolt\\\\Entity\\\\Content\\|null but database expects Bolt\\\\Entity\\\\Content\\.$#',
+	'identifier' => 'doctrine.associationType',
+	'count' => 1,
+	'path' => __DIR__ . '/src/Entity/Relation.php',
+];
+$ignoreErrors[] = [
+	'message' => '#^Property Bolt\\\\Entity\\\\Relation\\:\\:\\$toContent type mapping mismatch\\: property can contain Bolt\\\\Entity\\\\Content\\|null but database expects Bolt\\\\Entity\\\\Content\\.$#',
+	'identifier' => 'doctrine.associationType',
+	'count' => 1,
+	'path' => __DIR__ . '/src/Entity/Relation.php',
+];
+$ignoreErrors[] = [
+	'message' => '#^Property Bolt\\\\Entity\\\\ResetPasswordRequest\\:\\:\\$user type mapping mismatch\\: property can contain object but database expects Bolt\\\\Entity\\\\User\\.$#',
+	'identifier' => 'doctrine.associationType',
+	'count' => 1,
+	'path' => __DIR__ . '/src/Entity/ResetPasswordRequest.php',
 ];
 $ignoreErrors[] = [
 	'message' => '#^Method Bolt\\\\Entity\\\\Taxonomy\\:\\:setDefinitionFromTaxonomyTypesConfig\\(\\) has parameter \\$taxonomyTypesConfig with generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#',
