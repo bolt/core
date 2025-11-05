@@ -7,21 +7,20 @@ namespace Bolt\Controller\Backend\Async;
 use Bolt\Controller\CsrfTrait;
 use Embed\Embed as EmbedFactory;
 use Psr\Http\Client\RequestExceptionInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-#[Security("is_granted('fetch_embed_data')")]
+#[IsGranted(attribute: 'fetch_embed_data')]
 class EmbedController implements AsyncZoneInterface
 {
     use CsrfTrait;
 
-    /** @var Request */
-    private $request;
+    private ?Request $request;
 
     public function __construct(RequestStack $requestStack)
     {

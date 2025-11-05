@@ -9,7 +9,7 @@ use Bolt\Controller\TwigAwareController;
 use Bolt\Repository\ContentRepository;
 use Bolt\Version;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class GeneralController extends TwigAwareController implements BackendZoneInterface
 {

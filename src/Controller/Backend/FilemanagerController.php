@@ -21,7 +21,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 
 class FilemanagerController extends TwigAwareController implements BackendZoneInterface
@@ -213,7 +213,7 @@ class FilemanagerController extends TwigAwareController implements BackendZoneIn
         return $index;
     }
 
-    private function getFileSummary($contents): string
+    private function getFileSummary(string $contents): string
     {
         $contents = str_replace(['<?php', '# ', "\n"], ['', '', " \n"], $contents);
 
