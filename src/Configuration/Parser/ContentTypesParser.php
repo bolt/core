@@ -14,8 +14,8 @@ use Illuminate\Support\Collection;
 
 class ContentTypesParser extends BaseParser
 {
-    /** @var array */
-    private $localeCodes = [];
+    /** @var string[] */
+    private readonly array $localeCodes;
 
     public function __construct(
         string $projectDir,
@@ -279,7 +279,7 @@ class ContentTypesParser extends BaseParser
         return [$fields, $groups];
     }
 
-    private function parseField(string $key, &$field, $acceptFileTypes, &$currentGroup): void
+    private function parseField(string $key, array|Collection &$field, $acceptFileTypes, &$currentGroup): void
     {
         $key = str_replace('-', '_', mb_strtolower(Str::makeSafe($key, true)));
         if (! isset($field['type']) || empty($field['type'])) {

@@ -160,7 +160,7 @@ class UploadController extends AbstractController implements AsyncZoneInterface
             'Upload file'
         );
 
-        $uploadHandler->setSanitizerCallback(fn ($name): string => $this->sanitiseFilename($name));
+        $uploadHandler->setSanitizerCallback($this->sanitiseFilename(...));
 
         // Clear the 'files_index' cache.
         $this->cache->invalidateTags(['fileslisting']);

@@ -77,7 +77,7 @@ class JsonExtension extends AbstractExtension
             $normalizedRecords = iterator_to_array($records);
         }
 
-        return array_map(fn ($record): array => $this->contentToArray($record, $locale), $normalizedRecords);
+        return array_map(fn (Content $record): array => $this->contentToArray($record, $locale), $normalizedRecords);
     }
 
     /**

@@ -41,7 +41,7 @@ final class FrontendMenuBuilder implements FrontendMenuBuilderInterface
             throw new RuntimeException("Tried to build non-existing menu: {$name}");
         }
 
-        return array_map(fn ($item): array => $this->setUris($twig, $item), $menu);
+        return array_map(fn (array $item): array => $this->setUris($twig, $item), $menu);
     }
 
     private function setUris(Environment $twig, array $item): array
@@ -66,7 +66,7 @@ final class FrontendMenuBuilder implements FrontendMenuBuilderInterface
         }
 
         if (is_iterable($item['submenu'])) {
-            $item['submenu'] = array_map(fn ($sub): array => $this->setUris($twig, $sub), $item['submenu']);
+            $item['submenu'] = array_map(fn (array $sub): array => $this->setUris($twig, $sub), $item['submenu']);
         }
 
         return $item;

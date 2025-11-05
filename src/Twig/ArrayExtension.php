@@ -101,7 +101,7 @@ final class ArrayExtension extends AbstractExtension
         [$orderOnSecondary, $orderAscendingSecondary] = self::getSortOrder($onSecondary);
 
         try {
-            uasort($array, function ($a, $b) use ($orderOn, $orderAscending, $orderOnSecondary, $orderAscendingSecondary, $locale): int {
+            uasort($array, function (Content $a, Content $b) use ($orderOn, $orderAscending, $orderOnSecondary, $orderAscendingSecondary, $locale): int {
                 $check = $this->orderHelper($a, $b, $orderOn, $orderAscending, $locale);
                 if ($check !== 0 || $orderOnSecondary !== '') {
                     return $check;

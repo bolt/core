@@ -71,7 +71,7 @@ class ContentValidator implements ContentValidatorInterface
                     }
                 }
 
-                $callback = function ($object, ExecutionContextInterface $context, $constraintLookup): void {
+                $callback = function (array $object, ExecutionContextInterface $context, array $constraintLookup): void {
                     if (isset($object['name']) && isset($constraintLookup[$object['name']])) {
                         $itemConstraints = $constraintLookup[$object['name']];
                         // By using ->inContext() the violations are added to the current validation context

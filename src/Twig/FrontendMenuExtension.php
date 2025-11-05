@@ -50,7 +50,7 @@ class FrontendMenuExtension extends AbstractExtension
         return $twig->render($template, $context);
     }
 
-    public function isCurrent($item): bool
+    public function isCurrent(array $item): bool
     {
         $currentRequest = $this->requestStack->getCurrentRequest();
         $currentLocale = $currentRequest->getLocale();
