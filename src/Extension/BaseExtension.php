@@ -135,7 +135,7 @@ abstract class BaseExtension implements ExtensionInterface
         return null;
     }
 
-    public function addListener(string $event, $callback): void
+    public function addListener(string $event, callable|array $callback): void
     {
         /** @var EventDispatcher $dp */
         $dp = $this->getEventDispatcher();

@@ -15,8 +15,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 class ContentHelper
 {
-    /** @var Request */
-    private $request;
+    private readonly Request $request;
 
     public function __construct(
         private readonly Canonical $canonical,
