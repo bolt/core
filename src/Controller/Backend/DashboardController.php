@@ -19,7 +19,7 @@ class DashboardController extends TwigAwareController implements BackendZoneInte
 
         // TODO PERMISSIONS: implement listing that only lists content that the user is allowed to see
         $amount = (int) $this->config->get('general/records_per_page', 10);
-        $page = (int) $this->request->get('page', 1);
+        $page = (int) ($this->request?->get('page') ?? 1);
         $contentTypes = $this->config->get('contenttypes')->where('show_on_dashboard', true)->keys()->implode(',');
         $filter = strip_tags((string) $this->getFromRequest('filter', ''));
 

@@ -41,7 +41,7 @@ class EmbedController implements AsyncZoneInterface
         }
 
         try {
-            $url = $this->request->request->get('url');
+            $url = $this->request?->request->getString('url') ?? '';
             $info = (new EmbedFactory())->get($url);
             $oembed = $info->getOEmbed();
 

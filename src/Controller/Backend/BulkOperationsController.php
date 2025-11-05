@@ -50,7 +50,7 @@ class BulkOperationsController extends AbstractController implements BackendZone
     public function status(string $status): Response
     {
         $this->validateCsrf('batch');
-        $formData = $this->request->request->get('records');
+        $formData = $this->request?->request->getString('records') ?? '';
         $recordIds = array_map('intval', explode(',', $formData));
 
         $records = $this->findRecordsFromIds($recordIds);
@@ -63,7 +63,7 @@ class BulkOperationsController extends AbstractController implements BackendZone
         $this->em()->flush();
 
         $this->addFlash('success', 'content.status_changed_successfully');
-        $url = $this->request->headers->get('referer');
+        $url = $this->request?->headers->get('referer') ?? $this->generateUrl('bolt_dashboard');
 
         return new RedirectResponse($url);
     }
@@ -72,7 +72,7 @@ class BulkOperationsController extends AbstractController implements BackendZone
     public function delete(): Response
     {
         $this->validateCsrf('batch');
-        $formData = $this->request->request->get('records');
+        $formData = $this->request?->request->getString('records') ?? '';
         $recordIds = array_map('intval', explode(',', $formData));
 
         $record = null;
@@ -90,7 +90,7 @@ class BulkOperationsController extends AbstractController implements BackendZone
         $this->em()->flush();
 
         $this->addFlash('success', 'content.deleted_successfully');
-        $url = $this->request->headers->get('referer');
+        $url = $this->request?->headers->get('referer') ?? $this->generateUrl('bolt_dashboard');
 
         return new RedirectResponse($url);
     }

@@ -55,7 +55,8 @@ class ImageController
 
     private function getLocation(): string
     {
-        return $this->parameters['location'] ?? $this->request->query->get('location', 'files');
+        return $this->parameters['location']
+            ?? $this->request?->query->getString('location', 'files') ?? 'files';
     }
 
     private function getPath(?string $path = null, bool $absolute = true, $additional = null): string
@@ -97,8 +98,8 @@ class ImageController
             return file_get_contents($filepath);
         }
 
-        if ($this->request->query->has('path')) {
-            $filename = sprintf('%s/%s', $this->request->query->get('path'), $filename);
+        if ($this->request?->query->has('path')) {
+            $filename = sprintf('%s/%s', $this->request->query->getString('path'), $filename);
         }
 
         $cacheFile = $this->server->makeImage($filename, $this->parameters);
@@ -124,8 +125,8 @@ class ImageController
             return $response;
         }
 
-        if ($this->request->query->has('path')) {
-            $filename = sprintf('%s/%s', $this->request->query->get('path'), $filename);
+        if ($this->request?->query->has('path')) {
+            $filename = sprintf('%s/%s', $this->request->query->getString('path'), $filename);
         }
 
         return $this->server->getImageResponse($filename, $this->parameters);
