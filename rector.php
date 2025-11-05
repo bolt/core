@@ -15,6 +15,7 @@ return RectorConfig::configure()
     ->withPhpSets()
     ->withPreparedSets(
         typeDeclarations: true,
+        symfonyCodeQuality: true,
     )
     ->withComposerBased(
         twig: true,
@@ -26,5 +27,6 @@ return RectorConfig::configure()
         Rector\Php80\Rector\Class_\ClassPropertyAssignToConstructorPromotionRector::class => [
             'src/Entity/Relation.php',
             'src/Entity/ResetPasswordRequest.php',
-        ]
+        ],
+        Rector\Symfony\CodeQuality\Rector\Class_\InlineClassRoutePrefixRector::class
     ]);
