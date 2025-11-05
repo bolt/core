@@ -10,7 +10,7 @@ return RectorConfig::configure()
     ->withPaths(['./src'])
     ->withImportNames()
     ->withParallel(timeoutSeconds: 180, jobSize: 10)
-    ->withSymfonyContainerXml(__DIR__ . '/var/cache/dev/App_KernelDevDebugContainer.xml')
+    ->withSymfonyContainerXml(__DIR__ . '/var/cache/dev/Bolt_KernelDevDebugContainer.xml')
     ->withSymfonyContainerPhp(__DIR__ . '/tests/rector/symfony-container.php')
     ->withPhpSets()
     ->withPreparedSets(
