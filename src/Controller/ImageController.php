@@ -12,7 +12,7 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Throwable;
 
 class ImageController
@@ -21,9 +21,7 @@ class ImageController
     private $server;
 
     private array $parameters = [];
-
-    /** @var Request */
-    private $request;
+    private readonly ?Request $request;
 
     public function __construct(
         private readonly Config $config,

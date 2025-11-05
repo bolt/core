@@ -9,14 +9,14 @@ use Bolt\Repository\UserRepository;
 use Bolt\Storage\Query;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 /**
  * Display the list of users, along with buttons to change them.
  */
-#[Security("is_granted('user:list')")]
+#[IsGranted(attribute: 'user:list')]
 class UserController extends TwigAwareController implements BackendZoneInterface
 {
     private const PAGESIZE = 20;

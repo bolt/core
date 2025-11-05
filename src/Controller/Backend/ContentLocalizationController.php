@@ -9,7 +9,7 @@ use Bolt\Entity\Content;
 use Bolt\Security\ContentVoter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 /**
  * Permissions for this controller follow ContentEditController - you can see the localization status if you have

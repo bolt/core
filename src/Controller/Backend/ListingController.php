@@ -10,7 +10,7 @@ use Bolt\Entity\Content;
 use Bolt\Security\ContentVoter;
 use Bolt\Storage\Query;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class ListingController extends TwigAwareController implements BackendZoneInterface
 {

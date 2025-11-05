@@ -6,12 +6,12 @@ namespace Bolt\Controller\Backend;
 
 use Bolt\Controller\TwigAwareController;
 use Bolt\Repository\LogRepository;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-#[Security("is_granted('systemlog')")]
+#[IsGranted(attribute: 'systemlog')]
 class LogViewerController extends TwigAwareController implements BackendZoneInterface
 {
     #[Route(path: '/logviewer', name: 'bolt_logviewer', methods: [Request::METHOD_GET])]

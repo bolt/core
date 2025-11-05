@@ -11,7 +11,6 @@ use Bolt\Factory\MediaFactory;
 use Bolt\Twig\TextExtension;
 use Cocur\Slugify\Slugify;
 use Doctrine\ORM\EntityManagerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sirius\Upload\Handler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
@@ -23,20 +22,20 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Validator\Constraints\Url;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
 use Throwable;
 
-#[Security("is_granted('upload')")]
+#[IsGranted(attribute: 'upload')]
 class UploadController extends AbstractController implements AsyncZoneInterface
 {
     use CsrfTrait;
 
-    /** @var Request */
-    private $request;
+    private ?Request $request;
 
     public function __construct(
         private MediaFactory $mediaFactory,

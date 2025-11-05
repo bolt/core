@@ -27,8 +27,7 @@ use Twig\Error\LoaderError;
 
 class ErrorController extends SymfonyErrorController implements ErrorZoneInterface
 {
-    /** @var Request */
-    private $request;
+    private readonly ?Request $request;
 
     public function __construct(
         HttpKernelInterface $httpKernel,

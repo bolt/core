@@ -22,9 +22,10 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class UserEditController extends TwigAwareController implements BackendZoneInterface
@@ -48,7 +49,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
     }
 
     #[Route(path: '/user-edit/add', name: 'bolt_user_add', methods: [Request::METHOD_GET, Request::METHOD_POST])]
-    #[Security("is_granted('user:add')")]
+    #[IsGranted(attribute: 'user:add')]
     public function add(Request $request): Response
     {
         $user = UserRepository::factory();
@@ -93,12 +94,12 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
         }
 
         return $this->render('@bolt/users/add.html.twig', [
-            'userForm' => $form->createView(),
+            'userForm' => $form,
         ]);
     }
 
     #[Route(path: '/profile-edit', name: 'bolt_profile_edit', methods: [Request::METHOD_GET, Request::METHOD_POST])]
-    #[Security("is_granted('editprofile')")]
+    #[IsGranted(attribute: 'editprofile')]
     public function editProfile(Request $request): Response
     {
         $submitted_data = $request->request->get('user');
@@ -109,7 +110,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
     }
 
     #[Route(path: '/user-edit/{id}', name: 'bolt_user_edit', requirements: ['id' => '\d+'], methods: [Request::METHOD_GET, Request::METHOD_POST])]
-    #[Security("is_granted('user:edit')")]
+    #[IsGranted(attribute: 'user:edit')]
     public function edit(User $user, Request $request): Response
     {
         $submitted_data = $request->request->get('user');
@@ -118,7 +119,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
     }
 
     #[Route(path: '/user-status/{id}', name: 'bolt_user_update_status', requirements: ['id' => '\d+'], methods: [Request::METHOD_GET, Request::METHOD_POST])]
-    #[Security("is_granted('user:status')")] // -- first check, more detailed checks in method
+    #[IsGranted(attribute: 'user:status')] // -- first check, more detailed checks in method
     public function status(User $user): Response
     {
         $this->validateCsrf('useredit');
@@ -137,7 +138,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
     }
 
     #[Route(path: '/user-delete/{id}', name: 'bolt_user_delete', requirements: ['id' => '\d+'], methods: [Request::METHOD_GET, Request::METHOD_POST])]
-    #[Security("is_granted('user:delete')")]
+    #[IsGranted(attribute: 'user:delete')]
     public function delete(User $user): Response
     {
         $this->validateCsrf('useredit');
@@ -263,7 +264,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
         }
 
         return $this->render('@bolt/users/edit.html.twig', [
-            'userForm' => $form->createView(),
+            'userForm' => $form,
         ]);
     }
 }

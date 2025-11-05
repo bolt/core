@@ -8,12 +8,12 @@ use Bolt\Extension\BaseExtension;
 use Bolt\Extension\ExtensionRegistry;
 use ComposerPackages\Dependencies;
 use ComposerPackages\Versions;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-#[Security("is_granted('extensions')")]
+#[IsGranted(attribute: 'extensions')]
 class ExtensionsController extends AbstractController implements BackendZoneInterface
 {
     private readonly Dependencies $dependenciesManager;

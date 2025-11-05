@@ -7,13 +7,13 @@ namespace Bolt\Controller\Backend\Async;
 use Bolt\Configuration\Config;
 use Bolt\Twig\FieldExtension;
 use Illuminate\Support\Collection;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-#[Security("is_granted('upload')")]
+#[IsGranted(attribute: 'upload')]
 class SelectOptionsController extends AbstractController implements AsyncZoneInterface
 {
     public function __construct(
