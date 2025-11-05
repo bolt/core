@@ -200,7 +200,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
                     'title' => $content->getExtras()['title'],
                     'modified' => $modified,
                 ],
-                200
+                Response::HTTP_OK
             );
         }
 
