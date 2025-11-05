@@ -24,6 +24,8 @@ jobs:
 
             -   run: composer install --no-progress --ansi
 
+            -   run: bin/console cache:clear --env=dev
+
             -   run: vendor/bin/rector process -n --no-progress-bar --ansi
 
     code_analysis:
