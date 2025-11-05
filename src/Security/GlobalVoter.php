@@ -9,9 +9,9 @@ use Bolt\Entity\User;
 use Bolt\Enum\UserStatus;
 use DomainException;
 use Illuminate\Support\Collection;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
-use Symfony\Component\Security\Core\Security;
 
 class GlobalVoter extends Voter
 {

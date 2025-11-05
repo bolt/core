@@ -76,6 +76,7 @@ class SelectField extends Field implements FieldInterface, RawPersistable, Itera
             // the name of the function
             $func = 'getOptions';
 
+            /** @phpstan-ignore method.notFound (We currently do not have an interface for this purpose) */
             return $class->{$func}($this);
         }
 

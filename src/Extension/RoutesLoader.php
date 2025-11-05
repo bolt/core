@@ -14,7 +14,7 @@ class RoutesLoader extends Loader
     ) {
     }
 
-    public function load($resource, $type = null): RouteCollection
+    public function load(mixed $resource, ?string $type = null): RouteCollection
     {
         $routeCollection = new RouteCollection();
 

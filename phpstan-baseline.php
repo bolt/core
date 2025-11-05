@@ -956,18 +956,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Configuration/Parser/BaseParser.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Parameter \\#1 \\$filename of static method Symfony\\\\Component\\\\Yaml\\\\Yaml\\:\\:parseFile\\(\\) expects string, array\\|string given\\.$#',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Configuration/Parser/BaseParser.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Configuration\\\\Parser\\\\BaseParser\\:\\:\\$parsedFilenames \\(array\\<string\\>\\) does not accept array\\<array\\|string\\>\\.$#',
-	'identifier' => 'assign.propertyType',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Configuration/Parser/BaseParser.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Method Bolt\\\\Configuration\\\\Parser\\\\ContentTypesParser\\:\\:__construct\\(\\) has parameter \\$generalConfig with generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#',
 	'identifier' => 'missingType.generics',
 	'count' => 1,
@@ -2492,12 +2480,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Entity/Field/NumberField.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Cannot call method getOptions\\(\\) on object\\|null\\.$#',
-	'identifier' => 'method.nonObject',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Entity/Field/SelectField.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Class Bolt\\\\Entity\\\\Field\\\\SelectField implements generic interface Iterator but does not specify its types\\: TKey, TValue$#',
 	'identifier' => 'missingType.generics',
 	'count' => 1,
@@ -3278,12 +3260,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Extension/ExtensionRegistry.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\Extension\\\\RoutesLoader\\:\\:load\\(\\) has parameter \\$type with no type specified\\.$#',
-	'identifier' => 'missingType.parameter',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Extension/RoutesLoader.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Method Bolt\\\\Extension\\\\RoutesLoader\\:\\:supports\\(\\) has parameter \\$type with no type specified\\.$#',
 	'identifier' => 'missingType.parameter',
 	'count' => 1,
@@ -3364,12 +3340,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'message' => '#^Method Bolt\\\\Kernel\\:\\:flattenKeys\\(\\) return type has no value type specified in iterable type array\\.$#',
 	'identifier' => 'missingType.iterableValue',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Kernel.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Parameter \\#1 \\$filename of static method Symfony\\\\Component\\\\Yaml\\\\Yaml\\:\\:parseFile\\(\\) expects string, array\\|string given\\.$#',
-	'identifier' => 'argument.type',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Kernel.php',
 ];

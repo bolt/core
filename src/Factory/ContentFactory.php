@@ -12,7 +12,7 @@ use Bolt\Event\Listener\ContentFillListener;
 use Bolt\Security\ContentVoter;
 use Bolt\Storage\Query;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Security\Core\Security;
+use Symfony\Bundle\SecurityBundle\Security;
 
 class ContentFactory
 {
