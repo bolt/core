@@ -7,6 +7,7 @@ namespace Bolt\Log;
 use Bolt\Entity\User;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Filesystem\Path;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\KernelInterface;
 
@@ -31,7 +32,7 @@ class RequestProcessor
 
         $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 7);
 
-        if (! empty($request)) {
+        if ($request instanceof Request) {
             $record['extra'] = [
                 'client_ip' => $request->getClientIp(),
                 'client_port' => $request->getPort(),

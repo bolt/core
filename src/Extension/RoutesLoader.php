@@ -25,7 +25,7 @@ class RoutesLoader extends Loader
         return $routeCollection;
     }
 
-    public function supports($resource, $type = null): bool
+    public function supports(mixed $resource, $type = null): bool
     {
         return $type === 'bolt_extensions';
     }
