@@ -7,6 +7,7 @@ namespace Bolt\Command;
 use Bolt\Entity\User;
 use Bolt\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Exception\RuntimeException;
@@ -33,11 +34,9 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  *
  * @author Oleg Voronkovich <oleg-voronkovich@yandex.ru>
  */
+#[AsCommand(name: 'bolt:delete-user', description: 'Deletes users from the database')]
 class DeleteUserCommand extends Command
 {
-    /** @var string */
-    protected static $defaultName = 'bolt:delete-user';
-
     private SymfonyStyle $io;
 
     public function __construct(
@@ -54,7 +53,6 @@ class DeleteUserCommand extends Command
     protected function configure(): void
     {
         $this
-            ->setDescription('Deletes users from the database')
             ->addArgument('username', InputArgument::REQUIRED, 'The username of an existing user')
             ->setHelp(
                 <<<'HELP'

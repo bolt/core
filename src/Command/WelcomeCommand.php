@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\ArrayInput;
@@ -12,12 +13,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+#[AsCommand(name: 'bolt:welcome', description: 'Welcome command with basic resources about Bolt.')]
 class WelcomeCommand extends Command
 {
     use ImageTrait;
-
-    /** @var string */
-    protected static $defaultName = 'bolt:welcome';
 
     /**
      * {@inheritdoc}
@@ -25,7 +24,6 @@ class WelcomeCommand extends Command
     protected function configure(): void
     {
         $this
-            ->setDescription('Welcome command with basic resources about Bolt.')
             ->setHelp(
                 <<<'HELP'
 The <info>%command.name%</info> command shows some information and resources to get started with your Bolt project.

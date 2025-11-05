@@ -8,17 +8,16 @@ use Bolt\Extension\ExtensionInterface;
 use Bolt\Extension\ExtensionRegistry;
 use ComposerPackages\Dependencies;
 use ComposerPackages\Versions;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+#[AsCommand(name: 'extensions:show', description: 'Show details for an extension')]
 class ExtensionsShowCommand extends Command
 {
-    /** @var string */
-    protected static $defaultName = 'extensions:show';
-
     private readonly Dependencies $dependenciesManager;
 
     public function __construct(
@@ -32,11 +31,10 @@ class ExtensionsShowCommand extends Command
     protected function configure(): void
     {
         $this
-            ->setDescription('Show details for an extension')
             ->addArgument('name', InputArgument::REQUIRED, 'Extension name');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): ?int
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
 

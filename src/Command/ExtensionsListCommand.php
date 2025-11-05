@@ -5,26 +5,19 @@ declare(strict_types=1);
 namespace Bolt\Command;
 
 use Bolt\Extension\ExtensionRegistry;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+#[AsCommand(name: 'extensions:list', description: 'List installed Extensions')]
 class ExtensionsListCommand extends Command
 {
-    /** @var string */
-    protected static $defaultName = 'extensions:list';
-
     public function __construct(
         private readonly ExtensionRegistry $extensionRegistry
     ) {
         parent::__construct();
-    }
-
-    protected function configure(): void
-    {
-        $this
-            ->setDescription('List installed Extensions');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int

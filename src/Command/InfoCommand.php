@@ -6,6 +6,7 @@ namespace Bolt\Command;
 
 use Bolt\Version;
 use ComposerPackages\Packages;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -13,12 +14,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Throwable;
 
+#[AsCommand(name: 'bolt:info', description: 'Info about this Bolt Installation')]
 class InfoCommand extends Command
 {
     use ImageTrait;
-
-    /** @var string */
-    protected static $defaultName = 'bolt:info';
 
     /** @var object */
     private $composer;
@@ -38,7 +37,6 @@ class InfoCommand extends Command
     protected function configure(): void
     {
         $this
-            ->setDescription('Info about this Bolt Installation')
             ->setHelp(
                 <<<'HELP'
 The <info>%command.name%</info> command shows some information about this installation of Bolt.

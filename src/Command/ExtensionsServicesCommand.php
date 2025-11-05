@@ -5,27 +5,20 @@ declare(strict_types=1);
 namespace Bolt\Command;
 
 use ReflectionClass;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+#[AsCommand(name: 'extensions:services', description: 'List services available in Extensions')]
 class ExtensionsServicesCommand extends Command
 {
-    /** @var string */
-    protected static $defaultName = 'extensions:services';
-
     public function __construct(
         private readonly ContainerInterface $container
     ) {
         parent::__construct();
-    }
-
-    protected function configure(): void
-    {
-        $this
-            ->setDescription('List services available in Extensions');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int

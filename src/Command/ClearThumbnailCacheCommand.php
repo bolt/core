@@ -5,16 +5,15 @@ declare(strict_types=1);
 namespace Bolt\Command;
 
 use Bolt\Utils\ThumbnailCacheClearer;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+#[AsCommand(name: 'cache:thumbs', description: 'Clear Bolt\'s thumbnail cache folder')]
 class ClearThumbnailCacheCommand extends Command
 {
-    /** @var string */
-    protected static $defaultName = 'cache:thumbs';
-
     public function __construct(
         private readonly ThumbnailCacheClearer $thumbnailCacheClearer
     ) {
@@ -27,7 +26,6 @@ class ClearThumbnailCacheCommand extends Command
     protected function configure(): void
     {
         $this
-            ->setDescription('Clear Bolt\'s thumbnail cache folder')
             ->setHelp(
                 <<<'HELP'
 The <info>%command.name%</info> command clears the `thumbs/` folder, that's used to efficiently store and serve thumbnail images.
