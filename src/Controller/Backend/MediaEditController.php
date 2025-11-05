@@ -48,7 +48,7 @@ class MediaEditController extends TwigAwareController implements BackendZoneInte
     {
         $this->validateCsrf('media_edit');
 
-        $post = $this->request->request->all();
+        $post = $this->getRequest()->request->all();
 
         $media->setTitle($post['title'])
             ->setDescription($post['description'])

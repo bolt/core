@@ -101,7 +101,7 @@ class ErrorController extends SymfonyErrorController implements ErrorZoneInterfa
 
     private function showForbidden(): Response
     {
-        if (RequestZone::isForBackend($this->request) && $this->security->isGranted('dashboard')) {
+        if ($this->request && RequestZone::isForBackend($this->request) && $this->security->isGranted('dashboard')) {
             /** @var Session $session */
             $session = $this->request->getSession();
             $session->getFlashBag()->set('danger', 'You do not have permission to access this page.');

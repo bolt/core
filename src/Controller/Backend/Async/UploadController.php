@@ -116,8 +116,8 @@ class UploadController extends AbstractController implements AsyncZoneInterface
             ], Response::HTTP_FORBIDDEN);
         }
 
-        $locationName = $this->request->query->get('location', '');
-        $path = $this->request->query->get('path', '');
+        $locationName = $this->request?->query->getString('location') ?? '';
+        $path = $this->request?->query->getString('path') ?? '';
 
         $basepath = $this->config->getPath($locationName);
         $target = $this->config->getPath($locationName, true, $path);

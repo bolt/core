@@ -37,9 +37,10 @@ class HomepageController extends TwigAwareController implements FrontendZoneInte
 
         // Perhaps we need a listing instead. If so, forward the Request there
         if (! $contentType->get('singleton') && ! isset($homepageTokens[1])) {
-            $params = array_merge($this->request->query->all(), [
+            $request = $this->getRequest();
+            $params = array_merge($request->query->all(), [
                 'contentTypeSlug' => $homepage,
-                '_locale' => $this->request->getLocale(),
+                '_locale' => $request->getLocale(),
             ]);
 
             return $this->forward('Bolt\Controller\Frontend\ListingController::listing', $params);

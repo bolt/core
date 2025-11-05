@@ -37,7 +37,7 @@ class TaxonomyController extends TwigAwareController implements FrontendZoneInte
             'taxonomy_locale',
             [
                 'taxonomyslug' => $taxonomy->get('slug'),
-                '_locale' => $this->request->getLocale(),
+                '_locale' => $this->request?->getLocale() ?? 'en',
                 'slug' => $slug,
             ]
         );

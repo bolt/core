@@ -82,7 +82,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
 
         $this->contentFillListener->fillContent($content);
 
-        if ($this->request->getMethod() === 'POST') {
+        if ($this->request?->getMethod() === 'POST') {
             $content->setPublishedAt(null);
             $content->setDepublishedAt(null);
 
@@ -183,7 +183,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         $locale = $originalAuthor->getLocale();
 
         // If we're "Saving Ajaxy"
-        if ($this->request->isXmlHttpRequest()) {
+        if ($this->request?->isXmlHttpRequest()) {
             $modified = sprintf(
                 '(%s: %s)',
                 $this->translator->trans('field.modifiedAt', [], null, $locale),
@@ -300,7 +300,8 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
     // It needs to be abstracted into its own class, alongside the other functions it uses.
     public function contentFromPost(?Content $content): Content
     {
-        $formData = $this->request->request->all();
+        $request = $this->getRequest();
+        $formData = $request->request->all();
         $locale = $this->getPostedLocale($formData) ?: $content->getDefaultLocale();
 
         /** @var User $user */
@@ -309,7 +310,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         if ($content === null) {
             $content = new Content();
             $content->setAuthor($user);
-            $content->setContentType($this->request->attributes->get('id'));
+            $content->setContentType($request->attributes->get('id'));
         }
         $this->contentFillListener->fillContent($content);
 

@@ -35,8 +35,8 @@ class FileListingController implements AsyncZoneInterface
     #[Route(path: '/list_files', name: 'bolt_async_filelisting', methods: [Request::METHOD_GET])]
     public function index(): JsonResponse
     {
-        $locationName = $this->request->query->get('location', 'files');
-        $type = $this->request->query->get('type', '');
+        $locationName = $this->request?->query->getString('location', 'files') ?? 'files';
+        $type = $this->request?->query->getString('type') ?? '';
         $locationTopLevel = explode('/', Path::canonicalize($locationName))[0];
 
         if (! $this->security->isGranted('list_files:' . $locationTopLevel)) {
@@ -51,7 +51,7 @@ class FileListingController implements AsyncZoneInterface
         // Do not allow any path outside of the public directory.
         $path = PathCanonicalize::canonicalize($this->publicPath, $relativeLocation);
         $baseFilePath = PathCanonicalize::canonicalize($this->publicPath, $relativeTopLocation);
-        $baseUrlPath = $this->request->getPathInfo();
+        $baseUrlPath = $this->request?->getPathInfo() ?? '';
         $relativePath = Path::makeRelative($path, $this->publicPath);
 
         $files = $this->filesIndex->get($relativePath, $type, $baseUrlPath, $baseFilePath);

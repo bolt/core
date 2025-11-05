@@ -1136,24 +1136,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Configuration/PathResolver.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Parameter \\#1 \\$url of method Embed\\\\Embed\\:\\:get\\(\\) expects string, bool\\|float\\|int\\|string\\|null given\\.$#',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Controller/Backend/Async/EmbedController.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Controller\\\\Backend\\\\Async\\\\EmbedController\\:\\:\\$request \\(Symfony\\\\Component\\\\HttpFoundation\\\\Request\\) does not accept Symfony\\\\Component\\\\HttpFoundation\\\\Request\\|null\\.$#',
-	'identifier' => 'assign.propertyType',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Controller/Backend/Async/EmbedController.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Controller\\\\Backend\\\\Async\\\\FileListingController\\:\\:\\$request \\(Symfony\\\\Component\\\\HttpFoundation\\\\Request\\) does not accept Symfony\\\\Component\\\\HttpFoundation\\\\Request\\|null\\.$#',
-	'identifier' => 'assign.propertyType',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Controller/Backend/Async/FileListingController.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Binary operation "\\." between array\\|bool\\|float\\|int\\|string\\|null and \'/\'\\|\'\\\\\\\\\' results in an error\\.$#',
 	'identifier' => 'binaryOp.invalid',
 	'count' => 1,
@@ -1178,12 +1160,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Controller/Backend/Async/UploadController.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Controller\\\\Backend\\\\Async\\\\UploadController\\:\\:\\$request \\(Symfony\\\\Component\\\\HttpFoundation\\\\Request\\) does not accept Symfony\\\\Component\\\\HttpFoundation\\\\Request\\|null\\.$#',
-	'identifier' => 'assign.propertyType',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Controller/Backend/Async/UploadController.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Method Bolt\\\\Controller\\\\Backend\\\\BulkOperationsController\\:\\:findRecordsFromIds\\(\\) has parameter \\$ids with no value type specified in iterable type array\\.$#',
 	'identifier' => 'missingType.iterableValue',
 	'count' => 1,
@@ -1192,24 +1168,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'message' => '#^Method Bolt\\\\Controller\\\\Backend\\\\BulkOperationsController\\:\\:findRecordsFromIds\\(\\) return type has no value type specified in iterable type array\\.$#',
 	'identifier' => 'missingType.iterableValue',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Controller/Backend/BulkOperationsController.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Parameter \\#1 \\$url of class Symfony\\\\Component\\\\HttpFoundation\\\\RedirectResponse constructor expects string, string\\|null given\\.$#',
-	'identifier' => 'argument.type',
-	'count' => 2,
-	'path' => __DIR__ . '/src/Controller/Backend/BulkOperationsController.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Parameter \\#2 \\$string of function explode expects string, bool\\|float\\|int\\|string\\|null given\\.$#',
-	'identifier' => 'argument.type',
-	'count' => 2,
-	'path' => __DIR__ . '/src/Controller/Backend/BulkOperationsController.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Controller\\\\Backend\\\\BulkOperationsController\\:\\:\\$request \\(Symfony\\\\Component\\\\HttpFoundation\\\\Request\\) does not accept Symfony\\\\Component\\\\HttpFoundation\\\\Request\\|null\\.$#',
-	'identifier' => 'assign.propertyType',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Controller/Backend/BulkOperationsController.php',
 ];
@@ -1400,12 +1358,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Controller/Backend/FilemanagerController.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\Controller\\\\Backend\\\\FilemanagerController\\:\\:getFileSummary\\(\\) has parameter \\$contents with no type specified\\.$#',
-	'identifier' => 'missingType.parameter',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Controller/Backend/FilemanagerController.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Parameter \\#1 \\$locationName of method Bolt\\\\Configuration\\\\FileLocations\\:\\:get\\(\\) expects string, string\\|null given\\.$#',
 	'identifier' => 'argument.type',
 	'count' => 2,
@@ -1556,12 +1508,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Controller/ErrorController.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Controller\\\\ErrorController\\:\\:\\$request \\(Symfony\\\\Component\\\\HttpFoundation\\\\Request\\) does not accept Symfony\\\\Component\\\\HttpFoundation\\\\Request\\|null\\.$#',
-	'identifier' => 'assign.propertyType',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Controller/ErrorController.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Method Bolt\\\\Controller\\\\Frontend\\\\DetailControllerInterface\\:\\:record\\(\\) has parameter \\$slugOrId with no type specified\\.$#',
 	'identifier' => 'missingType.parameter',
 	'count' => 1,
@@ -1634,12 +1580,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Controller/ImageController.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Controller\\\\ImageController\\:\\:\\$request \\(Symfony\\\\Component\\\\HttpFoundation\\\\Request\\) does not accept Symfony\\\\Component\\\\HttpFoundation\\\\Request\\|null\\.$#',
-	'identifier' => 'assign.propertyType',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Controller/ImageController.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Cannot call method get\\(\\) on Bolt\\\\Configuration\\\\Content\\\\ContentType\\|null\\.$#',
 	'identifier' => 'method.nonObject',
 	'count' => 1,
@@ -1708,12 +1648,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'message' => '#^Parameter \\#1 \\$contentType of method Bolt\\\\Controller\\\\TwigAwareController\\:\\:validLocaleForContentType\\(\\) expects Bolt\\\\Configuration\\\\Content\\\\ContentType, Bolt\\\\Configuration\\\\Content\\\\ContentType\\|null given\\.$#',
 	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Controller/TwigAwareController.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Controller\\\\TwigAwareController\\:\\:\\$request \\(Symfony\\\\Component\\\\HttpFoundation\\\\Request\\) does not accept Symfony\\\\Component\\\\HttpFoundation\\\\Request\\|null\\.$#',
-	'identifier' => 'assign.propertyType',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Controller/TwigAwareController.php',
 ];
@@ -2960,12 +2894,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Event/Subscriber/ExtensionSubscriber.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Parameter \\#1 \\$locale of method Symfony\\\\Component\\\\HttpFoundation\\\\Request\\:\\:setLocale\\(\\) expects string, string\\|null given\\.$#',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Event/Subscriber/LocaleSubscriber.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Call to an undefined method object\\:\\:executeUpdate\\(\\)\\.$#',
 	'identifier' => 'method.notFound',
 	'count' => 2,
@@ -3026,8 +2954,8 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Event/UserEvent.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\Extension\\\\BaseExtension\\:\\:addListener\\(\\) has parameter \\$callback with no type specified\\.$#',
-	'identifier' => 'missingType.parameter',
+	'message' => '#^Method Bolt\\\\Extension\\\\BaseExtension\\:\\:addListener\\(\\) has parameter \\$callback with no value type specified in iterable type array\\.$#',
+	'identifier' => 'missingType.iterableValue',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Extension/BaseExtension.php',
 ];

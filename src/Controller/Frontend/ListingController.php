@@ -33,8 +33,9 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
     ], methods: [Request::METHOD_GET, Request::METHOD_POST])]
     public function listing(ContentRepository $contentRepository, string $contentTypeSlug, ?string $_locale = null): Response
     {
-        if ($_locale === null && ! $this->getFromRequest('_locale', null)) {
-            $this->request->setLocale($this->defaultLocale);
+        $request = $this->getRequest();
+        if ($_locale === null && ! $this->getFromRequest('_locale')) {
+            $request->setLocale($this->defaultLocale);
         }
 
         $contentType = ContentType::factory($contentTypeSlug, $this->config->get('contenttypes'));
@@ -51,7 +52,7 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
 
         $page = (int) $this->getFromRequest('page', '1');
         $amountPerPage = $contentType->get('listing_records');
-        $params = $this->parseQueryParams($this->request, $contentType);
+        $params = $this->parseQueryParams($request, $contentType);
 
         /** @var Content|Pagerfanta $content */
         $content = $this->query->getContent($contentTypeSlug, $params);
@@ -61,7 +62,7 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
             $route = $content->getDefinition()->get('record_route');
             $controller = $this->container->get('router')->getRouteCollection()->get($route)->getDefault('_controller');
 
-            $parameters = $this->request->attributes->all();
+            $parameters = $request->attributes->all();
             $parameters['slugOrId'] = $content->getId();
 
             return $this->forward($controller, $parameters);
@@ -74,7 +75,7 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
             'listing_locale',
             array_merge([
                 'contentTypeSlug' => $contentType->get('slug'),
-                '_locale' => $this->request->getLocale(),
+                '_locale' => $request->getLocale(),
             ], $params)
         );
 

@@ -15,6 +15,7 @@ use Bolt\TemplateChooser;
 use Bolt\Twig\CommonExtension;
 use Bolt\Utils\Sanitiser;
 use Illuminate\Support\Collection;
+use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\Asset\PathPackage;
@@ -35,7 +36,7 @@ class TwigAwareController extends AbstractController
     protected Packages $packages;
     protected Canonical $canonical;
     protected Sanitiser $sanitiser;
-    protected Request $request;
+    protected ?Request $request;
     protected TemplateChooser $templateChooser;
     protected string $defaultLocale;
     private CommonExtension $commonExtension;
@@ -133,24 +134,26 @@ class TwigAwareController extends AbstractController
 
     protected function validLocaleForContentType(ContentType $contentType): bool
     {
+        $request = $this->getRequest();
         if ($contentType->isKeyNotEmpty('locales')) {
-            return $contentType->get('locales')->contains($this->request->getLocale());
+            return $contentType->get('locales')->contains($request->getLocale());
         }
 
-        return $this->request->getLocale() === $this->defaultLocale;
+        return $request->getLocale() === $this->defaultLocale;
     }
 
     protected function redirectToDefaultLocale(): ?Response
     {
-        $this->request->getSession()->set('_locale', $this->defaultLocale);
+        $request = $this->getRequest();
+        $request->getSession()->set('_locale', $this->defaultLocale);
 
-        $params = $this->request->attributes->get('_route_params');
+        $params = $request->attributes->get('_route_params');
 
         if (isset($params['_locale'])) {
             $params['_locale'] = $this->defaultLocale;
         }
 
-        return $this->redirectToRoute($this->request->get('_route'), $params);
+        return $this->redirectToRoute($request->get('_route'), $params);
     }
 
     private function setTwigLoader(): void
@@ -236,18 +239,18 @@ class TwigAwareController extends AbstractController
             'returnmultiple' => true,
         ];
 
-        if ($this->request->get('sortBy')) {
+        if ($this->request?->get('sortBy')) {
             $params['order'] = $this->getFromRequest('sortBy');
         } else {
             $params['order'] = $order;
         }
 
-        if ($this->request->get('filter')) {
+        if ($this->request?->get('filter')) {
             $key = $this->request->get('filterKey', 'anyField');
             $params[$key] = '%' . $this->getFromRequest('filter') . '%';
         }
 
-        if ($this->request->get('taxonomy')) {
+        if ($this->request?->get('taxonomy')) {
             $taxonomy = explode('=', (string) $this->getFromRequest('taxonomy'));
             $params[$taxonomy[0]] = $taxonomy[1];
         }
@@ -257,12 +260,12 @@ class TwigAwareController extends AbstractController
 
     public function getFromRequestRaw(string $parameter): string
     {
-        return $this->request->get($parameter, '');
+        return $this->request?->get($parameter) ?? '';
     }
 
     public function getFromRequest(string $parameter, ?string $default = null): ?string
     {
-        $parameter = mb_trim($this->sanitiser->clean($this->request->get($parameter, '')));
+        $parameter = mb_trim($this->sanitiser->clean($this->request?->get($parameter, '') ?? ''));
 
         // `clean` returns a string, but we want to be able to get `null`.
         return empty($parameter) ? $default : $parameter;
@@ -284,5 +287,10 @@ class TwigAwareController extends AbstractController
     public function validateSecret(string $secret, string $slug): bool
     {
         return $secret === $this->commonExtension->generateSecret($slug);
+    }
+
+    protected function getRequest(): Request
+    {
+        return $this->request ?? throw new RuntimeException('Request object required');
     }
 }

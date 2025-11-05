@@ -32,8 +32,8 @@ class DetailController extends TwigAwareController implements FrontendZoneInterf
     ], methods: [Request::METHOD_GET, Request::METHOD_POST])]
     public function record($slugOrId, ?string $contentTypeSlug = null, bool $requirePublished = true, ?string $_locale = null): Response
     {
-        if ($_locale === null && ! $this->getFromRequest('_locale', null)) {
-            $this->request->setLocale($this->defaultLocale);
+        if ($_locale === null && ! $this->getFromRequest('_locale')) {
+            $this->request?->setLocale($this->defaultLocale);
         }
 
         // Check if there's a record with given `$slugOrId` as slug (might be a numeric slug)
@@ -48,7 +48,7 @@ class DetailController extends TwigAwareController implements FrontendZoneInterf
         $this->contentHelper->setCanonicalPath($record);
 
         // Check if we're attempting to preview an unpublished Record
-        if ($record && $this->validateSecret($this->request->get('secret', ''), (string) $record->getId())) {
+        if ($record && $this->validateSecret($this->request?->get('secret') ?? '', (string) $record->getId())) {
             $requirePublished = false;
         }
 
