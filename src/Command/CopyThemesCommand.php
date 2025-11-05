@@ -9,6 +9,7 @@ use Bolt\Extension\ExtensionRegistry;
 use Bolt\Version;
 use Composer\Package\PackageInterface;
 use Illuminate\Support\Collection;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -18,11 +19,9 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Throwable;
 
+#[AsCommand(name: 'bolt:copy-themes', description: 'Copy theme files into the public/themes folder')]
 class CopyThemesCommand extends Command
 {
-    /** @var string */
-    protected static $defaultName = 'bolt:copy-themes';
-
     private readonly string $publicDirectory;
 
     public function __construct(
@@ -39,7 +38,6 @@ class CopyThemesCommand extends Command
     protected function configure(): void
     {
         $this
-            ->setDescription('Copy theme files into the public/themes folder')
             ->addArgument('theme', InputArgument::OPTIONAL, 'Specify the theme that needs to be copied.');
     }
 

@@ -8,17 +8,16 @@ use Bolt\Common\Str;
 use Bolt\Extension\BaseExtension;
 use Bolt\Extension\ExtensionRegistry;
 use ReflectionClass;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Path;
 
+#[AsCommand(name: 'extensions:configure', description: 'Copy the config/config.yaml, config/services.yaml and config/routes.yaml files from extensions.')]
 class ExtensionsConfigureCommand extends Command
 {
-    /** @var string */
-    protected static $defaultName = 'extensions:configure';
-
     public function __construct(
         private readonly ExtensionRegistry $extensionRegistry,
         private readonly string $projectDir
@@ -29,7 +28,6 @@ class ExtensionsConfigureCommand extends Command
     protected function configure(): void
     {
         $this
-            ->setDescription('Copy the config/config.yaml, config/services.yaml and config/routes.yaml files from extensions.')
             ->addOption('with-config', null, InputOption::VALUE_NONE, 'If set, Bolt will copy the default extension config.yaml file')
             ->addOption('remove-services', null, InputOption::VALUE_NONE, 'If set, Bolt will remove the extension\'s services and routes files');
     }

@@ -8,6 +8,7 @@ use Bolt\Common\Str;
 use Bolt\Entity\User;
 use Bolt\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Input\InputArgument;
@@ -21,11 +22,9 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 /**
  * Resets password for the user with the specified username.
  */
+#[AsCommand(name: 'bolt:reset-password', description: 'Reset password for a user.')]
 class ResetPasswordCommand extends Command
 {
-    /** @var string */
-    protected static $defaultName = 'bolt:reset-password';
-
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
         private readonly UserPasswordHasherInterface $passwordHasher,
@@ -38,7 +37,6 @@ class ResetPasswordCommand extends Command
     protected function configure(): void
     {
         $this
-            ->setDescription('Reset password for a user.')
             ->addArgument('username', InputArgument::REQUIRED, 'Username of the user')
         ;
     }
