@@ -7,17 +7,18 @@ Make sure to check the [upgrade notes](https://github.com/bolt/core/blob/main/UP
 
 ### Big changes
 
+- We have upgraded to Symfony 6.4! You will need to check your own code for any required changes due to this upgrade, check the Symfony documentation for that!
 - Migrations are no longer provided by Bolt. You will need to start managing the migrations yourself and take action to ensure your database remains in sync. Check the upgrade notes for the recommended approach.
 - We have migrated away from annotations and fully adopted attributes. If you are relying on annotations you will need to either re-enable annotation support, or migrate them as well (the latter is the recommended approach). (bobvandevijver, [#3608](https://github.com/bolt/core/issues/3608))
 
 ### Dependency updates
 
-- We have upgraded to Symfony 6.4! You will need to check your own code for any required changes due to this upgrade, check the Symfony documentation for that!
 - Bump `nesbot/carbon` from version 2 to version 3.8+. (macintoshplus, [#3551](https://github.com/bolt/core/issues/3551))
 - Replaced `tightenco/collect` with `illuminate/collections`. The namespace has changed from `Tightenco\Collect\Support\*` to `Illuminate\Support\*`. (macintoshplus, [#3555](https://github.com/bolt/core/issues/3555))
 - Replaced `bobdenotter/weatherwidget` with `bolt/weatherwidget`. The namespace has changed from `BobdenOtter\WeatherWidget` to `Bolt\WeatherWidget`. Your configuration should be migrated automatically, but if you weren't using the weather widget you might need to remove the newly added configuration manually. (macintoshplus and bobvandevijver, [#3587](https://github.com/bolt/core/issues/3587))
 - Replaced `bobdenotter/configuration-notices` with `bolt/configuration-notices-widget`. The namespace has changed from `BobdenOtter\ConfigurationNotices` to `Bolt\ConfigurationNoticesWidget`. Your configuration should be migrated automatically, but if you weren't using the configuration notices widget you might need to remove the newly added configuration manually. (macintoshplus and bobvandevijver, [#3588](https://github.com/bolt/core/issues/3588))
 - The `knplabs/doctrine-behaviors` package has been removed from the Bolt core, but its functionality has been integrated. (macintoshplus, [#3561](https://github.com/bolt/core/issues/3561))
+- The `sensio/framework-extra-bundle` dependency has been removed.
 
 ### Other noteworthy updates
 - Return types have been changed where needed to resolve deprecation and PHPStan issues. This might affect you if you were extending the inner workings of Bolt. We apologise for the inconvenience, but it will be better in the long run.

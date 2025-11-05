@@ -40,7 +40,6 @@
         "phpdocumentor/reflection-docblock": "^5.3",
         "psr/event-dispatcher": "^1.0",
         "scienta/doctrine-json-functions": "^4.4",
-        "sensio/framework-extra-bundle": "^6.2",
         "siriusphp/upload": "^4.0",
         "squirrelphp/twig-php-syntax": "^1.6",
         "symfony/asset": "^6.4",

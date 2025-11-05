@@ -1,5 +1,9 @@
 # From Bolt 5.2 to 6.0
 
+## Symfony upgrade
+
+This release upgrades to Symfony 6.4, so you will need to verify your own implementation. The `sensio/framework-extra-bundle` has been dropped as dependency, so migrate those usages as well, or include the dependency yourself (not recommended).
+
 ## Dropped Bolt provided migrations
 
 As migrations heavily depend on the used database and were incomplete to begin with, we have dropped database migrations from this application. Instead, we will be offering a migration path or example migrations in these notes.
@@ -20,6 +24,15 @@ In order to upgrade, you will need to squash your existing migrations. You can f
 5. Rename the migration file to `Version00000000000000.php` and rename the class too. This ensures that it is run first and that migrations generated in step 2 are still being executed to fix your database state after upgrading.
 
 This should work on your production environment as well when you are running the `doctrine:migrations:migrate` on deployment, but as always we recommend to make a backup before trying the upgrade.
+
+## Widget updates
+
+The following widgets were replaced:
+
+- `bobdenotter/weatherwidget` with `bolt/weatherwidget`
+- `bobdenotter/configuration-notices` with `bolt/configuration-notices-widget`
+
+Your configuration should be migrated automatically, but if you weren't using the configuration notices widget you might need to remove the newly added configuration manually.
 
 ## Replaced `tightenco/collect` with `illuminate/collections`
 

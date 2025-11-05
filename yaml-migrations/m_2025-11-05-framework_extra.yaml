@@ -1,0 +1,4 @@
+file: packages/framework_extra.yaml
+since: 6.0.0
+
+delete: ~
