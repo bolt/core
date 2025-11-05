@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Bolt\Twig;
 
 use Bolt\Entity\Field;
-use Bolt\Entity\TranslatableInterface;
-use Bolt\Entity\TranslationInterface;
+use Bolt\Entity\Translatable\BoltTranslatableInterface;
+use Bolt\Entity\Translatable\BoltTranslationInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
@@ -27,7 +27,12 @@ class TranslatableExtension extends AbstractExtension
         ];
     }
 
-    public function findTranslations(TranslatableInterface $entity, ?string $locale = null): TranslationInterface|array|null
+    /**
+     * @template T of BoltTranslatableInterface
+     * @phpstan-param T $entity
+     * @phpstan-return BoltTranslationInterface<T>|BoltTranslationInterface<T>[]|null
+     */
+    public function findTranslations(BoltTranslatableInterface $entity, ?string $locale = null): BoltTranslationInterface|array|null
     {
         $translations = $entity->getTranslations()->toArray();
 

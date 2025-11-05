@@ -10,20 +10,20 @@ The `knplabs/doctrine-behaviors` package has been removed from the Bolt core, bu
 
 The following classes have replaced:
 
-| Old class                                                            | New class                                            |
-|----------------------------------------------------------------------|------------------------------------------------------|
-| Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface          | Bolt\Entity\TranslatableInterface                    |
-| Knp\DoctrineBehaviors\Contract\Entity\TranslationInterface           | Bolt\Entity\TranslationInterface                     |
-| Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait           | Use two trait below                                  |
-| Knp\DoctrineBehaviors\Model\Translatable\TranslatableMethodsTrait    | Bolt\Entity\Translatable\TranslatableMethodsTrait    |
-| Knp\DoctrineBehaviors\Model\Translatable\TranslatablePropertiesTrait | Bolt\Entity\Translatable\TranslatablePropertiesTrait |
-| Knp\DoctrineBehaviors\Model\Translatable\TranslationTrait            | Use two trait below                                  |
-| Knp\DoctrineBehaviors\Model\Translatable\TranslationMethodsTrait     | Bolt\Entity\Translatable\TranslationMethodsTrait     |
-| Knp\DoctrineBehaviors\Model\Translatable\TranslationPropertiesTrait  | Bolt\Entity\Translatable\TranslationPropertiesTrait  |
-| Knp\DoctrineBehaviors\EventSubscriber\TranslatableEventSubscriber    | Bolt\Event\Listener\TranslatableListener             |
-| Knp\DoctrineBehaviors\Exception\TranslatableException                | Bolt\Exception\TranslatableException                 |
-| Knp\DoctrineBehaviors\Provider\LocaleProvider                        | Bolt\Locale\LocaleProvider                           |
-| Knp\DoctrineBehaviors\Contract\Provider\LocaleProviderInterface      | Bolt\Locale\LocaleProviderInterface                  |
+| Old class                                                            | New class                                      |
+|----------------------------------------------------------------------|------------------------------------------------|
+| Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface          | Bolt\Entity\Translatable\TranslatableInterface |
+| Knp\DoctrineBehaviors\Contract\Entity\TranslationInterface           | Bolt\Entity\Translatable\TranslationInterface  |
+| Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait           | Bolt\Entity\Translatable\BoltTranslatableTrait |
+| Knp\DoctrineBehaviors\Model\Translatable\TranslatableMethodsTrait    | No longer exists                               |
+| Knp\DoctrineBehaviors\Model\Translatable\TranslatablePropertiesTrait | No longer exists                               |
+| Knp\DoctrineBehaviors\Model\Translatable\TranslationTrait            | Bolt\Entity\Translatable\BoltTranslationTrait  |
+| Knp\DoctrineBehaviors\Model\Translatable\TranslationMethodsTrait     | No longer exists                               |
+| Knp\DoctrineBehaviors\Model\Translatable\TranslationPropertiesTrait  | No longer exists                               |
+| Knp\DoctrineBehaviors\EventSubscriber\TranslatableEventSubscriber    | Bolt\Event\Listener\TranslatableListener       |
+| Knp\DoctrineBehaviors\Exception\TranslatableException                | No longer exists                               |
+| Knp\DoctrineBehaviors\Provider\LocaleProvider                        | Bolt\Locale\LocaleProvider                     |
+| Knp\DoctrineBehaviors\Contract\Provider\LocaleProviderInterface      | Bolt\Locale\LocaleProviderInterface            |
 
 Check if this line has been removed from your `config/bundles.php` file:
 

@@ -4,15 +4,18 @@ declare(strict_types=1);
 
 namespace Bolt\Entity\Translatable;
 
-use Bolt\Entity\TranslationInterface;
-use Bolt\Exception\TranslatableException;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
-trait TranslatableMethodsTrait
+/**
+ * Should be used inside entity that needs to be translated.
+ *
+ * @template-covariant T of BoltTranslationInterface
+ */
+trait BoltTranslatableTrait
 {
     /**
-     * @return Collection<string, TranslationInterface>
+     * @return Collection<string, T>
      */
     public function getTranslations(): Collection
     {
@@ -25,20 +28,17 @@ trait TranslatableMethodsTrait
     }
 
     /**
-     * @param Collection<string, TranslationInterface> $translations
-     * @phpstan-param iterable<TranslationInterface> $translations
+     * @param iterable<T> $translations
      */
     public function setTranslations(iterable $translations): void
     {
-        $this->ensureIsIterableOrCollection($translations);
-
         foreach ($translations as $translation) {
             $this->addTranslation($translation);
         }
     }
 
     /**
-     * @return Collection<string, TranslationInterface>
+     * @return Collection<string, T>
      */
     public function getNewTranslations(): Collection
     {
@@ -50,14 +50,20 @@ trait TranslatableMethodsTrait
         return $this->newTranslations;
     }
 
-    public function addTranslation(TranslationInterface $translation): void
+    /**
+     * @phpstan-param T $translation
+     */
+    public function addTranslation(BoltTranslationInterface $translation): void
     {
         $this->getTranslations()
             ->set($translation->getLocale(), $translation);
         $translation->setTranslatable($this);
     }
 
-    public function removeTranslation(TranslationInterface $translation): void
+    /**
+     * @phpstan-param T $translation
+     */
+    public function removeTranslation(BoltTranslationInterface $translation): void
     {
         $this->getTranslations()
             ->removeElement($translation);
@@ -68,9 +74,11 @@ trait TranslatableMethodsTrait
      * exist, it will first try to fallback default locale If any translation doesn't exist, it will be added to
      * newTranslations collection. In order to persist new translations, call mergeNewTranslations method, before flush
      *
-     * @param string $locale The locale (en, ru, fr) | null If null, will try with current locale
+     * @param string|null $locale The locale (en, ru, fr) | null If null, will try with current locale
+     *
+     * @phpstan-return T
      */
-    public function translate(?string $locale = null, bool $fallbackToDefault = true): TranslationInterface
+    public function translate(?string $locale = null, bool $fallbackToDefault = true): BoltTranslationInterface
     {
         return $this->doTranslate($locale, $fallbackToDefault);
     }
@@ -102,24 +110,9 @@ trait TranslatableMethodsTrait
         $this->currentLocale = $locale;
     }
 
-    public function getCurrentLocale(): string
-    {
-        return $this->currentLocale ?: $this->getDefaultLocale();
-    }
-
     public function setDefaultLocale(string $locale): void
     {
         $this->defaultLocale = $locale;
-    }
-
-    public function getDefaultLocale(): string
-    {
-        return $this->defaultLocale;
-    }
-
-    public static function getTranslationEntityClass(): string
-    {
-        return static::class . 'Translation';
     }
 
     /**
@@ -127,9 +120,11 @@ trait TranslatableMethodsTrait
      * exist, it will first try to fallback default locale If any translation doesn't exist, it will be added to
      * newTranslations collection. In order to persist new translations, call mergeNewTranslations method, before flush
      *
-     * @param string $locale The locale (en, ru, fr) | null If null, will try with current locale
+     * @param string|null $locale The locale (en, ru, fr) | null If null, will try with current locale
+     *
+     * @return T
      */
-    protected function doTranslate(?string $locale = null, bool $fallbackToDefault = true): TranslationInterface
+    protected function doTranslate(?string $locale = null, bool $fallbackToDefault = true): BoltTranslationInterface
     {
         if ($locale === null) {
             $locale = $this->getCurrentLocale();
@@ -153,7 +148,7 @@ trait TranslatableMethodsTrait
 
         $translationEntityClass = static::getTranslationEntityClass();
 
-        /** @var TranslationInterface $translation */
+        /** @var T $translation */
         $translation = new $translationEntityClass();
         $translation->setLocale($locale);
 
@@ -167,6 +162,8 @@ trait TranslatableMethodsTrait
     /**
      * An extra feature allows you to proxy translated fields of a translatable entity.
      *
+     * @param array<int|string, mixed> $arguments
+     *
      * @return mixed The translated value of the field for current locale
      */
     protected function proxyCurrentLocaleTranslation(string $method, array $arguments = []): mixed
@@ -178,13 +175,15 @@ trait TranslatableMethodsTrait
 
         $translation = $this->translate($this->getCurrentLocale());
 
-        return call_user_func_array([$translation, $method], $arguments);
+        return call_user_func_array($translation->{$method}(...), $arguments);
     }
 
     /**
      * Finds specific translation in collection by its locale.
+     *
+     * @phpstan-return T|null
      */
-    protected function findTranslationByLocale(string $locale, bool $withNewTranslations = true): ?TranslationInterface
+    protected function findTranslationByLocale(string $locale, bool $withNewTranslations = true): ?BoltTranslationInterface
     {
         $translation = $this->getTranslations()
             ->get($locale);
@@ -211,24 +210,9 @@ trait TranslatableMethodsTrait
     }
 
     /**
-     * @param Collection|mixed $translations
+     * @phpstan-return T|null
      */
-    private function ensureIsIterableOrCollection($translations): void
-    {
-        if ($translations instanceof Collection) {
-            return;
-        }
-
-        if (is_iterable($translations)) {
-            return;
-        }
-
-        throw new TranslatableException(
-            sprintf('$translations parameter must be iterable or %s', Collection::class)
-        );
-    }
-
-    private function resolveFallbackTranslation(string $locale): ?TranslationInterface
+    private function resolveFallbackTranslation(string $locale): ?BoltTranslationInterface
     {
         $fallbackLocale = $this->computeFallbackLocale($locale);
 
@@ -240,5 +224,52 @@ trait TranslatableMethodsTrait
         }
 
         return $this->findTranslationByLocale($this->getDefaultLocale(), false);
+    }
+
+    /**
+     * @phpstan-return class-string<T>
+     */
+    public static function getTranslationEntityClass(): string
+    {
+        return self::class . 'Translation';
+    }
+
+    /**
+     * Will be mapped to translatable entity by TranslatableListener.
+     *
+     * The Type attribute (translation) is used by our serializer subscriber (idb.idb.jms.serialization.subscriber)
+     * to identify this field type and to place the correct Translation type in the serializer.
+     * Because we use both JSON and XML, we also need to provide the XmlMap property. Without this map property,
+     * deserialization of the object fails because of missing metadata.
+     *
+     * @var Collection<string, T>|null
+     */
+    protected ?Collection $translations = null;
+
+    /**
+     * Will be merged with persisted translations on mergeNewTranslations call.
+     *
+     * @see mergeNewTranslations
+     *
+     * @var Collection<string, T>|null
+     */
+    protected ?Collection $newTranslations = null;
+
+    /**
+     * Default locale as fallback when it is not available in the request.
+     * It is a non persisted field set during postLoad event.
+     */
+    protected ?string $currentLocale = null;
+
+    public function getCurrentLocale(): string
+    {
+        return $this->currentLocale ?: $this->getDefaultLocale();
+    }
+
+    protected string $defaultLocale = 'en';
+
+    public function getDefaultLocale(): string
+    {
+        return $this->defaultLocale;
     }
 }

@@ -14,9 +14,9 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 final class LocaleProvider implements LocaleProviderInterface
 {
     public function __construct(
-        private RequestStack $requestStack,
-        private ParameterBagInterface $parameterBag,
-        private ?TranslatorInterface $translator
+        private readonly RequestStack $requestStack,
+        private readonly ParameterBagInterface $parameterBag,
+        private readonly ?TranslatorInterface $translator
     ) {
     }
 
@@ -48,9 +48,11 @@ final class LocaleProvider implements LocaleProviderInterface
 
         try {
             if ($this->parameterBag->has('locale')) {
+                /** @phpstan-ignore cast.string */
                 return (string) $this->parameterBag->get('locale');
             }
 
+            /** @phpstan-ignore cast.string */
             return (string) $this->parameterBag->get('kernel.default_locale');
         } catch (ParameterNotFoundException | InvalidArgumentException) {
             return null;

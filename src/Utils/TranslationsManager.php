@@ -7,7 +7,7 @@ namespace Bolt\Utils;
 use Bolt\Entity\Field;
 use Bolt\Entity\Field\CollectionField;
 use Bolt\Entity\FieldParentInterface;
-use Bolt\Entity\TranslationInterface;
+use Bolt\Entity\Translatable\BoltTranslationInterface;
 use Doctrine\Common\Collections\Collection;
 use InvalidArgumentException;
 
@@ -75,7 +75,7 @@ class TranslationsManager
         $translations = $this->translations[$key];
 
         //do not return the translation for the current locale, so as to not override the newly submitted value
-        return $translations->filter(fn (TranslationInterface $translation): bool => $translation->getLocale() !== $field->getLocale());
+        return $translations->filter(fn (BoltTranslationInterface $translation): bool => $translation->getLocale() !== $field->getLocale());
     }
 
     private function hasTranslations(Field $field, string $collectionName, $orderId): bool

@@ -4,16 +4,21 @@ declare(strict_types=1);
 
 namespace Bolt\Event\Listener;
 
-use Bolt\Entity\TranslatableInterface;
-use Bolt\Entity\TranslationInterface;
+use Bolt\Entity\Translatable\BoltTranslatableInterface;
+use Bolt\Entity\Translatable\BoltTranslationInterface;
 use Bolt\Locale\LocaleProviderInterface;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Event\PostLoadEventArgs;
 use Doctrine\ORM\Event\PrePersistEventArgs;
+use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\Persistence\ObjectManager;
 use ReflectionClass;
 
+/**
+ * @template Translatable of BoltTranslatableInterface
+ * @template Translation of BoltTranslationInterface
+ */
 final class TranslatableListener
 {
     /**
@@ -39,7 +44,8 @@ final class TranslatableListener
     public function loadClassMetadata(LoadClassMetadataEventArgs $loadClassMetadataEventArgs): void
     {
         $classMetadata = $loadClassMetadataEventArgs->getClassMetadata();
-        if (! $classMetadata->reflClass instanceof ReflectionClass) {
+        $reflectionClass = $classMetadata->reflClass;
+        if (! $reflectionClass instanceof ReflectionClass) {
             // Class has not yet been fully built, ignore this event
             return;
         }
@@ -48,11 +54,13 @@ final class TranslatableListener
             return;
         }
 
-        if (is_a($classMetadata->reflClass->getName(), TranslatableInterface::class, true)) {
+        if (is_a($reflectionClass->getName(), BoltTranslatableInterface::class, true)) {
+            /** @var ClassMetadata<Translatable> $classMetadata */
             $this->mapTranslatable($classMetadata);
         }
 
-        if (is_a($classMetadata->reflClass->getName(), TranslationInterface::class, true)) {
+        if (is_a($reflectionClass->getName(), BoltTranslationInterface::class, true)) {
+            /** @var ClassMetadata<Translation> $classMetadata */
             $this->mapTranslation($classMetadata, $loadClassMetadataEventArgs->getObjectManager());
         }
     }
@@ -87,6 +95,9 @@ final class TranslatableListener
         return ClassMetadataInfo::FETCH_LAZY;
     }
 
+    /**
+     * @phpstan-param ClassMetadata<Translatable> $classMetadataInfo
+     */
     private function mapTranslatable(ClassMetadataInfo $classMetadataInfo): void
     {
         if ($classMetadataInfo->hasAssociation('translations')) {
@@ -106,6 +117,9 @@ final class TranslatableListener
         ]);
     }
 
+    /**
+     * @phpstan-param ClassMetadata<Translation> $classMetadataInfo
+     */
     private function mapTranslation(ClassMetadataInfo $classMetadataInfo, ObjectManager $objectManager): void
     {
         if (! $classMetadataInfo->hasAssociation('translatable')) {
@@ -113,7 +127,8 @@ final class TranslatableListener
                 ->getMethod('getTranslatableEntityClass')
                 ->invoke(null);
 
-            /** @var ClassMetadataInfo $classMetadata */
+            /** @var class-string<Translatable> $targetEntity */
+            /** @var ClassMetadata<Translatable> $classMetadata */
             $classMetadata = $objectManager->getClassMetadata($targetEntity);
 
             $singleIdentifierFieldName = $classMetadata->getSingleIdentifierFieldName();
@@ -153,7 +168,7 @@ final class TranslatableListener
 
     private function setLocales(object $entity): void
     {
-        if (! $entity instanceof TranslatableInterface) {
+        if (! $entity instanceof BoltTranslatableInterface) {
             return;
         }
 
@@ -168,6 +183,9 @@ final class TranslatableListener
         }
     }
 
+    /**
+     * @phpstan-param ClassMetadata<Translation> $classMetadataInfo
+     */
     private function hasUniqueTranslationConstraint(ClassMetadataInfo $classMetadataInfo, string $name): bool
     {
         return isset($classMetadataInfo->table['uniqueConstraints'][$name]);

@@ -4,20 +4,17 @@ declare(strict_types=1);
 
 namespace Bolt\Entity\Translatable;
 
-use Bolt\Entity\TranslatableInterface;
-
-trait TranslationMethodsTrait
+/**
+ * Should be used inside translation entity.
+ *
+ * @template T of BoltTranslatableInterface
+ */
+trait BoltTranslationTrait
 {
-    public static function getTranslatableEntityClass(): string
-    {
-        // By default, the translatable class has the same name but without the "Translation" suffix
-        return mb_substr(static::class, 0, -11, 'UTF-8');
-    }
-
     /**
      * Sets entity, that this translation should be mapped to.
      */
-    public function setTranslatable(TranslatableInterface $translatable): void
+    public function setTranslatable(BoltTranslatableInterface $translatable): void
     {
         $this->translatable = $translatable;
     }
@@ -25,7 +22,7 @@ trait TranslationMethodsTrait
     /**
      * Returns entity, that this translation is mapped to.
      */
-    public function getTranslatable(): TranslatableInterface
+    public function getTranslatable(): ?BoltTranslatableInterface
     {
         return $this->translatable;
     }
@@ -58,4 +55,22 @@ trait TranslationMethodsTrait
 
         return true;
     }
+
+    /**
+     * @phpstan-return class-string<T>
+     */
+    public static function getTranslatableEntityClass(): string
+    {
+        // By default, the translatable class has the same name but without the "Translation" suffix
+        return mb_substr(static::class, 0, -11, 'UTF-8');
+    }
+
+    protected string $locale = '';
+
+    /**
+     * Will be mapped to translatable entity by TranslatableSubscriber.
+     *
+     * @phpstan-var T|null
+     */
+    protected ?BoltTranslatableInterface $translatable = null;
 }
