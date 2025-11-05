@@ -11,7 +11,7 @@ class DisabledUserLoginAttemptException extends BadCredentialsException
     /**
      * {@inheritdoc}
      */
-    public function getMessageKey()
+    public function getMessageKey(): string
     {
         return 'User is disabled.';
     }

@@ -6,11 +6,11 @@ namespace Bolt\Event\Subscriber;
 
 use Bolt\Configuration\Config;
 use Bolt\Controller\Frontend\FrontendZoneInterface;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\Security\Core\Security;
 
 class MaintenanceModeSubscriber implements EventSubscriberInterface
 {

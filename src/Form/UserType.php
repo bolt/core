@@ -9,6 +9,7 @@ use Bolt\Configuration\Config;
 use Bolt\Entity\User;
 use Bolt\Enum\UserStatus;
 use Bolt\Utils\LocaleHelper;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -18,7 +19,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Security\Core\Security;
 use Twig\Environment;
 
 class UserType extends AbstractType

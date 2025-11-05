@@ -9,9 +9,9 @@ use Bolt\Configuration\Content\ContentType;
 use Bolt\Entity\Content;
 use DomainException;
 use Illuminate\Support\Collection;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
-use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class ContentVoter extends Voter

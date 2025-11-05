@@ -52,7 +52,7 @@ class Canonical
         $this->request = $request;
 
         // Nothing to do if request is empty.
-        if ($this->request === null || $this->request->getHost() === '') {
+        if ($this->request->getHost() === '') {
             return;
         }
 

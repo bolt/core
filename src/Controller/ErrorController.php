@@ -9,6 +9,7 @@ use Bolt\Controller\Frontend\DetailControllerInterface;
 use Bolt\Controller\Frontend\TemplateController;
 use Bolt\Widget\Injector\RequestZone;
 use LogicException;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\ErrorHandler\ErrorRenderer\ErrorRendererInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -20,7 +21,6 @@ use Symfony\Component\HttpKernel\Controller\ErrorController as SymfonyErrorContr
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Security\Core\Security;
 use Throwable;
 use Twig\Environment;
 use Twig\Error\LoaderError;
