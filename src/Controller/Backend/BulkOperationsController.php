@@ -51,7 +51,7 @@ class BulkOperationsController extends AbstractController implements BackendZone
     {
         $this->validateCsrf('batch');
         $formData = $this->request?->request->getString('records') ?? '';
-        $recordIds = array_map('intval', explode(',', $formData));
+        $recordIds = array_map(intval(...), explode(',', $formData));
 
         $records = $this->findRecordsFromIds($recordIds);
 
@@ -73,7 +73,7 @@ class BulkOperationsController extends AbstractController implements BackendZone
     {
         $this->validateCsrf('batch');
         $formData = $this->request?->request->getString('records') ?? '';
-        $recordIds = array_map('intval', explode(',', $formData));
+        $recordIds = array_map(intval(...), explode(',', $formData));
 
         $record = null;
         $records = $this->findRecordsFromIds($recordIds);

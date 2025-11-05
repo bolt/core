@@ -152,7 +152,7 @@ class OrderDirective
         $separatedOrders = [$order];
 
         if ($this->isMultiOrderQuery($order)) {
-            $separatedOrders = array_map('trim', explode(',', $order));
+            $separatedOrders = array_map(trim(...), explode(',', $order));
         }
 
         return $separatedOrders;

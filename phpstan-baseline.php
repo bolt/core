@@ -992,8 +992,20 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Configuration/Parser/ContentTypesParser.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\Configuration\\\\Parser\\\\ContentTypesParser\\:\\:parseField\\(\\) has parameter \\$field with no type specified\\.$#',
-	'identifier' => 'missingType.parameter',
+	'message' => '#^Method Bolt\\\\Configuration\\\\Parser\\\\ContentTypesParser\\:\\:parseField\\(\\) has parameter \\$field with generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#',
+	'identifier' => 'missingType.generics',
+	'count' => 1,
+	'path' => __DIR__ . '/src/Configuration/Parser/ContentTypesParser.php',
+];
+$ignoreErrors[] = [
+	'message' => '#^Method Bolt\\\\Configuration\\\\Parser\\\\ContentTypesParser\\:\\:parseField\\(\\) has parameter \\$field with no value type specified in iterable type array\\.$#',
+	'identifier' => 'missingType.iterableValue',
+	'count' => 1,
+	'path' => __DIR__ . '/src/Configuration/Parser/ContentTypesParser.php',
+];
+$ignoreErrors[] = [
+	'message' => '#^Method Bolt\\\\Configuration\\\\Parser\\\\ContentTypesParser\\:\\:parseField\\(\\) has parameter \\$field with no value type specified in iterable type array\\|Illuminate\\\\Support\\\\Collection\\.$#',
+	'identifier' => 'missingType.iterableValue',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Configuration/Parser/ContentTypesParser.php',
 ];
@@ -1024,12 +1036,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'message' => '#^Parameter \\#2 \\$array of function implode expects array, iterable given\\.$#',
 	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Configuration/Parser/ContentTypesParser.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Configuration\\\\Parser\\\\ContentTypesParser\\:\\:\\$localeCodes type has no value type specified in iterable type array\\.$#',
-	'identifier' => 'missingType.iterableValue',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Configuration/Parser/ContentTypesParser.php',
 ];
@@ -1724,8 +1730,8 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/DataFixtures/ContentFixtures.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\DataFixtures\\\\ContentFixtures\\:\\:loadCollectionField\\(\\) has parameter \\$fieldType with no type specified\\.$#',
-	'identifier' => 'missingType.parameter',
+	'message' => '#^Method Bolt\\\\DataFixtures\\\\ContentFixtures\\:\\:loadCollectionField\\(\\) has parameter \\$fieldType with generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#',
+	'identifier' => 'missingType.generics',
 	'count' => 1,
 	'path' => __DIR__ . '/src/DataFixtures/ContentFixtures.php',
 ];
@@ -1736,8 +1742,8 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/DataFixtures/ContentFixtures.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\DataFixtures\\\\ContentFixtures\\:\\:loadField\\(\\) has parameter \\$fieldType with no type specified\\.$#',
-	'identifier' => 'missingType.parameter',
+	'message' => '#^Method Bolt\\\\DataFixtures\\\\ContentFixtures\\:\\:loadField\\(\\) has parameter \\$fieldType with generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#',
+	'identifier' => 'missingType.generics',
 	'count' => 1,
 	'path' => __DIR__ . '/src/DataFixtures/ContentFixtures.php',
 ];
@@ -4826,8 +4832,8 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Twig/FrontendMenuExtension.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\Twig\\\\FrontendMenuExtension\\:\\:isCurrent\\(\\) has parameter \\$item with no type specified\\.$#',
-	'identifier' => 'missingType.parameter',
+	'message' => '#^Method Bolt\\\\Twig\\\\FrontendMenuExtension\\:\\:isCurrent\\(\\) has parameter \\$item with no value type specified in iterable type array\\.$#',
+	'identifier' => 'missingType.iterableValue',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Twig/FrontendMenuExtension.php',
 ];

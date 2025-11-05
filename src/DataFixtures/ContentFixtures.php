@@ -116,12 +116,12 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 // Load all fields, except slugs.
                 $fields
                     ->filter(fn ($field): bool => $field['type'] !== 'slug')
-                    ->map(fn ($fieldType, $name): Field => $this->loadField($content, $name, $fieldType, $contentType, $preset));
+                    ->map(fn (Collection $fieldType, string $name): Field => $this->loadField($content, $name, $fieldType, $contentType, $preset));
 
                 // Load slug fields, to make sure `uses` can be used.
                 $fields
                     ->filter(fn ($field): bool => $field['type'] === 'slug')
-                    ->map(fn ($fieldType, $name): Field => $this->loadField($content, $name, $fieldType, $contentType, $preset));
+                    ->map(fn (Collection $fieldType, string $name): Field => $this->loadField($content, $name, $fieldType, $contentType, $preset));
 
                 foreach ($contentType['taxonomy'] as $taxonomySlug) {
                     if ($taxonomySlug === 'categories') {
@@ -160,7 +160,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
     private function loadCollectionField(
         Content $content,
         Field $field,
-        $fieldType,
+        Collection $fieldType,
         ContentType $contentType,
         array $preset
     ): Field {
@@ -196,7 +196,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
     private function loadField(
         Content $content,
         string $name,
-        $fieldType,
+        Collection $fieldType,
         ContentType $contentType,
         array $preset,
         bool $addToContent = true
@@ -215,7 +215,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 $field = $this->loadCollectionField($content, $field, $fieldType, $contentType, $preset);
             } elseif ($fieldType['type'] === 'set') {
                 $field = $this->loadSetField($content, $field, $contentType, $preset);
-            } else {
+            } elseif ($fieldType instanceof DeepCollection) {
                 $field->setValue($this->getValuesforFieldType($fieldType, $contentType['singleton'], $content));
             }
         }
@@ -230,6 +230,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
             $locales = $contentType['locales']->toArray();
             foreach ($locales as $locale) {
                 if ($locale !== $this->defaultLocale && array_search($locale, $locales, true) !== count($locales) - 1) {
+                    /** @var DeepCollection $fieldType */
                     $value = $preset[$name] ?? $this->getValuesforFieldType(
                         $fieldType,
                         $contentType['singleton'],

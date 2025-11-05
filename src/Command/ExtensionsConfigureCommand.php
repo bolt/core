@@ -97,10 +97,10 @@ class ExtensionsConfigureCommand extends Command
         }
 
         // Remove routes.yaml files for old (uninstalled) extensions
-        array_map('unlink', $oldExtensionsRoutes);
+        array_map(unlink(...), $oldExtensionsRoutes);
 
         // Remove services.yaml files for old (uninstalled) extensions
-        array_map('unlink', $oldExtensionsServices);
+        array_map(unlink(...), $oldExtensionsServices);
     }
 
     private function copyConfig(string $source, BaseExtension $package): void
