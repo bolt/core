@@ -1,5 +1,26 @@
 # From Bolt 5.2 to 6.0
 
+## Dropped Bolt provided migrations
+
+As migrations heavily depend on the used database and were incomplete to begin with, we have dropped database migrations from this bundle. Instead, we will be offering a migration path or example migrations in these notes.
+
+In order to upgrade, you will need to squash your existing migrations. You can follow this guide, which is based on https://jolicode.com/blog/a-new-way-to-squash-your-doctrine-migrations.
+
+1. Remove any migration you made yourself
+2. Validate that your database is in sync with the code by running `bin/console doctrine:migrations:diff`. If any migrations are generated, inspect them for correctness (changes to the used Doctrine version might have caused changes) and keep the files.
+3. Run `bin/console doctrine:migrations:dump-schema`
+4. Prepend the following to the newly generated migration
+   ```php
+   if ($this->sm->tablesExist(['bolt_field'])) {
+       $this->addSql('DELETE FROM migration_versions');
+       return;
+   }
+   // All other code of the migration
+   ```
+5. Rename the migration file to `Version00000000000000.php` and rename the class too. This ensures that it is run first and that migrations generated in step 3 are still being executed to fix your database state after upgrading.
+
+This should work on your production environment as well when you are running the `doctrine:migrations:migrate` on deployment, but as always we recommend to make a backup before trying the upgrade.
+
 ## Replaced `tightenco/collect` with `illuminate/collections`
 
 If you were using classes from `Tightenco\Collect\Support`, you should replace them with `Illuminate\Support\` or install the deprecated `tightenco/collect` library yourself.

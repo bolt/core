@@ -5,9 +5,12 @@ Changelog
 
 Make sure to check the [upgrade notes](https://github.com/bolt/core/blob/main/UPGRADING.md) for instructions when upgrading your installation!
 
-- `master` branch has been renamed to the now more common `main`.
+### Big changes
 
-### ⚙️ Dependency updates
+- Migrations are no longer provided by Bolt. You will need to start managing the migrations yourself and take action to ensure your database remains in sync. Check the upgrade notes for the recommended approach.
+- We have migrated away from annotations and fully adopted attributes. If you are relying on annotations you will need to either re-enable annotation support, or migrate them as well (the latter is the recommended approach). (bobvandevijver, [#3608](https://github.com/bolt/core/issues/3608))
+
+### Dependency updates
 
 - Bump `nesbot/carbon` from version 2 to version 3.8+. (macintoshplus, [#3551](https://github.com/bolt/core/issues/3551))
 - Replaced `tightenco/collect` with `illuminate/collections`. The namespace has changed from `Tightenco\Collect\Support\*` to `Illuminate\Support\*`. (macintoshplus, [#3555](https://github.com/bolt/core/issues/3555))
@@ -16,9 +19,9 @@ Make sure to check the [upgrade notes](https://github.com/bolt/core/blob/main/UP
 - The `knplabs/doctrine-behaviors` package has been removed from the Bolt core, but its functionality has been integrated. (macintoshplus, [#3561](https://github.com/bolt/core/issues/3561))
 
 ### Other noteworthy updates
-- We have migrated away from annotations and fully adopted attributes. If you are relying on annotations you will need to either re-enable annotation support, or migrate them as well (the latter is the recommended approach). (bobvandevijver, [#3608](https://github.com/bolt/core/issues/3608))
 - Return types have been changed where needed to resolve deprecation and PHPStan issues. This might affect you if you were extending the inner workings of Bolt. We apologise for the inconvenience, but it will be better in the long run.
 - In line with Symfony, the `getUserName()` method on `User` has been deprecated. Use `getUserIdentifier()` instead.
+- `master` branch has been renamed to the now more common `main`.
 
 ## 5.2.2
 
