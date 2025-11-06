@@ -5228,12 +5228,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Twig/TextExtension.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\Twig\\\\TranslatableExtension\\:\\:findTranslations\\(\\) return type has no value type specified in iterable type array\\.$#',
-	'identifier' => 'missingType.iterableValue',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Twig/TranslatableExtension.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Method Bolt\\\\Twig\\\\UserExtension\\:\\:getUser\\(\\) has parameter \\$displayname with no type specified\\.$#',
 	'identifier' => 'missingType.parameter',
 	'count' => 1,

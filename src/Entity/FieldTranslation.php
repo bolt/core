@@ -4,14 +4,17 @@ declare(strict_types=1);
 
 namespace Bolt\Entity;
 
+use Bolt\Entity\Translatable\BoltTranslationInterface;
+use Bolt\Entity\Translatable\BoltTranslationTrait;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Knp\DoctrineBehaviors\Model\Translatable\TranslationTrait;
 
+/** @implements BoltTranslationInterface<Field> */
 #[ORM\Entity]
-class FieldTranslation implements TranslationInterface
+class FieldTranslation implements BoltTranslationInterface
 {
-    use TranslationTrait;
+    /** @use BoltTranslationTrait<Field> */
+    use BoltTranslationTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -56,6 +59,6 @@ class FieldTranslation implements TranslationInterface
      */
     public static function getTranslatableEntityClass(): string
     {
-        return 'Field';
+        return Field::class;
     }
 }

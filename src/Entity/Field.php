@@ -9,14 +9,14 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Bolt\Common\Arr;
 use Bolt\Configuration\Content\FieldType;
+use Bolt\Entity\Translatable\BoltTranslatableInterface;
+use Bolt\Entity\Translatable\BoltTranslatableTrait;
 use Bolt\Event\Listener\FieldFillListener;
 use Bolt\Repository\FieldRepository;
 use Bolt\Utils\Sanitiser;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Illuminate\Support\Collection;
-use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
-use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
 use RuntimeException;
 use Stringable;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -26,6 +26,7 @@ use Twig\Error\LoaderError;
 use Twig\Error\SyntaxError;
 use Twig\Markup;
 
+/** @implements BoltTranslatableInterface<FieldTranslation> */
 #[ORM\Entity(repositoryClass: FieldRepository::class)]
 #[ORM\InheritanceType('SINGLE_TABLE')]
 #[ORM\DiscriminatorColumn(name: 'type', type: Types::STRING, length: 191)]
@@ -58,9 +59,10 @@ use Twig\Markup;
     ]
 )]
 #[ApiFilter(SearchFilter::class)]
-class Field implements FieldInterface, TranslatableInterface, Stringable
+class Field implements FieldInterface, BoltTranslatableInterface, Stringable
 {
-    use TranslatableTrait;
+    /** @use BoltTranslatableTrait<FieldTranslation> */
+    use BoltTranslatableTrait;
 
     public const TYPE = 'generic';
 
@@ -386,17 +388,6 @@ class Field implements FieldInterface, TranslatableInterface, Stringable
     public function isContentSelect(): bool
     {
         return false;
-    }
-
-    /**
-     * Used in TranslatableInterface, to locate the translation entity Bolt\Entity\FieldTranslation
-     */
-    public static function getTranslationEntityClass(): string
-    {
-        $explodedNamespace = explode('\\', self::class);
-        $entityClass = array_pop($explodedNamespace);
-
-        return '\\' . implode('\\', $explodedNamespace) . '\\' . $entityClass . 'Translation';
     }
 
     public function isTranslatable(): bool

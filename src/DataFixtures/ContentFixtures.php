@@ -157,8 +157,13 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
         }
     }
 
-    private function loadCollectionField(Content $content, Field $field, $fieldType, ContentType $contentType, array $preset): Field
-    {
+    private function loadCollectionField(
+        Content $content,
+        Field $field,
+        $fieldType,
+        ContentType $contentType,
+        array $preset
+    ): Field {
         $collectionItems = $field->getDefinition()->get('fields');
 
         $i = 0;
@@ -188,8 +193,14 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
         return $set;
     }
 
-    private function loadField(Content $content, string $name, $fieldType, ContentType $contentType, array $preset, bool $addToContent = true): Field
-    {
+    private function loadField(
+        Content $content,
+        string $name,
+        $fieldType,
+        ContentType $contentType,
+        array $preset,
+        bool $addToContent = true
+    ): Field {
         $sortorder = 1;
 
         $field = FieldRepository::factory($fieldType, $name);
@@ -219,7 +230,11 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
             $locales = $contentType['locales']->toArray();
             foreach ($locales as $locale) {
                 if ($locale !== $this->defaultLocale && array_search($locale, $locales, true) !== count($locales) - 1) {
-                    $value = $preset[$name] ?? $this->getValuesforFieldType($fieldType, $contentType['singleton'], $content);
+                    $value = $preset[$name] ?? $this->getValuesforFieldType(
+                        $fieldType,
+                        $contentType['singleton'],
+                        $content
+                    );
                     $field->translate($locale, false)->setValue($value);
                 }
             }

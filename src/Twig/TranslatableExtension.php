@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace Bolt\Twig;
 
 use Bolt\Entity\Field;
-use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
+use Bolt\Entity\Translatable\BoltTranslatableInterface;
+use Bolt\Entity\Translatable\BoltTranslationInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
@@ -26,7 +27,12 @@ class TranslatableExtension extends AbstractExtension
         ];
     }
 
-    public function findTranslations(TranslatableInterface $entity, ?string $locale = null): array
+    /**
+     * @template T of BoltTranslatableInterface
+     * @param T $entity
+     * @return BoltTranslationInterface<T>|BoltTranslationInterface<T>[]|null
+     */
+    public function findTranslations(BoltTranslatableInterface $entity, ?string $locale = null): BoltTranslationInterface|array|null
     {
         $translations = $entity->getTranslations()->toArray();
 
