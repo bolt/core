@@ -29,8 +29,8 @@ class TranslatableExtension extends AbstractExtension
 
     /**
      * @template T of BoltTranslatableInterface
-     * @phpstan-param T $entity
-     * @phpstan-return BoltTranslationInterface<T>|BoltTranslationInterface<T>[]|null
+     * @param T $entity
+     * @return BoltTranslationInterface<T>|BoltTranslationInterface<T>[]|null
      */
     public function findTranslations(BoltTranslatableInterface $entity, ?string $locale = null): BoltTranslationInterface|array|null
     {

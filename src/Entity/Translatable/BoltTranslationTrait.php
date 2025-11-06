@@ -57,7 +57,7 @@ trait BoltTranslationTrait
     }
 
     /**
-     * @phpstan-return class-string<T>
+     * @return class-string<T>
      */
     public static function getTranslatableEntityClass(): string
     {
@@ -70,7 +70,7 @@ trait BoltTranslationTrait
     /**
      * Will be mapped to translatable entity by TranslatableSubscriber.
      *
-     * @phpstan-var T|null
+     * @var T|null
      */
     protected ?BoltTranslatableInterface $translatable = null;
 }

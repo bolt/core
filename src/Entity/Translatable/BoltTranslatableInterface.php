@@ -20,12 +20,12 @@ interface BoltTranslatableInterface
     public function getNewTranslations(): Collection;
 
     /**
-     * @phpstan-param T $translation
+     * @param T $translation
      */
     public function addTranslation(BoltTranslationInterface $translation): void;
 
     /**
-     * @phpstan-param T $translation
+     * @param T $translation
      */
     public function removeTranslation(BoltTranslationInterface $translation): void;
 
@@ -36,7 +36,7 @@ interface BoltTranslatableInterface
      *
      * @param string|null $locale The locale (en, ru, fr) | null If null, will try with current locale
      *
-     * @phpstan-return T
+     * @return T
      */
     public function translate(?string $locale = null, bool $fallbackToDefault = true): BoltTranslationInterface;
 
@@ -54,7 +54,7 @@ interface BoltTranslatableInterface
     public function getDefaultLocale(): string;
 
     /**
-     * @phpstan-return class-string<T>
+     * @return class-string<T>
      */
     public static function getTranslationEntityClass(): string;
 }

@@ -51,7 +51,7 @@ trait BoltTranslatableTrait
     }
 
     /**
-     * @phpstan-param T $translation
+     * @param T $translation
      */
     public function addTranslation(BoltTranslationInterface $translation): void
     {
@@ -61,7 +61,7 @@ trait BoltTranslatableTrait
     }
 
     /**
-     * @phpstan-param T $translation
+     * @param T $translation
      */
     public function removeTranslation(BoltTranslationInterface $translation): void
     {
@@ -76,7 +76,7 @@ trait BoltTranslatableTrait
      *
      * @param string|null $locale The locale (en, ru, fr) | null If null, will try with current locale
      *
-     * @phpstan-return T
+     * @return T
      */
     public function translate(?string $locale = null, bool $fallbackToDefault = true): BoltTranslationInterface
     {
@@ -181,7 +181,7 @@ trait BoltTranslatableTrait
     /**
      * Finds specific translation in collection by its locale.
      *
-     * @phpstan-return T|null
+     * @return T|null
      */
     protected function findTranslationByLocale(string $locale, bool $withNewTranslations = true): ?BoltTranslationInterface
     {
@@ -210,7 +210,7 @@ trait BoltTranslatableTrait
     }
 
     /**
-     * @phpstan-return T|null
+     * @return T|null
      */
     private function resolveFallbackTranslation(string $locale): ?BoltTranslationInterface
     {
@@ -227,7 +227,7 @@ trait BoltTranslatableTrait
     }
 
     /**
-     * @phpstan-return class-string<T>
+     * @return class-string<T>
      */
     public static function getTranslationEntityClass(): string
     {

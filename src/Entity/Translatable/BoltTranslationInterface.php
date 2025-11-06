@@ -13,12 +13,12 @@ interface BoltTranslationInterface
     public static function getTranslatableEntityClass(): string;
 
     /**
-     * @phpstan-param T $translatable
+     * @param T $translatable
      */
     public function setTranslatable(BoltTranslatableInterface $translatable): void;
 
     /**
-     * @phpstan-return T|null
+     * @return T|null
      */
     public function getTranslatable(): ?BoltTranslatableInterface;
 

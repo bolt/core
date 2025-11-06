@@ -96,7 +96,7 @@ final class TranslatableListener
     }
 
     /**
-     * @phpstan-param ClassMetadata<Translatable> $classMetadataInfo
+     * @param ClassMetadata<Translatable> $classMetadataInfo
      */
     private function mapTranslatable(ClassMetadataInfo $classMetadataInfo): void
     {
@@ -118,7 +118,7 @@ final class TranslatableListener
     }
 
     /**
-     * @phpstan-param ClassMetadata<Translation> $classMetadataInfo
+     * @param ClassMetadata<Translation> $classMetadataInfo
      */
     private function mapTranslation(ClassMetadataInfo $classMetadataInfo, ObjectManager $objectManager): void
     {
@@ -184,7 +184,7 @@ final class TranslatableListener
     }
 
     /**
-     * @phpstan-param ClassMetadata<Translation> $classMetadataInfo
+     * @param ClassMetadata<Translation> $classMetadataInfo
      */
     private function hasUniqueTranslationConstraint(ClassMetadataInfo $classMetadataInfo, string $name): bool
     {
