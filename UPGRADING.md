@@ -2,7 +2,7 @@
 
 ## Dropped Bolt provided migrations
 
-As migrations heavily depend on the used database and were incomplete to begin with, we have dropped database migrations from this bundle. Instead, we will be offering a migration path or example migrations in these notes.
+As migrations heavily depend on the used database and were incomplete to begin with, we have dropped database migrations from this application. Instead, we will be offering a migration path or example migrations in these notes.
 
 In order to upgrade, you will need to squash your existing migrations. You can follow this guide, which is based on https://jolicode.com/blog/a-new-way-to-squash-your-doctrine-migrations.
 
@@ -17,7 +17,7 @@ In order to upgrade, you will need to squash your existing migrations. You can f
    }
    // All other code of the migration
    ```
-5. Rename the migration file to `Version00000000000000.php` and rename the class too. This ensures that it is run first and that migrations generated in step 3 are still being executed to fix your database state after upgrading.
+5. Rename the migration file to `Version00000000000000.php` and rename the class too. This ensures that it is run first and that migrations generated in step 2 are still being executed to fix your database state after upgrading.
 
 This should work on your production environment as well when you are running the `doctrine:migrations:migrate` on deployment, but as always we recommend to make a backup before trying the upgrade.
 
