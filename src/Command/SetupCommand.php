@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Bolt\Command;
 
-use Doctrine\DBAL\Connection;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
@@ -20,12 +19,6 @@ class SetupCommand extends Command
 
     private array $errors = [];
 
-    public function __construct(
-        private readonly Connection $connection
-    ) {
-        parent::__construct();
-    }
-
     protected function configure(): void
     {
         $this
@@ -38,33 +31,24 @@ class SetupCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        // Because SQLite breaks on `--if-not-exists`, we need to check for that here.
-        // See: https://github.com/doctrine/DoctrineBundle/issues/542
-        $options = ['-q' => true];
-        if ($this->connection->getDatabasePlatform()->getName() !== 'sqlite') {
-            $options['--if-not-exists'] = true;
-        }
-
-        $command = $this->getApplication()->find('doctrine:database:create');
-        $exitCode = $command->run(new ArrayInput($options), $output);
-        $this->processExitCode($exitCode, 'An error occurred when creating the database.');
-
-        $command = $this->getApplication()->find('doctrine:schema:create');
-        $exitCode = $command->run(new ArrayInput([]), new NullOutput());
-        $this->processExitCode($exitCode, 'An error occurred when creating the database schema.');
-
         $command = $this->getApplication()->find('doctrine:migrations:sync-metadata-storage');
         $exitCode = $command->run(new ArrayInput([]), new NullOutput());
         $this->processExitCode($exitCode, 'An error occurred when initialising the Doctrine Migrations metatada storage.');
 
-        $command = $this->getApplication()->find('doctrine:migrations:version');
+        $command = $this->getApplication()->find('doctrine:migrations:diff');
+        $exitCode = $command->run(new ArrayInput([
+            '--from-empty-schema' => true,
+            '--no-interaction' => true,
+        ]), $output);
+        $this->processExitCode($exitCode, 'An error occurred when creating the initial migration.');
+
+        $command = $this->getApplication()->find('doctrine:migrations:migrate');
         $commandInput = new ArrayInput([
-            '--add' => true,
-            '--all' => true,
+            '--no-interaction' => true,
         ]);
         $commandInput->setInteractive(false);
         $exitCode = $command->run($commandInput, new NullOutput());
-        $this->processExitCode($exitCode, 'An error occurred when initialising the Doctrine Migrations metatada storage.');
+        $this->processExitCode($exitCode, 'An error occurred while executing the initial migration.');
 
         $command = $this->getApplication()->find('bolt:reset-secret');
         $exitCode = $command->run(new ArrayInput([]), new NullOutput());
@@ -106,8 +90,10 @@ class SetupCommand extends Command
 
     private function processExitCode(int $exitCode, string $message): void
     {
-        if ($exitCode) {
-            $this->errors[] = $message;
+        if (! $exitCode) {
+            return;
         }
+
+        $this->errors[] = $message;
     }
 }
