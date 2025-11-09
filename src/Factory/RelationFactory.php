@@ -12,6 +12,7 @@ use Illuminate\Support\Collection;
 
 readonly class RelationFactory
 {
+    /** @var Collection<int, Relation> */
     private Collection $relations;
 
     public function __construct(
@@ -44,10 +45,13 @@ readonly class RelationFactory
 
     private function getFromMemory(Content $from, Content $to): ?Relation
     {
-        return $this->relations->filter(
+        /** @var Collection<int, Relation> $filteredRelations */
+        $filteredRelations = $this->relations->filter(
             fn (Relation $relation): bool => ($relation->getFromContent() === $from && $relation->getToContent() === $to)
                 || ($relation->getToContent() === $to && $relation->getToContent() === $from)
-        )->last();
+        );
+
+        return $filteredRelations->last();
     }
 
     /**
