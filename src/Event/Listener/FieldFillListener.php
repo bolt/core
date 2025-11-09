@@ -9,7 +9,6 @@ use Bolt\Entity\Field\RawPersistable;
 use Bolt\Entity\FieldInterface;
 use Bolt\Entity\FieldTranslation;
 use Bolt\Utils\Sanitiser;
-use Doctrine\ORM\Event\PostLoadEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Twig\Markup;
 
@@ -64,12 +63,5 @@ class FieldFillListener
     public static function trimZeroWidthWhitespace(string $string): string
     {
         return preg_replace('/([{}])[\x{200B}-\x{200D}\x{FEFF}]([{}])/u', '$1$2', $string);
-    }
-
-    /**
-     * @deprecated since Bolt 5.1.9
-     */
-    public function postLoad(PostLoadEventArgs $args): void
-    {
     }
 }

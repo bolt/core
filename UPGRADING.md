@@ -64,3 +64,13 @@ Check if this line has been removed from your `config/bundles.php` file:
 ```php
 Knp\DoctrineBehaviors\DoctrineBehaviorsBundle::class => ['all' => true],
 ```
+
+## Removed deprecated implementations
+
+These were deprecated in Bolt 5.1 and are now removed.
+
+- `Bolt\Event\Listener\FieldFillListener::postLoad`
+- `Bolt\Menu\CachedBackendMenuBuilder`
+- `Bolt\Menu\CachedFrontendMenuBuilder`
+- `Bolt\Menu\StopwatchBackendMenuBuilder`
+- `Bolt\Menu\StopwatchFrontendMenuBuilder`
