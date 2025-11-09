@@ -13,6 +13,7 @@ use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
  */
 readonly class DirectiveHandler
 {
+    /** @var Collection<string, callable> */
     private Collection $directives;
 
     public function __construct(
@@ -52,6 +53,9 @@ readonly class DirectiveHandler
             throw new InvalidArgumentException(sprintf('Unknown directive (%s).', $directive));
         }
 
-        call_user_func_array($this->directives->get($directive), $params);
+        /** @var callable $callback */
+        $callback = $this->directives->get($directive);
+
+        call_user_func_array($callback, $params);
     }
 }

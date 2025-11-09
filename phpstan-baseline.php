@@ -3218,12 +3218,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Factory/MediaFactory.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Factory\\\\RelationFactory\\:\\:\\$relations with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#',
-	'identifier' => 'missingType.generics',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Factory/RelationFactory.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Class Bolt\\\\Form\\\\ChangePasswordFormType extends generic class Symfony\\\\Component\\\\Form\\\\AbstractType but does not specify its types\\: TData$#',
 	'identifier' => 'missingType.generics',
 	'count' => 1,
@@ -3766,12 +3760,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'message' => '#^Method Bolt\\\\Storage\\\\Directive\\\\DirectiveHandler\\:\\:handle\\(\\) has parameter \\$params with no value type specified in iterable type array\\.$#',
 	'identifier' => 'missingType.iterableValue',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Storage/Directive/DirectiveHandler.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Storage\\\\Directive\\\\DirectiveHandler\\:\\:\\$directives with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#',
-	'identifier' => 'missingType.generics',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Storage/Directive/DirectiveHandler.php',
 ];
@@ -4980,30 +4968,6 @@ $ignoreErrors[] = [
 	'identifier' => 'missingType.iterableValue',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Twig/Node/SetcontentNode.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\Twig\\\\Notifications\\:\\:danger\\(\\) has no return type specified\\.$#',
-	'identifier' => 'missingType.return',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Twig/Notifications.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\Twig\\\\Notifications\\:\\:info\\(\\) has no return type specified\\.$#',
-	'identifier' => 'missingType.return',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Twig/Notifications.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\Twig\\\\Notifications\\:\\:success\\(\\) has no return type specified\\.$#',
-	'identifier' => 'missingType.return',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Twig/Notifications.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\Twig\\\\Notifications\\:\\:warning\\(\\) has no return type specified\\.$#',
-	'identifier' => 'missingType.return',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Twig/Notifications.php',
 ];
 $ignoreErrors[] = [
 	'message' => '#^Cannot call method get\\(\\) on Illuminate\\\\Support\\\\Collection\\|null\\.$#',
