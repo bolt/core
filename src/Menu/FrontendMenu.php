@@ -11,14 +11,14 @@ use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
 use Twig\Environment;
 
-final class FrontendMenu implements FrontendMenuBuilderInterface
+final readonly class FrontendMenu implements FrontendMenuBuilderInterface
 {
     public function __construct(
-        private readonly FrontendMenuBuilder $menuBuilder,
-        private readonly TagAwareCacheInterface $cache,
-        private readonly RequestStack $requestStack,
-        private readonly Stopwatch $stopwatch,
-        private readonly Config $config
+        private FrontendMenuBuilder $menuBuilder,
+        private TagAwareCacheInterface $cache,
+        private RequestStack $requestStack,
+        private Stopwatch $stopwatch,
+        private Config $config
     ) {
     }
 

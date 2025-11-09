@@ -10,16 +10,15 @@ use Bolt\Repository\RelationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Illuminate\Support\Collection;
 
-class RelationFactory
+readonly class RelationFactory
 {
-    /** @var Collection */
-    private $relations;
+    private Collection $relations;
 
     public function __construct(
-        private readonly RelationRepository $repository,
-        private readonly EntityManagerInterface $em
+        private RelationRepository $repository,
+        private EntityManagerInterface $em
     ) {
-        $this->relations = collect([]);
+        $this->relations = collect();
     }
 
     public function create(Content $from, Content $to): Relation

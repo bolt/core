@@ -11,10 +11,9 @@ use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
  * Handles directives on behalf of
  * the ContentQueryParser class.
  */
-class DirectiveHandler
+readonly class DirectiveHandler
 {
-    /** @var Collection */
-    private $directives;
+    private Collection $directives;
 
     public function __construct(
         GetQueryDirective $getQueryDirective,
@@ -28,7 +27,7 @@ class DirectiveHandler
         EarliestDirectiveHandler $earliestDirectiveHandler,
         RandomDirectiveHandler $randomDirectiveHandler
     ) {
-        $this->directives = collect([]);
+        $this->directives = collect();
 
         $this->directives->put(GetQueryDirective::NAME, $getQueryDirective);
         $this->directives->put(LimitDirective::NAME, $limitDirective);
