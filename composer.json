@@ -37,7 +37,7 @@
         "nelmio/cors-bundle": "^2.1",
         "nesbot/carbon": "^3.8",
         "pagerfanta/doctrine-orm-adapter": "^4.7",
-        "php-translation/symfony-bundle": "^0.15",
+        "php-translation/symfony-bundle": "^0.16",
         "phpdocumentor/reflection-docblock": "^5.3",
         "psr/event-dispatcher": "^1.0",
         "scienta/doctrine-json-functions": "^4.4",
