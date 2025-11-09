@@ -3368,18 +3368,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Menu/BackendMenuBuilderInterface.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\Menu\\\\CachedBackendMenuBuilder\\:\\:buildAdminMenu\\(\\) return type has no value type specified in iterable type array\\.$#',
-	'identifier' => 'missingType.iterableValue',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Menu/CachedBackendMenuBuilder.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\Menu\\\\CachedFrontendMenuBuilder\\:\\:buildMenu\\(\\) return type has no value type specified in iterable type array\\.$#',
-	'identifier' => 'missingType.iterableValue',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Menu/CachedFrontendMenuBuilder.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Cannot call method getLocale\\(\\) on Symfony\\\\Component\\\\HttpFoundation\\\\Request\\|null\\.$#',
 	'identifier' => 'method.nonObject',
 	'count' => 1,
@@ -3432,18 +3420,6 @@ $ignoreErrors[] = [
 	'identifier' => 'missingType.iterableValue',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Menu/FrontendMenuBuilderInterface.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\Menu\\\\StopwatchBackendMenuBuilder\\:\\:buildAdminMenu\\(\\) return type has no value type specified in iterable type array\\.$#',
-	'identifier' => 'missingType.iterableValue',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Menu/StopwatchBackendMenuBuilder.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\Menu\\\\StopwatchFrontendMenuBuilder\\:\\:buildMenu\\(\\) return type has no value type specified in iterable type array\\.$#',
-	'identifier' => 'missingType.iterableValue',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Menu/StopwatchFrontendMenuBuilder.php',
 ];
 $ignoreErrors[] = [
 	'message' => '#^Cannot use array destructuring on array\\|string\\.$#',
