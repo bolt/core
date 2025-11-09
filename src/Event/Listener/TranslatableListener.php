@@ -19,18 +19,18 @@ use ReflectionClass;
  * @template Translatable of BoltTranslatableInterface
  * @template Translation of BoltTranslationInterface
  */
-final class TranslatableListener
+final readonly class TranslatableListener
 {
     /**
      * @var string
      */
     public const LOCALE = 'locale';
 
-    private readonly int $translatableFetchMode;
-    private readonly int $translationFetchMode;
+    private int $translatableFetchMode;
+    private int $translationFetchMode;
 
     public function __construct(
-        private readonly LocaleProviderInterface $localeProvider,
+        private LocaleProviderInterface $localeProvider,
         string $translatableFetchMode,
         string $translationFetchMode
     ) {
