@@ -88,7 +88,6 @@
     },
     "conflict": {
         "doctrine/dbal": "^3.0",
-        "cocur/slugify": "4.5.0",
         "monolog/monolog": "^3.0"
     },
     "require-dev": {
