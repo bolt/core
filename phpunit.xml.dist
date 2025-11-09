@@ -5,7 +5,8 @@
          backupGlobals="false"
          colors="true"
          failOnWarning="true"
-         bootstrap="phpunit.bootstrap.php">
+         bootstrap="phpunit.bootstrap.php"
+         cacheDirectory=".phpunit.cache">
     <php>
         <ini name="error_reporting" value="-1" force="true"/>
         <env name="KERNEL_CLASS" value="Bolt\Kernel"/>
@@ -30,6 +31,6 @@
         </testsuite>
     </testsuites>
     <extensions>
-        <extension class="DAMA\DoctrineTestBundle\PHPUnit\PHPUnitExtension"/>
+        <bootstrap class="DAMA\DoctrineTestBundle\PHPUnit\PHPUnitExtension"/>
     </extensions>
 </phpunit>
