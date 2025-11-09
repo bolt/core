@@ -29,11 +29,6 @@ parameters:
             message: '#Call to an undefined method Sirius\\Upload\\Result\\ResultInterface|Symfony\\Component\\HttpFoundation\\File\\File::__get\(\)#'
             path:  %currentWorkingDirectory%/src/Controller/Backend/Async/UploadController.php
 
-        # false positive: An item to the Logger's Record added by us isn't recognized
-        -
-            message: "#Offset '.*' ([a-z ]*)on array#"
-            path: %currentWorkingDirectory%/src/Log/LogHandler.php
-
 includes:
 	- phpstan-baseline.php
 #    - vendor/thecodingmachine/phpstan-safe-rule/phpstan-safe-rule.neon # make ON when thecodingmachine/safe will get stable

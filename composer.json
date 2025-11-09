@@ -32,6 +32,7 @@
         "knplabs/knp-menu-bundle": "^3.1",
         "league/glide-symfony": "^2.0",
         "miljar/php-exif": "^0.6.4",
+        "monolog/monolog": "^3.9",
         "nelexa/zip": "^3.3 || ^4.0",
         "nelmio/cors-bundle": "^2.1",
         "nesbot/carbon": "^3.8",
@@ -87,8 +88,7 @@
         "xemlock/htmlpurifier-html5": "^0.1.11"
     },
     "conflict": {
-        "doctrine/dbal": "^3.0",
-        "monolog/monolog": "^3.0"
+        "doctrine/dbal": "^3.0"
     },
     "require-dev": {
         "ext-curl": "*",

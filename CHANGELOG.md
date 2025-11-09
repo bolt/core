@@ -19,6 +19,7 @@ Make sure to check the [upgrade notes](https://github.com/bolt/core/blob/main/UP
 - Replaced `bobdenotter/configuration-notices` with `bolt/configuration-notices-widget`. The namespace has changed from `BobdenOtter\ConfigurationNotices` to `Bolt\ConfigurationNoticesWidget`. Your configuration should be migrated automatically, but if you weren't using the configuration notices widget you might need to remove the newly added configuration manually. (macintoshplus and bobvandevijver, [#3588](https://github.com/bolt/core/issues/3588))
 - The `knplabs/doctrine-behaviors` package has been removed from the Bolt core, but its functionality has been integrated. (macintoshplus, [#3561](https://github.com/bolt/core/issues/3561))
 - The `sensio/framework-extra-bundle` dependency has been removed.
+- `monolog/monolog` is now required to be at least `^3.9`.
 
 ### Other noteworthy updates
 - Return types have been changed where needed to resolve deprecation and PHPStan issues. This might affect you if you were extending the inner workings of Bolt. We apologise for the inconvenience, but it will be better in the long run.
