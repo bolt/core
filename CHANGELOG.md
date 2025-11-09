@@ -22,6 +22,7 @@ Make sure to check the [upgrade notes](https://github.com/bolt/core/blob/main/UP
 - `monolog/monolog` is now required to be at least `^3.9`.
 - `php-translation/symfony-bundle` has been bumped to `^0.16`.
 - `php-http/httplug-bundle` now requires at least version 2, which removes an abandoned dependency.
+- `illuminate/collections` was bumped from `^10.48` to `^12.0`.
 
 ### Other noteworthy updates
 - Return types have been changed where needed to resolve deprecation and PHPStan issues. This might affect you if you were extending the inner workings of Bolt. We apologise for the inconvenience, but it will be better in the long run.
