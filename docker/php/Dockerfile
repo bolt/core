@@ -1,5 +1,5 @@
 # https://github.com/docker-library/php/blob/master/8.1/bookworm/fpm/Dockerfile
-FROM php:8.1-fpm-bookworm
+FROM php:8.2-fpm-bookworm
 
 ENV PHP_MEMORYLIMIT=2048M
 ENV PHP_TIMEZONE=Europe/Warsaw

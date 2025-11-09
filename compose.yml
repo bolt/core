@@ -4,7 +4,7 @@ services:
       context: docker/php
       dockerfile: Dockerfile
       cache_from:
-        - php:8.1-fpm
+        - php:8.2-fpm
     env_file:
       - .env
     depends_on:
