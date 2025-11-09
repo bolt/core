@@ -7,7 +7,7 @@ jobs:
     apicurltests:
         strategy:
             matrix:
-                php-version: [ '8.1', '8.2', '8.3', '8.4' ]
+                php-version: [ '8.2', '8.3', '8.4' ]
                 database:
                     - 'sqlite:///%kernel.project_dir%/var/data/bolt.sqlite'
                     - 'mysql://bolt:bolt@127.0.0.1/bolt?serverVersion=5.7&charset=utf8mb4'

@@ -842,12 +842,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Configuration/Content/ContentType.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:get\\(\\) expects \\(int\\|string\\), string\\|null given\\.$#',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Configuration/Content/ContentType.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:has\\(\\) expects array\\<\\(int\\|string\\)\\>\\|int\\|string, string\\|null given\\.$#',
 	'identifier' => 'argument.type',
 	'count' => 1,
@@ -904,12 +898,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'message' => '#^Method Bolt\\\\Configuration\\\\Content\\\\TaxonomyType\\:\\:factory\\(\\) has parameter \\$taxonomyTypesConfig with generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#',
 	'identifier' => 'missingType.generics',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Configuration/Content/TaxonomyType.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:get\\(\\) expects \\(int\\|string\\), string\\|null given\\.$#',
-	'identifier' => 'argument.type',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Configuration/Content/TaxonomyType.php',
 ];
@@ -3622,12 +3610,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'message' => '#^Method Bolt\\\\Security\\\\ContentVoter\\:\\:isGrantedAny\\(\\) has parameter \\$subject with no type specified\\.$#',
 	'identifier' => 'missingType.parameter',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Security/ContentVoter.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:get\\(\\) expects \\(int\\|string\\), string\\|null given\\.$#',
-	'identifier' => 'argument.type',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Security/ContentVoter.php',
 ];

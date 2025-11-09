@@ -24,7 +24,7 @@ Details
 | Relevant Bolt Version                                 | legacy / 5.1 / 5.2 / main
 | Install type                                          | Zip or tar install / Composer install / GitHub checkout 
 | <abbr title="Backwards Compatibility">BC</abbr> Break | yes/no                                                  
-| PHP version                                           | 7.4 / 8.0 / 8.1 / 8.2 / 8.3                                         
+| PHP version                                           | 8.2 / 8.3 / 8.4 / 8.5                                         
 | Web server                                            | Apache / Nginx / Built-in, version [ version ]          
 | For UX/UI issues                                      | Browser name and version                                
 
