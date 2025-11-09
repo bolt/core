@@ -38,7 +38,7 @@ class FieldExtensionTestCase extends DbAwareTestCase
             ->expects($matcher = $this->exactly(1))
             ->method('get')
             ->willReturnCallback(function (...$parameters) use ($matcher) {
-                if ($matcher->getInvocationCount() === 1) {
+                if ($matcher->numberOfInvocations() === 1) {
                     $this->assertSame('label', $parameters[0]);
                 }
                 return 'Test field';
@@ -53,7 +53,7 @@ class FieldExtensionTestCase extends DbAwareTestCase
             ->expects($matcher = $this->exactly(1))
             ->method('get')
             ->willReturnCallback(function (...$parameters) use ($matcher) {
-                if ($matcher->getInvocationCount() === 1) {
+                if ($matcher->numberOfInvocations() === 1) {
                     $this->assertSame('type', $parameters[0]);
                 }
                 return 'embed';

@@ -6,15 +6,16 @@ namespace Bolt\Tests\Widget\Injector;
 
 use Bolt\Tests\StringTestCase;
 use Bolt\Widget\Injector\HtmlInjector;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class HtmlInjector2Test extends StringTestCase
 {
     public const HTML = '<html><body class="something"
-    >foo<p><p 
+    >foo<p><p
     class="inner">bar</p></p><script></script><script
      /></body></html>';
 
-    public function providerInjectBeforeTagStart()
+    public static function providerInjectBeforeTagStart(): array
     {
         return [
             [
@@ -36,7 +37,7 @@ class HtmlInjector2Test extends StringTestCase
         ];
     }
 
-    public function providerInjectBeforeTagEnd()
+    public static function providerInjectBeforeTagEnd(): array
     {
         return [
             [
@@ -58,7 +59,7 @@ class HtmlInjector2Test extends StringTestCase
         ];
     }
 
-    public function providerInjectAfterTagStart()
+    public static function providerInjectAfterTagStart(): array
     {
         return [
             [
@@ -80,7 +81,7 @@ class HtmlInjector2Test extends StringTestCase
         ];
     }
 
-    public function providerInjectAfterTagEnd()
+    public static function providerInjectAfterTagEnd(): array
     {
         return [
             [
@@ -102,9 +103,7 @@ class HtmlInjector2Test extends StringTestCase
         ];
     }
 
-    /**
-     * @dataProvider providerInjectBeforeTagStart
-     */
+    #[DataProvider('providerInjectBeforeTagStart')]
     public function testInjectBeforeTagStart(string $tag, string $expected): void
     {
         $result = HtmlInjector::injectBeforeTagStart(
@@ -118,9 +117,7 @@ class HtmlInjector2Test extends StringTestCase
         );
     }
 
-    /**
-     * @dataProvider providerInjectBeforeTagEnd
-     */
+    #[DataProvider('providerInjectBeforeTagEnd')]
     public function testInjectBeforeTagEnd(string $tag, string $expected): void
     {
         $result = HtmlInjector::injectBeforeTagEnd(
@@ -134,9 +131,7 @@ class HtmlInjector2Test extends StringTestCase
         );
     }
 
-    /**
-     * @dataProvider providerInjectAfterTagStart
-     */
+    #[DataProvider('providerInjectAfterTagStart')]
     public function testInjectAfterTagStart(string $tag, string $expected): void
     {
         $result = HtmlInjector::injectAfterTagStart(
@@ -150,9 +145,7 @@ class HtmlInjector2Test extends StringTestCase
         );
     }
 
-    /**
-     * @dataProvider providerInjectAfterTagEnd
-     */
+    #[DataProvider('providerInjectAfterTagEnd')]
     public function testInjectAfterTagEnd(string $tag, string $expected): void
     {
         $result = HtmlInjector::injectAfterTagEnd(

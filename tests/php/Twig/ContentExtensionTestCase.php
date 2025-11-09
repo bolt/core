@@ -50,7 +50,7 @@ class ContentExtensionTestCase extends DbAwareTestCase
             ->expects($matcher = $this->exactly(1))
             ->method('has')
             ->willReturnCallback(function (...$parameters) use ($matcher) {
-                if ($matcher->getInvocationCount() === 1) {
+                if ($matcher->numberOfInvocations() === 1) {
                     $this->assertSame('title_format', $parameters[0]);
                 }
                 return true;
@@ -59,7 +59,7 @@ class ContentExtensionTestCase extends DbAwareTestCase
             ->expects($matcher = $this->exactly(1))
             ->method('get')
             ->willReturnCallback(function (...$parameters) use ($matcher) {
-                if ($matcher->getInvocationCount() === 1) {
+                if ($matcher->numberOfInvocations() === 1) {
                     $this->assertSame('title_format', $parameters[0]);
                 }
                 return '{number}: {title}';
@@ -70,11 +70,11 @@ class ContentExtensionTestCase extends DbAwareTestCase
             ->expects($matcher = $this->exactly(2))
             ->method('hasField')
             ->willReturnCallback(function (...$parameters) use ($matcher) {
-                if ($matcher->getInvocationCount() === 1) {
+                if ($matcher->numberOfInvocations() === 1) {
                     $this->assertSame('number', $parameters[0]);
                     return false;
                 }
-                if ($matcher->getInvocationCount() === 2) {
+                if ($matcher->numberOfInvocations() === 2) {
                     $this->assertSame('title', $parameters[0]);
                     return true;
                 }
@@ -85,7 +85,7 @@ class ContentExtensionTestCase extends DbAwareTestCase
             ->expects($matcher = $this->exactly(1))
             ->method('getField')
             ->willReturnCallback(function (...$parameters) use ($matcher) {
-                if ($matcher->getInvocationCount() === 1) {
+                if ($matcher->numberOfInvocations() === 1) {
                     $this->assertSame('title', $parameters[0]);
                 }
                 return $this->field;
@@ -104,7 +104,7 @@ class ContentExtensionTestCase extends DbAwareTestCase
             ->expects($matcher = $this->exactly(1))
             ->method('has')
             ->willReturnCallback(function (...$parameters) use ($matcher) {
-                if ($matcher->getInvocationCount() === 1) {
+                if ($matcher->numberOfInvocations() === 1) {
                     $this->assertSame('title_format', $parameters[0]);
                 }
                 return true;
@@ -113,7 +113,7 @@ class ContentExtensionTestCase extends DbAwareTestCase
             ->expects($matcher = $this->exactly(1))
             ->method('get')
             ->willReturnCallback(function (...$parameters) use ($matcher) {
-                if ($matcher->getInvocationCount() === 1) {
+                if ($matcher->numberOfInvocations() === 1) {
                     $this->assertSame('title_format', $parameters[0]);
                 }
                 return '{number}: {title}';
@@ -124,11 +124,11 @@ class ContentExtensionTestCase extends DbAwareTestCase
             ->expects($matcher = $this->exactly(2))
             ->method('hasField')
             ->willReturnCallback(function (...$parameters) use ($matcher) {
-                if ($matcher->getInvocationCount() === 1) {
+                if ($matcher->numberOfInvocations() === 1) {
                     $this->assertSame('number', $parameters[0]);
                     return false;
                 }
-                if ($matcher->getInvocationCount() === 2) {
+                if ($matcher->numberOfInvocations() === 2) {
                     $this->assertSame('title', $parameters[0]);
                     return true;
                 }
@@ -155,7 +155,7 @@ class ContentExtensionTestCase extends DbAwareTestCase
             ->expects($matcher = $this->exactly(1))
             ->method('get')
             ->willReturnCallback(function (...$parameters) use ($matcher) {
-                if ($matcher->getInvocationCount() === 1) {
+                if ($matcher->numberOfInvocations() === 1) {
                     $this->assertSame('filename', $parameters[0]);
                 }
                 return 'example.jpg';
@@ -171,7 +171,7 @@ class ContentExtensionTestCase extends DbAwareTestCase
         $image1->expects($matcher = $this->exactly(1))
             ->method('get')
             ->willReturnCallback(function (...$parameters) use ($matcher) {
-                if ($matcher->getInvocationCount() === 1) {
+                if ($matcher->numberOfInvocations() === 1) {
                     $this->assertSame('filename', $parameters[0]);
                 }
                 return 'testimage.jpg';
@@ -198,7 +198,7 @@ class ContentExtensionTestCase extends DbAwareTestCase
             ->expects($matcher = $this->exactly(1))
             ->method('get')
             ->willReturnCallback(function (...$parameters) use ($matcher) {
-                if ($matcher->getInvocationCount() === 1) {
+                if ($matcher->numberOfInvocations() === 1) {
                     $this->assertSame('excerpt_format', $parameters[0]);
                 }
                 return '{subheading}: {body}';
@@ -208,11 +208,11 @@ class ContentExtensionTestCase extends DbAwareTestCase
             ->expects($matcher = $this->exactly(2))
             ->method('hasField')
             ->willReturnCallback(function (...$parameters) use ($matcher) {
-                if ($matcher->getInvocationCount() === 1) {
+                if ($matcher->numberOfInvocations() === 1) {
                     $this->assertSame('subheading', $parameters[0]);
                     return true;
                 }
-                if ($matcher->getInvocationCount() === 2) {
+                if ($matcher->numberOfInvocations() === 2) {
                     $this->assertSame('body', $parameters[0]);
                     return true;
                 }
@@ -228,11 +228,11 @@ class ContentExtensionTestCase extends DbAwareTestCase
             ->expects($matcher = $this->exactly(2))
             ->method('getField')
             ->willReturnCallback(function (...$parameters) use ($matcher, $field1, $field2) {
-                if ($matcher->getInvocationCount() === 1) {
+                if ($matcher->numberOfInvocations() === 1) {
                     $this->assertSame('subheading', $parameters[0]);
                     return $field1;
                 }
-                if ($matcher->getInvocationCount() === 2) {
+                if ($matcher->numberOfInvocations() === 2) {
                     $this->assertSame('body', $parameters[0]);
                     return $field2;
                 }
@@ -243,13 +243,13 @@ class ContentExtensionTestCase extends DbAwareTestCase
             ->expects($matcher = $this->exactly(3))
             ->method('has')
             ->willReturnCallback(function (...$parameters) use ($matcher) {
-                if ($matcher->getInvocationCount() === 1) {
+                if ($matcher->numberOfInvocations() === 1) {
                     $this->assertSame('excerpt_format', $parameters[0]);
                 }
-                if ($matcher->getInvocationCount() === 2) {
+                if ($matcher->numberOfInvocations() === 2) {
                     $this->assertSame('subheading', $parameters[0]);
                 }
-                if ($matcher->getInvocationCount() === 3) {
+                if ($matcher->numberOfInvocations() === 3) {
                     $this->assertSame('body', $parameters[0]);
                 }
                 return true;
@@ -266,7 +266,7 @@ class ContentExtensionTestCase extends DbAwareTestCase
             ->expects($matcher = $this->exactly(1))
             ->method('get')
             ->willReturnCallback(function (...$parameters) use ($matcher) {
-                if ($matcher->getInvocationCount() === 1) {
+                if ($matcher->numberOfInvocations() === 1) {
                     $this->assertSame('excerpt_format', $parameters[0]);
                 }
                 return '{subheading}: {body}';
@@ -276,11 +276,11 @@ class ContentExtensionTestCase extends DbAwareTestCase
             ->expects($matcher = $this->exactly(2))
             ->method('hasField')
             ->willReturnCallback(function (...$parameters) use ($matcher) {
-                if ($matcher->getInvocationCount() === 1) {
+                if ($matcher->numberOfInvocations() === 1) {
                     $this->assertSame('subheading', $parameters[0]);
                     return true;
                 }
-                if ($matcher->getInvocationCount() === 2) {
+                if ($matcher->numberOfInvocations() === 2) {
                     $this->assertSame('body', $parameters[0]);
                     return true;
                 }
@@ -296,11 +296,11 @@ class ContentExtensionTestCase extends DbAwareTestCase
             ->expects($matcher = $this->exactly(2))
             ->method('getField')
             ->willReturnCallback(function (...$parameters) use ($matcher, $field1, $field2) {
-                if ($matcher->getInvocationCount() === 1) {
+                if ($matcher->numberOfInvocations() === 1) {
                     $this->assertSame('subheading', $parameters[0]);
                     return $field1;
                 }
-                if ($matcher->getInvocationCount() === 2) {
+                if ($matcher->numberOfInvocations() === 2) {
                     $this->assertSame('body', $parameters[0]);
                     return $field2;
                 }
@@ -311,13 +311,13 @@ class ContentExtensionTestCase extends DbAwareTestCase
             ->expects($matcher = $this->exactly(3))
             ->method('has')
             ->willReturnCallback(function (...$parameters) use ($matcher) {
-                if ($matcher->getInvocationCount() === 1) {
+                if ($matcher->numberOfInvocations() === 1) {
                     $this->assertSame('excerpt_format', $parameters[0]);
                 }
-                if ($matcher->getInvocationCount() === 2) {
+                if ($matcher->numberOfInvocations() === 2) {
                     $this->assertSame('subheading', $parameters[0]);
                 }
-                if ($matcher->getInvocationCount() === 3) {
+                if ($matcher->numberOfInvocations() === 3) {
                     $this->assertSame('body', $parameters[0]);
                 }
                 return true;

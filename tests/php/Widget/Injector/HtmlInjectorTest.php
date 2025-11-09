@@ -8,6 +8,7 @@ use Bolt\Tests\StringTestCase;
 use Bolt\Widget\Injector\HtmlInjector;
 use Bolt\Widget\Injector\Target;
 use Bolt\Widget\SnippetWidget;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Collection;
 
@@ -15,7 +16,7 @@ class HtmlInjectorTest extends StringTestCase
 {
     private const TEST_TEMPLATES_BASE_PATH = __DIR__ . '/../../../fixtures/HtmlInjector/';
 
-    public function providerTarget()
+    public static function providerTarget(): array
     {
         $list = (new Target())->listAll();
         $constants = (new Collection(array_keys($list)))
@@ -33,7 +34,7 @@ class HtmlInjectorTest extends StringTestCase
         return $constants->toArray();
     }
 
-    public function providerAlwaysWorkingTarget()
+    public static function providerAlwaysWorkingTarget(): array
     {
         $list = (new Target())->listAll();
         $constants = (new Collection(array_keys($list)))
@@ -50,9 +51,7 @@ class HtmlInjectorTest extends StringTestCase
         return $constants->toArray();
     }
 
-    /**
-     * @dataProvider providerTarget
-     */
+    #[DataProvider('providerTarget')]
     public function testMap(string $constant): void
     {
         $constant = constant('Bolt\Widget\Injector\Target::' . $constant);
@@ -61,9 +60,7 @@ class HtmlInjectorTest extends StringTestCase
         self::assertArrayHasKey($constant, $injector->getMap());
     }
 
-    /**
-     * @dataProvider providerTarget
-     */
+    #[DataProvider('providerTarget')]
     public function testInject(string $constant): void
     {
         $expected = file_get_contents(self::TEST_TEMPLATES_BASE_PATH . 'result.' . $constant . '.html');
@@ -78,9 +75,7 @@ class HtmlInjectorTest extends StringTestCase
         self::assertSameHtml($expected, $response->getContent());
     }
 
-    /**
-     * @dataProvider providerTarget
-     */
+    #[DataProvider('providerTarget')]
     public function testInjectNoLinebreaks(string $constant): void
     {
         $expected = file_get_contents(self::TEST_TEMPLATES_BASE_PATH . 'result.' . $constant . '.html');
@@ -95,9 +90,7 @@ class HtmlInjectorTest extends StringTestCase
         self::assertSameHtml($expected, $response->getContent());
     }
 
-    /**
-     * @dataProvider providerTarget
-     */
+    #[DataProvider('providerTarget')]
     public function testInjectInvalidLocation(string $constant): void
     {
         $injector = new HtmlInjector();
@@ -111,9 +104,7 @@ class HtmlInjectorTest extends StringTestCase
         self::assertSameHtml($html, $response->getContent());
     }
 
-    /**
-     * @dataProvider providerTarget
-     */
+    #[DataProvider('providerTarget')]
     public function testInjectEmptyHtml(string $constant): void
     {
         $constant = constant('Bolt\Widget\Injector\Target::' . $constant);
@@ -127,9 +118,7 @@ class HtmlInjectorTest extends StringTestCase
         self::assertSameHtml('', $response->getContent());
     }
 
-    /**
-     * @dataProvider providerAlwaysWorkingTarget
-     */
+    #[DataProvider('providerAlwaysWorkingTarget')]
     public function testInjectEmptyHtmlAlwaysWorking(string $constant): void
     {
         $constant = constant('Bolt\Widget\Injector\Target::' . $constant);
