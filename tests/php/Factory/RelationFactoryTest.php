@@ -11,6 +11,7 @@ use Bolt\Repository\ContentRepository;
 use Bolt\Repository\RelationRepository;
 use Bolt\Tests\DbAwareTestCase;
 use Doctrine\Common\Collections\Collection;
+use PHPUnit\Framework\Attributes\Depends;
 
 final class RelationFactoryTest extends DbAwareTestCase
 {
@@ -42,9 +43,7 @@ final class RelationFactoryTest extends DbAwareTestCase
         ];
     }
 
-    /**
-     * @depends testSavePersistsTheRelation
-     */
+    #[Depends('testSavePersistsTheRelation')]
     public function testPersistedRelationCascadesToContent(array $entities): void
     {
         /** @var Content $page */

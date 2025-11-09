@@ -46,12 +46,12 @@ class FrontendMenuBuilderTest extends DbAwareTestCase
             ->expects($matcher = $this->atMost(2))
             ->method('get')
             ->willReturnCallback(function (string $route) use ($matcher) {
-                if ($matcher->getInvocationCount() === 1) {
+                if ($matcher->numberOfInvocations() === 1) {
                     $this->assertSame('_route', $route);
                     return 'homepage_locale';
                 }
 
-                if ($matcher->getInvocationCount() === 2) {
+                if ($matcher->numberOfInvocations() === 2) {
                     $this->assertSame('_route_params', $route);
                     return [];
                 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Tests\Widget\Injector;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use ReflectionClass;
 use Bolt\Widget\Injector\RequestZone;
 use PHPUnit\Framework\TestCase;
@@ -12,7 +13,7 @@ use Illuminate\Support\Collection;
 
 class RequestZoneTest extends TestCase
 {
-    public function providerZone()
+    public static function providerZone(): array
     {
         $o = new ReflectionClass(RequestZone::class);
         $constants = (new Collection(array_keys($o->getConstants())))
@@ -33,9 +34,7 @@ class RequestZoneTest extends TestCase
         $this->assertSame('nowhere', RequestZone::getFromRequest($request));
     }
 
-    /**
-     * @dataProvider providerZone
-     */
+    #[DataProvider('providerZone')]
     public function testZone(string $constant): void
     {
         $request = Request::createFromGlobals();

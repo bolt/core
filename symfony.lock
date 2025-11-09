@@ -412,9 +412,6 @@
     "se/selenium-server-standalone": {
         "version": "3.141.59"
     },
-    "sebastian/code-unit-reverse-lookup": {
-        "version": "1.0.1"
-    },
     "sebastian/comparator": {
         "version": "3.0.2"
     },
