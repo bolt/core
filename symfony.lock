@@ -308,9 +308,6 @@
     "php-http/message": {
         "version": "1.8.0"
     },
-    "php-http/message-factory": {
-        "version": "v1.0.2"
-    },
     "php-http/promise": {
         "version": "v1.0.0"
     },

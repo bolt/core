@@ -102,7 +102,7 @@
         "ondram/ci-detector": "^4.1",
         "php-http/curl-client": "^2.2",
         "php-http/discovery": "^1.14",
-        "php-http/httplug-bundle": "^1.19",
+        "php-http/httplug-bundle": "^2.0",
         "php-http/message": "^1.12",
         "phpstan/extension-installer": "1.4.3",
         "phpstan/phpstan": "2.1.31",
