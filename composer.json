@@ -88,6 +88,8 @@
         "xemlock/htmlpurifier-html5": "^0.1.11"
     },
     "conflict": {
+        "bolt/article": "<3.0",
+        "bolt/redactor": "<3.0",
         "doctrine/dbal": "^3.0"
     },
     "require-dev": {
