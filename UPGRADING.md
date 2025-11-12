@@ -11,17 +11,27 @@ As migrations heavily depend on the used database and were incomplete to begin w
 In order to upgrade, you will need to squash your existing migrations. You can follow this guide, which is based on https://jolicode.com/blog/a-new-way-to-squash-your-doctrine-migrations.
 
 1. Remove any migration you made yourself
-2. Validate that your database is in sync with the code by running `bin/console doctrine:migrations:diff`. If any migrations are generated, inspect them for correctness (changes to the used Doctrine version might have caused changes) and keep the files.
-3. Run `bin/console doctrine:migrations:dump-schema`
-4. Prepend the following to the newly generated migration
+2. Validate that your database is in sync with the code by running `bin/console doctrine:migrations:diff`. If any migrations are generated, inspect them for correctness (changes to the used Doctrine version might have caused changes) and keep the files. The following migrations are to be expected from Bolt itself (when using MySQL):
+   - Rename index `field_translation_unique_translation` to `bolt_field_translation_unique_translation`:
+     ```sql
+     ALTER TABLE bolt_field_translation DROP FOREIGN KEY FK_5C60C0542C2AC5D3
+     DROP INDEX field_translation_unique_translation ON bolt_field_translation
+     CREATE UNIQUE INDEX bolt_field_translation_unique_translation ON bolt_field_translation (translatable_id, locale)
+     ALTER TABLE bolt_field_translation ADD CONSTRAINT FK_5C60C0542C2AC5D3 FOREIGN KEY (translatable_id) REFERENCES bolt_field (id) ON DELETE CASCADE
+     ```
+   - If the migration tries to drop the `bolt_password_request` table make sure to remove that action (both in down and up).
+3. If any migrations where generated in the previous step, fully comment the code.
+4. Run `bin/console doctrine:migrations:dump-schema`
+5. Prepend the following to the up action of the newly generated migration. Make sure that the table name matches your migration versions table.
    ```php
    if ($this->sm->tablesExist(['bolt_field'])) {
-       $this->addSql('DELETE FROM migration_versions');
+       $this->addSql('DELETE FROM doctrine_migration_versions');
        return;
    }
    // All other code of the migration
    ```
-5. Rename the migration file to `Version00000000000000.php` and rename the class too. This ensures that it is run first and that migrations generated in step 2 are still being executed to fix your database state after upgrading.
+6. Rename the migration file to `Version00000000000000.php` and rename the class too. This ensures that it is run first and that migrations generated in step 2 are still being executed to fix your database state after upgrading.
+7. Uncomment any migration from step 3 to restore their migration function.
 
 This should work on your production environment as well when you are running the `doctrine:migrations:migrate` on deployment, but as always we recommend to make a backup before trying the upgrade.
 
