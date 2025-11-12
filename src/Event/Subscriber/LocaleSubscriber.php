@@ -28,6 +28,14 @@ class LocaleSubscriber implements EventSubscriberInterface
             $locale = $request->query->getString('_locale');
             $request->getSession()->set('_locale', $locale);
             $request->setLocale($locale);
+
+            // Symfony does not take this query parameter into account in its own subscriber.
+            // Symfony's listener has a lower priority and will thus be called later.
+            // It will not check that the locale was set already and in case useAcceptLanguageHeader
+            // (see https://symfony.com/doc/5.4/reference/configuration/framework.html#set-locale-from-accept-language) is set, it will
+            // overwrite the locale that was just set.
+            // @see https://github.com/symfony/symfony/blob/5.4/src/Symfony/Component/HttpKernel/EventListener/LocaleListener.php#L71
+            $request->attributes->set('_locale', $locale);
         } elseif ($request->attributes->get('zone', false) === 'backend' && $request->getSession()->has('_backend_locale')) {
             $request->setLocale($request->getSession()->get('_backend_locale'));
         } else {
