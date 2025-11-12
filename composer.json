@@ -130,6 +130,9 @@
         }
     },
     "extra": {
+        "branch-alias": {
+            "dev-main": "6.0.x-dev"
+        },
         "public-dir": "public",
         "symfony": {
             "allow-contrib": true,
