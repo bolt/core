@@ -20,6 +20,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\Asset\PathPackage;
 use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
@@ -71,6 +72,16 @@ class TwigAwareController extends AbstractController
      */
     public function render($template, array $parameters = [], ?Response $response = null): Response
     {
+        // Make sure we have a Response
+        $response ??= new Response();
+
+        // Convert form interface to views automatically, as is done by Symfony as well
+        foreach ($parameters as $k => $v) {
+            if ($v instanceof FormInterface) {
+                $parameters[$k] = $v->createView();
+            }
+        }
+
         // Set User in global Twig environment
         $parameters['user'] ??= $this->getUser();
 
@@ -80,11 +91,6 @@ class TwigAwareController extends AbstractController
         }
 
         $content = $this->renderTemplate($template, $parameters);
-
-        // Make sure we have a Response
-        if ($response === null) {
-            $response = new Response();
-        }
         $response->setContent($content);
 
         return $response;
