@@ -1,0 +1,6 @@
+file: packages/security.yaml
+since: 6.0.0
+
+remove:
+    security:
+        access_control: ~
