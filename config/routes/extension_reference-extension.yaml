@@ -1,1 +1,4 @@
-# An example of a routes.yaml file in an extension
+
+reference_extension:
+  resource: '../../vendor/acmecorp/reference-extension/src/Controller/'
+  type: attribute
