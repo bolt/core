@@ -147,7 +147,7 @@ class FieldExtension extends AbstractExtension
         $finder
             ->files()
             ->in($templatesPath)
-            ->path($definition->get('path'))
+            ->path($definition->get('path') ?? [])
             ->sortByName()
             ->filter(fn (SplFileInfo $file): bool => preg_match($filter, $file->getRelativePathname()) === 1);
 
