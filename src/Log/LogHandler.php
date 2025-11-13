@@ -26,11 +26,12 @@ class LogHandler extends AbstractProcessingHandler
         $logEntry->setMessage($record->message);
         $logEntry->setLevel($record->level->value);
         $logEntry->setLevelName($record->level->getName());
-        $logEntry->setExtra($record->extra);
-        /** @phpstan-ignore nullCoalesce.offset (false positive: An item to the Logger's Record added by us isn't recognized) */
-        $logEntry->setUser($record['user'] ?? null);
-        /** @phpstan-ignore nullCoalesce.offset (false positive: An item to the Logger's Record added by us isn't recognized) */
-        $logEntry->setLocation($record['location'] ?? null);
+        $logEntry->setUser($record->extra['user'] ?? null);
+        $logEntry->setLocation($record->extra['location'] ?? null);
+        $extra = $record->extra;
+        unset($extra['user']);
+        unset($extra['location']);
+        $logEntry->setExtra($extra);
         $logEntry->setContext($record->context);
 
         $this->em->persist($logEntry);

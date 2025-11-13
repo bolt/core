@@ -9,8 +9,7 @@ use Symfony\Contracts\Service\Attribute\Required;
 
 trait LoggerTrait
 {
-    /** @var LoggerInterface */
-    protected $logger;
+    protected LoggerInterface $logger;
 
     #[Required]
     public function setLogger(LoggerInterface $dbLogger): void

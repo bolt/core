@@ -3260,18 +3260,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Kernel.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\Log\\\\RequestProcessor\\:\\:processRecord\\(\\) has parameter \\$record with no value type specified in iterable type array\\.$#',
-	'identifier' => 'missingType.iterableValue',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Log/RequestProcessor.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\Log\\\\RequestProcessor\\:\\:processRecord\\(\\) return type has no value type specified in iterable type array\\.$#',
-	'identifier' => 'missingType.iterableValue',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Log/RequestProcessor.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Offset \'class\' might not exist on array\\{function\\: string, line\\?\\: int, file\\?\\: string, class\\?\\: class\\-string, type\\?\\: \'\\-\\>\'\\|\'\\:\\:\', args\\?\\: list\\<mixed\\>, object\\?\\: object\\}\\.$#',
 	'identifier' => 'offsetAccess.notFound',
 	'count' => 1,
