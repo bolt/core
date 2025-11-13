@@ -54,8 +54,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
     {
         $user = UserRepository::factory();
 
-        /** @var array $submitted_data */
-        $submitted_data = $request->request->get('user');
+        $submitted_data = $request->request->all('user');
 
         $event = new UserEvent($user);
         $this->dispatcher->dispatch($event, UserEvent::ON_ADD);
@@ -102,7 +101,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
     #[IsGranted(attribute: 'editprofile')]
     public function editProfile(Request $request): Response
     {
-        $submitted_data = $request->request->get('user');
+        $submitted_data = $request->request->all('user');
         /** @var User $user */
         $user = $this->getUser();
 
@@ -113,7 +112,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
     #[IsGranted(attribute: 'user:edit')]
     public function edit(User $user, Request $request): Response
     {
-        $submitted_data = $request->request->get('user');
+        $submitted_data = $request->request->all('user');
 
         return $this->handleEdit(false, $user, $submitted_data);
     }

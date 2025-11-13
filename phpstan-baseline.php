@@ -1484,12 +1484,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Controller/Backend/UserEditController.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^PHPDoc tag @var for variable \\$submitted_data has no value type specified in iterable type array\\.$#',
-	'identifier' => 'missingType.iterableValue',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Controller/Backend/UserEditController.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Property Bolt\\\\Controller\\\\Backend\\\\UserEditController\\:\\:\\$assignableRoles type has no value type specified in iterable type array\\.$#',
 	'identifier' => 'missingType.iterableValue',
 	'count' => 1,
@@ -3642,12 +3636,6 @@ $ignoreErrors[] = [
 	'identifier' => 'missingType.iterableValue',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Security/GlobalVoter.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^PHPDoc tag @var for variable \\$login_form has no value type specified in iterable type array\\.$#',
-	'identifier' => 'missingType.iterableValue',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Security/LoginFormAuthenticator.php',
 ];
 $ignoreErrors[] = [
 	'message' => '#^Parameter \\#1 \\$url of class Symfony\\\\Component\\\\HttpFoundation\\\\RedirectResponse constructor expects string, string\\|null given\\.$#',
