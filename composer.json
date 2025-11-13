@@ -89,7 +89,9 @@
     },
     "conflict": {
         "bolt/article": "<3.0",
+        "bolt/configuration-notices-widget": "<3.0",
         "bolt/redactor": "<3.0",
+        "bolt/weatherwidget": "<3.0",
         "doctrine/dbal": "^3.0"
     },
     "require-dev": {
