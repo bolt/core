@@ -4,6 +4,12 @@
 
 This release upgrades to Symfony 6.4, so you will need to verify your own implementation. The `sensio/framework-extra-bundle` has been dropped as dependency, so migrate those usages as well, or include the dependency yourself (not recommended).
 
+## Configuration upgrades
+
+Normally we try to migrate your configuration files when possible (and we still do this for a lot of files), but it might fail for you. You can inspect the files in `yaml-migrations` with since `6.0.0` to learn what needs to be done. Afterwards, update your `checkpoint.txt` in that same folder to hold `6.0.0`.
+
+Next to that, Symfony will be dropping dev/test/prod folders in favour of the `when@dev` notation. While we made the same migration, we will not be migrating this for you so you will need to do that yourself. We strongly advise to check all your configuration in your configuration folder to check whether you are missing any configuration updates from our end, and combine that correctly with your custom configuration. As Symfony has also gotten a large upgrade, checking the configuration is needed anyways.
+
 ## Dropped Bolt provided migrations
 
 As migrations heavily depend on the used database and were incomplete to begin with, we have dropped database migrations from this application. Instead, we will be offering a migration path or example migrations in these notes.

@@ -2,3 +2,14 @@ webpack_encore:
     # The path where Encore is building the assets.
     # This should match Encore.setOutputPath() in webpack.config.js.
     output_path: '%kernel.project_dir%/%bolt.public_folder%/assets'
+
+when@prod:
+    webpack_encore:
+        preload: true
+        cache: true
+
+when@test:
+    webpack_encore:
+        # Disable strict mode for phpunit to enable ContentEditControllerTest to run without 
+        # having to invoke webpack first to create public/assets/entrypoints.json
+        strict_mode: false
