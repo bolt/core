@@ -1,4 +1,0 @@
-webpack_encore:
-#    Disable strict mode for phpunit to enable ContentEditControllerTest to run without 
-#    having to invoke webpack first to create public/assets/entrypoints.json
-    strict_mode: false

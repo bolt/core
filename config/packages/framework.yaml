@@ -37,3 +37,9 @@ framework:
 
     # Override Symfony's error controller, so we can show custom 404's and 503's
     error_controller: Bolt\Controller\ErrorController::showAction
+
+when@test:
+    framework:
+        test: true
+        session:
+            storage_factory_id: session.storage.factory.mock_file
