@@ -1,0 +1,19 @@
+# Adding JSON_UNQUOTE, see https://github.com/bolt/core/pull/3135
+
+file: packages/doctrine.yaml
+since: 6.0.0
+
+add:
+    doctrine:
+        orm:
+            auto_generate_proxy_classes: false
+            proxy_dir: '%kernel.build_dir%/doctrine/orm/Proxies'
+            metadata_cache_driver:
+                type: pool
+                pool: doctrine.system_cache_pool
+            query_cache_driver:
+                type: pool
+                pool: doctrine.system_cache_pool
+            result_cache_driver:
+                type: pool
+                pool: doctrine.system_cache_pool
