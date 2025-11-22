@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Bolt\Doctrine\Query;
 
+use Doctrine\DBAL\Platforms\MySQLPlatform;
+use Doctrine\DBAL\Platforms\SqlitePlatform;
 use Doctrine\ORM\Query\AST\Functions\FunctionNode;
 use Doctrine\ORM\Query\AST\Node;
 use Doctrine\ORM\Query\Parser;
@@ -20,10 +22,10 @@ class Cast extends FunctionNode
 
     public function getSql(SqlWalker $sqlWalker): string
     {
-        $backend_driver = $sqlWalker->getConnection()->getDatabasePlatform()->getName();
+        $platform = $sqlWalker->getConnection()->getDatabasePlatform();
 
         // test if we are using MySQL
-        if (mb_strpos($backend_driver, 'mysql') !== false) {
+        if ($platform instanceof MySQLPlatform) {
             // YES we are using MySQL
             // how do we know what type $this->first is? For now hardcoding
             // type(t.value) = JSON for MySQL. JSONB for others.
@@ -35,7 +37,7 @@ class Cast extends FunctionNode
             }
         }
 
-        if (! mb_strpos($backend_driver, 'sqlite') && $this->second === 'TEXT') {
+        if ($platform instanceof SqlitePlatform && $this->second === 'TEXT') {
             $this->second = 'CHAR';
         }
 

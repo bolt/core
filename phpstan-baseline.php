@@ -1910,24 +1910,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Doctrine/TablePrefix.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Cannot call method getWrappedConnection\\(\\) on class\\-string\\|object\\.$#',
-	'identifier' => 'method.nonObject',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Doctrine/Version.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\Doctrine\\\\Version\\:\\:__construct\\(\\) has parameter \\$tablePrefix with no type specified\\.$#',
-	'identifier' => 'missingType.parameter',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Doctrine/Version.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\Doctrine\\\\Version\\:\\:getPlatform\\(\\) return type has no value type specified in iterable type array\\.$#',
-	'identifier' => 'missingType.iterableValue',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Doctrine/Version.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Cannot call method get\\(\\) on Bolt\\\\Configuration\\\\Content\\\\ContentType\\|null\\.$#',
 	'identifier' => 'method.nonObject',
 	'count' => 11,
