@@ -1640,38 +1640,8 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Controller/TwigAwareController.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Cannot call method getReferences\\(\\) on Doctrine\\\\Common\\\\DataFixtures\\\\ReferenceRepository\\|null\\.$#',
-	'identifier' => 'method.nonObject',
-	'count' => 2,
-	'path' => __DIR__ . '/src/DataFixtures/BaseFixture.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Method Bolt\\\\DataFixtures\\\\BaseFixture\\:\\:getImagesIndex\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#',
 	'identifier' => 'missingType.generics',
-	'count' => 1,
-	'path' => __DIR__ . '/src/DataFixtures/BaseFixture.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\DataFixtures\\\\BaseFixture\\:\\:getRandomReference\\(\\) has no return type specified\\.$#',
-	'identifier' => 'missingType.return',
-	'count' => 1,
-	'path' => __DIR__ . '/src/DataFixtures/BaseFixture.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\DataFixtures\\\\BaseFixture\\:\\:getRandomTaxonomies\\(\\) return type has no value type specified in iterable type array\\.$#',
-	'identifier' => 'missingType.iterableValue',
-	'count' => 1,
-	'path' => __DIR__ . '/src/DataFixtures/BaseFixture.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\DataFixtures\\\\BaseFixture\\:\\:\\$referencesIndex type has no value type specified in iterable type array\\.$#',
-	'identifier' => 'missingType.iterableValue',
-	'count' => 1,
-	'path' => __DIR__ . '/src/DataFixtures/BaseFixture.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\DataFixtures\\\\BaseFixture\\:\\:\\$taxonomyIndex type has no value type specified in iterable type array\\.$#',
-	'identifier' => 'missingType.iterableValue',
 	'count' => 1,
 	'path' => __DIR__ . '/src/DataFixtures/BaseFixture.php',
 ];
@@ -1738,12 +1708,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'message' => '#^Method Bolt\\\\DataFixtures\\\\ContentFixtures\\:\\:loadSetField\\(\\) has parameter \\$preset with no value type specified in iterable type array\\.$#',
 	'identifier' => 'missingType.iterableValue',
-	'count' => 1,
-	'path' => __DIR__ . '/src/DataFixtures/ContentFixtures.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Parameter \\#1 \\$taxonomy of method Bolt\\\\Entity\\\\Content\\:\\:addTaxonomy\\(\\) expects Bolt\\\\Entity\\\\Taxonomy, object given\\.$#',
-	'identifier' => 'argument.type',
 	'count' => 1,
 	'path' => __DIR__ . '/src/DataFixtures/ContentFixtures.php',
 ];

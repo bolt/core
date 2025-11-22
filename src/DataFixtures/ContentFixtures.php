@@ -11,6 +11,8 @@ use Bolt\Configuration\FileLocations;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Bolt\Entity\Field\SelectField;
+use Bolt\Entity\Taxonomy;
+use Bolt\Entity\User;
 use Bolt\Enum\Statuses;
 use Bolt\Repository\FieldRepository;
 use Bolt\Twig\ContentExtension;
@@ -46,7 +48,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
         $this->presetRecords = $this->getPresetRecords();
     }
 
-    public function getDependencies()
+    public function getDependencies(): array
     {
         return [
             UserFixtures::class,
@@ -88,9 +90,9 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
 
             for ($i = 1; $i <= $amount; $i++) {
                 if ($i === 1) {
-                    $author = $this->getReference('user_admin');
+                    $author = $this->getReference('user_admin', User::class);
                 } else {
-                    $author = $this->getRandomReference('user');
+                    $author = $this->getRandomReference(User::class);
                 }
 
                 $content = new Content();
@@ -128,7 +130,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                         if (isset($preset['taxonomy:categories'])) {
                             // preset categories
                             foreach ($preset['taxonomy:categories'] as $taxonomyCategoryLabel) {
-                                $taxonomy = $this->getReference('taxonomy_categories_' . $taxonomyCategoryLabel);
+                                $taxonomy = $this->getReference('taxonomy_categories_' . $taxonomyCategoryLabel, Taxonomy::class);
                                 $content->addTaxonomy($taxonomy);
                             }
                             // add no additional random categories
@@ -555,8 +557,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 }
 
                 try {
-                    /** @var Content $randomReference */
-                    $randomReference = $this->getRandomReference(\sprintf('content_%s', $contentType));
+                    $randomReference = $this->getRandomReference(Content::class, \sprintf('content_%s', $contentType));
                 } catch (Exception) {
                     continue;
                 }
