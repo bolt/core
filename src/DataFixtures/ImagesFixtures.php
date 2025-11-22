@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\DataFixtures;
 
 use Bolt\Configuration\FileLocations;
+use Bolt\Entity\User;
 use Bolt\Factory\MediaFactory;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -13,8 +14,7 @@ use Faker\Generator;
 
 class ImagesFixtures extends BaseFixture implements FixtureGroupInterface
 {
-    /** @var Generator */
-    private $faker;
+    private readonly Generator $faker;
 
     public function __construct(
         private readonly FileLocations $fileLocations,
@@ -44,7 +44,7 @@ class ImagesFixtures extends BaseFixture implements FixtureGroupInterface
 
         foreach ($index as $file) {
             $media = $this->mediaFactory->createOrUpdateMedia($file, 'files', $this->faker->sentence(6, true));
-            $media->setAuthor($this->getRandomReference('user'))
+            $media->setAuthor($this->getRandomReference(User::class))
                 ->setDescription($this->faker->paragraphs(3, true))
                 ->setCopyright('© Unsplash');
 

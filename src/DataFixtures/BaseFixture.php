@@ -4,67 +4,68 @@ declare(strict_types=1);
 
 namespace Bolt\DataFixtures;
 
+use Bolt\Entity\Taxonomy;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\ReferenceRepository;
 use Exception;
 use Illuminate\Support\Collection;
+use RuntimeException;
 use Symfony\Component\Filesystem\Path;
 use Symfony\Component\Finder\Finder;
 
 abstract class BaseFixture extends Fixture
 {
-    private array $referencesIndex = [];
-    private array $taxonomyIndex = [];
+    /**
+     * @template T of object
+     * @param class-string<T> $entityClass
+     *
+     * @return T
+     */
+    protected function getRandomReference(string $entityClass, ?string $filter = null): object
+    {
+        /** @var string[] $references */
+        $references = array_keys($this->getReferenceRepo()->getReferencesByClass()[$entityClass]);
+
+        if ($filter) {
+            $references = array_filter(
+                $references,
+                static fn (string $reference): bool => str_starts_with($reference, $filter),
+            );
+        }
+
+        if (empty($references)) {
+            throw new Exception(sprintf('Cannot find any references for entity "%s"', $entityClass));
+        }
+
+        return $this->getReferenceRepo()->getReference(
+            $references[array_rand($references)],
+            $entityClass
+        );
+    }
 
     /**
-     * During unit-tests, the fixtures are ran multiple times. Flush the
-     * in-memory index, to prevent stale links to missing references.
+     * @return Taxonomy[]
      */
-    protected function flushReferencesIndex(): void
-    {
-        $this->referencesIndex = [];
-    }
-
-    protected function getRandomReference(string $entityName)
-    {
-        if (isset($this->referencesIndex[$entityName]) === false) {
-            $this->referencesIndex[$entityName] = [];
-
-            foreach (array_keys($this->referenceRepository->getReferences()) as $key) {
-                if (mb_strpos($key, $entityName . '_') === 0) {
-                    $this->referencesIndex[$entityName][] = $key;
-                }
-            }
-        }
-        if (empty($this->referencesIndex[$entityName])) {
-            throw new Exception(sprintf('Cannot find any references for Entity "%s"', $entityName));
-        }
-        $randomReferenceKey = array_rand($this->referencesIndex[$entityName], 1);
-
-        return $this->getReference($this->referencesIndex[$entityName][$randomReferenceKey]);
-    }
-
     protected function getRandomTaxonomies(string $type, int $amount): array
     {
-        if (empty($this->taxonomyIndex)) {
-            foreach (array_keys($this->referenceRepository->getReferences()) as $key) {
-                if (mb_strpos($key, 'taxonomy_') === 0) {
-                    $tuples = explode('_', $key);
-                    $this->taxonomyIndex[$tuples[1]][] = $key;
-                }
-            }
-        }
+        /** @var string[] $taxonomies */
+        $taxonomies = array_keys($this->getReferenceRepo()->getReferencesByClass()[Taxonomy::class]);
+        $taxonomies = array_filter(
+            $taxonomies,
+            static fn (string $taxonomy): bool => str_contains($taxonomy, "_{$type}_"),
+        );
 
-        if (empty($this->taxonomyIndex[$type])) {
+        if (empty($taxonomies)) {
             return [];
         }
 
-        $taxonomies = [];
+        /** @var int[] $randomTaxonomies */
+        $randomTaxonomies = (array) array_rand($taxonomies, $amount);
 
-        foreach ((array) array_rand($this->taxonomyIndex[$type], $amount) as $key) {
-            $taxonomies[] = $this->getReference($this->taxonomyIndex[$type][$key]);
-        }
-
-        return $taxonomies;
+        return array_map(
+            fn (int $key): object => $this->getReferenceRepo()->getReference($taxonomies[$key], Taxonomy::class),
+            $randomTaxonomies,
+        );
     }
 
     protected function getImagesIndex(string $path): Collection
@@ -95,5 +96,10 @@ abstract class BaseFixture extends Fixture
     protected function getOption(string $name): bool
     {
         return in_array($name, $_SERVER['argv'], true);
+    }
+
+    private function getReferenceRepo(): ReferenceRepository
+    {
+        return $this->referenceRepository ?? throw new RuntimeException('Must not be null');
     }
 }

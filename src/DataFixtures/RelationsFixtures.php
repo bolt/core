@@ -20,7 +20,7 @@ class RelationsFixtures extends BaseFixture implements DependentFixtureInterface
     ) {
     }
 
-    public function getDependencies()
+    public function getDependencies(): array
     {
         return [
             UserFixtures::class,
@@ -36,8 +36,6 @@ class RelationsFixtures extends BaseFixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager): void
     {
-        $this->flushReferencesIndex();
-
         $this->loadContent($manager);
 
         $manager->flush();
@@ -58,13 +56,10 @@ class RelationsFixtures extends BaseFixture implements DependentFixtureInterface
 
     private function addRelation(string $contentTypeFrom, string $contentTypeTo, ObjectManager $manager): void
     {
-        /** @var Content $contentFrom */
-        $contentFrom = $this->getRandomReference('content_' . $contentTypeFrom);
-
-        /** @var Content $contentTo */
-        $contentTo = $this->getRandomReference('content_' . $contentTypeTo);
-
-        $relation = new Relation($contentFrom, $contentTo);
+        $relation = new Relation(
+            $this->getRandomReference(Content::class, 'content_' . $contentTypeFrom),
+            $this->getRandomReference(Content::class, 'content_' . $contentTypeTo),
+        );
 
         $manager->persist($relation);
     }
