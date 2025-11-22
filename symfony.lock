@@ -188,9 +188,6 @@
     "fakerphp/faker": {
         "version": "v1.10.1"
     },
-    "friendsofphp/proxy-manager-lts": {
-        "version": "v1.0.3"
-    },
     "guzzlehttp/psr7": {
         "version": "1.6.1"
     },
@@ -208,9 +205,6 @@
     },
     "knplabs/knp-menu-bundle": {
         "version": "v3.0.0"
-    },
-    "laminas/laminas-code": {
-        "version": "3.4.1"
     },
     "league/flysystem": {
         "version": "1.0.64"
