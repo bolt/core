@@ -8,21 +8,24 @@ use Bolt\Common\Str;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Platforms\MariaDb1027Platform;
 use Doctrine\DBAL\Platforms\MySQL57Platform;
-use Doctrine\DBAL\Platforms\MySqlPlatform;
-use Doctrine\DBAL\Platforms\PostgreSQL92Platform;
+use Doctrine\DBAL\Platforms\MySQLPlatform;
+use Doctrine\DBAL\Platforms\PostgreSQLPlatform;
 use Doctrine\DBAL\Platforms\SqlitePlatform;
 use Exception;
 use PDO;
 use PDOException;
 use Throwable;
 
-class Version
+readonly class Version
 {
-    private readonly string $tablePrefix;
+    private string $tablePrefix;
 
+    /**
+     * @param string|array{default: string} $tablePrefix
+     */
     public function __construct(
-        private readonly Connection $connection,
-        $tablePrefix = 'bolt'
+        private Connection $connection,
+        array|string $tablePrefix = 'bolt'
     ) {
         $tablePrefix = is_array($tablePrefix) ? $tablePrefix['default'] : $tablePrefix;
         $this->tablePrefix = Str::ensureEndsWith($tablePrefix, '_');
@@ -30,44 +33,36 @@ class Version
 
     /**
      * @throws Exception
+     *
+     * @return array{
+     *     client_version: string,
+     *     driver_name: string,
+     *     connection_status: string,
+     *     server_version: string,
+     * }
      */
     public function getPlatform(): array
     {
-        $wrapped = $this->connection->getWrappedConnection();
+        $nativeConnection = $this->connection->getNativeConnection();
 
-        // if the wrapped connection has itself a wrapped connection, use that one, etc.
-        // This is the case in phpunit tests that use the dama/doctrine-test-bundle functionality
-        while (true) {
-            if (method_exists($wrapped, 'getWrappedConnection')) {
-                $nextLevel = $wrapped->getWrappedConnection();
-                if ($nextLevel) {
-                    $wrapped = $nextLevel;
-                } else {
-                    break;
-                }
-            } else {
-                break;
-            }
-        }
-
-        if ($wrapped instanceof PDO) {
-            [$client_version] = explode(' - ', (string) $wrapped->getAttribute(PDO::ATTR_CLIENT_VERSION));
+        if ($nativeConnection instanceof PDO) {
+            [$client_version] = explode(' - ', (string) $nativeConnection->getAttribute(PDO::ATTR_CLIENT_VERSION));
 
             try {
-                $status = $wrapped->getAttribute(PDO::ATTR_CONNECTION_STATUS);
+                $status = $nativeConnection->getAttribute(PDO::ATTR_CONNECTION_STATUS);
             } catch (PDOException) {
                 $status = '';
             }
 
             return [
                 'client_version' => $client_version,
-                'driver_name' => $wrapped->getAttribute(PDO::ATTR_DRIVER_NAME),
+                'driver_name' => $nativeConnection->getAttribute(PDO::ATTR_DRIVER_NAME),
                 'connection_status' => $status,
-                'server_version' => $wrapped->getAttribute(PDO::ATTR_SERVER_VERSION),
+                'server_version' => $nativeConnection->getAttribute(PDO::ATTR_SERVER_VERSION),
             ];
         }
 
-        throw new Exception("Wrapped connection is not an instanceof \PDO");
+        throw new Exception("Native connection is not an instanceof \PDO");
     }
 
     public function tableContentExists(): bool
@@ -77,7 +72,7 @@ class Version
             $query
                 ->select('1')
                 ->from($this->tablePrefix . 'content');
-            $query->execute();
+            $query->executeQuery();
         } catch (Throwable) {
             return false;
         }
@@ -93,6 +88,7 @@ class Version
             return $this->hasSQLiteJSONSupport();
         }
 
+        // TODO: remove when switching to dbal4
         // MySQL80Platform is implicitly included with MySQL57Platform
         if ($platform instanceof MySQL57Platform || $platform instanceof MariaDb1027Platform) {
             return true;
@@ -100,7 +96,7 @@ class Version
 
         // Corner case where MySQL platform is not specialized.
         // Was observed with deployment to platform.sh using oracle-mysql service.
-        if ($platform instanceof MySqlPlatform) {
+        if ($platform instanceof MySQLPlatform) {
             // samples:
             // 8.0.29
             // 8.0.27-cluster
@@ -123,8 +119,8 @@ class Version
             return version_compare($actVersion, $minVersion, '>=');
         }
 
-        // PostgreSQL supports JSON from v9.2 and above, later versions are implicitly included
-        if ($platform instanceof PostgreSQL92Platform) {
+        // All supported PostgreSQL versions supports JSON
+        if ($platform instanceof PostgreSQLPlatform) {
             return true;
         }
 
@@ -138,14 +134,14 @@ class Version
             // MySQL & SQLite
             $query
                 ->select('CAST(1.1 AS DECIMAL)');
-            $query->execute();
+            $query->executeQuery();
         } catch (Throwable) {
             try {
                 $query = $this->connection->createQueryBuilder();
-                // Postgree
+                // Postgres
                 $query
                     ->select('CAST(1.1 AS DOUBLE)');
-                $query->execute();
+                $query->executeQuery();
             } catch (Throwable) {
                 return false;
             }
@@ -160,7 +156,7 @@ class Version
             $query = $this->connection->createQueryBuilder();
             $query
                 ->select('JSON_EXTRACT("{}", "one", "")');
-            $query->execute();
+            $query->executeQuery();
         } catch (Throwable) {
             return false;
         }
@@ -180,7 +176,7 @@ class Version
             $query = $this->connection->createQueryBuilder();
             $query
                 ->select('JSON_EXTRACT(\'{"jsonfunctionalitytest":["succes"]}\', \'$.jsonfunctionalitytest\') as value');
-            $query->execute();
+            $query->executeQuery();
         } catch (Throwable) {
             return false;
         }
