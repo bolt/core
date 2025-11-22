@@ -1,0 +1,43 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: Close stale issues and PRs
+
+on:
+  schedule:
+    - cron: '0 7 * * *'
+
+permissions: {}
+
+concurrency:
+  group: close-stale-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  stale:
+    name: Close stale issues and PRs
+    runs-on: ubuntu-24.04
+    permissions:
+      actions: write
+      issues: write
+      pull-requests: write
+    steps:
+      - uses: actions/stale@v10.1.0
+        with:
+          sort-by: updated
+          ascending: true # Start with ascending to process oldest items first
+          debug-only: true # Start in debug first, to see what would happen
+          days-before-stale: 60
+          days-before-close: 30
+          exempt-all-milestones: true
+          stale-issue-message: >-
+            In an effort to keep our issue list manageable, we are marking this issue as stale because it has been 60 days without activity.
+            If this issue is still relevant, please let us know by posting a quick comment so that it remains open.
+          close-issue-message: >- 
+            This issue was closed because it has been stalled for 90 days with no activity.
+            Feel free to open a new issue if necessary!
+          stale-pr-message: >-
+            In an effort to keep our pull request list manageable, we are marking this PR as stale because it has been 60 days without activity.
+            If this PR is still relevant, please let us know by posting a quick comment or update so that it can be assigned and hopefully merged.
+          close-pr-message: >-
+            This PR was closed because it has been stalled for 90 days with no activity.
+            Feel free to open a new PR if necessary!
