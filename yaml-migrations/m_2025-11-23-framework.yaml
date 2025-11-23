@@ -1,0 +1,6 @@
+file: packages/framework.yaml
+since: 6.0.0
+
+add:
+  framework:
+    annotations: false
