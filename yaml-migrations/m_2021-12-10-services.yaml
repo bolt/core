@@ -4,5 +4,5 @@ file: services.yaml
 since: 5.1.0
 
 add:
-    services:
-        Symfony\Bridge\Twig\Extension\AssetExtension: '@twig.extension.assets'
+  services:
+    Symfony\Bridge\Twig\Extension\AssetExtension: '@twig.extension.assets'

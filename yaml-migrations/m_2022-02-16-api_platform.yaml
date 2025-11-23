@@ -4,8 +4,8 @@ file: packages/api_platform.yaml
 since: 5.1.4
 
 add:
-    api_platform:
-        defaults:
-            pagination:
-                client_items_per_page: true
-                items_per_page_parameter_name: 'pageSize'
+  api_platform:
+    defaults:
+      pagination:
+        client_items_per_page: true
+        items_per_page_parameter_name: 'pageSize'

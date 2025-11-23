@@ -2,5 +2,5 @@ file: services_bolt.yaml
 since: 6.0.0
 
 remove:
-    services:
-        BobdenOtter\WeatherWidget\: ~
+  services:
+    BobdenOtter\WeatherWidget\: ~

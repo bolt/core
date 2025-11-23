@@ -4,10 +4,10 @@ file: packages/security.yaml
 since: 5.1.0
 
 remove:
-    security:
-        firewalls:
-            main:
-                anonymous: ~
-                guard: ~
-                logout:
-                    handler: ~
+  security:
+    firewalls:
+      main:
+        anonymous: ~
+        guard: ~
+        logout:
+          handler: ~

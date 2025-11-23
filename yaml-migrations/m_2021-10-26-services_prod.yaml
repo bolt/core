@@ -5,8 +5,8 @@ file: services_prod.yaml
 since: 5.0.6
 
 remove:
-    services:
-        Bolt\Menu\CachedBackendMenuBuilder: ~
-        Bolt\Menu\BackendMenuBuilderInterface: ~
-        Bolt\Menu\CachedFrontendMenuBuilder: ~
-        Bolt\Menu\FrontendMenuBuilderInterface: ~
+  services:
+    Bolt\Menu\CachedBackendMenuBuilder: ~
+    Bolt\Menu\BackendMenuBuilderInterface: ~
+    Bolt\Menu\CachedFrontendMenuBuilder: ~
+    Bolt\Menu\FrontendMenuBuilderInterface: ~

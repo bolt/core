@@ -2,7 +2,7 @@ file: services_bolt.yaml
 since: 6.0.0
 
 add:
-    services:
-        Bolt\ConfigurationNoticesWidget\:
-            resource: '../vendor/bolt/configuration-notices-widget/src/*'
-            exclude: '../vendor/bolt/configuration-notices-widget/src/{Entity,Exception}'
+  services:
+    Bolt\ConfigurationNoticesWidget\:
+      resource: '../vendor/bolt/configuration-notices-widget/src/*'
+      exclude: '../vendor/bolt/configuration-notices-widget/src/{Entity,Exception}'

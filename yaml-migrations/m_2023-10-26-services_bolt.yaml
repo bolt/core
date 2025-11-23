@@ -5,6 +5,6 @@ file: services_bolt.yaml
 since: 5.2.0
 
 add:
-    services:
-        _defaults:
-            bind: {  }
+  services:
+    _defaults:
+      bind: { }

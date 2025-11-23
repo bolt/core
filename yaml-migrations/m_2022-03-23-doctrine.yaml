@@ -5,8 +5,8 @@ file: packages/doctrine.yaml
 since: 5.1.6
 
 add:
-    doctrine:
-        orm:
-            dql:
-                string_functions:
-                    JSON_VALUE: Bolt\Doctrine\Functions\JsonValue
+  doctrine:
+    orm:
+      dql:
+        string_functions:
+          JSON_VALUE: Bolt\Doctrine\Functions\JsonValue

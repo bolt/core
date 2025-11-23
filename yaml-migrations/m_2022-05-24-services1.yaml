@@ -5,5 +5,5 @@ file: services.yaml
 since: 5.1.8
 
 remove:
-    services:
-        Bolt\Event\Listener\FieldFillListener: ~
+  services:
+    Bolt\Event\Listener\FieldFillListener: ~

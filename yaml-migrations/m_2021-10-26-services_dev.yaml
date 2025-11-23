@@ -5,8 +5,8 @@ file: services_dev.yaml
 since: 5.0.6
 
 remove:
-    services:
-        Bolt\Menu\StopwatchBackendMenuBuilder: ~
-        Bolt\Menu\BackendMenuBuilderInterface: ~
-        Bolt\Menu\StopwatchFrontendMenuBuilder: ~
-        Bolt\Menu\FrontendMenuBuilderInterface: ~
+  services:
+    Bolt\Menu\StopwatchBackendMenuBuilder: ~
+    Bolt\Menu\BackendMenuBuilderInterface: ~
+    Bolt\Menu\StopwatchFrontendMenuBuilder: ~
+    Bolt\Menu\FrontendMenuBuilderInterface: ~

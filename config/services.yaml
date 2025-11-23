@@ -1,190 +1,186 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    locale: 'en'
-    # This parameter defines the codes of the locales (languages) enabled in the application
-    app_locales: en|nl|es|fr|de|pl|it|hu|pt_BR|ja|nb|nn|nl_NL|nl_BE|is|ru|cs|bg
-    app.notifications.email_sender: anonymous@example.com
-    # Default table prefix for Bolt database
-    bolt.table_prefix: bolt_
-    # Alternatively may define different table prefixes by entity managers configured in doctrine.yml
-    #    app.table_prefix:
-    #        default: bolt_
-    #        foo_manager: foo_
-    bolt.backend_url: /bolt
-    bolt.remember_lifetime: 2592000 # 30 days in seconds
-    bolt.doctrine_behaviors_translatable_fetch_mode: LAZY
-    bolt.doctrine_behaviors_translation_fetch_mode: LAZY
+  locale: 'en'
+  # This parameter defines the codes of the locales (languages) enabled in the application
+  app_locales: en|nl|es|fr|de|pl|it|hu|pt_BR|ja|nb|nn|nl_NL|nl_BE|is|ru|cs|bg
+  app.notifications.email_sender: anonymous@example.com
+  # Default table prefix for Bolt database
+  bolt.table_prefix: bolt_
+  # Alternatively may define different table prefixes by entity managers configured in doctrine.yml
+  #    app.table_prefix:
+  #        default: bolt_
+  #        foo_manager: foo_
+  bolt.backend_url: /bolt
+  bolt.remember_lifetime: 2592000 # 30 days in seconds
+  bolt.doctrine_behaviors_translatable_fetch_mode: LAZY
+  bolt.doctrine_behaviors_translation_fetch_mode: LAZY
 
 services:
-    # default configuration for services in *this* file
-    _defaults:
-        autowire: true      # Automatically injects dependencies in your services.
-        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
-        public: false       # Allows optimizing the container by removing unused services; this also means
-                            # fetching services directly from the container via $container->get() won't work.
-                            # The best practice is to be explicit about your dependencies anyway.
-        bind:               # defines the scalar arguments once and apply them to any service defined/created in this file
-            $locales: '%app_locales%'
-            $defaultLocale: '%locale%'
-            $emailSender: '%app.notifications.email_sender%'
-            $projectDir: '%kernel.project_dir%'
-            $publicFolder: '%bolt.public_folder%'
-            $tablePrefix: '%bolt.table_prefix%'
-            $backendUrl: '%bolt.backend_url%'
-            $rememberLifetime: '%bolt.remember_lifetime%'
-
-    _instanceof:
-        Bolt\Menu\ExtensionBackendMenuInterface:
-            tags: [ 'bolt.extension_backend_menu' ]
-
-    # makes classes in src/ available to be used as services
-    # this creates a service per class whose id is the fully-qualified class name
-    Bolt\:
-        resource: '../src/*'
-        exclude: '../src/{Entity,Exception,Kernel.php}'
-
-    Bolt\Api\Extensions\ContentExtension:
-        tags:
-            - { name: api_platform.doctrine.orm.query_extension.collection }
-            - { name: api_platform.doctrine.orm.query_extension.item }
-
-    # controllers are imported separately to make sure services can be injected
-    # as action arguments even if you don't extend any base controller class
-    Bolt\Controller\:
-        resource: '../src/Controller'
-        tags: ['controller.service_arguments']
-
-    Bolt\Doctrine\TablePrefix:
-        tags:
-            - { name: doctrine.event_listener, event: loadClassMetadata, lazy: true }
-
-    Bolt\Event\Listener\ContentFillListener:
-        tags:
-            - { name: doctrine.event_listener, event: postLoad }
-            - { name: doctrine.event_listener, event: prePersist }
-            - { name: doctrine.event_listener, event: preUpdate }
-
-    Bolt\Event\Listener\FieldFillListener:
-        tags:
-            - { name: doctrine.event_listener, event: preUpdate }
-
-    Bolt\Event\Listener\FieldDiscriminatorListener:
-        tags:
-            - { name: doctrine.event_listener, event: loadClassMetadata }
-
-    Bolt\Event\Listener\TaxonomyFillListener:
-        tags:
-            - { name: doctrine.event_listener, event: postLoad }
-
-    Bolt\Event\Listener\UserAvatarLoadListener:
-        tags:
-            - { name: doctrine.event_listener, event: postLoad }
-    
-    Bolt\Event\Listener\TranslatableListener:
-        arguments:
-            $translatableFetchMode: '%bolt.doctrine_behaviors_translatable_fetch_mode%'
-            $translationFetchMode: '%bolt.doctrine_behaviors_translation_fetch_mode%'
-        tags:
-            - { name: doctrine.event_listener, event: loadClassMetadata }
-            - { name: doctrine.event_listener, event: postLoad }
-            - { name: doctrine.event_listener, event: prePersist }
-
-    Bolt\Extension\RoutesLoader:
-        tags: [routing.loader]
-
-    # menus
-    Bolt\Menu\BackendMenuBuilder:
-        arguments:
-            - "@knp_menu.factory"
-            - !tagged_iterator bolt.extension_backend_menu
-        tags:
-            -
-                name: knp_menu.menu_builder
-                method: createAdminMenu
-                alias: admin_menu # The alias is what is used to retrieve the menu
-
-    Bolt\Cache\RelatedOptionsUtilityCacher:
-        decorates: Bolt\Utils\RelatedOptionsUtility
-
-    Bolt\Cache\CanonicalCacher:
-        decorates: Bolt\Canonical
-
-    Bolt\Cache\SelectOptionsCacher:
-        decorates: Bolt\Twig\FieldExtension
-
-    Bolt\Cache\ContentToArrayCacher:
-        decorates: Bolt\Twig\JsonExtension
-
-    Bolt\Cache\GetFormatCacher:
-        decorates: Bolt\Utils\ContentHelper
-
-    Bolt\Cache\FilesIndexCacher:
-        decorates: Bolt\Utils\FilesIndex
-
-    Bolt\Menu\BackendMenuBuilderInterface: '@Bolt\Menu\BackendMenu'
-
-    Bolt\Menu\FrontendMenuBuilder: ~
-
-    Bolt\Menu\FrontendMenuBuilderInterface: '@Bolt\Menu\FrontendMenu'
-
-    # Needed for SetContent from bolt/core
-    Bolt\Storage\ContentQueryParser:
-        calls:
-            -
-                method: addService
-                arguments: [ 'select', '@Bolt\Storage\SelectQuery' ]
-
-    Bolt\Storage\Query:
-        calls:
-            -
-                method: addScope
-                arguments: [ 'frontend', '@Bolt\Storage\FrontendQueryScope' ]
-
-    Bolt\Twig\DumpExtension:
-        arguments: ["%kernel.environment%"]
-
-    # Validation: specify Bolt\Validator\ContentValidator as validator
-    Bolt\Validator\ContentValidatorInterface: '@Bolt\Validator\ContentValidator'
-
-    Bolt\Utils\Sanitiser:
-        public: true
-
-    Doctrine\ORM\Query\Expr: ~
-
-    monolog.processor.request:
-        class: Bolt\Log\RequestProcessor
-        tags:
-            -
-                handler: db
-                method: processRecord
-                name: monolog.processor
-
-    Symfony\Bridge\Twig\Extension\AssetExtension: '@twig.extension.assets'
-
-    Symfony\Component\DependencyInjection\ContainerInterface: '@service_container'
-
-    Symfony\Component\ErrorHandler\ErrorRenderer\ErrorRendererInterface: '@error_handler.error_renderer.html'
-
-    Squirrel\TwigPhpSyntax\PhpSyntaxExtension: ~
-
-    Twig\Extension\StringLoaderExtension: ~
-
-    twig.extension.pcre:
-        class: Jasny\Twig\PcreExtension
-        tags:
-            - { name: twig.extension }
-
-    twig.extension.text:
-        class: Jasny\Twig\TextExtension
-        tags:
-            - { name: twig.extension }
-
-    twig.extension.array:
-        class: Jasny\Twig\ArrayExtension
-        tags:
-            - { name: twig.extension }
-
-    Bolt\Api\ContentDataPersister:
-        decorates: 'api_platform.doctrine.orm.data_persister'
+  # default configuration for services in *this* file
+  _defaults:
+    autowire: true      # Automatically injects dependencies in your services.
+    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+    public: false       # Allows optimizing the container by removing unused services; this also means
+    # fetching services directly from the container via $container->get() won't work.
+    # The best practice is to be explicit about your dependencies anyway.
+    bind: # defines the scalar arguments once and apply them to any service defined/created in this file
+      $locales: '%app_locales%'
+      $defaultLocale: '%locale%'
+      $emailSender: '%app.notifications.email_sender%'
+      $projectDir: '%kernel.project_dir%'
+      $publicFolder: '%bolt.public_folder%'
+      $tablePrefix: '%bolt.table_prefix%'
+      $backendUrl: '%bolt.backend_url%'
+      $rememberLifetime: '%bolt.remember_lifetime%'
+  
+  _instanceof:
+    Bolt\Menu\ExtensionBackendMenuInterface:
+      tags: [ 'bolt.extension_backend_menu' ]
+  
+  # makes classes in src/ available to be used as services
+  # this creates a service per class whose id is the fully-qualified class name
+  Bolt\:
+    resource: '../src/*'
+    exclude: '../src/{Entity,Exception,Kernel.php}'
+  
+  Bolt\Api\Extensions\ContentExtension:
+    tags:
+      - { name: api_platform.doctrine.orm.query_extension.collection }
+      - { name: api_platform.doctrine.orm.query_extension.item }
+  
+  # controllers are imported separately to make sure services can be injected
+  # as action arguments even if you don't extend any base controller class
+  Bolt\Controller\:
+    resource: '../src/Controller'
+    tags: [ 'controller.service_arguments' ]
+  
+  Bolt\Doctrine\TablePrefix:
+    tags:
+      - { name: doctrine.event_listener, event: loadClassMetadata, lazy: true }
+  
+  Bolt\Event\Listener\ContentFillListener:
+    tags:
+      - { name: doctrine.event_listener, event: postLoad }
+      - { name: doctrine.event_listener, event: prePersist }
+      - { name: doctrine.event_listener, event: preUpdate }
+  
+  Bolt\Event\Listener\FieldFillListener:
+    tags:
+      - { name: doctrine.event_listener, event: preUpdate }
+  
+  Bolt\Event\Listener\FieldDiscriminatorListener:
+    tags:
+      - { name: doctrine.event_listener, event: loadClassMetadata }
+  
+  Bolt\Event\Listener\TaxonomyFillListener:
+    tags:
+      - { name: doctrine.event_listener, event: postLoad }
+  
+  Bolt\Event\Listener\UserAvatarLoadListener:
+    tags:
+      - { name: doctrine.event_listener, event: postLoad }
+  
+  Bolt\Event\Listener\TranslatableListener:
+    arguments:
+      $translatableFetchMode: '%bolt.doctrine_behaviors_translatable_fetch_mode%'
+      $translationFetchMode: '%bolt.doctrine_behaviors_translation_fetch_mode%'
+    tags:
+      - { name: doctrine.event_listener, event: loadClassMetadata }
+      - { name: doctrine.event_listener, event: postLoad }
+      - { name: doctrine.event_listener, event: prePersist }
+  
+  Bolt\Extension\RoutesLoader:
+    tags: [ routing.loader ]
+  
+  # menus
+  Bolt\Menu\BackendMenuBuilder:
+    arguments:
+      - "@knp_menu.factory"
+      - !tagged_iterator bolt.extension_backend_menu
+    tags:
+      - name: knp_menu.menu_builder
+        method: createAdminMenu
+        alias: admin_menu # The alias is what is used to retrieve the menu
+  
+  Bolt\Cache\RelatedOptionsUtilityCacher:
+    decorates: Bolt\Utils\RelatedOptionsUtility
+  
+  Bolt\Cache\CanonicalCacher:
+    decorates: Bolt\Canonical
+  
+  Bolt\Cache\SelectOptionsCacher:
+    decorates: Bolt\Twig\FieldExtension
+  
+  Bolt\Cache\ContentToArrayCacher:
+    decorates: Bolt\Twig\JsonExtension
+  
+  Bolt\Cache\GetFormatCacher:
+    decorates: Bolt\Utils\ContentHelper
+  
+  Bolt\Cache\FilesIndexCacher:
+    decorates: Bolt\Utils\FilesIndex
+  
+  Bolt\Menu\BackendMenuBuilderInterface: '@Bolt\Menu\BackendMenu'
+  
+  Bolt\Menu\FrontendMenuBuilder: ~
+  
+  Bolt\Menu\FrontendMenuBuilderInterface: '@Bolt\Menu\FrontendMenu'
+  
+  # Needed for SetContent from bolt/core
+  Bolt\Storage\ContentQueryParser:
+    calls:
+      - method: addService
+        arguments: [ 'select', '@Bolt\Storage\SelectQuery' ]
+  
+  Bolt\Storage\Query:
+    calls:
+      - method: addScope
+        arguments: [ 'frontend', '@Bolt\Storage\FrontendQueryScope' ]
+  
+  Bolt\Twig\DumpExtension:
+    arguments: [ "%kernel.environment%" ]
+  
+  # Validation: specify Bolt\Validator\ContentValidator as validator
+  Bolt\Validator\ContentValidatorInterface: '@Bolt\Validator\ContentValidator'
+  
+  Bolt\Utils\Sanitiser:
+    public: true
+  
+  Doctrine\ORM\Query\Expr: ~
+  
+  monolog.processor.request:
+    class: Bolt\Log\RequestProcessor
+    tags:
+      - handler: db
+        method: processRecord
+        name: monolog.processor
+  
+  Symfony\Bridge\Twig\Extension\AssetExtension: '@twig.extension.assets'
+  
+  Symfony\Component\DependencyInjection\ContainerInterface: '@service_container'
+  
+  Symfony\Component\ErrorHandler\ErrorRenderer\ErrorRendererInterface: '@error_handler.error_renderer.html'
+  
+  Squirrel\TwigPhpSyntax\PhpSyntaxExtension: ~
+  
+  Twig\Extension\StringLoaderExtension: ~
+  
+  twig.extension.pcre:
+    class: Jasny\Twig\PcreExtension
+    tags:
+      - { name: twig.extension }
+  
+  twig.extension.text:
+    class: Jasny\Twig\TextExtension
+    tags:
+      - { name: twig.extension }
+  
+  twig.extension.array:
+    class: Jasny\Twig\ArrayExtension
+    tags:
+      - { name: twig.extension }
+  
+  Bolt\Api\ContentDataPersister:
+    decorates: 'api_platform.doctrine.orm.data_persister'
 

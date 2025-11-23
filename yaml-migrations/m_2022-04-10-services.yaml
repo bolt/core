@@ -5,6 +5,6 @@ file: services.yaml
 since: 5.1.8
 
 add:
-    services:
-        Bolt\Cache\FilesIndexCacher:
-            decorates: Bolt\Utils\FilesIndex
+  services:
+    Bolt\Cache\FilesIndexCacher:
+      decorates: Bolt\Utils\FilesIndex

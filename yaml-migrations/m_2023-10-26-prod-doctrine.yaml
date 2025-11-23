@@ -4,8 +4,8 @@ file: packages/prod/doctrine.yaml
 since: 5.2.0
 
 add:
-    framework:
-        cache:
-            pools:
-                doctrine.system_cache_pool:
-                    adapter: cache.app
+  framework:
+    cache:
+      pools:
+        doctrine.system_cache_pool:
+          adapter: cache.app

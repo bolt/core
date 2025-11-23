@@ -4,8 +4,8 @@ file: packages/api_platform.yaml
 since: 5.1.4
 
 remove:
-    api_platform:
-        collection:
-            pagination:
-                client_items_per_page: ~
-                items_per_page_parameter_name: ~
+  api_platform:
+    collection:
+      pagination:
+        client_items_per_page: ~
+        items_per_page_parameter_name: ~

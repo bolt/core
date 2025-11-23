@@ -2,15 +2,15 @@ file: packages/security.yaml
 since: 6.0.0
 
 add:
-    security:
-        access_control:
-            - { path: '^%bolt.backend_url%/login$', roles: PUBLIC_ACCESS }
-            - { path: '^%bolt.backend_url%/reset-password', roles: PUBLIC_ACCESS }
-            - { path: '^%bolt.backend_url%/api', roles: ADMIN_API_ACCESS } 
-            - { path: '^/(%app_locales%)%bolt.backend_url%/api', roles: ADMIN_API_ACCESS } 
-            - { path: '^%bolt.backend_url%/_trans', roles: ADMIN_TRANSLATE_ACCESS } 
-            - { path: '^/(%app_locales%)%bolt.backend_url%/_trans', roles: ADMIN_TRANSLATE_ACCESS } 
-            - { path: '^%bolt.backend_url%$', roles: IS_AUTHENTICATED_REMEMBERED }
-            - { path: '^%bolt.backend_url%/', roles: IS_AUTHENTICATED_REMEMBERED }
-            - { path: '^/(%app_locales%)%bolt.backend_url%$', roles: IS_AUTHENTICATED_REMEMBERED }
-            - { path: '^/(%app_locales%)%bolt.backend_url%/', roles: IS_AUTHENTICATED_REMEMBERED }
+  security:
+    access_control:
+      - { path: '^%bolt.backend_url%/login$', roles: PUBLIC_ACCESS }
+      - { path: '^%bolt.backend_url%/reset-password', roles: PUBLIC_ACCESS }
+      - { path: '^%bolt.backend_url%/api', roles: ADMIN_API_ACCESS }
+      - { path: '^/(%app_locales%)%bolt.backend_url%/api', roles: ADMIN_API_ACCESS }
+      - { path: '^%bolt.backend_url%/_trans', roles: ADMIN_TRANSLATE_ACCESS }
+      - { path: '^/(%app_locales%)%bolt.backend_url%/_trans', roles: ADMIN_TRANSLATE_ACCESS }
+      - { path: '^%bolt.backend_url%$', roles: IS_AUTHENTICATED_REMEMBERED }
+      - { path: '^%bolt.backend_url%/', roles: IS_AUTHENTICATED_REMEMBERED }
+      - { path: '^/(%app_locales%)%bolt.backend_url%$', roles: IS_AUTHENTICATED_REMEMBERED }
+      - { path: '^/(%app_locales%)%bolt.backend_url%/', roles: IS_AUTHENTICATED_REMEMBERED }

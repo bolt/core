@@ -4,11 +4,11 @@ file: packages/security.yaml
 since: 5.1.0
 
 add:
-    security:
-        firewalls:
-            api:
-                pattern: ^/api
-                http_basic: ~
-
-        role_hierarchy:
-            ROLE_WEBSERVICE: []
+  security:
+    firewalls:
+      api:
+        pattern: ^/api
+        http_basic: ~
+    
+    role_hierarchy:
+      ROLE_WEBSERVICE: [ ]
