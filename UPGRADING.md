@@ -23,7 +23,43 @@ doctrine_migrations:
 ```
 
 1. Remove any migration you made yourself
-2. Validate that your database is in sync with the code by running `bin/console doctrine:migrations:diff`. If any migrations are generated, inspect them for correctness (changes to the used Doctrine version might have caused changes) and keep the files. The following migrations are to be expected from Bolt itself (when using MySQL):
+2. Validate that your database is in sync with the code by running `bin/console doctrine:migrations:diff`. If any migrations are generated, inspect them for correctness (changes to the used Doctrine version will have caused changes) and keep the files. The following migrations are to be expected from Bolt itself (when using MySQL):
+   - The `bolt_log` table has four columns (`context`, `extra`, `user` and `location`) which will be changed from `longtext` to `json`, which requires action on your part. You can either truncate the table on beforehand (which removes all existing logs), or convert the data that is in those columns from a PHP-serialized array to the new JSON structure. For the latter scenario you can use the following migration (tested with MariaDB only):
+     ```php
+     public function preUp(Schema $schema): void
+     {
+         \Bolt\Doctrine\Migrations\ArrayToJsonMigrator::migrateUp($this->connection, 'bolt_log', 'context', $this->write(...));
+         \Bolt\Doctrine\Migrations\ArrayToJsonMigrator::migrateUp($this->connection, 'bolt_log', 'extra', $this->write(...));
+         \Bolt\Doctrine\Migrations\ArrayToJsonMigrator::migrateUp($this->connection, 'bolt_log', 'user', $this->write(...));
+         \Bolt\Doctrine\Migrations\ArrayToJsonMigrator::migrateUp($this->connection, 'bolt_log', 'location', $this->write(...));
+     }
+
+     public function up(Schema $schema): void
+     {
+         $this->addSql('ALTER TABLE bolt_log
+           CHANGE context context JSON DEFAULT NULL COMMENT \'(DC2Type:json)\',
+           CHANGE extra extra JSON DEFAULT NULL COMMENT \'(DC2Type:json)\',
+           CHANGE user `user` JSON DEFAULT NULL COMMENT \'(DC2Type:json)\',
+           CHANGE location location JSON DEFAULT NULL COMMENT \'(DC2Type:json)\'');
+     }
+
+     public function down(Schema $schema): void
+     {
+         $this->addSql('ALTER TABLE bolt_log
+           CHANGE context context LONGTEXT DEFAULT NULL COMMENT \'(DC2Type:array)\',
+           CHANGE extra extra LONGTEXT DEFAULT NULL COMMENT \'(DC2Type:array)\',
+           CHANGE `user` user LONGTEXT DEFAULT NULL COMMENT \'(DC2Type:array)\',
+           CHANGE location location LONGTEXT DEFAULT NULL COMMENT \'(DC2Type:array)\'');
+     }
+
+     public function postDown(Schema $schema): void
+     {
+         \Bolt\Doctrine\Migrations\ArrayToJsonMigrator::migrateDown($this->connection, 'bolt_log', 'context', $this->write(...));
+         \Bolt\Doctrine\Migrations\ArrayToJsonMigrator::migrateDown($this->connection, 'bolt_log', 'extra', $this->write(...));
+         \Bolt\Doctrine\Migrations\ArrayToJsonMigrator::migrateDown($this->connection, 'bolt_log', 'user', $this->write(...));
+         \Bolt\Doctrine\Migrations\ArrayToJsonMigrator::migrateDown($this->connection, 'bolt_log', 'location', $this->write(...));
+     }
+     ```
    - Rename index `field_translation_unique_translation` to `bolt_field_translation_unique_translation`:
      ```sql
      ALTER TABLE bolt_field_translation DROP FOREIGN KEY FK_5C60C0542C2AC5D3
@@ -31,6 +67,7 @@ doctrine_migrations:
      CREATE UNIQUE INDEX bolt_field_translation_unique_translation ON bolt_field_translation (translatable_id, locale)
      ALTER TABLE bolt_field_translation ADD CONSTRAINT FK_5C60C0542C2AC5D3 FOREIGN KEY (translatable_id) REFERENCES bolt_field (id) ON DELETE CASCADE
      ```
+   - Changed column type on `bolt_user.roles` and `bolt_field_translation.value` to native JSON type.
    - If the migration tries to drop the `bolt_password_request` table make sure to remove that action (both in down and up).
 3. If any migrations where generated in the previous step, fully comment the code.
 4. Run `bin/console doctrine:migrations:dump-schema`
