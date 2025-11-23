@@ -39,10 +39,10 @@ doctrine_migrations:
      public function up(Schema $schema): void
      {
          $this->addSql('ALTER TABLE bolt_log
-           CHANGE context context JSON DEFAULT NULL COMMENT \'(DC2Type:json)\',
-           CHANGE extra extra JSON DEFAULT NULL COMMENT \'(DC2Type:json)\',
-           CHANGE user `user` JSON DEFAULT NULL COMMENT \'(DC2Type:json)\',
-           CHANGE location location JSON DEFAULT NULL COMMENT \'(DC2Type:json)\'');
+           CHANGE context context JSON DEFAULT NULL,
+           CHANGE extra extra JSON DEFAULT NULL,
+           CHANGE user `user` JSON DEFAULT NULL,
+           CHANGE location location JSON DEFAULT NULL');
      }
 
      public function down(Schema $schema): void
@@ -69,7 +69,18 @@ doctrine_migrations:
      CREATE UNIQUE INDEX bolt_field_translation_unique_translation ON bolt_field_translation (translatable_id, locale)
      ALTER TABLE bolt_field_translation ADD CONSTRAINT FK_5C60C0542C2AC5D3 FOREIGN KEY (translatable_id) REFERENCES bolt_field (id) ON DELETE CASCADE
      ```
-   - Changed column type on `bolt_user.roles` and `bolt_field_translation.value` to native JSON type.
+   - Changed column type to native JSON type for:
+     - `bolt_user.roles`
+     - `bolt_field_translation.value`
+   - Dropped column comments for:
+     - `bolt_log.context`
+     - `bolt_log.extra`
+     - `bolt_log.user`
+     - `bolt_log.location`
+     - `bolt_field_translation.value`
+     - `bolt_reset_password_request.requested_at`
+     - `bolt_reset_password_request.expires_at`
+     - `bolt_user.roles`
    - If the migration tries to drop the `bolt_password_request` table make sure to remove that action (both in down and up).
 3. If any migrations where generated in the previous step, fully comment the code.
 4. Run `bin/console doctrine:migrations:diff --from-empty-schema`

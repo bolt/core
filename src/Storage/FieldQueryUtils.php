@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Storage;
 
 use Bolt\Doctrine\Version;
-use Doctrine\DBAL\Platforms\SqlitePlatform;
+use Doctrine\DBAL\Platforms\SQLitePlatform;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query\Expr;
 
@@ -58,6 +58,6 @@ class FieldQueryUtils
 
     public function isSqlite(): bool
     {
-        return $this->em->getConnection()->getDatabasePlatform() instanceof SqlitePlatform;
+        return $this->em->getConnection()->getDatabasePlatform() instanceof SQLitePlatform;
     }
 }
