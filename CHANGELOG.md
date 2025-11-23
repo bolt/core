@@ -9,7 +9,7 @@ Make sure to check the [upgrade notes](https://github.com/bolt/core/blob/main/UP
 
 - Bolt now requires at least PHP 8.2, which is in line with the [supported versions](https://www.php.net/supported-versions.php).
 - We have upgraded to Symfony 6.4! You will need to check your own code for any required changes due to this upgrade, check the Symfony documentation for that!
-- We have also updated our Doctrine versions (data-fixtures ^2.0, dbal ^3.10). You will need to check your own entities and implementation to make sure that your code is compatible with the doctrine related changes.
+- We have also updated our Doctrine versions (data-fixtures ^2.0, dbal ^3.10, doctrine-fixtures-bundle ^4.3, lexer ^3, orm ^3.5). You will need to check your own entities and implementation to make sure that your code is compatible with the doctrine related changes.
 - API Platform has been upgraded to version 4. This will have impact on your own implementations, so make sure to check those.
 - Migrations are no longer provided by Bolt. You will need to start managing the migrations yourself and take action to ensure your database remains in sync. Check the upgrade notes for the recommended approach.
 - We have migrated away from annotations and fully adopted attributes. If you are relying on annotations you will need to either re-enable annotation support, or migrate them as well (the latter is the recommended approach). (bobvandevijver, [#3608](https://github.com/bolt/core/issues/3608))
@@ -28,6 +28,10 @@ Make sure to check the [upgrade notes](https://github.com/bolt/core/blob/main/UP
 - `php-http/httplug-bundle` now requires at least version 2, which removes an abandoned dependency.
 - `illuminate/collections` was bumped from `^10.48` to `^12.0`.
 - `doctrine/data-fixtures` now requires `^2.0`. A version constraint was not specified in a earlier version of Bolt, but we were only compatible with v1.
+- Support for `doctrine/lexer` `^2` has been dropped.
+- `doctrine/dbal` now required `^3.10`.
+- `doctrine/orm` now requires `^3.5`
+- `doctrine/doctrine-fixtures-bundle` now requires `^4.3`.
 
 ### Other noteworthy updates
 - We've enabled login throttling by default.
