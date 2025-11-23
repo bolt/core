@@ -1712,18 +1712,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/DataFixtures/UserFixtures.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Cannot access property \\$type on Doctrine\\\\Common\\\\Lexer\\\\Token\\<int, string\\>\\|null\\.$#',
-	'identifier' => 'property.nonObject',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Doctrine/Functions/Rand.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Doctrine\\\\Functions\\\\Rand\\:\\:\\$expression \\(Doctrine\\\\ORM\\\\Query\\\\AST\\\\SimpleArithmeticExpression\\) does not accept Doctrine\\\\ORM\\\\Query\\\\AST\\\\ArithmeticTerm\\|Doctrine\\\\ORM\\\\Query\\\\AST\\\\SimpleArithmeticExpression\\.$#',
-	'identifier' => 'assign.propertyType',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Doctrine/Functions/Rand.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Method Bolt\\\\Doctrine\\\\JsonHelper\\:\\:wrapJsonFunction\\(\\) return type has no value type specified in iterable type array\\.$#',
 	'identifier' => 'missingType.iterableValue',
 	'count' => 1,
@@ -1754,12 +1742,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Doctrine/JsonHelper.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Cannot access property \\$value on Doctrine\\\\Common\\\\Lexer\\\\Token\\<int, string\\>\\|null\\.$#',
-	'identifier' => 'property.nonObject',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Doctrine/Query/Cast.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Cannot call method dispatch\\(\\) on Doctrine\\\\ORM\\\\Query\\\\AST\\\\Node\\|string\\.$#',
 	'identifier' => 'method.nonObject',
 	'count' => 4,
@@ -1786,12 +1768,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'message' => '#^Method Bolt\\\\Doctrine\\\\TablePrefix\\:\\:setTablePrefixes\\(\\) has parameter \\$tablePrefixes with no type specified\\.$#',
 	'identifier' => 'missingType.parameter',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Doctrine/TablePrefix.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Offset \'joinTable\' might not exist on array\\{cache\\?\\: array\\<mixed\\>, cascade\\: array\\<string\\>, declared\\?\\: class\\-string, fetch\\: mixed, fieldName\\: string, id\\?\\: bool, inherited\\?\\: class\\-string, indexBy\\?\\: string, \\.\\.\\.\\}\\.$#',
-	'identifier' => 'offsetAccess.notFound',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Doctrine/TablePrefix.php',
 ];

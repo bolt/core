@@ -8,6 +8,7 @@ use Bolt\Entity\FieldInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Exception\ORMException;
+use Doctrine\ORM\Mapping\MappingException;
 use Doctrine\Persistence\Mapping\Driver\MappingDriver;
 use LogicException;
 use ReflectionClass;
@@ -19,8 +20,7 @@ use ReflectionClass;
  */
 class FieldDiscriminatorListener
 {
-    /** @var MappingDriver */
-    private $mappingDriver;
+    private MappingDriver $mappingDriver;
 
     /** The temporary map used for one run, when computing everything */
     private array $tempMap = [];
@@ -33,11 +33,7 @@ class FieldDiscriminatorListener
      */
     public function __construct(EntityManagerInterface $em)
     {
-        $mappingDriver = $em->getConfiguration()->getMetadataDriverImpl();
-        if ($mappingDriver === null) {
-            throw new ORMException('Could not load mapping driver');
-        }
-        $this->mappingDriver = $mappingDriver;
+        $this->mappingDriver = $em->getConfiguration()->getMetadataDriverImpl() ?? throw new MappingException('Could not load mapping driver');
     }
 
     public function loadClassMetadata(LoadClassMetadataEventArgs $event): void
