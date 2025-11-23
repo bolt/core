@@ -22,7 +22,7 @@
         "doctrine/doctrine-bundle": "^2.7",
         "doctrine/doctrine-fixtures-bundle": "^3.4",
         "doctrine/doctrine-migrations-bundle": "^3.2",
-        "doctrine/lexer": "^2 || ^3",
+        "doctrine/lexer": "^3",
         "doctrine/orm": "^2.10",
         "drupol/composer-packages": "^2.0",
         "embed/embed": "^4.4",
