@@ -3,8 +3,8 @@ file: packages/security.yaml
 since: 4.2.0
 
 add:
-    security:
-        firewalls:
-            main:
-                remember_me:
-                    remember_me_parameter: login[remember_me]
+  security:
+    firewalls:
+      main:
+        remember_me:
+          remember_me_parameter: login[remember_me]

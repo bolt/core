@@ -5,6 +5,6 @@ file: services.yaml
 since: 5.0.6
 
 add:
-    services:
-        Bolt\Menu\BackendMenuBuilderInterface: '@Bolt\Menu\BackendMenu'
-        Bolt\Menu\FrontendMenuBuilderInterface: '@Bolt\Menu\FrontendMenu'
+  services:
+    Bolt\Menu\BackendMenuBuilderInterface: '@Bolt\Menu\BackendMenu'
+    Bolt\Menu\FrontendMenuBuilderInterface: '@Bolt\Menu\FrontendMenu'

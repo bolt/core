@@ -1,4 +1,3 @@
-
 reference_extension:
   resource: '../../vendor/acmecorp/reference-extension/src/Controller/'
   type: attribute

@@ -2,15 +2,15 @@ file: services.yaml
 since: 5.2.2
 
 add:
-    parameters:
-        bolt.doctrine_behaviors_translatable_fetch_mode: LAZY
-        bolt.doctrine_behaviors_translation_fetch_mode: LAZY
-    services:
-        Bolt\Event\Listener\TranslatableListener:
-            arguments:
-                $translatableFetchMode: '%bolt.doctrine_behaviors_translatable_fetch_mode%'
-                $translationFetchMode: '%bolt.doctrine_behaviors_translation_fetch_mode%'
-            tags:
-                - { name: doctrine.event_listener, event: loadClassMetadata }
-                - { name: doctrine.event_listener, event: postLoad }
-                - { name: doctrine.event_listener, event: prePersist }
+  parameters:
+    bolt.doctrine_behaviors_translatable_fetch_mode: LAZY
+    bolt.doctrine_behaviors_translation_fetch_mode: LAZY
+  services:
+    Bolt\Event\Listener\TranslatableListener:
+      arguments:
+        $translatableFetchMode: '%bolt.doctrine_behaviors_translatable_fetch_mode%'
+        $translationFetchMode: '%bolt.doctrine_behaviors_translation_fetch_mode%'
+      tags:
+        - { name: doctrine.event_listener, event: loadClassMetadata }
+        - { name: doctrine.event_listener, event: postLoad }
+        - { name: doctrine.event_listener, event: prePersist }

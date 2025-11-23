@@ -5,51 +5,51 @@
 # content type.
 
 homepage:
-    name: Homepage
-    singular_name: Homepage
-    fields:
+  name: Homepage
+  singular_name: Homepage
+  fields:
+    title:
+      type: text
+      class: large
+      group: content
+      localize: true
+      label: Title
+      postfix: |
+        The 'Homepage' can contain basic information about the website. This title will be
+        shown on the homepage of the website, as the name implies. To change the
+        <em><strong>name</strong></em> of the site, as is shown in the header, and the tab
+        in the webbrowser, edit <code>sitename:</code> in the configuration file.
+    image:
+      type: image
+      extra:
         title:
-            type: text
-            class: large
-            group: content
-            localize: true
-            label: Title
-            postfix: |
-                The 'Homepage' can contain basic information about the website. This title will be
-                shown on the homepage of the website, as the name implies. To change the
-                <em><strong>name</strong></em> of the site, as is shown in the header, and the tab
-                in the webbrowser, edit <code>sitename:</code> in the configuration file.
-        image:
-            type: image
-            extra:
-                title:
-                    label: The Title
-                    placeholder: This is the placeholder for the title
-                caption:
-                    label: Caption
-        teaser:
-            type: html
-            localize: true
-            height: 150px
-        content:
-            type: html
-            height: 300px
-            localize: true
-        contentlink:
-            type: text
-            label: Link
-            placeholder: 'contentType/slug or http://example.org/'
-            postfix: "Use this to add a link for this Homepage. This could either be an 'internal' link like <tt>page//about</tt>, if you use a contentType/slug combination. Otherwise use a proper URL, like `http://example.org`."
-        slug:
-            type: slug
-            uses: title
-            group: meta
-    viewless: false
-    taxonomy: [ categories, tags, foobars ]
-    locales: ['en', 'nl', 'ja', 'nb']
-    singleton: true
-    icon_many: "fa:home"
-    icon_one: "fa:home"
+          label: The Title
+          placeholder: This is the placeholder for the title
+        caption:
+          label: Caption
+    teaser:
+      type: html
+      localize: true
+      height: 150px
+    content:
+      type: html
+      height: 300px
+      localize: true
+    contentlink:
+      type: text
+      label: Link
+      placeholder: 'contentType/slug or http://example.org/'
+      postfix: "Use this to add a link for this Homepage. This could either be an 'internal' link like <tt>page//about</tt>, if you use a contentType/slug combination. Otherwise use a proper URL, like `http://example.org`."
+    slug:
+      type: slug
+      uses: title
+      group: meta
+  viewless: false
+  taxonomy: [ categories, tags, foobars ]
+  locales: [ 'en', 'nl', 'ja', 'nb' ]
+  singleton: true
+  icon_many: "fa:home"
+  icon_one: "fa:home"
 
 
 # Pages can be used for the more 'static' pages on your site. This content-type
@@ -62,58 +62,58 @@ homepage:
 # together.
 
 pages:
-    name: Pages
-    singular_name: Page
-    title_format: '{heading} - {subheading}'
-    excerpt_format: '📦 {teaser}'
-    list_format: '{contenttype} Nº {id}: {title} - {status}'
-    fields:
-        heading:
-            type: text
-            class: large
-            group: content
-            localize: true
-        subheading:
-            type: text
-            class: large
-            localize: true
-        slug:
-            type: slug
-            uses: [ heading ]
-            localize: true
-        photo:
-            type: image
-            label: "Eén plaatje"
-            placeholder: https://source.unsplash.com/1280x768/?business,workplace/__random__
-        teaser:
-            type: textarea
-            postfix: "This is a plain text area. the contents will <em><strong>not</em></strong> be processed."
-            height: 150px
-            localize: true
-        marky:
-            type: markdown
-            localize: true
-        content:
-            type: html
-            height: 300px
-            allow_twig: true
-            localize: true
-        checkbox:
-            type: checkbox
-            label: "This is a checkbox"
-        template:
-            type: templateselect
-            filter: '/^[^_].*\.twig$/'
-    relations:
-        entries:
-            multiple: false
-            order: title
-            label: Select an Entry
-            required: false
-    taxonomy: [ groups ]
-    listing_records: 6
-    order: id
-    locales: ['en', 'nl', 'ja', 'nb']
+  name: Pages
+  singular_name: Page
+  title_format: '{heading} - {subheading}'
+  excerpt_format: '📦 {teaser}'
+  list_format: '{contenttype} Nº {id}: {title} - {status}'
+  fields:
+    heading:
+      type: text
+      class: large
+      group: content
+      localize: true
+    subheading:
+      type: text
+      class: large
+      localize: true
+    slug:
+      type: slug
+      uses: [ heading ]
+      localize: true
+    photo:
+      type: image
+      label: "Eén plaatje"
+      placeholder: https://source.unsplash.com/1280x768/?business,workplace/__random__
+    teaser:
+      type: textarea
+      postfix: "This is a plain text area. the contents will <em><strong>not</em></strong> be processed."
+      height: 150px
+      localize: true
+    marky:
+      type: markdown
+      localize: true
+    content:
+      type: html
+      height: 300px
+      allow_twig: true
+      localize: true
+    checkbox:
+      type: checkbox
+      label: "This is a checkbox"
+    template:
+      type: templateselect
+      filter: '/^[^_].*\.twig$/'
+  relations:
+    entries:
+      multiple: false
+      order: title
+      label: Select an Entry
+      required: false
+  taxonomy: [ groups ]
+  listing_records: 6
+  order: id
+  locales: [ 'en', 'nl', 'ja', 'nb' ]
 
 # Entries can be used for things like 'news' or 'blogpostings'. They have a
 # 'teaser', which can be used for a short blurb on listing-pages, allowing
@@ -127,43 +127,43 @@ pages:
 # shown above older entries.
 
 entries:
-    name: Entries
-    singular_name: Entry
-    fields:
-        title:
-            type: text
-            class: large
-            group: content
-        slug:
-            type: slug
-            uses: title
-            allow_numeric: true
-        teaser:
-            type: html
-            height: 150px
-        body:
-            type: html
-            height: 300px
-        image:
-            type: image
-            group: media
-            upload: "{random}/{contenttype}/{date}"
-        video:
-            type: embed
-    relations:
-        pages:
-            multiple: true
-            order: heading
-            label: Select a page
-    taxonomy: [ categories, tags, groups ]
-    record_template: entry.twig
-    listing_template: listing.twig
-    listing_records: 6
-    default_status: published
-    order: -publishedAt
-    records_per_page: 10
-    icon_many: "fa:file-alt"
-    icon_one: "fa:file-alt"
+  name: Entries
+  singular_name: Entry
+  fields:
+    title:
+      type: text
+      class: large
+      group: content
+    slug:
+      type: slug
+      uses: title
+      allow_numeric: true
+    teaser:
+      type: html
+      height: 150px
+    body:
+      type: html
+      height: 300px
+    image:
+      type: image
+      group: media
+      upload: "{random}/{contenttype}/{date}"
+    video:
+      type: embed
+  relations:
+    pages:
+      multiple: true
+      order: heading
+      label: Select a page
+  taxonomy: [ categories, tags, groups ]
+  record_template: entry.twig
+  listing_template: listing.twig
+  listing_records: 6
+  default_status: published
+  order: -publishedAt
+  records_per_page: 10
+  icon_many: "fa:file-alt"
+  icon_one: "fa:file-alt"
 
 
 # The 'Showcases' is not particularly useful in most cases, but it does a good
@@ -173,158 +173,158 @@ entries:
 # listing_template, and related settings are used from config.yaml
 
 showcases:
-    name: Showcases
-    slug: showcases
-    singular_name: Showcase
-    singular_slug: showcase
-    title_format: '{id}: {title}'
-    description: The 'Showcases' is not particularly useful in most cases, but it does a good job of showcasing most of the available fieldtypes.
-    fields:
+  name: Showcases
+  slug: showcases
+  singular_name: Showcase
+  singular_slug: showcase
+  title_format: '{id}: {title}'
+  description: The 'Showcases' is not particularly useful in most cases, but it does a good job of showcasing most of the available fieldtypes.
+  fields:
+    title:
+      type: text
+      class: large
+      required: true
+      pattern: ".{2,255}" # see: http://html5pattern.com/
+      error: "The Title field is required, and must contain at least 2 characters"
+      placeholder: "Placeholder for the title"
+      group: Text
+      fixture_format: '{name}'
+      postfix: |
+        This is an example of a longer "postfix". Simple text is capped at a reasonable width
+        to enhance legibility. Necessitatibus dolor corrupti assumenda placeat quia occati
+        aut. Facere porro placeat molestiae fuga. Laboriosam et asperiores atque impedit
+        dolorem dicta aut. Harum inventore ipsa voluptas consectetur quaerat eius ad.
+        <div class="alert alert-secondary" role="alert"><strong>Tip:</strong> You can even
+        use HTML in a prefix! Note that this one does take the full available width.</div>
+    slug:
+      type: slug
+      uses: [ title ]
+    html:
+      type: html
+      height: 150px
+      prefix: This is the prefix for the WYSIWYG field.
+      postfix: This is the postfix for the WYSIWYG field.
+      separator: true
+    textarea:
+      type: textarea
+      postfix: "This is a plain text area. the contents will <em><strong>not</em></strong> be processed."
+      height: 200px # or 15 for 15 rows
+    markdown:
+      type: markdown
+      postfix: "This field gets parsed as <a href='https://help.github.com/articles/markdown-basics'>Markdown</a>, when rendered on the site."
+    email:
+      type: email
+      info: "This is an <i>info box</i> shown as a popover next to the field label."
+      pattern: email
+    embed:
+      type: embed
+      group: Media
+    image:
+      type: image
+      extensions: [ gif, jpg, png ]
+      alt: true
+      placeholder: https://source.unsplash.com/1280x768/?animal,koala,kitten,puppy,cute/__random__
+    image_another:
+      type: image
+      extensions: [ gif, jpg, png ]
+      alt: true
+      placeholder: https://source.unsplash.com/1280x768/?animal,koala,kitten,puppy,cute/__random__
+    imagelist:
+      type: imagelist
+    file:
+      type: file
+      group: Files
+      extensions: [ pdf, png, csv, xlsx, txt, gif, doc, docx, pptx, mp3, mp4, zip ]
+    filelist:
+      type: filelist
+      limit: 5
+    checkbox:
+      type: checkbox
+      label: "This is a checkbox"
+      group: Other
+    switch:
+      type: checkbox
+      label: "This is a checkbox, as a switch"
+      mode: switch
+    datetime:
+      type: date
+      mode: datetime
+    date:
+      type: date
+    integerfield:
+      type: number
+      mode: integer
+      step: 1
+      min: 0
+      max: 1000
+    floatfield:
+      type: number
+      mode: float
+    selectfield:
+      type: select
+      values: [ foo, bar, baz ]
+    multiselect:
+      type: select
+      values: [ A-tuin, Donatello, Rafael, Leonardo, Michelangelo, Koopa, Squirtle ]
+      multiple: true
+      postfix: "Select your favourite turtle(s)."
+    selectentry:
+      type: select
+      values: entries/{title} (№ {id}, {status})
+      postfix: "Select an entry"
+      autocomplete: true
+      order: -id
+    author:
+      type: text
+      label: Author
+    hiddenfield:
+      type: hidden
+      group: internal
+    datafield:
+      type: data
+    set:
+      type: set
+      group: Sets
+      label: This is my set
+      fields:
         title:
-            type: text
-            class: large
-            required: true
-            pattern: ".{2,255}" # see: http://html5pattern.com/
-            error: "The Title field is required, and must contain at least 2 characters"
-            placeholder: "Placeholder for the title"
-            group: Text
-            fixture_format: '{name}'
-            postfix: |
-                This is an example of a longer "postfix". Simple text is capped at a reasonable width
-                to enhance legibility. Necessitatibus dolor corrupti assumenda placeat quia occati
-                aut. Facere porro placeat molestiae fuga. Laboriosam et asperiores atque impedit
-                dolorem dicta aut. Harum inventore ipsa voluptas consectetur quaerat eius ad.
-                <div class="alert alert-secondary" role="alert"><strong>Tip:</strong> You can even
-                use HTML in a prefix! Note that this one does take the full available width.</div>
-        slug:
-            type: slug
-            uses: [ title ]
-        html:
-            type: html
-            height: 150px
-            prefix: This is the prefix for the WYSIWYG field.
-            postfix: This is the postfix for the WYSIWYG field.
-            separator: true
+          type: text
         textarea:
-            type: textarea
-            postfix: "This is a plain text area. the contents will <em><strong>not</em></strong> be processed."
-            height: 200px # or 15 for 15 rows
-        markdown:
-            type: markdown
-            postfix: "This field gets parsed as <a href='https://help.github.com/articles/markdown-basics'>Markdown</a>, when rendered on the site."
-        email:
-            type: email
-            info: "This is an <i>info box</i> shown as a popover next to the field label."
-            pattern: email
-        embed:
-            type: embed
-            group: Media
-        image:
-            type: image
-            extensions: [ gif, jpg, png ]
-            alt: true
-            placeholder: https://source.unsplash.com/1280x768/?animal,koala,kitten,puppy,cute/__random__
-        image_another:
-            type: image
-            extensions: [ gif, jpg, png ]
-            alt: true
-            placeholder: https://source.unsplash.com/1280x768/?animal,koala,kitten,puppy,cute/__random__
-        imagelist:
-            type: imagelist
-        file:
-            type: file
-            group: Files
-            extensions: [pdf, png, csv, xlsx, txt, gif, doc, docx, pptx, mp3, mp4, zip]
-        filelist:
-            type: filelist
-            limit: 5
-        checkbox:
-            type: checkbox
-            label: "This is a checkbox"
-            group: Other
-        switch:
-            type: checkbox
-            label: "This is a checkbox, as a switch"
-            mode: switch
-        datetime:
-            type: date
-            mode: datetime
-        date:
-            type: date
-        integerfield:
-            type: number
-            mode: integer
-            step: 1
-            min: 0
-            max: 1000
-        floatfield:
-            type: number
-            mode: float
-        selectfield:
-            type: select
-            values: [ foo, bar, baz ]
-        multiselect:
-            type: select
-            values: [ A-tuin, Donatello, Rafael, Leonardo, Michelangelo, Koopa, Squirtle ]
-            multiple: true
-            postfix: "Select your favourite turtle(s)."
-        selectentry:
-            type: select
-            values: entries/{title} (№ {id}, {status})
-            postfix: "Select an entry"
-            autocomplete: true
-            order: -id
-        author:
-            type: text
-            label: Author
-        hiddenfield:
-            type: hidden
-            group: internal
-        datafield:
-            type: data
+          type: textarea
+    collection:
+      type: collection
+      group: Collections
+      label: This is my Collection
+      variant: expanded
+      fields:
         set:
-            type: set
-            group: Sets
-            label: This is my set
-            fields:
-                title:
-                    type: text
-                textarea:
-                    type: textarea
-        collection:
-            type: collection
-            group: Collections
-            label: This is my Collection
-            variant: expanded
-            fields:
-                set:
-                    type: set
-                    label: Set inside Collection
-                    fields:
-                        title:
-                            type: text
-                textarea:
-                    type: textarea
-                    icon: fa-anchor
-    relations:
-        entries:
-            multiple: false
-            label: "Choose an entry"
-            order: -id
-            format: "{title} (№ {id}, {status})"
-            postfix: "By selecting an Entry, you're creating a bi-directional relationship to that Entry."
-        pages:
-            multiple: true
-            order: title
-            label: Select zero or more pages
-            link_to_record: true
-    taxonomy: [ categories, tags ]
-    show_on_dashboard: true
-    default_status: published
-    searchable: true
-    icon_many: "fa:gift"
-    icon_one: "fa:gift"
-    order: [title, id]
+          type: set
+          label: Set inside Collection
+          fields:
+            title:
+              type: text
+        textarea:
+          type: textarea
+          icon: fa-anchor
+  relations:
+    entries:
+      multiple: false
+      label: "Choose an entry"
+      order: -id
+      format: "{title} (№ {id}, {status})"
+      postfix: "By selecting an Entry, you're creating a bi-directional relationship to that Entry."
+    pages:
+      multiple: true
+      order: title
+      label: Select zero or more pages
+      link_to_record: true
+  taxonomy: [ categories, tags ]
+  show_on_dashboard: true
+  default_status: published
+  searchable: true
+  icon_many: "fa:gift"
+  icon_one: "fa:gift"
+  order: [ title, id ]
 
 
 # The 'Blocks' ContentType is a so-called 'resource ContentType'. This means
@@ -333,238 +333,238 @@ showcases:
 # For more info, see: https://docs.bolt.cm/howto/resource-contenttype
 
 blocks:
-    name: Blocks
-    singular_name: Block
-    fields:
-        title:
-            type: text
-            class: large
-            group: "Block"
-            label: De Titel
-        slug:
-            type: slug
-            uses: [ title ]
-        image:
-            type: image
-        content:
-            type: html
-            height: 150px
-        content_link:
-            type: text
-            label: Link
-            placeholder: 'contenttype/slug or http://example.org/'
-            postfix: "Use this to add a link for this Block. This could either be an 'internal' link like <tt>page/about</tt>, if you use a contenttype/slug combination. Otherwise use a proper URL, like `https://example.org`."
-    relations:
-        pages:
-            multiple: false
-            order: title
-            label: Select a page
-    show_on_dashboard: true
-    viewless: true
-    searchable: false
-    icon_many: "fa:cubes"
-    icon_one: "fa:cube"
-    order: title
-    records_per_page: 12
+  name: Blocks
+  singular_name: Block
+  fields:
+    title:
+      type: text
+      class: large
+      group: "Block"
+      label: De Titel
+    slug:
+      type: slug
+      uses: [ title ]
+    image:
+      type: image
+    content:
+      type: html
+      height: 150px
+    content_link:
+      type: text
+      label: Link
+      placeholder: 'contenttype/slug or http://example.org/'
+      postfix: "Use this to add a link for this Block. This could either be an 'internal' link like <tt>page/about</tt>, if you use a contenttype/slug combination. Otherwise use a proper URL, like `https://example.org`."
+  relations:
+    pages:
+      multiple: false
+      order: title
+      label: Select a page
+  show_on_dashboard: true
+  viewless: true
+  searchable: false
+  icon_many: "fa:cubes"
+  icon_one: "fa:cube"
+  order: title
+  records_per_page: 12
 
 
 # This contenttype is here to use for (automated) tests.
 tests:
-    name: Tests
-    singular_name: Test
-    title_format: "{id}: {title}"
-    fields:
+  name: Tests
+  singular_name: Test
+  title_format: "{id}: {title}"
+  fields:
+    title:
+      type: text
+      class: large
+      group: content
+      default: "Title of a test contenttype"
+    slug:
+      type: slug
+      uses: title
+    text_markup:
+      type: text
+      allow_html: true
+    text_plain:
+      type: text
+      allow_html: false
+    text_not_sanitised:
+      type: text
+      sanitise: false
+    text_sanitised:
+      type: text
+      sanitise: true
+    html_field:
+      type: html
+    image:
+      type: image
+      postfix: An image, actually _named_ image.
+      default:
+        filename: "foal.jpg"
+    picture:
+      type: image
+      postfix: An image, named differently.
+    attachment:
+      type: file
+    markdown_field:
+      type: markdown
+    textarea_field:
+      type: textarea
+    selectfield:
+      type: select
+      values:
+        foo: Foooo
+        bar: Bario
+        baz: BAzzazza
+    multiselect:
+      type: select
+      values: [ A-tuin, Donatello, Rafael, Leonardo, Michelangelo, Koopa, Squirtle ]
+      multiple: true
+      postfix: "Select your favourite turtle(s)."
+    set_field:
+      type: set
+      fields:
         title:
-            type: text
-            class: large
-            group: content
-            default: "Title of a test contenttype"
-        slug:
-            type: slug
-            uses: title
-        text_markup:
-            type: text
-            allow_html: true
-        text_plain:
-            type: text
-            allow_html: false
-        text_not_sanitised:
-            type: text
-            sanitise: false
-        text_sanitised:
-            type: text
-            sanitise: true
-        html_field:
-            type: html
-        image:
-            type: image
-            postfix: An image, actually _named_ image.
-            default:
-                filename: "foal.jpg"
-        picture:
-            type: image
-            postfix: An image, named differently.
-        attachment:
-            type: file
-        markdown_field:
-            type: markdown
-        textarea_field:
-            type: textarea
-        selectfield:
-            type: select
-            values:
-                foo: Foooo
-                bar: Bario
-                baz: BAzzazza
-        multiselect:
-            type: select
-            values: [ A-tuin, Donatello, Rafael, Leonardo, Michelangelo, Koopa, Squirtle ]
-            multiple: true
-            postfix: "Select your favourite turtle(s)."
-        set_field:
-            type: set
-            fields:
-                title:
-                    type: text
-                year:
-                    type: number
-            default:
-                title: "This is the default title value"
-                year: 2020
-        collection_field:
-            type: collection
-            fields:
-                photo:
-                    type: image
-                paragraph:
-                    type: text
-            default:
-                0:
-                    field: photo
-                    default:
-                        filename: "kitten.jpg"
-                        alt: "Cute kitten"
-                1:
-                    field: paragraph
-                    default: "An image, followed by some content"
-                2:
-                    field: photo
-                    default:
-                        filename: "joey.jpg"
-                        alt: "Photo of a foal"
-    taxonomy: [ groups, categories, tags, foobars ]
-    record_template: custom/test.twig
-    listing_template: listing.twig
-    listing_records: 10
+          type: text
+        year:
+          type: number
+      default:
+        title: "This is the default title value"
+        year: 2020
+    collection_field:
+      type: collection
+      fields:
+        photo:
+          type: image
+        paragraph:
+          type: text
+      default:
+        0:
+          field: photo
+          default:
+            filename: "kitten.jpg"
+            alt: "Cute kitten"
+        1:
+          field: paragraph
+          default: "An image, followed by some content"
+        2:
+          field: photo
+          default:
+            filename: "joey.jpg"
+            alt: "Photo of a foal"
+  taxonomy: [ groups, categories, tags, foobars ]
+  record_template: custom/test.twig
+  listing_template: listing.twig
+  listing_records: 10
 
 # This contenttype is here to use for (automated) tests.
 simpletests:
-    name: simpletests
-    singular_name: Simple Test
-    title_format: "{id}: {title}"
-    fields:
-        title:
-            type: text
-            default: "Title of a test contenttype"
-        slug:
-            type: slug
+  name: simpletests
+  singular_name: Simple Test
+  title_format: "{id}: {title}"
+  fields:
+    title:
+      type: text
+      default: "Title of a test contenttype"
+    slug:
+      type: slug
 
 
 complexnestedtype:
-    name: complexnestedtype
-    singular_name: complexnestedtype
-    fields:
-        first_field:
-            type: select
-            values: [ 'one', 'two', 'three', 'four', 'five' ]
-            #            required: false
-            required: true
-            default: 'een'
-        second_field:
-            type: collection
-            fields:
-                first_collection_field:
-                    type: set
-                    fields:
-                        first_set_field:
-                            type: select
-                            values: [ 'option-one', 'option-two' ]
-                            required: true
-                            default: 'option-one'
+  name: complexnestedtype
+  singular_name: complexnestedtype
+  fields:
+    first_field:
+      type: select
+      values: [ 'one', 'two', 'three', 'four', 'five' ]
+      #            required: false
+      required: true
+      default: 'een'
+    second_field:
+      type: collection
+      fields:
+        first_collection_field:
+          type: set
+          fields:
+            first_set_field:
+              type: select
+              values: [ 'option-one', 'option-two' ]
+              required: true
+              default: 'option-one'
 
 validationdemos:
-    name: Validation Demos
-    slug: validationdemos
-    singular_name: Validation Demo
-    singular_slug: validationdemo
-    title_format: '{id}: {title}'
-    description: The 'Validation Demos' shows how validation of fieldtypes works.
-    fields:
+  name: Validation Demos
+  slug: validationdemos
+  singular_name: Validation Demo
+  singular_slug: validationdemo
+  title_format: '{id}: {title}'
+  description: The 'Validation Demos' shows how validation of fieldtypes works.
+  fields:
+    title:
+      type: text
+      class: large
+      required: true
+      placeholder: "Placeholder for the title"
+      group: Text
+      fixture_format: '{name}'
+      constraints:
+        - Length:
+            min: 10
+            max: 50
+            minMessage: 'Your title must be at least {{ limit }} characters long'
+            maxMessage: 'Your title cannot be longer than {{ limit }} characters'
+            allowEmptyString: false
+    slug:
+      type: slug
+      uses: [ title ]
+    set:
+      type: set
+      group: Sets
+      label: This is my set
+      fields:
         title:
-            type: text
-            class: large
-            required: true
-            placeholder: "Placeholder for the title"
-            group: Text
-            fixture_format: '{name}'
-            constraints:
-                - Length:
-                      min: 10
-                      max: 50
-                      minMessage: 'Your title must be at least {{ limit }} characters long'
-                      maxMessage: 'Your title cannot be longer than {{ limit }} characters'
-                      allowEmptyString: false
-        slug:
-            type: slug
-            uses: [ title ]
+          type: text
+          constraints:
+            - Length:
+                min: 2
+                max: 10
+        textarea:
+          type: textarea
+    collection:
+      type: collection
+      group: Collections
+      label: This is my Collection
+      fields:
         set:
-            type: set
-            group: Sets
-            label: This is my set
-            fields:
-                title:
-                    type: text
-                    constraints:
-                        - Length:
-                              min: 2
-                              max: 10
-                textarea:
-                    type: textarea
-        collection:
-            type: collection
-            group: Collections
-            label: This is my Collection
-            fields:
-                set:
-                    type: set
-                    label: Set inside Collection
-                    fields:
-                        title:
-                            type: text
-                            constraints:
-                                - Length:
-                                      min: 2
-                                      max: 10
-                textarea:
-                    type: textarea
-                    constraints:
-                        - Length:
-                              min: 100
-                              max: 200
-    #            count_constraint:
-    #                min: 1
-    #                max: 2
-    relations:
-        entries:
-            multiple: false
-            label: "Choose an entry"
-        pages:
-            multiple: true
-            order: title
-            label: Select 1 or 2 pages
-            count_constraint:
-                min: 1
-                max: 2
+          type: set
+          label: Set inside Collection
+          fields:
+            title:
+              type: text
+              constraints:
+                - Length:
+                    min: 2
+                    max: 10
+        textarea:
+          type: textarea
+          constraints:
+            - Length:
+                min: 100
+                max: 200
+  #            count_constraint:
+  #                min: 1
+  #                max: 2
+  relations:
+    entries:
+      multiple: false
+      label: "Choose an entry"
+    pages:
+      multiple: true
+      order: title
+      label: Select 1 or 2 pages
+      count_constraint:
+        min: 1
+        max: 2
 
 # Possible field types:
 #

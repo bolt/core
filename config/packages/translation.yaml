@@ -1,17 +1,17 @@
 framework:
-    default_locale: '%locale%'
-    translator:
-        fallbacks:
-            - 'en'
+  default_locale: '%locale%'
+  translator:
+    fallbacks:
+      - 'en'
 
 # php_translation
 translation:
-    locales: '%locales_array%'
-    webui:
-        enabled: true
-    edit_in_place:
-        enabled: false
-    configs:
-        bolt:
-            dirs: ["%kernel.project_dir%/templates", "%kernel.project_dir%/src"]
-            output_dir: "%kernel.project_dir%/translations"
+  locales: '%locales_array%'
+  webui:
+    enabled: true
+  edit_in_place:
+    enabled: false
+  configs:
+    bolt:
+      dirs: [ "%kernel.project_dir%/templates", "%kernel.project_dir%/src" ]
+      output_dir: "%kernel.project_dir%/translations"

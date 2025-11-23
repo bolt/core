@@ -1,8 +1,8 @@
 api_platform:
-    resource: .
-    type: api_platform
-    prefix: /api
+  resource: .
+  type: api_platform
+  prefix: /api
 
 api_entrypoint:
-    path: '%bolt.backend_url%/api'
-    controller: api_platform.swagger.action.ui
+  path: '%bolt.backend_url%/api'
+  controller: api_platform.swagger.action.ui

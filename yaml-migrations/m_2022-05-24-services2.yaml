@@ -5,7 +5,7 @@ file: services.yaml
 since: 5.1.8
 
 add:
-    services:
-        Bolt\Event\Listener\FieldFillListener:
-            tags:
-                - { name: doctrine.event_listener, event: preUpdate }
+  services:
+    Bolt\Event\Listener\FieldFillListener:
+      tags:
+        - { name: doctrine.event_listener, event: preUpdate }

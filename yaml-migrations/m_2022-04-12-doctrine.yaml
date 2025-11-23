@@ -4,8 +4,8 @@ file: packages/doctrine.yaml
 since: 5.1.8
 
 add:
-    doctrine:
-        orm:
-            dql:
-                string_functions:
-                    JSON_UNQUOTE: Bolt\Doctrine\Functions\JsonUnquote
+  doctrine:
+    orm:
+      dql:
+        string_functions:
+          JSON_UNQUOTE: Bolt\Doctrine\Functions\JsonUnquote

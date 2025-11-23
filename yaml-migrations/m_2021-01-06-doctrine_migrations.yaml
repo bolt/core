@@ -3,6 +3,6 @@ file: packages/doctrine_migrations.yaml
 since: 4.2.0
 
 add:
-    doctrine_migrations:
-        migrations_paths:
-            'Bolt\DoctrineMigrations': '%kernel.project_dir%/vendor/bolt/core/migrations'
+  doctrine_migrations:
+    migrations_paths:
+      'Bolt\DoctrineMigrations': '%kernel.project_dir%/vendor/bolt/core/migrations'

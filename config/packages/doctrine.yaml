@@ -1,64 +1,64 @@
 parameters:
-    # Adds a fallback DATABASE_URL if the env var is not set. This allows you
-    # to run cache:warmup even if your environment variables are not available
-    # yet. You should not need to change this value.
-    env(DATABASE_DRIVER): 'pdo_sqlite'
-    env(DATABASE_URL): ''
+  # Adds a fallback DATABASE_URL if the env var is not set. This allows you
+  # to run cache:warmup even if your environment variables are not available
+  # yet. You should not need to change this value.
+  env(DATABASE_DRIVER): 'pdo_sqlite'
+  env(DATABASE_URL): ''
 
 doctrine:
-    dbal:
-        charset: utf8mb4
-        url: '%env(resolve:DATABASE_URL)%'
-
-        # For SQLite
-        # driver: 'pdo_sqlite'
-        # server_version: '3.15'
-
-        # For MySQL
-        # driver: 'pdo_mysql'
-        # server_version: 5.7	
-
-    orm:
-        auto_generate_proxy_classes: '%kernel.debug%'
-        naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
-        auto_mapping: true
-        mappings:
-            Bolt:
-                is_bundle: false
-                type: attribute
-                dir: '%kernel.project_dir%/src/Entity'
-                prefix: 'Bolt\Entity'
-                alias: App
-        dql:
-            string_functions:
-                JSON_EXTRACT: Bolt\Doctrine\Functions\JsonExtract
-                JSON_VALUE: Bolt\Doctrine\Functions\JsonValue
-                JSON_GET_TEXT: Scienta\DoctrineJsonFunctions\Query\AST\Functions\Postgresql\JsonGetText
-                JSON_SEARCH: Scienta\DoctrineJsonFunctions\Query\AST\Functions\Mysql\JsonSearch
-                JSON_UNQUOTE: Bolt\Doctrine\Functions\JsonUnquote
-                CAST: Bolt\Doctrine\Query\Cast
-            numeric_functions:
-                RAND: Bolt\Doctrine\Functions\Rand
+  dbal:
+    charset: utf8mb4
+    url: '%env(resolve:DATABASE_URL)%'
+    
+    # For SQLite
+    # driver: 'pdo_sqlite'
+    # server_version: '3.15'
+    
+    # For MySQL
+    # driver: 'pdo_mysql'
+    # server_version: 5.7	
+  
+  orm:
+    auto_generate_proxy_classes: '%kernel.debug%'
+    naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+    auto_mapping: true
+    mappings:
+      Bolt:
+        is_bundle: false
+        type: attribute
+        dir: '%kernel.project_dir%/src/Entity'
+        prefix: 'Bolt\Entity'
+        alias: App
+    dql:
+      string_functions:
+        JSON_EXTRACT: Bolt\Doctrine\Functions\JsonExtract
+        JSON_VALUE: Bolt\Doctrine\Functions\JsonValue
+        JSON_GET_TEXT: Scienta\DoctrineJsonFunctions\Query\AST\Functions\Postgresql\JsonGetText
+        JSON_SEARCH: Scienta\DoctrineJsonFunctions\Query\AST\Functions\Mysql\JsonSearch
+        JSON_UNQUOTE: Bolt\Doctrine\Functions\JsonUnquote
+        CAST: Bolt\Doctrine\Query\Cast
+      numeric_functions:
+        RAND: Bolt\Doctrine\Functions\Rand
 
 when@prod:
-    doctrine:
-        orm:
-            auto_generate_proxy_classes: false
-            proxy_dir: '%kernel.build_dir%/doctrine/orm/Proxies'
-            metadata_cache_driver:
-                type: pool
-                pool: doctrine.system_cache_pool
-            query_cache_driver:
-                type: pool
-                pool: doctrine.system_cache_pool
-            result_cache_driver:
-                type: pool
-                pool: doctrine.result_cache_pool
-    
-    framework:
-        cache:
-            pools:
-                doctrine.result_cache_pool:
-                    adapter: cache.app
-                doctrine.system_cache_pool:
-                    adapter: cache.system
+  doctrine:
+    orm:
+      auto_generate_proxy_classes: false
+      proxy_dir: '%kernel.build_dir%/doctrine/orm/Proxies'
+      metadata_cache_driver:
+        type: pool
+        pool: doctrine.system_cache_pool
+      query_cache_driver:
+        type: pool
+        pool: doctrine.system_cache_pool
+      result_cache_driver:
+        type: pool
+        pool: doctrine.result_cache_pool
+  
+  framework:
+    cache:
+      pools:
+        doctrine.result_cache_pool:
+          adapter: cache.app
+        doctrine.system_cache_pool:
+          adapter: cache.system

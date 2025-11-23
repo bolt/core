@@ -4,6 +4,6 @@ file: services.yaml
 since: 5.1.0
 
 add:
-    services:
-        Bolt\Api\ContentDataPersister:
-            decorates: 'api_platform.doctrine.orm.data_persister'
+  services:
+    Bolt\Api\ContentDataPersister:
+      decorates: 'api_platform.doctrine.orm.data_persister'

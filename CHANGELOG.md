@@ -30,6 +30,7 @@ Make sure to check the [upgrade notes](https://github.com/bolt/core/blob/main/UP
 ### Other noteworthy updates
 - Return types have been changed where needed to resolve deprecation and PHPStan issues. This might affect you if you were extending the inner workings of Bolt. We apologise for the inconvenience, but it will be better in the long run.
 - In line with Symfony, the `getUserName()` method on `User` has been deprecated. Use `getUserIdentifier()` instead.
+- We've changed our indent for yaml files to 2, as that works best with most available formatters.
 - `master` branch has been renamed to the now more common `main`.
 
 ## 5.2.2

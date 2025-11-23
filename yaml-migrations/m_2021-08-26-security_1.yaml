@@ -4,6 +4,6 @@ file: packages/security.yaml
 since: 4.3.0
 
 remove:
-    security:
-        role_hierarchy: ~
-        access_control: ~
+  security:
+    role_hierarchy: ~
+    access_control: ~

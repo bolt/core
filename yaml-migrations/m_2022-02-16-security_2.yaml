@@ -4,6 +4,6 @@ file: packages/security.yaml
 since: 5.1.4
 
 remove:
-    encoders:
-        password_hashers:
-            Bolt\Entity\User: ~
+  encoders:
+    password_hashers:
+      Bolt\Entity\User: ~

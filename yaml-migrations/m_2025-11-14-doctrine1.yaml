@@ -4,5 +4,5 @@ file: packages/prod/doctrine.yaml
 since: 6.0.0
 
 remove:
-    doctrine: ~
-    services: ~
+  doctrine: ~
+  services: ~

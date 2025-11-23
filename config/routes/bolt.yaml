@@ -4,22 +4,22 @@
 # The Bolt Control Panel ("backend"). It's common to modify the `prefix` so the
 # Control Panel can be accessed at a custom URL.
 control_panel:
-    resource: '../../src/Controller/Backend/'
-    prefix: '%bolt.backend_url%'
-    type: annotation
+  resource: '../../src/Controller/Backend/'
+  prefix: '%bolt.backend_url%'
+  type: annotation
 
 # Async: Upload, Embed
 control_panel_async:
-    resource: '../../src/Controller/Backend/Async/'
-    prefix: '%bolt.backend_url%/async'
-    type: annotation
+  resource: '../../src/Controller/Backend/Async/'
+  prefix: '%bolt.backend_url%/async'
+  type: annotation
 
 # ImageController, Currently only used for thumbnails
 controllers:
-    resource: '../../src/Controller/ImageController.php'
-    type: annotation
+  resource: '../../src/Controller/ImageController.php'
+  type: annotation
 
 # Routes added by Extensions get added here, by Bolt\Extension\RoutesLoader
 extensions:
-    resource: .
-    type: bolt_extensions
+  resource: .
+  type: bolt_extensions

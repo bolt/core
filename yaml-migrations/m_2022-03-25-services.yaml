@@ -4,9 +4,9 @@ file: services.yaml
 since: 5.1.6
 
 add:
-    services:
-        _defaults:
-            bind:         
-                $backendUrl: '%bolt.backend_url%'
-        Bolt\Cache\GetFormatCacher:
-            decorates: Bolt\Utils\ContentHelper
+  services:
+    _defaults:
+      bind:
+        $backendUrl: '%bolt.backend_url%'
+    Bolt\Cache\GetFormatCacher:
+      decorates: Bolt\Utils\ContentHelper

@@ -4,6 +4,6 @@ file: packages/security.yaml
 since: 5.1.4
 
 add:
-    security:
-        password_hashers:
-            Bolt\Entity\User: auto
+  security:
+    password_hashers:
+      Bolt\Entity\User: auto

@@ -4,5 +4,5 @@ file: services.yaml
 since: 5.1.4
 
 add:
-    services:
-        Symfony\Component\DependencyInjection\ContainerInterface: '@service_container'
+  services:
+    Symfony\Component\DependencyInjection\ContainerInterface: '@service_container'

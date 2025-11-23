@@ -21,15 +21,15 @@ secret: '%env(APP_SECRET)%'
 #    list_format: true  # Run `bin/console cache:list-format; bin/console bolt:update-list-format` to clear and rebuild these
 
 caching:
-    related_options: ~
-    canonical: ~
-    formatter: ~
-    selectoptions: ~
-    content_array: ~
-    frontend_menu: ~
-    backend_menu: ~
-    files_index: ~
-    list_format: false # Run `bin/console cache:list-format; bin/console bolt:update-list-format` to clear and rebuild these
+  related_options: ~
+  canonical: ~
+  formatter: ~
+  selectoptions: ~
+  content_array: ~
+  frontend_menu: ~
+  backend_menu: ~
+  files_index: ~
+  list_format: false # Run `bin/console cache:list-format; bin/console bolt:update-list-format` to clear and rebuild these
 
 # The theme to use.
 #
@@ -54,11 +54,11 @@ omit_backgrounds: true
 omit_meta_generator_tag: false
 
 headers:
-    # Allow of Google's FLoC by setting this to `true` (defaults to `false` for opt-out)
-    # https://github.com/symfony/symfony/pull/40989
-    allow-floc: false
-    # Add Bolt's "Powered By" (defaults to `true`)
-    powered_by: true
+  # Allow of Google's FLoC by setting this to `true` (defaults to `false` for opt-out)
+  # https://github.com/symfony/symfony/pull/40989
+  allow-floc: false
+  # Add Bolt's "Powered By" (defaults to `true`)
+  powered_by: true
 
 # If your site is reachable under different urls (say, both blog.example.org/
 # as well as example.org/), its a good idea to set one of these as the
@@ -143,10 +143,10 @@ listing_sort: datepublish DESC
 # with {% setcontent %}. E.g. /pages?order=id and /pages?title--like=voluptat
 # Useful for search.
 query_search:
-    # Enables filtering.
-    enable: true
-    # If true, query params with empty values will be ignored.
-    ignore_empty: false
+  # Enables filtering.
+  enable: true
+  # If true, query params with empty values will be ignored.
+  ignore_empty: false
 
 # Maximum amount of items to show in a `<select>` for picking a record. For
 # example in `type: select`.
@@ -173,11 +173,11 @@ records_per_page: 8
 # Note: If you change these values, you might need to clear the cache before
 #       they show up.
 thumbnails:
-    default_thumbnail: [ 320, 240 ]
-    default_image: [ 1000, 750 ]
-    default_cropping: crop
-    quality: 80
-    save_files: true
+  default_thumbnail: [ 320, 240 ]
+  default_image: [ 1000, 750 ]
+  default_cropping: crop
+  quality: 80
+  save_files: true
 
 # File permissions for read/write/execute to set on folders and files that are
 # created. The exact permissions you should be setting depends on the system
@@ -188,8 +188,8 @@ thumbnails:
 # - If they're in the same group, use use `0o775` for folders and `0o664` for files.
 # - If you don't know, or you can't make it work otherwise, then use `0o777` for folders and `0o666` for files.
 filepermissions:
-    folders: 0o775
-    files: 0o664
+  folders: 0o775
+  files: 0o664
 
 # Define the HTML tags and attributes that are allowed in cleaned HTML. This
 # is used for sanitizing HTML, to make sure there are no undesirable elements
@@ -199,13 +199,13 @@ filepermissions:
 # the allowed tags. For example, if you set `images: true`, the `<img>` tag
 # will be allowed, regardless of it being in the `allowed_tags` setting.
 htmlcleaner:
-    allowed_tags: [ div, span, p, br, hr, s, u, strong, em, i, b, li, ul, ol, mark, blockquote, cite, pre, code, tt, h1, h2, h3, h4, h5, h6, dd, dl, dt, table, tbody, thead, tfoot, th, td, tr, a, img, address, abbr, iframe, caption, sub, sup, figure, figcaption, article, section, small ]
-    allowed_attributes: [ id, class, style, name, value, href, src, alt, title, width, height, frameborder, allowfullscreen, scrolling, target, colspan, rowspan, rel, download, hreflang ]
-    allowed_frame_targets: [ _blank, _self, _parent, _top ]
+  allowed_tags: [ div, span, p, br, hr, s, u, strong, em, i, b, li, ul, ol, mark, blockquote, cite, pre, code, tt, h1, h2, h3, h4, h5, h6, dd, dl, dt, table, tbody, thead, tfoot, th, td, tr, a, img, address, abbr, iframe, caption, sub, sup, figure, figcaption, article, section, small ]
+  allowed_attributes: [ id, class, style, name, value, href, src, alt, title, width, height, frameborder, allowfullscreen, scrolling, target, colspan, rowspan, rel, download, hreflang ]
+  allowed_frame_targets: [ _blank, _self, _parent, _top ]
 
 # Define the file types (extensions to be exact) that are acceptable for upload
 # in either file fields or through the files screen.
-accept_file_types: [ yaml, twig, html, js, css, scss, gif, jpg, jpeg, png, ico, zip, tgz, txt, md, doc, docx, pdf, epub, xls, xlsx, ppt, pptx, mp3, ogg, wav, m4a, mp4, m4v, ogv, wmv, avi, webm, svg, webp, avif]
+accept_file_types: [ yaml, twig, html, js, css, scss, gif, jpg, jpeg, png, ico, zip, tgz, txt, md, doc, docx, pdf, epub, xls, xlsx, ppt, pptx, mp3, ogg, wav, m4a, mp4, m4v, ogv, wmv, avi, webm, svg, webp, avif ]
 
 # Alternatively, if you wish to limit these, uncomment the following list
 # instead. It just includes file types / extensions that are harder to exploit.
@@ -223,12 +223,12 @@ upload_location: "{contenttype}/{year}/{month}/"
 # Options to use with curl requests.
 # For all options, check the official curl documentation here https://curl.haxx.se/libcurl/c/curl_easy_setopt.html
 curl_options:
-    verify_peer: false
+  verify_peer: false
 
 # Various settings about Bolt's built-in localization features.
 localization:
-    fallback_when_missing: true # When set to true, fields with empty values will fallback to the default locale's value.
-    remove_default_locale_on_canonical: true # When set to true removes locale prefix on default locale canonical URLs
+  fallback_when_missing: true # When set to true, fields with empty values will fallback to the default locale's value.
+  remove_default_locale_on_canonical: true # When set to true removes locale prefix on default locale canonical URLs
 
 # Define the seed used to generated the test data
 # Used in <bolt-core>/src/DataFixtures/ContentFixtures.php
@@ -236,21 +236,21 @@ fixtures_seed: 87654
 
 # Globally enable / disable the validator for Fields
 validator_options:
-    enable: true
+  enable: true
 
 # Options for user's avatar
 user_avatar:
-    upload_path: avatars
-    extensions_allowed: ['png', 'jpeg', 'jpg', 'gif']
-    default_avatar: '' # Put path of file locate in files directory
+  upload_path: avatars
+  extensions_allowed: [ 'png', 'jpeg', 'jpg', 'gif' ]
+  default_avatar: '' # Put path of file locate in files directory
 
 # Settings for the reset password logic
 reset_password_settings:
-    show_already_requested_password_notice: true
-    mail_from: "do-not-reply@example.org"
-    mail_name: "Bolt CMS"
-    mail_subject: "Your password reset request"
-    mail_template: "reset_password/email.html.twig"
+  show_already_requested_password_notice: true
+  mail_from: "do-not-reply@example.org"
+  mail_name: "Bolt CMS"
+  mail_subject: "Your password reset request"
+  mail_template: "reset_password/email.html.twig"
 
 # Adds sorting and filtering of users in backend
 user_show_sort&filter: true
