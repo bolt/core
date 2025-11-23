@@ -18,11 +18,8 @@ class TimedPublishSubscriber implements EventSubscriberInterface
 
     public const PRIORITY = 30;
 
-    /** @var object */
-    private $defaultConnection;
-
-    /** @var string */
-    private $tablePrefix;
+    private object $defaultConnection;
+    private string $tablePrefix;
 
     public function __construct($tablePrefix, ManagerRegistry $managerRegistry)
     {

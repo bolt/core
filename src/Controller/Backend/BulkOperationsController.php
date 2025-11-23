@@ -24,9 +24,7 @@ class BulkOperationsController extends AbstractController implements BackendZone
 {
     use CsrfTrait;
 
-    /** @var ObjectManager */
-    private $em;
-
+    private ?ObjectManager $em = null;
     private ?Request $request;
 
     public function __construct(
@@ -39,11 +37,7 @@ class BulkOperationsController extends AbstractController implements BackendZone
 
     public function em(): ObjectManager
     {
-        if ($this->em === null) {
-            $this->em = $this->managerRegistry->getManager();
-        }
-
-        return $this->em;
+        return $this->em ??= $this->managerRegistry->getManager();
     }
 
     #[Route(path: '/bulk/status/{status}', name: 'bolt_bulk_status', methods: [Request::METHOD_POST])]

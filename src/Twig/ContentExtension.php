@@ -662,7 +662,7 @@ class ContentExtension extends AbstractExtension
         return $this->sanitiser->clean($html);
     }
 
-    public function record(int $id)
+    public function record(int $id): ?Content
     {
         return $this->contentRepository->findOneBy(['id' => $id]);
     }

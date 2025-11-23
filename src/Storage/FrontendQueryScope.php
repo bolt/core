@@ -17,8 +17,7 @@ use Bolt\Storage\Directive\OrderDirective;
  */
 class FrontendQueryScope implements QueryScopeInterface
 {
-    /** @var array */
-    protected $orderBys = [];
+    protected array $orderBys = [];
 
     public function __construct(
         protected Config $config,
@@ -56,7 +55,7 @@ class FrontendQueryScope implements QueryScopeInterface
     public function onQueryExecute(QueryInterface $query): void
     {
         // todo: Is this ever used? or even needed!
-        if (empty($query->getQueryBuilder()->getParameter('orderBy'))) {
+        if (null === $query->getQueryBuilder()->getParameter('orderBy')) {
             $this->directiveHandler->handle(OrderDirective::NAME, [$query, $this->getOrder($query)]);
         }
 

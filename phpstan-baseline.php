@@ -3368,12 +3368,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Repository/FieldRepository.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\Repository\\\\FieldRepository\\:\\:getQueryBuilder\\(\\) has no return type specified\\.$#',
-	'identifier' => 'missingType.return',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Repository/FieldRepository.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Method Bolt\\\\Repository\\\\LogRepository\\:\\:createPaginator\\(\\) has parameter \\$query with generic class Doctrine\\\\ORM\\\\Query but does not specify its types\\: TKey, TResult$#',
 	'identifier' => 'missingType.generics',
 	'count' => 1,
@@ -3384,12 +3378,6 @@ $ignoreErrors[] = [
 	'identifier' => 'missingType.iterableValue',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Repository/RelationRepository.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\Repository\\\\UserRepository\\:\\:findUsers\\(\\) has no return type specified\\.$#',
-	'identifier' => 'missingType.return',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Repository/UserRepository.php',
 ];
 $ignoreErrors[] = [
 	'message' => '#^Class Bolt\\\\Security\\\\AdminApiVoter extends generic class Symfony\\\\Component\\\\Security\\\\Core\\\\Authorization\\\\Voter\\\\Voter but does not specify its types\\: TAttribute, TSubject$#',
@@ -4426,12 +4414,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'message' => '#^Method Bolt\\\\Twig\\\\ContentExtension\\:\\:pager\\(\\) has parameter \\$records with generic class Pagerfanta\\\\Pagerfanta but does not specify its types\\: T$#',
 	'identifier' => 'missingType.generics',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Twig/ContentExtension.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\Twig\\\\ContentExtension\\:\\:record\\(\\) has no return type specified\\.$#',
-	'identifier' => 'missingType.return',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Twig/ContentExtension.php',
 ];

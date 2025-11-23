@@ -15,9 +15,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class UserFixtures extends BaseFixture implements FixtureGroupInterface
 {
     private bool $append = false;
-
-    /** @var array */
-    private $allUsers = [];
+    private array $allUsers = [];
 
     public function __construct(
         private readonly UserPasswordHasherInterface $passwordHasher,
