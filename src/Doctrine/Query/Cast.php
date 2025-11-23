@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Doctrine\Query;
 
 use Doctrine\DBAL\Platforms\MySQLPlatform;
-use Doctrine\DBAL\Platforms\SqlitePlatform;
+use Doctrine\DBAL\Platforms\SQLitePlatform;
 use Doctrine\ORM\Query\AST\Functions\FunctionNode;
 use Doctrine\ORM\Query\AST\Node;
 use Doctrine\ORM\Query\Parser;
@@ -35,7 +35,7 @@ class Cast extends FunctionNode
             }
         }
 
-        if ($platform instanceof SqlitePlatform && $this->second === 'TEXT') {
+        if ($platform instanceof SQLitePlatform && $this->second === 'TEXT') {
             $this->second = 'CHAR';
         }
 

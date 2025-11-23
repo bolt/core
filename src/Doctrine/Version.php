@@ -6,11 +6,9 @@ namespace Bolt\Doctrine;
 
 use Bolt\Common\Str;
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\Platforms\MariaDb1027Platform;
-use Doctrine\DBAL\Platforms\MySQL57Platform;
 use Doctrine\DBAL\Platforms\MySQLPlatform;
 use Doctrine\DBAL\Platforms\PostgreSQLPlatform;
-use Doctrine\DBAL\Platforms\SqlitePlatform;
+use Doctrine\DBAL\Platforms\SQLitePlatform;
 use Exception;
 use PDO;
 use PDOException;
@@ -84,14 +82,8 @@ readonly class Version
     {
         $platform = $this->connection->getDatabasePlatform();
 
-        if ($platform instanceof SqlitePlatform) {
+        if ($platform instanceof SQLitePlatform) {
             return $this->hasSQLiteJSONSupport();
-        }
-
-        // TODO: remove when switching to dbal4
-        // MySQL80Platform is implicitly included with MySQL57Platform
-        if ($platform instanceof MySQL57Platform || $platform instanceof MariaDb1027Platform) {
-            return true;
         }
 
         // Corner case where MySQL platform is not specialized.

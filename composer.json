@@ -18,7 +18,7 @@
         "composer/composer": "^2.0",
         "composer/package-versions-deprecated": "^1.11",
         "doctrine/data-fixtures": "^2.0",
-        "doctrine/dbal": "^3.10",
+        "doctrine/dbal": "^4.0",
         "doctrine/doctrine-bundle": "^2.7",
         "doctrine/doctrine-fixtures-bundle": "^4.3",
         "doctrine/doctrine-migrations-bundle": "^3.2",
