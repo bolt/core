@@ -20,7 +20,7 @@
         "doctrine/data-fixtures": "^2.0",
         "doctrine/dbal": "^3.10",
         "doctrine/doctrine-bundle": "^2.7",
-        "doctrine/doctrine-fixtures-bundle": "^3.4",
+        "doctrine/doctrine-fixtures-bundle": "^4.3",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/lexer": "^3",
         "doctrine/orm": "^3.5",
