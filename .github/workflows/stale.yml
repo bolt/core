@@ -25,7 +25,6 @@ jobs:
         with:
           sort-by: updated
           ascending: true # Start with ascending to process oldest items first
-          debug-only: true # Start in debug first, to see what would happen
           days-before-stale: 60
           days-before-close: 30
           exempt-all-milestones: true
