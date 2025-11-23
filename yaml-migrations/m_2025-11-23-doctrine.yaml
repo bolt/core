@@ -1,0 +1,7 @@
+file: packages/doctrine.yaml
+since: 6.0.0
+
+add:
+  doctrine:
+    dbal:
+      use_savepoints: true

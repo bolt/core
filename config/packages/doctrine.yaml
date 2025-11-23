@@ -9,6 +9,7 @@ doctrine:
   dbal:
     charset: utf8mb4
     url: '%env(resolve:DATABASE_URL)%'
+    use_savepoints: true
     
     # For SQLite
     # driver: 'pdo_sqlite'
