@@ -20,7 +20,7 @@ use ReflectionClass;
  */
 class FieldDiscriminatorListener
 {
-    private MappingDriver $mappingDriver;
+    private readonly MappingDriver $mappingDriver;
 
     /** The temporary map used for one run, when computing everything */
     private array $tempMap = [];

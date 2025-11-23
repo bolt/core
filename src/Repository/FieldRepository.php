@@ -30,7 +30,7 @@ class FieldRepository extends ServiceEntityRepository
         self::$em = $em;
     }
 
-    private function getQueryBuilder(?QueryBuilder $qb = null)
+    private function getQueryBuilder(?QueryBuilder $qb = null): QueryBuilder
     {
         return $qb ?: $this->createQueryBuilder('field');
     }
@@ -124,7 +124,7 @@ class FieldRepository extends ServiceEntityRepository
         $classname = ucwords($type) . 'Field';
 
         $classes = array_map(
-            fn (ClassMetadata $entity) => $entity->getName(),
+            fn (ClassMetadata $entity): string => $entity->getName(),
             self::$em->getMetadataFactory()->getAllMetadata()
         );
 
