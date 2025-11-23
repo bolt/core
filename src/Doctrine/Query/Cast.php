@@ -11,14 +11,12 @@ use Doctrine\ORM\Query\AST\Node;
 use Doctrine\ORM\Query\Parser;
 use Doctrine\ORM\Query\SqlWalker;
 use Doctrine\ORM\Query\TokenType;
+use RuntimeException;
 
 class Cast extends FunctionNode
 {
-    /** @var Node|string */
-    protected $first;
-
-    /** @var string */
-    protected $second;
+    protected Node|string $first;
+    protected string $second;
 
     public function getSql(SqlWalker $sqlWalker): string
     {
@@ -55,7 +53,7 @@ class Cast extends FunctionNode
         $this->first = $parser->ArithmeticPrimary();
         $parser->match(TokenType::T_AS);
         $parser->match(TokenType::T_IDENTIFIER);
-        $this->second = $parser->getLexer()->token->value;
+        $this->second = $parser->getLexer()->token->value ?? throw new RuntimeException('Missing second CAST token');
         $parser->match(TokenType::T_CLOSE_PARENTHESIS);
     }
 }
