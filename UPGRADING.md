@@ -14,7 +14,13 @@ Next to that, Symfony will be dropping dev/test/prod folders in favour of the `w
 
 As migrations heavily depend on the used database and were incomplete to begin with, we have dropped database migrations from this application. Instead, we will be offering a migration path or example migrations in these notes.
 
-In order to upgrade, you will need to squash your existing migrations. You can follow this guide, which is based on https://jolicode.com/blog/a-new-way-to-squash-your-doctrine-migrations.
+In order to upgrade, you will need to squash your existing migrations. You can follow this guide, which is based on https://jolicode.com/blog/a-new-way-to-squash-your-doctrine-migrations. Also, please make sure that you have your own migration configuration looking like the following in `config/packages/doctrine_migrations.yml`:
+```yaml
+doctrine_migrations:
+  migrations_paths:
+    DoctrineMigrations: '%kernel.project_dir%/migrations'
+  enable_profiler: '%kernel.debug%'
+```
 
 1. Remove any migration you made yourself
 2. Validate that your database is in sync with the code by running `bin/console doctrine:migrations:diff`. If any migrations are generated, inspect them for correctness (changes to the used Doctrine version might have caused changes) and keep the files. The following migrations are to be expected from Bolt itself (when using MySQL):

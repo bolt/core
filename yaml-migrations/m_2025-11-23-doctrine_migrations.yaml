@@ -1,0 +1,7 @@
+file: packages/doctrine_migrations.yaml
+since: 6.0.0
+
+remove:
+    doctrine_migrations:
+        migrations_paths:
+            'Bolt\DoctrineMigrations': ~
