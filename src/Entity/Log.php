@@ -22,7 +22,7 @@ class Log
     #[ORM\Column(name: 'message', type: Types::TEXT)]
     private string $message = '';
 
-    #[ORM\Column(name: 'context', type: Types::ARRAY, nullable: true)]
+    #[ORM\Column(name: 'context', type: Types::JSON, nullable: true)]
     private ?array $context = null;
 
     #[ORM\Column(name: 'level', type: Types::SMALLINT)]
@@ -34,16 +34,16 @@ class Log
     #[ORM\Column(name: 'created_at', type: Types::DATETIME_MUTABLE)]
     private DateTime $createdAt;
 
-    #[ORM\Column(name: 'extra', type: Types::ARRAY, nullable: true)]
+    #[ORM\Column(name: 'extra', type: Types::JSON, nullable: true)]
     private ?array $extra = null;
 
-    #[ORM\Column(name: '`user`', type: Types::ARRAY, nullable: true)]
+    #[ORM\Column(name: '`user`', type: Types::JSON, nullable: true)]
     private ?array $user = null;
 
     #[ORM\Column(type: Types::INTEGER, nullable: true)]
     private ?int $content = null;
 
-    #[ORM\Column(name: 'location', type: Types::ARRAY, nullable: true)]
+    #[ORM\Column(name: 'location', type: Types::JSON, nullable: true)]
     private ?array $location = null;
 
     public function __construct()
