@@ -8,6 +8,7 @@ use Bolt\Doctrine\Version;
 use Doctrine\DBAL\Platforms\SQLitePlatform;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query\Expr;
+use Doctrine\ORM\Query\Expr\Func;
 
 class FieldQueryUtils
 {
@@ -51,9 +52,9 @@ class FieldQueryUtils
 
     public function getNumericCastExpression(string $left): string
     {
-        $expression = (new Expr())->substring($left, 3, (new Expr())->length($left)->__toString() . ' - 4')->__toString();
+        $expression = new Func('SUBSTRING', [$left, 3, (new Expr())->length($left)->__toString() . ' - 4']);
 
-        return 'CAST(' . $expression . ' as decimal)';
+        return 'CAST(' . $expression->__toString() . ' as decimal)';
     }
 
     public function isSqlite(): bool

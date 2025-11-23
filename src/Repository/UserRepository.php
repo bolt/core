@@ -33,15 +33,15 @@ class UserRepository extends ServiceEntityRepository
         if (filter_var($username, FILTER_VALIDATE_EMAIL)) {
             $qb->andWhere(
                 $qb->expr()->eq(
-                    $qb->expr()->lower('user.email'),
-                    $qb->expr()->lower(':username')
+                    (string) $qb->expr()->lower('user.email'),
+                    (string) $qb->expr()->lower(':username')
                 )
             );
         } else {
             $qb->andWhere(
                 $qb->expr()->eq(
-                    $qb->expr()->lower('user.username'),
-                    $qb->expr()->lower(':username')
+                    (string) $qb->expr()->lower('user.username'),
+                    (string) $qb->expr()->lower(':username')
                 )
             );
         }
