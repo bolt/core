@@ -1,0 +1,7 @@
+file: packages/framework.yaml
+since: 6.0.0
+
+remove:
+  framework:
+    validation:
+      enable_annotations: ~
