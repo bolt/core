@@ -1,62 +1,57 @@
 name: Accessibility (a11y) Tests
 
 on:
-    workflow_dispatch:
-    # Disabled, as they are currently broken. See #3531
-    # pull_request:
+  pull_request:
 
 jobs:
-    a11y_tests:
-        strategy:
-            fail-fast: false
-            matrix:
-                php-version: ['8.2']
-                node-version: ['20']
-                actions:
-                    -
-                        name: Run pa11yci
-                        run: npm run a11y:ci
+  a11y_tests:
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version: [ '8.4' ]
+        node-version: [ '20' ]
 
-        name: ${{ matrix.actions.name }}
-        runs-on: ubuntu-latest
+    name: ${{ matrix.actions.name }}
+    runs-on: ubuntu-latest
+    env:
+      APP_ENV: prod
+    steps:
+      - uses: actions/checkout@v4
 
-        steps:
-            -   uses: actions/checkout@v4
-
-            # see https://github.com/actions/starter-workflows/blob/main/ci/node.js.yml
-            -
-                name: Use Node.js ${{ matrix.node-version }}
-                uses: actions/setup-node@v4
-                with:
-                    node-version: ${{ matrix.node-version }}
-                    coverage: none
-            -   uses: shivammathur/setup-php@v2
-                with:
-                    # test the lowest version, to make sure checks pass on it
-                    php-version: ${{ matrix.php-version }}
-                    extensions: json, mbstring, pdo, curl, pdo_sqlite
-                    coverage: none
-                    tools: symfony-cli, composer:v2.8
-                env:
-                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            -   name: Install composer dependencies
-                run: composer install --prefer-dist --no-progress
-            -   name: Show Bolt info
-                run: ./bin/console bolt:info --ansi
-            -   name: Install NPM dependencies
-                run: npm ci
-            -   name: Prepare environment
-                run: |
-                    # build assets	
-                    npm run build
-                    sudo chmod -R 777 config/ public/files/ public/theme/ public/thumbs/ var/	
-                    # prepare web server for e2e tests	
-                    ./bin/console doctrine:database:create	
-                    ./bin/console doctrine:schema:create	
-                    ./bin/console doctrine:fixtures:load --group=without-images -n
-                    symfony server:start --no-tls --port=8088 -d
-                    # test if web server works	
-                    sleep 3	
-                    curl --silent --show-error --fail "http://127.0.0.1:8088/bolt/login"
-
-            -   run: ${{ matrix.actions.run }}
+      # see https://github.com/actions/starter-workflows/blob/main/ci/node.js.yml
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+      - uses: shivammathur/setup-php@v2
+        with:
+          # test the lowest version, to make sure checks pass on it
+          php-version: ${{ matrix.php-version }}
+          extensions: json, mbstring, pdo, curl, pdo_sqlite
+          coverage: none
+          tools: symfony-cli, composer:v2.8
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install composer dependencies
+        run: composer install --prefer-dist --no-progress
+      - name: Show Bolt info
+        run: ./bin/console bolt:info --ansi
+      - name: Install NPM dependencies
+        run: npm ci
+      - name: Prepare environment
+        run: |
+          # Disable AppArmor to be able to run browser
+          echo 0 | sudo tee /proc/sys/kernel/apparmor_restrict_unprivileged_userns
+          # Build assets
+          npm run build
+          sudo chmod -R 777 config/ public/files/ public/theme/ public/thumbs/ var/
+          # Prepare web server for e2e tests
+          ./bin/console doctrine:database:create
+          ./bin/console doctrine:schema:create
+          ./bin/console doctrine:fixtures:load --group=without-images -n
+          symfony server:start --no-tls --port=8088 -d
+          # Test whether web server works
+          sleep 3
+          curl --silent --show-error --fail-with-body "http://127.0.0.1:8088/bolt/login"
+      - name: Run pa11yci
+        run: npm run a11y:test:all

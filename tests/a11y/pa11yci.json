@@ -1,7 +1,7 @@
 {
     "defaults": {
-        "threshold": 39,
-        "concurrency": 1
+        "concurrency": 1,
+        "useIncognitoBrowserContext": false
     },
     "urls": [
         {
@@ -13,22 +13,27 @@
                 "wait for url to be http://127.0.0.1:8088/bolt/"
             ]
         },
-        "127.0.0.1:8088/bolt/",
-        "127.0.0.1:8088/bolt/content/showcases",
-        "127.0.0.1:8088/bolt/new/showcases",
-        "127.0.0.1:8088/bolt/edit/1",
-        "127.0.0.1:8088/bolt/edit_locales/1",
-        "127.0.0.1:8088/bolt/kitchensink",
-        "127.0.0.1:8088/bolt/logviewer",
-        "127.0.0.1:8088/bolt/filemanager/files",
-        "127.0.0.1:8088/bolt/media/new",
-        "127.0.0.1:8088/bolt/menu/filemanagement",
-        "127.0.0.1:8088/bolt/file-edit/config?file=/bolt/taxonomy.yaml",
-        "127.0.0.1:8088/bolt/users",
-        "127.0.0.1:8088/bolt/user-edit/1",
-        "127.0.0.1:8088/bolt/profile-edit",
-        "127.0.0.1:8088/bolt/extensions",
-        "127.0.0.1:8088/bolt/extensions/AcmeCorp%5CReferenceExtension%5CExtension",
-        "127.0.0.1:8088/bolt/clearcache"
+        { "url": "127.0.0.1:8088/bolt/"},
+        { "url": "127.0.0.1:8088/bolt/content/showcases"},
+        { "url": "127.0.0.1:8088/bolt/new/showcases", "threshold": 113 },
+        { "url": "127.0.0.1:8088/bolt/edit/1", "threshold": 29 },
+        { "url": "127.0.0.1:8088/bolt/edit_locales/1" },
+        { "url": "127.0.0.1:8088/bolt/kitchensink", "threshold": 5 },
+        { "url": "127.0.0.1:8088/bolt/logviewer"},
+        { "url": "127.0.0.1:8088/bolt/filemanager/files", "threshold": 14 },
+        { "url": "127.0.0.1:8088/bolt/media/new", "threshold": 13 },
+        { "url": "127.0.0.1:8088/bolt/menu/filemanagement"},
+        {
+            "url": "127.0.0.1:8088/bolt/file-edit/config?file=/bolt/taxonomy.yaml",
+            "threshold": 2
+        },
+        { "url": "127.0.0.1:8088/bolt/users"},
+        { "url": "127.0.0.1:8088/bolt/user-edit/1", "threshold": 11 },
+        { "url": "127.0.0.1:8088/bolt/profile-edit", "threshold": 1 },
+        { "url": "127.0.0.1:8088/bolt/extensions"},
+        {
+            "url": "127.0.0.1:8088/bolt/extensions/AcmeCorp%5CReferenceExtension%5CExtension"
+        },
+        { "url": "127.0.0.1:8088/bolt/clearcache" }
     ]
 }
