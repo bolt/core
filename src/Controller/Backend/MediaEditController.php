@@ -44,9 +44,9 @@ class MediaEditController extends TwigAwareController implements BackendZoneInte
     }
 
     #[Route(path: '/media/edit/{id}', name: 'bolt_media_edit_post', methods: [Request::METHOD_POST])]
-    public function save(?Media $media = null): Response
+    public function save(Request $request, ?Media $media = null): Response
     {
-        $this->validateCsrf('media_edit');
+        $this->validateCsrf($request, 'media_edit');
 
         $post = $this->getRequest()->request->all();
 
@@ -69,11 +69,11 @@ class MediaEditController extends TwigAwareController implements BackendZoneInte
     }
 
     #[Route(path: '/media/new', name: 'bolt_media_new', methods: [Request::METHOD_GET])]
-    public function new(): RedirectResponse
+    public function new(Request $request): RedirectResponse
     {
-        $fileLocation = $this->getFromRequest('location', 'files');
+        $fileLocation = $this->getFromRequest($request, 'location', 'files');
         $basepath = $this->fileLocations->get($fileLocation)->getBasepath();
-        $file = '/' . $this->getFromRequest('file');
+        $file = '/' . $this->getFromRequest($request, 'file');
         $filename = $basepath . $file;
 
         $relPath = Path::getDirectory('/' . $file);

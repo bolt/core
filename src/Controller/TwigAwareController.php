@@ -15,6 +15,7 @@ use Bolt\TemplateChooser;
 use Bolt\Twig\CommonExtension;
 use Bolt\Utils\Sanitiser;
 use Illuminate\Support\Collection;
+use Pagerfanta\PagerfantaInterface;
 use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Asset\Packages;
@@ -22,7 +23,6 @@ use Symfony\Component\Asset\PathPackage;
 use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Contracts\Service\Attribute\Required;
@@ -37,7 +37,6 @@ class TwigAwareController extends AbstractController
     protected Packages $packages;
     protected Canonical $canonical;
     protected Sanitiser $sanitiser;
-    protected ?Request $request;
     protected TemplateChooser $templateChooser;
     protected string $defaultLocale;
     private CommonExtension $commonExtension;
@@ -49,7 +48,6 @@ class TwigAwareController extends AbstractController
         Packages $packages,
         Canonical $canonical,
         Sanitiser $sanitiser,
-        RequestStack $requestStack,
         TemplateChooser $templateChooser,
         string $defaultLocale,
         CommonExtension $commonExtension
@@ -59,7 +57,6 @@ class TwigAwareController extends AbstractController
         $this->packages = $packages;
         $this->canonical = $canonical;
         $this->sanitiser = $sanitiser;
-        $this->request = $requestStack->getCurrentRequest();
         $this->templateChooser = $templateChooser;
         $this->defaultLocale = $defaultLocale;
         $this->commonExtension = $commonExtension;
@@ -67,10 +64,8 @@ class TwigAwareController extends AbstractController
 
     /**
      * Renders a view.
-     *
-     * @param string|array $template
      */
-    public function render($template, array $parameters = [], ?Response $response = null): Response
+    public function render(string|array $template, array $parameters = [], ?Response $response = null): Response
     {
         // Make sure we have a Response
         $response ??= new Response();
@@ -99,7 +94,7 @@ class TwigAwareController extends AbstractController
     /**
      * Renders a single record.
      */
-    public function renderSingle(?Content $record, bool $requirePublished = true, array $templates = []): Response
+    public function renderSingle(Request $request, ?Content $record, bool $requirePublished = true, array $templates = []): Response
     {
         if (! $record) {
             throw new NotFoundHttpException('Content not found');
@@ -110,14 +105,18 @@ class TwigAwareController extends AbstractController
             throw new NotFoundHttpException('Content is not published');
         }
 
+        if (! $recordDefinition = $record->getDefinition()) {
+            throw new NotFoundHttpException('Content definition could not be found');
+        }
+
         // If the ContentType is 'viewless' we also throw a 404.
-        if (($record->getDefinition()->get('viewless') === true) && $requirePublished) {
+        if (($recordDefinition->get('viewless') === true) && $requirePublished) {
             throw new NotFoundHttpException('Content is not viewable');
         }
 
         // If the locale is the wrong locale
-        if (! $this->validLocaleForContentType($record->getDefinition())) {
-            return $this->redirectToDefaultLocale();
+        if (! $this->validLocaleForContentType($request, $recordDefinition)) {
+            return $this->redirectToDefaultLocale($request);
         }
 
         $singularSlug = $record->getContentTypeSingularSlug();
@@ -138,9 +137,8 @@ class TwigAwareController extends AbstractController
         return $this->render($templates, $context);
     }
 
-    protected function validLocaleForContentType(ContentType $contentType): bool
+    protected function validLocaleForContentType(Request $request, ContentType $contentType): bool
     {
-        $request = $this->getRequest();
         if ($contentType->isKeyNotEmpty('locales')) {
             return $contentType->get('locales')->contains($request->getLocale());
         }
@@ -148,9 +146,8 @@ class TwigAwareController extends AbstractController
         return $request->getLocale() === $this->defaultLocale;
     }
 
-    protected function redirectToDefaultLocale(): ?Response
+    protected function redirectToDefaultLocale(Request $request): ?Response
     {
-        $request = $this->getRequest();
         $request->getSession()->set('_locale', $this->defaultLocale);
 
         $params = $request->attributes->get('_route_params');
@@ -207,8 +204,10 @@ class TwigAwareController extends AbstractController
 
     /**
      * Renders a template, with theme support.
+     *
+     * @param string|array<null|string|TemplateselectField> $template
      */
-    public function renderTemplate($template, array $parameters = []): string
+    public function renderTemplate(string|array $template, array $parameters = []): string
     {
         $this->setThemePackage();
         $this->setTwigLoader();
@@ -216,7 +215,7 @@ class TwigAwareController extends AbstractController
         // Resolve string|array of templates into the first one that is found.
         if (is_array($template)) {
             $templates = (new Collection($template))
-                ->map(function ($element): ?string {
+                ->map(function (null|string|TemplateselectField $element): ?string {
                     if ($element instanceof TemplateselectField) {
                         return $element->__toString();
                     }
@@ -231,56 +230,59 @@ class TwigAwareController extends AbstractController
         return $this->twig->render($template, $parameters);
     }
 
-    public function createPager(Query $query, string $contentType, int $pageSize, string $order)
+    /**
+     * @return PagerfantaInterface<Content>
+     */
+    public function createPager(Request $request, Query $query, string $contentType, int $pageSize, string $order): PagerfantaInterface
     {
         return $query
-            ->getContentForTwig($contentType, $this->createPagerParams($order))
+            ->getContentForTwig($contentType, $this->createPagerParams($request, $order))
             ->setMaxPerPage($pageSize);
     }
 
-    public function createPagerParams(string $order): array
+    public function createPagerParams(Request $request, string $order): array
     {
         $params = [
             'status' => '!unknown',
             'returnmultiple' => true,
         ];
 
-        if ($this->request?->get('sortBy')) {
-            $params['order'] = $this->getFromRequest('sortBy');
+        if ($request->get('sortBy')) {
+            $params['order'] = $this->getFromRequest($request, 'sortBy');
         } else {
             $params['order'] = $order;
         }
 
-        if ($this->request?->get('filter')) {
-            $key = $this->request->get('filterKey', 'anyField');
-            $params[$key] = '%' . $this->getFromRequest('filter') . '%';
+        if ($request->get('filter')) {
+            $key = $request->get('filterKey', 'anyField');
+            $params[$key] = '%' . $this->getFromRequest($request, 'filter') . '%';
         }
 
-        if ($this->request?->get('taxonomy')) {
-            $taxonomy = explode('=', (string) $this->getFromRequest('taxonomy'));
+        if ($request->get('taxonomy')) {
+            $taxonomy = explode('=', (string) $this->getFromRequest($request, 'taxonomy'));
             $params[$taxonomy[0]] = $taxonomy[1];
         }
 
         return $params;
     }
 
-    public function getFromRequestRaw(string $parameter): string
+    public function getFromRequestRaw(Request $request, string $parameter): string
     {
-        return $this->request?->get($parameter) ?? '';
+        return $request->get($parameter) ?? '';
     }
 
-    public function getFromRequest(string $parameter, ?string $default = null): ?string
+    public function getFromRequest(Request $request, string $parameter, ?string $default = null): ?string
     {
-        $parameter = mb_trim($this->sanitiser->clean($this->request?->get($parameter, '') ?? ''));
+        $parameter = mb_trim($this->sanitiser->clean($request->get($parameter, '') ?? ''));
 
         // `clean` returns a string, but we want to be able to get `null`.
         return empty($parameter) ? $default : $parameter;
     }
 
-    public function getFromRequestArray(array $parameters, ?string $default = null): ?string
+    public function getFromRequestArray(Request $request, array $parameters, ?string $default = null): ?string
     {
         foreach ($parameters as $parameter) {
-            $res = $this->getFromRequest($parameter);
+            $res = $this->getFromRequest($request, $parameter);
 
             if (! empty($res)) {
                 return $res;

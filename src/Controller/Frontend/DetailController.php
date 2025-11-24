@@ -30,10 +30,10 @@ class DetailController extends TwigAwareController implements FrontendZoneInterf
         'contentTypeSlug' => '%bolt.requirement.contenttypes%',
         '_locale' => '%app_locales%',
     ], methods: [Request::METHOD_GET, Request::METHOD_POST])]
-    public function record($slugOrId, ?string $contentTypeSlug = null, bool $requirePublished = true, ?string $_locale = null): Response
+    public function record(Request $request, $slugOrId, ?string $contentTypeSlug = null, bool $requirePublished = true, ?string $_locale = null): Response
     {
-        if ($_locale === null && ! $this->getFromRequest('_locale')) {
-            $this->request?->setLocale($this->defaultLocale);
+        if ($_locale === null && ! $this->getFromRequest($request, '_locale')) {
+            $request->setLocale($this->defaultLocale);
         }
 
         // Check if there's a record with given `$slugOrId` as slug (might be a numeric slug)
@@ -48,20 +48,20 @@ class DetailController extends TwigAwareController implements FrontendZoneInterf
         $this->contentHelper->setCanonicalPath($record);
 
         // Check if we're attempting to preview an unpublished Record
-        if ($record && $this->validateSecret($this->request?->get('secret') ?? '', (string) $record->getId())) {
+        if ($record && $this->validateSecret($request->get('secret') ?? '', (string) $record->getId())) {
             $requirePublished = false;
         }
 
-        return $this->renderSingle($record, $requirePublished);
+        return $this->renderSingle($request, $record, $requirePublished);
     }
 
-    public function contentByFieldValue(string $contentTypeSlug, string $field, string $value, bool $requirePublished = true): Response
+    public function contentByFieldValue(Request $request, string $contentTypeSlug, string $field, string $value, bool $requirePublished = true): Response
     {
         $contentType = ContentType::factory($contentTypeSlug, $this->config->get('contenttypes'));
         $record = $this->contentRepository->findOneByFieldValue($field, $value, $contentType);
 
         $this->contentHelper->setCanonicalPath($record);
 
-        return $this->renderSingle($record);
+        return $this->renderSingle($request, $record);
     }
 }

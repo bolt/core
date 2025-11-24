@@ -84,6 +84,10 @@ doctrine_migrations:
 
 This should work on your production environment as well when you are running the `doctrine:migrations:migrate` on deployment, but as always we recommend to make a backup before trying the upgrade.
 
+## Interface updates
+
+- `DetailControllerInterface::record` has been updated to include the request as parameter.
+
 ## Widget updates
 
 The following widgets were replaced:

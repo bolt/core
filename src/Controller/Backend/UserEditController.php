@@ -119,11 +119,11 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
 
     #[Route(path: '/user-status/{id}', name: 'bolt_user_update_status', requirements: ['id' => '\d+'], methods: [Request::METHOD_GET, Request::METHOD_POST])]
     #[IsGranted(attribute: 'user:status')] // -- first check, more detailed checks in method
-    public function status(User $user): Response
+    public function status(Request $request, User $user): Response
     {
-        $this->validateCsrf('useredit');
+        $this->validateCsrf($request, 'useredit');
 
-        $newStatus = $this->request?->get('status') ?? UserStatus::DISABLED;
+        $newStatus = $request->get('status') ?? UserStatus::DISABLED;
 
         $user->setStatus($newStatus);
         $this->addFlash('success', 'user.updated_successfully');
@@ -138,9 +138,9 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
 
     #[Route(path: '/user-delete/{id}', name: 'bolt_user_delete', requirements: ['id' => '\d+'], methods: [Request::METHOD_GET, Request::METHOD_POST])]
     #[IsGranted(attribute: 'user:delete')]
-    public function delete(User $user): Response
+    public function delete(Request $request, User $user): Response
     {
-        $this->validateCsrf('useredit');
+        $this->validateCsrf($request, 'useredit');
 
         $this->em->remove($user);
         $contentArray = $this->em->getRepository(Content::class)->findBy(['author' => $user]);

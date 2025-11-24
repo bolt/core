@@ -31,10 +31,10 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
         'contentTypeSlug' => '%bolt.requirement.contenttypes%',
         '_locale' => '%app_locales%',
     ], methods: [Request::METHOD_GET, Request::METHOD_POST])]
-    public function listing(ContentRepository $contentRepository, string $contentTypeSlug, ?string $_locale = null): Response
+    public function listing(Request $request, ContentRepository $contentRepository, string $contentTypeSlug, ?string $_locale = null): Response
     {
         $request = $this->getRequest();
-        if ($_locale === null && ! $this->getFromRequest('_locale')) {
+        if ($_locale === null && ! $this->getFromRequest($request, '_locale')) {
             $request->setLocale($this->defaultLocale);
         }
 
@@ -46,11 +46,11 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
         }
 
         // If the locale is the wrong locale
-        if (! $this->validLocaleForContentType($contentType)) {
-            return $this->redirectToDefaultLocale();
+        if (! $this->validLocaleForContentType($request, $contentType)) {
+            return $this->redirectToDefaultLocale($request);
         }
 
-        $page = (int) $this->getFromRequest('page', '1');
+        $page = (int) $this->getFromRequest($request, 'page', '1');
         $amountPerPage = $contentType->get('listing_records');
         $params = $this->parseQueryParams($request, $contentType);
 

@@ -39,11 +39,11 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
     }
 
     #[Route(path: '/file-edit/{location}', name: 'bolt_file_edit', methods: [Request::METHOD_GET])]
-    public function edit(string $location): Response
+    public function edit(Request $request, string $location): Response
     {
         $this->denyAccessUnlessGranted('managefiles:' . $location);
 
-        $file = $this->getFromRequest('file');
+        $file = $this->getFromRequest($request, 'file');
         $basepath = $this->config->getPath($location);
 
         $filename = PathCanonicalize::canonicalize($basepath, $file);
@@ -61,16 +61,16 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
     }
 
     #[Route(path: '/file-edit/{location}', name: 'bolt_file-edit_post', requirements: ['file' => '.+'], methods: [Request::METHOD_POST])]
-    public function save(UrlGeneratorInterface $urlGenerator): Response
+    public function save(Request $request, UrlGeneratorInterface $urlGenerator): Response
     {
-        $this->validateCsrf('editfile');
+        $this->validateCsrf($request, 'editfile');
 
-        $file = $this->getFromRequest('file');
-        $locationName = $this->getFromRequest('location');
+        $file = $this->getFromRequest($request, 'file');
+        $locationName = $this->getFromRequest($request, 'location');
 
         $this->denyAccessUnlessGranted('managefiles:' . $locationName);
 
-        $contents = $this->getFromRequestRaw('editfile');
+        $contents = $this->getFromRequestRaw($request, 'editfile');
         $extension = Path::getExtension($file);
 
         $basepath = $this->config->getPath($locationName);
@@ -110,10 +110,10 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
     }
 
     #[Route(path: '/file-delete/', name: 'bolt_file_delete', methods: [Request::METHOD_GET, Request::METHOD_POST])]
-    public function handleDelete(): Response
+    public function handleDelete(Request $request): Response
     {
         try {
-            $this->validateCsrf('file-delete');
+            $this->validateCsrf($request, 'file-delete');
         } catch (InvalidCsrfTokenException $e) {
             return new JsonResponse([
                 'error' => [
@@ -122,11 +122,11 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
             ], Response::HTTP_FORBIDDEN);
         }
 
-        $locationName = $this->getFromRequest('location', '');
+        $locationName = $this->getFromRequest($request, 'location', '');
 
         $this->denyAccessUnlessGranted('managefiles:' . $locationName);
 
-        $path = $this->getFromRequest('path', '');
+        $path = $this->getFromRequest($request, 'path', '');
 
         $media = $this->mediaRepository->findOneByFullFilename($path, $locationName);
 
@@ -156,10 +156,10 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
     }
 
     #[Route(path: '/file-duplicate/', name: 'bolt_file_duplicate', methods: [Request::METHOD_GET, Request::METHOD_POST])]
-    public function handleDuplicate(): Response
+    public function handleDuplicate(Request $request): Response
     {
         try {
-            $this->validateCsrf('file-duplicate');
+            $this->validateCsrf($request, 'file-duplicate');
         } catch (InvalidCsrfTokenException $e) {
             return new JsonResponse([
                 'error' => [
@@ -168,11 +168,11 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
             ], Response::HTTP_FORBIDDEN);
         }
 
-        $locationName = $this->getFromRequest('location', '');
+        $locationName = $this->getFromRequest($request, 'location', '');
 
         $this->denyAccessUnlessGranted('managefiles:' . $locationName);
 
-        $path = $this->getFromRequest('path', '');
+        $path = $this->getFromRequest($request, 'path', '');
 
         $originalFilepath = PathCanonicalize::canonicalize($locationName, $path);
 

@@ -39,13 +39,13 @@ class FilemanagerController extends TwigAwareController implements BackendZoneIn
     }
 
     #[Route(path: '/filemanager/{location}', name: 'bolt_filemanager', methods: [Request::METHOD_GET])]
-    public function filemanager(string $location): Response
+    public function filemanager(Request $request, string $location): Response
     {
         $session = $this->requestStack->getSession();
 
         $this->denyAccessUnlessGranted('managefiles:' . $location);
 
-        $path = $this->getFromRequest('path', '');
+        $path = $this->getFromRequest($request, 'path', '');
         if (Str::endsWith($path, '/') === false) {
             $path .= '/';
         }
@@ -53,11 +53,11 @@ class FilemanagerController extends TwigAwareController implements BackendZoneIn
             $path = '/' . $path;
         }
 
-        if ($this->getFromRequest('view')) {
-            $view = $this->getFromRequest('view') === 'cards' ? 'cards' : 'list';
+        if ($this->getFromRequest($request, 'view')) {
+            $view = $this->getFromRequest($request, 'view') === 'cards' ? 'cards' : 'list';
             $session->set('filemanager_view', $view);
         } else {
-            $view = $this->getFromRequest('filemanager_view', 'list');
+            $view = $this->getFromRequest($request, 'filemanager_view', 'list');
         }
 
         $location = $this->fileLocations->get($location);
@@ -65,7 +65,7 @@ class FilemanagerController extends TwigAwareController implements BackendZoneIn
         $finder = $this->findFiles($location->getBasepath(), $path);
         $folders = $this->findFolders($location->getBasepath(), $path);
 
-        $currentPage = (int) $this->getFromRequest('page', '1');
+        $currentPage = (int) $this->getFromRequest($request, 'page', '1');
         $pager = $this->createPaginator($finder, $currentPage);
 
         $parent = $path !== '/' ? Path::canonicalize($path . '/..') : '';
@@ -83,10 +83,10 @@ class FilemanagerController extends TwigAwareController implements BackendZoneIn
     }
 
     #[Route(path: '/filemanager-actions/delete/', name: 'bolt_filemanager_delete', methods: [Request::METHOD_GET, Request::METHOD_POST])]
-    public function delete(): Response
+    public function delete(Request $request): Response
     {
         try {
-            $this->validateCsrf('filemanager-delete');
+            $this->validateCsrf($request, 'filemanager-delete');
         } catch (InvalidCsrfTokenException) {
             return new JsonResponse([
                 'error' => [
@@ -95,8 +95,8 @@ class FilemanagerController extends TwigAwareController implements BackendZoneIn
             ], Response::HTTP_FORBIDDEN);
         }
 
-        $path = $this->getFromRequest('path');
-        $location = $this->getFromRequest('location');
+        $path = $this->getFromRequest($request, 'path');
+        $location = $this->getFromRequest($request, 'location');
 
         $this->denyAccessUnlessGranted('managefiles:' . $location);
 
@@ -116,16 +116,16 @@ class FilemanagerController extends TwigAwareController implements BackendZoneIn
         }
 
         return $this->redirectToRoute('bolt_filemanager', [
-            'location' => $this->getFromRequest('location'),
+            'location' => $this->getFromRequest($request, 'location'),
             'path' => Path::canonicalize($path . '/..'),
         ]);
     }
 
     #[Route(path: '/filemanager-actions/create', name: 'bolt_filemanager_create', methods: [Request::METHOD_POST])]
-    public function create(): Response
+    public function create(Request $request): Response
     {
         try {
-            $this->validateCsrf('filemanager-create');
+            $this->validateCsrf($request, 'filemanager-create');
         } catch (InvalidCsrfTokenException) {
             return new JsonResponse([
                 'error' => [
@@ -134,8 +134,8 @@ class FilemanagerController extends TwigAwareController implements BackendZoneIn
             ], Response::HTTP_FORBIDDEN);
         }
 
-        $path = $this->getFromRequest('path') . $this->getFromRequest('folderName');
-        $location = $this->getFromRequest('location');
+        $path = $this->getFromRequest($request, 'path') . $this->getFromRequest($request, 'folderName');
+        $location = $this->getFromRequest($request, 'location');
 
         $this->denyAccessUnlessGranted('managefiles:' . $location);
 
@@ -156,7 +156,7 @@ class FilemanagerController extends TwigAwareController implements BackendZoneIn
         }
 
         return $this->redirectToRoute('bolt_filemanager', [
-            'location' => $this->getFromRequest('location'),
+            'location' => $this->getFromRequest($request, 'location'),
             'path' => Path::canonicalize($path . '/..'),
         ]);
     }

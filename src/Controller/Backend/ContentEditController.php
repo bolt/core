@@ -39,6 +39,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
@@ -67,7 +68,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
     }
 
     #[Route(path: '/new/{contentType}', name: 'bolt_content_new', methods: [Request::METHOD_GET, Request::METHOD_POST])]
-    public function new(string $contentType, ?ContentValidatorInterface $contentValidator = null): Response
+    public function new(Request $request, string $contentType, ?ContentValidatorInterface $contentValidator = null): Response
     {
         $content = new Content();
 
@@ -82,31 +83,31 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
 
         $this->contentFillListener->fillContent($content);
 
-        if ($this->request?->getMethod() === 'POST') {
+        if ($request->getMethod() === 'POST') {
             $content->setPublishedAt(null);
             $content->setDepublishedAt(null);
 
-            return $this->save($content, $contentValidator);
+            return $this->save($request, $content, $contentValidator);
         }
 
-        return $this->edit($content);
+        return $this->edit($request, $content);
     }
 
     #[Route(path: '/edit/{id}', name: 'bolt_content_edit', requirements: ['id' => '\d+'], methods: [Request::METHOD_GET])]
-    public function edit(Content $content): Response
+    public function edit(Request $request, Content $content): Response
     {
         $this->denyAccessUnlessGranted(ContentVoter::CONTENT_EDIT, $content);
 
         $event = new ContentEvent($content);
         $this->dispatcher->dispatch($event, ContentEvent::ON_EDIT);
 
-        return $this->renderEditor($content);
+        return $this->renderEditor($request, $content);
     }
 
     #[Route(path: '/edit/{id}', name: 'bolt_content_edit_post', requirements: ['id' => '\d+'], methods: [Request::METHOD_POST])]
-    public function save(?Content $originalContent = null, ?ContentValidatorInterface $contentValidator = null): Response
+    public function save(Request $request, ?Content $originalContent = null, ?ContentValidatorInterface $contentValidator = null): Response
     {
-        $this->validateCsrf('editrecord');
+        $this->validateCsrf($request, 'editrecord');
 
         // pre-check on original content, store properties for later comparison
         if ($originalContent !== null) {
@@ -154,7 +155,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
             if (count($constraintViolations) > 0) {
                 $this->addFlash('danger', 'content.validation_errors');
 
-                return $this->renderEditor($content, $constraintViolations);
+                return $this->renderEditor($request, $content, $constraintViolations);
             }
         }
 
@@ -173,7 +174,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
 
         $urlParams = [
             'id' => $content->getId(),
-            'edit_locale' => $this->getEditLocale($content) ?: null,
+            'edit_locale' => $this->getEditLocale($request, $content) ?: null,
         ];
         $url = $this->urlGenerator->generate('bolt_content_edit', $urlParams);
 
@@ -183,7 +184,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         $locale = $originalAuthor->getLocale();
 
         // If we're "Saving Ajaxy"
-        if ($this->request?->isXmlHttpRequest()) {
+        if ($request->isXmlHttpRequest()) {
             $modified = sprintf(
                 '(%s: %s)',
                 $this->translator->trans('field.modifiedAt', [], null, $locale),
@@ -211,7 +212,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
     }
 
     #[Route(path: '/duplicate/{id}', name: 'bolt_content_duplicate', requirements: ['id' => '\d+'], methods: [Request::METHOD_GET])]
-    public function duplicate(Content $content): Response
+    public function duplicate(Request $request, Content $content): Response
     {
         $this->denyAccessUnlessGranted(ContentVoter::CONTENT_CREATE, $content);
 
@@ -231,7 +232,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         $twigvars = [
             'record' => $content,
             'locales' => $content->getLocales(),
-            'currentlocale' => $this->getEditLocale($content),
+            'currentlocale' => $this->getEditLocale($request, $content),
             'defaultlocale' => $this->defaultLocale,
         ];
 
@@ -239,21 +240,21 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
     }
 
     #[Route(path: '/duplicate/{id}', name: 'bolt_content_duplicate_post', requirements: ['id' => '\d+'], methods: [Request::METHOD_POST])]
-    public function duplicateSave(?Content $content = null): Response
+    public function duplicateSave(Request $request, ?Content $content = null): Response
     {
         $this->denyAccessUnlessGranted(ContentVoter::CONTENT_CREATE, $content);
 
-        return $this->new($content->getContentType());
+        return $this->new($request, $content->getContentType() ?? throw new NotFoundHttpException());
     }
 
     #[Route(path: '/status/{id}', name: 'bolt_content_status', requirements: ['id' => '\d+'], methods: [Request::METHOD_GET])]
-    public function status(Content $content): Response
+    public function status(Request $request, Content $content): Response
     {
-        $this->validateCsrf('status');
+        $this->validateCsrf($request, 'status');
 
         $this->denyAccessUnlessGranted(ContentVoter::CONTENT_CHANGE_STATUS, $content);
 
-        $content->setStatus($this->getFromRequest('status'));
+        $content->setStatus($this->getFromRequest($request, 'status'));
 
         $event = new ContentEvent($content);
         $this->dispatcher->dispatch($event, ContentEvent::PRE_STATUS_CHANGE);
@@ -273,9 +274,9 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
     }
 
     #[Route(path: '/delete/{id}', name: 'bolt_content_delete', requirements: ['id' => '\d+'], methods: [Request::METHOD_GET])]
-    public function delete(Content $content): Response
+    public function delete(Request $request, Content $content): Response
     {
-        $this->validateCsrf('delete');
+        $this->validateCsrf($request, 'delete');
 
         $this->denyAccessUnlessGranted(ContentVoter::CONTENT_DELETE, $content);
 
@@ -616,9 +617,9 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         }
     }
 
-    private function getEditLocale(Content $content): string
+    private function getEditLocale(Request $request, Content $content): string
     {
-        $locale = $this->getFromRequest('edit_locale', '');
+        $locale = $this->getFromRequest($request, 'edit_locale', '');
         $locales = $content->getLocales();
 
         if ($locales->contains($locale) === false) {
@@ -637,13 +638,13 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         return $post['_edit_locale'] ?? null;
     }
 
-    private function renderEditor(Content $content, $errors = null): Response
+    private function renderEditor(Request $request, Content $content, $errors = null): Response
     {
         $twigvars = [
             'record' => $content,
             'locales' => $content->getLocales(),
             'defaultlocale' => $this->defaultLocale,
-            'currentlocale' => $this->getEditLocale($content),
+            'currentlocale' => $this->getEditLocale($request, $content),
         ];
 
         if ($errors) {

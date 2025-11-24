@@ -1256,12 +1256,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Controller/Backend/ContentEditController.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Parameter \\#1 \\$contentType of method Bolt\\\\Controller\\\\Backend\\\\ContentEditController\\:\\:new\\(\\) expects string, string\\|null given\\.$#',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Controller/Backend/ContentEditController.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Parameter \\#1 \\$status of method Bolt\\\\Entity\\\\Content\\:\\:setStatus\\(\\) expects string, string\\|null given\\.$#',
 	'identifier' => 'argument.type',
 	'count' => 1,
@@ -1568,20 +1562,8 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Controller/ImageController.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Cannot call method get\\(\\) on Bolt\\\\Configuration\\\\Content\\\\ContentType\\|null\\.$#',
-	'identifier' => 'method.nonObject',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Controller/TwigAwareController.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Cannot call method setMaxPerPage\\(\\) on Bolt\\\\Entity\\\\Content\\|Pagerfanta\\\\Pagerfanta\\|null\\.$#',
 	'identifier' => 'method.nonObject',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Controller/TwigAwareController.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\Controller\\\\TwigAwareController\\:\\:createPager\\(\\) has no return type specified\\.$#',
-	'identifier' => 'missingType.return',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Controller/TwigAwareController.php',
 ];
@@ -1624,18 +1606,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'message' => '#^Method Bolt\\\\Controller\\\\TwigAwareController\\:\\:renderTemplate\\(\\) has parameter \\$parameters with no value type specified in iterable type array\\.$#',
 	'identifier' => 'missingType.iterableValue',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Controller/TwigAwareController.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\Controller\\\\TwigAwareController\\:\\:renderTemplate\\(\\) has parameter \\$template with no type specified\\.$#',
-	'identifier' => 'missingType.parameter',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Controller/TwigAwareController.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Parameter \\#1 \\$contentType of method Bolt\\\\Controller\\\\TwigAwareController\\:\\:validLocaleForContentType\\(\\) expects Bolt\\\\Configuration\\\\Content\\\\ContentType, Bolt\\\\Configuration\\\\Content\\\\ContentType\\|null given\\.$#',
-	'identifier' => 'argument.type',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Controller/TwigAwareController.php',
 ];

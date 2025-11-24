@@ -29,9 +29,9 @@ class PreviewController extends TwigAwareController implements FrontendZoneInter
     }
 
     #[Route(path: '/preview/{id}', name: 'bolt_content_edit_preview', requirements: ['id' => '\d+'], methods: [Request::METHOD_POST])]
-    public function preview(?Content $content = null): Response
+    public function preview(Request $request, ?Content $content = null): Response
     {
-        $this->validateCsrf('editrecord');
+        $this->validateCsrf($request, 'editrecord');
 
         $content = $this->contentEditController->contentFromPost($content);
         $this->denyAccessUnlessGranted(ContentVoter::CONTENT_VIEW, $content);
@@ -39,7 +39,7 @@ class PreviewController extends TwigAwareController implements FrontendZoneInter
         $event = new ContentEvent($content);
         $this->dispatcher->dispatch($event, ContentEvent::ON_PREVIEW);
 
-        return $this->renderSingle($content, false);
+        return $this->renderSingle($request, $content, false);
     }
 
     #[Route(path: '/preview/{id}', name: 'bolt_content_edit_get', requirements: ['id' => '\d+'], methods: [Request::METHOD_GET])]

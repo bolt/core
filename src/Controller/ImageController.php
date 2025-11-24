@@ -10,77 +10,71 @@ use League\Glide\Server;
 use League\Glide\ServerFactory;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Throwable;
 
 class ImageController
 {
-    /** @var Server */
-    private $server;
-
+    private Server $server;
     private array $parameters = [];
-    private readonly ?Request $request;
 
     public function __construct(
-        private readonly Config $config,
-        RequestStack $requestStack
+        private readonly Config $config
     ) {
-        $this->request = $requestStack->getCurrentRequest();
     }
 
     #[Route(path: '/thumbs/{paramString}/{filename}', name: 'thumbnail', requirements: ['filename' => '.+'], methods: [Request::METHOD_GET])]
-    public function thumbnail(string $paramString, string $filename): Response
+    public function thumbnail(Request $request, string $paramString, string $filename): Response
     {
         if (! $this->isImage($filename)) {
             return $this->sendErrorImage();
         }
 
         $this->parseParameters($paramString);
-        $this->createServer();
-        $this->saveAsFile($paramString, $filename);
+        $this->createServer($request);
+        $this->saveAsFile($request, $paramString, $filename);
 
-        return $this->buildResponse($filename);
+        return $this->buildResponse($request, $filename);
     }
 
-    private function createServer(): void
+    private function createServer(Request $request): void
     {
         $this->server = ServerFactory::create([
             'response' => new SymfonyResponseFactory(),
-            'source' => $this->getPath(),
-            'cache' => $this->getPath('cache', true, 'thumbnails'),
+            'source' => $this->getPath($request),
+            'cache' => $this->getPath($request, 'cache', true, 'thumbnails'),
         ]);
     }
 
-    private function getLocation(): string
+    private function getLocation(Request $request): string
     {
         return $this->parameters['location']
-            ?? $this->request?->query->getString('location', 'files') ?? 'files';
+            ?? $request->query->getString('location', 'files') ?? 'files';
     }
 
-    private function getPath(?string $path = null, bool $absolute = true, $additional = null): string
+    private function getPath(Request $request, ?string $path = null, bool $absolute = true, $additional = null): string
     {
         if (! $path) {
-            $path = $this->getLocation();
+            $path = $this->getLocation($request);
         }
 
         return $this->config->getPath($path, $absolute, $additional);
     }
 
-    private function saveAsFile(string $paramString, string $filename): void
+    private function saveAsFile(Request $request, string $paramString, string $filename): void
     {
         if (! $this->config->get('general/thumbnails/save_files', true)) {
             return;
         }
 
         $filesystem = new Filesystem();
-        $filePath = sprintf('%s%s%s%s%s', $this->getPath('thumbs'), DIRECTORY_SEPARATOR, $paramString, DIRECTORY_SEPARATOR, $filename);
+        $filePath = sprintf('%s%s%s%s%s', $this->getPath($request, 'thumbs'), DIRECTORY_SEPARATOR, $paramString, DIRECTORY_SEPARATOR, $filename);
         $folderMode = $this->config->get('general/filepermissions/folders', 0775);
         $fileMode = $this->config->get('general/filepermissions/files', 0664);
 
         try {
-            $imageBlob = $this->buildImage($filename);
+            $imageBlob = $this->buildImage($request, $filename);
             $filesystem->mkdir(dirname($filePath), $folderMode);
             $filesystem->dumpFile($filePath, $imageBlob);
             $filesystem->chmod($filePath, $fileMode);
@@ -89,17 +83,17 @@ class ImageController
         }
     }
 
-    private function buildImage(string $filename): string
+    private function buildImage(Request $request, string $filename): string
     {
-        // In case we're trying to "thumbnail" an svg, just return the whole thing.
+        // In case we're trying to "thumbnail" a svg, just return the whole thing.
         if ($this->isSvg($filename)) {
-            $filepath = sprintf('%s%s%s', $this->getPath(), DIRECTORY_SEPARATOR, $filename);
+            $filepath = sprintf('%s%s%s', $this->getPath($request), DIRECTORY_SEPARATOR, $filename);
 
             return file_get_contents($filepath);
         }
 
-        if ($this->request?->query->has('path')) {
-            $filename = sprintf('%s/%s', $this->request->query->getString('path'), $filename);
+        if ($request->query->has('path')) {
+            $filename = sprintf('%s/%s', $request->query->getString('path'), $filename);
         }
 
         $cacheFile = $this->server->makeImage($filename, $this->parameters);
@@ -107,9 +101,9 @@ class ImageController
         return $this->server->getCache()->read($cacheFile);
     }
 
-    private function buildResponse(string $filename): Response
+    private function buildResponse(Request $request, string $filename): Response
     {
-        $filepath = $this->getPath(null, false, $filename);
+        $filepath = $this->getPath($request, null, false, $filename);
 
         if (! (new Filesystem())->exists($filepath)) {
             // $notice = sprintf("The file '%s' does not exist.", $filepath);
@@ -125,8 +119,8 @@ class ImageController
             return $response;
         }
 
-        if ($this->request?->query->has('path')) {
-            $filename = sprintf('%s/%s', $this->request->query->getString('path'), $filename);
+        if ($request->query->has('path')) {
+            $filename = sprintf('%s/%s', $request->query->getString('path'), $filename);
         }
 
         return $this->server->getImageResponse($filename, $this->parameters);

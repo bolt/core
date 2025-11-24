@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
@@ -11,8 +12,7 @@ use Symfony\Contracts\Service\Attribute\Required;
 
 trait CsrfTrait
 {
-    /** @var CsrfTokenManagerInterface */
-    protected $csrfTokenManager;
+    protected CsrfTokenManagerInterface $csrfTokenManager;
 
     #[Required]
     public function setCsrfTokenManager(CsrfTokenManagerInterface $csrfTokenManager): void
@@ -20,9 +20,9 @@ trait CsrfTrait
         $this->csrfTokenManager = $csrfTokenManager;
     }
 
-    protected function validateCsrf(string $tokenId): void
+    protected function validateCsrf(Request $request, string $tokenId): void
     {
-        $token = new CsrfToken($tokenId, $this->request?->get('_csrf_token', $this->request->get('token')));
+        $token = new CsrfToken($tokenId, $request->get('_csrf_token', $request->get('token')));
 
         if (! $this->csrfTokenManager->isTokenValid($token)) {
             throw new InvalidCsrfTokenException();

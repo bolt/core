@@ -16,10 +16,10 @@ class SearchController extends TwigAwareController implements FrontendZoneInterf
 {
     #[Route(path: '/search', name: 'search', methods: [Request::METHOD_GET, Request::METHOD_POST])]
     #[Route(path: '/{_locale}/search', name: 'search_locale', methods: [Request::METHOD_GET, Request::METHOD_POST])]
-    public function search(ContentRepository $contentRepository): Response
+    public function search(Request $request, ContentRepository $contentRepository): Response
     {
-        $page = (int) $this->getFromRequest('page', '1');
-        $searchTerm = $this->getFromRequestArray(['searchTerm', 'search', 'q'], '');
+        $page = (int) $this->getFromRequest($request, 'page', '1');
+        $searchTerm = $this->getFromRequestArray($request, ['searchTerm', 'search', 'q'], '');
         $amountPerPage = (int) $this->config->get('general/search_results_records');
 
         // Just the ContentTypes that have `searchable: true`
