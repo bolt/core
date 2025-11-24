@@ -4,7 +4,7 @@ services:
   _defaults:
     autowire: true
     autoconfigure: true
-    bind: { }
+    bind: {  }
   AcmeCorp\ReferenceExtension\:
     resource: '../vendor/acmecorp/reference-extension/src/*'
     exclude: '../vendor/acmecorp/reference-extension/src/{Entity,Exception}'
