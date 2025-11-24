@@ -70,7 +70,7 @@ doctrine_migrations:
    - Changed column type on `bolt_user.roles` and `bolt_field_translation.value` to native JSON type.
    - If the migration tries to drop the `bolt_password_request` table make sure to remove that action (both in down and up).
 3. If any migrations where generated in the previous step, fully comment the code.
-4. Run `bin/console doctrine:migrations:dump-schema`
+4. Run `bin/console doctrine:migrations:diff --from-empty-schema`
 5. Prepend the following to the up action of the newly generated migration. Make sure that the table name matches your migration versions table.
    ```php
    if ($this->sm->tablesExist(['bolt_field'])) {
