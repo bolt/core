@@ -13,17 +13,17 @@ use Symfony\Component\Routing\Attribute\Route;
 class DashboardController extends TwigAwareController implements BackendZoneInterface
 {
     #[Route(path: '/', name: 'bolt_dashboard', methods: [Request::METHOD_GET])]
-    public function index(Query $query): Response
+    public function index(Request $request, Query $query): Response
     {
         $this->denyAccessUnlessGranted('dashboard');
 
         // TODO PERMISSIONS: implement listing that only lists content that the user is allowed to see
         $amount = (int) $this->config->get('general/records_per_page', 10);
-        $page = (int) ($this->request?->get('page') ?? 1);
+        $page = (int) ($request->get('page') ?? 1);
         $contentTypes = $this->config->get('contenttypes')->where('show_on_dashboard', true)->keys()->implode(',');
-        $filter = strip_tags((string) $this->getFromRequest('filter', ''));
+        $filter = strip_tags((string) $this->getFromRequest($request, 'filter', ''));
 
-        $pager = $this->createPager($query, $contentTypes, $amount, '-modifiedAt');
+        $pager = $this->createPager($request, $query, $contentTypes, $amount, '-modifiedAt');
         $nbPages = $pager->getNbPages();
 
         if ($page > $nbPages) {

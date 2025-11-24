@@ -17,7 +17,7 @@ class HomepageController extends TwigAwareController implements FrontendZoneInte
     #[Route(path: '/{_locale}/', name: 'homepage_locale', requirements: [
         '_locale' => '%app_locales%',
     ], methods: [Request::METHOD_GET, Request::METHOD_POST])]
-    public function homepage(ContentRepository $contentRepository): Response
+    public function homepage(Request $request, ContentRepository $contentRepository): Response
     {
         $homepage = $this->config->get('theme/homepage') ?: $this->config->get('general/homepage');
         $templates = $this->templateChooser->forHomepage();
@@ -55,6 +55,6 @@ class HomepageController extends TwigAwareController implements FrontendZoneInte
             $record = $contentRepository->findOneBy(['contentType' => $homepageTokens[0]]);
         }
 
-        return $this->renderSingle($record, false, $templates);
+        return $this->renderSingle($request, $record, false, $templates);
     }
 }

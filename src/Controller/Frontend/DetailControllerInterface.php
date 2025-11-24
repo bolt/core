@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Frontend;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -11,5 +12,5 @@ use Symfony\Component\HttpFoundation\Response;
  */
 interface DetailControllerInterface
 {
-    public function record($slugOrId, ?string $contentTypeSlug, bool $requirePublished, ?string $_locale): Response;
+    public function record(Request $request, $slugOrId, ?string $contentTypeSlug, bool $requirePublished, ?string $_locale): Response;
 }

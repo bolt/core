@@ -53,7 +53,7 @@ class UploadController extends AbstractController implements AsyncZoneInterface
     public function handleURLUpload(Request $request, ValidatorInterface $validator): Response
     {
         try {
-            $this->validateCsrf('upload');
+            $this->validateCsrf($request, 'upload');
         } catch (InvalidCsrfTokenException $e) {
             return new JsonResponse([
                 'error' => [
@@ -107,7 +107,7 @@ class UploadController extends AbstractController implements AsyncZoneInterface
     public function handleUpload(Request $request): JsonResponse
     {
         try {
-            $this->validateCsrf('upload');
+            $this->validateCsrf($request, 'upload');
         } catch (InvalidCsrfTokenException $e) {
             return new JsonResponse([
                 'error' => [

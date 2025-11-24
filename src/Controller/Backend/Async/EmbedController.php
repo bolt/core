@@ -28,10 +28,10 @@ class EmbedController implements AsyncZoneInterface
     }
 
     #[Route(path: '/embed', name: 'bolt_async_embed', methods: [Request::METHOD_POST])]
-    public function fetchEmbed(): JsonResponse
+    public function fetchEmbed(Request $request): JsonResponse
     {
         try {
-            $this->validateCsrf('editrecord');
+            $this->validateCsrf($request, 'editrecord');
         } catch (InvalidCsrfTokenException $e) {
             return new JsonResponse([
                 'error' => [

@@ -20,9 +20,9 @@ class TaxonomyController extends TwigAwareController implements FrontendZoneInte
         'taxonomyslug' => '%bolt.requirement.taxonomies%',
         '_locale' => '%app_locales%',
     ], methods: [Request::METHOD_GET, Request::METHOD_POST])]
-    public function listing(ContentRepository $contentRepository, string $taxonomyslug, string $slug): Response
+    public function listing(Request $request, ContentRepository $contentRepository, string $taxonomyslug, string $slug): Response
     {
-        $page = (int) $this->getFromRequest('page', '1');
+        $page = (int) $this->getFromRequest($request, 'page', '1');
         $amountPerPage = $this->config->get('general/listing_records');
 
         $taxonomy = TaxonomyType::factory($taxonomyslug, $this->config->get('taxonomies'));
@@ -37,7 +37,7 @@ class TaxonomyController extends TwigAwareController implements FrontendZoneInte
             'taxonomy_locale',
             [
                 'taxonomyslug' => $taxonomy->get('slug'),
-                '_locale' => $this->request?->getLocale() ?? 'en',
+                '_locale' => $request->getLocale(),
                 'slug' => $slug,
             ]
         );
