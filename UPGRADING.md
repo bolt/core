@@ -4,6 +4,8 @@
 
 This release upgrades to Symfony 6.4, so you will need to verify your own implementation. The `sensio/framework-extra-bundle` has been dropped as dependency, so migrate those usages as well, or include the dependency yourself (not recommended).
 
+You will want to update your `bin/console` and `public/index.php` files to leverage the `symfony/runtime` component.
+
 ## Configuration upgrades
 
 Normally we try to migrate your configuration files when possible (and we still do this for a lot of files), but it might fail for you. You can inspect the files in `yaml-migrations` with since `6.0.0` to learn what needs to be done. Afterwards, update your `checkpoint.txt` in that same folder to hold `6.0.0`.
