@@ -14,6 +14,7 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\ErrorHandler\ErrorRenderer\ErrorRendererInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Controller\ErrorController as SymfonyErrorController;
@@ -34,7 +35,8 @@ class ErrorController extends SymfonyErrorController implements ErrorZoneInterfa
         ErrorRendererInterface $errorRenderer,
         private readonly ParameterBagInterface $parameterBag,
         private readonly UrlGeneratorInterface $urlGenerator,
-        private readonly Security $security
+        private readonly Security $security,
+        private readonly RequestStack $requestStack,
     ) {
         parent::__construct($httpKernel, $this->templateController, $errorRenderer);
     }
@@ -43,8 +45,11 @@ class ErrorController extends SymfonyErrorController implements ErrorZoneInterfa
      * Show an exception. Mainly used for custom 404 pages, otherwise falls back
      * to Symfony's error handling
      */
-    public function showAction(Request $request, Environment $twig, Throwable $exception): Response
+    public function showAction(Environment $twig, Throwable $exception): Response
     {
+        // We need the main request here
+        $request = $this->requestStack->getMainRequest();
+
         if (method_exists($exception, 'getStatusCode')) {
             $code = $exception->getStatusCode();
         } else {
