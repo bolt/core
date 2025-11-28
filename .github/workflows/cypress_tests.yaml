@@ -68,7 +68,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-evidence-${{matrix.containers}}
+          name: cypress-evidence
           path: |
             tests/cypress/evidence
             var/log

@@ -11,7 +11,7 @@ jobs:
         php-version: [ '8.4' ]
         node-version: [ '20' ]
 
-    name: ${{ matrix.actions.name }}
+    name: Accessibility Tests (PHP ${{ matrix.php-version }}, Node ${{ matrix.node-version }})
     runs-on: ubuntu-latest
     env:
       APP_ENV: prod
