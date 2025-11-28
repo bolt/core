@@ -161,13 +161,17 @@ class Config
         $value = Arr::get($this->data, $path, $default);
 
         // Basic $_ENV parser, for values like `%env(FOO_BAR)%`
-        if (is_string($value) && preg_match('/%env\(([A-Z0-9_]+)\)%/', $value, $matches)) {
-            if (isset($_ENV[$matches[1]])) {
-                $value = $_ENV[$matches[1]];
+        if (is_string($value) && preg_match('/%env\((default::)?([A-Z0-9_]+)\)%/', $value, $matches)) {
+            if (isset($_ENV[$matches[2]])) {
+                $value = $_ENV[$matches[2]];
             }
 
-            if (empty($value) && getenv($matches[1])) {
-                $value = getenv($matches[1]);
+            if (empty($value) && getenv($matches[2])) {
+                $value = getenv($matches[2]);
+            }
+
+            if ($matches[1] && ! $value) {
+                return $default;
             }
         }
 
