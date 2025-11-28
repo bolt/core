@@ -47,9 +47,6 @@ class ErrorController extends SymfonyErrorController implements ErrorZoneInterfa
      */
     public function showAction(Environment $twig, Throwable $exception): Response
     {
-        // We need the main request here
-        $request = $this->requestStack->getMainRequest();
-
         if (method_exists($exception, 'getStatusCode')) {
             $code = $exception->getStatusCode();
         } else {
@@ -62,24 +59,27 @@ class ErrorController extends SymfonyErrorController implements ErrorZoneInterfa
             // Fine! We'll just _not_ add the exception to the global scope!
         }
 
-        if ($code === Response::HTTP_SERVICE_UNAVAILABLE || $this->isMaintenanceEnabled($code)) {
-            $twig->addGlobal('exception', $exception);
+        // We need the parent request here, but fall back to current if not found
+        if ($request = $this->requestStack->getParentRequest() ?? $this->requestStack->getCurrentRequest()) {
+            if ($code === Response::HTTP_SERVICE_UNAVAILABLE || $this->isMaintenanceEnabled($code)) {
+                $twig->addGlobal('exception', $exception);
 
-            return $this->showMaintenance($request);
-        }
+                return $this->showMaintenance($request);
+            }
 
-        if ($code === Response::HTTP_NOT_FOUND) {
-            return $this->showNotFound($request);
-        }
+            if ($code === Response::HTTP_NOT_FOUND) {
+                return $this->showNotFound($request);
+            }
 
-        if ($code === Response::HTTP_FORBIDDEN) {
-            return $this->showForbidden($request);
-        }
+            if ($code === Response::HTTP_FORBIDDEN) {
+                return $this->showForbidden($request);
+            }
 
-        $prod = mb_strtolower($this->parameterBag->get('kernel.environment')) === 'prod';
+            $prod = mb_strtolower($this->parameterBag->get('kernel.environment')) === 'prod';
 
-        if ($code === Response::HTTP_INTERNAL_SERVER_ERROR && $prod && $this->config->get('general/internal_server_error')) {
-            return $this->showInternalServerError($request);
+            if ($code === Response::HTTP_INTERNAL_SERVER_ERROR && $prod && $this->config->get('general/internal_server_error')) {
+                return $this->showInternalServerError($request);
+            }
         }
 
         // If not a 404, we'll let Symfony handle it as usual.
