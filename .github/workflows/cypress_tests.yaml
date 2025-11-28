@@ -42,6 +42,10 @@ jobs:
           sudo apt-get install ./google-chrome*.deb
       - name: Prepare environment
         run: |
+          # Prepare php assets
+          ./bin/console assets:install --symlink --relative public --ansi
+          ./bin/console bolt:copy-assets --ansi
+
           # build assets
           npm run build
           sudo chmod -R 777 config/ public/files/ public/theme/ public/thumbs/ var/
