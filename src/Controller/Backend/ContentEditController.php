@@ -123,7 +123,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
             $originalAuthor = null;
         }
 
-        $content = $this->contentFromPost($originalContent);
+        $content = $this->contentFromPost($request, $originalContent);
 
         // check again on new/updated content, this is needed in case the save action is used to create a new item
         $this->denyAccessUnlessGranted(ContentVoter::CONTENT_EDIT, $content);
@@ -299,9 +299,8 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
 
     // todo: This function should not be public.
     // It needs to be abstracted into its own class, alongside the other functions it uses.
-    public function contentFromPost(?Content $content): Content
+    public function contentFromPost(Request $request, ?Content $content): Content
     {
-        $request = $this->getRequest();
         $formData = $request->request->all();
         $locale = $this->getPostedLocale($formData) ?: $content->getDefaultLocale();
 

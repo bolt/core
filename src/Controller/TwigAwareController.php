@@ -296,9 +296,4 @@ class TwigAwareController extends AbstractController
     {
         return $secret === $this->commonExtension->generateSecret($slug);
     }
-
-    protected function getRequest(): Request
-    {
-        return $this->request ?? throw new RuntimeException('Request object required');
-    }
 }

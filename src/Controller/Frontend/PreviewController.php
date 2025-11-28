@@ -33,7 +33,7 @@ class PreviewController extends TwigAwareController implements FrontendZoneInter
     {
         $this->validateCsrf($request, 'editrecord');
 
-        $content = $this->contentEditController->contentFromPost($content);
+        $content = $this->contentEditController->contentFromPost($request, $content);
         $this->denyAccessUnlessGranted(ContentVoter::CONTENT_VIEW, $content);
 
         $event = new ContentEvent($content);

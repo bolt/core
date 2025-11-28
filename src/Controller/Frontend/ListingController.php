@@ -33,7 +33,6 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
     ], methods: [Request::METHOD_GET, Request::METHOD_POST])]
     public function listing(Request $request, ContentRepository $contentRepository, string $contentTypeSlug, ?string $_locale = null): Response
     {
-        $request = $this->getRequest();
         if ($_locale === null && ! $this->getFromRequest($request, '_locale')) {
             $request->setLocale($this->defaultLocale);
         }
