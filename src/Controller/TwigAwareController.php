@@ -16,7 +16,6 @@ use Bolt\Twig\CommonExtension;
 use Bolt\Utils\Sanitiser;
 use Illuminate\Support\Collection;
 use Pagerfanta\PagerfantaInterface;
-use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\Asset\PathPackage;
