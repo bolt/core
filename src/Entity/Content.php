@@ -4,10 +4,18 @@ declare(strict_types=1);
 
 namespace Bolt\Entity;
 
-use ApiPlatform\Core\Annotation\ApiFilter;
-use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Annotation\ApiSubresource;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\GraphQl\DeleteMutation;
+use ApiPlatform\Metadata\GraphQl\Mutation;
+use ApiPlatform\Metadata\GraphQl\Query;
+use ApiPlatform\Metadata\GraphQl\QueryCollection;
+use ApiPlatform\Metadata\Put;
+use Bolt\Api\ContentProcessor;
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Entity\Field\Excerptable;
 use Bolt\Entity\Field\ScalarCastable;
@@ -37,28 +45,26 @@ use Twig\Template;
 #[ORM\Index(columns: ['content_type'], name: 'content_type_idx')]
 #[ORM\Index(columns: ['status'], name: 'status_idx')]
 #[ApiResource(
-    collectionOperations: [
-        'get' => ['security' => "is_granted('api:get')"],
-        'post' => ['security' => "is_granted('api:post')"],
+    operations: [
+        new GetCollection(security: 'is_granted("api:get")'),
+        new Get(security: 'is_granted("api:get")'),
+        new Put(security: 'is_granted("api:post")'),
+        new Delete(security: 'is_granted("api:delete")'),
     ],
-    graphql: [
-        'item_query' => ['security' => "is_granted('api:get')"],
-        'collection_query' => ['security' => "is_granted('api:get')"],
-        'create' => ['security' => "is_granted('api:post')"],
-        'delete' => ['security' => "is_granted('api:delete')"],
-    ],
-    itemOperations: [
-        'get' => ['security' => "is_granted('api:get')"],
-        'put' => ['security' => "is_granted('api:post')"],
-        'delete' => ['security' => "is_granted('api:delete')"],
+    normalizationContext: [
+        'groups' => ['get_content'],
     ],
     denormalizationContext: [
         'groups' => ['api_write'],
         'enable_max_depth' => true,
     ],
-    normalizationContext: [
-        'groups' => ['get_content'],
-    ]
+    graphQlOperations: [
+        new Query(security: 'is_granted("api:get")'),
+        new QueryCollection(security: 'is_granted("api:get")'),
+        new Mutation(security: 'is_granted("api:post")', name: 'update_content'),
+        new DeleteMutation(security: 'is_granted("api:delete")', name: 'delete_content'),
+    ],
+    processor: ContentProcessor::class
 )]
 #[ApiFilter(SearchFilter::class)]
 class Content implements Stringable
@@ -111,7 +117,6 @@ class Content implements Stringable
     #[Groups('api_write')]
     #[ORM\OneToMany(mappedBy: 'content', targetEntity: Field::class, cascade: ['persist'], fetch: 'EAGER', orphanRemoval: true, indexBy: 'id')]
     #[ORM\OrderBy(['sortorder' => 'ASC'])]
-    #[ApiSubresource(maxDepth: 1)]
     private Collection $fields;
 
     /** @var Collection<int, Taxonomy> */
@@ -126,7 +131,7 @@ class Content implements Stringable
      *
      * One content has many relations, to and from, these are relations pointing from this content.
      */
-    #[ORM\OneToMany(mappedBy: 'fromContent', targetEntity: Relation::class)]
+    #[ORM\OneToMany(targetEntity: Relation::class, mappedBy: 'fromContent')]
     private Collection $relationsFromThisContent;
 
     /**

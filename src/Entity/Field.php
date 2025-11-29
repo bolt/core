@@ -4,9 +4,18 @@ declare(strict_types=1);
 
 namespace Bolt\Entity;
 
-use ApiPlatform\Core\Annotation\ApiFilter;
-use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\GraphQl\DeleteMutation;
+use ApiPlatform\Metadata\GraphQl\Mutation;
+use ApiPlatform\Metadata\GraphQl\Query;
+use ApiPlatform\Metadata\GraphQl\QueryCollection;
+use ApiPlatform\Metadata\Link;
+use ApiPlatform\Metadata\Put;
 use Bolt\Common\Arr;
 use Bolt\Configuration\Content\FieldType;
 use Bolt\Entity\Translatable\BoltTranslatableInterface;
@@ -32,27 +41,33 @@ use Twig\Markup;
 #[ORM\DiscriminatorColumn(name: 'type', type: Types::STRING, length: 191)]
 #[ORM\DiscriminatorMap(['generic' => 'Field'])]
 #[ApiResource(
-    collectionOperations: [
-        'get' => ['security' => "is_granted('api:get')"],
-        'post' => ['security' => "is_granted('api:post')"],
+    operations: [
+        new GetCollection(security: 'is_granted("api:get")'),
+        new Get(security: 'is_granted("api:get")'),
+        new Put(security: 'is_granted("api:post")'),
+        new Delete(security: 'is_granted("api:delete")'),
     ],
-    graphql: [
-        'item_query' => ['security' => "is_granted('api:get')"],
-        'collection_query' => ['security' => "is_granted('api:get')"],
-        'create' => ['security' => "is_granted('api:post')"],
-        'delete' => ['security' => "is_granted('api:delete')"],
-    ],
-    itemOperations: [
-        'get' => ['security' => "is_granted('api:get')"],
-        'put' => ['security' => "is_granted('api:post')"],
-        'delete' => ['security' => "is_granted('api:delete')"],
-    ],
-    subresourceOperations: [
-        'api_contents_fields_get_subresource' => ['method' => 'GET'],
+    normalizationContext: [
+        'groups' => ['get_field'],
     ],
     denormalizationContext: [
         'groups' => ['api_write'],
         'enable_max_depth' => true,
+    ],
+    graphQlOperations: [
+        new Query(security: 'is_granted("api:get")'),
+        new QueryCollection(security: 'is_granted("api:get")'),
+        new Mutation(security: 'is_granted("api:post")', name: 'update_field'),
+        new DeleteMutation(security: 'is_granted("api:delete")', name: 'delete_field'),
+    ]
+)]
+#[ApiResource(
+    uriTemplate: '/contents/{contentId}/fields.{_format}',
+    operations: [
+        new GetCollection(),
+    ],
+    uriVariables: [
+        'contentId' => new Link(toProperty: 'content', fromClass: Content::class),
     ],
     normalizationContext: [
         'groups' => ['get_field'],

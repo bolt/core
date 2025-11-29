@@ -6,6 +6,7 @@ namespace Bolt\Entity\Translatable;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Serializer\Attribute\Ignore;
 
 /**
  * Should be used inside entity that needs to be translated.
@@ -244,6 +245,7 @@ trait BoltTranslatableTrait
      *
      * @var Collection<string, T>|null
      */
+    #[Ignore]
     protected ?Collection $translations = null;
 
     /**
@@ -253,12 +255,14 @@ trait BoltTranslatableTrait
      *
      * @var Collection<string, T>|null
      */
+    #[Ignore]
     protected ?Collection $newTranslations = null;
 
     /**
      * Default locale as fallback when it is not available in the request.
      * It is a non persisted field set during postLoad event.
      */
+    #[Ignore]
     protected ?string $currentLocale = null;
 
     public function getCurrentLocale(): string
@@ -266,6 +270,7 @@ trait BoltTranslatableTrait
         return $this->currentLocale ?: $this->getDefaultLocale();
     }
 
+    #[Ignore]
     protected string $defaultLocale = 'en';
 
     public function getDefaultLocale(): string
