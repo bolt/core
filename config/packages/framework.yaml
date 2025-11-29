@@ -38,6 +38,8 @@ framework:
   # Override Symfony's error controller, so we can show custom 404's and 503's
   error_controller: Bolt\Controller\ErrorController::showAction
 
+  annotations: false
+
 when@test:
   framework:
     test: true
