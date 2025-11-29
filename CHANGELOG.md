@@ -10,7 +10,7 @@ Make sure to check the [upgrade notes](https://github.com/bolt/core/blob/main/UP
 - Bolt now requires at least PHP 8.2, which is in line with the [supported versions](https://www.php.net/supported-versions.php).
 - We have upgraded to Symfony 6.4! You will need to check your own code for any required changes due to this upgrade, check the Symfony documentation for that!
 - We have also updated our Doctrine versions (data-fixtures ^2.0, dbal ^3.10). You will need to check your own entities and implementation to make sure that your code is compatible with the doctrine related changes.
-- API Platform has been upgraded to version 3. This will have impact on your own implementations, so make sure to check those.
+- API Platform has been upgraded to version 4:. This will have impact on your own implementations, so make sure to check those.
 - Migrations are no longer provided by Bolt. You will need to start managing the migrations yourself and take action to ensure your database remains in sync. Check the upgrade notes for the recommended approach.
 - We have migrated away from annotations and fully adopted attributes. If you are relying on annotations you will need to either re-enable annotation support, or migrate them as well (the latter is the recommended approach). (bobvandevijver, [#3608](https://github.com/bolt/core/issues/3608))
 - We have added the Request object to a lot of method signatures and dropped the RequestStack property (both in controller related classes). You will need to check your implementation if you were relying on those.
