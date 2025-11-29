@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Bolt\Api\Extensions;
 
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Extension\QueryCollectionExtensionInterface;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Extension\QueryItemExtensionInterface;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Util\QueryNameGeneratorInterface;
+use ApiPlatform\Doctrine\Orm\Extension\QueryCollectionExtensionInterface;
+use ApiPlatform\Doctrine\Orm\Extension\QueryItemExtensionInterface;
+use ApiPlatform\Doctrine\Orm\Util\QueryNameGeneratorInterface;
+use ApiPlatform\Metadata\Operation;
 use Bolt\Configuration\Config;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
@@ -33,7 +34,8 @@ final class ContentExtension implements QueryCollectionExtensionInterface, Query
         QueryBuilder $queryBuilder,
         QueryNameGeneratorInterface $queryNameGenerator,
         string $resourceClass,
-        ?string $operationName = null
+        ?Operation $operation = null,
+        array $context = [],
     ): void {
         /*
          * Note: We're not distinguishing between `viewless` and `viewless_listing` here. In the
@@ -55,7 +57,7 @@ final class ContentExtension implements QueryCollectionExtensionInterface, Query
         QueryNameGeneratorInterface $queryNameGenerator,
         string $resourceClass,
         array $identifiers,
-        ?string $operationName = null,
+        ?Operation $operation = null,
         array $context = []
     ): void {
         if ($resourceClass === Content::class) {

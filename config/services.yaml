@@ -181,6 +181,7 @@ services:
     tags:
       - { name: twig.extension }
   
-  Bolt\Api\ContentDataPersister:
-    decorates: 'api_platform.doctrine.orm.data_persister'
-
+  Bolt\Api\ContentProcessor:
+    bind:
+      $persistProcessor: '@api_platform.doctrine.orm.state.persist_processor'
+      $removeProcessor: '@api_platform.doctrine.orm.state.remove_processor'

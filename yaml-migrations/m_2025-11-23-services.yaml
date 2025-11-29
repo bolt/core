@@ -1,0 +1,6 @@
+file: services.yaml
+since: 6.0.0
+
+remove:
+  services:
+    Bolt\Api\ContentDataPersister: ~
