@@ -409,9 +409,6 @@
     "scienta/doctrine-json-functions": {
         "version": "4.1.2"
     },
-    "se/selenium-server-standalone": {
-        "version": "3.141.59"
-    },
     "sebastian/comparator": {
         "version": "3.0.2"
     },
