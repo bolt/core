@@ -4,12 +4,19 @@ describe('As an Admin I want to fill in an filelist', { retries: 0 }, () => {
     it('checks if an admin can fill in an filelist', () => {
         cy.login();
         cy.visit('/bolt/edit/42');
-        cy.get('a[id="files-tab"]').click({ force: true}) ;
+        cy.get('a[id="files-tab"]').click({ force: true });
         cy.get("label[for='field-filelist']").should('contain', 'Filelist');
 
-        cy.get('button[name="file-upload-dropdown"]').eq(1).scrollIntoView();
-        cy.get('button[name="file-upload-dropdown"]').eq(1).click({ force: true}) ;
-        cy.get('button[class="btn dropdown-item"]').find('i[class="fas fa-fw fa-th"]').eq(7).click({ force: true});
+        cy.get('button[name="file-upload-dropdown"]')
+            .eq(1)
+            .scrollIntoView();
+        cy.get('button[name="file-upload-dropdown"]')
+            .eq(1)
+            .click({ force: true });
+        cy.get('button[class="btn dropdown-item"]')
+            .find('i[class="fas fa-fw fa-th"]')
+            .eq(7)
+            .click({ force: true });
 
         // TODO: Re-enable this part, and make it work as expected.
 
@@ -33,7 +40,6 @@ describe('As an Admin I want to fill in an filelist', { retries: 0 }, () => {
         // cy.get('button[id="modalButtonAccept"]').scrollIntoView().trigger('mouseover', { force: true }).click({ force: true });
         // cy.wait(1000);
 
-
         // cy.get('input[name="fields[filelist][4][filename]"]').should('have.value', 'joey.jpg');
 
         // cy.get('.form-fieldsgroup:nth-child(1) > .editor__file .btn-group:nth-child(2) > .btn:nth-child(2)').scrollIntoView();
@@ -51,7 +57,10 @@ describe('As an Admin I want to fill in an filelist', { retries: 0 }, () => {
         // cy.get('button[class="btn btn-success mb-0"]').eq(1).click({ force: true}) ;
 
         //TODO: move checking for elements before saving changes(for some reason it doesn't work)
-        cy.get('.editor-filelist').find('div[class="form-fieldsgroup"]').its('length').should('eq', 4);
+        cy.get('.editor-filelist')
+            .find('div[class="form-fieldsgroup"]')
+            .its('length')
+            .should('eq', 4);
         cy.url().should('contain', '/bolt/edit/42');
     });
 });

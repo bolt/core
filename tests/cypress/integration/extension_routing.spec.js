@@ -5,7 +5,7 @@ describe('I want to see a page, added by an Extension', () => {
         cy.visit('/extensions/reference/Zebedeus');
         cy.get('p').should('contain', 'Hello, Zebedeus');
 
-        cy.visit('/extensions/foo', {failOnStatusCode: false});
+        cy.visit('/extensions/foo', { failOnStatusCode: false });
         cy.get('h1').should('contain', '404 Page not found');
-    })
+    });
 });

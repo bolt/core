@@ -6,5 +6,5 @@ describe('As an Admin I want to use record listing', () => {
         cy.get('a[rel=next]').scrollIntoView();
         cy.get('a[rel=next]').click();
         cy.get('#listing .listing__row .is-details a').should('exist');
-    })
+    });
 });

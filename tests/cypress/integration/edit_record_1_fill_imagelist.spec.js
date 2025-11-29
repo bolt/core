@@ -7,9 +7,16 @@ describe('As an Admin I want to fill in an imagelist', { retries: 0 }, () => {
         cy.get('a[id="media-tab"]').click({ force: true });
         cy.get("label[for='field-imagelist']").should('contain', 'Imagelist');
 
-        cy.get('.editor__imagelist button[name="image-upload-dropdown"]').eq(1).scrollIntoView();
-        cy.get('.editor__imagelist button[name="image-upload-dropdown"]').eq(1).click({ force: true }) ;
-        cy.get('.editor__imagelist button[class="btn dropdown-item"]').find('i[class="fas fa-fw fa-th"]').eq(1).click({ force: true }) ;
+        cy.get('.editor__imagelist button[name="image-upload-dropdown"]')
+            .eq(1)
+            .scrollIntoView();
+        cy.get('.editor__imagelist button[name="image-upload-dropdown"]')
+            .eq(1)
+            .click({ force: true });
+        cy.get('.editor__imagelist button[class="btn dropdown-item"]')
+            .find('i[class="fas fa-fw fa-th"]')
+            .eq(1)
+            .click({ force: true });
 
         // TODO: Re-enable this part, and make it work as expected.
 
@@ -39,7 +46,6 @@ describe('As an Admin I want to fill in an imagelist', { retries: 0 }, () => {
         // cy.get('button[class="btn btn-sm btn-tertiary"]').find('i[class="fas fa-fw fa-chevron-down"]').eq(0).scrollIntoView();
         // cy.get('button[class="btn btn-sm btn-tertiary"]').find('i[class="fas fa-fw fa-chevron-down"]').eq(0).click({ force: true}) ;
 
-
         // cy.get('input[name="fields[imagelist][1][filename]"]').should('have.value', 'kitten2.jpg');
         // cy.get('input[name="fields[imagelist][1][alt]"]').should('have.value', 'Image of a kitten');
         // cy.wait(2000);
@@ -56,7 +62,10 @@ describe('As an Admin I want to fill in an imagelist', { retries: 0 }, () => {
         // cy.get('button[class="btn btn-success mb-0"]').eq(1).click({ force: true}) ;
         // //TODO: move checking for elements before saving changes(for some reason it doesn't work)
 
-        cy.get('.editor__imagelist').find('div[class="form-fieldsgroup"]').its('length').should('eq', 4);
+        cy.get('.editor__imagelist')
+            .find('div[class="form-fieldsgroup"]')
+            .its('length')
+            .should('eq', 4);
         cy.url().should('contain', '/bolt/edit/42');
     });
 });
