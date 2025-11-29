@@ -2,58 +2,10 @@
 
 $ignoreErrors = [];
 $ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\Api\\\\ContentDataPersister\\:\\:persist\\(\\) has parameter \\$context with no value type specified in iterable type array\\.$#',
-	'identifier' => 'missingType.iterableValue',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Api/ContentDataPersister.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\Api\\\\ContentDataPersister\\:\\:persist\\(\\) has parameter \\$data with no type specified\\.$#',
-	'identifier' => 'missingType.parameter',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Api/ContentDataPersister.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\Api\\\\ContentDataPersister\\:\\:remove\\(\\) has parameter \\$context with no value type specified in iterable type array\\.$#',
-	'identifier' => 'missingType.iterableValue',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Api/ContentDataPersister.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\Api\\\\ContentDataPersister\\:\\:remove\\(\\) has parameter \\$data with no type specified\\.$#',
-	'identifier' => 'missingType.parameter',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Api/ContentDataPersister.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\Api\\\\ContentDataPersister\\:\\:supports\\(\\) has parameter \\$context with no value type specified in iterable type array\\.$#',
-	'identifier' => 'missingType.iterableValue',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Api/ContentDataPersister.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\Api\\\\ContentDataPersister\\:\\:supports\\(\\) has parameter \\$data with no type specified\\.$#',
-	'identifier' => 'missingType.parameter',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Api/ContentDataPersister.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Parameter \\#2 \\$contentType of static method Bolt\\\\Configuration\\\\Content\\\\FieldType\\:\\:factory\\(\\) expects Bolt\\\\Configuration\\\\Content\\\\ContentType, Bolt\\\\Configuration\\\\Content\\\\ContentType\\|null given\\.$#',
 	'identifier' => 'argument.type',
 	'count' => 1,
-	'path' => __DIR__ . '/src/Api/ContentDataPersister.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\Api\\\\Extensions\\\\ContentExtension\\:\\:applyToItem\\(\\) has parameter \\$context with no value type specified in iterable type array\\.$#',
-	'identifier' => 'missingType.iterableValue',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Api/Extensions/ContentExtension.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\Api\\\\Extensions\\\\ContentExtension\\:\\:applyToItem\\(\\) has parameter \\$identifiers with no value type specified in iterable type array\\.$#',
-	'identifier' => 'missingType.iterableValue',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Api/Extensions/ContentExtension.php',
+	'path' => __DIR__ . '/src/Api/ContentProcessor.php',
 ];
 $ignoreErrors[] = [
 	'message' => '#^Property Bolt\\\\Api\\\\Extensions\\\\ContentExtension\\:\\:\\$viewlessContentTypes with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#',

@@ -1,0 +1,9 @@
+file: services.yaml
+since: 6.0.0
+
+remove:
+  services:
+    Bolt\Api\ContentProcessor:
+      bind:
+        $persistProcessor: '@api_platform.doctrine.orm.state.persist_processor'
+        $removeProcessor: '@api_platform.doctrine.orm.state.remove_processor'
