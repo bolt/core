@@ -1,40 +1,40 @@
 name: Build assets
 
 on:
-    workflow_dispatch:
-    push:
-        tags:
-            - '*'
+  workflow_dispatch:
+  push:
+    tags:
+      - '*'
 
 env:
   NODE_VERSION: 20
 
 jobs:
-    build_assets:    
-        name: Build asset for production
-        runs-on: ubuntu-latest
+  build_assets:
+    name: Build asset for production
+    runs-on: ubuntu-latest
     
-        steps:
-            -   uses: actions/checkout@v4
-    
-            -   name: Use Node.js ${{ env.NODE_VERSION }}
-                uses: actions/setup-node@v4
-                with:
-                    node-version: ${{ env.NODE_VERSION }}
-    
-            -   name: Install NPM dependencies
-                run: npm ci
-            
-            -   name: Build assets
-                run: |
-                    npm run build
-                    mkdir package
-                    cd package
-                    cp -r ../public/assets .
-                    cp ../package.json ./package.json
+    steps:
+      - uses: actions/checkout@v4
 
-            -   uses: actions/upload-artifact@v4
-                with:
-                    name: assets-${{ github.ref_name }}
-                    path: package
+      - name: Use Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install NPM dependencies
+        run: npm ci
+
+      - name: Build assets
+        run: |
+          npm run build
+          mkdir package
+          cd package
+          cp -r ../public/assets .
+          cp ../package.json ./package.json
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: assets-${{ github.ref_name }}
+          path: package
     

@@ -1,84 +1,93 @@
 name: Code Analysis
 
 on:
-    pull_request: null
-    push:
-        branches:
-            - main
+  pull_request: null
+  push:
+    branches:
+      - main
 
 jobs:
-    rector_analysis:
-        name: Rector analysis
-        runs-on: ubuntu-latest
-        steps:
-            -   uses: actions/checkout@v4
+  rector_analysis:
+    name: Rector analysis
+    runs-on: ubuntu-latest
+    env:
+      PHP_VERSION: 8.4
+    steps:
+      - uses: actions/checkout@v4
 
-            -   uses: shivammathur/setup-php@v2
-                with:
-                    php-version: 8.4
-                    extensions: json, mbstring, pdo, curl, pdo_sqlite
-                    coverage: none
-                    tools: symfony-cli
-                env:
-                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+          extensions: json, mbstring, pdo, curl, pdo_sqlite
+          coverage: none
+          tools: symfony-cli
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-            -   run: composer install --no-progress --ansi
+      - name: Cache Composer dependencies
+        uses: actions/cache@v4
+        with:
+          path: /tmp/composer-cache
+          key: ${{ runner.os }}-${{ env.PHP_VERSION }}-${{ hashFiles('**/composer.json') }}
+      - uses: php-actions/composer@v6
+        with:
+          php_version: ${{ env.PHP_VERSION }}
 
-            -   run: bin/console cache:clear --env=dev
+      - run: bin/console cache:clear --env=dev
 
-            -   run: vendor/bin/rector process -n --no-progress-bar --ansi
+      - run: vendor/bin/rector process -n --no-progress-bar --ansi
 
-    code_analysis:
-        strategy:
-            fail-fast: false
-            matrix:
-                php-version: ['8.2', '8.3', '8.4']
-                actions:
-                    -
-                        name: Coding Standard
-                        # tip: add "--ansi" to commands in CI to make them full of colors
-                        run: vendor/bin/ecs check src --ansi
+  code_analysis:
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version: [ '8.2', '8.3', '8.4' ]
+        actions:
+          - name: Coding Standard
+            # tip: add "--ansi" to commands in CI to make them full of colors
+            run: vendor/bin/ecs check src --ansi
 
-                    -
-                        name: PHPStan
-                        run: vendor/bin/phpstan analyse --ansi
+          - name: PHPStan
+            run: vendor/bin/phpstan analyse --ansi
 
-                    -
-                        name: Check composer.json and composer.lock
-                        run: composer validate --strict --ansi
+          - name: Check composer.json and composer.lock
+            run: composer validate --strict --ansi
 
-                    -
-                        name: Check YAML configs files
-                        run: bin/console lint:yaml config --ansi --parse-tags
+          - name: Check YAML configs files
+            run: bin/console lint:yaml config --ansi --parse-tags
 
-                    -
-                        name: Check TWIG files
-                        run: bin/console lint:twig templates --ansi
+          - name: Check TWIG files
+            run: bin/console lint:twig templates --ansi
 
-                    -
-                        name: Check XLIFF translation files
-                        run: bin/console lint:xliff translations --ansi
+          - name: Check XLIFF translation files
+            run: bin/console lint:xliff translations --ansi
 
-                    -
-                        name: Check Doctrine Mapping
-                        run: bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction --ansi
+          - name: Check Doctrine Mapping
+            run: bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction --ansi
 
-        name: ${{ matrix.actions.name }} - PHP ${{ matrix.php-version }}
-        runs-on: ubuntu-latest
+    name: ${{ matrix.actions.name }} - PHP ${{ matrix.php-version }}
+    runs-on: ubuntu-latest
 
-        steps:
-            -   uses: actions/checkout@v4
-            # see https://github.com/shivammathur/setup-php
-            -   uses: shivammathur/setup-php@v2
-                with:
-                    # test the lowest version, to make sure checks pass on it
-                    php-version: ${{ matrix.php-version }}
-                    extensions: json, mbstring, pdo, curl, pdo_sqlite
-                    coverage: none
-                    tools: symfony-cli
-                env:
-                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      # see https://github.com/shivammathur/setup-php
+      - uses: shivammathur/setup-php@v2
+        with:
+          # test the lowest version, to make sure checks pass on it
+          php-version: ${{ matrix.php-version }}
+          extensions: json, mbstring, pdo, curl, pdo_sqlite
+          coverage: none
+          tools: symfony-cli
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-            -   run: composer install --no-progress --ansi
+      - name: Cache Composer dependencies
+        uses: actions/cache@v4
+        with:
+          path: /tmp/composer-cache
+          key: ${{ runner.os }}-${{ matrix.php-version }}-${{ hashFiles('**/composer.json') }}
+      - uses: php-actions/composer@v6
+        with:
+          php_version: ${{ matrix.php-version }}
 
-            -   run: ${{ matrix.actions.run }}
+      - run: ${{ matrix.actions.run }}
