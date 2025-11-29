@@ -23,7 +23,7 @@ describe('Create content as editor and delete it as chief editor', () => {
             .should('be.visible')
             .click({ force: true });
 
-        cy.visit('/bolt/logout');
+        cy.clearCookies();
 
         cy.login('jane_chief', 'jane%1');
 

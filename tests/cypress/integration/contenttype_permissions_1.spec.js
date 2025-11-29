@@ -30,7 +30,8 @@ describe('Edit content as chief editor and editor without being the owner', () =
         cy.get('#field-heading')
             .invoke('val')
             .should('contain', 'This is an edited page');
-        cy.visit('bolt/logout');
+
+        cy.clearCookies();
 
         cy.login('john_editor', 'john%1');
 
@@ -60,6 +61,5 @@ describe('Edit content as chief editor and editor without being the owner', () =
         cy.get('#field-heading')
             .invoke('val')
             .should('contain', 'This is a page');
-        cy.visit('bolt/logout');
     });
 });
