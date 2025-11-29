@@ -8,3 +8,8 @@ add:
     defaults:
       normalization_context:
         skip_null_values: false
+
+  when@prod:
+    api_platform:
+      graphql:
+        introspection: false
