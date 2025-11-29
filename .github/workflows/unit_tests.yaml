@@ -19,7 +19,6 @@ jobs:
                 php-version: ${{ matrix.php-version }}
                 extensions: json, mbstring, pdo, curl, pdo_sqlite
                 coverage: none
-                tools: composer:v2.8
               env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             - name: Install composer dependencies
