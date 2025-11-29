@@ -127,7 +127,8 @@
         "test": "jest",
         "genversion": "genversion --es6 --semi assets/js/version.js",
         "cypress:ci": "cypress run --config-file=tests/cypress/cypress.config.ci.js --quiet",
-        "cypress:dev": "cypress run --config-file=tests/cypress/cypress.config.dev.js"
+        "cypress:dev": "cypress run --config-file=tests/cypress/cypress.config.dev.js",
+        "cypress:open": "cypress open --config-file=tests/cypress/cypress.config.dev.js"
     },
     "browserslist": [
         "> 1%"
