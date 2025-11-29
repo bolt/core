@@ -10,6 +10,8 @@ api_platform:
     jsonld: [ 'application/ld+json' ]
     jsonapi: [ 'application/vnd.api+json' ]
     # html:     ['text/html']
+  serializer:
+    hydra_prefix: true
   defaults:
     normalization_context:
       skip_null_values: false
