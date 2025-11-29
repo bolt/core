@@ -11,6 +11,8 @@ api_platform:
     jsonapi: [ 'application/vnd.api+json' ]
     # html:     ['text/html']
   defaults:
+    normalization_context:
+      skip_null_values: false
     pagination:
       client_items_per_page: true
       items_per_page_parameter_name: 'pageSize'
