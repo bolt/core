@@ -1,0 +1,6 @@
+file: routes/api_platform.yaml
+since: 6.0.0
+
+add:
+  api_entrypoint:
+    controller: api_platform.action.documentation

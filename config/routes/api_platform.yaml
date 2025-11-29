@@ -5,4 +5,4 @@ api_platform:
 
 api_entrypoint:
   path: '%bolt.backend_url%/api'
-  controller: api_platform.swagger.action.ui
+  controller: api_platform.action.documentation
