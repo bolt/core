@@ -16,7 +16,7 @@
         <env name="SYMFONY_PHPUNIT_VERSION" value="9.6"/>
         <!-- define your env variables for the test env here -->
         <!-- ###+ doctrine/doctrine-bundle ### -->
-        <env name="DATABASE_URL" value="sqlite::memory:" force="true"/>
+        <env name="DATABASE_URL" value="sqlite:///%kernel.project_dir%/var/data/bolt.test.sqlite" force="true"/>
         <!-- ###- doctrine/doctrine-bundle ### -->
         <!-- ###+ nelmio/cors-bundle ### -->
         <env name="CORS_ALLOW_ORIGIN" value="^https?://localhost(:[0-9]+)?$"/>
