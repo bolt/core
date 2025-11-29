@@ -1,27 +1,33 @@
 name: Unit Tests Checks
 
 on:
-    pull_request:
+  pull_request:
 
 jobs:
-    unittests:
-        strategy:
-            matrix:
-                php-version: [ '8.2', '8.3', '8.4' ]
-            fail-fast: false
-        name: PHPUnit 
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v4
-            - uses: shivammathur/setup-php@v2
-              with:
-                # test the lowest version, to make sure checks pass on it
-                php-version: ${{ matrix.php-version }}
-                extensions: json, mbstring, pdo, curl, pdo_sqlite
-                coverage: none
-              env:
-                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            - name: Install composer dependencies
-              run: composer install --prefer-dist --no-progress
-            - name: run PHP Unit
-              run: ./vendor/bin/phpunit
+  unittests:
+    strategy:
+      matrix:
+        php-version: [ '8.2', '8.3', '8.4' ]
+      fail-fast: false
+    name: PHPUnit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          # test the lowest version, to make sure checks pass on it
+          php-version: ${{ matrix.php-version }}
+          extensions: json, mbstring, pdo, curl, pdo_sqlite
+          coverage: none
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Cache Composer dependencies
+        uses: actions/cache@v4
+        with:
+          path: /tmp/composer-cache
+          key: ${{ runner.os }}-${{ matrix.php-version }}-${{ hashFiles('**/composer.json') }}
+      - uses: php-actions/composer@v6
+        with:
+          php_version: ${{ matrix.php-version }}
+      - name: run PHP Unit
+        run: ./vendor/bin/phpunit

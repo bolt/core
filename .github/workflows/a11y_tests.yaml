@@ -32,8 +32,14 @@ jobs:
           tools: symfony-cli
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Install composer dependencies
-        run: composer install --prefer-dist --no-progress
+      - name: Cache Composer dependencies
+        uses: actions/cache@v4
+        with:
+          path: /tmp/composer-cache
+          key: ${{ runner.os }}-${{ matrix.php-version }}-${{ hashFiles('**/composer.json') }}
+      - uses: php-actions/composer@v6
+        with:
+          php_version: ${{ matrix.php-version }}
       - name: Show Bolt info
         run: ./bin/console bolt:info --ansi
       - name: Install NPM dependencies

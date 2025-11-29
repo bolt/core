@@ -6,7 +6,7 @@ on:
   schedule:
     - cron: '0 7 * * *'
 
-permissions: {}
+permissions: { }
 
 concurrency:
   group: close-stale-${{ github.ref }}
@@ -31,7 +31,7 @@ jobs:
           stale-issue-message: >-
             In an effort to keep our issue list manageable, we are marking this issue as stale because it has been 60 days without activity.
             If this issue is still relevant, please let us know by posting a quick comment so that it remains open.
-          close-issue-message: >- 
+          close-issue-message: >-
             This issue was closed because it has been stalled for 90 days with no activity.
             Feel free to open a new issue if necessary!
           stale-pr-message: >-
