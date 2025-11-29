@@ -5,5 +5,5 @@ describe('I want to display Homepage', () => {
         cy.visit('/');
         cy.get('h2').should('contain', 'Bolt Core Git Clone');
         cy.get('h5').should('contain', 'Recent Pages');
-    })
+    });
 });

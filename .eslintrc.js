@@ -6,7 +6,8 @@ module.exports = {
   },
   env: {
       "browser": true,
-      "node": true
+      "node": true,
+      "cypress/globals": true
   },
   extends: [
     "eslint:recommended",
@@ -22,10 +23,11 @@ module.exports = {
     "vue/require-prop-type-constructor": "off",
     "prettier/prettier": ["error", { printWidth: 120 }],
   },
-  "plugins": [
+  plugins: [
     "standard",
     "vue",
     "prettier",
+    "cypress"
   ],
   settings: {
     'import/resolver': {

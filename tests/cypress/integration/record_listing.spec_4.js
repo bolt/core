@@ -8,12 +8,20 @@ describe('As an Admin I want to expand and compact the contenttype listing', () 
         cy.get('button[title="Compact"]').should('exist');
 
         cy.get('button[title="Compact"]').click();
-        cy.get('div[class="listing__row--item is-thumbnail"]').should('not.exist');
-        cy.get('span[class="listing__row--item-title-excerpt"]').should('not.be.visible');
+        cy.get('div[class="listing__row--item is-thumbnail"]').should(
+            'not.exist',
+        );
+        cy.get('span[class="listing__row--item-title-excerpt"]').should(
+            'not.be.visible',
+        );
         cy.wait(3000);
 
         cy.get('button[title="Expanded"]').click();
-        cy.get('div[class="listing__row--item is-thumbnail"]').should('be.visible');
-        cy.get('span[class="listing__row--item-title-excerpt"]').should('be.visible');
-    })
+        cy.get('div[class="listing__row--item is-thumbnail"]').should(
+            'be.visible',
+        );
+        cy.get('span[class="listing__row--item-title-excerpt"]').should(
+            'be.visible',
+        );
+    });
 });
