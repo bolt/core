@@ -3,8 +3,8 @@
 describe('As a user I want to fetch all contents of an API', () => {
     it('Checks that GET response equals 200', () => {
         cy.login();
-        cy.visit('/bolt/api');
-        cy.get('#operations-Content-getContentCollection')
+        cy.visit('/bolt/api', { headers: { Accept: 'text/html' } });
+        cy.get('#operations-Content-api_contents_get_collection')
             .eq(0)
             .click();
         cy.get('.response-col_status').should('contain', '200');
@@ -15,10 +15,6 @@ describe('As a user I want to fetch all contents of an API', () => {
         cy.request({
             url: '/api/contents.json',
             failOnStatusCode: false,
-            auth: {
-                username: 'admin',
-                password: 'admin%1',
-            },
         }).then(response => {
             return new Promise(resolve => {
                 expect(response)
@@ -39,10 +35,6 @@ describe('As a user I want to fetch all contents of an API', () => {
         cy.request({
             url: '/api/contents/1.json',
             failOnStatusCode: false,
-            auth: {
-                username: 'admin',
-                password: 'admin%1',
-            },
         }).then(response => {
             return new Promise(resolve => {
                 expect(response)
@@ -63,10 +55,6 @@ describe('As a user I want to fetch all contents of an API', () => {
         cy.request({
             url: '/api/contents.jsonld',
             failOnStatusCode: false,
-            auth: {
-                username: 'admin',
-                password: 'admin%1',
-            },
         }).then(response => {
             return new Promise(resolve => {
                 expect(response)
@@ -87,10 +75,6 @@ describe('As a user I want to fetch all contents of an API', () => {
         cy.request({
             url: '/api/contents.jsonld?contentType=homepage',
             failOnStatusCode: false,
-            auth: {
-                username: 'admin',
-                password: 'admin%1',
-            },
         }).then(response => {
             return new Promise(resolve => {
                 expect(response)
@@ -111,10 +95,6 @@ describe('As a user I want to fetch all contents of an API', () => {
         cy.request({
             url: '/api/contents/1.jsonld',
             failOnStatusCode: false,
-            auth: {
-                username: 'admin',
-                password: 'admin%1',
-            },
         }).then(response => {
             return new Promise(resolve => {
                 expect(response)
@@ -136,10 +116,6 @@ describe('Test reading JSON Fields', () => {
         cy.request({
             url: `/api/contents/1/fields.json`,
             failOnStatusCode: false,
-            auth: {
-                username: 'admin',
-                password: 'admin%1',
-            },
         }).then(response => {
             return new Promise(resolve => {
                 expect(response)
@@ -159,10 +135,6 @@ describe('Test reading JSON Fields', () => {
         cy.request({
             url: `/api/contents/1/fields.jsonld`,
             failOnStatusCode: false,
-            auth: {
-                username: 'admin',
-                password: 'admin%1',
-            },
         }).then(response => {
             return new Promise(resolve => {
                 expect(response)
