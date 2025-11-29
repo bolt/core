@@ -100,7 +100,7 @@ HELP
     private function warnOutdatedComposerJson(): void
     {
         try {
-            Packages::get('bolt/core');
+            @Packages::get('bolt/core');
         } catch (Throwable) {
             // bolt/core is not a dependency. Perhaps we're in bolt/core itself?
             return;
