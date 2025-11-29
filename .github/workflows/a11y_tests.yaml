@@ -52,7 +52,6 @@ jobs:
           npm run build
           sudo chmod -R 777 config/ public/files/ public/theme/ public/thumbs/ var/
           # Prepare web server for e2e tests
-          ./bin/console doctrine:database:create
           ./bin/console doctrine:schema:create
           ./bin/console doctrine:fixtures:load --group=without-images -n
           symfony server:start --no-tls --port=8088 -d
