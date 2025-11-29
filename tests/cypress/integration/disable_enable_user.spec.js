@@ -2,9 +2,7 @@
 
 describe('Disable/enable users', () => {
     it('checks that an admin can disable/enable another user', () => {
-        cy.visit('/bolt/login');
-        cy.get('input[name="login[username]"]').type('jane_chief');
-        cy.get('input[name="login[password]"]').type('jane%1' + '{enter}');
+        cy.login('jane_chief', 'jane%1');
         cy.get('h1')
             .find('span')
             .should('contain', 'Bolt Dashboard');
@@ -63,13 +61,8 @@ describe('Disable/enable users', () => {
             .should('contain', 'Enable');
 
         cy.clearCookies();
-        cy.visit('/bolt/login');
-        cy.get('input[name="login[username]"]').type('jane_chief');
-        cy.get('input[name="login[password]"]').type('jane%1' + '{enter}');
-        cy.get('div[class="alert alert-danger"]').should(
-            'contain',
-            'User is disabled',
-        );
+        cy.login('jane_chief', 'jane%1', false);
+        cy.get('div[class="alert alert-danger"]').should('contain', 'User is disabled');
 
         cy.clearCookies();
         cy.login();
@@ -115,14 +108,8 @@ describe('Disable/enable users', () => {
         cy.wait(100);
 
         cy.clearCookies();
-        cy.visit('/bolt/login');
-        cy.get('input[name="login[username]"]').type('jane_chief');
-        cy.get('input[name="login[password]"]').type('jane%1' + '{enter}');
-        cy.url().should('contain', '/bolt/');
-        cy.get('.admin__header--title__prefix').should(
-            'contain',
-            'Bolt Dashboard',
-        );
+        cy.login('jane_chief', 'jane%1');
+        cy.get('.admin__header--title__prefix').should('contain', 'Bolt Dashboard');
         cy.visit('bolt/logout');
     });
 });
