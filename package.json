@@ -53,7 +53,7 @@
         "stylelint-scss": "^3.21.0",
         "terser": "^4.8.1",
         "tinycolor2": "^1.6.0",
-        "vue": "^2.7.15",
+        "vue": "^3.0.0",
         "vue-easymde": "^2.0.0",
         "vue-flatpickr-component": "^8.1.8",
         "vue-multiselect": "^2.1.8",
