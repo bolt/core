@@ -27,12 +27,14 @@ security:
     api:
       pattern: ^/api
       http_basic: ~
+      login_throttling: ~
     
     main:
       pattern: ^/
       user_checker: Bolt\Security\UserChecker
       switch_user: { role: CAN_SWITCH_USER }
       entry_point: Bolt\Security\AuthenticationEntryPointRedirector
+      login_throttling: ~
       
       custom_authenticators:
         - Bolt\Security\LoginFormAuthenticator

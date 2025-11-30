@@ -1,0 +1,11 @@
+file: packages/security.yaml
+since: 6.0.0
+
+add:
+  security:
+    firewalls:
+      api:
+        login_throttling: ~
+
+      main:
+        login_throttling: ~
