@@ -65,6 +65,7 @@
         "symfony/password-hasher": "^6.4",
         "symfony/polyfill-php72": "^1.23",
         "symfony/polyfill-php84": "^1.31",
+        "symfony/rate-limiter": "^6.4",
         "symfony/runtime": "^6.4",
         "symfony/security-bundle": "^6.4",
         "symfony/security-csrf": "^6.4",
