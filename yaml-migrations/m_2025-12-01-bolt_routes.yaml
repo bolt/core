@@ -1,0 +1,12 @@
+file: routes/api_platform.yaml
+since: 6.0.0
+
+add:
+  control_panel:
+    type: attribute
+
+  control_panel_async:
+    type: attribute
+
+  controllers:
+    type: attribute
