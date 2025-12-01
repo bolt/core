@@ -1,0 +1,6 @@
+file: packages/api_platform.yaml
+since: 6.0.0
+
+add:
+  api_platform:
+    enable_entrypoint: false
