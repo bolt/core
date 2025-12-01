@@ -8,8 +8,6 @@ security:
     ROLE_USER: [ ]
     ROLE_WEBSERVICE: [ ]
   
-  enable_authenticator_manager: true
-  
   password_hashers:
     Bolt\Entity\User: auto
   
