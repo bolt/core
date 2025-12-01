@@ -1,5 +1,5 @@
 api_platform:
-  enable_swagger_ui: false # route redirected manually to /bolt/api
+  enable_entrypoint: false # route redirected manually to /bolt/api
   graphql:
     graphiql:
       enabled: true
