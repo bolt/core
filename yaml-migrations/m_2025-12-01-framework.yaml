@@ -1,0 +1,9 @@
+file: packages/framework.yaml
+since: 6.0.0
+
+add:
+  framework:
+    handle_all_throwables: true
+    session:
+      cookie_secure: true
+      cookie_samesite: lax
