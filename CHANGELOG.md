@@ -32,6 +32,7 @@ Make sure to check the [upgrade notes](https://github.com/bolt/core/blob/main/UP
 - `doctrine/dbal` now required `^4.0`.
 - `doctrine/orm` now requires `^3.5`
 - `doctrine/doctrine-fixtures-bundle` now requires `^4.3`.
+- Support for `symfony/flex` v1 was dropped
 
 ### Other noteworthy updates
 - We've enabled login throttling by default.
