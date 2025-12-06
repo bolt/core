@@ -28,7 +28,7 @@ jobs:
     env:
       DATABASE_URL: ${{matrix.database}}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: shivammathur/setup-php@v2
         with:
           # test the lowest version, to make sure checks pass on it
