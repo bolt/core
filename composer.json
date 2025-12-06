@@ -1,7 +1,7 @@
 {
     "name": "bolt/core",
     "type": "library",
-    "description": "🧿 Bolt 5 Core",
+    "description": "🧿 Bolt Core",
     "license": "MIT",
     "require": {
         "php": ">=8.2",
