@@ -30,7 +30,13 @@ jobs:
         with:
           node-version: 20
 
+      - name: Cache NPM dependencies
+        uses: actions/cache@v4
+        with:
+          path: /tmp/npm-cache
+          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+
       # same as "npm install", just uses package-lock.json", see https://stackoverflow.com/a/53325242/1348344
-      - run: npm ci
+      - run: npm ci --prefer-offline --no-audit --cache /tmp/npm-cache
 
       - run: ${{ matrix.actions.run }}

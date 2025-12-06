@@ -22,8 +22,14 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
+      - name: Cache NPM dependencies
+        uses: actions/cache@v4
+        with:
+          path: /tmp/npm-cache
+          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+
       - name: Install NPM dependencies
-        run: npm ci
+        run: npm ci --prefer-offline --no-audit --cache /tmp/npm-cache
 
       - name: Build assets
         run: |
