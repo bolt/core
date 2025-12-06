@@ -12,7 +12,6 @@ use Doctrine\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
@@ -25,14 +24,11 @@ class BulkOperationsController extends AbstractController implements BackendZone
     use CsrfTrait;
 
     private ?ObjectManager $em = null;
-    private ?Request $request;
 
     public function __construct(
-        RequestStack $requestStack,
         private readonly EventDispatcherInterface $dispatcher,
         private readonly ManagerRegistry $managerRegistry
     ) {
-        $this->request = $requestStack->getCurrentRequest();
     }
 
     public function em(): ObjectManager
@@ -44,7 +40,7 @@ class BulkOperationsController extends AbstractController implements BackendZone
     public function status(Request $request, string $status): Response
     {
         $this->validateCsrf($request, 'batch');
-        $formData = $this->request?->request->getString('records') ?? '';
+        $formData = $request->request->getString('records') ?? '';
         $recordIds = array_map(intval(...), explode(',', $formData));
 
         $records = $this->findRecordsFromIds($recordIds);
@@ -57,7 +53,7 @@ class BulkOperationsController extends AbstractController implements BackendZone
         $this->em()->flush();
 
         $this->addFlash('success', 'content.status_changed_successfully');
-        $url = $this->request?->headers->get('referer') ?? $this->generateUrl('bolt_dashboard');
+        $url = $request->headers->get('referer') ?? $this->generateUrl('bolt_dashboard');
 
         return new RedirectResponse($url);
     }
@@ -66,7 +62,7 @@ class BulkOperationsController extends AbstractController implements BackendZone
     public function delete(Request $request): Response
     {
         $this->validateCsrf($request, 'batch');
-        $formData = $this->request?->request->getString('records') ?? '';
+        $formData = $request->request->getString('records') ?? '';
         $recordIds = array_map(intval(...), explode(',', $formData));
 
         $record = null;
@@ -84,7 +80,7 @@ class BulkOperationsController extends AbstractController implements BackendZone
         $this->em()->flush();
 
         $this->addFlash('success', 'content.deleted_successfully');
-        $url = $this->request?->headers->get('referer') ?? $this->generateUrl('bolt_dashboard');
+        $url = $request->headers->get('referer') ?? $this->generateUrl('bolt_dashboard');
 
         return new RedirectResponse($url);
     }

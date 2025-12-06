@@ -15,12 +15,10 @@ use Sirius\Upload\Handler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Path;
-use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\FileBag;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
@@ -35,18 +33,14 @@ class UploadController extends AbstractController implements AsyncZoneInterface
 {
     use CsrfTrait;
 
-    private ?Request $request;
-
     public function __construct(
         private MediaFactory $mediaFactory,
         private EntityManagerInterface $em,
         private Config $config,
         private TextExtension $textExtension,
-        RequestStack $requestStack,
         private Filesystem $filesystem,
         private TagAwareCacheInterface $cache
     ) {
-        $this->request = $requestStack->getCurrentRequest();
     }
 
     #[Route(path: '/upload-url', name: 'bolt_async_upload_url', methods: [Request::METHOD_POST])]
@@ -116,8 +110,8 @@ class UploadController extends AbstractController implements AsyncZoneInterface
             ], Response::HTTP_FORBIDDEN);
         }
 
-        $locationName = $this->request?->query->getString('location') ?? '';
-        $path = $this->request?->query->getString('path') ?? '';
+        $locationName = $request->query->getString('location') ?? '';
+        $path = $request->query->getString('path') ?? '';
 
         $basepath = $this->config->getPath($locationName);
         $target = $this->config->getPath($locationName, true, $path);
