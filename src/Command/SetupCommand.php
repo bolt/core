@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Bolt\Command;
 
+use Bolt\ComposerScripts\Script;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
@@ -29,27 +29,23 @@ class SetupCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        $command = $this->getApplication()->find('doctrine:migrations:sync-metadata-storage');
-        $exitCode = $command->run(new ArrayInput([]), new NullOutput());
+        $exitCode = Script::runConsole(['doctrine:migrations:sync-metadata-storage']);
         $this->processExitCode($exitCode, 'An error occurred when initialising the Doctrine Migrations metatada storage.');
 
-        $command = $this->getApplication()->find('doctrine:migrations:diff');
-        $exitCode = $command->run(new ArrayInput([
-            '--from-empty-schema' => true,
-            '--no-interaction' => true,
-        ]), $output);
+        $exitCode = Script::runConsole([
+            'doctrine:migrations:diff',
+            '--from-empty-schema',
+            '--no-interaction',
+        ]);
         $this->processExitCode($exitCode, 'An error occurred when creating the initial migration.');
 
-        $command = $this->getApplication()->find('doctrine:migrations:migrate');
-        $commandInput = new ArrayInput([
-            '--no-interaction' => true,
+        $exitCode = Script::runConsole([
+            'doctrine:migrations:migrate',
+            '--no-interaction',
         ]);
-        $commandInput->setInteractive(false);
-        $exitCode = $command->run($commandInput, new NullOutput());
         $this->processExitCode($exitCode, 'An error occurred while executing the initial migration.');
 
-        $command = $this->getApplication()->find('bolt:reset-secret');
-        $exitCode = $command->run(new ArrayInput([]), new NullOutput());
+        $exitCode = Script::runConsole(['bolt:reset-secret']);
         $this->processExitCode($exitCode, 'An error occurred while resetting APP_SECRET in the .env file.');
 
         $command = $this->getApplication()->find('bolt:add-user');
