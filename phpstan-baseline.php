@@ -634,7 +634,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'message' => '#^Cannot call method find\\(\\) on Symfony\\\\Component\\\\Console\\\\Application\\|null\\.$#',
 	'identifier' => 'method.nonObject',
-	'count' => 7,
+	'count' => 3,
 	'path' => __DIR__ . '/src/Command/SetupCommand.php',
 ];
 $ignoreErrors[] = [
