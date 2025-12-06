@@ -28,6 +28,7 @@ jobs:
       - uses: actions/checkout@v6
         with:
           ref: ${{ steps.branch.outputs.branch }}
+          ssh-key: ${{ secrets.CREATE_RELEASE_KEY }}
 
       - uses: shivammathur/setup-php@v2
         with:
@@ -127,6 +128,7 @@ jobs:
         with:
           repository: bolt/assets
           ref: ${{ needs.create_core_release.outputs.branch }}
+          ssh-key: ${{ secrets.CREATE_RELEASE_KEY }}
 
       - name: Remove old files
         run: |
