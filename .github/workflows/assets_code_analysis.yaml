@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       # see https://github.com/actions/starter-workflows/blob/main/ci/node.js.yml
       - name: Use Node.js
