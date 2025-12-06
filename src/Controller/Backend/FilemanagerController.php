@@ -19,7 +19,6 @@ use Symfony\Component\Filesystem\Path;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
@@ -33,7 +32,6 @@ class FilemanagerController extends TwigAwareController implements BackendZoneIn
     public function __construct(
         private FileLocations $fileLocations,
         private MediaRepository $mediaRepository,
-        protected RequestStack $requestStack,
         private Filesystem $filesystem
     ) {
     }
@@ -41,7 +39,7 @@ class FilemanagerController extends TwigAwareController implements BackendZoneIn
     #[Route(path: '/filemanager/{location}', name: 'bolt_filemanager', methods: [Request::METHOD_GET])]
     public function filemanager(Request $request, string $location): Response
     {
-        $session = $this->requestStack->getSession();
+        $session = $request->getSession();
 
         $this->denyAccessUnlessGranted('managefiles:' . $location);
 
