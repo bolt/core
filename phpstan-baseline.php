@@ -4070,6 +4070,12 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Storage/SelectQuery.php',
 ];
 $ignoreErrors[] = [
+	'message' => '#^Possibly invalid array key type int\\|string\\|null\\.$#',
+	'identifier' => 'array.invalidKey',
+	'count' => 1,
+	'path' => __DIR__ . '/src/Storage/SelectQuery.php',
+];
+$ignoreErrors[] = [
 	'message' => '#^Property Bolt\\\\Storage\\\\SelectQuery\\:\\:\\$coreDateFields type has no value type specified in iterable type array\\.$#',
 	'identifier' => 'missingType.iterableValue',
 	'count' => 1,
@@ -4552,6 +4558,12 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'message' => '#^PHPDoc tag @var for variable \\$definition contains generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#',
 	'identifier' => 'missingType.generics',
+	'count' => 1,
+	'path' => __DIR__ . '/src/Twig/FieldExtension.php',
+];
+$ignoreErrors[] = [
+	'message' => '#^Possibly invalid array key type int\\|null\\.$#',
+	'identifier' => 'offsetAccess.invalidOffset',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Twig/FieldExtension.php',
 ];
@@ -5300,6 +5312,12 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Utils/TranslationsManager.php',
 ];
 $ignoreErrors[] = [
+	'message' => '#^Possibly invalid array key type int\\|null\\.$#',
+	'identifier' => 'offsetAccess.invalidOffset',
+	'count' => 1,
+	'path' => __DIR__ . '/src/Utils/TranslationsManager.php',
+];
+$ignoreErrors[] = [
 	'message' => '#^Property Bolt\\\\Utils\\\\TranslationsManager\\:\\:\\$translations type has no value type specified in iterable type array\\.$#',
 	'identifier' => 'missingType.iterableValue',
 	'count' => 1,
@@ -5345,6 +5363,12 @@ $ignoreErrors[] = [
 	'message' => '#^Method Bolt\\\\Validator\\\\ContentValidator\\:\\:relationsToMap\\(\\) return type has no value type specified in iterable type list\\.$#',
 	'identifier' => 'missingType.iterableValue',
 	'count' => 1,
+	'path' => __DIR__ . '/src/Validator/ContentValidator.php',
+];
+$ignoreErrors[] = [
+	'message' => '#^Possibly invalid array key type string\\|null\\.$#',
+	'identifier' => 'offsetAccess.invalidOffset',
+	'count' => 3,
 	'path' => __DIR__ . '/src/Validator/ContentValidator.php',
 ];
 $ignoreErrors[] = [

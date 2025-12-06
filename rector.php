@@ -28,5 +28,6 @@ return RectorConfig::configure()
             'src/Entity/Relation.php',
             'src/Entity/ResetPasswordRequest.php',
         ],
-        Rector\Symfony\CodeQuality\Rector\Class_\InlineClassRoutePrefixRector::class
+        Rector\Symfony\CodeQuality\Rector\Class_\ControllerMethodInjectionToConstructorRector::class,
+        Rector\Symfony\CodeQuality\Rector\Class_\InlineClassRoutePrefixRector::class,
     ]);
