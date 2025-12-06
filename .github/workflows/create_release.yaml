@@ -148,6 +148,7 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
+          repository: bolt/assets
           tag_name: ${{ inputs.version }}
           name: Assets for Bolt ${{ inputs.version }}
           prerelease: ${{ needs.create_core_release.outputs.prerelease }}
