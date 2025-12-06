@@ -37,13 +37,18 @@ jobs:
         with:
           path: /tmp/composer-cache
           key: ${{ runner.os }}-${{ matrix.php-version }}-${{ hashFiles('**/composer.json') }}
+      - name: Cache NPM dependencies
+        uses: actions/cache@v4
+        with:
+          path: /tmp/npm-cache
+          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
       - uses: php-actions/composer@v6
         with:
           php_version: ${{ matrix.php-version }}
       - name: Show Bolt info
         run: ./bin/console bolt:info --ansi
       - name: Install NPM dependencies
-        run: npm ci
+        run: npm ci --prefer-offline --no-audit --cache /tmp/npm-cache
       - name: Prepare environment
         run: |
           # Disable AppArmor to be able to run browser
