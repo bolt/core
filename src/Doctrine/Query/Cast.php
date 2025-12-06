@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Doctrine\Query;
 
-use Doctrine\DBAL\Platforms\MySQLPlatform;
+use Doctrine\DBAL\Platforms\AbstractMySQLPlatform;
 use Doctrine\DBAL\Platforms\SQLitePlatform;
 use Doctrine\ORM\Query\AST\Functions\FunctionNode;
 use Doctrine\ORM\Query\AST\Node;
@@ -23,7 +23,7 @@ class Cast extends FunctionNode
         $platform = $sqlWalker->getConnection()->getDatabasePlatform();
 
         // test if we are using MySQL
-        if ($platform instanceof MySQLPlatform) {
+        if ($platform instanceof AbstractMySQLPlatform) {
             // YES we are using MySQL
             // how do we know what type $this->first is? For now hardcoding
             // type(t.value) = JSON for MySQL. JSONB for others.
