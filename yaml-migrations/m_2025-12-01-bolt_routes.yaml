@@ -1,4 +1,4 @@
-file: routes/api_platform.yaml
+file: routes/bolt.yaml
 since: 6.0.0
 
 add:
