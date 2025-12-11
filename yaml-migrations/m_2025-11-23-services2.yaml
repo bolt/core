@@ -1,7 +1,7 @@
 file: services.yaml
 since: 6.0.0
 
-remove:
+add:
   services:
     Bolt\Api\ContentProcessor:
       bind:
