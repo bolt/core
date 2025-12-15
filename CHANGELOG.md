@@ -30,9 +30,10 @@ Make sure to check the [upgrade notes](https://github.com/bolt/core/blob/main/UP
 - `doctrine/data-fixtures` now requires `^2.0`. A version constraint was not specified in a earlier version of Bolt, but we were only compatible with v1.
 - Support for `doctrine/lexer` `^2` has been dropped.
 - `doctrine/dbal` now required `^4.0`.
-- `doctrine/orm` now requires `^3.5`
+- `doctrine/orm` now requires `^3.5`.
 - `doctrine/doctrine-fixtures-bundle` now requires `^4.3`.
-- Support for `symfony/flex` v1 was dropped
+- Support for `symfony/flex` v1 was dropped.
+- `twig/twig` now requires `^3.21`.
 
 ### Other noteworthy updates
 - We've enabled login throttling by default.

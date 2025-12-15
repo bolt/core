@@ -85,7 +85,7 @@
         "twig/extra-bundle": "^3.3",
         "twig/html-extra": "^3.3",
         "twig/intl-extra": "^3.3",
-        "twig/twig": "^3.3",
+        "twig/twig": "^3.21",
         "ua-parser/uap-php": "^3.9",
         "webimpress/safe-writer": "^2.1",
         "webonyx/graphql-php": "^15.0",
