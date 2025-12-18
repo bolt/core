@@ -25,6 +25,7 @@ use Faker\Factory;
 use Faker\Generator;
 use Illuminate\Support\Collection;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
+use Throwable;
 
 class ContentFixtures extends BaseFixture implements DependentFixtureInterface, FixtureGroupInterface
 {
@@ -118,12 +119,18 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 // Load all fields, except slugs.
                 $fields
                     ->filter(fn ($field): bool => $field['type'] !== 'slug')
-                    ->map(fn (Collection $fieldType, string $name): Field => $this->loadField($content, $name, $fieldType, $contentType, $preset));
+                    ->map(fn (
+                        Collection $fieldType,
+                        string $name
+                    ): Field => $this->loadField($content, $name, $fieldType, $contentType, $preset));
 
                 // Load slug fields, to make sure `uses` can be used.
                 $fields
                     ->filter(fn ($field): bool => $field['type'] === 'slug')
-                    ->map(fn (Collection $fieldType, string $name): Field => $this->loadField($content, $name, $fieldType, $contentType, $preset));
+                    ->map(fn (
+                        Collection $fieldType,
+                        string $name
+                    ): Field => $this->loadField($content, $name, $fieldType, $contentType, $preset));
 
                 foreach ($contentType['taxonomy'] as $taxonomySlug) {
                     if ($taxonomySlug === 'categories') {
@@ -218,7 +225,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
             } elseif ($fieldType['type'] === 'set') {
                 $field = $this->loadSetField($content, $field, $contentType, $preset);
             } elseif ($fieldType instanceof DeepCollection) {
-                $field->setValue($this->getValuesforFieldType($fieldType, $contentType['singleton'], $content));
+                $field->setValue($this->getValuesForFieldType($fieldType, $contentType['singleton'], $content));
             }
         }
         $field->setSortorder($sortorder++ * 5);
@@ -233,7 +240,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
             foreach ($locales as $locale) {
                 if ($locale !== $this->defaultLocale && array_search($locale, $locales, true) !== count($locales) - 1) {
                     /** @var DeepCollection $fieldType */
-                    $value = $preset[$name] ?? $this->getValuesforFieldType(
+                    $value = $preset[$name] ?? $this->getValuesForFieldType(
                         $fieldType,
                         $contentType['singleton'],
                         $content
@@ -255,12 +262,11 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
         return $statuses[array_rand($statuses)];
     }
 
-    private function getValuesforFieldType(DeepCollection $field, bool $singleton, Content $content): array
+    private function getValuesForFieldType(DeepCollection $field, bool $singleton, Content $content): array
     {
-        return isset($field['fixture_format']) ?
-                $this->getFixtureFormatValues($field['fixture_format'])
-                :
-                $this->getFieldTypeValue($field, $singleton, $content);
+        return isset($field['fixture_format'])
+            ? $this->getFixtureFormatValues($field['fixture_format'])
+            : $this->getFieldTypeValue($field, $singleton, $content);
     }
 
     private function getFixtureFormatValues(string $format): array
@@ -272,11 +278,10 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                     $match = $match[1];
 
                     try {
-                        return $this->faker->{$match};
-                    } finally {
+                        return $this->faker->format($match);
+                    } catch (Throwable) {
+                        return '(unknown)';
                     }
-
-                    return '(unknown)';
                 },
                 $format
             ),
