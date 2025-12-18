@@ -13,6 +13,7 @@ use Bolt\Repository\RelationRepository;
 use Bolt\Utils\ListFormatHelper;
 use Bolt\Utils\RelatedOptionsUtility;
 use Illuminate\Support\Collection;
+use RuntimeException;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
@@ -144,7 +145,7 @@ class RelatedExtension extends AbstractExtension
     {
         $maxAmount = $this->config->get('general/maximum_listing_select', 1000);
 
-        $contentType = $this->config->getContentType($toContentTypeSlug);
+        $contentType = $this->config->getContentType($toContentTypeSlug) ?? throw new RuntimeException('Content type not found');
 
         if (! $order) {
             $order = $contentType->get('order');

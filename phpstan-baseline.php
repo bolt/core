@@ -704,12 +704,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Configuration/Config.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\Configuration\\\\Config\\:\\:getContentType\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#',
-	'identifier' => 'missingType.generics',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Configuration/Config.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Method Bolt\\\\Configuration\\\\Config\\:\\:getEnvFilesTimestamps\\(\\) return type has no value type specified in iterable type array\\.$#',
 	'identifier' => 'missingType.iterableValue',
 	'count' => 1,
@@ -748,12 +742,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'message' => '#^Method Bolt\\\\Configuration\\\\Config\\:\\:parseConfig\\(\\) return type has no value type specified in iterable type array\\.$#',
 	'identifier' => 'missingType.iterableValue',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Configuration/Config.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^PHPDoc tag @var for variable \\$cts contains generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#',
-	'identifier' => 'missingType.generics',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Configuration/Config.php',
 ];
@@ -4772,12 +4760,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Twig/Node/SetcontentNode.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Cannot call method get\\(\\) on Illuminate\\\\Support\\\\Collection\\|null\\.$#',
-	'identifier' => 'method.nonObject',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Twig/RelatedExtension.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Cannot call method getId\\(\\) on Bolt\\\\Entity\\\\Content\\|null\\.$#',
 	'identifier' => 'method.nonObject',
 	'count' => 2,
@@ -4828,12 +4810,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'message' => '#^Method Bolt\\\\Twig\\\\RelatedExtension\\:\\:getRelatedValues\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#',
 	'identifier' => 'missingType.generics',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Twig/RelatedExtension.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Parameter \\#1 \\$contentType of method Bolt\\\\Utils\\\\ListFormatHelper\\:\\:getRelated\\(\\) expects Illuminate\\\\Support\\\\Collection, Illuminate\\\\Support\\\\Collection\\|null given\\.$#',
-	'identifier' => 'argument.type',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Twig/RelatedExtension.php',
 ];
@@ -5050,12 +5026,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'message' => '#^Method Bolt\\\\Utils\\\\ListFormatHelper\\:\\:getMenuLinks\\(\\) return type has no value type specified in iterable type array\\.$#',
 	'identifier' => 'missingType.iterableValue',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Utils/ListFormatHelper.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\Utils\\\\ListFormatHelper\\:\\:getRelated\\(\\) has parameter \\$contentType with generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#',
-	'identifier' => 'missingType.generics',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Utils/ListFormatHelper.php',
 ];

@@ -6,6 +6,7 @@ namespace Bolt\Configuration;
 
 use Bolt\Collection\DeepCollection;
 use Bolt\Common\Arr;
+use Bolt\Configuration\Content\ContentType;
 use Bolt\Configuration\Parser\BaseParser;
 use Bolt\Configuration\Parser\ContentTypesParser;
 use Bolt\Configuration\Parser\GeneralParser;
@@ -198,7 +199,7 @@ class Config
         return new Collection($this->get('general/accept_media_types'));
     }
 
-    public function getContentType(string $name): ?Collection
+    public function getContentType(string $name): ?ContentType
     {
         $name = mb_trim($name);
 
@@ -206,7 +207,7 @@ class Config
             return $this->get('contenttypes/' . $name);
         }
 
-        /** @var Collection $cts */
+        /** @var Collection<string, ContentType> $cts */
         $cts = $this->get('contenttypes');
 
         foreach (['singular_slug', 'name', 'singular_name'] as $key) {

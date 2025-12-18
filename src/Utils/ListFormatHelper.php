@@ -6,7 +6,6 @@ use Bolt\Configuration\Content\ContentType;
 use Bolt\Repository\ContentRepository;
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManagerInterface;
-use Illuminate\Support\Collection;
 
 class ListFormatHelper
 {
@@ -63,7 +62,7 @@ class ListFormatHelper
         return true;
     }
 
-    public function getRelated(Collection $contentType, int $amount, string $order): array
+    public function getRelated(ContentType $contentType, int $amount, string $order): array
     {
         $order = $this->fixOrder($order);
 
