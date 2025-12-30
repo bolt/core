@@ -2708,12 +2708,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Event/Subscriber/AuthSubscriber.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Event\\\\Subscriber\\\\ExtensionSubscriber\\:\\:\\$objects type has no value type specified in iterable type array\\.$#',
-	'identifier' => 'missingType.iterableValue',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Event/Subscriber/ExtensionSubscriber.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Call to an undefined method object\\:\\:executeUpdate\\(\\)\\.$#',
 	'identifier' => 'method.notFound',
 	'count' => 2,

@@ -43,8 +43,11 @@ trait ServicesTrait
     public function injectObjects(array $objects): void
     {
         $this->entityManager = $objects['manager'];
-        $this->container = $objects['container'];
         $this->query = $objects['query'];
+
+        if (! $this->container && $container = $objects['container'] ?? null) {
+            $this->container = $container;
+        }
     }
 
     /**
