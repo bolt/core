@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace Bolt\Controller;
 
 use Bolt\Configuration\Config;
+use Bolt\Utils\PathCanonicalize;
+use Exception;
+use League\Glide\Filesystem\FileNotFoundException;
 use League\Glide\Responses\SymfonyResponseFactory;
 use League\Glide\Server;
 use League\Glide\ServerFactory;
@@ -41,6 +44,12 @@ class ImageController
     public function thumbnail(string $paramString, string $filename)
     {
         if (! $this->isImage($filename)) {
+            return $this->sendErrorImage();
+        }
+
+        try {
+            $filename = PathCanonicalize::canonicalize($this->getPath(), $filename);
+        } catch (Exception $e) {
             return $this->sendErrorImage();
         }
 
