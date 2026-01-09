@@ -35,7 +35,7 @@ class ImageController
         }
 
         try {
-            $filename = PathCanonicalize::canonicalize($this->getPath($request), $filename);
+            PathCanonicalize::canonicalize($this->getPath($request), $filename);
         } catch (Exception) {
             return $this->sendErrorImage();
         }
