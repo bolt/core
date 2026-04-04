@@ -181,7 +181,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         $event = new ContentEvent($content);
         $this->dispatcher->dispatch($event, ContentEvent::POST_SAVE);
 
-        $locale = $originalAuthor->getLocale();
+        $locale = $originalAuthor ? $originalAuthor->getLocale() : $request->getLocale();
 
         // If we're "Saving Ajaxy"
         if ($request->isXmlHttpRequest()) {
