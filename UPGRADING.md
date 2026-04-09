@@ -1,3 +1,12 @@
+# From Bolt 6.0 to 6.1
+
+This release upgrades the erusev parsedown packages (used for Markdown) requirements to resolve issues with newer PHP version compatibility. However, this can have an impact on your existing pages as the Markdown parsing rules have changed.
+
+Make sure to check the erusev release notes for details on the changes:
+
+- https://github.com/erusev/parsedown/releases/tag/1.8.0
+- https://github.com/erusev/parsedown-extra/releases/tag/0.9.0
+
 # From Bolt 5.2 to 6.0
 
 ## Symfony upgrade
