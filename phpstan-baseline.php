@@ -1148,12 +1148,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Controller/Backend/ContentEditController.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Cannot call method getLocale\\(\\) on Bolt\\\\Entity\\\\User\\|null\\.$#',
-	'identifier' => 'method.nonObject',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Controller/Backend/ContentEditController.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Method Bolt\\\\Controller\\\\Backend\\\\ContentEditController\\:\\:getFieldToUpdate\\(\\) has parameter \\$fieldDefinition with no type specified\\.$#',
 	'identifier' => 'missingType.parameter',
 	'count' => 1,
