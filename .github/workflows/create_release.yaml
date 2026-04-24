@@ -37,12 +37,12 @@ jobs:
           tools: none
 
       - name: Use Node.js ${{ env.NODE_VERSION }}
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: ${{ env.NODE_VERSION }}
 
       - name: Cache NPM dependencies
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: /tmp/npm-cache
           key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
@@ -72,7 +72,7 @@ jobs:
           tag_name: ${{ inputs.version }}
 
       - name: Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           tag_name: ${{ inputs.version }}
           prerelease: ${{ steps.prerelease.outputs.prerelease }}
@@ -89,12 +89,12 @@ jobs:
           ref: ${{ inputs.version }}
 
       - name: Use Node.js ${{ env.NODE_VERSION }}
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: ${{ env.NODE_VERSION }}
 
       - name: Cache NPM dependencies
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: /tmp/npm-cache
           key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
@@ -146,7 +146,7 @@ jobs:
           tag_name: ${{ inputs.version }}
 
       - name: Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           repository: bolt/assets
           tag_name: ${{ inputs.version }}
