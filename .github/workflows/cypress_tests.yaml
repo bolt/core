@@ -5,6 +5,7 @@ on:
 
 env:
   COMPOSER_CACHE_DIR: /tmp/composer-cache
+  NODE_VERSION: 24
 
 jobs:
   cypress-tests:
@@ -25,9 +26,10 @@ jobs:
           ini-values: session.gc_probability=0, date.timezone=UTC
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - uses: actions/setup-node@v6
+      - name: Use Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v6
         with:
-          node-version: 20
+          node-version: ${{ env.NODE_VERSION }}
       # See https://github.community/t/sudo-apt-install-fails-with-failed-to-fetch-http-security-ubuntu-com-404-not-found-ip/17075
       - run: sudo apt-get update
       - name: Cache Composer dependencies
