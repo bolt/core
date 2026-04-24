@@ -1,6 +1,12 @@
 Changelog
 =========
 
+## 6.1.0
+
+Released: 2026-04-09
+
+Upgraded erusev parsedown dependencies (used for Markdown), which can have impact on existing pages.
+
 ## 6.0.3
 
 Released: 2026-04-09

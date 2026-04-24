@@ -4,7 +4,8 @@ import { Toast } from 'bootstrap';
 
 let form = $('#editcontent');
 let record_id = form.data('record');
-let element = $('button[name="save"][type="button"]'); //type="button" because it should only work when ajaxy is enabled
+let elementButton = $('button[name="save"][type="button"]'); //type="button" because it should only work when ajaxy is enabled
+let elementSubmit = $('button[name="save"][type="submit"]'); //type="submit" for classic form POST
 
 let dom_element =
     '<div class="admin__notifications"><div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="6000"><div id="toastTitle" ><strong id="toastNotification" class="me-auto"></strong><small id="toastType"></small><button class="ml-2 mb-1 btn-close" aria-label="Close" data-bs-dismiss="toast" type="button"></button></div><div id="toastBody" class="toast-body"></div></div></div>';
@@ -28,7 +29,7 @@ $(document).ready(function() {
     }
 
     //it should only work when ajaxy is enabled
-    if (element.length) {
+    if (elementButton.length) {
         window.onbeforeunload = unloadPage;
     }
 
@@ -64,16 +65,25 @@ $(document).ready(function() {
 
     let url = window.location.pathname;
 
-    element.on('click', function() {
+    // For classic POST: disable only after native HTML5 validation has passed (submit event)
+    if (elementSubmit.length) {
+        $(form).on('submit', function() {
+            elementSubmit.prop('disabled', true);
+        });
+    }
+
+    elementButton.on('click', function() {
+        elementButton.prop('disabled', true);
         $.ajax({
             type: 'POST',
             link: url,
             data: $(form).serialize(),
             beforeSend: function() {
-                patience_virtue(element);
+                patience_virtue(elementButton);
             },
             complete: function() {
                 renable();
+                elementButton.prop('disabled', false);
             },
             success: function(data, textStatus) {
                 if (!record_id) {
