@@ -8,7 +8,7 @@ trait IterableFieldTrait
 {
     private int $iteratorCursor = 0;
 
-    /** @var array<Field|string> */
+    /** @var array<Field|string|int> */
     private array $fields = [];
 
     /**
@@ -29,7 +29,7 @@ trait IterableFieldTrait
         return $this->count();
     }
 
-    public function current(): Field|string
+    public function current(): Field|string|int
     {
         return $this->fields[$this->iteratorCursor];
     }
