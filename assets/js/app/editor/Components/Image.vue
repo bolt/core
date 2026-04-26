@@ -228,6 +228,7 @@ export default {
         extraFields: Array,
         extraData: Array,
     },
+    emits: ['move-image-up', 'move-image-down', 'remove'],
     data() {
         return {
             previewImage: null,
@@ -285,10 +286,10 @@ export default {
             this.thumbnailImage = `/thumbs/400×300/` + this.filenameData;
         },
         onMoveImageDown() {
-            this.$emit('moveImageDown', this);
+            this.$emit('move-image-down', this);
         },
         onMoveImageUp() {
-            this.$emit('moveImageUp', this);
+            this.$emit('move-image-up', this);
         },
         onRemoveImage() {
             this.filenameData = null;

@@ -173,6 +173,7 @@ export default {
         pattern: String | Boolean,
         placeholder: String | Boolean,
     },
+    emits: ['move-file-up', 'move-file-down', 'remove'],
     data() {
         return {
             isDragging: false,
@@ -202,10 +203,10 @@ export default {
     },
     methods: {
         onMoveFileDown() {
-            this.$emit('moveFileDown', this);
+            this.$emit('move-file-down', this);
         },
         onMoveFileUp() {
-            this.$emit('moveFileUp', this);
+            this.$emit('move-file-up', this);
         },
         onRemoveFile() {
             this.filenameData = '';

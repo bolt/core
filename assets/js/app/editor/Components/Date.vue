@@ -72,7 +72,6 @@ export default {
         },
         mode: {
             type: String,
-            required: true,
             default: 'date',
         },
         form: {

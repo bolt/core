@@ -32,12 +32,12 @@
                         {{ element.label }}
                     </div>
                     <!-- Navigation buttons -->
-                    <div :is="compile(element.buttons)"></div>
+                    <component :is="compile(element.buttons)" />
                 </div>
             </div>
             <div class="card details">
                 <!-- The actual field -->
-                <div :is="compile(element.content)" class="card-body"></div>
+                <component :is="compile(element.content)" class="card-body" />
             </div>
         </div>
 

@@ -41,9 +41,16 @@ export default [
             ...prettierPlugin.configs.recommended.rules,
             'no-console': ['error', { allow: ['error', 'warn'] }],
             'no-debugger': 'error',
+            'vue/multi-word-component-names': 'off',
             'vue/require-default-prop': 'off',
             'vue/require-prop-type-constructor': 'off',
             'prettier/prettier': ['error', { printWidth: 120 }],
+            // todo: To be resolved with Vue 3 upgrade (and possibly the other vue/* rules as well)
+            'vue/no-deprecated-delete-set': 'off',
+            'vue/no-deprecated-filter': 'off',
+            'vue/no-deprecated-slot-attribute': 'off',
+            'vue/no-deprecated-slot-scope-attribute': 'off',
+            'vue/no-mutating-props': 'off',
         },
     },
     {
