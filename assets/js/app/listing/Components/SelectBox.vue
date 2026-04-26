@@ -18,7 +18,7 @@
                         track-by="key"
                         :options="options"
                     >
-                        <template slot="option" slot-scope="props">
+                        <template #option="props">
                             <span :class="props.option.class"></span>
                             <span>
                                 {{ props.option.value }}

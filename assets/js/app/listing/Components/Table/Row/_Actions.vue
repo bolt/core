@@ -17,7 +17,7 @@
             >
                 <span class="sr-only">Toggle Dropdown</span>
             </button>
-            <div class="edit-actions__dropdown dropdown-menu dropdown-menu-right" style="width: 320px;">
+            <div class="edit-actions__dropdown dropdown-menu dropdown-menu-right" style="width: 320px">
                 <a
                     v-if="record.status === 'published'"
                     class="dropdown-item"

@@ -23,7 +23,7 @@
                 <span class="status me-2" :class="`is-${props.option.key}`"></span>
                 {{ props.option.value | raw }}
             </template>
-            <template v-if="name === 'status'" slot="option" slot-scope="props">
+            <template v-if="name === 'status'" #option="props">
                 <span class="status me-2" :class="`is-${props.option.key}`"></span>
                 {{ props.option.value | raw }}
             </template>
@@ -39,7 +39,7 @@
                 </div>
             </template>
 
-            <template v-if="name !== 'status'" slot="tag" slot-scope="props">
+            <template v-if="name !== 'status'" #tag="props">
                 <span :class="{ empty: props.option.value == '' }" @drop="drop($event)" @dragover="allowDrop($event)">
                     <span
                         :id="props.option.key"
@@ -128,7 +128,7 @@ export default {
          * set. If the field is empty, "filterSelectedItems" will contain an undefined
          * element and "select" will not be filled with the first available option.
          */
-        const fixSelectedItems = function() {
+        const fixSelectedItems = function () {
             const _values = !this.value ? [] : this.value.map ? this.value : [this.value];
 
             let filterSelectedItems = _values
@@ -190,7 +190,7 @@ export default {
             this.value.push(tag);
             this.selected.push(tag);
         },
-        removeElement: function(element) {
+        removeElement: function (element) {
             this.$refs.vselect.removeElement(element);
         },
         drop(e) {

@@ -2,8 +2,8 @@ import Vue from 'vue';
 import Password from '../editor/Components/Password';
 import Text from '../editor/Components/Text';
 
-Vue.component('field-password', Password);
-Vue.component('editor-text', Text);
+Vue.component('FieldPassword', Password);
+Vue.component('EditorText', Text);
 
 const id = 'login-form';
 
