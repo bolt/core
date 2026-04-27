@@ -34,7 +34,7 @@ class Cast extends FunctionNode
             }
         }
 
-        if ($platform instanceof AbstractMySQLPlatform && $this->second === 'TEXT') {
+        if (! $platform instanceof SQLitePlatform && $this->second === 'TEXT') {
             $this->second = 'CHAR';
         }
 
