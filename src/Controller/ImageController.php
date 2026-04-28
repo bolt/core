@@ -20,6 +20,8 @@ use Throwable;
 
 class ImageController
 {
+    private const SUPPORTED_FORMATS = ['jpg', 'webp', 'png', 'gif', 'avif'];
+
     private Server $server;
 
     /**
@@ -45,17 +47,20 @@ class ImageController
             return $this->sendErrorImage();
         }
 
+        $this->parseParameters($paramString);
+        $urlFilename = $filename;
+        $sourceFilename = $this->parseFormatFromFilename($filename);
+
         try {
-            $filename = PathCanonicalize::canonicalize($this->getPath($request), $filename, true);
+            $sourceFilename = PathCanonicalize::canonicalize($this->getPath($request), $sourceFilename, true);
         } catch (Exception) {
             return $this->sendErrorImage();
         }
 
-        $this->parseParameters($paramString);
         $this->createServer($request);
-        $this->saveThumb($request, $filename);
+        $this->saveThumb($request, $sourceFilename, $urlFilename);
 
-        return $this->buildResponse($request, $filename);
+        return $this->buildResponse($request, $sourceFilename);
     }
 
     private function createServer(Request $request): void
@@ -82,7 +87,19 @@ class ImageController
         return $this->config->getPath($path, $absolute, $additional);
     }
 
-    private function saveThumb(Request $request, string $filename): void
+    private function parseFormatFromFilename(string $filename): string
+    {
+        $ext = mb_strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+        if ($this->isSupportedFormat($ext) && pathinfo(pathinfo($filename, PATHINFO_FILENAME), PATHINFO_EXTENSION) !== '') {
+            $this->parameters['fm'] = $ext;
+
+            return substr($filename, 0, -(mb_strlen($ext) + 1));
+        }
+
+        return $filename;
+    }
+
+    private function saveThumb(Request $request, string $filename, string $urlFilename = ''): void
     {
         if (! $this->config->get('general/thumbnails/save_files', true)) {
             return;
@@ -95,7 +112,7 @@ class ImageController
         $thumbPath = Path::join(
             $this->getPath($request, 'thumbs'),
             $this->parameterPath(),
-            $filename
+            $urlFilename ?: $filename
         );
 
         try {
@@ -103,6 +120,7 @@ class ImageController
             $filesystem->mkdir(dirname($thumbPath), $folderMode);
             $filesystem->dumpFile($thumbPath, $imageBlob);
             $filesystem->chmod($thumbPath, $fileMode);
+
         } catch (Throwable) {
             // Fail silently, output user-friendly exception elsewhere.
         }
@@ -201,6 +219,11 @@ class ImageController
     private function testFit(string $fit): bool
     {
         return (bool) preg_match('/^(contain|max|fill|stretch|crop)(-.+)?/', $fit);
+    }
+
+    private function isSupportedFormat(string $format): bool
+    {
+        return in_array($format, self::SUPPORTED_FORMATS, true);
     }
 
     public function parseFit(string $fit): string

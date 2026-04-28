@@ -102,11 +102,11 @@ class ImageExtension extends AbstractExtension
     /**
      * @param ImageField|array|string $image
      */
-    public function thumbnail($image, ?int $width = null, ?int $height = null, ?string $location = null, ?string $path = null, ?string $fit = null, ?int $quality = null): string
+    public function thumbnail($image, ?int $width = null, ?int $height = null, ?string $location = null, ?string $path = null, ?string $fit = null, ?int $quality = null, ?string $format = null): string
     {
         $filename = $this->getFilename($image, true);
 
-        return $this->thumbnailHelper->path($filename, $width, $height, $location, $path, $fit, $quality);
+        return $this->thumbnailHelper->path($filename, $width, $height, $location, $path, $fit, $quality, $format);
     }
 
     /**

@@ -38,7 +38,7 @@ class ThumbnailHelper
         return implode('×', array_filter([$width, $height, $quality, $fit, $location]));
     }
 
-    public function path(?string $filename = null, ?int $width = null, ?int $height = null, ?string $location = null, ?string $path = null, ?string $fit = null, ?int $quality = null): string
+    public function path(?string $filename = null, ?int $width = null, ?int $height = null, ?string $location = null, ?string $path = null, ?string $fit = null, ?int $quality = null, ?string $format = null): string
     {
         if (! $filename) {
             return '/assets/images/placeholder.png';
@@ -47,7 +47,9 @@ class ThumbnailHelper
         if ($path) {
             $filename = $path . '/' . $filename;
         }
-
+        if($format){
+            $filename .= '.' . $format;
+        }
         $paramString = $this->parameters($width, $height, $fit, $location, $quality);
         $filename = Str::ensureStartsWith($filename, '/');
 
