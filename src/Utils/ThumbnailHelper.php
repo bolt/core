@@ -47,7 +47,7 @@ class ThumbnailHelper
         if ($path) {
             $filename = $path . '/' . $filename;
         }
-        if($format){
+        if ($format) {
             $filename .= '.' . $format;
         }
         $paramString = $this->parameters($width, $height, $fit, $location, $quality);

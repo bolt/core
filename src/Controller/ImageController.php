@@ -93,7 +93,7 @@ class ImageController
         if ($this->isSupportedFormat($ext) && pathinfo(pathinfo($filename, PATHINFO_FILENAME), PATHINFO_EXTENSION) !== '') {
             $this->parameters['fm'] = $ext;
 
-            return substr($filename, 0, -(mb_strlen($ext) + 1));
+            return mb_substr($filename, 0, -(mb_strlen($ext) + 1));
         }
 
         return $filename;
@@ -120,7 +120,6 @@ class ImageController
             $filesystem->mkdir(dirname($thumbPath), $folderMode);
             $filesystem->dumpFile($thumbPath, $imageBlob);
             $filesystem->chmod($thumbPath, $fileMode);
-
         } catch (Throwable) {
             // Fail silently, output user-friendly exception elsewhere.
         }
