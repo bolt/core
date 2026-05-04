@@ -172,7 +172,7 @@ class ImageController
         }
     }
 
-    private function parseParameters(string $paramString): void
+    private function parseParametersold(string $paramString): void
     {
         $raw = explode('×', (string) preg_replace('/([0-9])(x)([0-9a-z])/i', '\1×\3', $paramString));
 
@@ -194,6 +194,50 @@ class ImageController
                 $this->parameters['fit'] = $possibleFit;
             } else {
                 $this->parameters['location'] = $raw[3];
+            }
+        }
+    }
+
+    private function parseParameters(string $paramString): void
+    {
+        $raw = explode('×', (string) preg_replace('/([0-9])(x)([0-9a-z])/i', '\1×\3', $paramString));
+        $defaultFit = $this->config->get('general/thumbnails/default_cropping', 'default');
+
+        $this->parameters = [
+            'w' => (isset($raw[0]) && is_numeric($raw[0])) ? (int) $raw[0] : 400,
+            'h' => (isset($raw[1]) && is_numeric($raw[1])) ? (int) $raw[1] : 300,
+            'fm' => '',
+            'fit' => '',
+            'location' => 'files',
+            'q' => 80,
+        ];
+
+        $remaining = array_values(array_filter(
+            array_slice($raw, 2),
+            static fn ($value): bool => $value !== null && $value !== ''
+        ));
+
+        if (isset($remaining[0]) && is_numeric($remaining[0]) && 0 <= (int) $remaining[0] && (int) $remaining[0] <= 100) {
+            $this->parameters['q'] = (int) array_shift($remaining);
+        }
+
+        foreach ($remaining as $token) {
+            $token = (string) $token;
+            $normalizedToken = mb_strtolower($token);
+
+            if ($this->parameters['fm'] === '' && $this->isSupportedFormat($normalizedToken)) {
+                $this->parameters['fm'] = $normalizedToken;
+                continue;
+            }
+
+            $fit = $this->parseFit($normalizedToken);
+            if ($this->testFit($fit)) {
+                $this->parameters['fit'] = $fit;
+                continue;
+            }
+
+            if ($this->parameters['location'] === 'files') {
+                $this->parameters['location'] = $token;
             }
         }
     }
@@ -239,14 +283,15 @@ class ImageController
 
     private function parameterPath(): string
     {
-        return sprintf(
-            '%d_%d_%d_%s_%s',
+        $parts = array_filter([
             $this->parameters['w'] ?? 0,
             $this->parameters['h'] ?? 0,
-            $this->parameters['q'] ?? 0,
-            $this->parameters['fit'] ?? '',
-            $this->parameters['location'] ?? ''
-        );
+            $this->parameters['q'] ?? 80,
+            $this->parameters['fit'] ?? null,
+            $this->parameters['location'] ?? 'files',
+        ], fn ($v) => $v !== null && $v !== '' && $v !== 0);
+
+        return implode('×', $parts);
     }
 
     public function sendErrorImage(): Response

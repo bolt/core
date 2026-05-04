@@ -27,8 +27,8 @@ class ThumbnailHelper
             $height = 10000;
         }
 
-        if ($location === 'files') {
-            $location = null;
+        if ($location === null) {
+            $location = 'files';
         }
 
         if (! $quality && $this->config instanceof Config) {
