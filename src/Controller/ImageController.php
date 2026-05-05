@@ -214,7 +214,7 @@ class ImageController
 
         $remaining = array_values(array_filter(
             array_slice($raw, 2),
-            static fn ($value): bool => $value !== null && $value !== ''
+            static fn (int|string $value): bool => $value !== ''
         ));
 
         if (isset($remaining[0]) && is_numeric($remaining[0]) && 0 <= (int) $remaining[0] && (int) $remaining[0] <= 100) {
@@ -289,7 +289,7 @@ class ImageController
             $this->parameters['q'] ?? 80,
             $this->parameters['fit'] ?? null,
             $this->parameters['location'] ?? 'files',
-        ], fn ($v) => $v !== null && $v !== '' && $v !== 0);
+        ], fn (int|string|null $v): bool => $v !== null && $v !== '' && $v !== 0);
 
         return implode('×', $parts);
     }
