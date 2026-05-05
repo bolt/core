@@ -172,36 +172,9 @@ class ImageController
         }
     }
 
-    private function parseParametersold(string $paramString): void
-    {
-        $raw = explode('×', (string) preg_replace('/([0-9])(x)([0-9a-z])/i', '\1×\3', $paramString));
-
-        $this->parameters = [
-            'w' => (isset($raw[0]) && is_numeric($raw[0])) ? (int) $raw[0] : 400,
-            'h' => (isset($raw[1]) && is_numeric($raw[1])) ? (int) $raw[1] : 300,
-            'fit' => $raw[2] ?? $this->config->get('general/thumbnails/default_cropping', 'default'),
-            'location' => 'files',
-            'q' => (! empty($raw[2]) && 0 <= $raw[2] && $raw[2] <= 100) ? (int) $raw[2] : 80,
-        ];
-
-        if (isset($raw[4])) {
-            $this->parameters['fit'] = $this->parseFit($raw[3]);
-            $this->parameters['location'] = $raw[4];
-        } elseif (isset($raw[3])) {
-            $possibleFit = $this->parseFit($raw[3]);
-
-            if ($this->testFit($possibleFit)) {
-                $this->parameters['fit'] = $possibleFit;
-            } else {
-                $this->parameters['location'] = $raw[3];
-            }
-        }
-    }
-
     private function parseParameters(string $paramString): void
     {
         $raw = explode('×', (string) preg_replace('/([0-9])(x)([0-9a-z])/i', '\1×\3', $paramString));
-        $defaultFit = $this->config->get('general/thumbnails/default_cropping', 'default');
 
         $this->parameters = [
             'w' => (isset($raw[0]) && is_numeric($raw[0])) ? (int) $raw[0] : 400,
