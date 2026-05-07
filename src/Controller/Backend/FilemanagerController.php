@@ -96,11 +96,15 @@ class FilemanagerController extends TwigAwareController implements BackendZoneIn
         $path = $this->getFromRequest($request, 'path');
         $location = $this->getFromRequest($request, 'location');
 
+        if (! is_string($path)) {
+            throw new \RuntimeException('Invalid filename');
+        }
+
         $this->denyAccessUnlessGranted('managefiles:' . $location);
 
         $location = $this->fileLocations->get($location);
 
-        $folder = Path::canonicalize($location->getBasepath() . '/' . $path);
+        $folder = PathCanonicalize::canonicalize($location->getBasepath(), $path);
 
         if (! $this->filesystem->exists($folder)) {
             $this->addFlash('warning', 'filemanager.delete_folder_missing');
@@ -139,7 +143,7 @@ class FilemanagerController extends TwigAwareController implements BackendZoneIn
 
         $location = $this->fileLocations->get($location);
 
-        $folder = Path::canonicalize($location->getBasepath() . '/' . $path);
+        $folder = PathCanonicalize::canonicalize($location->getBasepath(), $path);
 
         if ($this->filesystem->exists($folder)) {
             $this->addFlash('warning', 'filemanager.create_folder_already_exists');
