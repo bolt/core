@@ -18,7 +18,9 @@ use Illuminate\Support\Collection;
 use Pagerfanta\Doctrine\ORM\QueryAdapter;
 use Pagerfanta\Pagerfanta;
 
-/** @extends ServiceEntityRepository<Content> */
+/**
+ * @extends ServiceEntityRepository<Content>
+ */
 class ContentRepository extends ServiceEntityRepository
 {
     /** @var string[] */

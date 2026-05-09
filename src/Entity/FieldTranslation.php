@@ -9,7 +9,9 @@ use Bolt\Entity\Translatable\BoltTranslationTrait;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-/** @implements BoltTranslationInterface<Field> */
+/**
+ * @implements BoltTranslationInterface<Field>
+ */
 #[ORM\Entity]
 class FieldTranslation implements BoltTranslationInterface
 {

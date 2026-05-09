@@ -11,7 +11,9 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
-/** @extends ServiceEntityRepository<Relation> */
+/**
+ * @extends ServiceEntityRepository<Relation>
+ */
 class RelationRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
