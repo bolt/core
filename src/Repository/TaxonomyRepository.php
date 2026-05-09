@@ -9,7 +9,9 @@ use Bolt\Entity\Taxonomy;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-/** @extends ServiceEntityRepository<Taxonomy> */
+/**
+ * @extends ServiceEntityRepository<Taxonomy>
+ */
 class TaxonomyRepository extends ServiceEntityRepository
 {
     public function __construct(

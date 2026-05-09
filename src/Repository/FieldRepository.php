@@ -15,7 +15,9 @@ use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Illuminate\Support\Collection;
 
-/** @extends ServiceEntityRepository<Field> */
+/**
+ * @extends ServiceEntityRepository<Field>
+ */
 class FieldRepository extends ServiceEntityRepository
 {
     private static ?EntityManagerInterface $em = null;
