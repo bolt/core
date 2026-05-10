@@ -35,7 +35,9 @@ use Twig\Error\LoaderError;
 use Twig\Error\SyntaxError;
 use Twig\Markup;
 
-/** @implements BoltTranslatableInterface<FieldTranslation> */
+/**
+ * @implements BoltTranslatableInterface<FieldTranslation>
+ */
 #[ORM\Entity(repositoryClass: FieldRepository::class)]
 #[ORM\InheritanceType('SINGLE_TABLE')]
 #[ORM\DiscriminatorColumn(name: 'type', type: Types::STRING, length: 191)]

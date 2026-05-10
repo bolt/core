@@ -10,7 +10,9 @@ use Bolt\Configuration\Content\FieldType;
 use Bolt\Entity\Content;
 use Bolt\Repository\FieldRepository;
 
-/** @implements ProcessorInterface<Content, Content> */
+/**
+ * @implements ProcessorInterface<Content, Content>
+ */
 readonly class ContentProcessor implements ProcessorInterface
 {
     /**

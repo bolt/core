@@ -12,7 +12,9 @@ use Doctrine\Persistence\ManagerRegistry;
 use Pagerfanta\Doctrine\ORM\QueryAdapter;
 use Pagerfanta\Pagerfanta;
 
-/** @extends ServiceEntityRepository<Log> */
+/**
+ * @extends ServiceEntityRepository<Log>
+ */
 class LogRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)

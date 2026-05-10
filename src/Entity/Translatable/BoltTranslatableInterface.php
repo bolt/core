@@ -6,7 +6,9 @@ namespace Bolt\Entity\Translatable;
 
 use Doctrine\Common\Collections\Collection;
 
-/** @template T of BoltTranslationInterface */
+/**
+ * @template T of BoltTranslationInterface
+ */
 interface BoltTranslatableInterface
 {
     /**

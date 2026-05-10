@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Bolt\Entity\Translatable;
 
-/** @template T of BoltTranslatableInterface */
+/**
+ * @template T of BoltTranslatableInterface
+ */
 interface BoltTranslationInterface
 {
     /**

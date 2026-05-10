@@ -6,7 +6,9 @@ namespace Bolt\Widget;
 
 use Symfony\Component\Stopwatch\Stopwatch;
 
-/** @phpstan-ignore trait.unused (Used by widgets) */
+/**
+ * @phpstan-ignore trait.unused (Used by widgets)
+ */
 trait StopwatchTrait
 {
     /** @var Stopwatch */
