@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Backend;
 
-use RuntimeException;
 use Bolt\Common\Str;
 use Bolt\Configuration\FileLocations;
 use Bolt\Controller\CsrfTrait;
@@ -21,6 +20,7 @@ use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 
@@ -98,7 +98,7 @@ class FilemanagerController extends TwigAwareController implements BackendZoneIn
         $location = $this->getFromRequest($request, 'location');
 
         if (! is_string($path)) {
-            throw new RuntimeException('Invalid filename');
+            throw new BadRequestHttpException('Invalid filename');
         }
 
         $this->denyAccessUnlessGranted('managefiles:' . $location);
