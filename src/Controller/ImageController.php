@@ -181,9 +181,9 @@ class ImageController
             'w' => (isset($raw[0]) && is_numeric($raw[0])) ? (int) $raw[0] : 400,
             'h' => (isset($raw[1]) && is_numeric($raw[1])) ? (int) $raw[1] : 300,
             'fm' => '',
-            'fit' => '',
+            'fit' => $this->config->get('general/thumbnails/default_cropping', 'default'),
             'location' => 'files',
-            'q' => 80,
+            'q' => $this->config->get('general/thumbnails/quality', 80)
         ];
 
         $remaining = array_values(array_filter(
