@@ -48,7 +48,6 @@ class ImageController
         }
 
         $this->parseParameters($paramString);
-        $urlFilename = $filename;
         $sourceFilename = $this->parseFormatFromFilename($filename);
 
         try {
@@ -56,6 +55,8 @@ class ImageController
         } catch (Exception) {
             return $this->sendErrorImage();
         }
+
+        $urlFilename = $this->parameters['fm'] !== '' ? $sourceFilename . '.' . $this->parameters['fm'] : $sourceFilename;
 
         $this->createServer($request);
         $this->saveThumb($request, $sourceFilename, $urlFilename);
