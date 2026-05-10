@@ -35,6 +35,10 @@ class ThumbnailHelper
             $quality = (int) $this->config->get('general/thumbnails/quality');
         }
 
+        if ($fit === null && $this->config instanceof Config) {
+            $fit = $this->config->get('general/thumbnails/default_cropping', 'default');
+        }
+
         return implode('×', array_filter([$width, $height, $quality, $fit, $location]));
     }
 
