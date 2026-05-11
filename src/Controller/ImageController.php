@@ -29,6 +29,7 @@ class ImageController
      *     w?: int,
      *     h?: int,
      *     fit?: string,
+     *     fm?: string,
      *     location?: string,
      *     q?: int
      * }
@@ -56,7 +57,7 @@ class ImageController
             return $this->sendErrorImage();
         }
 
-        $urlFilename = $this->parameters['fm'] !== '' ? $sourceFilename . '.' . $this->parameters['fm'] : $sourceFilename;
+        $urlFilename = isset($this->parameters['fm']) && $this->parameters['fm'] !== '' ?  $sourceFilename . '.' . $this->parameters['fm']:$sourceFilename;
 
         $this->createServer($request);
         $this->saveThumb($request, $sourceFilename, $urlFilename);
