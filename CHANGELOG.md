@@ -1,6 +1,21 @@
 Changelog
 =========
 
+## 6.1.2
+
+Released: 2026-04-27
+
+Bugfix release for MySQL platform.
+ - [#3710](https://github.com/bolt/core/pull/3710)
+ - [#3713](https://github.com/bolt/core/pull/3713)
+
+## 6.1.1
+
+Released: 2026-04-24
+
+Maintenance release bumping some dependencies.
+Bolt now also disables the save button during form submission.
+
 ## 6.1.0
 
 Released: 2026-04-09
