@@ -1,0 +1,7 @@
+file: packages/framework.yaml
+since: 6.1.3
+
+add:
+  framework:
+    trusted_hosts:
+      - '%env(default::SYMFONY_TRUSTED_HOSTS)%'
