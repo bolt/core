@@ -1,6 +1,18 @@
 Changelog
 =========
 
+## 6.1.3
+
+Released: 2026-05-16
+
+This release includes security-related fixes. Our thanks to @chndlrx and @kouz75 for identifying these issues and disclosing them to us responsibly! 👏🙏
+
+### 🔐 Security related changes
+
+- Prevent user to create/delete folder/files anywhere (@kouz75, https://github.com/bolt/core/pull/3717)
+- Switch to SVG-sanitation library to sanitise uploaded SVG files (@bobvandevijver, https://github.com/bolt/core/pull/3723)
+- Enable SYMFONY_TRUSTED_HOSTS configuration by default (@bobvandevijver, https://github.com/bolt/core/pull/3723)
+
 ## 6.1.2
 
 Released: 2026-04-27
