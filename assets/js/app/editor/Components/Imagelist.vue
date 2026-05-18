@@ -23,8 +23,8 @@
                 :extra-fields="extraFields"
                 :extra-data="child"
                 @remove="onRemoveImage"
-                @moveImageUp="onMoveImageUp"
-                @moveImageDown="onMoveImageDown"
+                @move-image-up="onMoveImageUp"
+                @move-image-down="onMoveImageDown"
             ></editor-image>
         </div>
         <div v-if="getActiveImageFields().length === 0">
@@ -57,10 +57,10 @@ export default {
         readonly: Boolean,
         extraFields: Array,
     },
-    data: function() {
+    data: function () {
         let counter = 0;
         let containerImages = this.images;
-        containerImages.forEach(function(file, index, theContainerImagesArray) {
+        containerImages.forEach(function (file, index, theContainerImagesArray) {
             theContainerImagesArray[index].id = index;
             counter++;
         });
@@ -71,7 +71,7 @@ export default {
         };
     },
     computed: {
-        allowMore: function() {
+        allowMore: function () {
             if (this.readonly) {
                 return false;
             }
@@ -87,7 +87,7 @@ export default {
             return index === this.getActiveImageFields().length - 1;
         },
         getActiveImageFields() {
-            return this.containerImages.filter(function(image) {
+            return this.containerImages.filter(function (image) {
                 return image.hidden !== true;
             });
         },

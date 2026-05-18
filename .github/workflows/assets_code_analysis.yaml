@@ -21,6 +21,9 @@ jobs:
           - name: Lint on SCSS files
             run: npm run stylelint
 
+          - name: Build for production
+            run: npm run build
+
     name: ${{ matrix.actions.name }}
     runs-on: ubuntu-latest
 

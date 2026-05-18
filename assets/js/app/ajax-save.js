@@ -14,10 +14,10 @@ record_id = JSON.stringify(record_id);
 /**
  * Start of Ajaxy solution for saving
  */
-$(document).ready(function() {
+$(document).ready(function () {
     let unsaved = false;
 
-    $(form).change(function() {
+    $(form).change(function () {
         //triggers change in all input fields including text type
         unsaved = true;
     });
@@ -48,13 +48,13 @@ $(document).ready(function() {
         $('#toastType').append(toastType);
         $('#toastBody').append(toastMessage);
 
-        $(document).ready(function() {
+        $(document).ready(function () {
             let toastElList = [].slice.call(document.querySelectorAll('.toast'));
-            let toastList = toastElList.map(function(toastEl) {
+            let toastList = toastElList.map(function (toastEl) {
                 return new Toast(toastEl, []);
             });
 
-            toastList.forEach(function(toast) {
+            toastList.forEach(function (toast) {
                 toast.show();
             });
         });
@@ -67,25 +67,25 @@ $(document).ready(function() {
 
     // For classic POST: disable only after native HTML5 validation has passed (submit event)
     if (elementSubmit.length) {
-        $(form).on('submit', function() {
+        $(form).on('submit', function () {
             elementSubmit.prop('disabled', true);
         });
     }
 
-    elementButton.on('click', function() {
+    elementButton.on('click', function () {
         elementButton.prop('disabled', true);
         $.ajax({
             type: 'POST',
             link: url,
             data: $(form).serialize(),
-            beforeSend: function() {
+            beforeSend: function () {
                 patience_virtue(elementButton);
             },
-            complete: function() {
+            complete: function () {
                 renable();
                 elementButton.prop('disabled', false);
             },
-            success: function(data, textStatus) {
+            success: function (data, textStatus) {
                 if (!record_id) {
                     window.location.replace(data.url);
                 } else if (window.location.pathname === '/bolt/duplicate/' + duplicate_id) {
@@ -98,7 +98,7 @@ $(document).ready(function() {
                     showToast();
                 }
             },
-            error: function(jq, status, err) {
+            error: function (jq, status, err) {
                 // eslint-disable-next-line no-console
                 console.log(status, err);
                 showToast();

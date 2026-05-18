@@ -10,13 +10,13 @@ export function patience_virtue(thisElement) {
     thisElement.attr('data-original-class', thisIcon.attr('class'));
     thisIcon.attr('class', newClass);
 
-    window.setTimeout(function() {
+    window.setTimeout(function () {
         thisElement.attr('disabled', true);
     }, 50);
 }
 
 export function renable() {
-    $('*[data-original-class]').each(function() {
+    $('*[data-original-class]').each(function () {
         const thisIcon = $(this).find('i');
 
         $(this).removeAttr('disabled');

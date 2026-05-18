@@ -228,6 +228,7 @@ export default {
         extraFields: Array,
         extraData: Array,
     },
+    emits: ['move-image-up', 'move-image-down', 'remove'],
     data() {
         return {
             previewImage: null,
@@ -285,10 +286,10 @@ export default {
             this.thumbnailImage = `/thumbs/400×300/` + this.filenameData;
         },
         onMoveImageDown() {
-            this.$emit('moveImageDown', this);
+            this.$emit('move-image-down', this);
         },
         onMoveImageUp() {
-            this.$emit('moveImageUp', this);
+            this.$emit('move-image-up', this);
         },
         onRemoveImage() {
             this.filenameData = null;
@@ -599,7 +600,7 @@ export default {
         },
         filterServerFiles(files) {
             let self = this;
-            return files.filter(function(file) {
+            return files.filter(function (file) {
                 let ext = /(?:\.([^.]+))?$/.exec(file.text)[1];
                 // If it's a directory, return the directory
                 if (file.group == 'directories') {
