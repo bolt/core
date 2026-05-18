@@ -49,13 +49,14 @@ class ImageController
         }
 
         $this->parseParameters($paramString);
-        $sourceFilename = $this->parseFormatFromFilename($filename);
 
         try {
-            $sourceFilename = PathCanonicalize::canonicalize($this->getPath($request), $sourceFilename, true);
+            $filename = PathCanonicalize::canonicalize($this->getPath($request), $filename, true);
         } catch (Exception) {
             return $this->sendErrorImage();
         }
+
+        $sourceFilename = $this->parseFormatFromFilename($filename);
 
         $urlFilename = isset($this->parameters['fm']) && $this->parameters['fm'] !== '' ?  $sourceFilename . '.' . $this->parameters['fm']:$sourceFilename;
 
