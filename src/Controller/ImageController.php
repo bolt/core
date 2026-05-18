@@ -20,6 +20,8 @@ use Throwable;
 
 class ImageController
 {
+    private const SUPPORTED_FORMATS = ['jpg', 'webp', 'png', 'gif', 'avif'];
+
     private Server $server;
 
     /**
@@ -27,6 +29,7 @@ class ImageController
      *     w?: int,
      *     h?: int,
      *     fit?: string,
+     *     fm?: string,
      *     location?: string,
      *     q?: int
      * }
@@ -45,17 +48,22 @@ class ImageController
             return $this->sendErrorImage();
         }
 
+        $this->parseParameters($paramString);
+
         try {
             $filename = PathCanonicalize::canonicalize($this->getPath($request), $filename, true);
         } catch (Exception) {
             return $this->sendErrorImage();
         }
 
-        $this->parseParameters($paramString);
-        $this->createServer($request);
-        $this->saveThumb($request, $filename);
+        $sourceFilename = $this->parseFormatFromFilename($filename);
 
-        return $this->buildResponse($request, $filename);
+        $urlFilename = isset($this->parameters['fm']) && $this->parameters['fm'] !== '' ?  $sourceFilename . '.' . $this->parameters['fm']:$sourceFilename;
+
+        $this->createServer($request);
+        $this->saveThumb($request, $sourceFilename, $urlFilename);
+
+        return $this->buildResponse($request, $sourceFilename);
     }
 
     private function createServer(Request $request): void
@@ -82,7 +90,25 @@ class ImageController
         return $this->config->getPath($path, $absolute, $additional);
     }
 
-    private function saveThumb(Request $request, string $filename): void
+    private function parseFormatFromFilename(string $filename): string
+    {
+        $parts = explode('.', pathinfo($filename, PATHINFO_BASENAME));
+
+        if (count($parts) < 3) {
+            return $filename;
+        }
+
+        $ext = mb_strtolower(end($parts));
+
+        if ($this->isSupportedFormat($ext)) {
+            $this->parameters['fm'] = $ext;
+            return mb_substr($filename, 0, -(mb_strlen($ext) + 1));
+        }
+
+        return $filename;
+    }
+
+    private function saveThumb(Request $request, string $filename, string $urlFilename = ''): void
     {
         if (! $this->config->get('general/thumbnails/save_files', true)) {
             return;
@@ -95,7 +121,7 @@ class ImageController
         $thumbPath = Path::join(
             $this->getPath($request, 'thumbs'),
             $this->parameterPath(),
-            $filename
+            $urlFilename ?: $filename
         );
 
         try {
@@ -162,21 +188,38 @@ class ImageController
         $this->parameters = [
             'w' => (isset($raw[0]) && is_numeric($raw[0])) ? (int) $raw[0] : 400,
             'h' => (isset($raw[1]) && is_numeric($raw[1])) ? (int) $raw[1] : 300,
-            'fit' => $raw[2] ?? $this->config->get('general/thumbnails/default_cropping', 'default'),
+            'fm' => '',
+            'fit' => $this->config->get('general/thumbnails/default_cropping', 'default'),
             'location' => 'files',
-            'q' => (! empty($raw[2]) && 0 <= $raw[2] && $raw[2] <= 100) ? (int) $raw[2] : 80,
+            'q' => $this->config->get('general/thumbnails/quality', 80)
         ];
 
-        if (isset($raw[4])) {
-            $this->parameters['fit'] = $this->parseFit($raw[3]);
-            $this->parameters['location'] = $raw[4];
-        } elseif (isset($raw[3])) {
-            $possibleFit = $this->parseFit($raw[3]);
+        $remaining = array_values(array_filter(
+            array_slice($raw, 2),
+            static fn (int|string $value): bool => $value !== ''
+        ));
 
-            if ($this->testFit($possibleFit)) {
-                $this->parameters['fit'] = $possibleFit;
-            } else {
-                $this->parameters['location'] = $raw[3];
+        if (isset($remaining[0]) && is_numeric($remaining[0]) && 0 <= (int) $remaining[0] && (int) $remaining[0] <= 100) {
+            $this->parameters['q'] = (int) array_shift($remaining);
+        }
+
+        foreach ($remaining as $token) {
+            $token = (string) $token;
+            $normalizedToken = mb_strtolower($token);
+
+            if ($this->parameters['fm'] === '' && $this->isSupportedFormat($normalizedToken)) {
+                $this->parameters['fm'] = $normalizedToken;
+                continue;
+            }
+
+            $fit = $this->parseFit($normalizedToken);
+            if ($this->testFit($fit)) {
+                $this->parameters['fit'] = $fit;
+                continue;
+            }
+
+            if ($this->parameters['location'] === 'files') {
+                $this->parameters['location'] = $token;
             }
         }
     }
@@ -203,6 +246,11 @@ class ImageController
         return (bool) preg_match('/^(contain|max|fill|stretch|crop)(-.+)?/', $fit);
     }
 
+    private function isSupportedFormat(string $format): bool
+    {
+        return in_array($format, self::SUPPORTED_FORMATS, true);
+    }
+
     public function parseFit(string $fit): string
     {
         return match ($fit) {
@@ -217,14 +265,15 @@ class ImageController
 
     private function parameterPath(): string
     {
-        return sprintf(
-            '%d_%d_%d_%s_%s',
+        $parts = array_filter([
             $this->parameters['w'] ?? 0,
             $this->parameters['h'] ?? 0,
-            $this->parameters['q'] ?? 0,
-            $this->parameters['fit'] ?? '',
-            $this->parameters['location'] ?? ''
-        );
+            $this->parameters['q'] ?? 80,
+            $this->parameters['fit'] ?? null,
+            $this->parameters['location'] ?? 'files',
+        ], fn (int|string|null $v): bool => $v !== null && $v !== '' && $v !== 0);
+
+        return implode('×', $parts);
     }
 
     public function sendErrorImage(): Response

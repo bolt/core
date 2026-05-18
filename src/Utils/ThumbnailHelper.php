@@ -27,18 +27,22 @@ class ThumbnailHelper
             $height = 10000;
         }
 
-        if ($location === 'files') {
-            $location = null;
+        if ($location === null) {
+            $location = 'files';
         }
 
         if (! $quality && $this->config instanceof Config) {
             $quality = (int) $this->config->get('general/thumbnails/quality');
         }
 
+        if ($fit === null && $this->config instanceof Config) {
+            $fit = $this->config->get('general/thumbnails/default_cropping', 'default');
+        }
+
         return implode('×', array_filter([$width, $height, $quality, $fit, $location]));
     }
 
-    public function path(?string $filename = null, ?int $width = null, ?int $height = null, ?string $location = null, ?string $path = null, ?string $fit = null, ?int $quality = null): string
+    public function path(?string $filename = null, ?int $width = null, ?int $height = null, ?string $location = null, ?string $path = null, ?string $fit = null, ?int $quality = null, ?string $format = null): string
     {
         if (! $filename) {
             return '/assets/images/placeholder.png';
@@ -47,7 +51,9 @@ class ThumbnailHelper
         if ($path) {
             $filename = $path . '/' . $filename;
         }
-
+        if ($format) {
+            $filename .= '.' . $format;
+        }
         $paramString = $this->parameters($width, $height, $fit, $location, $quality);
         $filename = Str::ensureStartsWith($filename, '/');
 

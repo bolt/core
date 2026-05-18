@@ -1,6 +1,33 @@
 Changelog
 =========
 
+## 6.1.3
+
+Released: 2026-05-16
+
+This release includes security-related fixes. Our thanks to @chndlrx and @kouz75 for identifying these issues and disclosing them to us responsibly! 👏🙏
+
+### 🔐 Security related changes
+
+- Prevent user to create/delete folder/files anywhere (@kouz75, https://github.com/bolt/core/pull/3717)
+- Switch to SVG-sanitation library to sanitise uploaded SVG files (@bobvandevijver, https://github.com/bolt/core/pull/3723)
+- Enable SYMFONY_TRUSTED_HOSTS configuration by default (@bobvandevijver, https://github.com/bolt/core/pull/3723)
+
+## 6.1.2
+
+Released: 2026-04-27
+
+Bugfix release for MySQL platform.
+ - [#3710](https://github.com/bolt/core/pull/3710)
+ - [#3713](https://github.com/bolt/core/pull/3713)
+
+## 6.1.1
+
+Released: 2026-04-24
+
+Maintenance release bumping some dependencies.
+Bolt now also disables the save button during form submission.
+
 ## 6.1.0
 
 Released: 2026-04-09
