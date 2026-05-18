@@ -92,10 +92,16 @@ class ImageController
 
     private function parseFormatFromFilename(string $filename): string
     {
-        $ext = mb_strtolower(pathinfo($filename, PATHINFO_EXTENSION));
-        if ($this->isSupportedFormat($ext) && pathinfo(pathinfo($filename, PATHINFO_FILENAME), PATHINFO_EXTENSION) !== '') {
-            $this->parameters['fm'] = $ext;
+        $parts = explode('.', pathinfo($filename, PATHINFO_BASENAME));
 
+        if (count($parts) < 3) {
+            return $filename;
+        }
+
+        $ext = mb_strtolower(end($parts));
+
+        if ($this->isSupportedFormat($ext)) {
+            $this->parameters['fm'] = $ext;
             return mb_substr($filename, 0, -(mb_strlen($ext) + 1));
         }
 
