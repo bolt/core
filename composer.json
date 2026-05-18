@@ -26,6 +26,7 @@
         "doctrine/orm": "^3.5",
         "drupol/composer-packages": "^2.0",
         "embed/embed": "^4.4",
+        "enshrined/svg-sanitize": "^0.22.0",
         "erusev/parsedown": "^1.8",
         "erusev/parsedown-extra": "^0.9",
         "fakerphp/faker": "^1.16",

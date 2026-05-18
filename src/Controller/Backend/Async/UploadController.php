@@ -11,6 +11,7 @@ use Bolt\Factory\MediaFactory;
 use Bolt\Twig\TextExtension;
 use Cocur\Slugify\Slugify;
 use Doctrine\ORM\EntityManagerInterface;
+use enshrined\svgSanitize\Sanitizer;
 use Sirius\Upload\Handler;
 use Sirius\Upload\Result\File;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -150,8 +151,8 @@ class UploadController extends AbstractController implements AsyncZoneInterface
 
         $uploadHandler->addRule(
             'callback',
-            ['callback' => $this->checkJavascriptInSVG(...)],
-            'It is not allowed to upload SVG\'s with embedded Javascript.',
+            ['callback' => $this->sanitizeSvgContent(...)],
+            'The SVG-file could not be sanitized automatically, is it a valid SVG-file?',
             'Upload file'
         );
 
@@ -210,18 +211,31 @@ class UploadController extends AbstractController implements AsyncZoneInterface
         return $filename . '.' . $extension;
     }
 
-    public function checkJavascriptInSVG(array $file): bool
+    public function sanitizeSvgContent(array $file): bool
     {
         if (Path::getExtension($file['name']) != 'svg') {
             return true;
         }
 
-        $svgFile = file_get_contents($file['tmp_name']);
+        // Configure sanitizer
+        $sanitizer = new Sanitizer();
+        $sanitizer->minify(true);
+        $sanitizer->removeXMLTag(true);
+        $sanitizer->removeRemoteReferences(true);
 
-        if (preg_match('/(?:<[^>]+\s)(on\S+)=["\']?((?:.(?!["\']?\s+(?:\S+)=|[>"\']))+.)["\']?/i', $svgFile)) {
+        // Retrieve file contents
+        if (! $svgFile = file_get_contents($file['tmp_name'])) {
             return false;
         }
 
-        return mb_strpos((string) preg_replace('/\s+/', '', mb_strtolower($svgFile)), '<script') === false;
+        // Sanitize the SVG content
+        if (false === $sanitizedSvg = $sanitizer->sanitize($svgFile)) {
+            return false;
+        }
+
+        // Write the sanitized SVG back to the temporary file
+        file_put_contents($file['tmp_name'], $sanitizedSvg);
+
+        return true;
     }
 }

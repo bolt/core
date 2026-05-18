@@ -1076,20 +1076,8 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Controller/Backend/Async/UploadController.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\Controller\\\\Backend\\\\Async\\\\UploadController\\:\\:checkJavascriptInSVG\\(\\) has parameter \\$file with no value type specified in iterable type array\\.$#',
+	'message' => '#^Method Bolt\\\\Controller\\\\Backend\\\\Async\\\\UploadController\\:\\:sanitizeSvgContent\\(\\) has parameter \\$file with no value type specified in iterable type array\\.$#',
 	'identifier' => 'missingType.iterableValue',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Controller/Backend/Async/UploadController.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Parameter \\#1 \\$string of function mb_strtolower expects string, string\\|false given\\.$#',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Controller/Backend/Async/UploadController.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Parameter \\#2 \\$subject of function preg_match expects string, string\\|false given\\.$#',
-	'identifier' => 'argument.type',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Controller/Backend/Async/UploadController.php',
 ];
