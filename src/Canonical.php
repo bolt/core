@@ -123,7 +123,8 @@ class Canonical
      */
     public function setScheme(string $scheme): void
     {
-        $this->scheme = mb_trim($scheme, ':/');
+        // Cast: on PHP 8.4 `mb_trim()` is analysed as `string|false`.
+        $this->scheme = (string) mb_trim($scheme, ':/');
     }
 
     public function getPort(): ?int

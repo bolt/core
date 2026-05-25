@@ -74,7 +74,8 @@ final readonly class FrontendMenuBuilder implements FrontendMenuBuilderInterface
 
     private function generateUri(string $link = ''): array
     {
-        $trimmedLink = mb_trim($link, '/');
+        // Cast: on PHP 8.4 `mb_trim()` is analysed as `string|false`.
+        $trimmedLink = (string) mb_trim($link, '/');
 
         // Special case for "Homepage"
         if ($trimmedLink === 'homepage' || $trimmedLink === $this->config->get('general/homepage')) {

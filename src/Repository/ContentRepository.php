@@ -123,7 +123,8 @@ class ContentRepository extends ServiceEntityRepository
 
         // The search term must match the format of the content in the database
         // Therefore, it is JSON encoded and escaped with backslashes
-        $encodedSearchTerm = addslashes(mb_trim(json_encode($searchTerm, JSON_UNESCAPED_UNICODE), '"'));
+        // Casts: `json_encode()` is `string|false`, and on PHP 8.4 `mb_trim()` is too.
+        $encodedSearchTerm = addslashes((string) mb_trim((string) json_encode($searchTerm, JSON_UNESCAPED_UNICODE), '"'));
 
         $qb->addSelect('f')
             ->innerJoin('content.fields', 'f')

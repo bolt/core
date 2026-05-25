@@ -275,7 +275,8 @@ class ContentExtension extends AbstractExtension
             return $excerpt . $part . ' ';
         }, '');
 
-        return mb_rtrim($excerpt, '. ');
+        // Cast: on PHP 8.4 `mb_rtrim()` is analysed as `string|false`.
+        return (string) mb_rtrim($excerpt, '. ');
     }
 
     public function getPreviousContent(?Content $content, string $byColumn = 'id', bool $sameContentType = true): ?Content

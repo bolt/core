@@ -3254,12 +3254,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Repository/ContentRepository.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Parameter \\#1 \\$string of function mb_trim expects string, string\\|false given\\.$#',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Repository/ContentRepository.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Call to an undefined method object\\:\\:setDefaultLocale\\(\\)\\.$#',
 	'identifier' => 'method.notFound',
 	'count' => 1,
