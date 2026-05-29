@@ -107,7 +107,7 @@
         "vue-router": "^3.6.5",
         "vue-template-compiler": "^2.7.15",
         "webpack-notifier": "^1.15.0",
-        "webpackbar": "^5.0.2",
+        "webpackbar": "^7.0.0",
         "workbox-webpack-plugin": "^6.6.0"
     },
     "scripts": {
