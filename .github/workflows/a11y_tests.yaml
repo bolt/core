@@ -50,6 +50,12 @@ jobs:
         run: ./bin/console bolt:info --ansi
       - name: Install NPM dependencies
         run: npm ci --prefer-offline --no-audit --cache /tmp/npm-cache
+      - uses: browser-actions/setup-chrome@v2
+        id: setup-chrome
+        with:
+          chrome-version: 148
+      - run: |
+          ${{ steps.setup-chrome.outputs.chrome-path }} --version
       - name: Prepare environment
         run: |
           # Disable AppArmor to be able to run browser
@@ -66,3 +72,5 @@ jobs:
           curl --silent --show-error --fail-with-body "http://127.0.0.1:8088/bolt/login"
       - name: Run pa11yci
         run: npm run a11y:test:all
+        env:
+          PUPPETEER_EXECUTABLE_PATH: ${{ steps.setup-chrome.outputs.chrome-path }}
