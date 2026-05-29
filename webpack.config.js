@@ -49,7 +49,12 @@ Encore.addPlugin(
     .splitEntryChunks()
     .autoProvidejQuery()
     .enableVueLoader()
-    .enableSassLoader()
+    .enableSassLoader(options => {
+        options.sassOptions = {
+            silenceDeprecations: ['import', 'global-builtin', 'color-functions', 'legacy-js-api'],
+            quietDeps: true,
+        };
+    })
     .enablePostCssLoader()
 
     .enableVueLoader(() => {}, { runtimeCompilerBuild: true });
