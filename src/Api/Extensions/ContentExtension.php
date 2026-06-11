@@ -11,6 +11,7 @@ use ApiPlatform\Metadata\Operation;
 use Bolt\Configuration\Config;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
+use Bolt\Entity\Relation;
 use Bolt\Enum\Statuses;
 use Doctrine\ORM\QueryBuilder;
 use Illuminate\Support\Collection;
@@ -50,6 +51,10 @@ final class ContentExtension implements QueryCollectionExtensionInterface, Query
         if ($resourceClass === Field::class) {
             $this->filterUnpublishedViewlessFields($queryBuilder);
         }
+
+        if ($resourceClass === Relation::class) {
+            $this->filterUnpublishedViewlessRelations($queryBuilder);
+        }
     }
 
     public function applyToItem(
@@ -66,6 +71,10 @@ final class ContentExtension implements QueryCollectionExtensionInterface, Query
 
         if ($resourceClass === Field::class) {
             $this->filterUnpublishedViewlessFields($queryBuilder);
+        }
+
+        if ($resourceClass === Relation::class) {
+            $this->filterUnpublishedViewlessRelations($queryBuilder);
         }
     }
 
@@ -94,6 +103,28 @@ final class ContentExtension implements QueryCollectionExtensionInterface, Query
         //todo: Fix this when https://github.com/doctrine/orm/issues/3835 closed.
         if ($this->viewlessContentTypes->isNotEmpty()) {
             $queryBuilder->andWhere('c.contentType NOT IN (:cts)');
+            $queryBuilder->setParameter('cts', $this->viewlessContentTypes);
+        }
+    }
+
+    private function filterUnpublishedViewlessRelations(QueryBuilder $queryBuilder): void
+    {
+        $rootAlias = $queryBuilder->getRootAliases()[0];
+
+        // A relation embeds both the `fromContent` and the `toContent`. It must
+        // only be exposed when *both* ends are publicly visible, otherwise the
+        // relation leaks the existence of unpublished or viewless content.
+        $queryBuilder->join($rootAlias . '.fromContent', 'relation_from');
+        $queryBuilder->join($rootAlias . '.toContent', 'relation_to');
+        $queryBuilder->andWhere('relation_from.status = :status');
+        $queryBuilder->andWhere('relation_to.status = :status');
+
+        $queryBuilder->setParameter('status', Statuses::PUBLISHED);
+
+        //todo: Fix this when https://github.com/doctrine/orm/issues/3835 closed.
+        if ($this->viewlessContentTypes->isNotEmpty()) {
+            $queryBuilder->andWhere('relation_from.contentType NOT IN (:cts)');
+            $queryBuilder->andWhere('relation_to.contentType NOT IN (:cts)');
             $queryBuilder->setParameter('cts', $this->viewlessContentTypes);
         }
     }
