@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Controller\Backend\Async;
 
 use Bolt\Controller\CsrfTrait;
+use Bolt\Utils\UrlSafetyChecker;
 use Embed\Embed as EmbedFactory;
 use Psr\Http\Client\RequestExceptionInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -13,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Throwable;
 
 #[IsGranted(attribute: 'fetch_embed_data')]
 class EmbedController implements AsyncZoneInterface
@@ -32,8 +34,21 @@ class EmbedController implements AsyncZoneInterface
             ], Response::HTTP_FORBIDDEN);
         }
 
+        $url = $request->request->getString('url') ?? '';
+
+        // Prevent SSRF: only fetch URLs with an allowed scheme that resolve to
+        // a public IP address (not a private, reserved or loopback address).
         try {
-            $url = $request->request->getString('url') ?? '';
+            UrlSafetyChecker::assertSafe($url);
+        } catch (Throwable $e) {
+            return new JsonResponse([
+                'error' => [
+                    'message' => $e->getMessage(),
+                ],
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+        try {
             $info = (new EmbedFactory())->get($url);
             $oembed = $info->getOEmbed();
 
