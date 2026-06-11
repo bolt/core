@@ -9,6 +9,7 @@ use Bolt\Configuration\Config;
 use Bolt\Controller\CsrfTrait;
 use Bolt\Factory\MediaFactory;
 use Bolt\Twig\TextExtension;
+use Bolt\Utils\UrlSafetyChecker;
 use Cocur\Slugify\Slugify;
 use Doctrine\ORM\EntityManagerInterface;
 use enshrined\svgSanitize\Sanitizer;
@@ -66,6 +67,18 @@ class UploadController extends AbstractController implements AsyncZoneInterface
             return new JsonResponse([
                 'error' => [
                     'message' => $violations->get(0)->getMessage(),
+                ],
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+        // Prevent SSRF: only fetch URLs with an allowed scheme that resolve to
+        // a public IP address (not a private, reserved or loopback address).
+        try {
+            UrlSafetyChecker::assertSafe($url);
+        } catch (Throwable $e) {
+            return new JsonResponse([
+                'error' => [
+                    'message' => $e->getMessage(),
                 ],
             ], Response::HTTP_BAD_REQUEST);
         }
