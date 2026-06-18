@@ -566,6 +566,27 @@ validationdemos:
         min: 1
         max: 2
 
+# This contenttype is here to use for (automated) tests.
+# A non-homepage singleton: Bolt serves a singleton at its slugless listing URL
+# (the ListingController forwards a singleton "listing" to the record), so its
+# canonical should be `/about`, not the record-detail route `/about/{slug}`.
+about:
+  name: About
+  singular_name: About
+  slug: about
+  fields:
+    title:
+      type: text
+      label: Title
+    slug:
+      type: slug
+      uses: title
+      group: meta
+  viewless: false
+  singleton: true
+  icon_many: "fa:info-circle"
+  icon_one: "fa:info-circle"
+
 # Possible field types:
 #
 # text - varchar(256) - input type text.
