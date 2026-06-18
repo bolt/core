@@ -69,13 +69,15 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
 
         $records = $this->setRecords($content, $amountPerPage, $page);
 
-        // Set canonical URL
+        // Set canonical URL. Note: query params (order/status/filters from
+        // parseQueryParams) are intentionally NOT merged in — they are volatile and
+        // would pollute the canonical (e.g. ?order=-createdAt&status=published).
         $this->canonical->setPath(
             'listing_locale',
-            array_merge([
+            [
                 'contentTypeSlug' => $contentType->get('slug'),
                 '_locale' => $request->getLocale(),
-            ], $params)
+            ]
         );
 
         // Render
