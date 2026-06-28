@@ -44,7 +44,7 @@ class ArrayToJsonMigrator
         foreach ($result->iterateAssociative() as $row) {
             $id = $row['id'];
             $propertyString = $row[$propertyName];
-            $propertyArray = unserialize($propertyString);
+            $propertyArray = unserialize($propertyString, ['allowed_classes' => false]);
             // This is where the actual migration happens
             $propertyJson = json_encode($propertyArray);
 
