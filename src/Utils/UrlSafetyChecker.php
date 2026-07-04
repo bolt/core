@@ -36,8 +36,7 @@ class UrlSafetyChecker
         }
 
         // Strip the brackets from IPv6 literals, e.g. `[::1]`.
-        $host = mb_trim($parts['host'], '[]');
-
+        $host = trim($parts['host'], '[]');
         $ips = self::resolveHost($host);
 
         if ($ips === []) {
