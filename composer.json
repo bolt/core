@@ -124,7 +124,7 @@
         "rector/rector": "2.2.11",
         "symfony/browser-kit": "^6.4",
         "symfony/css-selector": "^6.4",
-        "symplify/easy-coding-standard": "^13.0"
+        "symplify/easy-coding-standard": "13.2.3"
     },
     "config": {
         "preferred-install": {
