@@ -94,6 +94,7 @@
     },
     "conflict": {
         "acmecorp/reference-extension": "<2.0",
+        "api-platform/core": ">=4.3.16",
         "bolt/article": "<3.0",
         "bolt/configuration-notices-widget": "<3.0",
         "bolt/newswidget": "<2.0",
