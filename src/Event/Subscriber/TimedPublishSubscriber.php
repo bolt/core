@@ -24,8 +24,11 @@ class TimedPublishSubscriber implements EventSubscriberInterface
     private Connection $defaultConnection;
     private string $tablePrefix;
 
-    public function __construct($tablePrefix, ManagerRegistry $managerRegistry, private LoggerInterface $logger)
-    {
+    public function __construct(
+        $tablePrefix,
+        ManagerRegistry $managerRegistry,
+        private LoggerInterface $logger
+    ) {
         /** @var Connection $connection */
         $connection = $managerRegistry->getConnection('default');
         $this->defaultConnection = $connection;
