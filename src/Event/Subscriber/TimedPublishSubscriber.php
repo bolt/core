@@ -23,9 +23,8 @@ class TimedPublishSubscriber implements EventSubscriberInterface
 
     private Connection $defaultConnection;
     private string $tablePrefix;
-    private LoggerInterface $logger;
 
-    public function __construct($tablePrefix, ManagerRegistry $managerRegistry, LoggerInterface $logger)
+    public function __construct($tablePrefix, ManagerRegistry $managerRegistry, private LoggerInterface $logger)
     {
         /** @var Connection $connection */
         $connection = $managerRegistry->getConnection('default');
@@ -33,7 +32,6 @@ class TimedPublishSubscriber implements EventSubscriberInterface
         $this->tablePrefix = $this
             ->setTablePrefixes($tablePrefix, $managerRegistry)
             ->getTablePrefix($managerRegistry->getManager('default'));
-        $this->logger = $logger;
     }
 
     /**
