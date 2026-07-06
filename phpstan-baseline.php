@@ -2666,12 +2666,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Event/Subscriber/AuthSubscriber.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Call to an undefined method object\\:\\:executeUpdate\\(\\)\\.$#',
-	'identifier' => 'method.notFound',
-	'count' => 2,
-	'path' => __DIR__ . '/src/Event/Subscriber/TimedPublishSubscriber.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Method Bolt\\\\Event\\\\Subscriber\\\\TimedPublishSubscriber\\:\\:__construct\\(\\) has parameter \\$tablePrefix with no type specified\\.$#',
 	'identifier' => 'missingType.parameter',
 	'count' => 1,
