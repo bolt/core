@@ -57,7 +57,7 @@ class TimedPublishSubscriber implements EventSubscriberInterface
             $conn->executeStatement($queryPublish, ['now' => $now], ['now' => Types::DATETIME_MUTABLE]);
             $conn->executeStatement($queryDepublish, ['now' => $now], ['now' => Types::DATETIME_MUTABLE]);
         } catch (Throwable $exception) {
-            // Fail silently, output user-friendly exception elsewhere.
+            // Fail silently for the user, but log at debug level for diagnostics.
             $this->logger->debug('Failed to publish/depublish timed content', ['exception' => $exception]);
         }
     }
