@@ -1,5 +1,5 @@
 export function resetModalContent(labels) {
-    var resourcesModal = document.getElementById('resourcesModal');
+    const resourcesModal = document.getElementById('resourcesModal');
     if (labels.modal_button_deny && labels.modal_button_save) {
         let deny_button = labels.modal_button_deny;
         let save_button = labels.modal_button_save;

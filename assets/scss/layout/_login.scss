@@ -1,5 +1,8 @@
 .page--login {
-  background: linear-gradient(rgba(200, 200, 200, 0.6), rgba(200, 200, 200, 0.2));
+  background: linear-gradient(
+    rgba(200, 200, 200, 0.6),
+    rgba(200, 200, 200, 0.2)
+  );
 
   > div {
     max-width: 25rem;
@@ -46,7 +49,9 @@
 
   &.with-background {
     // Unsplash's daily picture is usually always pretty, but often too distracting: https://source.unsplash.com/daily
-    background: linear-gradient(rgba(128, 128, 128, 0.6), rgba(128, 128, 128, 0.2)), url(https://source.unsplash.com/1920x1080/?abstract);
+    background:
+      linear-gradient(rgba(128, 128, 128, 0.6), rgba(128, 128, 128, 0.2)),
+      url(https://source.unsplash.com/1920x1080/?abstract);
     background-position: center;
     background-size: cover;
 

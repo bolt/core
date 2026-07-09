@@ -7,6 +7,20 @@ Released: Not yet released
 
 - The default query limit can now be configured. Thanks @Vondry! (https://github.com/bolt/core/pull/3727)
 
+
+## 6.1.4
+
+Released: 2026-07-04
+
+This release includes several security-related fixes. Our thanks to @Vondry and @0xmgaye for identifying these issues and disclosing them to us responsibly! 👏🙏
+
+### 🔐 Security related changes
+
+- Fix SQL injection in ListFormatHelper (@Vondry)
+- Prevent SSRF in upload-from-URL and embed endpoint (@Vondry)
+- Filter unpublished/viewless content from the public Relation API (@Vondry)
+- Block open redirect on login endpoint (@0xmgaye, fix by @bobvandevijver)
+
 ## 6.1.3
 
 Released: 2026-05-16

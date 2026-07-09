@@ -8,28 +8,23 @@
     </nav>
 </template>
 
-<script>
-import Menu from './Menu';
-import SidebarToggler from './_SidebarToggler';
+<script setup lang="ts">
+import SidebarMenu from './Menu/index.vue';
+import SidebarToggler from './_SidebarToggler.vue';
+import { useGeneralStore } from '../store';
+import type { SidebarMenuItem } from '../types';
 
-export default {
-    name: 'Sidebar',
-    components: {
-        'sidebar-menu': Menu,
-        'sidebar-toggler': SidebarToggler,
-    },
-    props: {
-        menu: Array,
-        version: String,
-        aboutLink: String,
-        labels: Object,
-    },
-    created() {
-        const slim = JSON.parse(localStorage.getItem('slim-sidebar'));
+defineProps<{
+    menu: SidebarMenuItem[];
+    version: string;
+    aboutLink: string;
+    labels: Record<string, string>;
+}>();
 
-        if (slim) {
-            this.$store.dispatch('general/slimSidebar', slim);
-        }
-    },
-};
+const slim = JSON.parse(localStorage.getItem('slim-sidebar') || 'false');
+
+if (slim) {
+    const generalStore = useGeneralStore();
+    generalStore.slimSidebar = slim;
+}
 </script>

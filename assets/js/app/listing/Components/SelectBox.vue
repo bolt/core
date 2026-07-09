@@ -18,10 +18,10 @@
                         track-by="key"
                         :options="options"
                     >
-                        <template #option="props">
-                            <span :class="props.option.class"></span>
+                        <template #option="slotProps">
+                            <span :class="slotProps.option.class"></span>
                             <span>
-                                {{ props.option.value }}
+                                {{ slotProps.option.value }}
                             </span>
                         </template>
                     </multiselect>
@@ -46,67 +46,63 @@
     </transition>
 </template>
 
-<script>
+<script setup lang="ts">
+import { ref, computed } from 'vue';
 import Multiselect from 'vue-multiselect';
+import { useSelectingStore } from '../store';
+import type { BulkAction } from '../types';
 
-export default {
-    name: 'ListingSelectedBox',
-    components: { Multiselect },
-    props: {
-        singular: String,
-        plural: String,
-        labels: Object,
-        csrftoken: String,
-        backendPrefix: String,
-    },
-    data() {
-        return {
-            selectedAction: null,
-            options: [
-                {
-                    key: 'status/published',
-                    value: this.labels.status_to_published,
-                    selected: false,
-                    class: 'status me-1 is-published',
-                },
-                {
-                    key: 'status/draft',
-                    value: this.labels.status_to_draft,
-                    selected: false,
-                    class: 'status me-1 is-draft',
-                },
-                {
-                    key: 'status/held',
-                    value: this.labels.status_to_held,
-                    selected: false,
-                    class: 'status me-1 is-held',
-                },
-                {
-                    key: 'delete',
-                    value: this.labels.delete,
-                    selected: false,
-                    class: 'fas fa-w fa-trash',
-                },
-            ],
-        };
-    },
-    computed: {
-        postUrl() {
-            if (this.selectedAction) {
-                return this.backendPrefix + 'bulk/' + this.selectedAction.key;
-            }
+const props = defineProps<{
+    singular?: string;
+    plural?: string;
+    labels: Record<string, string>;
+    csrftoken?: string;
+    backendPrefix?: string;
+}>();
 
-            return '';
-        },
-        selectedCount() {
-            return this.$store.getters['selecting/selectedCount'];
-        },
-        selected() {
-            return this.$store.getters['selecting/selected'];
-        },
-        order() {
-            return this.$store.getters['listing/getOrder'];
-        },
+const selectingStore = useSelectingStore();
+
+const selectedAction = ref<BulkAction | null>(null);
+
+const options = [
+    {
+        key: 'status/published',
+        value: props.labels.status_to_published,
+        selected: false,
+        class: 'status me-1 is-published',
     },
-};
+    {
+        key: 'status/draft',
+        value: props.labels.status_to_draft,
+        selected: false,
+        class: 'status me-1 is-draft',
+    },
+    {
+        key: 'status/held',
+        value: props.labels.status_to_held,
+        selected: false,
+        class: 'status me-1 is-held',
+    },
+    {
+        key: 'delete',
+        value: props.labels.delete,
+        selected: false,
+        class: 'fas fa-w fa-trash',
+    },
+];
+
+const selectedCount = computed(() => selectingStore.selectedCount);
+const selected = computed(() => selectingStore.selected);
+
+const postUrl = computed(() => {
+    if (selectedAction.value) {
+        return (props.backendPrefix || '') + 'bulk/' + selectedAction.value.key;
+    }
+    return '';
+});
+
+// To expose selectedAction so that the test can modify it
+defineExpose({
+    selectedAction,
+});
 </script>

@@ -10,40 +10,23 @@
                 type="email"
                 :required="required"
                 :readonly="readonly"
-                :data-errormessage="errormessage"
-                :pattern="pattern"
-                :placeholder="placeholder"
+                :data-errormessage="typeof errormessage === 'string' ? errormessage : undefined"
+                :pattern="typeof pattern === 'string' ? pattern : undefined"
+                :placeholder="typeof placeholder === 'string' ? placeholder : undefined"
             />
         </div>
     </div>
 </template>
 
-<script>
-export default {
-    name: 'EditorEmail',
-    props: {
-        value: {
-            type: String,
-        },
-        name: {
-            type: String,
-        },
-        id: {
-            type: String,
-        },
-        required: {
-            type: Boolean,
-        },
-        readonly: {
-            type: Boolean,
-        },
-        errormessage: {
-            type: String | Boolean, //string if errormessage is set, and false otherwise
-        },
-        pattern: {
-            type: String | Boolean,
-        },
-        placeholder: String | Boolean,
-    },
-};
+<script setup lang="ts">
+defineProps<{
+    value?: string;
+    name?: string;
+    id?: string;
+    required?: boolean;
+    readonly?: boolean;
+    errormessage?: string | boolean; //string if errormessage is set, and false otherwise
+    pattern?: string | boolean;
+    placeholder?: string | boolean;
+}>();
 </script>

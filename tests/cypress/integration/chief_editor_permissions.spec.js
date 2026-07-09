@@ -17,24 +17,12 @@ describe('Check permissions of a chief_editor', () => {
 
         cy.get('a[href="/bolt/menu/maintenance"]').click();
         cy.url().should('contain', '/bolt/menu/maintenance');
-        cy.get('.menupage')
-            .find('ul')
-            .find('li')
-            .its('length')
-            .should('eq', 2);
-        cy.get('.menupage')
-            .find('ul')
-            .find('li')
-            .eq(1)
-            .click();
+        cy.get('.menupage').find('ul').find('li').its('length').should('eq', 2);
+        cy.get('.menupage').find('ul').find('li').eq(1).click();
         cy.url().should('contain', '/bolt/about');
 
         cy.visit('/bolt/menu/maintenance');
-        cy.get('.menupage')
-            .find('ul')
-            .find('li')
-            .eq(0)
-            .click();
+        cy.get('.menupage').find('ul').find('li').eq(0).click();
         cy.url().should('contain', '/bolt/clearcache');
 
         cy.visit('/bolt/extensions');

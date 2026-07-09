@@ -3410,12 +3410,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Security/GlobalVoter.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Parameter \\#1 \\$url of class Symfony\\\\Component\\\\HttpFoundation\\\\RedirectResponse constructor expects string, string\\|null given\\.$#',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Security/LoginFormAuthenticator.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Class Bolt\\\\Security\\\\SwitchUserVoter extends generic class Symfony\\\\Component\\\\Security\\\\Core\\\\Authorization\\\\Voter\\\\Voter but does not specify its types\\: TAttribute, TSubject$#',
 	'identifier' => 'missingType.generics',
 	'count' => 1,

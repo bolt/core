@@ -10,10 +10,10 @@
                 :directory="directory"
                 :filelist="filelist"
                 :csrf-token="csrfToken"
-                :labels="labels"
+                :labels="labelsValue"
                 :in-filelist="true"
                 :name="fieldName(index)"
-                :extensions="extensions"
+                :extensions="extensionsValue"
                 :is-first-in-filelist="isFirstInFilelist(index)"
                 :is-last-in-filelist="isLastInFilelist(index)"
                 :readonly="readonly"
@@ -28,105 +28,136 @@
 
         <button class="btn btn-tertiary" type="button" :disabled="!allowMore" @click="addFile">
             <i class="fas fa-fw fa-plus"></i>
-            {{ labels.add_new_file }}
+            {{ labelsValue.add_new_file }}
         </button>
     </div>
 </template>
 
-<script>
-import File from './File';
+<script setup lang="ts">
+import { ref, computed } from 'vue';
+import EditorFile from './File.vue';
+import type { FieldMovePayload } from '../types';
 
-export default {
-    name: 'EditorFile',
-    components: { 'editor-file': File },
-    props: {
-        files: Array,
-        directory: String,
-        name: String,
-        filelist: String,
-        csrfToken: String,
-        labels: Object,
-        extensions: Array,
-        attributesLink: String,
-        limit: Number,
-        readonly: Boolean,
-    },
-    data: function () {
-        let counter = 0;
-        let containerFiles = this.files;
-        containerFiles.forEach(function (file, index, theContainerFilesArray) {
-            theContainerFilesArray[index].id = index;
-            counter++;
-        });
-
-        return {
-            counter,
-            containerFiles,
-        };
-    },
-    computed: {
-        allowMore: function () {
-            if (this.readonly) {
-                return false;
-            }
-
-            return this.containerFiles.length < this.limit;
-        },
-    },
-    methods: {
-        isFirstInFilelist(index) {
-            return index === 0;
-        },
-        isLastInFilelist(index) {
-            return index === this.containerFiles.length - 1;
-        },
-        getFieldNumberFromElement(elem) {
-            // get the last number because in collections, there are multiple.
-            return parseInt([...elem.fieldName.matchAll(/\d+/g)].splice(-1).pop()[0]);
-        },
-        onMoveFileDown(elem) {
-            let fieldNumber = this.getFieldNumberFromElement(elem);
-
-            if (fieldNumber < this.containerFiles.length - 1) {
-                let fileToMoveDown = this.containerFiles[fieldNumber];
-                let fileToMoveUp = this.containerFiles[fieldNumber + 1];
-
-                this.containerFiles.splice(fieldNumber, 2, fileToMoveUp, fileToMoveDown);
-            }
-        },
-        onMoveFileUp(elem) {
-            let fieldNumber = this.getFieldNumberFromElement(elem);
-
-            if (fieldNumber > 0) {
-                let fileToMoveUp = this.containerFiles[fieldNumber];
-                let fileToMoveDown = this.containerFiles[fieldNumber - 1];
-
-                this.containerFiles.splice(fieldNumber - 1, 2, fileToMoveUp, fileToMoveDown);
-            }
-        },
-        onRemoveFile(elem) {
-            let fieldNumber = this.getFieldNumberFromElement(elem);
-            this.containerFiles.splice(fieldNumber, 1);
-        },
-        fieldName(index) {
-            return this.name + '[' + index + ']';
-        },
-        addFile() {
-            let fileField = {
-                inFilelist: true,
-                directory: this.directory,
-                name: this.name,
-                filelist: this.filelist,
-                csrfToken: this.csrfToken,
-                labels: this.labels,
-                thumbnail: '',
-                extensions: this.extensions,
-                id: this.counter,
-            };
-
-            this.counter++;
-            this.containerFiles.push(fileField);
-        },
-    },
+type FileField = {
+    id: number;
+    filename?: string;
+    thumbnail?: string;
+    title?: string;
+    media?: string;
+    inFilelist?: boolean;
+    directory?: string;
+    name?: string;
+    filelist?: string;
+    csrfToken?: string;
+    labels?: Record<string, string>;
+    extensions?: string[];
 };
+
+const props = defineProps<{
+    files?: Omit<FileField, 'id'>[];
+    directory?: string;
+    name?: string;
+    filelist?: string;
+    csrfToken?: string;
+    labels?: Record<string, string>;
+    extensions?: string[];
+    attributesLink?: string;
+    limit?: number;
+    readonly?: boolean;
+}>();
+
+const counter = ref(0);
+const containerFiles = ref<FileField[]>([]);
+const labelsValue = computed(() => props.labels ?? {});
+const extensionsValue = computed(() => props.extensions ?? []);
+
+const initialFiles = props.files || [];
+initialFiles.forEach((file, index) => {
+    containerFiles.value.push({ ...file, id: index });
+    counter.value++;
+});
+
+const allowMore = computed(() => {
+    if (props.readonly) {
+        return false;
+    }
+    return containerFiles.value.length < (props.limit ?? Infinity);
+});
+
+function isFirstInFilelist(index: number) {
+    return index === 0;
+}
+
+function isLastInFilelist(index: number) {
+    return index === containerFiles.value.length - 1;
+}
+
+function getFieldNumberFromElement(elem: FieldMovePayload) {
+    // get the last number because in collections, there are multiple.
+    const matches = [...elem.fieldName.matchAll(/\d+/g)];
+    const lastMatch = matches.splice(-1).pop();
+    return lastMatch ? parseInt(lastMatch[0]) : 0;
+}
+
+function onMoveFileDown(elem: FieldMovePayload) {
+    const fieldNumber = getFieldNumberFromElement(elem);
+
+    if (fieldNumber < containerFiles.value.length - 1) {
+        const fileToMoveDown = containerFiles.value[fieldNumber];
+        const fileToMoveUp = containerFiles.value[fieldNumber + 1];
+
+        containerFiles.value.splice(fieldNumber, 2, fileToMoveUp, fileToMoveDown);
+    }
+}
+
+function onMoveFileUp(elem: FieldMovePayload) {
+    const fieldNumber = getFieldNumberFromElement(elem);
+
+    if (fieldNumber > 0) {
+        const fileToMoveUp = containerFiles.value[fieldNumber];
+        const fileToMoveDown = containerFiles.value[fieldNumber - 1];
+
+        containerFiles.value.splice(fieldNumber - 1, 2, fileToMoveUp, fileToMoveDown);
+    }
+}
+
+function onRemoveFile(elem: FieldMovePayload) {
+    const fieldNumber = getFieldNumberFromElement(elem);
+    containerFiles.value.splice(fieldNumber, 1);
+}
+
+function fieldName(index: number) {
+    return props.name + '[' + index + ']';
+}
+
+function addFile() {
+    const fileField = {
+        inFilelist: true,
+        directory: props.directory,
+        name: props.name,
+        filelist: props.filelist,
+        csrfToken: props.csrfToken,
+        labels: props.labels,
+        thumbnail: '',
+        extensions: props.extensions,
+        id: counter.value,
+    };
+
+    counter.value++;
+    containerFiles.value.push(fileField);
+}
+
+defineExpose({
+    counter,
+    containerFiles,
+    allowMore,
+    isFirstInFilelist,
+    isLastInFilelist,
+    getFieldNumberFromElement,
+    onMoveFileDown,
+    onMoveFileUp,
+    onRemoveFile,
+    fieldName,
+    addFile,
+});
 </script>

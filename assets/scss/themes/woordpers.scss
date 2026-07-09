@@ -28,12 +28,6 @@
   @include generate-color(danger, 350, 73%, 50%);
 }
 
-$bootstrap-colors: (
-  "primary",
-  "secondary",
-  "grey",
-  "success",
-  "danger"
-);
+$bootstrap-colors: ('primary', 'secondary', 'grey', 'success', 'danger');
 
 @import '_bootstrap';

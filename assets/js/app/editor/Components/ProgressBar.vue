@@ -11,30 +11,24 @@
     </div>
 </template>
 
-<script>
-export default {
-    name: 'ProgressBar',
-    props: {
-        max: {
-            type: Number,
-            default: 100,
-        },
-        value: {
-            type: Number,
-            default: 0,
-        },
-        height: {
-            type: String,
-            default: null,
-        },
+<script setup lang="ts">
+import { computed } from 'vue';
+
+const props = withDefaults(
+    defineProps<{
+        max?: number;
+        value?: number;
+        height?: string;
+    }>(),
+    {
+        max: 100,
+        value: 0,
+        height: undefined,
     },
-    computed: {
-        styleWidth() {
-            return { width: 100 * (this.value / this.max) + '%' };
-        },
-        styleHeight() {
-            return { height: this.height || null };
-        },
-    },
-};
+);
+
+const styleWidth = computed(() => ({
+    width: 100 * (props.value / props.max) + '%',
+}));
+const styleHeight = computed(() => ({ height: props.height || undefined }));
 </script>

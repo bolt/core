@@ -5,14 +5,10 @@ describe('Checks for localization', () => {
         cy.login();
 
         cy.findAllByText('Entries').click();
-        cy.get('a[href="/bolt/edit/23"]')
-            .eq(0)
-            .click({ force: true });
+        cy.get('a[href="/bolt/edit/23"]').eq(0).click({ force: true });
 
         cy.url().should('contain', '/bolt/edit/23');
-        cy.get('h1')
-            .find('span')
-            .should('contain', 'Edit Entry');
+        cy.get('h1').find('span').should('contain', 'Edit Entry');
         cy.get('#multiselect-localeswitcher').should('not.exist');
     });
 
@@ -20,13 +16,9 @@ describe('Checks for localization', () => {
         cy.login();
 
         cy.findAllByText('Pages').click();
-        cy.get('a[href="/bolt/edit/2"]')
-            .eq(1)
-            .click();
+        cy.get('a[href="/bolt/edit/2"]').eq(1).click();
 
-        cy.get('h1')
-            .find('span')
-            .should('contain', 'Edit Page');
+        cy.get('h1').find('span').should('contain', 'Edit Page');
         cy.get('#multiselect-localeswitcher').should('exist');
 
         cy.get('a[href="/bolt/edit_locales/2"]').click();
@@ -166,9 +158,7 @@ describe('Checks for localization', () => {
             .its('length')
             .should('eq', 4);
 
-        cy.findAllByText('Edit')
-            .eq(1)
-            .click();
+        cy.findAllByText('Edit').eq(1).click();
         cy.url().should('contain', '/bolt/edit/2?edit_locale=nl');
     });
 });

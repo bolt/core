@@ -62,27 +62,27 @@
     justify-content: space-between;
     align-items: center;
     height: 100%;
-    padding: $spacer $spacer*0.625 0; //do not just change this as it's tied to the main grid and other paddings/gutters
+    padding: $spacer $spacer * 0.625 0; //do not just change this as it's tied to the main grid and other paddings/gutters
     position: relative;
 
     @include media-breakpoint-up(sm) {
-      padding: $spacer*1 $spacer*1 0; //do not just change this as it's tied to the main grid and other paddings/gutters
+      padding: $spacer * 1 $spacer * 1 0; //do not just change this as it's tied to the main grid and other paddings/gutters
     }
 
     @include media-breakpoint-up(md) {
-      padding: $spacer*1.25 $spacer*1.25 0 $spacer*1.25; //do not just change this as it's tied to the main grid and other paddings/gutters
+      padding: $spacer * 1.25 $spacer * 1.25 0 $spacer * 1.25; //do not just change this as it's tied to the main grid and other paddings/gutters
     }
 
     @include media-breakpoint-up(xl) {
-      padding: $spacer*1.25 $spacer*1.25 0 $spacer*2; //do not just change this as it's tied to the main grid and other paddings/gutters
+      padding: $spacer * 1.25 $spacer * 1.25 0 $spacer * 2; //do not just change this as it's tied to the main grid and other paddings/gutters
     }
 
     @include media-breakpoint-up(wd) {
-      padding: $spacer*1.25 $spacer*2 0 $spacer*3; //do not just change this as it's tied to the main grid and other paddings/gutters
+      padding: $spacer * 1.25 $spacer * 2 0 $spacer * 3; //do not just change this as it's tied to the main grid and other paddings/gutters
     }
 
     @include media-breakpoint-up(xw) {
-      padding: $spacer*1.25 $spacer*3 0 $spacer*4; //do not just change this as it's tied to the main grid and other paddings/gutters
+      padding: $spacer * 1.25 $spacer * 3 0 $spacer * 4; //do not just change this as it's tied to the main grid and other paddings/gutters
     }
   }
 
@@ -99,7 +99,7 @@
   top: 1.25rem;
   right: 0.625rem;
   border: 1px solid var(--primary);
-  padding: $spacer*0.4 $spacer*1.1;
+  padding: $spacer * 0.4 $spacer * 1.1;
   color: $white;
   background-color: var(--primary);
 

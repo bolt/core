@@ -1,7 +1,7 @@
 <template>
     <div :id="name" ref="collectionContainer" class="collection-container">
         <div class="expand-buttons">
-            <label>{{ labels.field_label }}:</label>
+            <span>{{ labels.field_label }}:</span>
 
             <div class="btn-group" role="group">
                 <button class="btn btn-secondary btn-sm collection-expand-all">
@@ -19,6 +19,7 @@
             v-for="element in elements"
             :key="element.hash"
             class="collection-item"
+            :data-collection-hash="element.hash"
             :class="{ collapsed: variant !== 'expanded' }"
         >
             <div class="d-block summary">
@@ -32,12 +33,12 @@
                         {{ element.label }}
                     </div>
                     <!-- Navigation buttons -->
-                    <component :is="compile(element.buttons)" />
+                    <component :is="compile(element.buttons)"></component>
                 </div>
             </div>
             <div class="card details">
                 <!-- The actual field -->
-                <component :is="compile(element.content)" class="card-body" />
+                <component :is="compile(element.content)" class="card-body"></component>
             </div>
         </div>
 
@@ -57,16 +58,17 @@
                         <i class="fas fa-fw fa-plus"></i> {{ labels.select }}
                     </button>
                     <div class="dropdown-menu" :aria-labelledby="name + '-dropdownMenuButton'">
-                        <a
+                        <button
                             v-for="template in templates"
                             :key="template.label"
                             class="dropdown-item"
+                            type="button"
                             :data-template="template.label"
                             @click="addCollectionItem($event)"
                         >
                             <i :class="[template.icon, 'fas fa-fw']" />
                             {{ template.label }}
-                        </a>
+                        </button>
                     </div>
                 </div>
                 <button
@@ -85,208 +87,254 @@
     </div>
 </template>
 
-<script>
-import Vue from 'vue';
+<script setup lang="ts">
+import { ref, computed, onMounted, onUpdated, onBeforeUnmount } from 'vue';
 import $ from 'jquery';
 import { uniqid } from 'locutus/php/misc/uniqid';
 
-export default {
-    name: 'EditorCollection',
-    props: {
-        name: {
-            type: String,
-            required: true,
-        },
-        templates: {
-            type: Array,
-            required: true,
-        },
-        existingFields: {
-            type: Array,
-        },
-        labels: {
-            type: Object,
-            required: true,
-        },
-        limit: {
-            type: Number,
-            required: true,
-        },
-        variant: {
-            type: String,
-            required: true,
-        },
-    },
-    data() {
-        let templateSelectOptions = [];
-        return {
-            elements: this.existingFields,
-            counter: this.existingFields.length,
-            templateSelectName: 'templateSelect' + this.id,
-            templateSelectOptions: templateSelectOptions,
-            selector: {
-                collectionContainer: '#' + this.name,
-                item: ' .collection-item',
-                remove: ' .action-remove-collection-item',
-                moveUp: ' .action-move-up-collection-item',
-                moveDown: ' .action-move-down-collection-item',
-                expandAll: ' .collection-expand-all',
-                collapseAll: ' .collection-collapse-all',
-                editor: ' #editor',
-            },
-        };
-    },
-    computed: {
-        initialSelectValue() {
-            return this.templateSelectOptions[0].key;
-        },
-        allowMore: function () {
-            return this.counter < this.limit;
-        },
-    },
-    mounted() {
-        this.setAllButtonsStates(window.$(this.$refs.collectionContainer));
-        let vueThis = this;
-        /**
-         * Event listeners on collection items buttons
-         * This is a jQuery event listener, because Vue cannot handle an event emitted by a non-vue element.
-         * The collection items are not Vue elements in order to initialise them correctly within their twig template.
-         */
-        window
-            .$(document)
-            .on('click', vueThis.selector.collectionContainer + ' .collection-item .summary', function (e) {
-                e.preventDefault();
-                let thisCollectionItem = vueThis.getCollectionItemFromPressedButton(this);
-                thisCollectionItem.toggleClass('collapsed');
-            });
-        window.$(document).on('click', vueThis.selector.collectionContainer + vueThis.selector.remove, function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            let collectionContainer = window.$(this).closest(vueThis.selector.collectionContainer);
-            let button = this;
-
-            $('#modalButtonAccept').on('click', function () {
-                vueThis.getCollectionItemFromPressedButton(button).remove();
-            });
-            vueThis.setAllButtonsStates(collectionContainer);
-            vueThis.counter--;
-        });
-        window.$(document).on('click', vueThis.selector.collectionContainer + vueThis.selector.moveUp, function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            let thisCollectionItem = vueThis.getCollectionItemFromPressedButton(this);
-            let prevCollectionitem = vueThis.getPreviousCollectionItem(thisCollectionItem);
-            window.$(thisCollectionItem).after(prevCollectionitem);
-            vueThis.setButtonsState(thisCollectionItem);
-            vueThis.setButtonsState(prevCollectionitem);
-        });
-        window.$(document).on('click', vueThis.selector.collectionContainer + vueThis.selector.moveDown, function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            let thisCollectionItem = vueThis.getCollectionItemFromPressedButton(this);
-            let nextCollectionItem = vueThis.getNextCollectionItem(thisCollectionItem);
-            window.$(thisCollectionItem).before(nextCollectionItem);
-            vueThis.setButtonsState(thisCollectionItem);
-            vueThis.setButtonsState(nextCollectionItem);
-        });
-        window.$(document).on('click', vueThis.selector.collectionContainer + vueThis.selector.expandAll, function (e) {
-            e.preventDefault();
-            const collection = $(e.target).closest(vueThis.selector.collectionContainer);
-            collection.find('.collection-item').removeClass('collapsed');
-        });
-        window
-            .$(document)
-            .on('click', vueThis.selector.collectionContainer + vueThis.selector.collapseAll, function (e) {
-                e.preventDefault();
-                const collection = $(e.target).closest(vueThis.selector.collectionContainer);
-                collection.find('.collection-item').addClass('collapsed');
-            });
-        /**
-         * Update the title dynamically.
-         */
-        $(document).ready(function () {
-            $.each(window.$(vueThis.selector.collectionContainer + vueThis.selector.item), function () {
-                updateTitle(this);
-            });
-            window.$(vueThis.selector.collectionContainer).on('keyup change', vueThis.selector.item, function () {
-                updateTitle(this);
-            });
-        });
-        /**
-         * Pass a .collection-item element to update the title
-         * with the value of the first text-based field.
-         */
-        function updateTitle(item) {
-            const label = $(item).find('.collection-item-title').first();
-            const input = $(item).find('textarea,input[type="text"]').first();
-            // We use this 'innerText' trick to ensure the title is plain text.
-            var title = document.createElement('span');
-            title.innerHTML = $(input).val() ? $(input).val() : label.attr('data-label');
-            label.html(title.innerText);
-        }
-        /**
-         * Open newly inserted collection items.
-         */
-        // $(document).on('DOMNodeInserted', function(e) {
-        //     if ($(e.target).hasClass('collection-item')) {
-        //         $(e.target)
-        //             .find('details')
-        //             .first()
-        //             .attr('open', '');
-        //     }
-        // });
-    },
-    updated() {
-        this.setAllButtonsStates(window.$(this.$refs.collectionContainer));
-    },
-    methods: {
-        compile(element) {
-            return Vue.compile(element);
-        },
-        setAllButtonsStates(collectionContainer) {
-            let vueThis = this;
-            collectionContainer.children(vueThis.selector.item).each(function () {
-                vueThis.setButtonsState(window.$(this));
-            });
-        },
-        setButtonsState(item) {
-            //by default, enable
-            item.find(this.selector.moveUp).first().removeAttr('disabled');
-            item.find(this.selector.moveDown).first().removeAttr('disabled');
-            if (!this.getPreviousCollectionItem(item)) {
-                // first in collection
-                item.find(this.selector.moveUp).first().attr('disabled', 'disabled');
-            }
-            if (!this.getNextCollectionItem(item)) {
-                // last in collection
-                item.find(this.selector.moveDown).first().attr('disabled', 'disabled');
-            }
-        },
-        getPreviousCollectionItem(item) {
-            return item.prev('.collection-item').length === 0 ? false : item.prev('.collection-item');
-        },
-        getNextCollectionItem(item) {
-            return item.next('.collection-item').length === 0 ? false : item.next('.collection-item');
-        },
-        getCollectionItemFromPressedButton(button) {
-            return window.$(button).closest('.collection-item').last();
-        },
-        addCollectionItem(event) {
-            // duplicate template without reference
-            let template = $.extend(true, {}, this.getSelectedTemplate(event));
-            const realhash = uniqid();
-            template.content = template.content.replace(new RegExp(template.hash, 'g'), realhash);
-            template.hash = realhash;
-            this.elements.push(template);
-            this.counter++;
-        },
-        getSelectedTemplate(event) {
-            const target = $(event.target).attr('data-template')
-                ? $(event.target)
-                : $(event.target).closest('[data-template]');
-            let selectValue = target.attr('data-template');
-            return this.templates.find(template => template.label === selectValue);
-        },
-    },
+type CollectionTemplate = {
+    hash: string;
+    label: string;
+    icon: string;
+    buttons: string;
+    content: string;
 };
+
+type CompiledTemplate = {
+    template: string;
+};
+
+type CollectionItem = ReturnType<typeof $>;
+
+const props = defineProps<{
+    name: string;
+    templates: CollectionTemplate[];
+    existingFields?: CollectionTemplate[];
+    labels: Record<string, string>;
+    limit: number;
+    variant: string;
+}>();
+
+const collectionContainer = ref<HTMLElement | null>(null);
+
+const elements = ref(props.existingFields || []);
+const counter = ref((props.existingFields || []).length);
+
+const selector = {
+    collectionContainer: '#' + props.name,
+    item: ' .collection-item',
+    remove: ' .action-remove-collection-item',
+    moveUp: ' .action-move-up-collection-item',
+    moveDown: ' .action-move-down-collection-item',
+    expandAll: ' .collection-expand-all',
+    collapseAll: ' .collection-collapse-all',
+    editor: ' #editor',
+};
+const eventNamespace = `.editorCollection-${props.name.replace(/[^A-Za-z0-9_-]/g, '-')}`;
+
+const allowMore = computed(() => {
+    return counter.value < props.limit;
+});
+
+const compiledTemplates = new Map<string, CompiledTemplate>();
+
+function compile(element: string) {
+    if (!compiledTemplates.has(element)) {
+        compiledTemplates.set(element, { template: element });
+    }
+    return compiledTemplates.get(element);
+}
+
+function setAllButtonsStates(container: CollectionItem) {
+    container.children(selector.item).each(function (this: HTMLElement) {
+        setButtonsState($(this));
+    });
+}
+
+function setButtonsState(item: CollectionItem) {
+    //by default, enable
+    item.find(selector.moveUp).first().removeAttr('disabled');
+    item.find(selector.moveDown).first().removeAttr('disabled');
+    if (!getPreviousCollectionItem(item)) {
+        // first in collection
+        item.find(selector.moveUp).first().attr('disabled', 'disabled');
+    }
+    if (!getNextCollectionItem(item)) {
+        // last in collection
+        item.find(selector.moveDown).first().attr('disabled', 'disabled');
+    }
+}
+
+function getPreviousCollectionItem(item: CollectionItem) {
+    return item.prev('.collection-item').length === 0 ? false : item.prev('.collection-item');
+}
+
+function getNextCollectionItem(item: CollectionItem) {
+    return item.next('.collection-item').length === 0 ? false : item.next('.collection-item');
+}
+
+function getCollectionItemFromPressedButton(button: HTMLElement) {
+    return $(button).closest('.collection-item').last();
+}
+
+function removeCollectionItem(button: HTMLElement) {
+    const item = getCollectionItemFromPressedButton(button);
+    const hash = item.attr('data-collection-hash');
+    const index = elements.value.findIndex(element => element.hash === hash);
+
+    if (index === -1) {
+        return;
+    }
+
+    elements.value.splice(index, 1);
+    counter.value--;
+}
+
+function addCollectionItem(event: Event) {
+    // duplicate template without reference
+    const selectedTemplate = getSelectedTemplate(event);
+    if (!selectedTemplate) return;
+    let template: CollectionTemplate = { ...selectedTemplate };
+    const realhash = uniqid();
+    template.content = template.content.replace(new RegExp(template.hash, 'g'), realhash);
+    template.hash = realhash;
+    elements.value.push(template);
+    counter.value++;
+}
+
+function getSelectedTemplate(event: Event) {
+    const target = $(event.target as HTMLElement).attr('data-template')
+        ? $(event.target as HTMLElement)
+        : $(event.target as HTMLElement).closest('[data-template]');
+    const selectValue = target.attr('data-template');
+    return props.templates.find(template => template.label === selectValue);
+}
+
+function updateTitle(item: HTMLElement) {
+    const label = $(item).find('.collection-item-title').first();
+    const input = $(item).find('textarea,input[type="text"]').first();
+    const title = document.createElement('span');
+    title.innerHTML = $(input).val() ? ($(input).val() as string) : (label.attr('data-label') as string);
+    label.html(title.innerText);
+}
+
+onMounted(() => {
+    if (collectionContainer.value) {
+        setAllButtonsStates($(collectionContainer.value));
+    }
+
+    // Bind jQuery events
+    $(document).on(
+        `click${eventNamespace}`,
+        selector.collectionContainer + ' .collection-item .summary',
+        function (this: HTMLElement, e: Event) {
+            e.preventDefault();
+            let thisCollectionItem = getCollectionItemFromPressedButton(this as HTMLElement);
+            thisCollectionItem.toggleClass('collapsed');
+        },
+    );
+
+    $(document).on(
+        `click${eventNamespace}`,
+        selector.collectionContainer + selector.remove,
+        function (this: HTMLElement, e: Event) {
+            e.preventDefault();
+            e.stopPropagation();
+            let container = $(this).closest(selector.collectionContainer);
+            let button = this as HTMLElement;
+
+            $('#modalButtonAccept')
+                .off(`click${eventNamespace}`)
+                .one(`click${eventNamespace}`, function (this: HTMLElement) {
+                    removeCollectionItem(button);
+                    setAllButtonsStates(container);
+                });
+        },
+    );
+
+    $(document).on(
+        `click${eventNamespace}`,
+        selector.collectionContainer + selector.moveUp,
+        function (this: HTMLElement, e: Event) {
+            e.preventDefault();
+            e.stopPropagation();
+            let thisCollectionItem = getCollectionItemFromPressedButton(this as HTMLElement);
+            let prevCollectionitem = getPreviousCollectionItem(thisCollectionItem);
+            if (prevCollectionitem) {
+                $(thisCollectionItem).after(prevCollectionitem);
+                setButtonsState(thisCollectionItem);
+                setButtonsState(prevCollectionitem);
+            }
+        },
+    );
+
+    $(document).on(
+        `click${eventNamespace}`,
+        selector.collectionContainer + selector.moveDown,
+        function (this: HTMLElement, e: Event) {
+            e.preventDefault();
+            e.stopPropagation();
+            let thisCollectionItem = getCollectionItemFromPressedButton(this as HTMLElement);
+            let nextCollectionItem = getNextCollectionItem(thisCollectionItem);
+            if (nextCollectionItem) {
+                $(thisCollectionItem).before(nextCollectionItem);
+                setButtonsState(thisCollectionItem);
+                setButtonsState(nextCollectionItem);
+            }
+        },
+    );
+
+    $(document).on(
+        `click${eventNamespace}`,
+        selector.collectionContainer + selector.expandAll,
+        function (this: HTMLElement, e: Event) {
+            e.preventDefault();
+            const collection = $(e.target as HTMLElement).closest(selector.collectionContainer);
+            collection.find('.collection-item').removeClass('collapsed');
+        },
+    );
+
+    $(document).on(
+        `click${eventNamespace}`,
+        selector.collectionContainer + selector.collapseAll,
+        function (this: HTMLElement, e: Event) {
+            e.preventDefault();
+            const collection = $(e.target as HTMLElement).closest(selector.collectionContainer);
+            collection.find('.collection-item').addClass('collapsed');
+        },
+    );
+
+    $.each($(selector.collectionContainer + selector.item), function (this: HTMLElement) {
+        updateTitle(this as HTMLElement);
+    });
+
+    $(selector.collectionContainer).on(
+        `keyup${eventNamespace} change${eventNamespace}`,
+        selector.item,
+        function (this: HTMLElement) {
+            updateTitle(this as HTMLElement);
+        },
+    );
+});
+
+onUpdated(() => {
+    if (collectionContainer.value) {
+        setAllButtonsStates($(collectionContainer.value));
+    }
+});
+
+onBeforeUnmount(() => {
+    $(document).off(eventNamespace);
+    $(selector.collectionContainer).off(eventNamespace);
+    $('#modalButtonAccept').off(eventNamespace);
+});
+
+defineExpose({
+    elements,
+    counter,
+    allowMore,
+    compile,
+    removeCollectionItem,
+    addCollectionItem,
+});
 </script>

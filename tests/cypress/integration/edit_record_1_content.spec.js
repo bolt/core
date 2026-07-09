@@ -4,10 +4,7 @@ describe('As an Admin I want to see separators, placeholders and default values'
     it('checks if an admin can see separated content (separator)', () => {
         cy.login();
         cy.visit('/bolt/edit/43');
-        cy.get('#field--field-html')
-            .find('hr')
-            .its('length')
-            .should('eq', 1);
+        cy.get('#field--field-html').find('hr').its('length').should('eq', 1);
     });
 
     it('checks if an admin can see placeholder on new content', () => {
@@ -62,12 +59,8 @@ describe('As an Admin I want to see separators, placeholders and default values'
             'input[name="collections[collection_field][photo][3][alt]"]',
         ).should('have.value', 'Photo of a foal');
 
-        cy.get('button[class="btn btn-success mb-0"]')
-            .eq(1)
-            .scrollIntoView();
-        cy.get('button[class="btn btn-success mb-0"]')
-            .eq(1)
-            .click();
+        cy.get('button[class="btn btn-success mb-0"]').eq(1).scrollIntoView();
+        cy.get('button[class="btn btn-success mb-0"]').eq(1).click();
 
         cy.get('input[name="fields[title]"]').should(
             'have.value',
@@ -125,12 +118,8 @@ describe('As an Admin, I want to duplicate a page', () => {
             'this-is-a-page',
         );
 
-        cy.get('button[class="btn btn-success mb-0"]')
-            .eq(1)
-            .scrollIntoView();
-        cy.get('button[class="btn btn-success mb-0"]')
-            .eq(1)
-            .click();
+        cy.get('button[class="btn btn-success mb-0"]').eq(1).scrollIntoView();
+        cy.get('button[class="btn btn-success mb-0"]').eq(1).click();
 
         cy.get('input[name="fields[heading]"]').should(
             'have.value',

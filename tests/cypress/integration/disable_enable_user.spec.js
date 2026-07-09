@@ -3,9 +3,7 @@
 describe('Disable/enable users', () => {
     it('checks that an admin can disable/enable another user', () => {
         cy.login('jane_chief', 'jane%1');
-        cy.get('h1')
-            .find('span')
-            .should('contain', 'Bolt Dashboard');
+        cy.get('h1').find('span').should('contain', 'Bolt Dashboard');
 
         cy.clearCookies();
         cy.login();
@@ -62,7 +60,10 @@ describe('Disable/enable users', () => {
 
         cy.clearCookies();
         cy.login('jane_chief', 'jane%1', false);
-        cy.get('div[class="alert alert-danger"]').should('contain', 'User is disabled');
+        cy.get('div[class="alert alert-danger"]').should(
+            'contain',
+            'User is disabled',
+        );
 
         cy.clearCookies();
         cy.login();
@@ -109,7 +110,10 @@ describe('Disable/enable users', () => {
 
         cy.clearCookies();
         cy.login('jane_chief', 'jane%1');
-        cy.get('.admin__header--title__prefix').should('contain', 'Bolt Dashboard');
+        cy.get('.admin__header--title__prefix').should(
+            'contain',
+            'Bolt Dashboard',
+        );
         cy.visit('bolt/logout');
     });
 });

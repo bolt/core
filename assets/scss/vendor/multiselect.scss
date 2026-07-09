@@ -1,49 +1,52 @@
-@use "sass:math";
-@use "sass:list";
+@use 'sass:math';
+@use 'sass:list';
 
-@import "~bootstrap/scss/functions";
-@import "~bootstrap/scss/variables";
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
 
-$vue-multiselect-padding-x : $input-padding-x !default;
-$vue-multiselect-padding-y : $input-padding-y !default;
-$vue-multiselect-min-height : $input-height !default;
-$vue-multiselect-border-radius : $border-radius !default;
-$vue-multiselect-border-color : $input-border-color !default;
-$vue-multiselect-border-width : 1px !default;
-$vue-multiselect-disabled-opacity : $btn-disabled-opacity !default;
-$vue-multiselect-placeholder-color : $text-muted !default;
-$vue-multiselect-bg : $input-bg !default;
-$vue-multiselect-color : $input-color !default;
-$vue-multiselect-disabled-bg : $gray-200 !default;
-$vue-multiselect-disabled-color : $gray-600 !default;
+$vue-multiselect-padding-x: $input-padding-x !default;
+$vue-multiselect-padding-y: $input-padding-y !default;
+$vue-multiselect-min-height: $input-height !default;
+$vue-multiselect-border-radius: $border-radius !default;
+$vue-multiselect-border-color: $input-border-color !default;
+$vue-multiselect-border-width: 1px !default;
+$vue-multiselect-disabled-opacity: $btn-disabled-opacity !default;
+$vue-multiselect-placeholder-color: $text-muted !default;
+$vue-multiselect-bg: $input-bg !default;
+$vue-multiselect-color: $input-color !default;
+$vue-multiselect-disabled-bg: $gray-200 !default;
+$vue-multiselect-disabled-color: $gray-600 !default;
 
-$vue-multiselect-option-selected-bg : var(--shade-200) !default;
-$vue-multiselect-option-selected-color : var(--body) !default;
-$vue-multiselect-option-highlight-color : var(--foreground) !default;
-$vue-multiselect-option-highlight-bg : var(--primary) !default;
-$vue-multiselect-option-selected-highlight-color : var(--foreground) !default;
-$vue-multiselect-option-selected-highlight-bg : var(--primary) !default;
+$vue-multiselect-option-selected-bg: var(--shade-200) !default;
+$vue-multiselect-option-selected-color: var(--body) !default;
+$vue-multiselect-option-highlight-color: var(--foreground) !default;
+$vue-multiselect-option-highlight-bg: var(--primary) !default;
+$vue-multiselect-option-selected-highlight-color: var(--foreground) !default;
+$vue-multiselect-option-selected-highlight-bg: var(--primary) !default;
 
-$vue-multiselect-tag-color : $dark !default;
-$vue-multiselect-tag-bg : $light !default;
-$vue-multiselect-tag-font-size : 0.85rem !default;
-$vue-multiselect-tag-font-weight : normal !default;
-$vue-multiselect-tag-icon-size : 1.5rem !default;
-$vue-multiselect-tag-icon-color : $vue-multiselect-tag-color !default;
-$vue-multiselect-tag-icon-color-hover : white !default;
-$vue-multiselect-tag-icon-bg-hover : $danger !default;
-$vue-multiselect-tag-padding-x : 0.2rem !default;
-$vue-multiselect-tag-padding-y : 0.22rem !default;
-$vue-multiselect-tag-border-radius : $badge-border-radius !default;
+$vue-multiselect-tag-color: $dark !default;
+$vue-multiselect-tag-bg: $light !default;
+$vue-multiselect-tag-font-size: 0.85rem !default;
+$vue-multiselect-tag-font-weight: normal !default;
+$vue-multiselect-tag-icon-size: 1.5rem !default;
+$vue-multiselect-tag-icon-color: $vue-multiselect-tag-color !default;
+$vue-multiselect-tag-icon-color-hover: white !default;
+$vue-multiselect-tag-icon-bg-hover: $danger !default;
+$vue-multiselect-tag-padding-x: 0.2rem !default;
+$vue-multiselect-tag-padding-y: 0.22rem !default;
+$vue-multiselect-tag-border-radius: $badge-border-radius !default;
 
-$vue-multiselect-arrow-color : $dark !default;
-$vue-multiselect-arrow-size : 5px !default;
-$vue-multiselect-arrow-padding : 8px !default;
+$vue-multiselect-arrow-color: $dark !default;
+$vue-multiselect-arrow-size: 5px !default;
+$vue-multiselect-arrow-padding: 8px !default;
 
-$vue-multiselect-spinner-size : 16px !default;
-$vue-multiselect-spinner-thickness : 2px !default;
-$vue-multiselect-spinner-margin : math.div(-$vue-multiselect-spinner-size, 2) !default;
-$vue-multiselect-spinner-color : $dark !default;
+$vue-multiselect-spinner-size: 16px !default;
+$vue-multiselect-spinner-thickness: 2px !default;
+$vue-multiselect-spinner-margin: math.div(
+  -$vue-multiselect-spinner-size,
+  2
+) !default;
+$vue-multiselect-spinner-color: $dark !default;
 
 //** Overrides for Bolt **//
 .wide-options .multiselect__tag {
@@ -159,7 +162,8 @@ fieldset[disabled] .multiselect {
 .multiselect__tags {
   min-height: $vue-multiselect-min-height;
   display: block;
-  padding: $vue-multiselect-padding-y $vue-multiselect-min-height 0 $vue-multiselect-padding-y;
+  padding: $vue-multiselect-padding-y $vue-multiselect-min-height 0
+    $vue-multiselect-padding-y;
   border-radius: $vue-multiselect-border-radius;
   border: $vue-multiselect-border-width solid $vue-multiselect-border-color;
   background: $vue-multiselect-bg;
@@ -170,7 +174,9 @@ fieldset[disabled] .multiselect {
 .multiselect__tag {
   position: relative;
   display: inline-block;
-  padding: $vue-multiselect-tag-padding-y ($vue-multiselect-tag-icon-size + $vue-multiselect-tag-padding-x) $vue-multiselect-tag-padding-y $vue-multiselect-tag-padding-x;
+  padding: $vue-multiselect-tag-padding-y
+    ($vue-multiselect-tag-icon-size + $vue-multiselect-tag-padding-x)
+    $vue-multiselect-tag-padding-y $vue-multiselect-tag-padding-x;
   border-radius: $vue-multiselect-tag-border-radius;
   margin-right: $vue-multiselect-tag-padding-x;
   color: $vue-multiselect-tag-color;
@@ -200,7 +206,7 @@ fieldset[disabled] .multiselect {
 }
 
 .multiselect__tag-icon::after {
-  content: "×";
+  content: '×';
   color: $vue-multiselect-tag-icon-color;
   font-size: 220%;
 }
@@ -262,9 +268,10 @@ fieldset[disabled] .multiselect {
   top: 60%;
   color: $vue-multiselect-arrow-color;
   border-style: solid;
-  border-width: $vue-multiselect-arrow-size $vue-multiselect-arrow-size 0 $vue-multiselect-arrow-size;
+  border-width: $vue-multiselect-arrow-size $vue-multiselect-arrow-size 0
+    $vue-multiselect-arrow-size;
   border-color: $vue-multiselect-arrow-color transparent transparent transparent;
-  content: "";
+  content: '';
 }
 
 .multiselect__placeholder {
@@ -304,7 +311,8 @@ fieldset[disabled] .multiselect {
 
 .multiselect--above .multiselect__content-wrapper {
   bottom: 100%;
-  border-radius: $vue-multiselect-border-radius $vue-multiselect-border-radius 0 0;
+  border-radius: $vue-multiselect-border-radius $vue-multiselect-border-radius 0
+    0;
   border-bottom: none;
   border-top: $vue-multiselect-border-width solid $vue-multiselect-border-color;
 }
@@ -457,7 +465,7 @@ fieldset[disabled] .multiselect {
   &::before,
   &::after {
     position: absolute;
-    content: "";
+    content: '';
     top: 50%;
     left: 50%;
     margin: $vue-multiselect-spinner-margin 0 0 $vue-multiselect-spinner-margin;
@@ -509,7 +517,7 @@ fieldset[disabled] .multiselect {
 // RTL adjustments
 //--
 
-*[dir="rtl"] {
+*[dir='rtl'] {
   .multiselect {
     text-align: right;
   }
@@ -520,7 +528,8 @@ fieldset[disabled] .multiselect {
   }
 
   .multiselect__tags {
-    padding: $vue-multiselect-padding-y $vue-multiselect-padding-y 0 $vue-multiselect-min-height;
+    padding: $vue-multiselect-padding-y $vue-multiselect-padding-y 0
+      $vue-multiselect-min-height;
   }
 
   .multiselect__content {

@@ -12,7 +12,7 @@
         <!-- eslint-disable vue/no-use-v-if-with-v-for -->
         <li v-for="(subitem, index) in item.submenu" v-if="item.submenu !== null" :key="index">
             <!-- eslint-enable -->
-            <a :href="subitem.editLink" class="text-decoration-none" data-patience="virtue">
+            <a :href="subitem.editLink ?? subitem.link" class="text-decoration-none" data-patience="virtue">
                 <i class="fas fa-fw me-2" :class="subitem.icon"></i>
                 <!-- eslint-disable-next-line vue/no-v-html -->
                 <span v-if="subitem.name" v-html="subitem.name"></span>
@@ -22,12 +22,11 @@
     </ul>
 </template>
 
-<script>
-export default {
-    name: 'SubMenu',
-    props: {
-        item: Object,
-        labels: Object,
-    },
-};
+<script setup lang="ts">
+import type { SidebarMenuItem } from '../../types';
+
+defineProps<{
+    item: SidebarMenuItem;
+    labels: Record<string, string>;
+}>();
 </script>

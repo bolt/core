@@ -4,6 +4,9 @@ describe('As an admin I attempt to log in to Dashboard with incorrect credential
     it("checks that logging in with incorrect credentials doesn't work", () => {
         cy.login('admin', 'noadmin', false);
         cy.url().should('include', '/bolt/login');
-        cy.get('div[class="alert alert-danger"]').should('contain', 'Invalid credentials.');
+        cy.get('div[class="alert alert-danger"]').should(
+            'contain',
+            'Invalid credentials.',
+        );
     });
 });

@@ -1,46 +1,38 @@
 <template>
-    <div>
-        <trumbowyg :id="id" v-model="val" :name="name" :config="config"></trumbowyg>
-    </div>
+    <trumbowyg :id="id" v-model="val" :name="name" :config="config"></trumbowyg>
 </template>
 
-<script>
+<script setup lang="ts">
+import { ref, onMounted } from 'vue';
 import trumbowyg from 'vue-trumbowyg';
 import 'trumbowyg/dist/ui/trumbowyg.css';
+import { strip } from '../../../filters/string';
 
-export default {
-    name: 'EditorHtml',
-    components: {
-        trumbowyg,
-    },
-    props: {
-        value: String,
-        label: String,
-        name: String,
-        id: String,
-    },
-    data: () => {
-        return {
-            val: null,
-            config: {
-                btns: [
-                    // ['undo', 'redo'],
-                    ['formatting'],
-                    ['strong', 'em', 'del'],
-                    ['link'],
-                    ['insertImage'],
-                    ['justifyLeft', 'justifyCenter', 'justifyRight'],
-                    ['unorderedList', 'orderedList'],
-                    ['horizontalRule'],
-                    ['removeformat'],
-                    ['fullscreen'],
-                    ['viewHTML'],
-                ],
-            },
-        };
-    },
-    mounted() {
-        this.val = this.$options.filters.strip(this.value);
-    },
+const props = defineProps<{
+    value?: string;
+    label?: string;
+    name?: string;
+    id?: string;
+}>();
+
+const val = ref('');
+const config = {
+    btns: [
+        // ['undo', 'redo'],
+        ['formatting'],
+        ['strong', 'em', 'del'],
+        ['link'],
+        ['insertImage'],
+        ['justifyLeft', 'justifyCenter', 'justifyRight'],
+        ['unorderedList', 'orderedList'],
+        ['horizontalRule'],
+        ['removeformat'],
+        ['fullscreen'],
+        ['viewHTML'],
+    ],
 };
+
+onMounted(() => {
+    val.value = strip(props.value) ?? '';
+});
 </script>

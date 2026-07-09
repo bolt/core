@@ -22,24 +22,24 @@ $bolt-saturated: #003e7c; // Very saturated. Use with care
 $gray-200: #e9ecef; // Use default Bootstrap value for now
 
 $body-bg: $background;
-$body-secondary-bg:         $gray-200; // Use default Bootstrap value for now
+$body-secondary-bg: $gray-200; // Use default Bootstrap value for now
 
 $theme-colors: (
-  "primary":   $primary,
-  "secondary": $secondary,
-  "tertiary":  $tertiary,
-  "success":   $success,
-  "info":      $info,
-  "warning":   $warning,
-  "danger":    $danger,
-  "light":     $light,
-  "dark":      $dark,
-  "boltblue":  $bolt-blue,
+  'primary': $primary,
+  'secondary': $secondary,
+  'tertiary': $tertiary,
+  'success': $success,
+  'info': $info,
+  'warning': $warning,
+  'danger': $danger,
+  'light': $light,
+  'dark': $dark,
+  'boltblue': $bolt-blue,
   'very-light-border': $veryLightBorder,
-  "toast-success": #dce6d1,
-  "toast-danger": #f8d3d4,
-  "toast-info": #cfe4e8,
-  "toast-warning": #f2d1d3
+  'toast-success': #dce6d1,
+  'toast-danger': #f8d3d4,
+  'toast-info': #cfe4e8,
+  'toast-warning': #f2d1d3,
 );
 
 $letter-spacing: 0;
@@ -47,59 +47,70 @@ $letter-spacing: 0;
 $big-z-index: 1000;
 
 // Typography
-$font-family-base:            system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-$headings-font-family:        'Source Sans Variable', sans-serif;
+$font-family-base:
+  system-ui,
+  -apple-system,
+  BlinkMacSystemFont,
+  'Segoe UI',
+  Roboto,
+  Helvetica,
+  Arial,
+  sans-serif,
+  'Apple Color Emoji',
+  'Segoe UI Emoji',
+  'Segoe UI Symbol';
+$headings-font-family: 'Source Sans Variable', sans-serif;
 
-$font-size-base:              0.9rem;
-$font-size-largescreen:       1rem;
-$line-height-base:            1.5;
-$small-font-size:             88%;
+$font-size-base: 0.9rem;
+$font-size-largescreen: 1rem;
+$line-height-base: 1.5;
+$small-font-size: 88%;
 
 // Minor Third progression for header font sizes
-$h1-font-size:                $font-size-base * 2.07;
-$h2-font-size:                $font-size-base * 1.728;
-$h3-font-size:                $font-size-base * 1.44;
-$h4-font-size:                $font-size-base * 1.2;
-$h5-font-size:                $font-size-base;
-$h6-font-size:                $font-size-base;
+$h1-font-size: $font-size-base * 2.07;
+$h2-font-size: $font-size-base * 1.728;
+$h3-font-size: $font-size-base * 1.44;
+$h4-font-size: $font-size-base * 1.2;
+$h5-font-size: $font-size-base;
+$h6-font-size: $font-size-base;
 
-$font-weight-light:             300;
-$font-weight-normal:            400;
-$font-weight-semibold:          600;
-$font-weight-bold:              700;
-$headings-font-weight:          600;
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+$headings-font-weight: 600;
 
 // Links
-$link-color:                $primary;
+$link-color: $primary;
 
 //buttons
-$btn-disabled-opacity:                  0.75;
-$btn-hover-bg-shade-amount:             10%;
+$btn-disabled-opacity: 0.75;
+$btn-hover-bg-shade-amount: 10%;
 //$btn-hover-bg-tint-amount:              50%;
 
 // Form controls
-$border-radius:                         0.15rem;
-$component-active-bg:                   $primary;
-$input-focus-border-color:              var(--primary-400);
-$custom-control-indicator-active-bg:    var(--primary-400);
-$custom-range-thumb-active-bg:          var(--primary-400);
-$form-group-margin-bottom:              2rem;
+$border-radius: 0.15rem;
+$component-active-bg: $primary;
+$input-focus-border-color: var(--primary-400);
+$custom-control-indicator-active-bg: var(--primary-400);
+$custom-range-thumb-active-bg: var(--primary-400);
+$form-group-margin-bottom: 2rem;
 
-$input-bg:                              var(--foreground);
-$input-disabled-bg:                     #f0f3f6;
-$input-disabled-color:                  #6f6f6f;
-$input-placeholder-color:               #aaa;
+$input-bg: var(--foreground);
+$input-disabled-bg: #f0f3f6;
+$input-disabled-color: #6f6f6f;
+$input-placeholder-color: #aaa;
 
-$input-btn-focus-width:                 0.15rem;
-$input-btn-focus-box-shadow:            0 0 0 $input-btn-focus-width var(--primary-200);
+$input-btn-focus-width: 0.15rem;
+$input-btn-focus-box-shadow: 0 0 0 $input-btn-focus-width var(--primary-200);
 
 // Cards
-$card-border-width:                 0;
-$card-border-radius:                $border-radius;
-$card-border-color:                 var(--very-light-border);
-$card-bg:                           var(--foreground);
-$card-box-shadow:                   0 7.5px 15px -5px rgba(0, 0, 0, 0.12);
-$card-cap-bg:                       rgba(0, 0, 0, 0.06);
+$card-border-width: 0;
+$card-border-radius: $border-radius;
+$card-border-color: var(--very-light-border);
+$card-bg: var(--foreground);
+$card-box-shadow: 0 7.5px 15px -5px rgba(0, 0, 0, 0.12);
+$card-cap-bg: rgba(0, 0, 0, 0.06);
 
 // Buttons
 $btn-border-radius: 0.2rem;
@@ -129,30 +140,30 @@ $grid-breakpoints: (
   lg: 992px,
   xl: 1272px,
   wd: 1400px,
-  xw: 1750px
+  xw: 1750px,
 );
 
 // This number determines of a button has white or black text (a11y)
 // The contrast ratio to reach against white, to determine if color changes from "light" to "dark". Acceptable values for WCAG 2.0 are 3, 4.5 and 7.
 // See https://www.w3.org/TR/WCAG20/#visual-audio-contrast-contrast
-$min-contrast-ratio:  4.5;
+$min-contrast-ratio: 4.5;
 
 // Popovers
 
-$popover-header-padding-y:          0.5rem;
-$popover-header-padding-x:          0.75rem;
-$popover-header-bg:                 $body-secondary-bg;
+$popover-header-padding-y: 0.5rem;
+$popover-header-padding-x: 0.75rem;
+$popover-header-bg: $body-secondary-bg;
 
-$popover-body-padding-y:            0.5rem;
-$popover-body-padding-x:            0.75rem;
+$popover-body-padding-y: 0.5rem;
+$popover-body-padding-x: 0.75rem;
 
 // Variables overriding Bootstrap
 // Toasts
-$toast-max-width:                   250px;
-$toast-background-color:            #fbfaf9;
-$toast-border-radius:               0.25rem;
-$toast-box-shadow:                  0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
-$toast-header-border-color:         rgba(0, 0, 0, 0.05);
+$toast-max-width: 250px;
+$toast-background-color: #fbfaf9;
+$toast-border-radius: 0.25rem;
+$toast-box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
+$toast-header-border-color: rgba(0, 0, 0, 0.05);
 
 :root {
   --body: #222; // Note: this value isn't actually used. @todo Find out where it's coming from.

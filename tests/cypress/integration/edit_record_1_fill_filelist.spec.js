@@ -7,9 +7,7 @@ describe('As an Admin I want to fill in an filelist', { retries: 0 }, () => {
         cy.get('a[id="files-tab"]').click({ force: true });
         cy.get("label[for='field-filelist']").should('contain', 'Filelist');
 
-        cy.get('button[name="file-upload-dropdown"]')
-            .eq(1)
-            .scrollIntoView();
+        cy.get('button[name="file-upload-dropdown"]').eq(1).scrollIntoView();
         cy.get('button[name="file-upload-dropdown"]')
             .eq(1)
             .click({ force: true });

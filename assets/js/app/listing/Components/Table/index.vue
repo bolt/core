@@ -1,35 +1,32 @@
 <template>
     <div class="listing__records">
-        <draggable v-model="records" handle=".listing__row--move" force-fallback="true">
-            <transition-group>
-                <table-row v-for="record in records" :key="record.id" :record="record" :labels="labels"></table-row>
-            </transition-group>
+        <draggable v-model="records" handle=".listing__row--move" force-fallback="true" item-key="id">
+            <template #item="{ element: record }">
+                <table-row :record="record" :labels="labels"></table-row>
+            </template>
         </draggable>
     </div>
 </template>
 
-<script>
+<script setup lang="ts">
+import { computed } from 'vue';
 import draggable from 'vuedraggable';
-import Row from './Row';
+import TableRow from './Row/index.vue';
+import { useListingStore } from '../../store';
+import type { ListingRecord } from '../../types';
 
-export default {
-    name: 'ListingTable',
-    components: {
-        draggable: draggable,
-        'table-row': Row,
+defineProps<{
+    labels: Record<string, string>;
+}>();
+
+const listingStore = useListingStore();
+
+const records = computed({
+    get() {
+        return listingStore.records;
     },
-    props: {
-        labels: Object,
+    set(val: ListingRecord[]) {
+        listingStore.records = val;
     },
-    computed: {
-        records: {
-            get() {
-                return this.$store.getters['listing/getRecords'];
-            },
-            set(val) {
-                this.$store.dispatch('listing/setRecords', val);
-            },
-        },
-    },
-};
+});
 </script>

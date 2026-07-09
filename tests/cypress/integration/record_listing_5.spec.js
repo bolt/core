@@ -4,12 +4,8 @@ describe('As an Admin I want to see the last edited records in the sidebar', () 
     it('checks that an admin can see the last edited records in the sidebar', () => {
         cy.login();
         cy.visit('/bolt/edit/74');
-        cy.get('button[name="save"]')
-            .eq(1)
-            .scrollIntoView();
-        cy.get('button[name="save"]')
-            .eq(1)
-            .click();
+        cy.get('button[name="save"]').eq(1).scrollIntoView();
+        cy.get('button[name="save"]').eq(1).click();
 
         cy.get('a[href="/bolt/content/tests"]').trigger('mouseover', {
             force: true,

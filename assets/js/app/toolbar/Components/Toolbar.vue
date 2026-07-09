@@ -1,7 +1,7 @@
 <template>
     <div class="admin__toolbar--body" :class="contrast ? 'is-light' : 'is-dark'" role="toolbar">
         <div class="toolbar-item btn-group toolbar-item__brand">
-            <img src="/assets/images/bolt_logo_dashboard.svg" alt="⚙️ Bolt" height="26" />
+            <img :src="dashboardLogo" alt="⚙️ Bolt" height="26" />
         </div>
 
         <div v-if="isImpersonator" class="toolbar-impersonation">
@@ -88,41 +88,34 @@
     </div>
 </template>
 
-<script>
-const tinycolor = require('tinycolor2');
+<script setup lang="ts">
+import { computed, onMounted } from 'vue';
+import tinycolor from 'tinycolor2';
+import { useGeneralStore } from '../store';
+import type { SidebarMenuItem } from '../../sidebar/types';
 
-export default {
-    name: 'Toolbar',
-    props: {
-        siteName: String,
-        menu: Array,
-        labels: Object,
-        urlPaths: Object,
-        backendPrefix: String,
-        isImpersonator: Boolean,
-        filterValue: String,
-        avatar: String,
-    },
-    computed: {
-        contrast() {
-            const color = tinycolor(this.toolbarColor);
-            return color.isLight();
-        },
-        createMenu() {
-            return this.menu.filter(item => {
-                return (
-                    (!item.singleton && item.singular_name) ||
-                    (item.singleton && (item.submenu === null || item.submenu.length < 1))
-                );
-            });
-        },
-        toolbarColor() {
-            return this.$store.getters['general/toolbarColor'];
-        },
-    },
-    created() {
-        const color = getComputedStyle(document.body).getPropertyValue('--admin-toolbar');
-        this.$store.dispatch('general/toolbarColor', color);
-    },
-};
+defineProps<{
+    siteName?: string;
+    menu?: SidebarMenuItem[];
+    labels: Record<string, string>;
+    urlPaths: Record<string, string>;
+    backendPrefix?: string;
+    isImpersonator?: boolean;
+    filterValue?: string;
+    avatar?: string | null;
+}>();
+
+const generalStore = useGeneralStore();
+const toolbarColor = computed(() => generalStore.toolbarColor);
+const dashboardLogo = '/assets/images/bolt_logo_dashboard.svg';
+
+const contrast = computed(() => {
+    const color = tinycolor(toolbarColor.value);
+    return color.isLight();
+});
+
+onMounted(() => {
+    const color = getComputedStyle(document.body).getPropertyValue('--admin-toolbar');
+    generalStore.toolbarColor = color;
+});
 </script>

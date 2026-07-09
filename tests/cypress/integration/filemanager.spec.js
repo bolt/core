@@ -24,9 +24,7 @@ describe('As an Admin I am able to use the files section', () => {
         )
             .eq(1)
             .click();
-        cy.get('a[class="dropdown-item delete"]')
-            .eq(1)
-            .click();
+        cy.get('a[class="dropdown-item delete"]').eq(1).click();
 
         cy.get('.modal-dialog').should('have.length', 1);
         cy.get('.modal-title').should(
@@ -52,9 +50,7 @@ describe('As an Admin I am able to use the files section', () => {
         )
             .eq(0)
             .click();
-        cy.get('a[class="dropdown-item delete"]')
-            .eq(0)
-            .click();
+        cy.get('a[class="dropdown-item delete"]').eq(0).click();
 
         cy.get('.modal-dialog').should('have.length', 1);
         cy.get('.modal-title').should(
@@ -111,9 +107,7 @@ describe('As an Admin I am able to use the files section', () => {
         )
             .eq(0)
             .click();
-        cy.get('a[class="dropdown-item delete"]')
-            .eq(0)
-            .click();
+        cy.get('a[class="dropdown-item delete"]').eq(0).click();
         cy.get('.modal-dialog').should('have.length', 1);
         cy.get('#modalButtonAccept').click();
 
@@ -122,9 +116,7 @@ describe('As an Admin I am able to use the files section', () => {
         )
             .eq(0)
             .click();
-        cy.get('a[class="dropdown-item delete"]')
-            .eq(0)
-            .click();
+        cy.get('a[class="dropdown-item delete"]').eq(0).click();
         cy.get('.modal-dialog').should('have.length', 1);
         cy.get('#modalButtonAccept').click();
     });

@@ -1,4 +1,4 @@
-@import "_vars.scss";
+@import '_vars.scss';
 
 .flatpickr-calendar {
   background: transparent;
@@ -20,9 +20,7 @@
 
   @if global-variable-exists(noCalendarBorder) {
     box-shadow: 0 3px 13px alpha(black, 0.08);
-  }
-
-  @else {
+  } @else {
     background: $calendarBackground;
     box-shadow:
       1px 0 0 $calendarBorderColor,
@@ -65,15 +63,17 @@
   }
 
   &.multiMonth {
-    .flatpickr-days .dayContainer:nth-child(n+1) {
-      & .flatpickr-day.inRange:nth-child(7n+7) {
+    .flatpickr-days .dayContainer:nth-child(n + 1) {
+      & .flatpickr-day.inRange:nth-child(7n + 7) {
         box-shadow: none !important;
       }
     }
 
-    .flatpickr-days .dayContainer:nth-child(n+2) {
-      & .flatpickr-day.inRange:nth-child(7n+1) {
-        box-shadow: -2px 0 0 #e6e6e6, 5px 0 0 #e6e6e6;
+    .flatpickr-days .dayContainer:nth-child(n + 2) {
+      & .flatpickr-day.inRange:nth-child(7n + 1) {
+        box-shadow:
+          -2px 0 0 #e6e6e6,
+          5px 0 0 #e6e6e6;
       }
     }
   }
@@ -159,9 +159,7 @@
     &::after {
       @if global-variable-exists(noCalendarBorder) {
         border-bottom-color: $monthBackground;
-      }
-
-      @else {
+      } @else {
         border-bottom-color: $calendarBackground;
       }
     }
@@ -180,9 +178,7 @@
     &::after {
       @if global-variable-exists(noCalendarBorder) {
         border-top-color: $monthBackground;
-      }
-
-      @else {
+      } @else {
         border-top-color: $calendarBackground;
       }
     }
@@ -261,9 +257,7 @@
       svg {
         @if global-variable-exists(arrow_hover_color) {
           fill: $arrow_hover_color;
-        }
-
-        @else {
+        } @else {
           fill: $todayColor;
         }
       }
@@ -320,7 +314,7 @@
 
     &::after {
       display: block;
-      content: "";
+      content: '';
       position: absolute;
     }
 
@@ -554,9 +548,7 @@ span.flatpickr-weekday {
 
       @if global-variable-exists(today_fg_color) {
         color: $today_fg_color;
-      }
-
-      @else {
+      } @else {
         color: #fff;
       }
     }
@@ -576,9 +568,7 @@ span.flatpickr-weekday {
 
       @if global-variable-exists(selectedDayForeground) {
         color: $selectedDayForeground;
-      }
-
-      @else {
+      } @else {
         color: #fff;
       }
 
@@ -595,7 +585,7 @@ span.flatpickr-weekday {
     }
 
     // Avoid adding extra fill because it overflows in multimonth mode
-    &.startRange + .endRange:not(:nth-child(7n+1)) {
+    &.startRange + .endRange:not(:nth-child(7n + 1)) {
       box-shadow: (-5 * $dayMargin) 0 0 $selectedDayBackground;
     }
 
@@ -606,7 +596,9 @@ span.flatpickr-weekday {
 
   &.inRange {
     border-radius: 0;
-    box-shadow: (-2.5 * $dayMargin) 0 0 $dayHoverBackground, (2.5 * $dayMargin) 0 0 $dayHoverBackground;
+    box-shadow:
+      (-2.5 * $dayMargin) 0 0 $dayHoverBackground,
+      (2.5 * $dayMargin) 0 0 $dayHoverBackground;
   }
 
   &.disabled,
@@ -621,9 +613,7 @@ span.flatpickr-weekday {
 
     @if global-variable-exists(disabled_border_color) {
       border-color: $disabled_border_color;
-    }
-
-    @else {
+    } @else {
       border-color: transparent;
     }
 
@@ -661,9 +651,7 @@ span.flatpickr-weekday {
 
     @if global-variable-exists(noCalendarBorder) {
       border-left: 1px solid $calendarBorderColor;
-    }
-
-    @else {
+    } @else {
       box-shadow: 1px 0 0 $calendarBorderColor;
     }
   }
@@ -722,7 +710,7 @@ span.flatpickr-weekday {
   }
 
   &::after {
-    content: "";
+    content: '';
     display: table;
     clear: both;
   }

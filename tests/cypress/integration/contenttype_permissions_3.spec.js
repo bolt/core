@@ -6,9 +6,7 @@ describe('Change content post status as chief editor', () => {
 
         cy.visit('/bolt/content/pages');
 
-        cy.get('button[data-bs-toggle="dropdown"]')
-            .eq(0)
-            .click();
+        cy.get('button[data-bs-toggle="dropdown"]').eq(0).click();
         cy.get('.edit-actions__dropdown.dropdown-menu.dropdown-menu-right')
             .eq(0)
             .children('a')
@@ -17,9 +15,7 @@ describe('Change content post status as chief editor', () => {
 
         cy.get('.status.is-held').should('exist');
 
-        cy.get('button[data-bs-toggle="dropdown"]')
-            .eq(0)
-            .click();
+        cy.get('button[data-bs-toggle="dropdown"]').eq(0).click();
         cy.get('.edit-actions__dropdown.dropdown-menu.dropdown-menu-right')
             .eq(0)
             .children('a')

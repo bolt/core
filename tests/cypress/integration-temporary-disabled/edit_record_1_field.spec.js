@@ -69,12 +69,8 @@ describe('As an Admin I want to be able to make use of the embed, infobox and im
         cy.get('a[id="media-tab"]').click();
 
         cy.get('label[for=field-image]').should('contain', 'Image');
-        cy.get('.form-control')
-            .eq(10)
-            .should('not.equal', '');
-        cy.get('.form-control')
-            .eq(11)
-            .should('not.equal', '');
+        cy.get('.form-control').eq(10).should('not.equal', '');
+        cy.get('.form-control').eq(11).should('not.equal', '');
 
         cy.get('button[class="btn btn-sm btn-hidden-danger"]')
             .should('contain', 'Remove')

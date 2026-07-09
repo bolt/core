@@ -21,6 +21,12 @@ jobs:
           - name: Lint on SCSS files
             run: npm run stylelint
 
+          - name: UI Unit Tests
+            run: npm run test:coverage
+
+          - name: Type Check
+            run: npm run typecheck
+
           - name: Build for production
             run: npm run build
 

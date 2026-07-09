@@ -4,9 +4,7 @@ describe('As a user I want to fetch all contents of an API', () => {
     it('Checks that GET response equals 200', () => {
         cy.login();
         cy.visit('/bolt/api', { headers: { Accept: 'text/html' } });
-        cy.get('#operations-Content-api_contents_get_collection')
-            .eq(0)
-            .click();
+        cy.get('#operations-Content-api_contents_get_collection').eq(0).click();
         cy.get('.response-col_status').should('contain', '200');
     });
 
@@ -15,11 +13,9 @@ describe('As a user I want to fetch all contents of an API', () => {
         cy.request({
             url: '/api/contents.json',
             failOnStatusCode: false,
-        }).then(response => {
-            return new Promise(resolve => {
-                expect(response)
-                    .property('status')
-                    .to.eq(200);
+        }).then((response) => {
+            return new Promise((resolve) => {
+                expect(response).property('status').to.eq(200);
                 expect(response.body[0])
                     .property('id')
                     .to.not.be.oneOf([null, '']);
@@ -35,11 +31,9 @@ describe('As a user I want to fetch all contents of an API', () => {
         cy.request({
             url: '/api/contents/1.json',
             failOnStatusCode: false,
-        }).then(response => {
-            return new Promise(resolve => {
-                expect(response)
-                    .property('status')
-                    .to.eq(200);
+        }).then((response) => {
+            return new Promise((resolve) => {
+                expect(response).property('status').to.eq(200);
                 expect(response.body)
                     .property('id')
                     .to.not.be.oneOf([null, '']);
@@ -55,11 +49,9 @@ describe('As a user I want to fetch all contents of an API', () => {
         cy.request({
             url: '/api/contents.jsonld',
             failOnStatusCode: false,
-        }).then(response => {
-            return new Promise(resolve => {
-                expect(response)
-                    .property('status')
-                    .to.eq(200);
+        }).then((response) => {
+            return new Promise((resolve) => {
+                expect(response).property('status').to.eq(200);
                 expect(response.body)
                     .property('hydra:totalItems')
                     .to.not.be.oneOf([null, '', 0]);
@@ -75,11 +67,9 @@ describe('As a user I want to fetch all contents of an API', () => {
         cy.request({
             url: '/api/contents.jsonld?contentType=homepage',
             failOnStatusCode: false,
-        }).then(response => {
-            return new Promise(resolve => {
-                expect(response)
-                    .property('status')
-                    .to.eq(200);
+        }).then((response) => {
+            return new Promise((resolve) => {
+                expect(response).property('status').to.eq(200);
                 expect(response.body)
                     .property('hydra:totalItems')
                     .to.not.be.oneOf([null, '', 0]);
@@ -95,11 +85,9 @@ describe('As a user I want to fetch all contents of an API', () => {
         cy.request({
             url: '/api/contents/1.jsonld',
             failOnStatusCode: false,
-        }).then(response => {
-            return new Promise(resolve => {
-                expect(response)
-                    .property('status')
-                    .to.eq(200);
+        }).then((response) => {
+            return new Promise((resolve) => {
+                expect(response).property('status').to.eq(200);
                 expect(response.body)
                     .property('id')
                     .to.not.be.oneOf([null, '']);
@@ -116,11 +104,9 @@ describe('Test reading JSON Fields', () => {
         cy.request({
             url: `/api/contents/1/fields.json`,
             failOnStatusCode: false,
-        }).then(response => {
-            return new Promise(resolve => {
-                expect(response)
-                    .property('status')
-                    .to.eq(200);
+        }).then((response) => {
+            return new Promise((resolve) => {
+                expect(response).property('status').to.eq(200);
                 expect(response.body[0])
                     .property('name')
                     .to.not.be.oneOf([null, '']);
@@ -135,11 +121,9 @@ describe('Test reading JSON Fields', () => {
         cy.request({
             url: `/api/contents/1/fields.jsonld`,
             failOnStatusCode: false,
-        }).then(response => {
-            return new Promise(resolve => {
-                expect(response)
-                    .property('status')
-                    .to.eq(200);
+        }).then((response) => {
+            return new Promise((resolve) => {
+                expect(response).property('status').to.eq(200);
                 expect(response.body)
                     .property('hydra:totalItems')
                     .to.not.be.oneOf([null, '', 0]);

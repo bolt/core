@@ -20,12 +20,8 @@ describe('Edit content as chief editor and editor without being the owner', () =
         cy.get('#field-heading').clear();
         cy.get('#field-heading').type('This is an edited page');
 
-        cy.get('button[name="save"]')
-            .eq(1)
-            .scrollIntoView();
-        cy.get('button[name="save"]')
-            .eq(1)
-            .click();
+        cy.get('button[name="save"]').eq(1).scrollIntoView();
+        cy.get('button[name="save"]').eq(1).click();
 
         cy.get('#field-heading')
             .invoke('val')
@@ -51,12 +47,8 @@ describe('Edit content as chief editor and editor without being the owner', () =
         cy.get('#field-heading').clear();
         cy.get('#field-heading').type('This is a page');
 
-        cy.get('button[name="save"]')
-            .eq(1)
-            .scrollIntoView();
-        cy.get('button[name="save"]')
-            .eq(1)
-            .click();
+        cy.get('button[name="save"]').eq(1).scrollIntoView();
+        cy.get('button[name="save"]').eq(1).click();
 
         cy.get('#field-heading')
             .invoke('val')

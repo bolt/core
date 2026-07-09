@@ -8,12 +8,8 @@ describe('Create/delete user', () => {
         cy.visit('/bolt/clearcache');
 
         cy.visit('/bolt/users');
-        cy.get('main > p > a')
-            .eq(0)
-            .scrollIntoView();
-        cy.get('main > p > a')
-            .eq(0)
-            .click();
+        cy.get('main > p > a').eq(0).scrollIntoView();
+        cy.get('main > p > a').eq(0).click();
 
         cy.url().should('contain', '/bolt/user-edit/add');
         cy.get('h1').should('contain', 'New User');

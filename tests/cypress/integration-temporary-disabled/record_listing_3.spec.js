@@ -13,9 +13,7 @@ describe('As an Admin I want to filter content', () => {
             .click();
 
         cy.url().should('contain', '/bolt/content/entries?sortBy=&filter=a');
-        cy.get('.listing--container')
-            .its('length')
-            .should('eq', 10);
+        cy.get('.listing--container').its('length').should('eq', 10);
 
         cy.wait(1000);
 
@@ -42,15 +40,11 @@ describe('As an Admin I want to filter content', () => {
             .should('contain', 'Filter')
             .click();
         cy.url().should('contain', '/bolt/content/entries?sortBy=&filter=');
-        cy.get('.listing--container')
-            .its('length')
-            .should('eq', 10);
+        cy.get('.listing--container').its('length').should('eq', 10);
     });
 
     it('checks that a user can see the contenttype listing', () => {
         cy.visit('/pages');
-        cy.get('article')
-            .its('length')
-            .should('eq', 6);
+        cy.get('article').its('length').should('eq', 6);
     });
 });

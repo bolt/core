@@ -36,7 +36,7 @@
     form='{{ form }}'
     mode='{{ mode }}'
     locale='{{locale}}'
-    labels='{{ { 'toggle': 'editor_date.toggle'|trans }|json_encode }}'
+    :labels='{{ { 'toggle': 'editor_date.toggle'|trans }|json_encode }}'
     :required='{{ required|json_encode }}'
     :errormessage='{{ errormessage|json_encode }}'
   ></editor-date>

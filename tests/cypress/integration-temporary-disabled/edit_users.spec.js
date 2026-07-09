@@ -103,9 +103,7 @@ describe('Edit user successfully, Edit users incorrectly', () => {
         cy.wait(500);
 
         cy.get('h1').should('contain', 'Administrator');
-        cy.get('#user_username')
-            .invoke('val')
-            .should('contain', 'jane_chief');
+        cy.get('#user_username').invoke('val').should('contain', 'jane_chief');
 
         cy.get('#user_displayName').clear();
         cy.get('#user_displayName').type('a');

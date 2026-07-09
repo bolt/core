@@ -1,11 +1,21 @@
 .badge-tertiary {
-  color: color-contrast($background, $color-contrast-dark: $color-contrast-dark, $color-contrast-light: $color-contrast-light, $min-contrast-ratio: $min-contrast-ratio);
+  color: color-contrast(
+    $background,
+    $color-contrast-dark: $color-contrast-dark,
+    $color-contrast-light: $color-contrast-light,
+    $min-contrast-ratio: $min-contrast-ratio
+  );
   background-color: $tertiary;
 
   @at-root a#{&} {
     &:hover,
     &:focus {
-      color: color-contrast($background, $color-contrast-dark: $color-contrast-dark, $color-contrast-light: $color-contrast-light, $min-contrast-ratio: $min-contrast-ratio);
+      color: color-contrast(
+        $background,
+        $color-contrast-dark: $color-contrast-dark,
+        $color-contrast-light: $color-contrast-light,
+        $min-contrast-ratio: $min-contrast-ratio
+      );
       background-color: darken($tertiary, 10%);
     }
 

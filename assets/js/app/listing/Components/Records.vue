@@ -2,17 +2,23 @@
     <div class="listing-records"></div>
 </template>
 
-<script>
-export default {
-    name: 'ListingRecords',
-    props: {
-        type: String,
-        data: Array,
-        labels: Object,
-    },
-    created() {
-        this.$store.dispatch('general/setType', this.type);
-        this.$store.dispatch('listing/setRecords', this.data);
-    },
-};
+<script setup lang="ts">
+import { useGeneralStore, useListingStore } from '../store';
+import type { ListingRecord } from '../types';
+
+const props = defineProps<{
+    type?: string;
+    data?: ListingRecord[];
+    labels?: Record<string, string>;
+}>();
+
+const generalStore = useGeneralStore();
+const listingStore = useListingStore();
+
+if (props.type) {
+    generalStore.type = props.type;
+}
+if (props.data) {
+    listingStore.records = props.data;
+}
 </script>

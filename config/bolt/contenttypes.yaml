@@ -513,7 +513,6 @@ validationdemos:
             max: 50
             minMessage: 'Your title must be at least {{ limit }} characters long'
             maxMessage: 'Your title cannot be longer than {{ limit }} characters'
-            allowEmptyString: false
     slug:
       type: slug
       uses: [ title ]

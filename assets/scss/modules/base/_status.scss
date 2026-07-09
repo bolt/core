@@ -28,7 +28,7 @@
     color: var(--status-published);
 
     &::before {
-      content: "\f058"; // check mark
+      content: '\f058'; // check mark
     }
   }
 
@@ -36,7 +36,7 @@
     color: var(--status-held);
 
     &::before {
-      content: "\f057"; // times circle
+      content: '\f057'; // times circle
     }
   }
 
@@ -45,7 +45,7 @@
     border-radius: 50%;
 
     &::before {
-      content: "\f14b"; // pen-square
+      content: '\f14b'; // pen-square
     }
   }
 
@@ -55,7 +55,7 @@
     position: relative;
 
     &::before {
-      content: "\f017"; // clock
+      content: '\f017'; // clock
       font-size: 0.6em;
       position: absolute;
       left: 50%;

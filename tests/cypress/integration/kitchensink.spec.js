@@ -12,9 +12,7 @@ describe('As an admin I want to see the Kitchensink page', () => {
         );
         cy.get('h3').should('contain', 'different things');
 
-        cy.get('section.buttons button.btn')
-            .its('length')
-            .should('eq', 20);
+        cy.get('section.buttons button.btn').its('length').should('eq', 20);
 
         cy.get('input[name="foo"]').should('have.value', 'FooBar');
 

@@ -2,42 +2,42 @@
     <div v-show="!sorting" key="checkbox" class="listing--checkbox">
         <div class="form-check">
             <input :id="`row-${id}`" v-model="selected" class="form-check-input" type="checkbox" />
-            <label class="form-check-label" :for="`row-${id}`" @click="selected != !selected"></label>
+            <label class="form-check-label" :for="`row-${id}`"></label>
         </div>
     </div>
 </template>
 
-<script>
-export default {
-    name: 'Checkbox',
-    props: {
-        id: Number,
-    },
-    data: () => {
-        return {
-            selected: false,
-        };
-    },
-    computed: {
-        selectAll() {
-            return this.$store.getters['selecting/selectAll'];
-        },
-        sorting() {
-            return this.$store.getters['general/getSorting'];
-        },
-    },
-    watch: {
-        selectAll() {
-            this.selected = this.selectAll;
-        },
-        selected() {
-            this.selected
-                ? this.$store.dispatch('selecting/select', this.id)
-                : this.$store.dispatch('selecting/deSelect', this.id);
-        },
-        sorting() {
-            if (this.sorting) this.selected = false;
-        },
-    },
-};
+<script setup lang="ts">
+import { ref, computed, watch } from 'vue';
+import { useSelectingStore, useGeneralStore } from '../../../store';
+
+const props = defineProps<{
+    id: number;
+}>();
+
+const selectingStore = useSelectingStore();
+const generalStore = useGeneralStore();
+
+const selected = ref(false);
+
+const selectAll = computed(() => selectingStore.selectAll);
+const sorting = computed(() => generalStore.sorting);
+
+watch(selectAll, newSelectAll => {
+    selected.value = newSelectAll;
+});
+
+watch(selected, newSelected => {
+    if (newSelected) {
+        selectingStore.select(props.id);
+    } else {
+        selectingStore.deSelect(props.id);
+    }
+});
+
+watch(sorting, newSorting => {
+    if (newSorting) {
+        selected.value = false;
+    }
+});
 </script>

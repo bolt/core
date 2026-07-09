@@ -18,6 +18,7 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Badge\RememberMeBadge
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordCredentials;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
+use Symfony\Component\Security\Http\HttpUtils;
 use Symfony\Component\Security\Http\SecurityRequestAttributes;
 
 class LoginFormAuthenticator extends AbstractAuthenticator implements AuthenticatorInterface
@@ -25,13 +26,15 @@ class LoginFormAuthenticator extends AbstractAuthenticator implements Authentica
     public function __construct(
         private readonly Security $security,
         private readonly UserRepository $userRepository,
-        private readonly RouterInterface $router
+        private readonly RouterInterface $router,
+        private readonly HttpUtils $httpUtils,
     ) {
     }
 
     public function supports(Request $request): ?bool
     {
-        return $request->attributes->get('_route') === 'bolt_login' && $request->isMethod('POST');
+        return $request->attributes->get('_route') === 'bolt_login'
+            && $request->isMethod(Request::METHOD_POST);
     }
 
     public function authenticate(Request $request): Passport
@@ -68,7 +71,7 @@ class LoginFormAuthenticator extends AbstractAuthenticator implements Authentica
             $fallback = $this->router->generate('homepage');
         }
 
-        return new RedirectResponse($request->getSession()->get(
+        return $this->httpUtils->createRedirectResponse($request, $request->getSession()->get(
             '_security.' . $firewallName . '.target_path',
             $fallback
         ));
@@ -81,6 +84,6 @@ class LoginFormAuthenticator extends AbstractAuthenticator implements Authentica
         }
 
         // Redirect back to where we came from
-        return new RedirectResponse($request->headers->get('referer'));
+        return new RedirectResponse($this->router->generate('bolt_login'));
     }
 }

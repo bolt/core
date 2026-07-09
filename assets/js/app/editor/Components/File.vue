@@ -10,6 +10,7 @@
                 <div class="input-group mb-3">
                     <input :name="name + '[media]'" type="hidden" :value="media" />
                     <input
+                        :aria-label="labels.placeholder_filename"
                         :title="name + ' filename'"
                         class="form-control"
                         :name="name + '[filename]'"
@@ -18,20 +19,21 @@
                         :value="filenameData"
                         data-readonly="readonly"
                         :required="required"
-                        :data-errormessage="errormessage"
+                        :data-errormessage="typeof errormessage === 'string' ? errormessage : undefined"
                     />
                 </div>
                 <div class="input-group mb-3">
                     <input
                         v-model="titleData"
+                        :aria-label="labels.placeholder_title"
                         :title="name + ' title'"
                         class="form-control"
                         :name="name + '[title]'"
                         type="text"
                         :required="required"
                         :readonly="readonly"
-                        :pattern="pattern"
-                        :placeholder="getPlaceholder"
+                        :pattern="typeof pattern === 'string' ? pattern : undefined"
+                        :placeholder="getPlaceholder || undefined"
                     />
                 </div>
                 <div class="btn-toolbar" role="toolbar">
@@ -114,7 +116,8 @@
                             :disabled="readonly"
                             @click="onRemoveFile"
                         >
-                            <i class="fas fa-fw fa-trash"></i> {{ labels.button_remove }}
+                            <i class="fas fa-fw fa-trash"></i>
+                            {{ labels.button_remove }}
                         </button>
                     </div>
                 </div>
@@ -132,129 +135,155 @@
         </div>
         <input
             ref="selectFile"
+            :aria-label="labels.placeholder_filename"
             :title="name + ' filename'"
             class="editor__file--upload"
             :name="fieldName"
             tabindex="-1"
             type="file"
             :accept="acceptedExtensions"
-            @change="uploadFile($event.target.files[0])"
+            @change="uploadSelectedFile"
         />
     </div>
 </template>
 
-<script>
-import field from '../mixins/value';
+<script setup lang="ts">
+import { ref, computed, useTemplateRef } from 'vue';
 import Axios from 'axios';
-import { renable } from '../../patience-is-a-virtue';
-import { resetModalContent } from '../../modal';
-import { Modal } from 'bootstrap';
+import type { AxiosError, AxiosProgressEvent } from 'axios';
+import { createServerFileBrowser, type ServerFile } from '../utils/serverFileBrowser';
+import { getUploadErrorMessage, type UploadErrorResponse } from '../utils/upload';
 
-export default {
-    name: 'EditorFile',
-    mixins: [field],
-    props: {
-        name: String,
-        filename: String,
-        title: String,
-        directory: String,
-        media: String,
-        csrfToken: String,
-        labels: Object,
-        filelist: String,
-        extensions: Array,
-        inFilelist: Boolean,
-        isFirstInFilelist: Boolean,
-        isLastInFilelist: Boolean,
-        attributesLink: String,
-        required: Boolean,
-        readonly: Boolean,
-        errormessage: String | Boolean, //string if errormessage is set, and false otherwise
-        pattern: String | Boolean,
-        placeholder: String | Boolean,
-    },
-    emits: ['move-file-up', 'move-file-down', 'remove'],
-    data() {
-        return {
-            isDragging: false,
-            dragCount: 0,
-            progress: 0,
-            filenameData: this.filename,
-            titleData: this.title,
-        };
-    },
-    computed: {
-        fieldName() {
-            return this.name + '[]';
-        },
-        token() {
-            return this.csrfToken;
-        },
-        acceptedExtensions() {
-            return this.extensions.map(ext => '.' + ext).join();
-        },
-        getPlaceholder() {
-            if (this.placeholder) {
-                return this.placeholder;
-            }
+const props = defineProps<{
+    name?: string;
+    filename?: string;
+    // file.html.twig passes `:thumbnail` and `:alt` (and Filelist forwards
+    // `:thumbnail`) from the shared media markup. The file field renders neither,
+    // but declaring them keeps the contract honest and avoids attribute fallthrough.
+    thumbnail?: string;
+    alt?: string;
+    title?: string;
+    directory?: string;
+    media?: string;
+    csrfToken?: string;
+    labels: Record<string, string>;
+    filelist?: string;
+    extensions: string[];
+    inFilelist?: boolean;
+    isFirstInFilelist?: boolean;
+    isLastInFilelist?: boolean;
+    attributesLink?: string;
+    required?: boolean;
+    readonly?: boolean;
+    errormessage?: string | boolean; //string if errormessage is set, and false otherwise
+    pattern?: string | boolean;
+    placeholder?: string | boolean;
+}>();
 
-            return this.labels.placeholder_title;
-        },
+const emit = defineEmits<{
+    (e: 'moveFileDown', payload: { fieldName: string }): void;
+    (e: 'moveFileUp', payload: { fieldName: string }): void;
+    (e: 'remove', payload: { fieldName: string }): void;
+}>();
+
+const isDragging = ref(false);
+const dragCount = ref(0);
+const progress = ref(0);
+const filenameData = ref(props.filename);
+const titleData = ref(props.title);
+
+const selectFile = useTemplateRef<HTMLInputElement>('selectFile');
+
+const fieldName = computed(() => props.name + '[]');
+const token = computed(() => props.csrfToken);
+const acceptedExtensions = computed(() => props.extensions.map(ext => '.' + ext).join());
+const getPlaceholder = computed(() => {
+    if (typeof props.placeholder === 'string' && props.placeholder) {
+        return props.placeholder;
+    }
+
+    return props.labels.placeholder_title;
+});
+
+const { selectServerFile } = createServerFileBrowser({
+    initialFilelist: props.filelist,
+    extensions: props.extensions,
+    labels: props.labels,
+    modalTitlePrefix: 'Select a file',
+    generateModalContent,
+    onSelect: selectedFile => {
+        filenameData.value = selectedFile;
     },
-    methods: {
-        onMoveFileDown() {
-            this.$emit('move-file-down', this);
-        },
-        onMoveFileUp() {
-            this.$emit('move-file-up', this);
-        },
-        onRemoveFile() {
-            this.filenameData = '';
-            this.titleData = '';
-            this.$emit('remove', this);
-        },
-        selectUploadFile() {
-            this.$refs.selectFile.click();
-        },
-        generateModalContent(inputOptions) {
-            let filePath = '';
-            let folderPath = inputOptions[0].value;
-            let baseAsyncPath = inputOptions[0].base_url_path;
-            let fileIcons = {
-                jpg: 'fa-file-image',
-                jpeg: 'fa-file-image',
-                png: 'fa-file-image',
-                webp: 'fa-file-image',
-                svg: 'fa-file-image',
-                gif: 'fa-file-image',
-                pdf: 'fa-file-pdf',
-                doc: 'fa-file-word',
-                docx: 'fa-file-word',
-                txt: 'fa-file-alt',
-                csv: 'fa-file-csv',
-                xls: 'fa-file-excel',
-                xlsx: 'fa-file-excel',
-                pptx: 'fa-file-powerpoint',
-                html: 'fa-file-code',
-                mp3: 'fa-music',
-                mp4: 'fa-video',
-                mov: 'fa-video',
-                avi: 'fa-video',
-                webm: 'fa-video',
-                zip: 'fa-file-archive',
-                rar: 'fa-file-archive',
-                gz: 'fa-file-archive',
-            };
-            let modalContent = '<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-2">';
-            // If we are deep in the directory, add an arrow to navigate back to previous folder
-            if (folderPath.includes('/')) {
-                let pathChunks = inputOptions[0].value.split('/');
-                pathChunks.pop();
-                pathChunks.pop();
-                filePath = pathChunks.join('/');
-                let baseAsyncUrl = `${baseAsyncPath}?location=${filePath}&type=files`;
-                if (filePath != '') {
-                    modalContent += `
+    onOpenError: err => {
+        console.warn(err);
+    },
+    onNavigateError: err => {
+        console.warn(err);
+    },
+});
+
+function onMoveFileDown() {
+    emit('moveFileDown', { fieldName: fieldName.value });
+}
+
+function onMoveFileUp() {
+    emit('moveFileUp', { fieldName: fieldName.value });
+}
+
+function onRemoveFile() {
+    filenameData.value = '';
+    titleData.value = '';
+    emit('remove', { fieldName: fieldName.value });
+}
+
+function selectUploadFile() {
+    selectFile.value?.click();
+}
+
+function generateModalContent(inputOptions: ServerFile[]) {
+    const firstOption = inputOptions[0];
+    if (!firstOption) {
+        return '';
+    }
+
+    let filePath = '';
+    let folderPath = firstOption.value;
+    let baseAsyncPath = firstOption.base_url_path ?? '';
+    let fileIcons: Record<string, string> = {
+        jpg: 'fa-file-image',
+        jpeg: 'fa-file-image',
+        png: 'fa-file-image',
+        webp: 'fa-file-image',
+        svg: 'fa-file-image',
+        gif: 'fa-file-image',
+        pdf: 'fa-file-pdf',
+        doc: 'fa-file-word',
+        docx: 'fa-file-word',
+        txt: 'fa-file-alt',
+        csv: 'fa-file-csv',
+        xls: 'fa-file-excel',
+        xlsx: 'fa-file-excel',
+        pptx: 'fa-file-powerpoint',
+        html: 'fa-file-code',
+        mp3: 'fa-music',
+        mp4: 'fa-video',
+        mov: 'fa-video',
+        avi: 'fa-video',
+        webm: 'fa-video',
+        zip: 'fa-file-archive',
+        rar: 'fa-file-archive',
+        gz: 'fa-file-archive',
+    };
+    let modalContent = '<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-2">';
+    // If we are deep in the directory, add an arrow to navigate back to previous folder
+    if (folderPath.includes('/')) {
+        let pathChunks = firstOption.value.split('/');
+        pathChunks.pop();
+        pathChunks.pop();
+        filePath = pathChunks.join('/');
+        let baseAsyncUrl = `${baseAsyncPath}?location=${filePath}&type=files`;
+        if (filePath != '') {
+            modalContent += `
                     <div class="col">
                         <div class="card h-100">
                             <a href="${baseAsyncUrl}" class="directory d-flex align-items-center justify-content-center w-100 flex-grow-1 text-decoration-none">
@@ -269,14 +298,14 @@ export default {
                             </div>
                         </div>
                     </div>`;
-                }
-            }
-            inputOptions.forEach((element, key) => {
-                let filenameExtension = element.text.split('.').pop().toLowerCase();
-                if (element.group == 'directories') {
-                    filePath = element.value;
-                    let baseAsyncUrl = `${baseAsyncPath}?location=${filePath}&type=files`;
-                    modalContent += `
+        }
+    }
+    inputOptions.forEach((element, key) => {
+        let filenameExtension = element.text.split('.').pop()?.toLowerCase() ?? '';
+        if (element.group == 'directories') {
+            filePath = element.value;
+            let baseAsyncUrl = `${baseAsyncPath}?location=${filePath}&type=files`;
+            modalContent += `
                         <div class="col">
                             <div class="card h-100">
                                 <a href="${baseAsyncUrl}" class="directory d-flex justify-content-center w-100 flex-grow-1 text-decoration-none align-self-center">
@@ -293,8 +322,8 @@ export default {
                             </div>
                         </div>
                     `;
-                } else {
-                    modalContent += `
+        } else {
+            modalContent += `
                         <div class="col">
                             <div class="card h-100">
                                 <i class="d-flex align-items-center justify-content-center w-100 flex-grow-1 text-decoration-none fas fa-solid ${
@@ -313,177 +342,72 @@ export default {
                             </div>
                         </div>
                     `;
-                }
-            });
-            modalContent += `</div>`;
-            return modalContent;
+        }
+    });
+    modalContent += `</div>`;
+    return modalContent;
+}
+
+function onDragEnter(e: DragEvent) {
+    e.preventDefault();
+    dragCount.value++;
+    isDragging.value = true;
+    return false;
+}
+
+function onDragLeave(e: DragEvent) {
+    e.preventDefault();
+    dragCount.value--;
+    if (dragCount.value <= 0) isDragging.value = false;
+}
+
+function onDrop(e: DragEvent) {
+    e.preventDefault();
+    e.stopPropagation();
+    isDragging.value = false;
+    dragCount.value = 0;
+    const file = e.dataTransfer?.files[0];
+    if (!file) {
+        return;
+    }
+
+    return uploadFile(file);
+}
+
+function uploadSelectedFile(event: Event) {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (file) {
+        uploadFile(file);
+    }
+}
+
+function uploadFile(file: File) {
+    if (!props.directory) {
+        return;
+    }
+
+    const fd = new FormData();
+    const config = {
+        onUploadProgress: (progressEvent: AxiosProgressEvent) => {
+            const total = progressEvent.total ?? progressEvent.loaded;
+            const percentCompleted = total > 0 ? Math.round((progressEvent.loaded * 100) / total) : 0;
+            progress.value = percentCompleted;
         },
-        selectServerFile(event) {
-            let thisField = this;
-            Axios.get(this.filelist)
-                .then(res => {
-                    let inputOptions = this.filterServerFiles(res.data);
-
-                    var resourcesModal = document.getElementById('resourcesModal');
-                    var bootstrapResourcesModal = document.querySelector('#resourcesModal');
-                    var resourcesModalObject = Modal.getOrCreateInstance(bootstrapResourcesModal); // Returns a Bootstrap modal instance
-                    var button = event.target;
-                    var title = button.getAttribute('data-modal-title');
-                    var modalDialog = resourcesModal.querySelector('.modal-dialog');
-                    var modalTitle = resourcesModal.querySelector('.modal-title');
-                    var modalBody = resourcesModal.querySelector('.modal-body');
-                    var modalFooter = resourcesModal.querySelector('.modal-footer');
-                    var modalBodyContent = this.generateModalContent(inputOptions);
-
-                    modalDialog.classList.add(button.getAttribute('data-modal-dialog-class'));
-                    modalTitle.innerHTML = title;
-                    modalBody.innerHTML = modalBodyContent;
-                    modalFooter.remove();
-
-                    var directoryLinks = resourcesModal.querySelectorAll('.directory');
-
-                    directoryLinks.forEach(link => {
-                        link.addEventListener('click', e => {
-                            e.preventDefault();
-                            this.filelist = link.href;
-                            thisField.filelist = link.href;
-                            this.navigateDirectory(modalTitle);
-                        });
-                    });
-
-                    var cards = modalBody.querySelectorAll('.form-check-input');
-                    cards.forEach(card => {
-                        card.addEventListener('click', () => {
-                            resourcesModalObject.hide();
-                        });
-                    });
-
-                    resourcesModal.addEventListener(
-                        'hidden.bs.modal',
-                        () => {
-                            if (modalBody.querySelector('input[type=checkbox]:checked')) {
-                                var selectedFile = modalBody.querySelector('input[type=checkbox]:checked').value;
-                                thisField.filenameData = selectedFile.replace('files/', '');
-                            }
-                            // Reset modal body content when the modal is closed
-                            resetModalContent(this.labels);
-                        },
-                        { once: true },
-                    );
-
-                    renable();
-                })
-                .catch(err => {
-                    console.warn(err);
-                    renable();
-                });
+        headers: {
+            'Content-Type': 'multipart/form-data',
         },
-        navigateDirectory() {
-            let thisField = this;
-            Axios.get(this.filelist)
-                .then(res => {
-                    let inputOptions = this.filterServerFiles(res.data);
-                    let folderPath = '';
-
-                    // Generate current folder path to add to modal title
-                    folderPath = inputOptions[0].value.split('/');
-                    folderPath.pop();
-                    folderPath = folderPath.join('/');
-
-                    var resourcesModal = document.getElementById('resourcesModal');
-                    var bootstrapResourcesModal = document.querySelector('#resourcesModal');
-                    var resourcesModalObject = Modal.getOrCreateInstance(bootstrapResourcesModal); // Returns a Bootstrap modal instance
-                    var modalTitle = resourcesModal.querySelector('.modal-title');
-                    var modalBody = resourcesModal.querySelector('.modal-body');
-                    var modalBodyContent = this.generateModalContent(inputOptions);
-
-                    modalTitle.innerHTML = 'Select a file: <i class="fas fa-solid fa-folder-tree"></i>' + folderPath;
-                    modalBody.innerHTML = modalBodyContent;
-
-                    var directoryLinks = resourcesModal.querySelectorAll('.directory');
-
-                    directoryLinks.forEach(link => {
-                        link.addEventListener('click', e => {
-                            e.preventDefault();
-                            this.filelist = link.href;
-                            thisField.filelist = link.href;
-                            this.navigateDirectory(e);
-                        });
-                    });
-
-                    var cards = modalBody.querySelectorAll('.form-check-input');
-                    cards.forEach(card => {
-                        card.addEventListener('click', () => {
-                            resourcesModalObject.hide();
-                        });
-                    });
-                })
-                .catch(err => {
-                    console.warn(err);
-                    renable();
-                });
-        },
-        onDragEnter(e) {
-            e.preventDefault();
-            this.dragCount++;
-            this.isDragging = true;
-            return false;
-        },
-        onDragLeave(e) {
-            e.preventDefault();
-            this.dragCount--;
-            if (this.dragCount <= 0) this.isDragging = false;
-        },
-        onDrop(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            this.isDragging = false;
-            this.dragCount = 0;
-            const file = e.dataTransfer.files[0];
-            return this.uploadFile(file);
-        },
-        uploadFile(file) {
-            const fd = new FormData();
-            const config = {
-                onUploadProgress: progressEvent => {
-                    const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-                    this.progress = percentCompleted;
-                },
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-            };
-            fd.append('file', file);
-            fd.append('_csrf_token', this.token);
-            Axios.post(this.directory, fd, config)
-                .then(res => {
-                    this.filenameData = res.data;
-                    this.progress = 0;
-                })
-                .catch(err => {
-                    const responseData = err.response.data;
-                    let errorMessage = 'unknown error';
-                    if (typeof responseData === 'string' || responseData instanceof String) {
-                        errorMessage = responseData;
-                    } else if (responseData.error && responseData.error.message) {
-                        errorMessage = responseData.error.message;
-                    }
-                    window.alert(errorMessage + '<br>File did not upload.');
-                    console.warn(err);
-                    this.progress = 0;
-                });
-        },
-        filterServerFiles(files) {
-            let self = this;
-            return files.filter(function (file) {
-                let ext = /(?:\.([^.]+))?$/.exec(file.text)[1];
-                // If it's a directory, return the directory
-                if (file.group == 'directories') {
-                    return file;
-                }
-                return self.extensions.includes(ext);
-            });
-        },
-    },
-};
+    };
+    fd.append('file', file);
+    fd.append('_csrf_token', token.value ?? '');
+    Axios.post<string>(props.directory, fd, config)
+        .then(res => {
+            filenameData.value = res.data;
+            progress.value = 0;
+        })
+        .catch((err: AxiosError<UploadErrorResponse>) => {
+            window.alert(getUploadErrorMessage(err) + '<br>File did not upload.');
+            console.warn(err);
+            progress.value = 0;
+        });
+}
 </script>

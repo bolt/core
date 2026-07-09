@@ -86,7 +86,7 @@ describe('As an Admin I want to be able to make use of the date & datetime field
         cy.get('.flatpickr-calendar.open input.flatpickr-hour').type('11');
         cy.get('.flatpickr-calendar.open input.flatpickr-minute').type('30');
         cy.get('.flatpickr-calendar.open span.flatpickr-am-pm').then(
-            $element => {
+            ($element) => {
                 if ($element.html() === 'PM') {
                     // Switch to AM
                     $element.click();
@@ -123,7 +123,7 @@ describe('As an Admin I want to be able to make use of the date & datetime field
         cy.get('.flatpickr-calendar.open input.flatpickr-hour').type('22');
         cy.get('.flatpickr-calendar.open input.flatpickr-minute').type('30');
         cy.get('.flatpickr-calendar.open span.flatpickr-am-pm').then(
-            $element => {
+            ($element) => {
                 if ($element.html() === 'AM') {
                     // Switch to PM
                     $element.click();
