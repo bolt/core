@@ -17,6 +17,7 @@ use Throwable;
 
 class TimedPublishSubscriber implements EventSubscriberInterface
 {
+    use LoggerTrait;
     use TablePrefixTrait;
 
     public const PRIORITY = 30;
