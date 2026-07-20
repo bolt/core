@@ -29,9 +29,7 @@ class TimedPublishSubscriber implements EventSubscriberInterface
         ManagerRegistry $managerRegistry,
         private LoggerInterface $logger
     ) {
-        /** @var Connection $connection */
-        $connection = $managerRegistry->getConnection('default');
-        $this->defaultConnection = $connection;
+        $this->defaultConnection = $managerRegistry->getConnection('default');
         $this->tablePrefix = $this
             ->setTablePrefixes($tablePrefix, $managerRegistry)
             ->getTablePrefix($managerRegistry->getManager('default'));
