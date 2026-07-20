@@ -6,6 +6,7 @@ namespace Bolt\Event\Subscriber;
 
 use Bolt\Doctrine\TablePrefixTrait;
 use Bolt\Entity\Content;
+use Bolt\Log\LoggerTrait;
 use Carbon\Carbon;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Types\Types;
@@ -24,11 +25,8 @@ class TimedPublishSubscriber implements EventSubscriberInterface
     private Connection $defaultConnection;
     private string $tablePrefix;
 
-    public function __construct(
-        $tablePrefix,
-        ManagerRegistry $managerRegistry,
-        private LoggerInterface $logger
-    ) {
+    public function __construct($tablePrefix, ManagerRegistry $managerRegistry)
+    {
         $this->defaultConnection = $managerRegistry->getConnection('default');
         $this->tablePrefix = $this
             ->setTablePrefixes($tablePrefix, $managerRegistry)
