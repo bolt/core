@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
-  <file id="messages.fr">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="pt-BR">
+  <file id="messages.pt_BR">
     <unit id="1sstKF9" name="title.edit_user">
       <notes>
         <note>templates/users/edit.html.twig:6</note>
       </notes>
       <segment>
         <source>title.edit_user</source>
-        <target>Modifier l'utilisateur</target>
+        <target>Editar usuário</target>
       </segment>
     </unit>
     <unit id="HLtdhYw" name="action.save">
@@ -25,7 +25,7 @@
       </notes>
       <segment>
         <source>action.save</source>
-        <target>Sauvegarder les changements</target>
+        <target>Salvar alterações</target>
       </segment>
     </unit>
     <unit id="a2vzLi7" name="action.do_something">
@@ -51,7 +51,7 @@
       </notes>
       <segment>
         <source>action.do_something</source>
-        <target>Faire quelque chose</target>
+        <target>Faça algo</target>
       </segment>
     </unit>
     <unit id="ovKkXwU" name="action.edit">
@@ -60,7 +60,7 @@
       </notes>
       <segment>
         <source>action.edit</source>
-        <target>Modifier</target>
+        <target>Editar</target>
       </segment>
     </unit>
     <unit id="LDhDPrF" name="label.username">
@@ -70,7 +70,7 @@
       </notes>
       <segment>
         <source>label.username</source>
-        <target>Nom d'utilisateur</target>
+        <target>Nome de usuário</target>
       </segment>
     </unit>
     <unit id="80JoLd0" name="title.login">
@@ -79,7 +79,7 @@
       </notes>
       <segment>
         <source>title.login</source>
-        <target>S'identifier</target>
+        <target>Entrar</target>
       </segment>
     </unit>
     <unit id="9pvowqn" name="label.password">
@@ -90,7 +90,7 @@
       </notes>
       <segment>
         <source>label.password</source>
-        <target>Mot de passe</target>
+        <target>Senha</target>
       </segment>
     </unit>
     <unit id="gLN0C81" name="action.log_in">
@@ -99,7 +99,7 @@
       </notes>
       <segment>
         <source>action.log_in</source>
-        <target>S'identifier</target>
+        <target>Entrar</target>
       </segment>
     </unit>
     <unit id="vJwSCBO" name="title.contentlisting">
@@ -108,7 +108,7 @@
       </notes>
       <segment>
         <source>title.contentlisting</source>
-        <target>Liste de contenu</target>
+        <target>Listagem de conteúdo</target>
       </segment>
     </unit>
     <unit id="SNELzJ2" name="field.id">
@@ -128,7 +128,7 @@
       </notes>
       <segment>
         <source>field.status</source>
-        <target>Statut</target>
+        <target>Status</target>
       </segment>
     </unit>
     <unit id="O9wtVOp" name="field.createdAt">
@@ -138,7 +138,7 @@
       </notes>
       <segment>
         <source>field.createdAt</source>
-        <target>Créé le</target>
+        <target>Criado em</target>
       </segment>
     </unit>
     <unit id="eVkSIKu" name="field.modifiedAt">
@@ -150,7 +150,7 @@
       </notes>
       <segment>
         <source>field.modifiedAt</source>
-        <target>Modifié le</target>
+        <target>Modificado em</target>
       </segment>
     </unit>
     <unit id="3gdi1dy" name="field.publishedAt">
@@ -159,7 +159,7 @@
       </notes>
       <segment>
         <source>field.publishedAt</source>
-        <target>Publié le</target>
+        <target>Publicado em</target>
       </segment>
     </unit>
     <unit id="eN7IfEL" name="field.depublishedAt">
@@ -168,7 +168,7 @@
       </notes>
       <segment>
         <source>field.depublishedAt</source>
-        <target>Dépublié le</target>
+        <target>Despublicado em</target>
       </segment>
     </unit>
     <unit id="VKhfRZB" name="field.title">
@@ -178,7 +178,7 @@
       </notes>
       <segment>
         <source>field.title</source>
-        <target>Titre</target>
+        <target>Título</target>
       </segment>
     </unit>
     <unit id="7_wwX8J" name="field.description">
@@ -187,7 +187,7 @@
       </notes>
       <segment>
         <source>field.description</source>
-        <target>Description</target>
+        <target>Descrição</target>
       </segment>
     </unit>
     <unit id="hjDmcPC" name="field.copyright">
@@ -196,7 +196,7 @@
       </notes>
       <segment>
         <source>field.copyright</source>
-        <target>Droits d'auteur</target>
+        <target>Direitos autorais</target>
       </segment>
     </unit>
     <unit id="v0sitU8" name="field.originalFilename">
@@ -205,7 +205,7 @@
       </notes>
       <segment>
         <source>field.originalFilename</source>
-        <target>Nom du fichier d'origine</target>
+        <target>Nome de arquivo original</target>
       </segment>
     </unit>
     <unit id="vlRe8Tx" name="field.width">
@@ -215,7 +215,7 @@
       </notes>
       <segment>
         <source>field.width</source>
-        <target>largeur</target>
+        <target>largura</target>
       </segment>
     </unit>
     <unit id="CZbXbM_" name="field.height">
@@ -225,7 +225,7 @@
       </notes>
       <segment>
         <source>field.height</source>
-        <target>hauteur</target>
+        <target>altura</target>
       </segment>
     </unit>
     <unit id="Sz_u.OS" name="field.filesize">
@@ -234,7 +234,7 @@
       </notes>
       <segment>
         <source>field.filesize</source>
-        <target>Taille du fichier</target>
+        <target>Tamanho do arquivo</target>
       </segment>
     </unit>
     <unit id="RMPnq6o" name="label.username_or_email">
@@ -243,7 +243,7 @@
       </notes>
       <segment>
         <source>label.username_or_email</source>
-        <target>Nom d'utilisateur ou email</target>
+        <target>Nome de usuário ou e-mail</target>
       </segment>
     </unit>
     <unit id="IaF1MjB" name="label.rememberme">
@@ -252,7 +252,7 @@
       </notes>
       <segment>
         <source>label.rememberme</source>
-        <target>Se souvenir de moi ?</target>
+        <target>Lembrar de mim?</target>
       </segment>
     </unit>
     <unit id="k.JymqB" name="about.visit_bolt">
@@ -274,7 +274,7 @@
       </notes>
       <segment>
         <source>about.bolt_documentation</source>
-        <target>Documentation de Bolt</target>
+        <target>Documentação do Bolt</target>
       </segment>
     </unit>
     <unit id="FO7zDub" name="about.bolt_on_github">
@@ -283,7 +283,7 @@
       </notes>
       <segment>
         <source>about.bolt_on_github</source>
-        <target>Bolt sur Github</target>
+        <target>Bolt no Github</target>
       </segment>
     </unit>
     <unit id="_9fS00R" name="about.used_libraries">
@@ -292,7 +292,7 @@
       </notes>
       <segment>
         <source>about.used_libraries</source>
-        <target>Bibliothèques / Composants utilisés</target>
+        <target>Bibliotecas / Componentes utilizados</target>
       </segment>
     </unit>
     <unit id="tgLgLDQ" name="about.list_of_used_libraries">
@@ -301,7 +301,7 @@
       </notes>
       <segment>
         <source>about.list_of_used_libraries</source>
-        <target>Vous trouverez ci-dessous les bibliothèques tierces utilisées par Bolt.</target>
+        <target>Abaixo estão as bibliotecas de terceiros utilizadas pelo Bolt.</target>
       </segment>
     </unit>
     <unit id="D2N6_cP" name="label.email">
@@ -312,7 +312,7 @@
       </notes>
       <segment>
         <source>label.email</source>
-        <target>Adresse Email</target>
+        <target>Endereço de e-mail</target>
       </segment>
     </unit>
     <unit id="D2N7_cP" name="label.about">
@@ -321,7 +321,7 @@
       </notes>
       <segment>
         <source>label.about</source>
-        <target>À propos</target>
+        <target>Sobre mim</target>
       </segment>
     </unit>
     <unit id="OBmPOoB" name="user.updated_successfully">
@@ -330,7 +330,7 @@
       </notes>
       <segment>
         <source>user.updated_successfully</source>
-        <target>Mis à jour avec succés</target>
+        <target>Atualizado com sucesso</target>
       </segment>
     </unit>
     <unit id="3hkt.eH" name="content.updated_successfully">
@@ -341,7 +341,7 @@
       </notes>
       <segment>
         <source>content.updated_successfully</source>
-        <target>Contenu mis à jour avec succès</target>
+        <target>Conteúdo atualizado com sucesso</target>
       </segment>
     </unit>
     <unit id="IB0mNQh" name="content.created_successfully">
@@ -350,7 +350,7 @@
       </notes>
       <segment>
         <source>content.created_successfully</source>
-        <target>Élément multimédia créé avec succès</target>
+        <target>Item de mídia criado com sucesso</target>
       </segment>
     </unit>
     <unit id="b1jqjUC" name="editfile.could_not_write">
@@ -359,7 +359,7 @@
       </notes>
       <segment>
         <source>editfile.could_not_write</source>
-        <target>Impossible d’écrire l'élément média</target>
+        <target>Não foi possível gravar o item de mídia</target>
       </segment>
     </unit>
     <unit id="mEDsKHk" name="label.locale">
@@ -369,7 +369,7 @@
       </notes>
       <segment>
         <source>label.locale</source>
-        <target>Langue</target>
+        <target>Idioma</target>
       </segment>
     </unit>
     <unit id="Oiwdkpg" name="The Default theme">
@@ -379,7 +379,7 @@
       </notes>
       <segment>
         <source>The Default theme</source>
-        <target>Le thème par défaut</target>
+        <target>O tema padrão</target>
       </segment>
     </unit>
     <unit id="C389Knp" name="The Default Dark theme">
@@ -389,7 +389,7 @@
       </notes>
       <segment>
         <source>The Default Dark theme</source>
-        <target>Le thème sombre par défaut</target>
+        <target>O tema escuro padrão</target>
       </segment>
     </unit>
     <unit id="kouGbMq" name="WoordPers: Kinda looks like that other CMS">
@@ -399,7 +399,7 @@
       </notes>
       <segment>
         <source>WoordPers: Kinda looks like that other CMS</source>
-        <target>WoordPers : Kinda ressemble à cet autre CMS</target>
+        <target>WoordPers: Parece um pouco com aquele outro CMS</target>
       </segment>
     </unit>
     <unit id="7aLIA3c" name="caption.dashboard">
@@ -409,7 +409,7 @@
       </notes>
       <segment>
         <source>caption.dashboard</source>
-        <target>Tableau de bord</target>
+        <target>Painel do Bolt</target>
       </segment>
     </unit>
     <unit id="K6TmK4B" name="caption.clear_cache">
@@ -420,7 +420,7 @@
       </notes>
       <segment>
         <source>caption.clear_cache</source>
-        <target>Vider le cache</target>
+        <target>Limpar o cache</target>
       </segment>
     </unit>
     <unit id="2RUXD4A" name="caption.menu_setup">
@@ -429,7 +429,7 @@
       </notes>
       <segment>
         <source>caption.menu_setup</source>
-        <target>Paramètres du menu</target>
+        <target>Configuração do menu</target>
       </segment>
     </unit>
     <unit id="drK.0GZ" name="caption.taxonomies">
@@ -438,7 +438,7 @@
       </notes>
       <segment>
         <source>caption.taxonomies</source>
-        <target>Taxonomies</target>
+        <target>Taxonomias</target>
       </segment>
     </unit>
     <unit id="_w7J5rZ" name="caption.contenttypes">
@@ -447,7 +447,7 @@
       </notes>
       <segment>
         <source>caption.contenttypes</source>
-        <target>Type de contenu</target>
+        <target>Tipos de conteúdo</target>
       </segment>
     </unit>
     <unit id="kXNBV9S" name="caption.main_configuration">
@@ -456,7 +456,7 @@
       </notes>
       <segment>
         <source>caption.main_configuration</source>
-        <target>Configuration principale</target>
+        <target>Configuração principal</target>
       </segment>
     </unit>
     <unit id="ipmA6Ah" name="caption.users_permissions">
@@ -465,7 +465,7 @@
       </notes>
       <segment>
         <source>caption.users_permissions</source>
-        <target><![CDATA[Utilisateurs & Permissions]]></target>
+        <target><![CDATA[Usuários e permissões]]></target>
       </segment>
     </unit>
     <unit id="zOLL.7E" name="caption.configuration">
@@ -474,7 +474,7 @@
       </notes>
       <segment>
         <source>caption.configuration</source>
-        <target>Configuration</target>
+        <target>Configuração</target>
       </segment>
     </unit>
     <unit id="ZO.uqIZ" name="caption.settings">
@@ -483,7 +483,7 @@
       </notes>
       <segment>
         <source>caption.settings</source>
-        <target>Paramètres</target>
+        <target>Configurações</target>
       </segment>
     </unit>
     <unit id="1xlE8ex" name="caption.content">
@@ -492,7 +492,7 @@
       </notes>
       <segment>
         <source>caption.content</source>
-        <target>Contenu</target>
+        <target>Conteúdo</target>
       </segment>
     </unit>
     <unit id="l4yt0BE" name="caption.file_management">
@@ -502,7 +502,7 @@
       </notes>
       <segment>
         <source>caption.file_management</source>
-        <target>Gestion de fichiers</target>
+        <target>Gerenciamento de arquivos</target>
       </segment>
     </unit>
     <unit id="mfvtHPQ" name="caption.extensions">
@@ -513,7 +513,7 @@
       </notes>
       <segment>
         <source>caption.extensions</source>
-        <target>Extensions</target>
+        <target>Extensões</target>
       </segment>
     </unit>
     <unit id="K4D568R" name="caption.view_edit_templates">
@@ -522,7 +522,7 @@
       </notes>
       <segment>
         <source>caption.view_edit_templates</source>
-        <target><![CDATA[Afficher et modifier les modèles]]></target>
+        <target><![CDATA[Visualizar e editar templates]]></target>
       </segment>
     </unit>
     <unit id="bq6bSf4" name="caption.uploaded_files">
@@ -531,7 +531,7 @@
       </notes>
       <segment>
         <source>caption.uploaded_files</source>
-        <target>Fichiers téléchargés</target>
+        <target>Arquivos enviados</target>
       </segment>
     </unit>
     <unit id="wBKDkwl" name="caption.routing_setup">
@@ -540,7 +540,7 @@
       </notes>
       <segment>
         <source>caption.routing_setup</source>
-        <target>Configuration du routage</target>
+        <target>Configuração de roteamento</target>
       </segment>
     </unit>
     <unit id="dd5MzCM" name="caption.translations">
@@ -550,7 +550,7 @@
       </notes>
       <segment>
         <source>caption.translations</source>
-        <target>Traductions</target>
+        <target>Traduções / Rótulos</target>
       </segment>
     </unit>
     <unit id="wLaDaK5" name="caption.about_bolt">
@@ -560,7 +560,7 @@
       </notes>
       <segment>
         <source>caption.about_bolt</source>
-        <target>À propos de Bolt</target>
+        <target>Sobre o Bolt</target>
       </segment>
     </unit>
     <unit id="xN1kSQQ" name="caption.bolt_payoff">
@@ -569,7 +569,7 @@
       </notes>
       <segment>
         <source>caption.bolt_payoff</source>
-        <target><![CDATA[Un CMS sophistiqué, léger et simple]]></target>
+        <target><![CDATA[Um CMS sofisticado, leve e simples]]></target>
       </segment>
     </unit>
     <unit id="HK7XTUX" name="caption.edit">
@@ -578,7 +578,7 @@
       </notes>
       <segment>
         <source>caption.edit</source>
-        <target>Modifier</target>
+        <target>Editar</target>
       </segment>
     </unit>
     <unit id="QZYjRy0" name="caption.file_uploader">
@@ -587,7 +587,7 @@
       </notes>
       <segment>
         <source>caption.file_uploader</source>
-        <target>Téléchargeur de fichiers</target>
+        <target>Envio de arquivos</target>
       </segment>
     </unit>
     <unit id="LaDIuZA" name="caption.meta_information">
@@ -597,7 +597,7 @@
       </notes>
       <segment>
         <source>caption.meta_information</source>
-        <target>Méta-information</target>
+        <target>Meta informações</target>
       </segment>
     </unit>
     <unit id="DodjLNR" name="date">
@@ -616,7 +616,7 @@
       </notes>
       <segment>
         <source>date</source>
-        <target>Date</target>
+        <target>Data</target>
       </segment>
     </unit>
     <unit id="zNy_hG8" name="size">
@@ -631,7 +631,7 @@
       </notes>
       <segment>
         <source>size</source>
-        <target>Taille</target>
+        <target>Tamanho</target>
       </segment>
     </unit>
     <unit id="gPYflhh" name="thumbnail">
@@ -648,7 +648,7 @@
       </notes>
       <segment>
         <source>thumbnail</source>
-        <target>Vignette</target>
+        <target>Miniatura</target>
       </segment>
     </unit>
     <unit id="_XSgfqS" name="filename">
@@ -691,7 +691,7 @@
       </notes>
       <segment>
         <source>filename</source>
-        <target>Nom du fichier</target>
+        <target>Nome do arquivo</target>
       </segment>
     </unit>
     <unit id="Kw3N1AA" name="actions">
@@ -703,7 +703,7 @@
       </notes>
       <segment>
         <source>actions</source>
-        <target>Actions</target>
+        <target>Ações</target>
       </segment>
     </unit>
     <unit id="KHvGNGW" name="directoryname">
@@ -712,7 +712,7 @@
       </notes>
       <segment>
         <source>directoryname</source>
-        <target>Nom du répertoire</target>
+        <target>Nome da pasta</target>
       </segment>
     </unit>
     <unit id="C15MbYY" name="form.quick_select_file">
@@ -721,7 +721,7 @@
       </notes>
       <segment>
         <source>form.quick_select_file</source>
-        <target>Sélectionnez rapidement un fichier à modifier…</target>
+        <target>Selecione rapidamente um arquivo para editar…</target>
       </segment>
     </unit>
     <unit id="FSroufa" name="caption.path">
@@ -731,7 +731,7 @@
       </notes>
       <segment>
         <source>caption.path</source>
-        <target>Chemin</target>
+        <target>Caminho</target>
       </segment>
     </unit>
     <unit id="y5otxEK" name="caption.filename">
@@ -740,7 +740,7 @@
       </notes>
       <segment>
         <source>caption.filename</source>
-        <target>Nom du fichier</target>
+        <target>Nome do arquivo</target>
       </segment>
     </unit>
     <unit id="KfVJho2" name="action.create_new">
@@ -749,7 +749,7 @@
       </notes>
       <segment>
         <source>action.create_new</source>
-        <target>Créer un nouveau</target>
+        <target>Criar novo</target>
       </segment>
     </unit>
     <unit id="b_RPpcB" name="general.greeting">
@@ -759,7 +759,7 @@
       </notes>
       <segment>
         <source>general.greeting</source>
-        <target>Salut, %name% !</target>
+        <target>Olá, %name%!</target>
       </segment>
     </unit>
     <unit id="bmdn3u9" name="action.logout">
@@ -769,7 +769,7 @@
       </notes>
       <segment>
         <source>action.logout</source>
-        <target>Se déconnecter</target>
+        <target>Sair</target>
       </segment>
     </unit>
     <unit id="zOfpTLD" name="action.edit_profile">
@@ -779,7 +779,7 @@
       </notes>
       <segment>
         <source>action.edit_profile</source>
-        <target>Editer le profil</target>
+        <target>Editar perfil</target>
       </segment>
     </unit>
     <unit id="N_0yRcH" name="action.close_alert">
@@ -788,7 +788,7 @@
       </notes>
       <segment>
         <source>action.close_alert</source>
-        <target>Fermer</target>
+        <target>Fechar</target>
       </segment>
     </unit>
     <unit id="Dvu2HQx" name="caption.api">
@@ -806,7 +806,7 @@
       </notes>
       <segment>
         <source>caption.all_configuration_files</source>
-        <target>Tous les fichiers de configuration</target>
+        <target>Todos os arquivos de configuração</target>
       </segment>
     </unit>
     <unit id="OpKTKAL" name="caption.maintenance">
@@ -815,7 +815,7 @@
       </notes>
       <segment>
         <source>caption.maintenance</source>
-        <target>Maintenance</target>
+        <target>Manutenção</target>
       </segment>
     </unit>
     <unit id="P1FHg3Q" name="caption.edit_file">
@@ -824,7 +824,7 @@
       </notes>
       <segment>
         <source>caption.edit_file</source>
-        <target>Modifier le fichier</target>
+        <target>Editar arquivo</target>
       </segment>
     </unit>
     <unit id="8zEzq8N" name="field.current_locale">
@@ -833,7 +833,7 @@
       </notes>
       <segment>
         <source>field.current_locale</source>
-        <target>Paramètres locale actuels</target>
+        <target>Idioma atual</target>
       </segment>
     </unit>
     <unit id="ahZvOJz" name="field.switch_to_locale">
@@ -842,7 +842,7 @@
       </notes>
       <segment>
         <source>field.switch_to_locale</source>
-        <target>Passer aux paramètres locale</target>
+        <target>Mudar para o idioma</target>
       </segment>
     </unit>
     <unit id="aQX4Emy" name="field.author">
@@ -852,7 +852,7 @@
       </notes>
       <segment>
         <source>field.author</source>
-        <target>Auteur</target>
+        <target>Autor</target>
       </segment>
     </unit>
     <unit id="UNBaDz." name="general.phrase.edit">
@@ -863,7 +863,7 @@
       </notes>
       <segment>
         <source>general.phrase.edit</source>
-        <target>Éditer</target>
+        <target>Editar</target>
       </segment>
     </unit>
     <unit id="t2TNwOq" name="Unknown">
@@ -872,7 +872,7 @@
       </notes>
       <segment>
         <source>Unknown</source>
-        <target>Inconnu</target>
+        <target>Desconhecido</target>
       </segment>
     </unit>
     <unit id="A_d5KPt" name="general.phrase.written-by-on">
@@ -881,7 +881,7 @@
       </notes>
       <segment>
         <source>general.phrase.written-by-on</source>
-        <target>Écrit par %name% le %date%.</target>
+        <target>Escrito por %name% em %date%.</target>
       </segment>
     </unit>
     <unit id="TVU.FCV" name="general.phrase.missing-about-page">
@@ -890,7 +890,7 @@
       </notes>
       <segment>
         <source>general.phrase.missing-about-page</source>
-        <target>La page "À propos" est manquante</target>
+        <target>A página "Sobre" está faltando</target>
       </segment>
     </unit>
     <unit id="7iq8jIG" name="general.phrase.missing-about-page-block">
@@ -899,7 +899,7 @@
       </notes>
       <segment>
         <source>general.phrase.missing-about-page-block</source>
-        <target>Le bloc "À propos" est manquant</target>
+        <target>O bloco "Sobre" está faltando</target>
       </segment>
     </unit>
     <unit id="AGegYAN" name="contenttypes.generic.recent">
@@ -908,7 +908,7 @@
       </notes>
       <segment>
         <source>contenttypes.generic.recent</source>
-        <target>Récent %contenttypes%</target>
+        <target>%contenttypes% recentes</target>
       </segment>
     </unit>
     <unit id="gB.9hTu" name="general.phrase.search-ellipsis">
@@ -930,7 +930,7 @@
       </notes>
       <segment>
         <source>general.phrase.search</source>
-        <target>Recherche</target>
+        <target>Pesquisar</target>
       </segment>
     </unit>
     <unit id="wNEwZy_" name="contenttypes.generic.overview">
@@ -939,7 +939,7 @@
       </notes>
       <segment>
         <source>contenttypes.generic.overview</source>
-        <target>Vue générale de %contenttypes%</target>
+        <target>Visão geral de %contenttypes%</target>
       </segment>
     </unit>
     <unit id="skuzBpI" name="contenttypes.generic.no-recent">
@@ -948,7 +948,7 @@
       </notes>
       <segment>
         <source>contenttypes.generic.no-recent</source>
-        <target>Aucun %contenttype% récent trouvé</target>
+        <target>Nenhum %contenttype% recente encontrado</target>
       </segment>
     </unit>
     <unit id="ma9mBv_" name="Menu">
@@ -969,7 +969,7 @@
       </notes>
       <segment>
         <source>Search</source>
-        <target>Rechercher</target>
+        <target>Pesquisar</target>
       </segment>
     </unit>
     <unit id="k.xuYv2" name="general.phrase.permalink">
@@ -978,7 +978,7 @@
       </notes>
       <segment>
         <source>general.phrase.permalink</source>
-        <target>Permalien</target>
+        <target>Link permanente</target>
       </segment>
     </unit>
     <unit id="2MMvCKK" name="label.cache_cleared">
@@ -987,7 +987,7 @@
       </notes>
       <segment>
         <source>label.cache_cleared</source>
-        <target>Cache effacé avec succès !</target>
+        <target>Cache limpo com sucesso!</target>
       </segment>
     </unit>
     <unit id="Wou02nK" name="caption.kitchensink">
@@ -996,7 +996,7 @@
       </notes>
       <segment>
         <source>caption.kitchensink</source>
-        <target>L'évier de la cuisine</target>
+        <target>Kitchensink</target>
       </segment>
     </unit>
     <unit id="2CfJ3WY" name="general.phrase.search-results-for">
@@ -1005,7 +1005,7 @@
       </notes>
       <segment>
         <source>general.phrase.search-results-for</source>
-        <target>Résultats de la recherche pour'%search%'.</target>
+        <target>Resultados da pesquisa para "%search%".</target>
       </segment>
     </unit>
     <unit id="V0VhH5g" name="general.phrase.no-search-results-for">
@@ -1014,7 +1014,7 @@
       </notes>
       <segment>
         <source>general.phrase.no-search-results-for</source>
-        <target>Aucun résultat de recherche trouvé pour '%search%'.</target>
+        <target>Nenhum resultado de pesquisa encontrado para "%search%".</target>
       </segment>
     </unit>
     <unit id="_KyvT9o" name="general.phrase.no-search-term-provided">
@@ -1023,7 +1023,7 @@
       </notes>
       <segment>
         <source>general.phrase.no-search-term-provided</source>
-        <target>Veuillez fournir un terme de recherche afin d'afficher des résultats pertinents.</target>
+        <target>Forneça um termo de pesquisa para exibir resultados relevantes.</target>
       </segment>
     </unit>
     <unit id="Pily_qo" name="general.phrase.read-more">
@@ -1033,7 +1033,7 @@
       </notes>
       <segment>
         <source>general.phrase.read-more</source>
-        <target>Lire la suite</target>
+        <target>Leia mais</target>
       </segment>
     </unit>
     <unit id="psOa_9x" name="general.phrase.built-with-bolt">
@@ -1042,7 +1042,7 @@
       </notes>
       <segment>
         <source>general.phrase.built-with-bolt</source>
-        <target><![CDATA[Ce site Web est <a href='https://boltcms.io' target='_blank' title='Sophisticated, lightweight & simple CMS'>Construit avec Bolt</a>.]]></target>
+        <target><![CDATA[Este site foi <a href='https://boltcms.io' target='_blank' title='Sophisticated, lightweight & simple CMS'>construído com Bolt</a>.]]></target>
       </segment>
     </unit>
     <unit id="5IxD63c" name="general.latest_bolt_news">
@@ -1051,7 +1051,7 @@
       </notes>
       <segment>
         <source>general.latest_bolt_news</source>
-        <target>Dernières nouvelles de Bolt</target>
+        <target>Últimas notícias do Bolt</target>
       </segment>
     </unit>
     <unit id="dQIY7_J" name="action.preview">
@@ -1060,7 +1060,7 @@
       </notes>
       <segment>
         <source>action.preview</source>
-        <target>Aperçu</target>
+        <target>Pré-visualizar</target>
       </segment>
     </unit>
     <unit id="ok6YulQ" name="action.view_saved">
@@ -1069,7 +1069,7 @@
       </notes>
       <segment>
         <source>action.view_saved</source>
-        <target>Afficher la version enregistrée</target>
+        <target>Ver versão salva</target>
       </segment>
     </unit>
     <unit id="SeTqePC" name="label.display_name">
@@ -1079,7 +1079,7 @@
       </notes>
       <segment>
         <source>label.display_name</source>
-        <target>Afficher le nom</target>
+        <target>Nome de exibição</target>
       </segment>
     </unit>
     <unit id="EvAqL__" name="caption.duplicate">
@@ -1088,7 +1088,7 @@
       </notes>
       <segment>
         <source>caption.duplicate</source>
-        <target>Dupliquer</target>
+        <target>Duplicar</target>
       </segment>
     </unit>
     <unit id="iiWFLaI" name="label.new_password">
@@ -1097,7 +1097,7 @@
       </notes>
       <segment>
         <source>label.new_password</source>
-        <target>Nouveau mot de passe</target>
+        <target>Nova senha</target>
       </segment>
     </unit>
     <unit id="Iyry5.g" name="editfile.updated_successfully">
@@ -1106,7 +1106,7 @@
       </notes>
       <segment>
         <source>editfile.updated_successfully</source>
-        <target>Fichier mis à jour avec succès !</target>
+        <target>Arquivo atualizado com sucesso!</target>
       </segment>
     </unit>
     <unit id="3zlZmRK" name="action.add_user">
@@ -1117,7 +1117,7 @@
       </notes>
       <segment>
         <source>action.add_user</source>
-        <target>Ajouter un utilisateur</target>
+        <target>Adicionar usuário</target>
       </segment>
     </unit>
     <unit id="ruQIhH0" name="success">
@@ -1150,7 +1150,7 @@
       </notes>
       <segment>
         <source>success</source>
-        <target>Succès !</target>
+        <target>Sucesso!</target>
       </segment>
     </unit>
     <unit id="YDH.7uR" name="user.updated_profile">
@@ -1160,7 +1160,7 @@
       </notes>
       <segment>
         <source>user.updated_profile</source>
-        <target>Le profil utilisateur a été mis à jour !</target>
+        <target>O perfil do usuário foi atualizado!</target>
       </segment>
     </unit>
     <unit id="iD6CNOO" name="label.roles">
@@ -1169,7 +1169,7 @@
       </notes>
       <segment>
         <source>label.roles</source>
-        <target>Rôles</target>
+        <target>Funções</target>
       </segment>
     </unit>
     <unit id="7whLbH8" name="user.new_user">
@@ -1179,7 +1179,7 @@
       </notes>
       <segment>
         <source>user.new_user</source>
-        <target>Nouvel utilisateur</target>
+        <target>Novo usuário</target>
       </segment>
     </unit>
     <unit id="TtmWqX3" name="action.view">
@@ -1189,7 +1189,7 @@
       </notes>
       <segment>
         <source>action.view</source>
-        <target>Vue</target>
+        <target>Visualizar</target>
       </segment>
     </unit>
     <unit id="kaK5Wdr" name="slug.button_locked">
@@ -1198,7 +1198,7 @@
       </notes>
       <segment>
         <source>slug.button_locked</source>
-        <target>Fermé</target>
+        <target>Bloqueado</target>
       </segment>
     </unit>
     <unit id="qcDEz5O" name="slug.button_edit">
@@ -1207,7 +1207,7 @@
       </notes>
       <segment>
         <source>slug.button_edit</source>
-        <target>Éditer</target>
+        <target>Editar</target>
       </segment>
     </unit>
     <unit id="raO5QSf" name="slug.generate_from">
@@ -1216,7 +1216,7 @@
       </notes>
       <segment>
         <source>slug.generate_from</source>
-        <target>Générer à partir de :</target>
+        <target>Gerar a partir de:</target>
       </segment>
     </unit>
     <unit id="vptPhch" name="image.button_upload">
@@ -1230,7 +1230,7 @@
       </notes>
       <segment>
         <source>image.button_upload</source>
-        <target>Télécharger</target>
+        <target>Enviar</target>
       </segment>
     </unit>
     <unit id="vIVO1lU" name="image.button_from_library">
@@ -1244,7 +1244,7 @@
       </notes>
       <segment>
         <source>image.button_from_library</source>
-        <target>De la bibliothèque</target>
+        <target>Da biblioteca</target>
       </segment>
     </unit>
     <unit id="L0TE0M9" name="listing_table.actions.view_on_site">
@@ -1253,7 +1253,7 @@
       </notes>
       <segment>
         <source>listing_table.actions.view_on_site</source>
-        <target>Voir sur le site</target>
+        <target>Ver no site</target>
       </segment>
     </unit>
     <unit id="PoauAuK" name="listing_table.actions.status_to_publish">
@@ -1264,7 +1264,7 @@
       </notes>
       <segment>
         <source>listing_table.actions.status_to_publish</source>
-        <target>Changer le statut en "publier"</target>
+        <target>Alterar status para "publicado"</target>
       </segment>
     </unit>
     <unit id="ZJxfdD6" name="listing_table.actions.status_to_held">
@@ -1274,7 +1274,7 @@
       </notes>
       <segment>
         <source>listing_table.actions.status_to_held</source>
-        <target>Changer le statut en "en attente"</target>
+        <target>Alterar status para "retido"</target>
       </segment>
     </unit>
     <unit id="apyOs0o" name="listing_table.actions.status_to_draft">
@@ -1284,7 +1284,7 @@
       </notes>
       <segment>
         <source>listing_table.actions.status_to_draft</source>
-        <target>Changer le statut en "brouillon"</target>
+        <target>Alterar status para "rascunho"</target>
       </segment>
     </unit>
     <unit id="5H60Xq6" name="listing_table.actions.duplicate">
@@ -1293,7 +1293,7 @@
       </notes>
       <segment>
         <source>listing_table.actions.duplicate</source>
-        <target>Dupliquer</target>
+        <target>Duplicar</target>
       </segment>
     </unit>
     <unit id="hR8ri.m" name="listing_table.actions.delete">
@@ -1302,7 +1302,7 @@
       </notes>
       <segment>
         <source>listing_table.actions.delete</source>
-        <target>Supprimer</target>
+        <target>Excluir</target>
       </segment>
     </unit>
     <unit id="5zbX1vo" name="listing_table.actions.slug">
@@ -1320,7 +1320,7 @@
       </notes>
       <segment>
         <source>listing_table.actions.created_on</source>
-        <target>Créé sur</target>
+        <target>Criado em</target>
       </segment>
     </unit>
     <unit id="tVX01Xl" name="listing_table.actions.published_on">
@@ -1329,7 +1329,7 @@
       </notes>
       <segment>
         <source>listing_table.actions.published_on</source>
-        <target>Publié le</target>
+        <target>Publicado em</target>
       </segment>
     </unit>
     <unit id="kHkjS5U" name="listing_table.actions.last_modified_on">
@@ -1338,7 +1338,7 @@
       </notes>
       <segment>
         <source>listing_table.actions.last_modified_on</source>
-        <target>Dernière modification le</target>
+        <target>Última modificação em</target>
       </segment>
     </unit>
     <unit id="BdhsE_X" name="listing_select_box.card_header.selected">
@@ -1347,7 +1347,7 @@
       </notes>
       <segment>
         <source>listing_select_box.card_header.selected</source>
-        <target>Sélectionné</target>
+        <target>Selecionado</target>
       </segment>
     </unit>
     <unit id="kHeY93_" name="editor_embed.content_url">
@@ -1356,7 +1356,7 @@
       </notes>
       <segment>
         <source>editor_embed.content_url</source>
-        <target>URL du contenu à intégrer</target>
+        <target>URL do conteúdo a incorporar</target>
       </segment>
     </unit>
     <unit id="VoIdmBa" name="editor_embed.placeholder_content_url">
@@ -1365,7 +1365,7 @@
       </notes>
       <segment>
         <source>editor_embed.placeholder_content_url</source>
-        <target>URL du contenu sur Facebook, Twitter, Soundcloud, Youtube, Vimeo…</target>
+        <target>URL do conteúdo no Facebook, Twitter, Soundcloud, Youtube, Vimeo…</target>
       </segment>
     </unit>
     <unit id="1.Eb1GS" name="editor_embed.label_height">
@@ -1374,7 +1374,7 @@
       </notes>
       <segment>
         <source>editor_embed.label_height</source>
-        <target>Hauteur</target>
+        <target>Altura</target>
       </segment>
     </unit>
     <unit id="eWLSFJs" name="editor_embed.label_pixel">
@@ -1392,7 +1392,7 @@
       </notes>
       <segment>
         <source>editor_embed.label_matched_embed</source>
-        <target>Intégration correspondante</target>
+        <target>Incorporação correspondente</target>
       </segment>
     </unit>
     <unit id="zATju4V" name="editor_embed.label_preview">
@@ -1401,7 +1401,7 @@
       </notes>
       <segment>
         <source>editor_embed.label_preview</source>
-        <target>Aperçu</target>
+        <target>Pré-visualização</target>
       </segment>
     </unit>
     <unit id="9SQ0oaR" name="editor_embed.label_size">
@@ -1410,7 +1410,7 @@
       </notes>
       <segment>
         <source>editor_embed.label_size</source>
-        <target>Taille</target>
+        <target>Tamanho</target>
       </segment>
     </unit>
     <unit id="oOuVKRv" name="image.placeholder_filename">
@@ -1424,7 +1424,7 @@
       </notes>
       <segment>
         <source>image.placeholder_filename</source>
-        <target>Nom du fichier (téléchargez un nouveau fichier ou sélectionnez-en un existant)</target>
+        <target>Nome do arquivo (envie um novo arquivo ou selecione um existente)</target>
       </segment>
     </unit>
     <unit id="BWubOnS" name="image.placeholder_alt_text">
@@ -1438,7 +1438,7 @@
       </notes>
       <segment>
         <source>image.placeholder_alt_text</source>
-        <target>Attribut Alt</target>
+        <target>Atributo alt</target>
       </segment>
     </unit>
     <unit id="VPV0lFM" name="image.placeholder_title">
@@ -1450,7 +1450,7 @@
       </notes>
       <segment>
         <source>image.placeholder_title</source>
-        <target>Attribut Titre</target>
+        <target>Atributo title</target>
       </segment>
     </unit>
     <unit id="Gabafxx" name="admin_sidebar.toggler">
@@ -1459,7 +1459,7 @@
       </notes>
       <segment>
         <source>admin_sidebar.toggler</source>
-        <target>Basculer la largeur de la barre latérale</target>
+        <target>Alternar largura da barra lateral</target>
       </segment>
     </unit>
     <unit id="jXAelLe" name="admin_sidebar_toggler.toggle">
@@ -1468,7 +1468,7 @@
       </notes>
       <segment>
         <source>admin_sidebar_toggler.toggle</source>
-        <target><![CDATA[<span class="sr-only">Montrer le </span>menu]]></target>
+        <target><![CDATA[<span class="sr-only">Alternar </span>menu]]></target>
       </segment>
     </unit>
     <unit id="BINgtmK" name="editor_date.toggle">
@@ -1477,7 +1477,7 @@
       </notes>
       <segment>
         <source>editor_date.toggle</source>
-        <target>Basculer</target>
+        <target>Alternar</target>
       </segment>
     </unit>
     <unit id="z2AgHGp" name="flash_messages.notification">
@@ -1489,7 +1489,7 @@
       </notes>
       <segment>
         <source>flash_messages.notification</source>
-        <target>Notification</target>
+        <target>Notificação</target>
       </segment>
     </unit>
     <unit id="ypPzS03" name="localeswitcher.button_info">
@@ -1498,7 +1498,7 @@
       </notes>
       <segment>
         <source>localeswitcher.button_info</source>
-        <target>Voir les informations de localisation</target>
+        <target>Ver informações de localização</target>
       </segment>
     </unit>
     <unit id="wQ0WYAT" name="listing.title_sortby">
@@ -1510,7 +1510,7 @@
       </notes>
       <segment>
         <source>listing.title_sortby</source>
-        <target>Trier par</target>
+        <target>Ordenar por</target>
       </segment>
     </unit>
     <unit id="pn22p7q" name="listing.placeholder_filter">
@@ -1521,7 +1521,7 @@
       </notes>
       <segment>
         <source>listing.placeholder_filter</source>
-        <target>Mot clé avec lequel filtrer…</target>
+        <target>Palavra-chave para filtrar…</target>
       </segment>
     </unit>
     <unit id="ni4zApC" name="listing.button_filter">
@@ -1531,7 +1531,7 @@
       </notes>
       <segment>
         <source>listing.button_filter</source>
-        <target>Filtrer</target>
+        <target>Filtrar</target>
       </segment>
     </unit>
     <unit id="doNsgm0" name="listing.button_clear">
@@ -1541,7 +1541,7 @@
       </notes>
       <segment>
         <source>listing.button_clear</source>
-        <target>Effacer le tri / filtre</target>
+        <target>Limpar ordenação/filtro</target>
       </segment>
     </unit>
     <unit id="37kJiIe" name="view_locales.badge_default">
@@ -1550,7 +1550,7 @@
       </notes>
       <segment>
         <source>view_locales.badge_default</source>
-        <target>Défaut</target>
+        <target>Padrão</target>
       </segment>
     </unit>
     <unit id="JTRCo_U" name="view_locales.badge_ok">
@@ -1568,7 +1568,7 @@
       </notes>
       <segment>
         <source>view_locales.badge_missing</source>
-        <target>Manquant</target>
+        <target>Ausente</target>
       </segment>
     </unit>
     <unit id="QQvRJe." name="files_cards.button_toggle">
@@ -1577,7 +1577,7 @@
       </notes>
       <segment>
         <source>files_cards.button_toggle</source>
-        <target>Basculer la liste déroulante</target>
+        <target>Alternar menu suspenso</target>
       </segment>
     </unit>
     <unit id="gtC_ujD" name="files_cards.action_edit_image_info">
@@ -1586,7 +1586,7 @@
       </notes>
       <segment>
         <source>files_cards.action_edit_image_info</source>
-        <target>Modifier les informations sur l'image</target>
+        <target>Editar informações da imagem</target>
       </segment>
     </unit>
     <unit id="5LXvJfE" name="files_cards.action_edit_file">
@@ -1595,7 +1595,7 @@
       </notes>
       <segment>
         <source>files_cards.action_edit_file</source>
-        <target>Modifier le fichier dans l'éditeur</target>
+        <target>Editar arquivo no editor</target>
       </segment>
     </unit>
     <unit id="H1pgP94" name="files_cards.action_view_original">
@@ -1604,7 +1604,7 @@
       </notes>
       <segment>
         <source>files_cards.action_view_original</source>
-        <target>Voir l'original</target>
+        <target>Ver original</target>
       </segment>
     </unit>
     <unit id="ZoY6ADX" name="files_cards.action_duplicate">
@@ -1613,7 +1613,7 @@
       </notes>
       <segment>
         <source>files_cards.action_duplicate</source>
-        <target>Dupliquer</target>
+        <target>Duplicar</target>
       </segment>
     </unit>
     <unit id="JjU6ZQP" name="files_cards.action_delete">
@@ -1622,7 +1622,7 @@
       </notes>
       <segment>
         <source>files_cards.action_delete</source>
-        <target>Supprimer</target>
+        <target>Excluir</target>
       </segment>
     </unit>
     <unit id="3jdNwuk" name="files_cards.label_filename">
@@ -1631,7 +1631,7 @@
       </notes>
       <segment>
         <source>files_cards.label_filename</source>
-        <target>Nom du fichier :</target>
+        <target>Nome do arquivo:</target>
       </segment>
     </unit>
     <unit id="Y90_Pn1" name="files_cards.label_title">
@@ -1640,7 +1640,7 @@
       </notes>
       <segment>
         <source>files_cards.label_title</source>
-        <target>Titre :</target>
+        <target>Título:</target>
       </segment>
     </unit>
     <unit id="EdCfIKX" name="files_cards.label_dimensions">
@@ -1649,7 +1649,7 @@
       </notes>
       <segment>
         <source>files_cards.label_dimensions</source>
-        <target>Dimensions :</target>
+        <target>Dimensões:</target>
       </segment>
     </unit>
     <unit id="eQBhceV" name="files_cards.label_filesize">
@@ -1658,7 +1658,7 @@
       </notes>
       <segment>
         <source>files_cards.label_filesize</source>
-        <target>Taille du fichier :</target>
+        <target>Tamanho do arquivo:</target>
       </segment>
     </unit>
     <unit id="uiCjlwk" name="files_cards.label_created_on">
@@ -1667,7 +1667,7 @@
       </notes>
       <segment>
         <source>files_cards.label_created_on</source>
-        <target>Créé le :</target>
+        <target>Criado em:</target>
       </segment>
     </unit>
     <unit id=".fL0AbE" name="files_list.remark">
@@ -1676,7 +1676,7 @@
       </notes>
       <segment>
         <source>files_list.remark</source>
-        <target>Aucun fichier n'est présent dans ce dossier. Sélectionnez un dossier vers lequel naviguer.</target>
+        <target>Não há arquivos nesta pasta. Selecione uma pasta para navegar.</target>
       </segment>
     </unit>
     <unit id="v6cfPyt" name="quickselect.title_select">
@@ -1685,7 +1685,7 @@
       </notes>
       <segment>
         <source>quickselect.title_select</source>
-        <target>Sélectionner un fichier :</target>
+        <target>Selecione um arquivo:</target>
       </segment>
     </unit>
     <unit id="m3tNvJb" name="finder.button_list">
@@ -1694,7 +1694,7 @@
       </notes>
       <segment>
         <source>finder.button_list</source>
-        <target>Liste</target>
+        <target>Lista</target>
       </segment>
     </unit>
     <unit id="tRLgeoX" name="finder.button_cards">
@@ -1703,7 +1703,7 @@
       </notes>
       <segment>
         <source>finder.button_cards</source>
-        <target>Cartes</target>
+        <target>Cartões</target>
       </segment>
     </unit>
     <unit id="nrWBJNm" name="extensions.title_desc">
@@ -1715,7 +1715,7 @@
       </notes>
       <segment>
         <source>extensions.title_desc</source>
-        <target>Description :</target>
+        <target>Descrição:</target>
       </segment>
     </unit>
     <unit id="7raDJAR" name="extensions.title_author">
@@ -1725,7 +1725,7 @@
       </notes>
       <segment>
         <source>extensions.title_author</source>
-        <target>Auteur :</target>
+        <target>Autor:</target>
       </segment>
     </unit>
     <unit id="UP8pNGy" name="extensions.title_package">
@@ -1735,7 +1735,7 @@
       </notes>
       <segment>
         <source>extensions.title_package</source>
-        <target>Nom du package / classe :</target>
+        <target>Nome do pacote / classe:</target>
       </segment>
     </unit>
     <unit id="QFQ1uTC" name="extensions.title_version">
@@ -1745,7 +1745,7 @@
       </notes>
       <segment>
         <source>extensions.title_version</source>
-        <target>Version :</target>
+        <target>Versão:</target>
       </segment>
     </unit>
     <unit id="piuatxC" name="extensions.info_not_installed">
@@ -1755,7 +1755,7 @@
       </notes>
       <segment>
         <source>extensions.info_not_installed</source>
-        <target>Ceci est un package local, non installé via Composer</target>
+        <target>Este é um pacote local, não instalado através do Composer</target>
       </segment>
     </unit>
     <unit id="3j1gEmk" name="extensions.title_class">
@@ -1765,7 +1765,7 @@
       </notes>
       <segment>
         <source>extensions.title_class</source>
-        <target>Nom de la classe :</target>
+        <target>Nome da classe:</target>
       </segment>
     </unit>
     <unit id="mjhFljb" name="extensions.button_configuration">
@@ -1775,7 +1775,7 @@
       </notes>
       <segment>
         <source>extensions.button_configuration</source>
-        <target>Configuration</target>
+        <target>Configuração</target>
       </segment>
     </unit>
     <unit id="r3ryNTG" name="extensions.button_source">
@@ -1785,7 +1785,7 @@
       </notes>
       <segment>
         <source>extensions.button_source</source>
-        <target>Source</target>
+        <target>Código-fonte</target>
       </segment>
     </unit>
     <unit id="qc3rFkZ" name="extensions.button_remove">
@@ -1795,7 +1795,7 @@
       </notes>
       <segment>
         <source>extensions.button_remove</source>
-        <target>Supprimer l'extension</target>
+        <target>Remover extensão</target>
       </segment>
     </unit>
     <unit id="SLZyVzU" name="extensions.button_disable">
@@ -1805,7 +1805,7 @@
       </notes>
       <segment>
         <source>extensions.button_disable</source>
-        <target>Désactiver l'extension</target>
+        <target>Desabilitar extensão</target>
       </segment>
     </unit>
     <unit id="beqzCkE" name="login.header_login">
@@ -1814,7 +1814,7 @@
       </notes>
       <segment>
         <source>login.header_login</source>
-        <target>Bolt » Connexion</target>
+        <target>Bolt » Entrar</target>
       </segment>
     </unit>
     <unit id="7JK6jNv" name="extensions.message_not_implemented">
@@ -1830,7 +1830,7 @@
       </notes>
       <segment>
         <source>extensions.message_not_implemented</source>
-        <target>Pas encore implémenté. Désolé !</target>
+        <target>Ainda não implementado. Desculpe!</target>
       </segment>
     </unit>
     <unit id="Hlf9c1s" name="listing.title_overview">
@@ -1839,7 +1839,7 @@
       </notes>
       <segment>
         <source>listing.title_overview</source>
-        <target>Aperçu pour</target>
+        <target>Visão geral de</target>
       </segment>
     </unit>
     <unit id="8JeahIj" name="files_cards.message_no_files">
@@ -1848,7 +1848,7 @@
       </notes>
       <segment>
         <source>files_cards.message_no_files</source>
-        <target>Aucun fichier n'est présent dans ce dossier. Sélectionnez un dossier, sur le côté droit, vers lequel naviguer.</target>
+        <target>Não há arquivos nesta pasta. Selecione uma pasta para navegar, no lado direito.</target>
       </segment>
     </unit>
     <unit id="pcq1NGk" name="listing_filter.button_compact">
@@ -1857,7 +1857,7 @@
       </notes>
       <segment>
         <source>listing_filter.button_compact</source>
-        <target>Compact</target>
+        <target>Compacto</target>
       </segment>
     </unit>
     <unit id="xIztVmp" name="listing_filter.button_expanded">
@@ -1866,7 +1866,7 @@
       </notes>
       <segment>
         <source>listing_filter.button_expanded</source>
-        <target>Étendu</target>
+        <target>Expandido</target>
       </segment>
     </unit>
     <unit id="73A2bWM" name="finder.label_view">
@@ -1875,7 +1875,7 @@
       </notes>
       <segment>
         <source>finder.label_view</source>
-        <target>Vue :</target>
+        <target>Visualização:</target>
       </segment>
     </unit>
     <unit id="Em.C0bV" name="listing_table.actions.button_edit">
@@ -1884,7 +1884,7 @@
       </notes>
       <segment>
         <source>listing_table.actions.button_edit</source>
-        <target>Éditer</target>
+        <target>Editar</target>
       </segment>
     </unit>
     <unit id="Iy4HXCU" name="controller.user.title">
@@ -1893,7 +1893,7 @@
       </notes>
       <segment>
         <source>controller.user.title</source>
-        <target><![CDATA[Utilisateurs & Permissions]]></target>
+        <target><![CDATA[Usuários e permissões]]></target>
       </segment>
     </unit>
     <unit id="HBwIQ9b" name="controller.user.subtitle">
@@ -1902,7 +1902,7 @@
       </notes>
       <segment>
         <source>controller.user.subtitle</source>
-        <target>Pour modifier les utilisateurs et leurs autorisations</target>
+        <target>Para editar usuários e suas permissões</target>
       </segment>
     </unit>
     <unit id="7cXqH5s" name="listing.title_display_name">
@@ -1911,7 +1911,7 @@
       </notes>
       <segment>
         <source>listing.title_display_name</source>
-        <target>Nom affiché</target>
+        <target>Nome de exibição</target>
       </segment>
     </unit>
     <unit id="Ay7xZ2h" name="listing.title_username">
@@ -1921,7 +1921,7 @@
       </notes>
       <segment>
         <source>listing.title_username</source>
-        <target>Nom d'utilisateur</target>
+        <target>Nome de usuário</target>
       </segment>
     </unit>
     <unit id="RN1tdtJ" name="listing.title_email">
@@ -1930,7 +1930,7 @@
       </notes>
       <segment>
         <source>listing.title_email</source>
-        <target>Email</target>
+        <target>E-mail</target>
       </segment>
     </unit>
     <unit id="0pjZ.GV" name="listing.title_roles">
@@ -1939,7 +1939,7 @@
       </notes>
       <segment>
         <source>listing.title_roles</source>
-        <target>Rôles</target>
+        <target>Funções</target>
       </segment>
     </unit>
     <unit id="hXEFV1n" name="listing.title_last_seen">
@@ -1949,7 +1949,7 @@
       </notes>
       <segment>
         <source>listing.title_last_seen</source>
-        <target>Âge de la session</target>
+        <target>Duração da sessão</target>
       </segment>
     </unit>
     <unit id="pn7kE17" name="listing.title_last_ip">
@@ -1958,7 +1958,7 @@
       </notes>
       <segment>
         <source>listing.title_last_ip</source>
-        <target>Dernière IP</target>
+        <target>Último IP</target>
       </segment>
     </unit>
     <unit id="GZ65uOC" name="listing.title_actions">
@@ -1967,7 +1967,7 @@
       </notes>
       <segment>
         <source>listing.title_actions</source>
-        <target>Actions</target>
+        <target>Ações</target>
       </segment>
     </unit>
     <unit id="TpGxDI3" name="user.unknown_user">
@@ -1976,7 +1976,7 @@
       </notes>
       <segment>
         <source>user.unknown_user</source>
-        <target>Utilisateur inconnu</target>
+        <target>Usuário desconhecido</target>
       </segment>
     </unit>
     <unit id="EaqUUfe" name="label.predominant_colors__in_image">
@@ -1985,7 +1985,7 @@
       </notes>
       <segment>
         <source>label.predominant_colors__in_image</source>
-        <target>Couleurs prédominantes dans l'image</target>
+        <target>Cores predominantes na imagem</target>
       </segment>
     </unit>
     <unit id="8RPjZ5w" name="general.phrase.overview-for">
@@ -1994,7 +1994,7 @@
       </notes>
       <segment>
         <source>general.phrase.overview-for</source>
-        <target>Aperçu pour '%slug%'</target>
+        <target>Visão geral de "%slug%"</target>
       </segment>
     </unit>
     <unit id="6mze9DI" name="general.phrase.related-content">
@@ -2003,7 +2003,7 @@
       </notes>
       <segment>
         <source>general.phrase.related-content</source>
-        <target>Contenus associés</target>
+        <target>Conteúdo relacionado</target>
       </segment>
     </unit>
     <unit id="odDw0du" name="action.search">
@@ -2012,7 +2012,7 @@
       </notes>
       <segment>
         <source>action.search</source>
-        <target>Recherche</target>
+        <target>Pesquisar</target>
       </segment>
     </unit>
     <unit id="QoeqyPT" name="caption.new_contenttype">
@@ -2022,7 +2022,7 @@
       </notes>
       <segment>
         <source>caption.new_contenttype</source>
-        <target>Nouveau %contenttype%</target>
+        <target>Novo %contenttype%</target>
       </segment>
     </unit>
     <unit id="n.jOrkg" name="caption.untitled_contenttype">
@@ -2032,7 +2032,7 @@
       </notes>
       <segment>
         <source>caption.untitled_contenttype</source>
-        <target>Sans titre %contenttype%</target>
+        <target>%contenttype% sem título</target>
       </segment>
     </unit>
     <unit id="Dgtkgju" name="title.edit_user_profile">
@@ -2041,7 +2041,7 @@
       </notes>
       <segment>
         <source>title.edit_user_profile</source>
-        <target>Modifier le profil utilisateur</target>
+        <target>Editar perfil do usuário</target>
       </segment>
     </unit>
     <unit id="rCKtTo5" name="caption.redirection_page">
@@ -2050,7 +2050,7 @@
       </notes>
       <segment>
         <source>caption.redirection_page</source>
-        <target>Page de redirection</target>
+        <target>Página de redirecionamento</target>
       </segment>
     </unit>
     <unit id="TtIlBDd" name="caption.edit_image">
@@ -2059,7 +2059,7 @@
       </notes>
       <segment>
         <source>caption.edit_image</source>
-        <target>Éditer l'image</target>
+        <target>Editar imagem</target>
       </segment>
     </unit>
     <unit id="hiE9jap" name="password.suggested">
@@ -2068,7 +2068,7 @@
       </notes>
       <segment>
         <source>password.suggested</source>
-        <target><![CDATA[Mot de passe sécurisé suggéré: <code>%password%</code>]]></target>
+        <target><![CDATA[Senha segura sugerida: <code>%password%</code>]]></target>
       </segment>
     </unit>
     <unit id="fLOd6Zd" name="field.cropX">
@@ -2077,7 +2077,7 @@
       </notes>
       <segment>
         <source>field.cropX</source>
-        <target>Recadrer X</target>
+        <target>Recorte X</target>
       </segment>
     </unit>
     <unit id="Sd_AbmV" name="field.cropXPostfix">
@@ -2086,7 +2086,7 @@
       </notes>
       <segment>
         <source>field.cropXPostfix</source>
-        <target>Position du cadrage sur l'axe X, plage 0-100.</target>
+        <target>Posição do recorte no eixo X, intervalo 0-100.</target>
       </segment>
     </unit>
     <unit id="BQBmQHT" name="field.cropYPostfix">
@@ -2095,7 +2095,7 @@
       </notes>
       <segment>
         <source>field.cropYPostfix</source>
-        <target>Position du cadrage sur l'axe Y, plage de 0 à 100.</target>
+        <target>Posição do recorte no eixo Y, intervalo 0-100.</target>
       </segment>
     </unit>
     <unit id="hi98HIj" name="field.cropY">
@@ -2104,7 +2104,7 @@
       </notes>
       <segment>
         <source>field.cropY</source>
-        <target>Recadrer Y</target>
+        <target>Recorte Y</target>
       </segment>
     </unit>
     <unit id="PHOpD5y" name="field.cropZoom">
@@ -2113,7 +2113,7 @@
       </notes>
       <segment>
         <source>field.cropZoom</source>
-        <target>Recadrer zoomfactor</target>
+        <target>Fator de zoom do recorte</target>
       </segment>
     </unit>
     <unit id="tn6Z8wY" name="field.cropZoomPostfix">
@@ -2122,7 +2122,7 @@
       </notes>
       <segment>
         <source>field.cropZoomPostfix</source>
-        <target>Niveau de zoom du recadrage, plage 1-10.</target>
+        <target>Nível de zoom do recorte, intervalo 1-10.</target>
       </segment>
     </unit>
     <unit id="n.3JZvX" name="title.contentType">
@@ -2131,7 +2131,7 @@
       </notes>
       <segment>
         <source>title.contentType</source>
-        <target>Type de contenus</target>
+        <target>Tipo de conteúdo</target>
       </segment>
     </unit>
     <unit id="Hr2E9Oa" name="listing_table.no_results">
@@ -2140,7 +2140,7 @@
       </notes>
       <segment>
         <source>listing_table.no_results</source>
-        <target>Aucun résultat trouvé. Élargissez les critères de filtrage ou ajoutez du contenu supplémentaire.</target>
+        <target>Nenhum resultado encontrado. Amplie os critérios de filtragem ou adicione mais conteúdo.</target>
       </segment>
     </unit>
     <unit id="hp554Ds" name="listing.option_select_sortby">
@@ -2150,7 +2150,7 @@
       </notes>
       <segment>
         <source>listing.option_select_sortby</source>
-        <target>Sélectionnez un champ pour trier par…</target>
+        <target>Selecione o campo para ordenar…</target>
       </segment>
     </unit>
     <unit id="JEnqOi." name="title.primary_actions">
@@ -2159,7 +2159,7 @@
       </notes>
       <segment>
         <source>title.primary_actions</source>
-        <target>Actions principales</target>
+        <target>Ações principais</target>
       </segment>
     </unit>
     <unit id="7616Os4" name="title.options">
@@ -2169,7 +2169,7 @@
       </notes>
       <segment>
         <source>title.options</source>
-        <target>Options</target>
+        <target>Opções</target>
       </segment>
     </unit>
     <unit id="hTKWQ6g" name="action.delete">
@@ -2182,7 +2182,7 @@
       </notes>
       <segment>
         <source>action.delete</source>
-        <target>Supprimer</target>
+        <target>Excluir</target>
       </segment>
     </unit>
     <unit id="ezqx.4H" name="action.enable">
@@ -2191,7 +2191,7 @@
       </notes>
       <segment>
         <source>action.enable</source>
-        <target>Activer</target>
+        <target>Habilitar</target>
       </segment>
     </unit>
     <unit id="ryXZRAu" name="action.disable">
@@ -2200,7 +2200,7 @@
       </notes>
       <segment>
         <source>action.disable</source>
-        <target>Désactiver</target>
+        <target>Desabilitar</target>
       </segment>
     </unit>
     <unit id="Npkio79" name="listing.title_session_expires">
@@ -2209,7 +2209,7 @@
       </notes>
       <segment>
         <source>listing.title_session_expires</source>
-        <target>La session a expiré</target>
+        <target>A sessão expira</target>
       </segment>
     </unit>
     <unit id="mmUDcto" name="listing.title_ip_address">
@@ -2218,7 +2218,7 @@
       </notes>
       <segment>
         <source>listing.title_ip_address</source>
-        <target>Adresse IP</target>
+        <target>Endereço IP</target>
       </segment>
     </unit>
     <unit id="x9qAwrz" name="listing.title_browser">
@@ -2227,7 +2227,7 @@
       </notes>
       <segment>
         <source>listing.title_browser</source>
-        <target>Navigateur / plateforme</target>
+        <target>Navegador / plataforma</target>
       </segment>
     </unit>
     <unit id="FqVh1Hv" name="image.button_remove">
@@ -2241,7 +2241,7 @@
       </notes>
       <segment>
         <source>image.button_remove</source>
-        <target>Retirer</target>
+        <target>Remover</target>
       </segment>
     </unit>
     <unit id="eHV6ZJB" name="image.button_edit_attributes">
@@ -2255,7 +2255,7 @@
       </notes>
       <segment>
         <source>image.button_edit_attributes</source>
-        <target>Modifier les attributs</target>
+        <target>Editar atributos</target>
       </segment>
     </unit>
     <unit id="Oj2UZ5J" name="image.add_new_image">
@@ -2264,7 +2264,7 @@
       </notes>
       <segment>
         <source>image.add_new_image</source>
-        <target>Ajouter une nouvelle image</target>
+        <target>Adicionar nova imagem</target>
       </segment>
     </unit>
     <unit id="8Q4FxVw" name="file.add_new_file">
@@ -2273,7 +2273,7 @@
       </notes>
       <segment>
         <source>file.add_new_file</source>
-        <target>Ajouter un nouveaux fichier</target>
+        <target>Adicionar novo arquivo</target>
       </segment>
     </unit>
     <unit id=".t1ICS7" name="collection.remove_item">
@@ -2282,7 +2282,7 @@
       </notes>
       <segment>
         <source>collection.remove_item</source>
-        <target>Retirer l'élément</target>
+        <target>Remover item</target>
       </segment>
     </unit>
     <unit id="0C9.Vmh" name="collection.add_item">
@@ -2291,7 +2291,7 @@
       </notes>
       <segment>
         <source>collection.add_item</source>
-        <target>Ajouter un nouvel élément à '%name%'</target>
+        <target>Adicionar um novo item a "%name%"</target>
       </segment>
     </unit>
     <unit id="ApPu4P_" name="collection.move_item_up">
@@ -2300,7 +2300,7 @@
       </notes>
       <segment>
         <source>collection.move_item_up</source>
-        <target>Déplacer vers le haut</target>
+        <target>Mover para cima</target>
       </segment>
     </unit>
     <unit id="KzBtfHi" name="collection.move_item_down">
@@ -2309,7 +2309,7 @@
       </notes>
       <segment>
         <source>collection.move_item_down</source>
-        <target>Déplacer vers le bas</target>
+        <target>Mover para baixo</target>
       </segment>
     </unit>
     <unit id="BFARQEU" name="extensions.button_detailed_view">
@@ -2318,7 +2318,7 @@
       </notes>
       <segment>
         <source>extensions.button_detailed_view</source>
-        <target>Voir les détails</target>
+        <target>Ver detalhes</target>
       </segment>
     </unit>
     <unit id="hgNZLwW" name="extensions.title_configuration">
@@ -2328,7 +2328,7 @@
       </notes>
       <segment>
         <source>extensions.title_configuration</source>
-        <target>Fichier de configuration</target>
+        <target>Arquivo de configuração</target>
       </segment>
     </unit>
     <unit id="283aB_E" name="caption.file_upload.upload_text">
@@ -2337,7 +2337,7 @@
       </notes>
       <segment>
         <source>caption.file_upload.upload_text</source>
-        <target>Déposer des fichiers ici pour les télécharger</target>
+        <target>Solte os arquivos aqui para enviar</target>
       </segment>
     </unit>
     <unit id="L_YQKUn" name="pager.next">
@@ -2349,7 +2349,7 @@
       </notes>
       <segment>
         <source>pager.next</source>
-        <target>Suivant</target>
+        <target>Próximo</target>
       </segment>
     </unit>
     <unit id="AMxTho9" name="pager.previous">
@@ -2361,7 +2361,7 @@
       </notes>
       <segment>
         <source>pager.previous</source>
-        <target>Précédent</target>
+        <target>Anterior</target>
       </segment>
     </unit>
     <unit id="7aSD0Qr" name="image.button_up">
@@ -2371,7 +2371,7 @@
       </notes>
       <segment>
         <source>image.button_up</source>
-        <target>Haut</target>
+        <target>Cima</target>
       </segment>
     </unit>
     <unit id="WihD8Y5" name="image.button_down">
@@ -2381,7 +2381,7 @@
       </notes>
       <segment>
         <source>image.button_down</source>
-        <target>Bas</target>
+        <target>Baixo</target>
       </segment>
     </unit>
     <unit id="fon6eNN" name="general.phrase.download">
@@ -2390,7 +2390,7 @@
       </notes>
       <segment>
         <source>general.phrase.download</source>
-        <target>Télécharger</target>
+        <target>Baixar</target>
       </segment>
     </unit>
     <unit id="2MtT_h0" name="caption.logviewer">
@@ -2400,7 +2400,7 @@
       </notes>
       <segment>
         <source>caption.logviewer</source>
-        <target>Logs</target>
+        <target>Visualizador de logs</target>
       </segment>
     </unit>
     <unit id="FlGE3qB" name="label.request">
@@ -2409,7 +2409,7 @@
       </notes>
       <segment>
         <source>label.request</source>
-        <target>Demande</target>
+        <target>Requisição</target>
       </segment>
     </unit>
     <unit id="l71Tprl" name="label.trace">
@@ -2418,7 +2418,7 @@
       </notes>
       <segment>
         <source>label.trace</source>
-        <target>Trace</target>
+        <target>Rastreamento</target>
       </segment>
     </unit>
     <unit id="29ZEo1r" name="label.context">
@@ -2427,7 +2427,7 @@
       </notes>
       <segment>
         <source>label.context</source>
-        <target>Contexte</target>
+        <target>Contexto</target>
       </segment>
     </unit>
     <unit id="txRonia" name="label.id">
@@ -2445,7 +2445,7 @@
       </notes>
       <segment>
         <source>label.level</source>
-        <target>Niveau</target>
+        <target>Nível</target>
       </segment>
     </unit>
     <unit id="51OQi14" name="label.message">
@@ -2454,7 +2454,7 @@
       </notes>
       <segment>
         <source>label.message</source>
-        <target>Message</target>
+        <target>Mensagem</target>
       </segment>
     </unit>
     <unit id="S0f6iTL" name="label.timestamp">
@@ -2463,7 +2463,7 @@
       </notes>
       <segment>
         <source>label.timestamp</source>
-        <target>Horodatage</target>
+        <target>Timestamp</target>
       </segment>
     </unit>
     <unit id="O2X4xZH" name="label.user">
@@ -2472,7 +2472,7 @@
       </notes>
       <segment>
         <source>label.user</source>
-        <target>Utilisateur</target>
+        <target>Usuário</target>
       </segment>
     </unit>
     <unit id="3MuwWwe" name="listing.disabled">
@@ -2481,7 +2481,7 @@
       </notes>
       <segment>
         <source>listing.disabled</source>
-        <target>Désactiver</target>
+        <target>Desabilitado</target>
       </segment>
     </unit>
     <unit id="XQ2U6fN" name="slug.button_unlocked">
@@ -2490,7 +2490,7 @@
       </notes>
       <segment>
         <source>slug.button_unlocked</source>
-        <target>Débloquer</target>
+        <target>Desbloqueado</target>
       </segment>
     </unit>
     <unit id="jz2qkbb" name="general.phrase.no-content-found">
@@ -2499,7 +2499,7 @@
       </notes>
       <segment>
         <source>general.phrase.no-content-found</source>
-        <target>Aucun contenu trouvé</target>
+        <target>Nenhum conteúdo encontrado</target>
       </segment>
     </unit>
     <unit id="OPxagAY" name="general.phrase.none">
@@ -2509,7 +2509,7 @@
       </notes>
       <segment>
         <source>general.phrase.none</source>
-        <target>Aucun</target>
+        <target>Nenhum</target>
       </segment>
     </unit>
     <unit id="SGlj7K2" name="view_locales.badge_empty">
@@ -2518,7 +2518,7 @@
       </notes>
       <segment>
         <source>view_locales.badge_empty</source>
-        <target>Vide</target>
+        <target>Vazio</target>
       </segment>
     </unit>
     <unit id="WeJxw6Z" name="action.update_all">
@@ -2527,7 +2527,7 @@
       </notes>
       <segment>
         <source>action.update_all</source>
-        <target>Appliquer à tous</target>
+        <target>Aplicar a todos</target>
       </segment>
     </unit>
     <unit id="QVRwwK4" name="about.system_info">
@@ -2536,7 +2536,7 @@
       </notes>
       <segment>
         <source>about.system_info</source>
-        <target>Informations système</target>
+        <target>Informações do sistema</target>
       </segment>
     </unit>
     <unit id="6Gw1lsE" name="action.confirm_delete">
@@ -2549,7 +2549,7 @@
       </notes>
       <segment>
         <source>action.confirm_delete</source>
-        <target>Voulez-vous vraiment supprimer ce contenu ?</target>
+        <target>Tem certeza de que deseja excluir este conteúdo?</target>
       </segment>
     </unit>
     <unit id="z_tOHwq" name="placeholder.username_or_email">
@@ -2558,7 +2558,7 @@
       </notes>
       <segment>
         <source>placeholder.username_or_email</source>
-        <target>Votre nom d'utilisateur ou email</target>
+        <target>seu nome de usuário ou e-mail</target>
       </segment>
     </unit>
     <unit id="xgYhRkc" name="placeholder.password">
@@ -2567,7 +2567,7 @@
       </notes>
       <segment>
         <source>placeholder.password</source>
-        <target>Votre mot de passe</target>
+        <target>sua senha</target>
       </segment>
     </unit>
     <unit id="KshyLfh" name="caption.other_content">
@@ -2576,7 +2576,7 @@
       </notes>
       <segment>
         <source>caption.other_content</source>
-        <target>Autre contenu</target>
+        <target>Outro conteúdo</target>
       </segment>
     </unit>
     <unit id="wHOF8eG" name="editfile.target_not_writable">
@@ -2585,7 +2585,7 @@
       </notes>
       <segment>
         <source>editfile.target_not_writable</source>
-        <target>L'enregistrement est désactivé, car le fichier cible n'est pas accessible en écriture.</target>
+        <target>O salvamento está desabilitado porque o arquivo de destino não é gravável.</target>
       </segment>
     </unit>
     <unit id="hAysbHB" name="label.translatable">
@@ -2594,7 +2594,7 @@
       </notes>
       <segment>
         <source>label.translatable</source>
-        <target>Ce champ est traduisible</target>
+        <target>Este campo é traduzível</target>
       </segment>
     </unit>
     <unit id="qqpGLJl" name="label.content">
@@ -2603,7 +2603,7 @@
       </notes>
       <segment>
         <source>label.content</source>
-        <target>Contenu</target>
+        <target>Conteúdo</target>
       </segment>
     </unit>
     <unit id="v7ZTnja" name="file.delete_success">
@@ -2612,7 +2612,7 @@
       </notes>
       <segment>
         <source>file.delete_success</source>
-        <target>Fichier supprimé avec succès !</target>
+        <target>Arquivo excluído com sucesso!</target>
       </segment>
     </unit>
     <unit id="wHPoBzP" name="file.delete_confirm">
@@ -2622,7 +2622,7 @@
       </notes>
       <segment>
         <source>file.delete_confirm</source>
-        <target>Êtes-vous sûr de vouloir supprimer ce fichier ?</target>
+        <target>Tem certeza de que deseja excluir este arquivo?</target>
       </segment>
     </unit>
     <unit id="IWbf2by" name="listing.title_filterby">
@@ -2632,7 +2632,7 @@
       </notes>
       <segment>
         <source>listing.title_filterby</source>
-        <target>Rechercher / Filtrer par</target>
+        <target>Pesquisar / Filtrar por</target>
       </segment>
     </unit>
     <unit id="Zssh7In" name="content.status_changed_successfully">
@@ -2642,7 +2642,7 @@
       </notes>
       <segment>
         <source>content.status_changed_successfully</source>
-        <target>Statut changé avec succès</target>
+        <target>Status alterado com sucesso</target>
       </segment>
     </unit>
     <unit id="GOhQBY9" name="content.deleted_successfully">
@@ -2652,7 +2652,7 @@
       </notes>
       <segment>
         <source>content.deleted_successfully</source>
-        <target>Contenu supprimé avec succès</target>
+        <target>Conteúdo excluído com sucesso</target>
       </segment>
     </unit>
     <unit id=".I3mIHo" name="label.current_status">
@@ -2661,7 +2661,7 @@
       </notes>
       <segment>
         <source>label.current_status</source>
-        <target>Statut actuel</target>
+        <target>Status atual</target>
       </segment>
     </unit>
     <unit id="utGAKaQ" name="status.published">
@@ -2671,7 +2671,7 @@
       </notes>
       <segment>
         <source>status.published</source>
-        <target>Publié</target>
+        <target>Publicado</target>
       </segment>
     </unit>
     <unit id="HJbHjee" name="status.draft">
@@ -2681,7 +2681,7 @@
       </notes>
       <segment>
         <source>status.draft</source>
-        <target>Brouillon</target>
+        <target>Rascunho</target>
       </segment>
     </unit>
     <unit id="h7dP3WY" name="status.timed">
@@ -2691,7 +2691,7 @@
       </notes>
       <segment>
         <source>status.timed</source>
-        <target>Publication planifiée</target>
+        <target>Programado</target>
       </segment>
     </unit>
     <unit id="oxqDDuK" name="status.held">
@@ -2701,7 +2701,7 @@
       </notes>
       <segment>
         <source>status.held</source>
-        <target>Non publié</target>
+        <target>Retido</target>
       </segment>
     </unit>
     <unit id="JpJFIFq" name="collection.confirm_delete">
@@ -2711,7 +2711,7 @@
       </notes>
       <segment>
         <source>collection.confirm_delete</source>
-        <target>Êtes-vous sûr de vouloir supprimer cet élément de la collection ?</target>
+        <target>Tem certeza de que deseja excluir este item da coleção?</target>
       </segment>
     </unit>
     <unit id="YZJO3Ul" name="upload.allow_file_types">
@@ -2726,7 +2726,7 @@
       </notes>
       <segment>
         <source>upload.allow_file_types</source>
-        <target>Types de fichiers autorisés pour le téléchargement</target>
+        <target>Tipos de arquivo permitidos para envio</target>
       </segment>
     </unit>
     <unit id="noOf4ML" name="upload.max_size">
@@ -2741,7 +2741,7 @@
       </notes>
       <segment>
         <source>upload.max_size</source>
-        <target>Taille maximale de téléchargement</target>
+        <target>Tamanho máximo de envio</target>
       </segment>
     </unit>
     <unit id="O_m7mx1" name="listing.placeholder_search">
@@ -2752,7 +2752,7 @@
       </notes>
       <segment>
         <source>listing.placeholder_search</source>
-        <target>Rechercher un mot-clé …</target>
+        <target>Pesquisar por palavra-chave …</target>
       </segment>
     </unit>
     <unit id="munFS0n" name="title.filtered_by">
@@ -2761,7 +2761,7 @@
       </notes>
       <segment>
         <source>title.filtered_by</source>
-        <target><![CDATA[Tout le contenu, filtré par <em>'%filter%'</em>.]]></target>
+        <target><![CDATA[Todo o conteúdo, filtrado por <em>"%filter%"</em>.]]></target>
       </segment>
     </unit>
     <unit id="GPd6Hap" name="action.view_site">
@@ -2771,7 +2771,7 @@
       </notes>
       <segment>
         <source>action.view_site</source>
-        <target>Voir le site Web</target>
+        <target>Ver site</target>
       </segment>
     </unit>
     <unit id="f.rvF6y" name="action.new">
@@ -2782,7 +2782,7 @@
       </notes>
       <segment>
         <source>action.new</source>
-        <target>Nouveau</target>
+        <target>Novo</target>
       </segment>
     </unit>
     <unit id="60xy4WG" name="extensions.no_dependencies">
@@ -2791,7 +2791,7 @@
       </notes>
       <segment>
         <source>extensions.no_dependencies</source>
-        <target>Aucune dépendance connue</target>
+        <target>Nenhuma dependência conhecida</target>
       </segment>
     </unit>
     <unit id="LfwezhR" name="extensions.title_dependencies">
@@ -2800,7 +2800,7 @@
       </notes>
       <segment>
         <source>extensions.title_dependencies</source>
-        <target>Dépendance</target>
+        <target>Dependências</target>
       </segment>
     </unit>
     <unit id="H9knE.O" name="collection.expand_all">
@@ -2809,7 +2809,7 @@
       </notes>
       <segment>
         <source>collection.expand_all</source>
-        <target>Tout développer</target>
+        <target>Expandir tudo</target>
       </segment>
     </unit>
     <unit id="JjvI6hp" name="collection.collapse_all">
@@ -2818,7 +2818,7 @@
       </notes>
       <segment>
         <source>collection.collapse_all</source>
-        <target>Tout réduire</target>
+        <target>Recolher tudo</target>
       </segment>
     </unit>
     <unit id="pXtciRI" name="content.edit_missing_definition">
@@ -2827,7 +2827,7 @@
       </notes>
       <segment>
         <source>content.edit_missing_definition</source>
-        <target>La définition de ce ContentType est manquante ! La modification de cet enregistrement ne fonctionnera pas comme prévu. Veuillez vérifier votre contenttypes.yaml pour vous assurer qu'il contient %contenttype%.</target>
+        <target>A definição para este ContentType está faltando! A edição deste registro não funcionará como esperado. Verifique seu arquivo contenttypes.yaml para garantir que ele contenha %contenttype%.</target>
       </segment>
     </unit>
     <unit id="RBJ0NMl" name="collection.select">
@@ -2836,7 +2836,7 @@
       </notes>
       <segment>
         <source>collection.select</source>
-        <target>Sélectionnez…</target>
+        <target>Selecionar …</target>
       </segment>
     </unit>
     <unit id="2SSLP1K" name="form.empty_username_email">
@@ -2845,7 +2845,7 @@
       </notes>
       <segment>
         <source>form.empty_username_email</source>
-        <target>Veuillez saisir votre nom d'utilisateur ou votre email</target>
+        <target>Digite seu nome de usuário ou e-mail</target>
       </segment>
     </unit>
     <unit id="5Qf_RiO" name="form.empty_password">
@@ -2854,7 +2854,7 @@
       </notes>
       <segment>
         <source>form.empty_password</source>
-        <target>Veuillez saisir votre mot de passe</target>
+        <target>Digite sua senha</target>
       </segment>
     </unit>
     <unit id="f8zXapF" name="form.empty_email">
@@ -2863,7 +2863,7 @@
       </notes>
       <segment>
         <source>form.empty_email</source>
-        <target>Veuillez saisir votre email</target>
+        <target>Digite seu e-mail</target>
       </segment>
     </unit>
     <unit id="fAmcKUQ" name="listing.title_filterby_field">
@@ -2872,7 +2872,7 @@
       </notes>
       <segment>
         <source>listing.title_filterby_field</source>
-        <target>Filtrer par champ</target>
+        <target>Filtrar por campo</target>
       </segment>
     </unit>
     <unit id="kciiidS" name="image.button_from_url">
@@ -2883,7 +2883,7 @@
       </notes>
       <segment>
         <source>image.button_from_url</source>
-        <target>De l'URL</target>
+        <target>Da URL</target>
       </segment>
     </unit>
     <unit id="QcN1pi8" name="files_cards.copy_to_clipboard">
@@ -2892,7 +2892,7 @@
       </notes>
       <segment>
         <source>files_cards.copy_to_clipboard</source>
-        <target>Copier le lien dans le fichier</target>
+        <target>Copiar link para o arquivo</target>
       </segment>
     </unit>
     <unit id="S9k1S7Z" name="warning">
@@ -2914,7 +2914,7 @@
       </notes>
       <segment>
         <source>warning</source>
-        <target>Attention</target>
+        <target>Aviso</target>
       </segment>
     </unit>
     <unit id="4fyuUU." name="filemanager.create_folder_already_exists">
@@ -2923,7 +2923,7 @@
       </notes>
       <segment>
         <source>filemanager.create_folder_already_exists</source>
-        <target>Le dossier existe déjà</target>
+        <target>A pasta já existe</target>
       </segment>
     </unit>
     <unit id="aSxePCB" name="filemanager.create_folder_error">
@@ -2933,7 +2933,7 @@
       </notes>
       <segment>
         <source>filemanager.create_folder_error</source>
-        <target>Impossible de créer le dossier</target>
+        <target>Não foi possível criar a pasta</target>
       </segment>
     </unit>
     <unit id="wbFKypA" name="filemanager.create_folder_success">
@@ -2942,7 +2942,7 @@
       </notes>
       <segment>
         <source>filemanager.create_folder_success</source>
-        <target>Dossier créé avec succès.</target>
+        <target>Pasta criada com sucesso.</target>
       </segment>
     </unit>
     <unit id="lZxOEzh" name="filemanager.delete_folder_successful">
@@ -2951,7 +2951,7 @@
       </notes>
       <segment>
         <source>filemanager.delete_folder_successful</source>
-        <target>Dossier supprimé avec succès</target>
+        <target>Pasta excluída com sucesso</target>
       </segment>
     </unit>
     <unit id="a6Xhtq0" name="folder.create_new">
@@ -2960,7 +2960,7 @@
       </notes>
       <segment>
         <source>folder.create_new</source>
-        <target>Nouveau dossier</target>
+        <target>Nova pasta</target>
       </segment>
     </unit>
     <unit id="nWMH_Nr" name="label.avatar">
@@ -2978,7 +2978,7 @@
       </notes>
       <segment>
         <source>login.forgotpassword</source>
-        <target>Mot de passe oublié</target>
+        <target>Esqueceu a senha</target>
       </segment>
     </unit>
     <unit id="y.dIywE" name="reset_password.request_header">
@@ -2989,7 +2989,7 @@
       </notes>
       <segment>
         <source>reset_password.request_header</source>
-        <target>Réinitialiser le mot de passe</target>
+        <target>Redefinir senha</target>
       </segment>
     </unit>
     <unit id="SwOgM7K" name="reset_password.request_description">
@@ -2998,7 +2998,7 @@
       </notes>
       <segment>
         <source>reset_password.request_description</source>
-        <target>Entrez votre adresse e-mail et nous vous enverrons un lien pour réinitialiser votre mot de passe.</target>
+        <target>Digite seu endereço de e-mail e enviaremos um link para redefinir sua senha.</target>
       </segment>
     </unit>
     <unit id="RX0Iuzi" name="reset_password.request_send">
@@ -3007,7 +3007,7 @@
       </notes>
       <segment>
         <source>reset_password.request_send</source>
-        <target>Soumettre</target>
+        <target>Enviar</target>
       </segment>
     </unit>
     <unit id="lpzL089" name="Email">
@@ -3018,7 +3018,7 @@
       </notes>
       <segment>
         <source>Email</source>
-        <target>Email</target>
+        <target>E-mail</target>
       </segment>
     </unit>
     <unit id="k9hekeu" name="reset_password.back-to-login">
@@ -3027,7 +3027,7 @@
       </notes>
       <segment>
         <source>reset_password.back-to-login</source>
-        <target>Retour à la page de connexion</target>
+        <target>Voltar para o login</target>
       </segment>
     </unit>
     <unit id="gVc0Uf4" name="reset_password.reset_header">
@@ -3037,7 +3037,7 @@
       </notes>
       <segment>
         <source>reset_password.reset_header</source>
-        <target>Réinitialisez votre mot de passe</target>
+        <target>Redefina sua senha</target>
       </segment>
     </unit>
     <unit id="U6qdalg" name="reset_password.check_email_sent_header">
@@ -3046,7 +3046,7 @@
       </notes>
       <segment>
         <source>reset_password.check_email_sent_header</source>
-        <target>Email de réinitialisation du mot de passe envoyé</target>
+        <target>E-mail de redefinição de senha enviado</target>
       </segment>
     </unit>
     <unit id="SxW1D3L" name="reset_password.check_email_sent_text_1">
@@ -3055,7 +3055,7 @@
       </notes>
       <segment>
         <source>reset_password.check_email_sent_text_1</source>
-        <target>Un e-mail a été envoyé contenant un lien sur lequel vous pouvez cliquer pour réinitialiser votre mot de passe. Ce lien expirera dans %hours% heure(s).</target>
+        <target>Foi enviado um e-mail contendo um link no qual você pode clicar para redefinir sua senha. Este link expirará em %hours% hora(s).</target>
       </segment>
     </unit>
     <unit id="z25k4DS" name="reset_password.check_email_sent_text_2">
@@ -3064,7 +3064,7 @@
       </notes>
       <segment>
         <source>reset_password.check_email_sent_text_2</source>
-        <target>Si vous ne recevez pas d'e-mail, veuillez vérifier votre dossier spam ou %tryagain%.</target>
+        <target>Se você não receber o e-mail, verifique sua pasta de spam ou %tryagain%.</target>
       </segment>
     </unit>
     <unit id="QpUMHfK" name="reset_password.reset_btn">
@@ -3073,7 +3073,7 @@
       </notes>
       <segment>
         <source>reset_password.reset_btn</source>
-        <target>Réinitialiser le mot de passe</target>
+        <target>Redefinir senha</target>
       </segment>
     </unit>
     <unit id="dp42qbF" name="reset_password.email_title">
@@ -3082,7 +3082,7 @@
       </notes>
       <segment>
         <source>reset_password.email_title</source>
-        <target>Bonjour !</target>
+        <target>Olá!</target>
       </segment>
     </unit>
     <unit id="xS2vvXw" name="reset_password.email_description">
@@ -3091,7 +3091,7 @@
       </notes>
       <segment>
         <source>reset_password.email_description</source>
-        <target>Pour réinitialiser votre mot de passe, veuillez visiter le lien suivant</target>
+        <target>Para redefinir sua senha, visite o link a seguir</target>
       </segment>
     </unit>
     <unit id="apkSD11" name="reset_password.email_expire">
@@ -3100,7 +3100,7 @@
       </notes>
       <segment>
         <source>reset_password.email_expire</source>
-        <target>Ce lien expirera dans %hours% heure(s).</target>
+        <target>Este link expirará em %hours% hora(s).</target>
       </segment>
     </unit>
     <unit id="_gg3hPE" name="reset_password.email_thanks">
@@ -3109,7 +3109,7 @@
       </notes>
       <segment>
         <source>reset_password.email_thanks</source>
-        <target>Merci !</target>
+        <target>Atenciosamente!</target>
       </segment>
     </unit>
     <unit id="harDiJR" name="reset_password.enter_pwd">
@@ -3118,7 +3118,7 @@
       </notes>
       <segment>
         <source>reset_password.enter_pwd</source>
-        <target>Veuillez saisir un mot de passe</target>
+        <target>Digite uma senha</target>
       </segment>
     </unit>
     <unit id="rU9cSfq" name="label.repeat_password">
@@ -3127,7 +3127,7 @@
       </notes>
       <segment>
         <source>label.repeat_password</source>
-        <target>Répéter le mot de passe</target>
+        <target>Repita a senha</target>
       </segment>
     </unit>
     <unit id="Tg5zdeo" name="reset_password.not_matching_pwds">
@@ -3136,7 +3136,7 @@
       </notes>
       <segment>
         <source>reset_password.not_matching_pwds</source>
-        <target>Les champs mot de passe doivent correspondre.</target>
+        <target>Os campos de senha devem coincidir.</target>
       </segment>
     </unit>
     <unit id="1JZeWxG" name="reset_password.minimum_length">
@@ -3145,7 +3145,7 @@
       </notes>
       <segment>
         <source>reset_password.minimum_length</source>
-        <target>Votre mot de passe doit contenir au moins %s caractères</target>
+        <target>Sua senha deve ter pelo menos %s caracteres</target>
       </segment>
     </unit>
     <unit id="GUQYLn2" name="reset_password.no_token">
@@ -3154,7 +3154,7 @@
       </notes>
       <segment>
         <source>reset_password.no_token</source>
-        <target>Aucun jeton de réinitialisation du mot de passe trouvé dans l'URL ou dans la session.</target>
+        <target>Nenhum token de redefinição de senha encontrado na URL ou na sessão.</target>
       </segment>
     </unit>
     <unit id="SjuOnue" name="reset_password.reset_successful">
@@ -3163,7 +3163,7 @@
       </notes>
       <segment>
         <source>reset_password.reset_successful</source>
-        <target>Votre mot de passe a été réinitialisé avec succès.</target>
+        <target>Sua senha foi redefinida com sucesso.</target>
       </segment>
     </unit>
     <unit id="5Xr92sQ" name="reset_password.problem_with_request">
@@ -3173,7 +3173,7 @@
       </notes>
       <segment>
         <source>reset_password.problem_with_request</source>
-        <target>Un problème est survenu lors du traitement de votre demande de réinitialisation de mot de passe - %s</target>
+        <target>Ocorreu um problema ao processar sua solicitação de redefinição de senha - %s</target>
       </segment>
     </unit>
     <unit id="u3DMmBH" name="label.filtered_by">
@@ -3183,7 +3183,7 @@
       </notes>
       <segment>
         <source>label.filtered_by</source>
-        <target>filtré par</target>
+        <target>filtrado por</target>
       </segment>
     </unit>
     <unit id="qoZwSEY" name="action.preview_secure_share">
@@ -3192,7 +3192,7 @@
       </notes>
       <segment>
         <source>action.preview_secure_share</source>
-        <target>Partager un lien d'aperçu sécurisé</target>
+        <target>Compartilhar link de pré-visualização seguro</target>
       </segment>
     </unit>
     <unit id="zYeSeNJ" name="action.stop_impersonating">
@@ -3202,7 +3202,7 @@
       </notes>
       <segment>
         <source>action.stop_impersonating</source>
-        <target>arreter l'usurpation</target>
+        <target>parar de personificar</target>
       </segment>
     </unit>
     <unit id="W7z__Yi" name="action.impersonate">
@@ -3211,7 +3211,7 @@
       </notes>
       <segment>
         <source>action.impersonate</source>
-        <target>usurper</target>
+        <target>personificar</target>
       </segment>
     </unit>
     <unit id="qlucRr7" name="maintenance.activated_warning">
@@ -3220,7 +3220,7 @@
       </notes>
       <segment>
         <source>maintenance.activated_warning</source>
-        <target>Le mode maintenance est activé</target>
+        <target>O modo de manutenção está ativado</target>
       </segment>
     </unit>
     <unit id="CvNi3GD" name="action.refresh">
@@ -3229,7 +3229,7 @@
       </notes>
       <segment>
         <source>action.refresh</source>
-        <target>Actualiser</target>
+        <target>Atualizar</target>
       </segment>
     </unit>
     <unit id="9UKAP.V" name="listing_details_box.showing_records">
@@ -3238,7 +3238,7 @@
       </notes>
       <segment>
         <source>listing_details_box.showing_records</source>
-        <target>Affichage des enregistrements %current% de %total%</target>
+        <target>Exibindo registros %current% de %total%</target>
       </segment>
     </unit>
     <unit id="UrywY0R" name="listing_details_box.name">
@@ -3247,7 +3247,7 @@
       </notes>
       <segment>
         <source>listing_details_box.name</source>
-        <target>Nom : %name% (singulier : %singularName%)</target>
+        <target>Nome: %name% (singular: %singularName%)</target>
       </segment>
     </unit>
     <unit id=".l3zbrq" name="listing_details_box.slug">
@@ -3256,7 +3256,7 @@
       </notes>
       <segment>
         <source>listing_details_box.slug</source>
-        <target>Slug : %slug% (singulier : %singularSlug%)</target>
+        <target>Slug: %slug% (singular: %singularSlug%)</target>
       </segment>
     </unit>
     <unit id="eJ9YbdG" name="listing_details_box.record_template">
@@ -3265,7 +3265,7 @@
       </notes>
       <segment>
         <source>listing_details_box.record_template</source>
-        <target>Modèle de l'enregistrement : %template%</target>
+        <target>Template do registro: %template%</target>
       </segment>
     </unit>
     <unit id="tsc7_G3" name="listing_details_box.listing_template">
@@ -3274,7 +3274,7 @@
       </notes>
       <segment>
         <source>listing_details_box.listing_template</source>
-        <target>Modèle de liste : %template% (%listingRecords% enregistrements)</target>
+        <target>Template da listagem: %template% (%listingRecords% registros)</target>
       </segment>
     </unit>
     <unit id="pPz9Ocx" name="listing_details_box.locales">
@@ -3283,7 +3283,7 @@
       </notes>
       <segment>
         <source>listing_details_box.locales</source>
-        <target>Langues : %locales%</target>
+        <target>Idiomas: %locales%</target>
       </segment>
     </unit>
     <unit id="z8r0TY6" name="action.edit_permissions">
@@ -3293,7 +3293,7 @@
       </notes>
       <segment>
         <source>action.edit_permissions</source>
-        <target>Modifier les permissions</target>
+        <target>Editar permissões</target>
       </segment>
     </unit>
     <unit id="OYUVA5." name="general.label.search">
@@ -3303,7 +3303,7 @@
       </notes>
       <segment>
         <source>general.label.search</source>
-        <target>Rechercher</target>
+        <target>Pesquisar</target>
       </segment>
     </unit>
     <unit id="wG04eAa" name="image.image_preview">
@@ -3312,7 +3312,7 @@
       </notes>
       <segment>
         <source>image.image_preview</source>
-        <target>Prévisualiser l'image</target>
+        <target>Pré-visualizar a imagem</target>
       </segment>
     </unit>
     <unit id="OEqzPDO" name="listing_table.actions.select_all">
@@ -3321,7 +3321,7 @@
       </notes>
       <segment>
         <source>listing_table.actions.select_all</source>
-        <target>Tout sélectionner</target>
+        <target>Selecionar tudo</target>
       </segment>
     </unit>
     <unit id="2hoKa1k" name="label.remembermeduration">
@@ -3330,7 +3330,7 @@
       </notes>
       <segment>
         <source>label.remembermeduration</source>
-        <target>Se souvenir de moi ? (%duration% days)</target>
+        <target>Lembrar de mim? (%duration% dias)</target>
       </segment>
     </unit>
     <unit id="eJG2.4P" name="listing.current_sessions_header">
@@ -3339,7 +3339,7 @@
       </notes>
       <segment>
         <source>listing.current_sessions_header</source>
-        <target>Sessions en cours</target>
+        <target>Sessões atuais</target>
       </segment>
     </unit>
     <unit id="a_COwtV" name="image.button_upload_options">
@@ -3351,7 +3351,7 @@
       </notes>
       <segment>
         <source>image.button_upload_options</source>
-        <target>Option de téléversement</target>
+        <target>Opções de envio</target>
       </segment>
     </unit>
     <unit id="a_CQgly" name="Order">
@@ -3360,7 +3360,7 @@
       </notes>
       <segment>
         <source>Order</source>
-        <target>Ordre</target>
+        <target>Ordem</target>
       </segment>
     </unit>
     <unit id="Y7ajNNN" name="placeholder.email">
@@ -3369,7 +3369,7 @@
       </notes>
       <segment>
         <source>placeholder.email</source>
-        <target>votre email</target>
+        <target>seu e-mail</target>
       </segment>
     </unit>
     <unit id="MjY7.cg" name="modal.title.file_field">
@@ -3379,7 +3379,7 @@
       </notes>
       <segment>
         <source>modal.title.file_field</source>
-        <target>Sélectionner un fichier</target>
+        <target>Selecione um arquivo</target>
       </segment>
     </unit>
     <unit id="0yPnNMd" name="modal.title.image_field">
@@ -3389,7 +3389,7 @@
       </notes>
       <segment>
         <source>modal.title.image_field</source>
-        <target>Sélectionner une image</target>
+        <target>Selecione uma imagem</target>
       </segment>
     </unit>
     <unit id="KIN.Ehy" name="modal.title.upload_from_url">
@@ -3399,7 +3399,7 @@
       </notes>
       <segment>
         <source>modal.title.upload_from_url</source>
-        <target>Téléverser à partir d'une URL</target>
+        <target>Enviar a partir da URL</target>
       </segment>
     </unit>
     <unit id="ODb3pJA" name="modal.text.loading">
@@ -3409,7 +3409,7 @@
       </notes>
       <segment>
         <source>modal.text.loading</source>
-        <target>Chargement...</target>
+        <target>Carregando…</target>
       </segment>
     </unit>
     <unit id="VlfWDQr" name="modal.button_save">
@@ -3422,7 +3422,7 @@
       </notes>
       <segment>
         <source>modal.button_save</source>
-        <target>Enregistrer</target>
+        <target>Salvar</target>
       </segment>
     </unit>
     <unit id="ct_I4w3" name="modal.button_deny">
@@ -3435,7 +3435,7 @@
       </notes>
       <segment>
         <source>modal.button_deny</source>
-        <target>Fermer</target>
+        <target>Fechar</target>
       </segment>
     </unit>
   </file>
