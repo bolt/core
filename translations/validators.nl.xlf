@@ -1,163 +1,195 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="nl" trgLang="nl">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="nl">
   <file id="validators.nl">
     <unit id="zh5oKD9" name="This value should be false.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/IsFalse.php:36</note>
+      </notes>
       <segment>
         <source>This value should be false.</source>
         <target>Deze waarde moet onwaar zijn.</target>
       </segment>
     </unit>
     <unit id="NN2_iru" name="This value should be true.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/IsTrue.php:36</note>
+      </notes>
       <segment>
         <source>This value should be true.</source>
         <target>Deze waarde moet waar zijn.</target>
       </segment>
     </unit>
     <unit id="OjM_kpf" name="This value should be of type {{ type }}.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Type.php:36</note>
+        <note>vendor/symfony/validator/Validator/RecursiveContextualValidator.php:767</note>
+      </notes>
       <segment>
         <source>This value should be of type {{ type }}.</source>
         <target>Deze waarde moet van het type {{ type }} zijn.</target>
       </segment>
     </unit>
     <unit id="f0P5pBD" name="This value should be blank.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Blank.php:36</note>
+      </notes>
       <segment>
         <source>This value should be blank.</source>
         <target>Deze waarde moet leeg zijn.</target>
       </segment>
     </unit>
     <unit id="ih.4TRN" name="The value you selected is not a valid choice.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Choice.php:47</note>
+      </notes>
       <segment>
         <source>The value you selected is not a valid choice.</source>
         <target>De geselecteerde waarde is geen geldige optie.</target>
       </segment>
     </unit>
-    <unit id="7smtimf" name="0d999f2">
-      <segment>
-        <source>0d999f2</source>
-        <target>Selecteer ten minste {{ limit }} optie.|Selecteer ten minste {{ limit }} opties.</target>
-      </segment>
-    </unit>
-    <unit id="JRlXq2Z" name="0824486">
-      <segment>
-        <source>0824486</source>
-        <target>Selecteer maximaal {{ limit }} optie.|Selecteer maximaal {{ limit }} opties.</target>
-      </segment>
-    </unit>
     <unit id="87zjiHi" name="One or more of the given values is invalid.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Choice.php:48</note>
+      </notes>
       <segment>
         <source>One or more of the given values is invalid.</source>
         <target>Eén of meer van de ingegeven waarden zijn ongeldig.</target>
       </segment>
     </unit>
     <unit id="3NeQftv" name="This field was not expected.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Collection.php:42</note>
+      </notes>
       <segment>
         <source>This field was not expected.</source>
         <target>Dit veld werd niet verwacht.</target>
       </segment>
     </unit>
     <unit id="SwMV4zp" name="This field is missing.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Collection.php:43</note>
+      </notes>
       <segment>
         <source>This field is missing.</source>
         <target>Dit veld ontbreekt.</target>
       </segment>
     </unit>
     <unit id="LO2vFKN" name="This value is not a valid date.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Date.php:38</note>
+      </notes>
       <segment>
         <source>This value is not a valid date.</source>
         <target>Deze waarde is geen geldige datum.</target>
       </segment>
     </unit>
     <unit id="86dU_nv" name="This value is not a valid datetime.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/DateTime.php:41</note>
+        <note>vendor/symfony/validator/Constraints/Range.php:50</note>
+      </notes>
       <segment>
         <source>This value is not a valid datetime.</source>
         <target>Deze waarde is geen geldige datum en tijd.</target>
       </segment>
     </unit>
     <unit id="PSvNXdi" name="This value is not a valid email address.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Email.php:54</note>
+      </notes>
       <segment>
         <source>This value is not a valid email address.</source>
         <target>Deze waarde is geen geldig e-mailadres.</target>
       </segment>
     </unit>
     <unit id="3KeHbZy" name="The file could not be found.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/File.php:57</note>
+      </notes>
       <segment>
         <source>The file could not be found.</source>
         <target>Het bestand kon niet gevonden worden.</target>
       </segment>
     </unit>
     <unit id="KtJhQZo" name="The file is not readable.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/File.php:58</note>
+      </notes>
       <segment>
         <source>The file is not readable.</source>
         <target>Het bestand is niet leesbaar.</target>
       </segment>
     </unit>
-    <unit id="2O3FbJ6" name="1ad411a">
-      <segment>
-        <source>1ad411a</source>
-        <target>Het bestand is te groot ({{ size }} {{ suffix }}). Toegestane maximum grootte is {{ limit }} {{ suffix }}.</target>
-      </segment>
-    </unit>
-    <unit id="p4L.BFV" name="30a318d">
-      <segment>
-        <source>30a318d</source>
-        <target>Het mime type van het bestand is ongeldig ({{ type }}). Toegestane mime types zijn {{ types }}.</target>
-      </segment>
-    </unit>
     <unit id="NubOmrs" name="This value should be {{ limit }} or less.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Range.php:48</note>
+      </notes>
       <segment>
         <source>This value should be {{ limit }} or less.</source>
         <target>Deze waarde moet {{ limit }} of minder zijn.</target>
       </segment>
     </unit>
-    <unit id="SjJg9Hy" name="0e0c1e1">
-      <segment>
-        <source>0e0c1e1</source>
-        <target>Deze waarde is te lang. Hij mag maximaal {{ limit }} teken bevatten.|Deze waarde is te lang. Hij mag maximaal {{ limit }} tekens bevatten.</target>
-      </segment>
-    </unit>
     <unit id="qgR8M_U" name="This value should be {{ limit }} or more.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Range.php:47</note>
+      </notes>
       <segment>
         <source>This value should be {{ limit }} or more.</source>
         <target>Deze waarde moet {{ limit }} of meer zijn.</target>
       </segment>
     </unit>
-    <unit id="JJVWzKj" name="5188ff9">
-      <segment>
-        <source>5188ff9</source>
-        <target>Deze waarde is te kort. Hij moet tenminste {{ limit }} teken bevatten.|Deze waarde is te kort. Hij moet tenminste {{ limit }} tekens bevatten.</target>
-      </segment>
-    </unit>
     <unit id="1KV4L.t" name="This value should not be blank.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/NotBlank.php:38</note>
+      </notes>
       <segment>
         <source>This value should not be blank.</source>
         <target>Deze waarde mag niet leeg zijn.</target>
       </segment>
     </unit>
     <unit id="2G4Vepm" name="This value should not be null.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/NotNull.php:36</note>
+      </notes>
       <segment>
         <source>This value should not be null.</source>
         <target>Deze waarde mag niet null zijn.</target>
       </segment>
     </unit>
     <unit id="yDc3m6E" name="This value should be null.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/IsNull.php:36</note>
+      </notes>
       <segment>
         <source>This value should be null.</source>
         <target>Deze waarde moet null zijn.</target>
       </segment>
     </unit>
     <unit id="zKzWejA" name="This value is not valid.">
+      <notes>
+        <note>vendor/symfony/form/Extension/Core/Type/FormType.php:188</note>
+        <note>vendor/symfony/form/Extension/Validator/Type/FormTypeValidatorExtension.php:61</note>
+        <note>vendor/symfony/validator/Constraints/Expression.php:40</note>
+        <note>vendor/symfony/validator/Constraints/Regex.php:37</note>
+      </notes>
       <segment>
         <source>This value is not valid.</source>
         <target>Deze waarde is niet geldig.</target>
       </segment>
     </unit>
     <unit id="HSuBZpQ" name="This value is not a valid time.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Time.php:39</note>
+      </notes>
       <segment>
         <source>This value is not a valid time.</source>
         <target>Deze waarde is geen geldige tijd.</target>
       </segment>
     </unit>
     <unit id="snWc_QT" name="This value is not a valid URL.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Url.php:37</note>
+      </notes>
       <segment>
         <source>This value is not a valid URL.</source>
         <target>Deze waarde is geen geldige URL.</target>
@@ -170,282 +202,300 @@
       </segment>
     </unit>
     <unit id="fIlB1B_" name="The file is too large. Allowed maximum size is {{ limit }} {{ suffix }}.">
+      <notes>
+        <note>vendor/symfony/form/Extension/Core/Type/FileType.php:147</note>
+        <note>vendor/symfony/validator/Constraints/File.php:65</note>
+      </notes>
       <segment>
         <source>The file is too large. Allowed maximum size is {{ limit }} {{ suffix }}.</source>
         <target>Het bestand is te groot. Toegestane maximum grootte is {{ limit }} {{ suffix }}.</target>
       </segment>
     </unit>
     <unit id="tW7o0t9" name="The file is too large.">
+      <notes>
+        <note>vendor/symfony/form/Extension/Core/Type/FileType.php:153</note>
+        <note>vendor/symfony/validator/Constraints/File.php:66</note>
+      </notes>
       <segment>
         <source>The file is too large.</source>
         <target>Het bestand is te groot.</target>
       </segment>
     </unit>
     <unit id=".exF5Ww" name="The file could not be uploaded.">
+      <notes>
+        <note>vendor/symfony/form/Extension/Core/Type/FileType.php:155</note>
+        <note>vendor/symfony/validator/Constraints/File.php:72</note>
+      </notes>
       <segment>
         <source>The file could not be uploaded.</source>
         <target>Het bestand kon niet worden geüpload.</target>
       </segment>
     </unit>
     <unit id="d7sS5yw" name="This value should be a valid number.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Range.php:49</note>
+      </notes>
       <segment>
         <source>This value should be a valid number.</source>
         <target>Deze waarde moet een geldig getal zijn.</target>
       </segment>
     </unit>
     <unit id="BS2Ez6i" name="This file is not a valid image.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Image.php:82</note>
+      </notes>
       <segment>
         <source>This file is not a valid image.</source>
         <target>Dit bestand is geen geldige afbeelding.</target>
       </segment>
     </unit>
     <unit id="ydcT9kU" name="This is not a valid IP address.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Ip.php:85</note>
+      </notes>
       <segment>
         <source>This is not a valid IP address.</source>
         <target>Dit is geen geldig IP-adres.</target>
       </segment>
     </unit>
     <unit id="lDOGNFX" name="This value is not a valid language.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Language.php:38</note>
+      </notes>
       <segment>
         <source>This value is not a valid language.</source>
         <target>Deze waarde is geen geldige taal.</target>
       </segment>
     </unit>
     <unit id="y9IdYkA" name="This value is not a valid locale.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Locale.php:38</note>
+      </notes>
       <segment>
         <source>This value is not a valid locale.</source>
         <target>Deze waarde is geen geldige locale.</target>
       </segment>
     </unit>
     <unit id="1YC0pOd" name="This value is not a valid country.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Country.php:38</note>
+      </notes>
       <segment>
         <source>This value is not a valid country.</source>
         <target>Deze waarde is geen geldig land.</target>
       </segment>
     </unit>
     <unit id="B5ebaMp" name="This value is already used.">
+      <notes>
+        <note>vendor/symfony/doctrine-bridge/Validator/Constraints/UniqueEntity.php:33</note>
+      </notes>
       <segment>
         <source>This value is already used.</source>
         <target>Deze waarde wordt al gebruikt.</target>
       </segment>
     </unit>
     <unit id="L6097a6" name="The size of the image could not be detected.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Image.php:83</note>
+      </notes>
       <segment>
         <source>The size of the image could not be detected.</source>
         <target>De grootte van de afbeelding kon niet bepaald worden.</target>
       </segment>
     </unit>
-    <unit id="g9NoIBz" name="266051e">
-      <segment>
-        <source>266051e</source>
-        <target>De afbeelding is te breed ({{ width }}px). De maximaal toegestane breedte is {{ max_width }}px.</target>
-      </segment>
-    </unit>
-    <unit id="HTsQNva" name="c1c23f9">
-      <segment>
-        <source>c1c23f9</source>
-        <target>De afbeelding is niet breed genoeg ({{ width }}px). De minimaal verwachte breedte is {{ min_width }}px.</target>
-      </segment>
-    </unit>
-    <unit id="h3PRqha" name="9a128f7">
-      <segment>
-        <source>9a128f7</source>
-        <target>De afbeelding is te hoog ({{ height }}px). De maximaal toegestane hoogte is {{ max_height }}px.</target>
-      </segment>
-    </unit>
-    <unit id="IVraZ3b" name="8a4cd70">
-      <segment>
-        <source>8a4cd70</source>
-        <target>De afbeelding is niet hoog genoeg ({{ height }}px). De minimaal verwachte hoogte is {{ min_height }}px.</target>
-      </segment>
-    </unit>
     <unit id="PSdMNab" name="This value should be the user's current password.">
+      <notes>
+        <note>vendor/symfony/security-core/Validator/Constraints/UserPassword.php:29</note>
+      </notes>
       <segment>
         <source>This value should be the user's current password.</source>
         <target>Deze waarde moet het huidige wachtwoord van de gebruiker zijn.</target>
       </segment>
     </unit>
-    <unit id="Anek_FY" name="fd389d6">
-      <segment>
-        <source>fd389d6</source>
-        <target>Deze waarde moet exact {{ limit }} teken lang zijn.|Deze waarde moet exact {{ limit }} tekens lang zijn.</target>
-      </segment>
-    </unit>
     <unit id="xJ2Bcr_" name="The file was only partially uploaded.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/File.php:67</note>
+      </notes>
       <segment>
         <source>The file was only partially uploaded.</source>
         <target>Het bestand is slechts gedeeltelijk geüpload.</target>
       </segment>
     </unit>
     <unit id="HzkJDtF" name="No file was uploaded.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/File.php:68</note>
+      </notes>
       <segment>
         <source>No file was uploaded.</source>
         <target>Er is geen bestand geüpload.</target>
       </segment>
     </unit>
     <unit id="mHfEaB3" name="No temporary folder was configured in php.ini.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/File.php:69</note>
+      </notes>
       <segment>
         <source>No temporary folder was configured in php.ini.</source>
         <target>Er is geen tijdelijke map geconfigureerd in php.ini, of de gespecificeerde map bestaat niet.</target>
       </segment>
     </unit>
     <unit id="y9K3BGb" name="Cannot write temporary file to disk.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/File.php:70</note>
+      </notes>
       <segment>
         <source>Cannot write temporary file to disk.</source>
         <target>Kan het tijdelijke bestand niet wegschrijven op disk.</target>
       </segment>
     </unit>
     <unit id="kx3yHIM" name="A PHP extension caused the upload to fail.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/File.php:71</note>
+      </notes>
       <segment>
         <source>A PHP extension caused the upload to fail.</source>
         <target>De upload is mislukt vanwege een PHP-extensie.</target>
       </segment>
     </unit>
-    <unit id="YuLxmhd" name="b54c218">
-      <segment>
-        <source>b54c218</source>
-        <target>Deze collectie moet {{ limit }} element of meer bevatten.|Deze collectie moet {{ limit }} elementen of meer bevatten.</target>
-      </segment>
-    </unit>
-    <unit id="qXV2OMI" name="949632c">
-      <segment>
-        <source>949632c</source>
-        <target>Deze collectie moet {{ limit }} element of minder bevatten.|Deze collectie moet {{ limit }} elementen of minder bevatten.</target>
-      </segment>
-    </unit>
-    <unit id="BnjGMFh" name="e0582dc">
-      <segment>
-        <source>e0582dc</source>
-        <target>Deze collectie moet exact {{ limit }} element bevatten.|Deze collectie moet exact {{ limit }} elementen bevatten.</target>
-      </segment>
-    </unit>
     <unit id="MAzmID7" name="Invalid card number.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Luhn.php:42</note>
+      </notes>
       <segment>
         <source>Invalid card number.</source>
         <target>Ongeldig creditcardnummer.</target>
       </segment>
     </unit>
     <unit id="c3REGK3" name="Unsupported card type or invalid card number.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/CardScheme.php:54</note>
+      </notes>
       <segment>
         <source>Unsupported card type or invalid card number.</source>
         <target>Niet-ondersteund type creditcard of ongeldig nummer.</target>
       </segment>
     </unit>
     <unit id="XSVzcbV" name="This is not a valid International Bank Account Number (IBAN).">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Iban.php:46</note>
+      </notes>
       <segment>
         <source>This is not a valid International Bank Account Number (IBAN).</source>
         <target>Dit is geen geldig internationaal bankrekeningnummer (IBAN).</target>
       </segment>
     </unit>
     <unit id="yHirwNr" name="This value is not a valid ISBN-10.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Isbn.php:49</note>
+      </notes>
       <segment>
         <source>This value is not a valid ISBN-10.</source>
         <target>Deze waarde is geen geldige ISBN-10.</target>
       </segment>
     </unit>
     <unit id="c_q0_ua" name="This value is not a valid ISBN-13.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Isbn.php:50</note>
+      </notes>
       <segment>
         <source>This value is not a valid ISBN-13.</source>
         <target>Deze waarde is geen geldige ISBN-13.</target>
       </segment>
     </unit>
     <unit id="M4FlD6n" name="This value is neither a valid ISBN-10 nor a valid ISBN-13.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Isbn.php:51</note>
+      </notes>
       <segment>
         <source>This value is neither a valid ISBN-10 nor a valid ISBN-13.</source>
         <target>Deze waarde is geen geldige ISBN-10 of ISBN-13 waarde.</target>
       </segment>
     </unit>
     <unit id="cuct0Ow" name="This value is not a valid ISSN.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Issn.php:47</note>
+      </notes>
       <segment>
         <source>This value is not a valid ISSN.</source>
         <target>Deze waarde is geen geldige ISSN waarde.</target>
       </segment>
     </unit>
     <unit id="JBLs1a1" name="This value is not a valid currency.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Currency.php:39</note>
+      </notes>
       <segment>
         <source>This value is not a valid currency.</source>
         <target>Deze waarde is geen geldige valuta.</target>
       </segment>
     </unit>
     <unit id="c.WxzFW" name="This value should be equal to {{ compared_value }}.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/EqualTo.php:35</note>
+      </notes>
       <segment>
         <source>This value should be equal to {{ compared_value }}.</source>
         <target>Deze waarde moet gelijk zijn aan {{ compared_value }}.</target>
       </segment>
     </unit>
     <unit id="_jdjkwq" name="This value should be greater than {{ compared_value }}.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/GreaterThan.php:35</note>
+      </notes>
       <segment>
         <source>This value should be greater than {{ compared_value }}.</source>
         <target>Deze waarde moet groter zijn dan {{ compared_value }}.</target>
       </segment>
     </unit>
     <unit id="o8A8a0H" name="This value should be greater than or equal to {{ compared_value }}.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/GreaterThanOrEqual.php:35</note>
+      </notes>
       <segment>
         <source>This value should be greater than or equal to {{ compared_value }}.</source>
         <target>Deze waarde moet groter dan of gelijk aan {{ compared_value }} zijn.</target>
       </segment>
     </unit>
-    <unit id="SreIWoo" name="9670078">
-      <segment>
-        <source>9670078</source>
-        <target>Deze waarde moet identiek zijn aan {{ compared_value_type }} {{ compared_value }}.</target>
-      </segment>
-    </unit>
     <unit id="jG0QFKw" name="This value should be less than {{ compared_value }}.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/LessThan.php:35</note>
+      </notes>
       <segment>
         <source>This value should be less than {{ compared_value }}.</source>
         <target>Deze waarde moet minder zijn dan {{ compared_value }}.</target>
       </segment>
     </unit>
     <unit id="9lWrKmm" name="This value should be less than or equal to {{ compared_value }}.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/LessThanOrEqual.php:35</note>
+      </notes>
       <segment>
         <source>This value should be less than or equal to {{ compared_value }}.</source>
         <target>Deze waarde moet minder dan of gelijk aan {{ compared_value }} zijn.</target>
       </segment>
     </unit>
     <unit id="ftTwGs." name="This value should not be equal to {{ compared_value }}.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/NotEqualTo.php:35</note>
+      </notes>
       <segment>
         <source>This value should not be equal to {{ compared_value }}.</source>
         <target>Deze waarde mag niet gelijk zijn aan {{ compared_value }}.</target>
       </segment>
     </unit>
-    <unit id="JIjdvtb" name="0eedf91">
-      <segment>
-        <source>0eedf91</source>
-        <target>Deze waarde mag niet identiek zijn aan {{ compared_value_type }} {{ compared_value }}.</target>
-      </segment>
-    </unit>
-    <unit id="vzvxzpR" name="9c3ad0f">
-      <segment>
-        <source>9c3ad0f</source>
-        <target>De afbeeldingsverhouding is te groot ({{ ratio }}). Maximale verhouding is {{ max_ratio }}.</target>
-      </segment>
-    </unit>
-    <unit id="LiDaIWN" name="4376d45">
-      <segment>
-        <source>4376d45</source>
-        <target>De afbeeldingsverhouding is te klein ({{ ratio }}). Minimale verhouding is {{ min_ratio }}.</target>
-      </segment>
-    </unit>
     <unit id="rpajj.a" name="The image is square ({{ width }}x{{ height }}px). Square images are not allowed.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Image.php:92</note>
+      </notes>
       <segment>
         <source>The image is square ({{ width }}x{{ height }}px). Square images are not allowed.</source>
         <target>De afbeelding is vierkant ({{ width }}x{{ height }}px). Vierkante afbeeldingen zijn niet toegestaan.</target>
       </segment>
     </unit>
-    <unit id="501jWTO" name="1dc128a">
-      <segment>
-        <source>1dc128a</source>
-        <target>De afbeelding is liggend ({{ width }}x{{ height }}px). Liggende afbeeldingen zijn niet toegestaan.</target>
-      </segment>
-    </unit>
-    <unit id="J4L.QnM" name="9e27714">
-      <segment>
-        <source>9e27714</source>
-        <target>De afbeelding is staand ({{ width }}x{{ height }}px). Staande afbeeldingen zijn niet toegestaan.</target>
-      </segment>
-    </unit>
     <unit id="jZgqcpL" name="An empty file is not allowed.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/File.php:62</note>
+      </notes>
       <segment>
         <source>An empty file is not allowed.</source>
         <target>Lege bestanden zijn niet toegestaan.</target>
@@ -458,174 +508,211 @@
       </segment>
     </unit>
     <unit id="NtzKvgt" name="This value does not match the expected {{ charset }} charset.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Length.php:57</note>
+      </notes>
       <segment>
         <source>This value does not match the expected {{ charset }} charset.</source>
         <target>Deze waarde is niet in de verwachte tekencodering {{ charset }}.</target>
       </segment>
     </unit>
     <unit id="Wi2y9.N" name="This is not a valid Business Identifier Code (BIC).">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Bic.php:49</note>
+      </notes>
       <segment>
         <source>This is not a valid Business Identifier Code (BIC).</source>
         <target>Dit is geen geldige bedrijfsidentificatiecode (BIC/SWIFT).</target>
       </segment>
     </unit>
     <unit id="VKDowX6" name="Error">
+      <notes>
+        <note>assets/js/app/ajax-save.js:37</note>
+      </notes>
       <segment>
         <source>Error</source>
         <target>Fout</target>
       </segment>
     </unit>
     <unit id="8zqt0Ik" name="This is not a valid UUID.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Uuid.php:80</note>
+      </notes>
       <segment>
         <source>This is not a valid UUID.</source>
         <target>Dit is geen geldige UUID.</target>
       </segment>
     </unit>
     <unit id="ru.4wkH" name="This value should be a multiple of {{ compared_value }}.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/DivisibleBy.php:34</note>
+      </notes>
       <segment>
         <source>This value should be a multiple of {{ compared_value }}.</source>
         <target>Deze waarde zou een meervoud van {{ compared_value }} moeten zijn.</target>
       </segment>
     </unit>
     <unit id="M3vyK6s" name="This Business Identifier Code (BIC) is not associated with IBAN {{ iban }}.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Bic.php:50</note>
+      </notes>
       <segment>
         <source>This Business Identifier Code (BIC) is not associated with IBAN {{ iban }}.</source>
         <target>Deze bedrijfsidentificatiecode (BIC) is niet gekoppeld aan IBAN {{ iban }}.</target>
       </segment>
     </unit>
     <unit id="2v2xpAh" name="This value should be valid JSON.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Json.php:36</note>
+      </notes>
       <segment>
         <source>This value should be valid JSON.</source>
         <target>Deze waarde moet geldige JSON zijn.</target>
       </segment>
     </unit>
     <unit id="9CWVEGq" name="This collection should contain only unique elements.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Unique.php:39</note>
+      </notes>
       <segment>
         <source>This collection should contain only unique elements.</source>
         <target>Deze collectie moet alleen unieke elementen bevatten.</target>
       </segment>
     </unit>
     <unit id="WdvZfq." name="This value should be positive.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Positive.php:25</note>
+      </notes>
       <segment>
         <source>This value should be positive.</source>
         <target>Deze waarde moet positief zijn.</target>
       </segment>
     </unit>
     <unit id="ubHMK2q" name="This value should be either positive or zero.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/PositiveOrZero.php:25</note>
+      </notes>
       <segment>
         <source>This value should be either positive or zero.</source>
         <target>Deze waarde moet positief of gelijk aan nul zijn.</target>
       </segment>
     </unit>
     <unit id="IwNTzo_" name="This value should be negative.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Negative.php:25</note>
+      </notes>
       <segment>
         <source>This value should be negative.</source>
         <target>Deze waarde moet negatief zijn.</target>
       </segment>
     </unit>
     <unit id="0GfwMfP" name="This value should be either negative or zero.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/NegativeOrZero.php:25</note>
+      </notes>
       <segment>
         <source>This value should be either negative or zero.</source>
         <target>Deze waarde moet negatief of gelijk aan nul zijn.</target>
       </segment>
     </unit>
     <unit id="fs3qQZR" name="This value is not a valid timezone.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Timezone.php:35</note>
+      </notes>
       <segment>
         <source>This value is not a valid timezone.</source>
         <target>Deze waarde is geen geldige tijdzone.</target>
       </segment>
     </unit>
-    <unit id="A3Gr4fn" name="7e27e92">
-      <segment>
-        <source>7e27e92</source>
-        <target>Dit wachtwoord is gelekt vanwege een data-inbreuk, het moet niet worden gebruikt. Kies een ander wachtwoord.</target>
-      </segment>
-    </unit>
     <unit id="VvxxWas" name="This value should be between {{ min }} and {{ max }}.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Range.php:46</note>
+      </notes>
       <segment>
         <source>This value should be between {{ min }} and {{ max }}.</source>
         <target>Deze waarde moet zich tussen {{ min }} en {{ max }} bevinden.</target>
       </segment>
     </unit>
     <unit id=".SEaaBa" name="This form should not contain extra fields.">
+      <notes>
+        <note>vendor/symfony/form/Extension/Validator/Type/FormTypeValidatorExtension.php:64</note>
+      </notes>
       <segment>
         <source>This form should not contain extra fields.</source>
         <target>Dit formulier mag geen extra velden bevatten.</target>
       </segment>
     </unit>
     <unit id="WPnLAh9" name="The uploaded file was too large. Please try to upload a smaller file.">
+      <notes>
+        <note>vendor/symfony/form/Extension/Core/Type/FormType.php:181</note>
+      </notes>
       <segment>
         <source>The uploaded file was too large. Please try to upload a smaller file.</source>
         <target>Het geüploade bestand is te groot. Probeer een kleiner bestand te uploaden.</target>
       </segment>
     </unit>
     <unit id="fvxWW3V" name="The CSRF token is invalid. Please try to resubmit the form.">
+      <notes>
+        <note>vendor/symfony/form/Extension/Csrf/Type/FormTypeCsrfExtension.php:101</note>
+      </notes>
       <segment>
         <source>The CSRF token is invalid. Please try to resubmit the form.</source>
         <target>De CSRF-token is ongeldig. Probeer het formulier opnieuw te versturen.</target>
       </segment>
     </unit>
-    <unit id="TG1D5NO" name="post.blank_summary">
+    <unit id="LDy5h0B" name="user.duplicate_email">
       <notes>
-        <note priority="1">obsolete</note>
+        <note>src/Entity/User.php:24</note>
       </notes>
       <segment>
-        <source>post.blank_summary</source>
-        <target>Geef uw bericht een samenvatting.</target>
+        <source>user.duplicate_email</source>
+        <target>Er bestaat al een gebruiker met het e-mailadres {{ value }}.</target>
       </segment>
     </unit>
-    <unit id="BZOzjk." name="post.blank_content">
+    <unit id="D4OMpCY" name="user.duplicate_username">
       <notes>
-        <note priority="1">obsolete</note>
+        <note>src/Entity/User.php:25</note>
       </notes>
       <segment>
-        <source>post.blank_content</source>
-        <target>Uw bericht heeft nog geen inhoud.</target>
+        <source>user.duplicate_username</source>
+        <target>Er bestaat al een gebruiker met de gebruikersnaam {{ value }}.</target>
       </segment>
     </unit>
-    <unit id="S6M.YWY" name="post.too_short_content">
+    <unit id="HjWW.NS" name="user.not_valid_password">
       <notes>
-        <note priority="1">obsolete</note>
+        <note>src/Entity/User.php:57</note>
       </notes>
       <segment>
-        <source>post.too_short_content</source>
-        <target>Bericht inhoud is te kort (minimaal {{ limit }} karakters)</target>
+        <source>user.not_valid_password</source>
+        <target>Ongeldig wachtwoord. Het wachtwoord moet minstens 6 tekens bevatten.</target>
       </segment>
     </unit>
-    <unit id="ARUoKOV" name="comment.blank">
+    <unit id="fkXL.k6" name="user.not_valid_email">
       <notes>
-        <note priority="1">obsolete</note>
+        <note>src/Entity/User.php:49</note>
       </notes>
       <segment>
-        <source>comment.blank</source>
-        <target>Vul alstublieft een reactie in.</target>
+        <source>user.not_valid_email</source>
+        <target>Ongeldig e-mailadres</target>
       </segment>
     </unit>
-    <unit id="J.L_ppQ" name="comment.too_short">
+    <unit id="4eH4IFY" name="user.username_invalid_characters">
       <notes>
-        <note priority="1">obsolete</note>
+        <note>src/Entity/User.php:43</note>
       </notes>
       <segment>
-        <source>comment.too_short</source>
-        <target>Reactie is te kort (minimaal {{ limit }} karakters)</target>
+        <source>user.username_invalid_characters</source>
+        <target>De gebruikersnaam mag alleen kleine Latijnse letters, cijfers en underscores bevatten.</target>
       </segment>
     </unit>
-    <unit id=".bkQKXb" name="comment.too_long">
+    <unit id="4oq.CNw" name="user.not_valid_display_name">
       <notes>
-        <note priority="1">obsolete</note>
+        <note>src/Entity/User.php:35</note>
+        <note>src/Entity/User.php:36</note>
       </notes>
       <segment>
-        <source>comment.too_long</source>
-        <target>Reactie is te lang (maximaal {{ limit }} karakters)</target>
-      </segment>
-    </unit>
-    <unit id="cTT8h4_" name="comment.is_spam">
-      <notes>
-        <note priority="1">obsolete</note>
-      </notes>
-      <segment>
-        <source>comment.is_spam</source>
-        <target>De inhoud van deze reactie wordt als spam gemarkeerd.</target>
+        <source>user.not_valid_display_name</source>
+        <target>Ongeldige weergavenaam</target>
       </segment>
     </unit>
   </file>

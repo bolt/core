@@ -2,162 +2,194 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="cs">
   <file id="validators.cs">
     <unit id="zh5oKD9" name="This value should be false.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/IsFalse.php:36</note>
+      </notes>
       <segment>
         <source>This value should be false.</source>
         <target>Tato hodnota by měla být false.</target>
       </segment>
     </unit>
     <unit id="NN2_iru" name="This value should be true.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/IsTrue.php:36</note>
+      </notes>
       <segment>
         <source>This value should be true.</source>
         <target>Tato hodnota by měla být true.</target>
       </segment>
     </unit>
     <unit id="OjM_kpf" name="This value should be of type {{ type }}.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Type.php:36</note>
+        <note>vendor/symfony/validator/Validator/RecursiveContextualValidator.php:767</note>
+      </notes>
       <segment>
         <source>This value should be of type {{ type }}.</source>
         <target>Tato hodnota by měla být typu {{ type }}.</target>
       </segment>
     </unit>
     <unit id="f0P5pBD" name="This value should be blank.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Blank.php:36</note>
+      </notes>
       <segment>
         <source>This value should be blank.</source>
         <target>Tato hodnota by měla být prázdná.</target>
       </segment>
     </unit>
     <unit id="ih.4TRN" name="The value you selected is not a valid choice.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Choice.php:47</note>
+      </notes>
       <segment>
         <source>The value you selected is not a valid choice.</source>
         <target>Vámi vybraná hodnota není platnou volbou.</target>
       </segment>
     </unit>
-    <unit id="7smtimf" name="0d999f2">
-      <segment>
-        <source>0d999f2</source>
-        <target>Musíte vybrat alespoň {{ limit }} možnost.|Musíte vybrat alespoň {{ limit }} možností.</target>
-      </segment>
-    </unit>
-    <unit id="JRlXq2Z" name="0824486">
-      <segment>
-        <source>0824486</source>
-        <target>Musíte vybrat nejvýše {{ limit }} možnost.|Musíte vybrat nejvýše {{ limit }} možností.</target>
-      </segment>
-    </unit>
     <unit id="87zjiHi" name="One or more of the given values is invalid.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Choice.php:48</note>
+      </notes>
       <segment>
         <source>One or more of the given values is invalid.</source>
         <target>Jedna nebo více zadaných hodnot je neplatná.</target>
       </segment>
     </unit>
     <unit id="3NeQftv" name="This field was not expected.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Collection.php:42</note>
+      </notes>
       <segment>
         <source>This field was not expected.</source>
         <target>Toto pole se neočekávalo.</target>
       </segment>
     </unit>
     <unit id="SwMV4zp" name="This field is missing.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Collection.php:43</note>
+      </notes>
       <segment>
         <source>This field is missing.</source>
         <target>Toto pole chybí.</target>
       </segment>
     </unit>
     <unit id="LO2vFKN" name="This value is not a valid date.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Date.php:38</note>
+      </notes>
       <segment>
         <source>This value is not a valid date.</source>
         <target>Tato hodnota neodpovídá platnému datu.</target>
       </segment>
     </unit>
     <unit id="86dU_nv" name="This value is not a valid datetime.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/DateTime.php:41</note>
+        <note>vendor/symfony/validator/Constraints/Range.php:50</note>
+      </notes>
       <segment>
         <source>This value is not a valid datetime.</source>
         <target>Tato hodnota neodpovídá platnému datu a času.</target>
       </segment>
     </unit>
     <unit id="PSvNXdi" name="This value is not a valid email address.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Email.php:54</note>
+      </notes>
       <segment>
         <source>This value is not a valid email address.</source>
         <target>Tato hodnota není platnou e-mailovou adresou.</target>
       </segment>
     </unit>
     <unit id="3KeHbZy" name="The file could not be found.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/File.php:57</note>
+      </notes>
       <segment>
         <source>The file could not be found.</source>
         <target>Soubor se nepodařilo najít.</target>
       </segment>
     </unit>
     <unit id="KtJhQZo" name="The file is not readable.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/File.php:58</note>
+      </notes>
       <segment>
         <source>The file is not readable.</source>
         <target>Soubor není čitelný.</target>
       </segment>
     </unit>
-    <unit id="2O3FbJ6" name="1ad411a">
-      <segment>
-        <source>1ad411a</source>
-        <target>Soubor je příliš velký ({{ size }} {{ suffix }}). Maximální povolená velikost je {{ limit }} {{ suffix }}.</target>
-      </segment>
-    </unit>
-    <unit id="p4L.BFV" name="30a318d">
-      <segment>
-        <source>30a318d</source>
-        <target>Typ mime souboru je neplatný ({{ type }}). Povolené typy mime jsou {{ types }}.</target>
-      </segment>
-    </unit>
     <unit id="NubOmrs" name="This value should be {{ limit }} or less.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Range.php:48</note>
+      </notes>
       <segment>
         <source>This value should be {{ limit }} or less.</source>
         <target>Tato hodnota by měla být {{ limit }} nebo nižší.</target>
       </segment>
     </unit>
-    <unit id="SjJg9Hy" name="0e0c1e1">
-      <segment>
-        <source>0e0c1e1</source>
-        <target>Tato hodnota je příliš dlouhá. Měla by mít maximálně {{ limit }} znak nebo méně.|Tato hodnota je příliš dlouhá. Měla by mít maximálně {{ limit }} znaků nebo méně.</target>
-      </segment>
-    </unit>
     <unit id="qgR8M_U" name="This value should be {{ limit }} or more.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Range.php:47</note>
+      </notes>
       <segment>
         <source>This value should be {{ limit }} or more.</source>
         <target>Tato hodnota by měla být {{ limit }} nebo vyšší.</target>
       </segment>
     </unit>
-    <unit id="JJVWzKj" name="5188ff9">
-      <segment>
-        <source>5188ff9</source>
-        <target>Tato hodnota je příliš krátká. Měla by mít minimálně {{ limit }} znak nebo více.|Tato hodnota je příliš krátká. Měla by mít minimálně {{ limit }} znaků nebo více.</target>
-      </segment>
-    </unit>
     <unit id="1KV4L.t" name="This value should not be blank.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/NotBlank.php:38</note>
+      </notes>
       <segment>
         <source>This value should not be blank.</source>
         <target>Tato hodnota by neměla být prázdná.</target>
       </segment>
     </unit>
     <unit id="2G4Vepm" name="This value should not be null.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/NotNull.php:36</note>
+      </notes>
       <segment>
         <source>This value should not be null.</source>
         <target>Tato hodnota by neměla být null.</target>
       </segment>
     </unit>
     <unit id="yDc3m6E" name="This value should be null.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/IsNull.php:36</note>
+      </notes>
       <segment>
         <source>This value should be null.</source>
         <target>Tato hodnota by měla být null.</target>
       </segment>
     </unit>
     <unit id="zKzWejA" name="This value is not valid.">
+      <notes>
+        <note>vendor/symfony/form/Extension/Core/Type/FormType.php:188</note>
+        <note>vendor/symfony/form/Extension/Validator/Type/FormTypeValidatorExtension.php:61</note>
+        <note>vendor/symfony/validator/Constraints/Expression.php:40</note>
+        <note>vendor/symfony/validator/Constraints/Regex.php:37</note>
+      </notes>
       <segment>
         <source>This value is not valid.</source>
         <target>Tato hodnota není platná.</target>
       </segment>
     </unit>
     <unit id="HSuBZpQ" name="This value is not a valid time.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Time.php:39</note>
+      </notes>
       <segment>
         <source>This value is not a valid time.</source>
         <target>Tato hodnota neodpovídá platné časové specifikaci.</target>
       </segment>
     </unit>
     <unit id="snWc_QT" name="This value is not a valid URL.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Url.php:37</note>
+      </notes>
       <segment>
         <source>This value is not a valid URL.</source>
         <target>Tato hodnota není platnou adresou URL.</target>
@@ -170,282 +202,300 @@
       </segment>
     </unit>
     <unit id="fIlB1B_" name="The file is too large. Allowed maximum size is {{ limit }} {{ suffix }}.">
+      <notes>
+        <note>vendor/symfony/form/Extension/Core/Type/FileType.php:147</note>
+        <note>vendor/symfony/validator/Constraints/File.php:65</note>
+      </notes>
       <segment>
         <source>The file is too large. Allowed maximum size is {{ limit }} {{ suffix }}.</source>
         <target>Soubor je příliš velký. Maximální povolená velikost je {{ limit }} {{ suffix }}.</target>
       </segment>
     </unit>
     <unit id="tW7o0t9" name="The file is too large.">
+      <notes>
+        <note>vendor/symfony/form/Extension/Core/Type/FileType.php:153</note>
+        <note>vendor/symfony/validator/Constraints/File.php:66</note>
+      </notes>
       <segment>
         <source>The file is too large.</source>
         <target>Soubor je příliš velký.</target>
       </segment>
     </unit>
     <unit id=".exF5Ww" name="The file could not be uploaded.">
+      <notes>
+        <note>vendor/symfony/form/Extension/Core/Type/FileType.php:155</note>
+        <note>vendor/symfony/validator/Constraints/File.php:72</note>
+      </notes>
       <segment>
         <source>The file could not be uploaded.</source>
         <target>Soubor se nepodařilo nahrát.</target>
       </segment>
     </unit>
     <unit id="d7sS5yw" name="This value should be a valid number.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Range.php:49</note>
+      </notes>
       <segment>
         <source>This value should be a valid number.</source>
         <target>Tato hodnota by měla být platné číslo.</target>
       </segment>
     </unit>
     <unit id="BS2Ez6i" name="This file is not a valid image.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Image.php:82</note>
+      </notes>
       <segment>
         <source>This file is not a valid image.</source>
         <target>Tento soubor není platným obrázkem.</target>
       </segment>
     </unit>
     <unit id="ydcT9kU" name="This is not a valid IP address.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Ip.php:85</note>
+      </notes>
       <segment>
         <source>This is not a valid IP address.</source>
         <target>Toto není platná IP adresa.</target>
       </segment>
     </unit>
     <unit id="lDOGNFX" name="This value is not a valid language.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Language.php:38</note>
+      </notes>
       <segment>
         <source>This value is not a valid language.</source>
         <target>Tato hodnota není platným jazykem.</target>
       </segment>
     </unit>
     <unit id="y9IdYkA" name="This value is not a valid locale.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Locale.php:38</note>
+      </notes>
       <segment>
         <source>This value is not a valid locale.</source>
         <target>Tato hodnota neodpovídá platnému národnímu prostředí.</target>
       </segment>
     </unit>
     <unit id="1YC0pOd" name="This value is not a valid country.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Country.php:38</note>
+      </notes>
       <segment>
         <source>This value is not a valid country.</source>
         <target>Tato hodnota není platnou zemí.</target>
       </segment>
     </unit>
     <unit id="B5ebaMp" name="This value is already used.">
+      <notes>
+        <note>vendor/symfony/doctrine-bridge/Validator/Constraints/UniqueEntity.php:33</note>
+      </notes>
       <segment>
         <source>This value is already used.</source>
         <target>Tato hodnota je již použita.</target>
       </segment>
     </unit>
     <unit id="L6097a6" name="The size of the image could not be detected.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Image.php:83</note>
+      </notes>
       <segment>
         <source>The size of the image could not be detected.</source>
         <target>Velikost obrázku se nepodařilo zjistit.</target>
       </segment>
     </unit>
-    <unit id="g9NoIBz" name="266051e">
-      <segment>
-        <source>266051e</source>
-        <target>Šířka obrázku je příliš velká ({{ width }}px). Povolená maximální šířka je {{ max_width }}px.</target>
-      </segment>
-    </unit>
-    <unit id="HTsQNva" name="c1c23f9">
-      <segment>
-        <source>c1c23f9</source>
-        <target>Šířka obrázku je příliš malá ({{ width }}px). Minimální očekávaná šířka je {{ min_width }}px.</target>
-      </segment>
-    </unit>
-    <unit id="h3PRqha" name="9a128f7">
-      <segment>
-        <source>9a128f7</source>
-        <target>Výška obrázku je příliš velká ({{ height }}px). Povolená maximální výška je {{ max_height }}px.</target>
-      </segment>
-    </unit>
-    <unit id="IVraZ3b" name="8a4cd70">
-      <segment>
-        <source>8a4cd70</source>
-        <target>Výška obrázku je příliš malá ({{ height }}px). Minimální očekávaná výška je {{ min_height }}px.</target>
-      </segment>
-    </unit>
     <unit id="PSdMNab" name="This value should be the user's current password.">
+      <notes>
+        <note>vendor/symfony/security-core/Validator/Constraints/UserPassword.php:29</note>
+      </notes>
       <segment>
         <source>This value should be the user's current password.</source>
         <target>Tato hodnota by měla odpovídat aktuálnímu uživatelskému heslu.</target>
       </segment>
     </unit>
-    <unit id="Anek_FY" name="fd389d6">
-      <segment>
-        <source>fd389d6</source>
-        <target>Tato hodnota by měla mít přesně {{ limit }} znak.|Tato hodnota by měla mít přesně {{ limit }} znaků.</target>
-      </segment>
-    </unit>
     <unit id="xJ2Bcr_" name="The file was only partially uploaded.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/File.php:67</note>
+      </notes>
       <segment>
         <source>The file was only partially uploaded.</source>
         <target>Soubor byl nahrán pouze částečně.</target>
       </segment>
     </unit>
     <unit id="HzkJDtF" name="No file was uploaded.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/File.php:68</note>
+      </notes>
       <segment>
         <source>No file was uploaded.</source>
         <target>Nebyl nahrán žádný soubor.</target>
       </segment>
     </unit>
     <unit id="mHfEaB3" name="No temporary folder was configured in php.ini.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/File.php:69</note>
+      </notes>
       <segment>
         <source>No temporary folder was configured in php.ini.</source>
         <target>V souboru php.ini nebyla nakonfigurována žádná dočasná složka nebo nakonfigurovaná složka neexistuje.</target>
       </segment>
     </unit>
     <unit id="y9K3BGb" name="Cannot write temporary file to disk.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/File.php:70</note>
+      </notes>
       <segment>
         <source>Cannot write temporary file to disk.</source>
         <target>Nelze zapsat dočasný soubor na disk.</target>
       </segment>
     </unit>
     <unit id="kx3yHIM" name="A PHP extension caused the upload to fail.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/File.php:71</note>
+      </notes>
       <segment>
         <source>A PHP extension caused the upload to fail.</source>
         <target>Nahrávání se nezdařilo kvůli PHP rozšíření.</target>
       </segment>
     </unit>
-    <unit id="YuLxmhd" name="b54c218">
-      <segment>
-        <source>b54c218</source>
-        <target>Tato kolekce by měla obsahovat alespoň {{ limit }} prvek nebo více.|Tato kolekce by měla obsahovat alespoň {{ limit }} prvků nebo více.</target>
-      </segment>
-    </unit>
-    <unit id="qXV2OMI" name="949632c">
-      <segment>
-        <source>949632c</source>
-        <target>Tato kolekce by měla obsahovat maximálně {{ limit }} prvek.|Tato kolekce by měla obsahovat maximálně {{ limit }} prvků nebo méně.</target>
-      </segment>
-    </unit>
-    <unit id="BnjGMFh" name="e0582dc">
-      <segment>
-        <source>e0582dc</source>
-        <target>Tato kolekce by měla obsahovat právě {{ limit }} prvek.|Tato kolekce by měla obsahovat právě {{ limit }} prvků.</target>
-      </segment>
-    </unit>
     <unit id="MAzmID7" name="Invalid card number.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Luhn.php:42</note>
+      </notes>
       <segment>
         <source>Invalid card number.</source>
         <target>Neplatné číslo karty.</target>
       </segment>
     </unit>
     <unit id="c3REGK3" name="Unsupported card type or invalid card number.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/CardScheme.php:54</note>
+      </notes>
       <segment>
         <source>Unsupported card type or invalid card number.</source>
         <target>Nepodporovaný typ karty nebo neplatné číslo karty.</target>
       </segment>
     </unit>
     <unit id="XSVzcbV" name="This is not a valid International Bank Account Number (IBAN).">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Iban.php:46</note>
+      </notes>
       <segment>
         <source>This is not a valid International Bank Account Number (IBAN).</source>
         <target>Toto není platné mezinárodní číslo bankovního účtu (IBAN).</target>
       </segment>
     </unit>
     <unit id="yHirwNr" name="This value is not a valid ISBN-10.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Isbn.php:49</note>
+      </notes>
       <segment>
         <source>This value is not a valid ISBN-10.</source>
         <target>Tato hodnota není platným ISBN-10.</target>
       </segment>
     </unit>
     <unit id="c_q0_ua" name="This value is not a valid ISBN-13.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Isbn.php:50</note>
+      </notes>
       <segment>
         <source>This value is not a valid ISBN-13.</source>
         <target>Tato hodnota není platným ISBN-13.</target>
       </segment>
     </unit>
     <unit id="M4FlD6n" name="This value is neither a valid ISBN-10 nor a valid ISBN-13.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Isbn.php:51</note>
+      </notes>
       <segment>
         <source>This value is neither a valid ISBN-10 nor a valid ISBN-13.</source>
         <target>Tato hodnota není platným číslem ISBN-10 ani platným číslem ISBN-13.</target>
       </segment>
     </unit>
     <unit id="cuct0Ow" name="This value is not a valid ISSN.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Issn.php:47</note>
+      </notes>
       <segment>
         <source>This value is not a valid ISSN.</source>
         <target>Tato hodnota není platným ISSN.</target>
       </segment>
     </unit>
     <unit id="JBLs1a1" name="This value is not a valid currency.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Currency.php:39</note>
+      </notes>
       <segment>
         <source>This value is not a valid currency.</source>
         <target>Tato hodnota není platnou měnou.</target>
       </segment>
     </unit>
     <unit id="c.WxzFW" name="This value should be equal to {{ compared_value }}.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/EqualTo.php:35</note>
+      </notes>
       <segment>
         <source>This value should be equal to {{ compared_value }}.</source>
         <target>Tato hodnota by se měla rovnat {{ compared_value }}.</target>
       </segment>
     </unit>
     <unit id="_jdjkwq" name="This value should be greater than {{ compared_value }}.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/GreaterThan.php:35</note>
+      </notes>
       <segment>
         <source>This value should be greater than {{ compared_value }}.</source>
         <target>Tato hodnota by měla být větší než {{ compared_value }}.</target>
       </segment>
     </unit>
     <unit id="o8A8a0H" name="This value should be greater than or equal to {{ compared_value }}.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/GreaterThanOrEqual.php:35</note>
+      </notes>
       <segment>
         <source>This value should be greater than or equal to {{ compared_value }}.</source>
         <target>Tato hodnota by měla být větší nebo rovna {{ compared_value }}.</target>
       </segment>
     </unit>
-    <unit id="SreIWoo" name="9670078">
-      <segment>
-        <source>9670078</source>
-        <target>Tato hodnota by měla být shodná s {{ compared_value_type }} {{ compared_value }}.</target>
-      </segment>
-    </unit>
     <unit id="jG0QFKw" name="This value should be less than {{ compared_value }}.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/LessThan.php:35</note>
+      </notes>
       <segment>
         <source>This value should be less than {{ compared_value }}.</source>
         <target>Tato hodnota by měla být menší než {{ compared_value }}.</target>
       </segment>
     </unit>
     <unit id="9lWrKmm" name="This value should be less than or equal to {{ compared_value }}.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/LessThanOrEqual.php:35</note>
+      </notes>
       <segment>
         <source>This value should be less than or equal to {{ compared_value }}.</source>
         <target>Tato hodnota by měla být menší nebo rovna {{ compared_value }}.</target>
       </segment>
     </unit>
     <unit id="ftTwGs." name="This value should not be equal to {{ compared_value }}.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/NotEqualTo.php:35</note>
+      </notes>
       <segment>
         <source>This value should not be equal to {{ compared_value }}.</source>
         <target>Tato hodnota by neměla být rovna {{ compared_value }}.</target>
       </segment>
     </unit>
-    <unit id="JIjdvtb" name="0eedf91">
-      <segment>
-        <source>0eedf91</source>
-        <target>Tato hodnota by neměla být totožná s {{ compared_value_type }} {{ compared_value }}.</target>
-      </segment>
-    </unit>
-    <unit id="vzvxzpR" name="9c3ad0f">
-      <segment>
-        <source>9c3ad0f</source>
-        <target>Poměr obrázku je příliš velký ({{ ratio }}). Maximálně povolený poměr je {{ max_ratio }}.</target>
-      </segment>
-    </unit>
-    <unit id="LiDaIWN" name="4376d45">
-      <segment>
-        <source>4376d45</source>
-        <target>Poměr obrázku je příliš malý ({{ ratio }}). Minimální očekávaný poměr je {{ min_ratio }}.</target>
-      </segment>
-    </unit>
     <unit id="rpajj.a" name="The image is square ({{ width }}x{{ height }}px). Square images are not allowed.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Image.php:92</note>
+      </notes>
       <segment>
         <source>The image is square ({{ width }}x{{ height }}px). Square images are not allowed.</source>
         <target>Obrázek je čtvercový ({{ width }}x{{ height }}px). Čtvercové obrázky nejsou povoleny.</target>
       </segment>
     </unit>
-    <unit id="501jWTO" name="1dc128a">
-      <segment>
-        <source>1dc128a</source>
-        <target>Obrázek je orientován na šířku ({{ width }}x{{ height }}px). Obrázky orientované na šířku nejsou povoleny.</target>
-      </segment>
-    </unit>
-    <unit id="J4L.QnM" name="9e27714">
-      <segment>
-        <source>9e27714</source>
-        <target>Obrázek je orientován na výšku ({{ width }}x{{ height }}px). Obrázky orientované na výšku nejsou povoleny.</target>
-      </segment>
-    </unit>
     <unit id="jZgqcpL" name="An empty file is not allowed.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/File.php:62</note>
+      </notes>
       <segment>
         <source>An empty file is not allowed.</source>
         <target>Prázdný soubor není povolen.</target>
@@ -458,216 +508,208 @@
       </segment>
     </unit>
     <unit id="NtzKvgt" name="This value does not match the expected {{ charset }} charset.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Length.php:57</note>
+      </notes>
       <segment>
         <source>This value does not match the expected {{ charset }} charset.</source>
         <target>Tato hodnota neodpovídá očekávané {{ charset }} znakové sadě.</target>
       </segment>
     </unit>
     <unit id="Wi2y9.N" name="This is not a valid Business Identifier Code (BIC).">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Bic.php:49</note>
+      </notes>
       <segment>
         <source>This is not a valid Business Identifier Code (BIC).</source>
         <target>Toto není platný identifikační kód podniku (BIC).</target>
       </segment>
     </unit>
     <unit id="VKDowX6" name="Error">
+      <notes>
+        <note>assets/js/app/ajax-save.js:37</note>
+      </notes>
       <segment>
         <source>Error</source>
         <target>Chyba</target>
       </segment>
     </unit>
     <unit id="8zqt0Ik" name="This is not a valid UUID.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Uuid.php:80</note>
+      </notes>
       <segment>
         <source>This is not a valid UUID.</source>
         <target>Toto není platný identifikátor UUID.</target>
       </segment>
     </unit>
     <unit id="ru.4wkH" name="This value should be a multiple of {{ compared_value }}.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/DivisibleBy.php:34</note>
+      </notes>
       <segment>
         <source>This value should be a multiple of {{ compared_value }}.</source>
-        <target>Tato hodnota by měla být násobkem hodnoty{{ compared_value }}.</target>
+        <target>Tato hodnota by měla být násobkem hodnoty {{ compared_value }}.</target>
       </segment>
     </unit>
     <unit id="M3vyK6s" name="This Business Identifier Code (BIC) is not associated with IBAN {{ iban }}.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Bic.php:50</note>
+      </notes>
       <segment>
         <source>This Business Identifier Code (BIC) is not associated with IBAN {{ iban }}.</source>
         <target>Tento obchodní identifikační kód (BIC) není spojen s IBAN {{ iban }}.</target>
       </segment>
     </unit>
     <unit id="2v2xpAh" name="This value should be valid JSON.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Json.php:36</note>
+      </notes>
       <segment>
         <source>This value should be valid JSON.</source>
         <target>Tato hodnota by měla být platný JSON.</target>
       </segment>
     </unit>
     <unit id="9CWVEGq" name="This collection should contain only unique elements.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Unique.php:39</note>
+      </notes>
       <segment>
         <source>This collection should contain only unique elements.</source>
-        <target>Tato kolekce by měla obsahovat pouze unikátní prvky</target>
+        <target>Tato kolekce by měla obsahovat pouze unikátní prvky.</target>
       </segment>
     </unit>
     <unit id="WdvZfq." name="This value should be positive.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Positive.php:25</note>
+      </notes>
       <segment>
         <source>This value should be positive.</source>
         <target>Tato hodnota by měla být kladná.</target>
       </segment>
     </unit>
     <unit id="ubHMK2q" name="This value should be either positive or zero.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/PositiveOrZero.php:25</note>
+      </notes>
       <segment>
         <source>This value should be either positive or zero.</source>
         <target>Tato hodnota by měla být buď kladná, nebo nula.</target>
       </segment>
     </unit>
     <unit id="IwNTzo_" name="This value should be negative.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Negative.php:25</note>
+      </notes>
       <segment>
         <source>This value should be negative.</source>
         <target>Tato hodnota by měla být záporná.</target>
       </segment>
     </unit>
     <unit id="0GfwMfP" name="This value should be either negative or zero.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/NegativeOrZero.php:25</note>
+      </notes>
       <segment>
         <source>This value should be either negative or zero.</source>
         <target>Tato hodnota by měla být buď záporná, nebo nula.</target>
       </segment>
     </unit>
     <unit id="fs3qQZR" name="This value is not a valid timezone.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Timezone.php:35</note>
+      </notes>
       <segment>
         <source>This value is not a valid timezone.</source>
         <target>Tato hodnota není platným časovým pásmem.</target>
       </segment>
     </unit>
-    <unit id="A3Gr4fn" name="7e27e92">
-      <segment>
-        <source>7e27e92</source>
-        <target>Toto heslo uniklo při úniku dat a nesmí být použito. Použijte prosím jiné heslo.</target>
-      </segment>
-    </unit>
     <unit id="VvxxWas" name="This value should be between {{ min }} and {{ max }}.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Range.php:46</note>
+      </notes>
       <segment>
         <source>This value should be between {{ min }} and {{ max }}.</source>
         <target>Tato hodnota by měla být mezi {{ min }} a {{ max }}.</target>
       </segment>
     </unit>
     <unit id=".SEaaBa" name="This form should not contain extra fields.">
+      <notes>
+        <note>vendor/symfony/form/Extension/Validator/Type/FormTypeValidatorExtension.php:64</note>
+      </notes>
       <segment>
         <source>This form should not contain extra fields.</source>
         <target>Tento formulář by neměl obsahovat žádná další pole.</target>
       </segment>
     </unit>
     <unit id="WPnLAh9" name="The uploaded file was too large. Please try to upload a smaller file.">
+      <notes>
+        <note>vendor/symfony/form/Extension/Core/Type/FormType.php:181</note>
+      </notes>
       <segment>
         <source>The uploaded file was too large. Please try to upload a smaller file.</source>
         <target>Nahraný soubor je příliš velký. Zkuste prosím nahrát menší soubor.</target>
       </segment>
     </unit>
     <unit id="fvxWW3V" name="The CSRF token is invalid. Please try to resubmit the form.">
+      <notes>
+        <note>vendor/symfony/form/Extension/Csrf/Type/FormTypeCsrfExtension.php:101</note>
+      </notes>
       <segment>
         <source>The CSRF token is invalid. Please try to resubmit the form.</source>
         <target>Token CSRF je neplatný. Zkuste prosím formulář odeslat znovu.</target>
       </segment>
     </unit>
-    <unit id="TG1D5NO" name="post.blank_summary">
-      <notes>
-        <note priority="1">obsolete</note>
-      </notes>
-      <segment>
-        <source>post.blank_summary</source>
-        <target>Uveďte prosím shrnutí svého příspěvku!</target>
-      </segment>
-    </unit>
-    <unit id="BZOzjk." name="post.blank_content">
-      <notes>
-        <note priority="1">obsolete</note>
-      </notes>
-      <segment>
-        <source>post.blank_content</source>
-        <target>Váš příspěvek by měl mít nějaký obsah!</target>
-      </segment>
-    </unit>
-    <unit id="S6M.YWY" name="post.too_short_content">
-      <notes>
-        <note priority="1">obsolete</note>
-      </notes>
-      <segment>
-        <source>post.too_short_content</source>
-        <target>Obsah příspěvku je příliš krátký (minimálně {{ limit }} znaků)</target>
-      </segment>
-    </unit>
-    <unit id="niM7JYj" name="post.too_many_tags">
-      <notes>
-        <note priority="1">obsolete</note>
-      </notes>
-      <segment>
-        <source>post.too_many_tags</source>
-        <target>Příliš mnoho značek (přidejte {{ limit }} značek nebo méně)</target>
-      </segment>
-    </unit>
-    <unit id="ARUoKOV" name="comment.blank">
-      <notes>
-        <note priority="1">obsolete</note>
-      </notes>
-      <segment>
-        <source>comment.blank</source>
-        <target>Nenechávejte prosím svůj komentář prázdný!</target>
-      </segment>
-    </unit>
-    <unit id="J.L_ppQ" name="comment.too_short">
-      <notes>
-        <note priority="1">obsolete</note>
-      </notes>
-      <segment>
-        <source>comment.too_short</source>
-        <target>Komentář je příliš krátký (minimálně {{ limit }} znaků)</target>
-      </segment>
-    </unit>
-    <unit id=".bkQKXb" name="comment.too_long">
-      <notes>
-        <note priority="1">obsolete</note>
-      </notes>
-      <segment>
-        <source>comment.too_long</source>
-        <target>Komentář je příliš dlouhý ({{ limit }} maximálně znaků)</target>
-      </segment>
-    </unit>
-    <unit id="cTT8h4_" name="comment.is_spam">
-      <notes>
-        <note priority="1">obsolete</note>
-      </notes>
-      <segment>
-        <source>comment.is_spam</source>
-        <target>Obsah tohoto komentáře je považován za spam.</target>
-      </segment>
-    </unit>
     <unit id="LDy5h0B" name="user.duplicate_email">
+      <notes>
+        <note>src/Entity/User.php:24</note>
+      </notes>
       <segment>
         <source>user.duplicate_email</source>
-        <target>Uživatel s {{ value }} e-mailem již existuje.</target>
+        <target>Uživatel s e-mailem {{ value }} již existuje.</target>
       </segment>
     </unit>
     <unit id="D4OMpCY" name="user.duplicate_username">
+      <notes>
+        <note>src/Entity/User.php:25</note>
+      </notes>
       <segment>
         <source>user.duplicate_username</source>
         <target>Uživatel s uživatelským jménem {{ value }} již existuje.</target>
       </segment>
     </unit>
     <unit id="HjWW.NS" name="user.not_valid_password">
+      <notes>
+        <note>src/Entity/User.php:57</note>
+      </notes>
       <segment>
         <source>user.not_valid_password</source>
         <target>Neplatné heslo. Heslo by mělo obsahovat alespoň 6 znaků.</target>
       </segment>
     </unit>
     <unit id="fkXL.k6" name="user.not_valid_email">
+      <notes>
+        <note>src/Entity/User.php:49</note>
+      </notes>
       <segment>
         <source>user.not_valid_email</source>
         <target>Neplatný e-mail</target>
       </segment>
     </unit>
     <unit id="4eH4IFY" name="user.username_invalid_characters">
+      <notes>
+        <note>src/Entity/User.php:43</note>
+      </notes>
       <segment>
         <source>user.username_invalid_characters</source>
         <target>Uživatelské jméno musí obsahovat pouze malá písmena latinky, čísla a podtržítka.</target>
       </segment>
     </unit>
     <unit id="4oq.CNw" name="user.not_valid_display_name">
+      <notes>
+        <note>src/Entity/User.php:35</note>
+        <note>src/Entity/User.php:36</note>
+      </notes>
       <segment>
         <source>user.not_valid_display_name</source>
         <target>Nesprávné zobrazované jméno</target>

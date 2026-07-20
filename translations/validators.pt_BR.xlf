@@ -1,50 +1,719 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-  <file source-language="en" target-language="pt-BR" datatype="plaintext" original="file.ext">
-    <header>
-      <tool tool-id="symfony" tool-name="Symfony"/>
-    </header>
-    <body>
-      <trans-unit id="TG1D5NO" resname="post.blank_summary">
-        <source>post.blank_summary</source>
-        <target>Informe um sumário para o seu post!</target>
-        <note priority="1">obsolete</note>
-      </trans-unit>
-      <trans-unit id="BZOzjk." resname="post.blank_content">
-        <source>post.blank_content</source>
-        <target>Informe um conteúdo para o seu post!</target>
-        <note priority="1">obsolete</note>
-      </trans-unit>
-      <trans-unit id="S6M.YWY" resname="post.too_short_content">
-        <source>post.too_short_content</source>
-        <target>O conteúdo do post está muito curto (mínimo de {{ limit }} caracteres)</target>
-        <note priority="1">obsolete</note>
-      </trans-unit>
-      <trans-unit id="niM7JYj" resname="post.too_many_tags">
-        <source>post.too_many_tags</source>
-        <target>Tags demais (adicione {{ limit }} tags ou menos)</target>
-        <note priority="1">obsolete</note>
-      </trans-unit>
-      <trans-unit id="ARUoKOV" resname="comment.blank">
-        <source>comment.blank</source>
-        <target>Por favor, não deixe seu comentário vazio!</target>
-        <note priority="1">obsolete</note>
-      </trans-unit>
-      <trans-unit id="J.L_ppQ" resname="comment.too_short">
-        <source>comment.too_short</source>
-        <target>O comentário está muito curto (mínimo de {{ limit }} caracteres)</target>
-        <note priority="1">obsolete</note>
-      </trans-unit>
-      <trans-unit id=".bkQKXb" resname="comment.too_long">
-        <source>comment.too_long</source>
-        <target>O comentário está muito grande (máximo de {{ limit }} caracteres)</target>
-        <note priority="1">obsolete</note>
-      </trans-unit>
-      <trans-unit id="cTT8h4_" resname="comment.is_spam">
-        <source>comment.is_spam</source>
-        <target>O conteúdo desse comentário é considerado spam.</target>
-        <note priority="1">obsolete</note>
-      </trans-unit>
-    </body>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="pt-BR">
+  <file id="validators.pt_BR">
+    <unit id="zh5oKD9" name="This value should be false.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/IsFalse.php:36</note>
+      </notes>
+      <segment>
+        <source>This value should be false.</source>
+        <target>Este valor deve ser falso.</target>
+      </segment>
+    </unit>
+    <unit id="NN2_iru" name="This value should be true.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/IsTrue.php:36</note>
+      </notes>
+      <segment>
+        <source>This value should be true.</source>
+        <target>Este valor deve ser verdadeiro.</target>
+      </segment>
+    </unit>
+    <unit id="OjM_kpf" name="This value should be of type {{ type }}.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Type.php:36</note>
+        <note>vendor/symfony/validator/Validator/RecursiveContextualValidator.php:767</note>
+      </notes>
+      <segment>
+        <source>This value should be of type {{ type }}.</source>
+        <target>Este valor deve ser do tipo {{ type }}.</target>
+      </segment>
+    </unit>
+    <unit id="f0P5pBD" name="This value should be blank.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Blank.php:36</note>
+      </notes>
+      <segment>
+        <source>This value should be blank.</source>
+        <target>Este valor deve ser vazio.</target>
+      </segment>
+    </unit>
+    <unit id="ih.4TRN" name="The value you selected is not a valid choice.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Choice.php:47</note>
+      </notes>
+      <segment>
+        <source>The value you selected is not a valid choice.</source>
+        <target>O valor selecionado não é uma opção válida.</target>
+      </segment>
+    </unit>
+    <unit id="87zjiHi" name="One or more of the given values is invalid.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Choice.php:48</note>
+      </notes>
+      <segment>
+        <source>One or more of the given values is invalid.</source>
+        <target>Um ou mais valores informados são inválidos.</target>
+      </segment>
+    </unit>
+    <unit id="3NeQftv" name="This field was not expected.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Collection.php:42</note>
+      </notes>
+      <segment>
+        <source>This field was not expected.</source>
+        <target>Este campo não era esperado.</target>
+      </segment>
+    </unit>
+    <unit id="SwMV4zp" name="This field is missing.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Collection.php:43</note>
+      </notes>
+      <segment>
+        <source>This field is missing.</source>
+        <target>Este campo está ausente.</target>
+      </segment>
+    </unit>
+    <unit id="LO2vFKN" name="This value is not a valid date.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Date.php:38</note>
+      </notes>
+      <segment>
+        <source>This value is not a valid date.</source>
+        <target>Este valor não é uma data válida.</target>
+      </segment>
+    </unit>
+    <unit id="86dU_nv" name="This value is not a valid datetime.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/DateTime.php:41</note>
+        <note>vendor/symfony/validator/Constraints/Range.php:50</note>
+      </notes>
+      <segment>
+        <source>This value is not a valid datetime.</source>
+        <target>Este valor não é uma data e hora válida.</target>
+      </segment>
+    </unit>
+    <unit id="PSvNXdi" name="This value is not a valid email address.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Email.php:54</note>
+      </notes>
+      <segment>
+        <source>This value is not a valid email address.</source>
+        <target>Este valor não é um endereço de e-mail válido.</target>
+      </segment>
+    </unit>
+    <unit id="3KeHbZy" name="The file could not be found.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/File.php:57</note>
+      </notes>
+      <segment>
+        <source>The file could not be found.</source>
+        <target>O arquivo não foi encontrado.</target>
+      </segment>
+    </unit>
+    <unit id="KtJhQZo" name="The file is not readable.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/File.php:58</note>
+      </notes>
+      <segment>
+        <source>The file is not readable.</source>
+        <target>O arquivo não pode ser lido.</target>
+      </segment>
+    </unit>
+    <unit id="NubOmrs" name="This value should be {{ limit }} or less.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Range.php:48</note>
+      </notes>
+      <segment>
+        <source>This value should be {{ limit }} or less.</source>
+        <target>Este valor deve ser {{ limit }} ou menos.</target>
+      </segment>
+    </unit>
+    <unit id="qgR8M_U" name="This value should be {{ limit }} or more.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Range.php:47</note>
+      </notes>
+      <segment>
+        <source>This value should be {{ limit }} or more.</source>
+        <target>Este valor deve ser {{ limit }} ou mais.</target>
+      </segment>
+    </unit>
+    <unit id="1KV4L.t" name="This value should not be blank.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/NotBlank.php:38</note>
+      </notes>
+      <segment>
+        <source>This value should not be blank.</source>
+        <target>Este valor não deve ser vazio.</target>
+      </segment>
+    </unit>
+    <unit id="2G4Vepm" name="This value should not be null.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/NotNull.php:36</note>
+      </notes>
+      <segment>
+        <source>This value should not be null.</source>
+        <target>Este valor não deve ser nulo.</target>
+      </segment>
+    </unit>
+    <unit id="yDc3m6E" name="This value should be null.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/IsNull.php:36</note>
+      </notes>
+      <segment>
+        <source>This value should be null.</source>
+        <target>Este valor deve ser nulo.</target>
+      </segment>
+    </unit>
+    <unit id="zKzWejA" name="This value is not valid.">
+      <notes>
+        <note>vendor/symfony/form/Extension/Core/Type/FormType.php:188</note>
+        <note>vendor/symfony/form/Extension/Validator/Type/FormTypeValidatorExtension.php:61</note>
+        <note>vendor/symfony/validator/Constraints/Expression.php:40</note>
+        <note>vendor/symfony/validator/Constraints/Regex.php:37</note>
+      </notes>
+      <segment>
+        <source>This value is not valid.</source>
+        <target>Este valor não é válido.</target>
+      </segment>
+    </unit>
+    <unit id="HSuBZpQ" name="This value is not a valid time.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Time.php:39</note>
+      </notes>
+      <segment>
+        <source>This value is not a valid time.</source>
+        <target>Este valor não é uma hora válida.</target>
+      </segment>
+    </unit>
+    <unit id="snWc_QT" name="This value is not a valid URL.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Url.php:37</note>
+      </notes>
+      <segment>
+        <source>This value is not a valid URL.</source>
+        <target>Este valor não é uma URL válida.</target>
+      </segment>
+    </unit>
+    <unit id="jpaLsb2" name="The two values should be equal.">
+      <segment>
+        <source>The two values should be equal.</source>
+        <target>Os dois valores devem ser iguais.</target>
+      </segment>
+    </unit>
+    <unit id="fIlB1B_" name="The file is too large. Allowed maximum size is {{ limit }} {{ suffix }}.">
+      <notes>
+        <note>vendor/symfony/form/Extension/Core/Type/FileType.php:147</note>
+        <note>vendor/symfony/validator/Constraints/File.php:65</note>
+      </notes>
+      <segment>
+        <source>The file is too large. Allowed maximum size is {{ limit }} {{ suffix }}.</source>
+        <target>O arquivo é muito grande. O tamanho máximo permitido é de {{ limit }} {{ suffix }}.</target>
+      </segment>
+    </unit>
+    <unit id="tW7o0t9" name="The file is too large.">
+      <notes>
+        <note>vendor/symfony/form/Extension/Core/Type/FileType.php:153</note>
+        <note>vendor/symfony/validator/Constraints/File.php:66</note>
+      </notes>
+      <segment>
+        <source>The file is too large.</source>
+        <target>O arquivo é muito grande.</target>
+      </segment>
+    </unit>
+    <unit id=".exF5Ww" name="The file could not be uploaded.">
+      <notes>
+        <note>vendor/symfony/form/Extension/Core/Type/FileType.php:155</note>
+        <note>vendor/symfony/validator/Constraints/File.php:72</note>
+      </notes>
+      <segment>
+        <source>The file could not be uploaded.</source>
+        <target>O arquivo não pode ser enviado.</target>
+      </segment>
+    </unit>
+    <unit id="d7sS5yw" name="This value should be a valid number.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Range.php:49</note>
+      </notes>
+      <segment>
+        <source>This value should be a valid number.</source>
+        <target>Este valor deve ser um número válido.</target>
+      </segment>
+    </unit>
+    <unit id="BS2Ez6i" name="This file is not a valid image.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Image.php:82</note>
+      </notes>
+      <segment>
+        <source>This file is not a valid image.</source>
+        <target>Este arquivo não é uma imagem válida.</target>
+      </segment>
+    </unit>
+    <unit id="ydcT9kU" name="This is not a valid IP address.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Ip.php:85</note>
+      </notes>
+      <segment>
+        <source>This is not a valid IP address.</source>
+        <target>Este não é um endereço de IP válido.</target>
+      </segment>
+    </unit>
+    <unit id="lDOGNFX" name="This value is not a valid language.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Language.php:38</note>
+      </notes>
+      <segment>
+        <source>This value is not a valid language.</source>
+        <target>Este valor não é um idioma válido.</target>
+      </segment>
+    </unit>
+    <unit id="y9IdYkA" name="This value is not a valid locale.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Locale.php:38</note>
+      </notes>
+      <segment>
+        <source>This value is not a valid locale.</source>
+        <target>Este valor não é uma localidade válida.</target>
+      </segment>
+    </unit>
+    <unit id="1YC0pOd" name="This value is not a valid country.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Country.php:38</note>
+      </notes>
+      <segment>
+        <source>This value is not a valid country.</source>
+        <target>Este valor não é um país válido.</target>
+      </segment>
+    </unit>
+    <unit id="B5ebaMp" name="This value is already used.">
+      <notes>
+        <note>vendor/symfony/doctrine-bridge/Validator/Constraints/UniqueEntity.php:33</note>
+      </notes>
+      <segment>
+        <source>This value is already used.</source>
+        <target>Este valor já está sendo usado.</target>
+      </segment>
+    </unit>
+    <unit id="L6097a6" name="The size of the image could not be detected.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Image.php:83</note>
+      </notes>
+      <segment>
+        <source>The size of the image could not be detected.</source>
+        <target>O tamanho da imagem não pode ser detectado.</target>
+      </segment>
+    </unit>
+    <unit id="PSdMNab" name="This value should be the user's current password.">
+      <notes>
+        <note>vendor/symfony/security-core/Validator/Constraints/UserPassword.php:29</note>
+      </notes>
+      <segment>
+        <source>This value should be the user's current password.</source>
+        <target>Este valor deve ser a senha atual do usuário.</target>
+      </segment>
+    </unit>
+    <unit id="xJ2Bcr_" name="The file was only partially uploaded.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/File.php:67</note>
+      </notes>
+      <segment>
+        <source>The file was only partially uploaded.</source>
+        <target>O arquivo foi enviado apenas parcialmente.</target>
+      </segment>
+    </unit>
+    <unit id="HzkJDtF" name="No file was uploaded.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/File.php:68</note>
+      </notes>
+      <segment>
+        <source>No file was uploaded.</source>
+        <target>Nenhum arquivo foi enviado.</target>
+      </segment>
+    </unit>
+    <unit id="mHfEaB3" name="No temporary folder was configured in php.ini.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/File.php:69</note>
+      </notes>
+      <segment>
+        <source>No temporary folder was configured in php.ini.</source>
+        <target>Nenhuma pasta temporária foi configurada no php.ini, ou a pasta configurada não existe.</target>
+      </segment>
+    </unit>
+    <unit id="y9K3BGb" name="Cannot write temporary file to disk.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/File.php:70</note>
+      </notes>
+      <segment>
+        <source>Cannot write temporary file to disk.</source>
+        <target>Não foi possível escrever o arquivo temporário no disco.</target>
+      </segment>
+    </unit>
+    <unit id="kx3yHIM" name="A PHP extension caused the upload to fail.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/File.php:71</note>
+      </notes>
+      <segment>
+        <source>A PHP extension caused the upload to fail.</source>
+        <target>Uma extensão PHP fez com que o envio falhasse.</target>
+      </segment>
+    </unit>
+    <unit id="MAzmID7" name="Invalid card number.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Luhn.php:42</note>
+      </notes>
+      <segment>
+        <source>Invalid card number.</source>
+        <target>Número de cartão inválido.</target>
+      </segment>
+    </unit>
+    <unit id="c3REGK3" name="Unsupported card type or invalid card number.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/CardScheme.php:54</note>
+      </notes>
+      <segment>
+        <source>Unsupported card type or invalid card number.</source>
+        <target>Tipo de cartão não suportado ou número de cartão inválido.</target>
+      </segment>
+    </unit>
+    <unit id="XSVzcbV" name="This is not a valid International Bank Account Number (IBAN).">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Iban.php:46</note>
+      </notes>
+      <segment>
+        <source>This is not a valid International Bank Account Number (IBAN).</source>
+        <target>Este não é um Número Internacional de Conta Bancária (IBAN) válido.</target>
+      </segment>
+    </unit>
+    <unit id="yHirwNr" name="This value is not a valid ISBN-10.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Isbn.php:49</note>
+      </notes>
+      <segment>
+        <source>This value is not a valid ISBN-10.</source>
+        <target>Este valor não é um ISBN-10 válido.</target>
+      </segment>
+    </unit>
+    <unit id="c_q0_ua" name="This value is not a valid ISBN-13.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Isbn.php:50</note>
+      </notes>
+      <segment>
+        <source>This value is not a valid ISBN-13.</source>
+        <target>Este valor não é um ISBN-13 válido.</target>
+      </segment>
+    </unit>
+    <unit id="M4FlD6n" name="This value is neither a valid ISBN-10 nor a valid ISBN-13.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Isbn.php:51</note>
+      </notes>
+      <segment>
+        <source>This value is neither a valid ISBN-10 nor a valid ISBN-13.</source>
+        <target>Este valor não é um ISBN-10 e nem um ISBN-13 válido.</target>
+      </segment>
+    </unit>
+    <unit id="cuct0Ow" name="This value is not a valid ISSN.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Issn.php:47</note>
+      </notes>
+      <segment>
+        <source>This value is not a valid ISSN.</source>
+        <target>Este valor não é um ISSN válido.</target>
+      </segment>
+    </unit>
+    <unit id="JBLs1a1" name="This value is not a valid currency.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Currency.php:39</note>
+      </notes>
+      <segment>
+        <source>This value is not a valid currency.</source>
+        <target>Este não é um valor monetário válido.</target>
+      </segment>
+    </unit>
+    <unit id="c.WxzFW" name="This value should be equal to {{ compared_value }}.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/EqualTo.php:35</note>
+      </notes>
+      <segment>
+        <source>This value should be equal to {{ compared_value }}.</source>
+        <target>Este valor deve ser igual a {{ compared_value }}.</target>
+      </segment>
+    </unit>
+    <unit id="_jdjkwq" name="This value should be greater than {{ compared_value }}.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/GreaterThan.php:35</note>
+      </notes>
+      <segment>
+        <source>This value should be greater than {{ compared_value }}.</source>
+        <target>Este valor deve ser maior que {{ compared_value }}.</target>
+      </segment>
+    </unit>
+    <unit id="o8A8a0H" name="This value should be greater than or equal to {{ compared_value }}.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/GreaterThanOrEqual.php:35</note>
+      </notes>
+      <segment>
+        <source>This value should be greater than or equal to {{ compared_value }}.</source>
+        <target>Este valor deve ser maior ou igual a {{ compared_value }}.</target>
+      </segment>
+    </unit>
+    <unit id="jG0QFKw" name="This value should be less than {{ compared_value }}.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/LessThan.php:35</note>
+      </notes>
+      <segment>
+        <source>This value should be less than {{ compared_value }}.</source>
+        <target>Este valor deve ser menor que {{ compared_value }}.</target>
+      </segment>
+    </unit>
+    <unit id="9lWrKmm" name="This value should be less than or equal to {{ compared_value }}.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/LessThanOrEqual.php:35</note>
+      </notes>
+      <segment>
+        <source>This value should be less than or equal to {{ compared_value }}.</source>
+        <target>Este valor deve ser menor ou igual a {{ compared_value }}.</target>
+      </segment>
+    </unit>
+    <unit id="ftTwGs." name="This value should not be equal to {{ compared_value }}.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/NotEqualTo.php:35</note>
+      </notes>
+      <segment>
+        <source>This value should not be equal to {{ compared_value }}.</source>
+        <target>Este valor não deve ser igual a {{ compared_value }}.</target>
+      </segment>
+    </unit>
+    <unit id="rpajj.a" name="The image is square ({{ width }}x{{ height }}px). Square images are not allowed.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Image.php:92</note>
+      </notes>
+      <segment>
+        <source>The image is square ({{ width }}x{{ height }}px). Square images are not allowed.</source>
+        <target>A imagem está num formato quadrado ({{ width }}x{{ height }}px). Imagens com formato quadrado não são permitidas.</target>
+      </segment>
+    </unit>
+    <unit id="jZgqcpL" name="An empty file is not allowed.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/File.php:62</note>
+      </notes>
+      <segment>
+        <source>An empty file is not allowed.</source>
+        <target>Arquivo vazio não é permitido.</target>
+      </segment>
+    </unit>
+    <unit id="bcfVezI" name="The host could not be resolved.">
+      <segment>
+        <source>The host could not be resolved.</source>
+        <target>O host não pôde ser resolvido.</target>
+      </segment>
+    </unit>
+    <unit id="NtzKvgt" name="This value does not match the expected {{ charset }} charset.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Length.php:57</note>
+      </notes>
+      <segment>
+        <source>This value does not match the expected {{ charset }} charset.</source>
+        <target>Este valor não corresponde ao charset {{ charset }} esperado.</target>
+      </segment>
+    </unit>
+    <unit id="Wi2y9.N" name="This is not a valid Business Identifier Code (BIC).">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Bic.php:49</note>
+      </notes>
+      <segment>
+        <source>This is not a valid Business Identifier Code (BIC).</source>
+        <target>Este não é um Código de Identificação de Negócio (BIC) válido.</target>
+      </segment>
+    </unit>
+    <unit id="VKDowX6" name="Error">
+      <notes>
+        <note>assets/js/app/ajax-save.js:37</note>
+      </notes>
+      <segment>
+        <source>Error</source>
+        <target>Erro</target>
+      </segment>
+    </unit>
+    <unit id="8zqt0Ik" name="This is not a valid UUID.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Uuid.php:80</note>
+      </notes>
+      <segment>
+        <source>This is not a valid UUID.</source>
+        <target>Este não é um UUID válido.</target>
+      </segment>
+    </unit>
+    <unit id="ru.4wkH" name="This value should be a multiple of {{ compared_value }}.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/DivisibleBy.php:34</note>
+      </notes>
+      <segment>
+        <source>This value should be a multiple of {{ compared_value }}.</source>
+        <target>Este valor deve ser múltiplo de {{ compared_value }}.</target>
+      </segment>
+    </unit>
+    <unit id="M3vyK6s" name="This Business Identifier Code (BIC) is not associated with IBAN {{ iban }}.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Bic.php:50</note>
+      </notes>
+      <segment>
+        <source>This Business Identifier Code (BIC) is not associated with IBAN {{ iban }}.</source>
+        <target>Este Código Identificador Bancário (BIC) não está associado ao IBAN {{ iban }}.</target>
+      </segment>
+    </unit>
+    <unit id="2v2xpAh" name="This value should be valid JSON.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Json.php:36</note>
+      </notes>
+      <segment>
+        <source>This value should be valid JSON.</source>
+        <target>Este valor deve ser um JSON válido.</target>
+      </segment>
+    </unit>
+    <unit id="9CWVEGq" name="This collection should contain only unique elements.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Unique.php:39</note>
+      </notes>
+      <segment>
+        <source>This collection should contain only unique elements.</source>
+        <target>Esta coleção deve conter somente elementos únicos.</target>
+      </segment>
+    </unit>
+    <unit id="WdvZfq." name="This value should be positive.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Positive.php:25</note>
+      </notes>
+      <segment>
+        <source>This value should be positive.</source>
+        <target>Este valor deve ser positivo.</target>
+      </segment>
+    </unit>
+    <unit id="ubHMK2q" name="This value should be either positive or zero.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/PositiveOrZero.php:25</note>
+      </notes>
+      <segment>
+        <source>This value should be either positive or zero.</source>
+        <target>Este valor deve ser positivo ou zero.</target>
+      </segment>
+    </unit>
+    <unit id="IwNTzo_" name="This value should be negative.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Negative.php:25</note>
+      </notes>
+      <segment>
+        <source>This value should be negative.</source>
+        <target>Este valor deve ser negativo.</target>
+      </segment>
+    </unit>
+    <unit id="0GfwMfP" name="This value should be either negative or zero.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/NegativeOrZero.php:25</note>
+      </notes>
+      <segment>
+        <source>This value should be either negative or zero.</source>
+        <target>Este valor deve ser negativo ou zero.</target>
+      </segment>
+    </unit>
+    <unit id="fs3qQZR" name="This value is not a valid timezone.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Timezone.php:35</note>
+      </notes>
+      <segment>
+        <source>This value is not a valid timezone.</source>
+        <target>Este valor não representa um fuso horário válido.</target>
+      </segment>
+    </unit>
+    <unit id="VvxxWas" name="This value should be between {{ min }} and {{ max }}.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Range.php:46</note>
+      </notes>
+      <segment>
+        <source>This value should be between {{ min }} and {{ max }}.</source>
+        <target>Este valor deve estar entre {{ min }} e {{ max }}.</target>
+      </segment>
+    </unit>
+    <unit id=".SEaaBa" name="This form should not contain extra fields.">
+      <notes>
+        <note>vendor/symfony/form/Extension/Validator/Type/FormTypeValidatorExtension.php:64</note>
+      </notes>
+      <segment>
+        <source>This form should not contain extra fields.</source>
+        <target>Este formulário não deve conter campos adicionais.</target>
+      </segment>
+    </unit>
+    <unit id="WPnLAh9" name="The uploaded file was too large. Please try to upload a smaller file.">
+      <notes>
+        <note>vendor/symfony/form/Extension/Core/Type/FormType.php:181</note>
+      </notes>
+      <segment>
+        <source>The uploaded file was too large. Please try to upload a smaller file.</source>
+        <target>O arquivo enviado é muito grande. Por favor, tente enviar um arquivo menor.</target>
+      </segment>
+    </unit>
+    <unit id="fvxWW3V" name="The CSRF token is invalid. Please try to resubmit the form.">
+      <notes>
+        <note>vendor/symfony/form/Extension/Csrf/Type/FormTypeCsrfExtension.php:101</note>
+      </notes>
+      <segment>
+        <source>The CSRF token is invalid. Please try to resubmit the form.</source>
+        <target>O token CSRF é inválido. Por favor, tente reenviar o formulário.</target>
+      </segment>
+    </unit>
+    <unit id="LDy5h0B" name="user.duplicate_email">
+      <notes>
+        <note>src/Entity/User.php:24</note>
+      </notes>
+      <segment>
+        <source>user.duplicate_email</source>
+        <target>Já existe um usuário com o e-mail {{ value }}.</target>
+      </segment>
+    </unit>
+    <unit id="D4OMpCY" name="user.duplicate_username">
+      <notes>
+        <note>src/Entity/User.php:25</note>
+      </notes>
+      <segment>
+        <source>user.duplicate_username</source>
+        <target>Já existe um usuário com o nome de usuário {{ value }}.</target>
+      </segment>
+    </unit>
+    <unit id="HjWW.NS" name="user.not_valid_password">
+      <notes>
+        <note>src/Entity/User.php:57</note>
+      </notes>
+      <segment>
+        <source>user.not_valid_password</source>
+        <target>Senha inválida. A senha deve conter pelo menos 6 caracteres.</target>
+      </segment>
+    </unit>
+    <unit id="fkXL.k6" name="user.not_valid_email">
+      <notes>
+        <note>src/Entity/User.php:49</note>
+      </notes>
+      <segment>
+        <source>user.not_valid_email</source>
+        <target>E-mail inválido</target>
+      </segment>
+    </unit>
+    <unit id="4eH4IFY" name="user.username_invalid_characters">
+      <notes>
+        <note>src/Entity/User.php:43</note>
+      </notes>
+      <segment>
+        <source>user.username_invalid_characters</source>
+        <target>O nome de usuário deve conter apenas letras latinas minúsculas, números e sublinhados.</target>
+      </segment>
+    </unit>
+    <unit id="4oq.CNw" name="user.not_valid_display_name">
+      <notes>
+        <note>src/Entity/User.php:35</note>
+        <note>src/Entity/User.php:36</note>
+      </notes>
+      <segment>
+        <source>user.not_valid_display_name</source>
+        <target>Nome de exibição inválido</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
