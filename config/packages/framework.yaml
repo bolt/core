@@ -13,7 +13,11 @@ framework:
     handler_id: ~
     cookie_lifetime: 1209600 #expires in 14 days
     storage_factory_id: session.storage.factory.native
-    cookie_secure: true
+    # 'auto' sets the Secure flag only on HTTPS requests. Using `true` would force it on
+    # plain-HTTP installs too, where browsers then drop the cookie and, via the session
+    # domain constraint, restrict post-login redirects to HTTPS-only targets (which breaks
+    # the same-host redirect after login on HTTP). See LoginFormAuthenticator.
+    cookie_secure: 'auto'
     cookie_samesite: lax
   # When using the HTTP Cache, ESI allows to render page fragments separately
   # and with different cache configurations for each fragment
