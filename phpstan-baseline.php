@@ -2588,12 +2588,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Event/Listener/ContentFillListener.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Call to an undefined method object\\:\\:getType\\(\\)\\.$#',
-	'identifier' => 'method.notFound',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Event/Listener/FieldDiscriminatorListener.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Parameter \\#1 \\$objectOrClass of class ReflectionClass constructor expects class\\-string\\<T of object\\>\\|T of object, string given\\.$#',
 	'identifier' => 'argument.type',
 	'count' => 1,
@@ -3230,36 +3224,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Repository/ContentRepository.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Call to an undefined method object\\:\\:setDefaultLocale\\(\\)\\.$#',
-	'identifier' => 'method.notFound',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Repository/FieldRepository.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Call to an undefined method object\\:\\:setDefinition\\(\\)\\.$#',
-	'identifier' => 'method.notFound',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Repository/FieldRepository.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Call to an undefined method object\\:\\:setLabel\\(\\)\\.$#',
-	'identifier' => 'method.notFound',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Repository/FieldRepository.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Call to an undefined method object\\:\\:setLocale\\(\\)\\.$#',
-	'identifier' => 'method.notFound',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Repository/FieldRepository.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Call to an undefined method object\\:\\:setName\\(\\)\\.$#',
-	'identifier' => 'method.notFound',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Repository/FieldRepository.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Cannot call method getMetadataFactory\\(\\) on Doctrine\\\\ORM\\\\EntityManagerInterface\\|null\\.$#',
 	'identifier' => 'method.nonObject',
 	'count' => 1,
@@ -3274,12 +3238,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'message' => '#^Method Bolt\\\\Repository\\\\FieldRepository\\:\\:factory\\(\\) has parameter \\$definition with generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#',
 	'identifier' => 'missingType.generics',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Repository/FieldRepository.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\Repository\\\\FieldRepository\\:\\:factory\\(\\) should return Bolt\\\\Entity\\\\Field but returns object\\.$#',
-	'identifier' => 'return.type',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Repository/FieldRepository.php',
 ];
