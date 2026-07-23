@@ -44,7 +44,7 @@ class TranslationsManager
                 $this->getFieldChildrenTranslations($translations, $child);
             }
 
-            $translations[$child->getId()] = $child->getTranslations();
+            $translations[(int) $child->getId()] = $child->getTranslations();
         }
     }
 

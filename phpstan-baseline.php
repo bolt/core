@@ -3944,12 +3944,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Storage/SelectQuery.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Possibly invalid array key type array\\|string\\.$#',
-	'identifier' => 'offsetAccess.invalidOffset',
-	'count' => 3,
-	'path' => __DIR__ . '/src/Storage/SelectQuery.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Property Bolt\\\\Storage\\\\SelectQuery\\:\\:\\$coreDateFields type has no value type specified in iterable type array\\.$#',
 	'identifier' => 'missingType.iterableValue',
 	'count' => 1,
