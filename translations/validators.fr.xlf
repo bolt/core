@@ -310,7 +310,7 @@
     <unit id="qXV2OMI" name="949632c">
       <segment>
         <source>949632c</source>
-        <target>Cette collection doit contenir au mamaximum {{ limit }} élément. | Cette collection doit contenir au mamaximum {{ limit }} éléments.</target>
+        <target>Cette collection doit contenir au maximum {{ limit }} élément. | Cette collection doit contenir au maximum {{ limit }} éléments.</target>
       </segment>
     </unit>
     <unit id="BnjGMFh" name="e0582dc">
@@ -370,49 +370,49 @@
     <unit id="c.WxzFW" name="This value should be equal to {{ compared_value }}.">
       <segment>
         <source>This value should be equal to {{ compared_value }}.</source>
-        <target>Cette valeur doit être égale à {{ compare_value }}.</target>
+        <target>Cette valeur doit être égale à {{ compared_value }}.</target>
       </segment>
     </unit>
     <unit id="_jdjkwq" name="This value should be greater than {{ compared_value }}.">
       <segment>
         <source>This value should be greater than {{ compared_value }}.</source>
-        <target>Cette valeur doit être supérieure à {{ compare_value }}.</target>
+        <target>Cette valeur doit être supérieure à {{ compared_value }}.</target>
       </segment>
     </unit>
     <unit id="o8A8a0H" name="This value should be greater than or equal to {{ compared_value }}.">
       <segment>
         <source>This value should be greater than or equal to {{ compared_value }}.</source>
-        <target>Cette valeur doit être supérieure ou égale à {{ compare_value }}.</target>
+        <target>Cette valeur doit être supérieure ou égale à {{ compared_value }}.</target>
       </segment>
     </unit>
     <unit id="SreIWoo" name="9670078">
       <segment>
         <source>9670078</source>
-        <target>Cette valeur doit être identique à {{ compare_value_type }} {{ compare_value }}.</target>
+        <target>Cette valeur doit être identique à {{ compared_value_type }} {{ compared_value }}.</target>
       </segment>
     </unit>
     <unit id="jG0QFKw" name="This value should be less than {{ compared_value }}.">
       <segment>
         <source>This value should be less than {{ compared_value }}.</source>
-        <target>Cette valeur doit être inférieure à {{ compare_value }}.</target>
+        <target>Cette valeur doit être inférieure à {{ compared_value }}.</target>
       </segment>
     </unit>
     <unit id="9lWrKmm" name="This value should be less than or equal to {{ compared_value }}.">
       <segment>
         <source>This value should be less than or equal to {{ compared_value }}.</source>
-        <target>Cette valeur doit être inférieure ou égale à {{ compare_value }}.</target>
+        <target>Cette valeur doit être inférieure ou égale à {{ compared_value }}.</target>
       </segment>
     </unit>
     <unit id="ftTwGs." name="This value should not be equal to {{ compared_value }}.">
       <segment>
         <source>This value should not be equal to {{ compared_value }}.</source>
-        <target>Cette valeur ne doit pas être égale à {{ compare_value }}.</target>
+        <target>Cette valeur ne doit pas être égale à {{ compared_value }}.</target>
       </segment>
     </unit>
     <unit id="JIjdvtb" name="0eedf91">
       <segment>
         <source>0eedf91</source>
-        <target>Cette valeur ne doit pas être identique à {{ compare_value_type }} {{ compare_value }}.</target>
+        <target>Cette valeur ne doit pas être identique à {{ compared_value_type }} {{ compared_value }}.</target>
       </segment>
     </unit>
     <unit id="vzvxzpR" name="9c3ad0f">
@@ -484,7 +484,7 @@
     <unit id="ru.4wkH" name="This value should be a multiple of {{ compared_value }}.">
       <segment>
         <source>This value should be a multiple of {{ compared_value }}.</source>
-        <target>Cette valeur doit être un multiple de {{ compare_value }}.</target>
+        <target>Cette valeur doit être un multiple de {{ compared_value }}.</target>
       </segment>
     </unit>
     <unit id="M3vyK6s" name="This Business Identifier Code (BIC) is not associated with IBAN {{ iban }}.">
