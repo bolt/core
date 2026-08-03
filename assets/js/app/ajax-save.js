@@ -46,7 +46,8 @@ $(document).ready(function () {
         $('#toastTitle').addClass(['toast-header', typeClass]);
         $('#toastNotification').append(notification);
         $('#toastType').append(toastType);
-        $('#toastBody').append(toastMessage);
+        // Set as text, because validation messages can contain the value that was rejected.
+        $('#toastBody').text(toastMessage);
 
         $(document).ready(function () {
             let toastElList = [].slice.call(document.querySelectorAll('.toast'));
@@ -59,6 +60,27 @@ $(document).ready(function () {
             });
         });
     }
+
+    // Shows the validation errors of a rejected save above the form, the way the classic
+    // (non-ajax) save shows them, see `templates/content/edit.html.twig`.
+    function showValidationErrors(errors) {
+        let container = $('<div id="editcontent-validation-errors"></div>');
+
+        errors.forEach(function(error) {
+            let alert = $('<div class="alert alert-danger" role="alert"></div>');
+            alert.text(error.property ? error.property + ': ' + error.message : error.message);
+            container.append(alert);
+        });
+
+        clearValidationErrors();
+        $(form).before(container);
+        container[0].scrollIntoView({ block: 'nearest' });
+    }
+
+    function clearValidationErrors() {
+        $('#editcontent-validation-errors').remove();
+    }
+
     this.href = window.location.pathname;
 
     let duplicate_id = this.href.substring(this.href.lastIndexOf('/') + 1);
@@ -95,6 +117,7 @@ $(document).ready(function () {
                 elementButton.prop('disabled', false);
             },
             success: function (data, textStatus) {
+                clearValidationErrors();
                 if (!record_id) {
                     window.location.replace(data.url);
                 } else if (window.location.pathname === '/bolt/duplicate/' + duplicate_id) {
@@ -108,6 +131,21 @@ $(document).ready(function () {
                 }
             },
             error: function (jq, status, err) {
+                let response = jq.responseJSON;
+
+                // The save was rejected by the content validator, which returns its
+                // violations as JSON, so we can show the validator's own messages.
+                if (response && response.errors) {
+                    let messages = response.errors.map(function(error) {
+                        return error.message;
+                    });
+
+                    showValidationErrors(response.errors);
+                    showToast(response.type, messages.join(' '), response.status, response.notification, dom_element);
+
+                    return;
+                }
+
                 // eslint-disable-next-line no-console
                 console.log(status, err);
                 showToast();
