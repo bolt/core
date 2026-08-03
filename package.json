@@ -73,7 +73,7 @@
         "autoprefixer": "^10.4.16",
         "clean-webpack-plugin": "^4.0.0",
         "core-js": "^3.33.2",
-        "cypress": "^15.8.1",
+        "cypress": "^15.19.0",
         "eslint": "^10.6.0",
         "eslint-config-prettier": "^10.1.8",
         "eslint-plugin-cypress": "^6.4.2",
