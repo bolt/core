@@ -172,7 +172,7 @@
     <unit id="fIlB1B_" name="The file is too large. Allowed maximum size is {{ limit }} {{ suffix }}.">
       <segment>
         <source>The file is too large. Allowed maximum size is {{ limit }} {{ suffix }}.</source>
-        <target>Файл слишком большой. Допустимый максимальный размер файла: {{ limit }} {{суффикс}}.</target>
+        <target>Файл слишком большой. Допустимый максимальный размер файла: {{ limit }} {{ suffix }}.</target>
       </segment>
     </unit>
     <unit id="tW7o0t9" name="The file is too large.">
