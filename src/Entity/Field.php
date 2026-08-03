@@ -6,6 +6,7 @@ namespace Bolt\Entity;
 
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
@@ -28,6 +29,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Illuminate\Support\Collection;
 use RuntimeException;
 use Stringable;
+use Symfony\Component\PropertyInfo\Type;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 use Twig\Environment;
@@ -144,6 +146,7 @@ class Field implements FieldInterface, BoltTranslatableInterface, Stringable
     }
 
     #[Groups('get_field')]
+    #[ApiProperty(builtinTypes: [new Type('array', collection: true, collectionKeyType: new Type('string'))])]
     public function getDefinition(): FieldType
     {
         if ($this->fieldTypeDefinition === null) {
