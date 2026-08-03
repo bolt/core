@@ -10,11 +10,11 @@ use Bolt\Event\ContentEvent;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Component\Security\Http\HttpUtils;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Throwable;
 
@@ -27,7 +27,8 @@ class BulkOperationsController extends AbstractController implements BackendZone
 
     public function __construct(
         private readonly EventDispatcherInterface $dispatcher,
-        private readonly ManagerRegistry $managerRegistry
+        private readonly ManagerRegistry $managerRegistry,
+        private readonly HttpUtils $httpUtils,
     ) {
     }
 
@@ -53,9 +54,11 @@ class BulkOperationsController extends AbstractController implements BackendZone
         $this->em()->flush();
 
         $this->addFlash('success', 'content.status_changed_successfully');
-        $url = $request->headers->get('referer') ?? $this->generateUrl('bolt_dashboard');
 
-        return new RedirectResponse($url);
+        return $this->httpUtils->createRedirectResponse(
+            $request,
+            $request->headers->get('referer') ?? $this->generateUrl('bolt_dashboard')
+        );
     }
 
     #[Route(path: '/bulk/delete', name: 'bolt_bulk_delete', methods: [Request::METHOD_POST])]
@@ -80,9 +83,11 @@ class BulkOperationsController extends AbstractController implements BackendZone
         $this->em()->flush();
 
         $this->addFlash('success', 'content.deleted_successfully');
-        $url = $request->headers->get('referer') ?? $this->generateUrl('bolt_dashboard');
 
-        return new RedirectResponse($url);
+        return $this->httpUtils->createRedirectResponse(
+            $request,
+            $request->headers->get('referer') ?? $this->generateUrl('bolt_dashboard')
+        );
     }
 
     private function findRecordsFromIds(array $ids): array
