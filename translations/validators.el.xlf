@@ -106,25 +106,25 @@
     <unit id="NubOmrs" name="This value should be {{ limit }} or less.">
       <segment>
         <source>This value should be {{ limit }} or less.</source>
-        <target>Αυτή η τιμή πρέπει να είναι {{limit}} ή μικρότερη.</target>
+        <target>Αυτή η τιμή πρέπει να είναι {{ limit }} ή μικρότερη.</target>
       </segment>
     </unit>
     <unit id="SjJg9Hy" name="0e0c1e1">
       <segment>
         <source>0e0c1e1</source>
-        <target>Αυτή η τιμή είναι πολύ μεγάλη. Θα πρέπει να έχει {{limit}} χαρακτήρες ή λιγότερο. | Αυτή η τιμή είναι πολύ μεγάλη. Θα πρέπει να έχει {{limit}} χαρακτήρες ή λιγότερους.</target>
+        <target>Αυτή η τιμή είναι πολύ μεγάλη. Θα πρέπει να έχει {{ limit }} χαρακτήρες ή λιγότερο. | Αυτή η τιμή είναι πολύ μεγάλη. Θα πρέπει να έχει {{ limit }} χαρακτήρες ή λιγότερους.</target>
       </segment>
     </unit>
     <unit id="qgR8M_U" name="This value should be {{ limit }} or more.">
       <segment>
         <source>This value should be {{ limit }} or more.</source>
-        <target>Αυτή η τιμή πρέπει να είναι {{limit}} ή μεγαλύτερη.</target>
+        <target>Αυτή η τιμή πρέπει να είναι {{ limit }} ή μεγαλύτερη.</target>
       </segment>
     </unit>
     <unit id="JJVWzKj" name="5188ff9">
       <segment>
         <source>5188ff9</source>
-        <target>Αυτή η τιμή είναι πολύ μικρή. Θα πρέπει να έχει {{limit}} χαρακτήρες ή περισσότερο. | Αυτή η τιμή είναι πολύ μικρή. Θα πρέπει να έχει {{limit}} χαρακτήρες ή περισσότερους.</target>
+        <target>Αυτή η τιμή είναι πολύ μικρή. Θα πρέπει να έχει {{ limit }} χαρακτήρες ή περισσότερο. | Αυτή η τιμή είναι πολύ μικρή. Θα πρέπει να έχει {{ limit }} χαρακτήρες ή περισσότερους.</target>
       </segment>
     </unit>
     <unit id="1KV4L.t" name="This value should not be blank.">
@@ -172,7 +172,7 @@
     <unit id="fIlB1B_" name="The file is too large. Allowed maximum size is {{ limit }} {{ suffix }}.">
       <segment>
         <source>The file is too large. Allowed maximum size is {{ limit }} {{ suffix }}.</source>
-        <target>Το αρχείο είναι πολύ μεγάλο. Το επιτρεπόμενο μέγιστο μέγεθος είναι {{limit}} {{suffix}}.</target>
+        <target>Το αρχείο είναι πολύ μεγάλο. Το επιτρεπόμενο μέγιστο μέγεθος είναι {{ limit }} {{ suffix }}.</target>
       </segment>
     </unit>
     <unit id="tW7o0t9" name="The file is too large.">
@@ -238,25 +238,25 @@
     <unit id="g9NoIBz" name="266051e">
       <segment>
         <source>266051e</source>
-        <target>Το πλάτος της εικόνας είναι πολύ μεγάλο ({{width}} px). Το επιτρεπόμενο μέγιστο πλάτος είναι {{max_width}} px.</target>
+        <target>Το πλάτος της εικόνας είναι πολύ μεγάλο ({{ width }} px). Το επιτρεπόμενο μέγιστο πλάτος είναι {{ max_width }} px.</target>
       </segment>
     </unit>
     <unit id="HTsQNva" name="c1c23f9">
       <segment>
         <source>c1c23f9</source>
-        <target>Το πλάτος της εικόνας είναι πολύ μικρό ({{width}} px). Το αναμενόμενο ελάχιστο πλάτος είναι {{min_width}} px.</target>
+        <target>Το πλάτος της εικόνας είναι πολύ μικρό ({{ width }} px). Το αναμενόμενο ελάχιστο πλάτος είναι {{ min_width }} px.</target>
       </segment>
     </unit>
     <unit id="h3PRqha" name="9a128f7">
       <segment>
         <source>9a128f7</source>
-        <target>Το ύψος της εικόνας είναι πολύ μεγάλο ({{height}} px). Το επιτρεπόμενο μέγιστο ύψος είναι {{max_height}} px.</target>
+        <target>Το ύψος της εικόνας είναι πολύ μεγάλο ({{ height }} px). Το επιτρεπόμενο μέγιστο ύψος είναι {{ max_height }} px.</target>
       </segment>
     </unit>
     <unit id="IVraZ3b" name="8a4cd70">
       <segment>
         <source>8a4cd70</source>
-        <target>Το ύψος της εικόνας είναι πολύ μικρό ({{height}} px). Το ελάχιστο αναμενόμενο ύψος είναι {{min_height}} px.</target>
+        <target>Το ύψος της εικόνας είναι πολύ μικρό ({{ height }} px). Το ελάχιστο αναμενόμενο ύψος είναι {{ min_height }} px.</target>
       </segment>
     </unit>
     <unit id="PSdMNab" name="This value should be the user's current password.">
@@ -268,7 +268,7 @@
     <unit id="Anek_FY" name="fd389d6">
       <segment>
         <source>fd389d6</source>
-        <target>Αυτή η τιμή πρέπει να έχει ακριβώς {{limit}} χαρακτήρα. | Αυτή η τιμή θα πρέπει να έχει ακριβώς {{limit}} χαρακτήρες.</target>
+        <target>Αυτή η τιμή πρέπει να έχει ακριβώς {{ limit }} χαρακτήρα. | Αυτή η τιμή θα πρέπει να έχει ακριβώς {{ limit }} χαρακτήρες.</target>
       </segment>
     </unit>
     <unit id="xJ2Bcr_" name="The file was only partially uploaded.">
@@ -304,19 +304,19 @@
     <unit id="YuLxmhd" name="b54c218">
       <segment>
         <source>b54c218</source>
-        <target>Αυτή η συλλογή θα πρέπει να περιέχει {{limit}} στοιχεία ή περισσότερα. | Αυτή η συλλογή πρέπει να περιέχει στοιχεία {{limit}} ή περισσότερα.</target>
+        <target>Αυτή η συλλογή θα πρέπει να περιέχει {{ limit }} στοιχεία ή περισσότερα. | Αυτή η συλλογή πρέπει να περιέχει στοιχεία {{ limit }} ή περισσότερα.</target>
       </segment>
     </unit>
     <unit id="qXV2OMI" name="949632c">
       <segment>
         <source>949632c</source>
-        <target>Αυτή η συλλογή θα πρέπει να περιέχει {{limit}} στοιχεία ή λιγότερο. | Αυτή η συλλογή θα πρέπει να περιέχει στοιχεία {{limit}} ή λιγότερα.</target>
+        <target>Αυτή η συλλογή θα πρέπει να περιέχει {{ limit }} στοιχεία ή λιγότερο. | Αυτή η συλλογή θα πρέπει να περιέχει στοιχεία {{ limit }} ή λιγότερα.</target>
       </segment>
     </unit>
     <unit id="BnjGMFh" name="e0582dc">
       <segment>
         <source>e0582dc</source>
-        <target>Αυτή η συλλογή θα πρέπει να περιέχει ακριβώς {{limit}} στοιχεία. | Αυτή η συλλογή θα πρέπει να περιέχει ακριβώς {{limit}} στοιχεία.</target>
+        <target>Αυτή η συλλογή θα πρέπει να περιέχει ακριβώς {{ limit }} στοιχεία. | Αυτή η συλλογή θα πρέπει να περιέχει ακριβώς {{ limit }} στοιχεία.</target>
       </segment>
     </unit>
     <unit id="MAzmID7" name="Invalid card number.">
@@ -418,31 +418,31 @@
     <unit id="vzvxzpR" name="9c3ad0f">
       <segment>
         <source>9c3ad0f</source>
-        <target>Η αναλογία εικόνας είναι πολύ μεγάλη ({{ratio}}). Η επιτρεπόμενη μέγιστη αναλογία είναι {{max_ratio}}.</target>
+        <target>Η αναλογία εικόνας είναι πολύ μεγάλη ({{ ratio }}). Η επιτρεπόμενη μέγιστη αναλογία είναι {{ max_ratio }}.</target>
       </segment>
     </unit>
     <unit id="LiDaIWN" name="4376d45">
       <segment>
         <source>4376d45</source>
-        <target>Η αναλογία εικόνας είναι πολύ μικρή ({{ratio}}). Η αναμενόμενη ελάχιστη αναλογία είναι {{min_ratio}}.</target>
+        <target>Η αναλογία εικόνας είναι πολύ μικρή ({{ ratio }}). Η αναμενόμενη ελάχιστη αναλογία είναι {{ min_ratio }}.</target>
       </segment>
     </unit>
     <unit id="rpajj.a" name="The image is square ({{ width }}x{{ height }}px). Square images are not allowed.">
       <segment>
         <source>The image is square ({{ width }}x{{ height }}px). Square images are not allowed.</source>
-        <target>Η εικόνα είναι τετράγωνη ({{width}} x {{height}} px). Δεν επιτρέπονται τετράγωνες εικόνες.</target>
+        <target>Η εικόνα είναι τετράγωνη ({{ width }} x {{ height }} px). Δεν επιτρέπονται τετράγωνες εικόνες.</target>
       </segment>
     </unit>
     <unit id="501jWTO" name="1dc128a">
       <segment>
         <source>1dc128a</source>
-        <target>Η εικόνα έχει οριζόντιο προσανατολισμό ({{width}} x {{height}} px). Δεν επιτρέπονται εικόνες με οριζόντιο προσανατολισμό.</target>
+        <target>Η εικόνα έχει οριζόντιο προσανατολισμό ({{ width }} x {{ height }} px). Δεν επιτρέπονται εικόνες με οριζόντιο προσανατολισμό.</target>
       </segment>
     </unit>
     <unit id="J4L.QnM" name="9e27714">
       <segment>
         <source>9e27714</source>
-        <target>Η εικόνα είναι κατακόρυφη ({{width}} x {{height}} px). Δεν επιτρέπονται εικόνες με προσανατολισμό σε πορτραίτο.</target>
+        <target>Η εικόνα είναι κατακόρυφη ({{ width }} x {{ height }} px). Δεν επιτρέπονται εικόνες με προσανατολισμό σε πορτραίτο.</target>
       </segment>
     </unit>
     <unit id="jZgqcpL" name="An empty file is not allowed.">
@@ -460,7 +460,7 @@
     <unit id="NtzKvgt" name="This value does not match the expected {{ charset }} charset.">
       <segment>
         <source>This value does not match the expected {{ charset }} charset.</source>
-        <target>Αυτή η τιμή δεν ταιριάζει με το αναμενόμενο charset {{charset}}.</target>
+        <target>Αυτή η τιμή δεν ταιριάζει με το αναμενόμενο charset {{ charset }}.</target>
       </segment>
     </unit>
     <unit id="Wi2y9.N" name="This is not a valid Business Identifier Code (BIC).">
@@ -490,7 +490,7 @@
     <unit id="M3vyK6s" name="This Business Identifier Code (BIC) is not associated with IBAN {{ iban }}.">
       <segment>
         <source>This Business Identifier Code (BIC) is not associated with IBAN {{ iban }}.</source>
-        <target>Αυτός ο κωδικός αναγνώρισης επιχείρησης (BIC) δεν σχετίζεται με τον IBAN {{iban}}.</target>
+        <target>Αυτός ο κωδικός αναγνώρισης επιχείρησης (BIC) δεν σχετίζεται με τον IBAN {{ iban }}.</target>
       </segment>
     </unit>
     <unit id="2v2xpAh" name="This value should be valid JSON.">
@@ -544,7 +544,7 @@
     <unit id="VvxxWas" name="This value should be between {{ min }} and {{ max }}.">
       <segment>
         <source>This value should be between {{ min }} and {{ max }}.</source>
-        <target>Αυτή η τιμή πρέπει να κυμαίνεται μεταξύ {{min}} και {{max}}.</target>
+        <target>Αυτή η τιμή πρέπει να κυμαίνεται μεταξύ {{ min }} και {{ max }}.</target>
       </segment>
     </unit>
     <unit id=".SEaaBa" name="This form should not contain extra fields.">
@@ -589,7 +589,7 @@
       </notes>
       <segment>
         <source>post.too_short_content</source>
-        <target>Το περιεχόμενο της ανάρτησης είναι πολύ μικρό (ελάχιστο {{limit}} χαρακτήρες)</target>
+        <target>Το περιεχόμενο της ανάρτησης είναι πολύ μικρό (ελάχιστο {{ limit }} χαρακτήρες)</target>
       </segment>
     </unit>
     <unit id="niM7JYj" name="post.too_many_tags">
@@ -598,7 +598,7 @@
       </notes>
       <segment>
         <source>post.too_many_tags</source>
-        <target>Πάρα πολλές ετικέτες (προσθέστε {{limit}} ή λιγότερες)</target>
+        <target>Πάρα πολλές ετικέτες (προσθέστε {{ limit }} ή λιγότερες)</target>
       </segment>
     </unit>
     <unit id="ARUoKOV" name="comment.blank">
@@ -616,7 +616,7 @@
       </notes>
       <segment>
         <source>comment.too_short</source>
-        <target>Το σχόλιο είναι πολύ μικρό ({{limit}} ελάχιστοι χαρακτήρες)</target>
+        <target>Το σχόλιο είναι πολύ μικρό ({{ limit }} ελάχιστοι χαρακτήρες)</target>
       </segment>
     </unit>
     <unit id=".bkQKXb" name="comment.too_long">
@@ -625,7 +625,7 @@
       </notes>
       <segment>
         <source>comment.too_long</source>
-        <target>Το σχόλιο είναι πολύ μεγάλο ({{limit}} χαρακτήρες το μέγιστο)</target>
+        <target>Το σχόλιο είναι πολύ μεγάλο ({{ limit }} χαρακτήρες το μέγιστο)</target>
       </segment>
     </unit>
     <unit id="cTT8h4_" name="comment.is_spam">
@@ -640,13 +640,13 @@
     <unit id="LDy5h0B" name="user.duplicate_email">
       <segment>
         <source>user.duplicate_email</source>
-        <target>Υπάρχει ήδη χρήστης με {{value}} email.</target>
+        <target>Υπάρχει ήδη χρήστης με {{ value }} email.</target>
       </segment>
     </unit>
     <unit id="D4OMpCY" name="user.duplicate_username">
       <segment>
         <source>user.duplicate_username</source>
-        <target>Υπάρχει ήδη χρήστης με όνομα χρήστη {{value}}.</target>
+        <target>Υπάρχει ήδη χρήστης με όνομα χρήστη {{ value }}.</target>
       </segment>
     </unit>
     <unit id="HjWW.NS" name="user.not_valid_password">

@@ -34,13 +34,13 @@
     <unit id="7smtimf" name="0d999f2">
       <segment>
         <source>0d999f2</source>
-        <target>Vous devez sélectionner au moins {{limit}} choix. | Vous devez sélectionner au moins {{limit}} choix.</target>
+        <target>Vous devez sélectionner au moins {{ limit }} choix. | Vous devez sélectionner au moins {{ limit }} choix.</target>
       </segment>
     </unit>
     <unit id="JRlXq2Z" name="0824486">
       <segment>
         <source>0824486</source>
-        <target>Vous devez sélectionner au plus {{limit}} choix. | Vous devez sélectionner au plus {{limit}} choix.</target>
+        <target>Vous devez sélectionner au plus {{ limit }} choix. | Vous devez sélectionner au plus {{ limit }} choix.</target>
       </segment>
     </unit>
     <unit id="87zjiHi" name="One or more of the given values is invalid.">
@@ -94,37 +94,37 @@
     <unit id="2O3FbJ6" name="1ad411a">
       <segment>
         <source>1ad411a</source>
-        <target>Le fichier est trop volumineux ({{size}} {{suffix}}). La taille maximale autorisée est {{limit}} {{suffix}}.</target>
+        <target>Le fichier est trop volumineux ({{ size }} {{ suffix }}). La taille maximale autorisée est {{ limit }} {{ suffix }}.</target>
       </segment>
     </unit>
     <unit id="p4L.BFV" name="30a318d">
       <segment>
         <source>30a318d</source>
-        <target>Le type mime du fichier n'est pas valide ({{type}}). Les types mime autorisés sont {{types}}.</target>
+        <target>Le type mime du fichier n'est pas valide ({{ type }}). Les types mime autorisés sont {{ types }}.</target>
       </segment>
     </unit>
     <unit id="NubOmrs" name="This value should be {{ limit }} or less.">
       <segment>
         <source>This value should be {{ limit }} or less.</source>
-        <target>Cette valeur doit être inférieure ou égale à {{limit}}.</target>
+        <target>Cette valeur doit être inférieure ou égale à {{ limit }}.</target>
       </segment>
     </unit>
     <unit id="SjJg9Hy" name="0e0c1e1">
       <segment>
         <source>0e0c1e1</source>
-        <target>Cette valeur est trop longue. Elle doit contenir au maximum {{limit}} caractère. | Cette valeur est trop longue. Elle doit contenir au maximum {{limit}} caractères.</target>
+        <target>Cette valeur est trop longue. Elle doit contenir au maximum {{ limit }} caractère. | Cette valeur est trop longue. Elle doit contenir au maximum {{ limit }} caractères.</target>
       </segment>
     </unit>
     <unit id="qgR8M_U" name="This value should be {{ limit }} or more.">
       <segment>
         <source>This value should be {{ limit }} or more.</source>
-        <target>Cette valeur doit être égale ou supérieure à {{limit}}.</target>
+        <target>Cette valeur doit être égale ou supérieure à {{ limit }}.</target>
       </segment>
     </unit>
     <unit id="JJVWzKj" name="5188ff9">
       <segment>
         <source>5188ff9</source>
-        <target>Cette valeur est trop courte. Elle doit contenir au minimum {{limit}} caractère. | Cette valeur est trop courte. Elle doit contenir au minimum {{limit}} caractères.</target>
+        <target>Cette valeur est trop courte. Elle doit contenir au minimum {{ limit }} caractère. | Cette valeur est trop courte. Elle doit contenir au minimum {{ limit }} caractères.</target>
       </segment>
     </unit>
     <unit id="1KV4L.t" name="This value should not be blank.">
@@ -172,7 +172,7 @@
     <unit id="fIlB1B_" name="The file is too large. Allowed maximum size is {{ limit }} {{ suffix }}.">
       <segment>
         <source>The file is too large. Allowed maximum size is {{ limit }} {{ suffix }}.</source>
-        <target>Le fichier est trop volumineux. La taille maximale autorisée est {{limit}} {{suffix}}.</target>
+        <target>Le fichier est trop volumineux. La taille maximale autorisée est {{ limit }} {{ suffix }}.</target>
       </segment>
     </unit>
     <unit id="tW7o0t9" name="The file is too large.">
@@ -238,25 +238,25 @@
     <unit id="g9NoIBz" name="266051e">
       <segment>
         <source>266051e</source>
-        <target>La largeur de l'image est trop grande ({{width}} px). La largeur maximale autorisée est de {{max_width}} px.</target>
+        <target>La largeur de l'image est trop grande ({{ width }} px). La largeur maximale autorisée est de {{ max_width }} px.</target>
       </segment>
     </unit>
     <unit id="HTsQNva" name="c1c23f9">
       <segment>
         <source>c1c23f9</source>
-        <target>La largeur de l'image est trop petite ({{width}} px). La largeur minimale attendue est de {{min_width}} px.</target>
+        <target>La largeur de l'image est trop petite ({{ width }} px). La largeur minimale attendue est de {{ min_width }} px.</target>
       </segment>
     </unit>
     <unit id="h3PRqha" name="9a128f7">
       <segment>
         <source>9a128f7</source>
-        <target>La hauteur de l'image est trop grande ({{height}} px). La hauteur maximale autorisée est de {{max_height}} px.</target>
+        <target>La hauteur de l'image est trop grande ({{ height }} px). La hauteur maximale autorisée est de {{ max_height }} px.</target>
       </segment>
     </unit>
     <unit id="IVraZ3b" name="8a4cd70">
       <segment>
         <source>8a4cd70</source>
-        <target>La hauteur de l'image est trop petite ({{height}} px). La hauteur minimale attendue est de {{min_height}} px.</target>
+        <target>La hauteur de l'image est trop petite ({{ height }} px). La hauteur minimale attendue est de {{ min_height }} px.</target>
       </segment>
     </unit>
     <unit id="PSdMNab" name="This value should be the user's current password.">
@@ -268,7 +268,7 @@
     <unit id="Anek_FY" name="fd389d6">
       <segment>
         <source>fd389d6</source>
-        <target>Cette valeur doit avoir exactement {{limit}} caractère. | Cette valeur doit avoir exactement {{limit}} caractères.</target>
+        <target>Cette valeur doit avoir exactement {{ limit }} caractère. | Cette valeur doit avoir exactement {{ limit }} caractères.</target>
       </segment>
     </unit>
     <unit id="xJ2Bcr_" name="The file was only partially uploaded.">
@@ -304,19 +304,19 @@
     <unit id="YuLxmhd" name="b54c218">
       <segment>
         <source>b54c218</source>
-        <target>Cette collection doit contenir au minimum {{limit}} élément. | Cette collection doit contenir au minimum {{limit}} éléments.</target>
+        <target>Cette collection doit contenir au minimum {{ limit }} élément. | Cette collection doit contenir au minimum {{ limit }} éléments.</target>
       </segment>
     </unit>
     <unit id="qXV2OMI" name="949632c">
       <segment>
         <source>949632c</source>
-        <target>Cette collection doit contenir au mamaximum {{limit}} élément. | Cette collection doit contenir au mamaximum {{limit}} éléments.</target>
+        <target>Cette collection doit contenir au mamaximum {{ limit }} élément. | Cette collection doit contenir au mamaximum {{ limit }} éléments.</target>
       </segment>
     </unit>
     <unit id="BnjGMFh" name="e0582dc">
       <segment>
         <source>e0582dc</source>
-        <target>Cette collection doit contenir exactement {{limit}} élément. | Cette collection doit contenir exactement {{limit}} éléments.</target>
+        <target>Cette collection doit contenir exactement {{ limit }} élément. | Cette collection doit contenir exactement {{ limit }} éléments.</target>
       </segment>
     </unit>
     <unit id="MAzmID7" name="Invalid card number.">
@@ -370,79 +370,79 @@
     <unit id="c.WxzFW" name="This value should be equal to {{ compared_value }}.">
       <segment>
         <source>This value should be equal to {{ compared_value }}.</source>
-        <target>Cette valeur doit être égale à {{compare_value}}.</target>
+        <target>Cette valeur doit être égale à {{ compare_value }}.</target>
       </segment>
     </unit>
     <unit id="_jdjkwq" name="This value should be greater than {{ compared_value }}.">
       <segment>
         <source>This value should be greater than {{ compared_value }}.</source>
-        <target>Cette valeur doit être supérieure à {{compare_value}}.</target>
+        <target>Cette valeur doit être supérieure à {{ compare_value }}.</target>
       </segment>
     </unit>
     <unit id="o8A8a0H" name="This value should be greater than or equal to {{ compared_value }}.">
       <segment>
         <source>This value should be greater than or equal to {{ compared_value }}.</source>
-        <target>Cette valeur doit être supérieure ou égale à {{compare_value}}.</target>
+        <target>Cette valeur doit être supérieure ou égale à {{ compare_value }}.</target>
       </segment>
     </unit>
     <unit id="SreIWoo" name="9670078">
       <segment>
         <source>9670078</source>
-        <target>Cette valeur doit être identique à {{compare_value_type}} {{compare_value}}.</target>
+        <target>Cette valeur doit être identique à {{ compare_value_type }} {{ compare_value }}.</target>
       </segment>
     </unit>
     <unit id="jG0QFKw" name="This value should be less than {{ compared_value }}.">
       <segment>
         <source>This value should be less than {{ compared_value }}.</source>
-        <target>Cette valeur doit être inférieure à {{compare_value}}.</target>
+        <target>Cette valeur doit être inférieure à {{ compare_value }}.</target>
       </segment>
     </unit>
     <unit id="9lWrKmm" name="This value should be less than or equal to {{ compared_value }}.">
       <segment>
         <source>This value should be less than or equal to {{ compared_value }}.</source>
-        <target>Cette valeur doit être inférieure ou égale à {{compare_value}}.</target>
+        <target>Cette valeur doit être inférieure ou égale à {{ compare_value }}.</target>
       </segment>
     </unit>
     <unit id="ftTwGs." name="This value should not be equal to {{ compared_value }}.">
       <segment>
         <source>This value should not be equal to {{ compared_value }}.</source>
-        <target>Cette valeur ne doit pas être égale à {{compare_value}}.</target>
+        <target>Cette valeur ne doit pas être égale à {{ compare_value }}.</target>
       </segment>
     </unit>
     <unit id="JIjdvtb" name="0eedf91">
       <segment>
         <source>0eedf91</source>
-        <target>Cette valeur ne doit pas être identique à {{compare_value_type}} {{compare_value}}.</target>
+        <target>Cette valeur ne doit pas être identique à {{ compare_value_type }} {{ compare_value }}.</target>
       </segment>
     </unit>
     <unit id="vzvxzpR" name="9c3ad0f">
       <segment>
         <source>9c3ad0f</source>
-        <target>Le ratio de l'image est trop grand ({{ratio}}). Le ratio maximal autorisé est de {{max_ratio}}.</target>
+        <target>Le ratio de l'image est trop grand ({{ ratio }}). Le ratio maximal autorisé est de {{ max_ratio }}.</target>
       </segment>
     </unit>
     <unit id="LiDaIWN" name="4376d45">
       <segment>
         <source>4376d45</source>
-        <target>Le ratio de l'image est trop petit ({{ratio}}). Le ratio minimum autorisé est de {{min_ratio}}.</target>
+        <target>Le ratio de l'image est trop petit ({{ ratio }}). Le ratio minimum autorisé est de {{ min_ratio }}.</target>
       </segment>
     </unit>
     <unit id="rpajj.a" name="The image is square ({{ width }}x{{ height }}px). Square images are not allowed.">
       <segment>
         <source>The image is square ({{ width }}x{{ height }}px). Square images are not allowed.</source>
-        <target>L'image est carrée ({{width}} x {{height}} px). Les images carrées ne sont pas autorisées.</target>
+        <target>L'image est carrée ({{ width }} x {{ height }} px). Les images carrées ne sont pas autorisées.</target>
       </segment>
     </unit>
     <unit id="501jWTO" name="1dc128a">
       <segment>
         <source>1dc128a</source>
-        <target>L'image est orientée paysage ({{width}} x {{height}} px). Les images orientées paysage ne sont pas autorisées.</target>
+        <target>L'image est orientée paysage ({{ width }} x {{ height }} px). Les images orientées paysage ne sont pas autorisées.</target>
       </segment>
     </unit>
     <unit id="J4L.QnM" name="9e27714">
       <segment>
         <source>9e27714</source>
-        <target>L'image est orientée portrait ({{width}} x {{height}} px). Les images orientées portrait ne sont pas autorisées.</target>
+        <target>L'image est orientée portrait ({{ width }} x {{ height }} px). Les images orientées portrait ne sont pas autorisées.</target>
       </segment>
     </unit>
     <unit id="jZgqcpL" name="An empty file is not allowed.">
@@ -460,7 +460,7 @@
     <unit id="NtzKvgt" name="This value does not match the expected {{ charset }} charset.">
       <segment>
         <source>This value does not match the expected {{ charset }} charset.</source>
-        <target>Cette valeur ne correspond pas au jeu de caractères {{charset}} attendu.</target>
+        <target>Cette valeur ne correspond pas au jeu de caractères {{ charset }} attendu.</target>
       </segment>
     </unit>
     <unit id="Wi2y9.N" name="This is not a valid Business Identifier Code (BIC).">
@@ -484,13 +484,13 @@
     <unit id="ru.4wkH" name="This value should be a multiple of {{ compared_value }}.">
       <segment>
         <source>This value should be a multiple of {{ compared_value }}.</source>
-        <target>Cette valeur doit être un multiple de {{compare_value}}.</target>
+        <target>Cette valeur doit être un multiple de {{ compare_value }}.</target>
       </segment>
     </unit>
     <unit id="M3vyK6s" name="This Business Identifier Code (BIC) is not associated with IBAN {{ iban }}.">
       <segment>
         <source>This Business Identifier Code (BIC) is not associated with IBAN {{ iban }}.</source>
-        <target>Ce code d'identification d'entreprise (BIC) n'est pas associé à l'IBAN {{iban}}.</target>
+        <target>Ce code d'identification d'entreprise (BIC) n'est pas associé à l'IBAN {{ iban }}.</target>
       </segment>
     </unit>
     <unit id="2v2xpAh" name="This value should be valid JSON.">
@@ -544,7 +544,7 @@
     <unit id="VvxxWas" name="This value should be between {{ min }} and {{ max }}.">
       <segment>
         <source>This value should be between {{ min }} and {{ max }}.</source>
-        <target>Cette valeur doit être comprise entre {{min}} et {{max}}.</target>
+        <target>Cette valeur doit être comprise entre {{ min }} et {{ max }}.</target>
       </segment>
     </unit>
     <unit id=".SEaaBa" name="This form should not contain extra fields.">
@@ -589,7 +589,7 @@
       </notes>
       <segment>
         <source>post.too_short_content</source>
-        <target>le contenu de votre publication est trop court ({{limit}} caractères minimum)</target>
+        <target>le contenu de votre publication est trop court ({{ limit }} caractères minimum)</target>
       </segment>
     </unit>
     <unit id="niM7JYj" name="post.too_many_tags">
@@ -598,7 +598,7 @@
       </notes>
       <segment>
         <source>post.too_many_tags</source>
-        <target>Trop de balises (ajoutez au maximum {{limit}} balises ).</target>
+        <target>Trop de balises (ajoutez au maximum {{ limit }} balises ).</target>
       </segment>
     </unit>
     <unit id="ARUoKOV" name="comment.blank">
@@ -616,7 +616,7 @@
       </notes>
       <segment>
         <source>comment.too_short</source>
-        <target>Le commentaire est trop court ({{limit}} caractères minimum)</target>
+        <target>Le commentaire est trop court ({{ limit }} caractères minimum)</target>
       </segment>
     </unit>
     <unit id=".bkQKXb" name="comment.too_long">
@@ -625,7 +625,7 @@
       </notes>
       <segment>
         <source>comment.too_long</source>
-        <target>Le commentaire est trop long ({{limit}} caractères maximum)</target>
+        <target>Le commentaire est trop long ({{ limit }} caractères maximum)</target>
       </segment>
     </unit>
     <unit id="cTT8h4_" name="comment.is_spam">
@@ -640,13 +640,13 @@
     <unit id="LDy5h0B" name="user.duplicate_email">
       <segment>
         <source>user.duplicate_email</source>
-        <target>Cette adresse e-mail {{value}} est déjà utilisée.</target>
+        <target>Cette adresse e-mail {{ value }} est déjà utilisée.</target>
       </segment>
     </unit>
     <unit id="D4OMpCY" name="user.duplicate_username">
       <segment>
         <source>user.duplicate_username</source>
-        <target>Le nom d'utilisateur {{value}} existe déjà.</target>
+        <target>Le nom d'utilisateur {{ value }} existe déjà.</target>
       </segment>
     </unit>
     <unit id="HjWW.NS" name="user.not_valid_password">
