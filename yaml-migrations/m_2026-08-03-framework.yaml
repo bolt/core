@@ -1,0 +1,7 @@
+file: packages/framework.yaml
+since: 6.1.7
+
+add:
+  framework:
+    session:
+      cookie_secure: 'auto'
