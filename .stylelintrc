@@ -3,9 +3,43 @@
     "stylelint-config-standard",
     "stylelint-config-recommended-scss"
   ],
-  "syntax": "scss",
+  "customSyntax": "postcss-scss",
   "plugins": ["stylelint-scss"],
+  "ignoreFiles": [
+    "assets/scss/vendor/**/*.scss"
+  ],
   "rules": {
-    "no-descending-specificity": null
+    "no-descending-specificity": null,
+
+    "selector-class-pattern": [
+      "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*(?:__[a-z][a-z0-9]*(?:-[a-z0-9]+)*)?(?:--[a-z][a-z0-9]*(?:-[a-z0-9]+)*)*$",
+      {
+        "message": "Expected class selector to be kebab-case BEM (block__element--modifier)"
+      }
+    ],
+
+    "import-notation": null,
+    "no-invalid-position-at-import-rule": null,
+    "scss/load-no-partial-leading-underscore": null,
+    "scss/load-partial-extension": null,
+
+    "alpha-value-notation": null,
+    "color-function-alias-notation": null,
+    "color-function-notation": null,
+    "custom-property-pattern": null,
+    "declaration-block-no-redundant-longhand-properties": null,
+    "number-max-precision": null,
+    "property-no-deprecated": null,
+    "property-no-vendor-prefix": null,
+    "scss/at-extend-no-missing-placeholder": null,
+    "scss/comment-no-empty": null,
+    "scss/no-global-function-names": null,
+    "scss/operator-no-unspaced": null,
+    "selector-attribute-quotes": null,
+    "selector-id-pattern": null,
+    "selector-not-notation": null,
+    "shorthand-property-no-redundant-values": null,
+    "value-keyword-case": null,
+    "function-url-quotes": null
   }
 }
