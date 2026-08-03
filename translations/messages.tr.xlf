@@ -1767,18 +1767,6 @@
         <target>Eylemler</target>
       </segment>
     </unit>
-    <unit id="fkXL.k6" name="user.not_valid_email">
-      <segment>
-        <source>user.not_valid_email</source>
-        <target>Geçersiz e-posta.</target>
-      </segment>
-    </unit>
-    <unit id="HjWW.NS" name="user.not_valid_password">
-      <segment>
-        <source>user.not_valid_password</source>
-        <target>Geçersiz parola. Parola en az 6 karakter içermelidir.</target>
-      </segment>
-    </unit>
     <unit id="TpGxDI3" name="user.unknown_user">
       <segment>
         <source>user.unknown_user</source>
@@ -2173,12 +2161,6 @@
       <segment>
         <source>about.system_info</source>
         <target>Sistem Bilgisi</target>
-      </segment>
-    </unit>
-    <unit id="4oq.CNw" name="user.not_valid_display_name">
-      <segment>
-        <source>user.not_valid_display_name</source>
-        <target>Geçersiz görüntüleme adı</target>
       </segment>
     </unit>
     <unit id="6Gw1lsE" name="action.confirm_delete">

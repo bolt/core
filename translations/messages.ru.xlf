@@ -1771,18 +1771,6 @@
         <target>Действия</target>
       </segment>
     </unit>
-    <unit id="fkXL.k6" name="user.not_valid_email">
-      <segment>
-        <source>user.not_valid_email</source>
-        <target>Неверный адрес электронной почты</target>
-      </segment>
-    </unit>
-    <unit id="HjWW.NS" name="user.not_valid_password">
-      <segment>
-        <source>user.not_valid_password</source>
-        <target>Неправильный пароль. Пароль должен содержать не менее 6 символов.</target>
-      </segment>
-    </unit>
     <unit id="TpGxDI3" name="user.unknown_user">
       <segment>
         <source>user.unknown_user</source>
@@ -2179,12 +2167,6 @@
         <target>Системная информация</target>
       </segment>
     </unit>
-    <unit id="4oq.CNw" name="user.not_valid_display_name">
-      <segment>
-        <source>user.not_valid_display_name</source>
-        <target>Недействительное отображаемое имя</target>
-      </segment>
-    </unit>
     <unit id="6Gw1lsE" name="action.confirm_delete">
       <segment>
         <source>action.confirm_delete</source>
@@ -2441,12 +2423,6 @@
       <segment>
         <source>label.avatar</source>
         <target>Аватар</target>
-      </segment>
-    </unit>
-    <unit id="NF.vvAN" name="You have to login in order to access this page.">
-      <segment state="translated">
-        <source>You have to login in order to access this page.</source>
-        <target>Вы должны войти в систему, чтобы получить доступ к этой странице.</target>
       </segment>
     </unit>
     <unit id="dp42qbF" name="reset_password.email_title">
