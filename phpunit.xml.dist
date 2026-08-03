@@ -22,7 +22,7 @@
         <env name="CORS_ALLOW_ORIGIN" value="^https?://localhost(:[0-9]+)?$"/>
         <!-- ###- nelmio/cors-bundle ### -->
         <!-- ###+ symfony/mailer ### -->
-        <!-- MAILER_DSN=smtp://localhost -->
+        <env name="MAILER_DSN" value="null://null"/>
         <!-- ###- symfony/mailer ### -->
     </php>
     <testsuites>

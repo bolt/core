@@ -103,6 +103,7 @@ export default {
     data: () => {
         return {
             selected: [],
+            isLoading: false,
         };
     },
     computed: {

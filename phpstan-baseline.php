@@ -362,18 +362,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Cache/SelectOptionsCacher.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Cannot access offset \'host\' on array\\{scheme\\?\\: string, host\\?\\: string, port\\?\\: int\\<0, 65535\\>, user\\?\\: string, pass\\?\\: string, path\\?\\: string, query\\?\\: string, fragment\\?\\: string\\}\\|false\\.$#',
-	'identifier' => 'offsetAccess.nonOffsetAccessible',
-	'count' => 2,
-	'path' => __DIR__ . '/src/Canonical.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Cannot access offset \'scheme\' on array\\{scheme\\?\\: string, host\\?\\: string, port\\?\\: int\\<0, 65535\\>, user\\?\\: string, pass\\?\\: string, path\\?\\: string, query\\?\\: string, fragment\\?\\: string\\}\\|false\\.$#',
-	'identifier' => 'offsetAccess.nonOffsetAccessible',
-	'count' => 3,
-	'path' => __DIR__ . '/src/Canonical.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Method Bolt\\\\Canonical\\:\\:generateLink\\(\\) has parameter \\$canonical with no type specified\\.$#',
 	'identifier' => 'missingType.parameter',
 	'count' => 1,
@@ -1354,12 +1342,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'message' => '#^Call to an undefined method object\\:\\:setPassword\\(\\)\\.$#',
 	'identifier' => 'method.notFound',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Controller/Backend/ResetPasswordController.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\Controller\\\\Backend\\\\ResetPasswordController\\:\\:buildResetEmail\\(\\) has parameter \\$config with no value type specified in iterable type array\\.$#',
-	'identifier' => 'missingType.iterableValue',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Controller/Backend/ResetPasswordController.php',
 ];
@@ -2606,12 +2588,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Event/Listener/ContentFillListener.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Call to an undefined method object\\:\\:getType\\(\\)\\.$#',
-	'identifier' => 'method.notFound',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Event/Listener/FieldDiscriminatorListener.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Parameter \\#1 \\$objectOrClass of class ReflectionClass constructor expects class\\-string\\<T of object\\>\\|T of object, string given\\.$#',
 	'identifier' => 'argument.type',
 	'count' => 1,
@@ -2682,12 +2658,6 @@ $ignoreErrors[] = [
 	'identifier' => 'argument.type',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Event/Subscriber/AuthSubscriber.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Call to an undefined method object\\:\\:executeUpdate\\(\\)\\.$#',
-	'identifier' => 'method.notFound',
-	'count' => 2,
-	'path' => __DIR__ . '/src/Event/Subscriber/TimedPublishSubscriber.php',
 ];
 $ignoreErrors[] = [
 	'message' => '#^Method Bolt\\\\Event\\\\Subscriber\\\\TimedPublishSubscriber\\:\\:__construct\\(\\) has parameter \\$tablePrefix with no type specified\\.$#',
@@ -3254,36 +3224,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Repository/ContentRepository.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Call to an undefined method object\\:\\:setDefaultLocale\\(\\)\\.$#',
-	'identifier' => 'method.notFound',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Repository/FieldRepository.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Call to an undefined method object\\:\\:setDefinition\\(\\)\\.$#',
-	'identifier' => 'method.notFound',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Repository/FieldRepository.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Call to an undefined method object\\:\\:setLabel\\(\\)\\.$#',
-	'identifier' => 'method.notFound',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Repository/FieldRepository.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Call to an undefined method object\\:\\:setLocale\\(\\)\\.$#',
-	'identifier' => 'method.notFound',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Repository/FieldRepository.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Call to an undefined method object\\:\\:setName\\(\\)\\.$#',
-	'identifier' => 'method.notFound',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Repository/FieldRepository.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Cannot call method getMetadataFactory\\(\\) on Doctrine\\\\ORM\\\\EntityManagerInterface\\|null\\.$#',
 	'identifier' => 'method.nonObject',
 	'count' => 1,
@@ -3298,12 +3238,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'message' => '#^Method Bolt\\\\Repository\\\\FieldRepository\\:\\:factory\\(\\) has parameter \\$definition with generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#',
 	'identifier' => 'missingType.generics',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Repository/FieldRepository.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method Bolt\\\\Repository\\\\FieldRepository\\:\\:factory\\(\\) should return Bolt\\\\Entity\\\\Field but returns object\\.$#',
-	'identifier' => 'return.type',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Repository/FieldRepository.php',
 ];
@@ -3408,12 +3342,6 @@ $ignoreErrors[] = [
 	'identifier' => 'missingType.iterableValue',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Security/GlobalVoter.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Parameter \\#1 \\$url of class Symfony\\\\Component\\\\HttpFoundation\\\\RedirectResponse constructor expects string, string\\|null given\\.$#',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Security/LoginFormAuthenticator.php',
 ];
 $ignoreErrors[] = [
 	'message' => '#^Class Bolt\\\\Security\\\\SwitchUserVoter extends generic class Symfony\\\\Component\\\\Security\\\\Core\\\\Authorization\\\\Voter\\\\Voter but does not specify its types\\: TAttribute, TSubject$#',
@@ -4013,12 +3941,6 @@ $ignoreErrors[] = [
 	'message' => '#^Parameter \\#2 \\.\\.\\.\\$values of function sprintf expects bool\\|float\\|int\\|string\\|null, array\\|string given\\.$#',
 	'identifier' => 'argument.type',
 	'count' => 4,
-	'path' => __DIR__ . '/src/Storage/SelectQuery.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Possibly invalid array key type array\\|string\\.$#',
-	'identifier' => 'offsetAccess.invalidOffset',
-	'count' => 3,
 	'path' => __DIR__ . '/src/Storage/SelectQuery.php',
 ];
 $ignoreErrors[] = [

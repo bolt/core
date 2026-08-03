@@ -159,6 +159,9 @@ class ContentValidator implements ContentValidatorInterface
         foreach ($relations as $relation) {
             $to = $relation->getToContent();
             $typeName = $to->getContentType();
+            if ($typeName === null) {
+                continue;
+            }
             if (! isset($result[$typeName])) {
                 $result[$typeName] = [];
             }

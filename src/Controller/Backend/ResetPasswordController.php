@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Backend;
 
+use Bolt\Collection\DeepCollection;
 use Bolt\Configuration\Config;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\User;
@@ -180,7 +181,7 @@ class ResetPasswordController extends TwigAwareController
         return $this->redirectToRoute('bolt_check_email');
     }
 
-    protected function buildResetEmail(array $config, $user, $resetToken): Email
+    protected function buildResetEmail(DeepCollection $config, $user, $resetToken): Email
     {
         return (new TemplatedEmail())
             ->from(new Address($config['mail_from'], $config['mail_name']))

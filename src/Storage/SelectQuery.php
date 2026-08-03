@@ -498,8 +498,10 @@ class SelectQuery implements QueryInterface
 
     private function getReferenceFieldExpression(Filter $filter): string
     {
-        if ($filter->getKey() !== $this->anything) {
-            $this->referenceJoins[$filter->getKey()] = $filter;
+        /** @var string $key */
+        $key = $filter->getKey();
+        if ($key !== $this->anything) {
+            $this->referenceJoins[$key] = $filter;
 
             return $filter->getExpression();
         }
@@ -518,7 +520,9 @@ class SelectQuery implements QueryInterface
 
     private function getTaxonomyFieldExpression(Filter $filter): string
     {
-        $this->taxonomyJoins[$filter->getKey()] = $filter;
+        /** @var string $key */
+        $key = $filter->getKey();
+        $this->taxonomyJoins[$key] = $filter;
 
         $originalExpression = $filter->getExpression();
         $originalLeftExpression = '/content\.([^\s])*/';
@@ -542,14 +546,16 @@ class SelectQuery implements QueryInterface
             $value = $isSqlite ? true : 'true';
         }
 
-        $filter->setParameters([key($filter->getParameters()) => $value]);
+        $filter->setParameters([(string) key($filter->getParameters()) => $value]);
 
         return $this->getRegularFieldExpression($filter);
     }
 
     private function getRegularFieldExpression(Filter $filter): string
     {
-        $this->fieldJoins[$filter->getKey()] = $filter;
+        /** @var string $key */
+        $key = $filter->getKey();
+        $this->fieldJoins[$key] = $filter;
         $expr = $this->qb->expr()->andX();
 
         // where clause for the value of the field

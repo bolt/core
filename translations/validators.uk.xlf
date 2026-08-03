@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="uk" trgLang="uk">
-  <file id="validators.en">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="uk">
+  <file id="validators.uk">
     <unit id="zh5oKD9" name="This value should be false.">
       <segment>
         <source>This value should be false.</source>
@@ -172,7 +172,7 @@
     <unit id="fIlB1B_" name="The file is too large. Allowed maximum size is {{ limit }} {{ suffix }}.">
       <segment>
         <source>The file is too large. Allowed maximum size is {{ limit }} {{ suffix }}.</source>
-        <target>Файл занадто великий. Допустимий максимальний розмір: {{ limit }} {{суффикс}}.</target>
+        <target>Файл занадто великий. Допустимий максимальний розмір: {{ limit }} {{ suffix }}.</target>
       </segment>
     </unit>
     <unit id="tW7o0t9" name="The file is too large.">

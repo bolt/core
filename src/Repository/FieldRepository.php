@@ -96,6 +96,7 @@ class FieldRepository extends ServiceEntityRepository
         $classname = self::getFieldClassname($type);
 
         if ($classname && class_exists($classname)) {
+            /** @var Field $field */
             $field = new $classname();
         } else {
             $field = new Field();

@@ -4,6 +4,7 @@ namespace Bolt\Utils;
 
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Repository\ContentRepository;
+use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -67,14 +68,15 @@ class ListFormatHelper
         $order = $this->fixOrder($order);
 
         $query = sprintf(
-            'SELECT id, list_format FROM %scontent WHERE content_type = "%s" ORDER BY %s LIMIT %d ',
+            'SELECT id, list_format FROM %scontent WHERE content_type = :contentType ORDER BY %s LIMIT %d ',
             $this->prefix,
-            $contentType['slug'],
             $order,
             $amount
         );
 
-        $rows = $this->connection->fetchAllAssociative($query);
+        $rows = $this->connection->fetchAllAssociative($query, [
+            'contentType' => $contentType['slug'],
+        ]);
 
         $options = [];
 
@@ -90,14 +92,15 @@ class ListFormatHelper
         $order = $this->fixOrder($order);
 
         $query = sprintf(
-            'SELECT id, title FROM %scontent WHERE content_type = "%s" ORDER BY %s LIMIT %d ',
+            'SELECT id, title FROM %scontent WHERE content_type = :contentType ORDER BY %s LIMIT %d ',
             $this->prefix,
-            $contentType['slug'],
             $order,
             $amount
         );
 
-        $rows = $this->connection->fetchAllAssociative($query);
+        $rows = $this->connection->fetchAllAssociative($query, [
+            'contentType' => $contentType['slug'],
+        ]);
 
         $options = [];
 
@@ -119,14 +122,17 @@ class ListFormatHelper
         $amount = (int) $params['limit'];
 
         $query = sprintf(
-            'SELECT id, list_format FROM %scontent WHERE content_type IN (%s) ORDER BY %s LIMIT %d ',
+            'SELECT id, list_format FROM %scontent WHERE content_type IN (:contentTypes) ORDER BY %s LIMIT %d ',
             $this->prefix,
-            $contentTypes,
             $order,
             $amount
         );
 
-        $rows = $this->connection->fetchAllAssociative($query);
+        $rows = $this->connection->fetchAllAssociative(
+            $query,
+            ['contentTypes' => $contentTypes],
+            ['contentTypes' => ArrayParameterType::STRING]
+        );
 
         $options = [];
 
@@ -172,11 +178,11 @@ class ListFormatHelper
         return $order . ' ' . $direction;
     }
 
-    private function split(string $contenttypes): string
+    /**
+     * @return string[]
+     */
+    private function split(string $contenttypes): array
     {
-        $parts = explode(',', (string) preg_replace('/^\((.*)\)$/', '$1', (string) $contenttypes));
-        $result = sprintf('"%s"', implode('", "', $parts));
-
-        return $result;
+        return explode(',', (string) preg_replace('/^\((.*)\)$/', '$1', (string) $contenttypes));
     }
 }

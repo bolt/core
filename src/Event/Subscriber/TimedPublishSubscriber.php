@@ -6,7 +6,10 @@ namespace Bolt\Event\Subscriber;
 
 use Bolt\Doctrine\TablePrefixTrait;
 use Bolt\Entity\Content;
+use Bolt\Log\LoggerTrait;
 use Carbon\Carbon;
+use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -14,16 +17,19 @@ use Throwable;
 
 class TimedPublishSubscriber implements EventSubscriberInterface
 {
+    use LoggerTrait;
     use TablePrefixTrait;
 
     public const PRIORITY = 30;
 
-    private object $defaultConnection;
+    private Connection $defaultConnection;
     private string $tablePrefix;
 
     public function __construct($tablePrefix, ManagerRegistry $managerRegistry)
     {
-        $this->defaultConnection = $managerRegistry->getConnection('default');
+        /** @var Connection $connection */
+        $connection = $managerRegistry->getConnection('default');
+        $this->defaultConnection = $connection;
         $this->tablePrefix = $this
             ->setTablePrefixes($tablePrefix, $managerRegistry)
             ->getTablePrefix($managerRegistry->getManager('default'));
@@ -49,10 +55,11 @@ class TimedPublishSubscriber implements EventSubscriberInterface
         );
 
         try {
-            $conn->executeUpdate($queryPublish, [':now' => $now]);
-            $conn->executeUpdate($queryDepublish, [':now' => $now]);
-        } catch (Throwable) {
-            // Fail silently, output user-friendly exception elsewhere.
+            $conn->executeStatement($queryPublish, ['now' => $now], ['now' => Types::DATETIME_MUTABLE]);
+            $conn->executeStatement($queryDepublish, ['now' => $now], ['now' => Types::DATETIME_MUTABLE]);
+        } catch (Throwable $exception) {
+            // Fail silently for the user, but log at debug level for diagnostics.
+            $this->logger->debug('Failed to publish/depublish timed content', ['exception' => $exception]);
         }
     }
 

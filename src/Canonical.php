@@ -58,6 +58,11 @@ class Canonical
 
         $requestUrl = parse_url($this->request->getSchemeAndHttpHost());
 
+        // Nothing to do if the request URL is malformed.
+        if ($requestUrl === false || ! isset($requestUrl['scheme'])) {
+            return;
+        }
+
         $configCanonical = (string) $this->config->get('general/canonical', $this->getRequest()->getSchemeAndHttpHost());
 
         if (mb_strpos($configCanonical, 'http') !== 0) {
@@ -65,6 +70,11 @@ class Canonical
         }
 
         $configUrl = parse_url($configCanonical);
+
+        // Nothing to do if the canonical URL is malformed.
+        if ($configUrl === false || ! isset($configUrl['scheme']) || ! isset($configUrl['host'])) {
+            return;
+        }
 
         $this->setScheme($configUrl['scheme']);
         $this->setHost($configUrl['host']);
