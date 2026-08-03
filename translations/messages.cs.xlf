@@ -1719,18 +1719,6 @@
         <target>Akce</target>
       </segment>
     </unit>
-    <unit id="fkXL.k6" name="user.not_valid_email">
-      <segment state="translated">
-        <source>user.not_valid_email</source>
-        <target>Chybný email</target>
-      </segment>
-    </unit>
-    <unit id="HjWW.NS" name="user.not_valid_password">
-      <segment state="translated">
-        <source>user.not_valid_password</source>
-        <target>Chybné heslo. Heslo by mělo obsahovat minimálně 6 znaků.</target>
-      </segment>
-    </unit>
     <unit id="TpGxDI3" name="user.unknown_user">
       <segment state="translated">
         <source>user.unknown_user</source>
@@ -2125,12 +2113,6 @@
       <segment state="translated">
         <source>about.system_info</source>
         <target>Systémové informace</target>
-      </segment>
-    </unit>
-    <unit id="4oq.CNw" name="user.not_valid_display_name">
-      <segment state="translated">
-        <source>user.not_valid_display_name</source>
-        <target>Chybné zobrazované jméno</target>
       </segment>
     </unit>
     <unit id="6Gw1lsE" name="action.confirm_delete">
@@ -2659,12 +2641,6 @@
       <segment>
         <source>placeholder.email</source>
         <target>Váš e-mail</target>
-      </segment>
-    </unit>
-    <unit id="NF.vvAN" name="You have to login in order to access this page.">
-      <segment>
-        <source>You have to login in order to access this page.</source>
-        <target>Pro přístup na tuto stránku se musíte přihlásit.</target>
       </segment>
     </unit>
     <unit id="MjY7.cg" name="modal.title.file_field">
