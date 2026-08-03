@@ -129,7 +129,7 @@ export default {
          * set. If the field is empty, "filterSelectedItems" will contain an undefined
          * element and "select" will not be filled with the first available option.
          */
-        const fixSelectedItems = function() {
+        const fixSelectedItems = function () {
             const _values = !this.value ? [] : this.value.map ? this.value : [this.value];
 
             let filterSelectedItems = _values
@@ -191,7 +191,7 @@ export default {
             this.value.push(tag);
             this.selected.push(tag);
         },
-        removeElement: function(element) {
+        removeElement: function (element) {
             this.$refs.vselect.removeElement(element);
         },
         drop(e) {

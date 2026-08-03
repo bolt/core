@@ -147,14 +147,14 @@ export default {
         };
     },
     watch: {
-        urlData: function() {
+        urlData: function () {
             this.updateEmbed();
         },
     },
     mounted() {
         this.previewImage = this.thumbnail;
     },
-    created: function() {
+    created: function () {
         this.debouncedFetchEmbed = _.debounce(this.fetchEmbed, 500);
         if (this.urlData) {
             this.updateEmbed();
@@ -172,14 +172,14 @@ export default {
         });
     },
     methods: {
-        updateEmbed: function() {
+        updateEmbed: function () {
             this.loading = true;
             this.debouncedFetchEmbed();
         },
-        clearEmbed: function() {
+        clearEmbed: function () {
             this.urlData = '';
         },
-        fetchEmbed: function() {
+        fetchEmbed: function () {
             const body = new FormData();
             body.append('url', this.urlData);
             body.append('_csrf_token', document.getElementsByName('_csrf_token')[0].value);

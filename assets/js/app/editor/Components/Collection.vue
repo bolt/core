@@ -140,7 +140,7 @@ export default {
         initialSelectValue() {
             return this.templateSelectOptions[0].key;
         },
-        allowMore: function() {
+        allowMore: function () {
             return this.counter < this.limit;
         },
     },
@@ -154,24 +154,24 @@ export default {
          */
         window
             .$(document)
-            .on('click', vueThis.selector.collectionContainer + ' .collection-item .summary', function(e) {
+            .on('click', vueThis.selector.collectionContainer + ' .collection-item .summary', function (e) {
                 e.preventDefault();
                 let thisCollectionItem = vueThis.getCollectionItemFromPressedButton(this);
                 thisCollectionItem.toggleClass('collapsed');
             });
-        window.$(document).on('click', vueThis.selector.collectionContainer + vueThis.selector.remove, function(e) {
+        window.$(document).on('click', vueThis.selector.collectionContainer + vueThis.selector.remove, function (e) {
             e.preventDefault();
             e.stopPropagation();
             let collectionContainer = window.$(this).closest(vueThis.selector.collectionContainer);
             let button = this;
 
-            $('#modalButtonAccept').on('click', function() {
+            $('#modalButtonAccept').on('click', function () {
                 vueThis.getCollectionItemFromPressedButton(button).remove();
             });
             vueThis.setAllButtonsStates(collectionContainer);
             vueThis.counter--;
         });
-        window.$(document).on('click', vueThis.selector.collectionContainer + vueThis.selector.moveUp, function(e) {
+        window.$(document).on('click', vueThis.selector.collectionContainer + vueThis.selector.moveUp, function (e) {
             e.preventDefault();
             e.stopPropagation();
             let thisCollectionItem = vueThis.getCollectionItemFromPressedButton(this);
@@ -180,7 +180,7 @@ export default {
             vueThis.setButtonsState(thisCollectionItem);
             vueThis.setButtonsState(prevCollectionitem);
         });
-        window.$(document).on('click', vueThis.selector.collectionContainer + vueThis.selector.moveDown, function(e) {
+        window.$(document).on('click', vueThis.selector.collectionContainer + vueThis.selector.moveDown, function (e) {
             e.preventDefault();
             e.stopPropagation();
             let thisCollectionItem = vueThis.getCollectionItemFromPressedButton(this);
@@ -189,14 +189,14 @@ export default {
             vueThis.setButtonsState(thisCollectionItem);
             vueThis.setButtonsState(nextCollectionItem);
         });
-        window.$(document).on('click', vueThis.selector.collectionContainer + vueThis.selector.expandAll, function(e) {
+        window.$(document).on('click', vueThis.selector.collectionContainer + vueThis.selector.expandAll, function (e) {
             e.preventDefault();
             const collection = $(e.target).closest(vueThis.selector.collectionContainer);
             collection.find('.collection-item').removeClass('collapsed');
         });
         window
             .$(document)
-            .on('click', vueThis.selector.collectionContainer + vueThis.selector.collapseAll, function(e) {
+            .on('click', vueThis.selector.collectionContainer + vueThis.selector.collapseAll, function (e) {
                 e.preventDefault();
                 const collection = $(e.target).closest(vueThis.selector.collectionContainer);
                 collection.find('.collection-item').addClass('collapsed');
@@ -204,11 +204,11 @@ export default {
         /**
          * Update the title dynamically.
          */
-        $(document).ready(function() {
-            $.each(window.$(vueThis.selector.collectionContainer + vueThis.selector.item), function() {
+        $(document).ready(function () {
+            $.each(window.$(vueThis.selector.collectionContainer + vueThis.selector.item), function () {
                 updateTitle(this);
             });
-            window.$(vueThis.selector.collectionContainer).on('keyup change', vueThis.selector.item, function() {
+            window.$(vueThis.selector.collectionContainer).on('keyup change', vueThis.selector.item, function () {
                 updateTitle(this);
             });
         });
@@ -217,12 +217,8 @@ export default {
          * with the value of the first text-based field.
          */
         function updateTitle(item) {
-            const label = $(item)
-                .find('.collection-item-title')
-                .first();
-            const input = $(item)
-                .find('textarea,input[type="text"]')
-                .first();
+            const label = $(item).find('.collection-item-title').first();
+            const input = $(item).find('textarea,input[type="text"]').first();
             // We use this 'innerText' trick to ensure the title is plain text.
             var title = document.createElement('span');
             title.innerHTML = $(input).val() ? $(input).val() : label.attr('data-label');
@@ -249,29 +245,21 @@ export default {
         },
         setAllButtonsStates(collectionContainer) {
             let vueThis = this;
-            collectionContainer.children(vueThis.selector.item).each(function() {
+            collectionContainer.children(vueThis.selector.item).each(function () {
                 vueThis.setButtonsState(window.$(this));
             });
         },
         setButtonsState(item) {
             //by default, enable
-            item.find(this.selector.moveUp)
-                .first()
-                .removeAttr('disabled');
-            item.find(this.selector.moveDown)
-                .first()
-                .removeAttr('disabled');
+            item.find(this.selector.moveUp).first().removeAttr('disabled');
+            item.find(this.selector.moveDown).first().removeAttr('disabled');
             if (!this.getPreviousCollectionItem(item)) {
                 // first in collection
-                item.find(this.selector.moveUp)
-                    .first()
-                    .attr('disabled', 'disabled');
+                item.find(this.selector.moveUp).first().attr('disabled', 'disabled');
             }
             if (!this.getNextCollectionItem(item)) {
                 // last in collection
-                item.find(this.selector.moveDown)
-                    .first()
-                    .attr('disabled', 'disabled');
+                item.find(this.selector.moveDown).first().attr('disabled', 'disabled');
             }
         },
         getPreviousCollectionItem(item) {
@@ -281,10 +269,7 @@ export default {
             return item.next('.collection-item').length === 0 ? false : item.next('.collection-item');
         },
         getCollectionItemFromPressedButton(button) {
-            return window
-                .$(button)
-                .closest('.collection-item')
-                .last();
+            return window.$(button).closest('.collection-item').last();
         },
         addCollectionItem(event) {
             // duplicate template without reference

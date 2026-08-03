@@ -51,10 +51,10 @@ export default {
         limit: Number,
         readonly: Boolean,
     },
-    data: function() {
+    data: function () {
         let counter = 0;
         let containerFiles = this.files;
-        containerFiles.forEach(function(file, index, theContainerFilesArray) {
+        containerFiles.forEach(function (file, index, theContainerFilesArray) {
             theContainerFilesArray[index].id = index;
             counter++;
         });
@@ -65,7 +65,7 @@ export default {
         };
     },
     computed: {
-        allowMore: function() {
+        allowMore: function () {
             if (this.readonly) {
                 return false;
             }
