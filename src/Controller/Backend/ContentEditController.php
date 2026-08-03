@@ -42,6 +42,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -153,6 +154,13 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         if ($enableContentValidator && $contentValidator) {
             $constraintViolations = $contentValidator->validate($content);
             if (count($constraintViolations) > 0) {
+                // When "Saving Ajaxy" the editor isn't re-rendered, so the violations that
+                // renderEditor() puts in the HTML would never reach the browser. Return them
+                // as JSON instead, for `assets/js/app/ajax-save.js` to display.
+                if ($request->isXmlHttpRequest()) {
+                    return $this->renderValidationErrors($request, $constraintViolations);
+                }
+
                 $this->addFlash('danger', 'content.validation_errors');
 
                 return $this->renderEditor($request, $content, $constraintViolations);
@@ -650,5 +658,28 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         }
 
         return $this->render('@bolt/content/edit.html.twig', $twigvars);
+    }
+
+    private function renderValidationErrors(Request $request, ConstraintViolationListInterface $constraintViolations): JsonResponse
+    {
+        $locale = $request->getLocale();
+
+        $errors = [];
+        foreach ($constraintViolations as $constraintViolation) {
+            $errors[] = [
+                'property' => $constraintViolation->getPropertyPath(),
+                'message' => (string) $constraintViolation->getMessage(),
+            ];
+        }
+
+        return new JsonResponse(
+            [
+                'status' => 'danger',
+                'type' => $this->translator->trans('warning', [], null, $locale),
+                'notification' => $this->translator->trans('flash_messages.notification', [], null, $locale),
+                'errors' => $errors,
+            ],
+            Response::HTTP_UNPROCESSABLE_ENTITY
+        );
     }
 }
