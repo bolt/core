@@ -8,7 +8,7 @@ import ClipboardJS from 'clipboard';
 import { version } from '../version';
 window.assetsVersion = version;
 
-$(document).ready(function() {
+$(document).ready(function () {
     // add a js class to indicate we have JS enabled. Might need a change to either modernizr or somethng comparable
     $('html').addClass('js');
 
@@ -20,7 +20,7 @@ $(document).ready(function() {
      */
     $('.admin__sidebar').addClass('admin__sidebar--is-collapsed');
 
-    $('.admin-sidebar-toggler').on('click', function() {
+    $('.admin-sidebar-toggler').on('click', function () {
         if ($('.admin__sidebar').hasClass('admin__sidebar--is-collapsed')) {
             $('.admin__sidebar')
                 .addClass('admin__sidebar--is-expanded')
@@ -52,7 +52,7 @@ $(document).ready(function() {
         }, 50);
     }
 
-    $('a[data-bs-toggle="tab"]').on('click', function() {
+    $('a[data-bs-toggle="tab"]').on('click', function () {
         let newUrl;
         const hash = $(this).attr('href');
         newUrl = url.split('#')[0] + hash;
@@ -62,7 +62,7 @@ $(document).ready(function() {
     /*
      ** Convert all ISO dates with class .datetime-relative to relative time
      */
-    $('.datetime-relative').each(function() {
+    $('.datetime-relative').each(function () {
         $(this).text(DateTime.fromISO($(this).text()).toRelative());
     });
 
@@ -70,15 +70,15 @@ $(document).ready(function() {
      ** Initialise all popover elements
      */
     let popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
-    popoverTriggerList.map(function(popoverTriggerEl) {
+    popoverTriggerList.map(function (popoverTriggerEl) {
         return new Popover(popoverTriggerEl);
     });
 
     /*
      ** When a field from another group is invalid, show it.
      */
-    $('#editor button[type="submit"]').click(function() {
-        $('#editor input:invalid').each(function() {
+    $('#editor button[type="submit"]').click(function () {
+        $('#editor input:invalid').each(function () {
             // Find the tab-pane that this element is inside, and get the id
             let $closest = $(this).closest('.tab-pane');
             let id = $closest.attr('id');
@@ -97,20 +97,15 @@ $(document).ready(function() {
      ** Simulates disabled behavior for elements with data-readonly attribute.
      * This is needed, because a disabled input cannot be required.
      */
-    $('[data-readonly]').on('keydown paste', function(e) {
+    $('[data-readonly]').on('keydown paste', function (e) {
         e.preventDefault();
     });
     /* Part of the code above, however make sure flatpickr is not readonly
      * and that its validation works.
      */
-    $('.editor--date')
-        .siblings()
-        .prop('readonly', false)
-        .attr('data-readonly', 'readonly');
+    $('.editor--date').siblings().prop('readonly', false).attr('data-readonly', 'readonly');
     $('.editor--date').on('change', e => {
-        const target = $(e.target)
-            .parent()
-            .find('input[data-readonly="readonly"]');
+        const target = $(e.target).parent().find('input[data-readonly="readonly"]');
         if (target.val()) {
             target[0].setCustomValidity('');
         } else {
@@ -136,15 +131,12 @@ $(document).ready(function() {
     $('[data-errormessage]').on('input', handleInput);
 
     /* Set the errormessage on the correct editor--date field */
-    $('.editor--date').each(function() {
+    $('.editor--date').each(function () {
         let siblings = $(this).siblings();
         const errormessage = $(this).attr('data-errormessage');
 
-        siblings.each(function() {
-            $(this)
-                .attr('data-errormessage', errormessage)
-                .on('invalid', handleInvalid)
-                .on('input', handleInput);
+        siblings.each(function () {
+            $(this).attr('data-errormessage', errormessage).on('invalid', handleInvalid).on('input', handleInput);
         });
     });
     /* End of custom error message */
@@ -161,7 +153,7 @@ $(document).ready(function() {
 
     // Reset the content of a modal to it's default
 
-    window.$(document).on('click', '[data-bs-toggle="modal"]', function(event) {
+    window.$(document).on('click', '[data-bs-toggle="modal"]', function (event) {
         let resourcesModal = document.getElementById('resourcesModal');
 
         let saveButton = document.getElementById('modalButtonAccept');

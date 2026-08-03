@@ -599,7 +599,7 @@ export default {
         },
         filterServerFiles(files) {
             let self = this;
-            return files.filter(function(file) {
+            return files.filter(function (file) {
                 let ext = /(?:\.([^.]+))?$/.exec(file.text)[1];
                 // If it's a directory, return the directory
                 if (file.group == 'directories') {
