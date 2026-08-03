@@ -1,149 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="it">
   <file id="messages.it">
-    <unit id="tbB2gib" name="not_available">
-      <notes>
-        <note>templates/debug/source_code.twig:26</note>
-      </notes>
-      <segment>
-        <source>not_available</source>
-        <target>Non disponibile</target>
-      </segment>
-    </unit>
-    <unit id="DF34uM2" name="http_error.name">
-      <notes>
-        <note>templates/bundles/TwigBundle/Exception/error.html.twig:15</note>
-        <note>templates/bundles/TwigBundle/Exception/error404.html.twig:15</note>
-        <note>templates/bundles/TwigBundle/Exception/error500.html.twig:15</note>
-        <note>templates/bundles/TwigBundle/Exception/error403.html.twig:15</note>
-      </notes>
-      <segment>
-        <source>http_error.name</source>
-        <target>Errore %status_code%</target>
-      </segment>
-    </unit>
-    <unit id="e3w.2Rf" name="http_error.description">
-      <notes>
-        <note>templates/bundles/TwigBundle/Exception/error.html.twig:18</note>
-      </notes>
-      <segment>
-        <source>http_error.description</source>
-        <target>Si è verificato un errore sconosciuto (HTTP %status_code%) che ha impedito il completamento della vostra richiesta.</target>
-      </segment>
-    </unit>
-    <unit id="ru5FEGk" name="http_error.suggestion">
-      <notes>
-        <note>templates/bundles/TwigBundle/Exception/error.html.twig:21</note>
-      </notes>
-      <segment>
-        <source>http_error.suggestion</source>
-        <target><![CDATA[Ricaricare la pagina fra qualche minuto oppure <a href="%url%">tornare all'homepage</a>.]]></target>
-      </segment>
-    </unit>
-    <unit id="Qn5rwdU" name="http_error_403.description">
-      <notes>
-        <note>templates/bundles/TwigBundle/Exception/error403.html.twig:18</note>
-      </notes>
-      <segment>
-        <source>http_error_403.description</source>
-        <target>Non si dispone dei permessi per accedere a questa risorsa.</target>
-      </segment>
-    </unit>
-    <unit id="zDeeh7L" name="http_error_403.suggestion">
-      <notes>
-        <note>templates/bundles/TwigBundle/Exception/error403.html.twig:21</note>
-      </notes>
-      <segment>
-        <source>http_error_403.suggestion</source>
-        <target>Rivolgersi all'amministratore di sistema per ottenere l'accesso a questa risorsa.</target>
-      </segment>
-    </unit>
-    <unit id="_W1eNz2" name="http_error_404.description">
-      <notes>
-        <note>templates/bundles/TwigBundle/Exception/error404.html.twig:18</note>
-      </notes>
-      <segment>
-        <source>http_error_404.description</source>
-        <target>Impossibile trovare la pagina richiesta.</target>
-      </segment>
-    </unit>
-    <unit id="MWNS5dg" name="http_error_404.suggestion">
-      <notes>
-        <note>templates/bundles/TwigBundle/Exception/error404.html.twig:21</note>
-      </notes>
-      <segment>
-        <source>http_error_404.suggestion</source>
-        <target><![CDATA[Controllare l'esattezza dell'URL oppure <a href="%url%">tornare all'homepage</a>.]]></target>
-      </segment>
-    </unit>
-    <unit id="ZYXSW95" name="http_error_500.description">
-      <notes>
-        <note>templates/bundles/TwigBundle/Exception/error500.html.twig:18</note>
-      </notes>
-      <segment>
-        <source>http_error_500.description</source>
-        <target>Si è verificato un errore di sistema.</target>
-      </segment>
-    </unit>
-    <unit id="VVs_J1c" name="http_error_500.suggestion">
-      <notes>
-        <note>templates/bundles/TwigBundle/Exception/error500.html.twig:21</note>
-      </notes>
-      <segment>
-        <source>http_error_500.suggestion</source>
-        <target><![CDATA[Ricaricare la pagina fra qualche minuto oppure <a href="%url%">tornare all'homepage</a>.]]></target>
-      </segment>
-    </unit>
-    <unit id="9RwuNlf" name="title.source_code">
-      <notes>
-        <note>templates/debug/source_code.twig:17</note>
-      </notes>
-      <segment>
-        <source>title.source_code</source>
-        <target>Codice sorgente della pagina</target>
-      </segment>
-    </unit>
-    <unit id="jaB3QjG" name="title.controller_code">
-      <notes>
-        <note>templates/debug/source_code.twig:22</note>
-        <note>templates/debug/source_code.twig:25</note>
-      </notes>
-      <segment>
-        <source>title.controller_code</source>
-        <target>Codice del Controller</target>
-      </segment>
-    </unit>
-    <unit id="2bH7SjO" name="title.twig_template_code">
-      <notes>
-        <note>templates/debug/source_code.twig:29</note>
-      </notes>
-      <segment>
-        <source>title.twig_template_code</source>
-        <target>Codice del template Twig</target>
-      </segment>
-    </unit>
     <unit id="1sstKF9" name="title.edit_user">
       <notes>
-        <note>templates/users/edit.twig:4</note>
+        <note>templates/users/edit.html.twig:6</note>
       </notes>
       <segment>
         <source>title.edit_user</source>
         <target>Modifica Utente</target>
       </segment>
     </unit>
-    <unit id="QbohvW1" name="action.show_code">
-      <notes>
-        <note>templates/debug/source_code.twig:7</note>
-      </notes>
-      <segment>
-        <source>action.show_code</source>
-        <target>Mostra sorgente</target>
-      </segment>
-    </unit>
     <unit id="HLtdhYw" name="action.save">
       <notes>
-        <note>templates/users/change_password.twig:18</note>
-        <note>templates/users/edit.twig:15</note>
+        <note>templates/content/_buttons.html.twig:12</note>
+        <note>templates/content/edit.html.twig:64</note>
+        <note>templates/finder/editfile.html.twig:38</note>
+        <note>templates/media/edit.html.twig:95</note>
+        <note>templates/media/edit.html.twig:111</note>
+        <note>templates/users/_form.html.twig:211</note>
+        <note>templates/users/add.html.twig:27</note>
+        <note>templates/users/edit.html.twig:27</note>
+        <note>templates/users/profile.html.twig:94</note>
+        <note>templates/users/profile.html.twig:106</note>
       </notes>
       <segment>
         <source>action.save</source>
@@ -151,21 +29,35 @@
       </segment>
     </unit>
     <unit id="a2vzLi7" name="action.do_something">
+      <notes>
+        <note>templates/pages/kitchensink.html.twig:67</note>
+        <note>templates/pages/kitchensink.html.twig:68</note>
+        <note>templates/pages/kitchensink.html.twig:69</note>
+        <note>templates/pages/kitchensink.html.twig:73</note>
+        <note>templates/pages/kitchensink.html.twig:74</note>
+        <note>templates/pages/kitchensink.html.twig:75</note>
+        <note>templates/pages/kitchensink.html.twig:81</note>
+        <note>templates/pages/kitchensink.html.twig:82</note>
+        <note>templates/pages/kitchensink.html.twig:83</note>
+        <note>templates/pages/kitchensink.html.twig:84</note>
+        <note>templates/pages/kitchensink.html.twig:88</note>
+        <note>templates/pages/kitchensink.html.twig:89</note>
+        <note>templates/pages/kitchensink.html.twig:90</note>
+        <note>templates/pages/kitchensink.html.twig:91</note>
+        <note>templates/pages/kitchensink.html.twig:97</note>
+        <note>templates/pages/kitchensink.html.twig:98</note>
+        <note>templates/pages/kitchensink.html.twig:102</note>
+        <note>templates/pages/kitchensink.html.twig:103</note>
+      </notes>
       <segment>
         <source>action.do_something</source>
         <target>Fai qualcosa</target>
       </segment>
     </unit>
-    <unit id="etGJjTo" name="action.edit_user">
-      <notes>
-        <note>templates/users/change_password.twig:26</note>
-      </notes>
-      <segment>
-        <source>action.edit_user</source>
-        <target>Modifica Utente</target>
-      </segment>
-    </unit>
     <unit id="ovKkXwU" name="action.edit">
+      <notes>
+        <note>templates/users/listing.html.twig:64</note>
+      </notes>
       <segment>
         <source>action.edit</source>
         <target>Modifica</target>
@@ -173,45 +65,28 @@
     </unit>
     <unit id="LDhDPrF" name="label.username">
       <notes>
-        <note>templates/security/login.twig:66</note>
-        <note>src/Form/UserType.php:31</note>
+        <note>templates/users/_form.html.twig:10</note>
+        <note>templates/users/profile.html.twig:24</note>
       </notes>
       <segment>
         <source>label.username</source>
-        <target>Username</target>
-      </segment>
-    </unit>
-    <unit id="VgeTgE2" name="help.show_code">
-      <notes>
-        <note>templates/debug/source_code.twig:3</note>
-      </notes>
-      <segment>
-        <source>help.show_code</source>
-        <target><![CDATA[Premere questo pulsante per mostrare il codice sorgente del <strong>Controller</strong> e del <strong>template</strong> utilizzati in questa pagina.]]></target>
-      </segment>
-    </unit>
-    <unit id="wtG.cxy" name="info.change_password">
-      <notes>
-        <note>templates/users/change_password.twig:12</note>
-      </notes>
-      <segment>
-        <source>info.change_password</source>
-        <target>Dopo la modifica della password dovrete effettuare nuovamente il login.</target>
+        <target>Nome utente</target>
       </segment>
     </unit>
     <unit id="80JoLd0" name="title.login">
       <notes>
-        <note>templates/security/login.twig:4</note>
+        <note>templates/security/login.html.twig:4</note>
       </notes>
       <segment>
         <source>title.login</source>
-        <target>Login</target>
+        <target>Accesso</target>
       </segment>
     </unit>
     <unit id="9pvowqn" name="label.password">
       <notes>
-        <note>templates/security/login.twig:70</note>
-        <note>templates/security/login.twig:75</note>
+        <note>src/Form/LoginType.php:43</note>
+        <note>templates/users/_form.html.twig:51</note>
+        <note>templates/users/profile.html.twig:42</note>
       </notes>
       <segment>
         <source>label.password</source>
@@ -220,7 +95,7 @@
     </unit>
     <unit id="gLN0C81" name="action.log_in">
       <notes>
-        <note>templates/security/login.twig:84</note>
+        <note>templates/security/login.html.twig:60</note>
       </notes>
       <segment>
         <source>action.log_in</source>
@@ -229,26 +104,17 @@
     </unit>
     <unit id="vJwSCBO" name="title.contentlisting">
       <notes>
-        <note>templates/content/listing.twig:9</note>
+        <note>templates/content/listing.html.twig:58</note>
       </notes>
       <segment>
         <source>title.contentlisting</source>
         <target>Lista dei contenuti</target>
       </segment>
     </unit>
-    <unit id="CX_oSFd" name="action.change_password">
-      <notes>
-        <note>templates/users/edit.twig:24</note>
-      </notes>
-      <segment>
-        <source>action.change_password</source>
-        <target>Cambia la password</target>
-      </segment>
-    </unit>
     <unit id="SNELzJ2" name="field.id">
       <notes>
-        <note>templates/editcontent/edit.twig:118</note>
-        <note>templates/editcontent/media_edit.twig:98</note>
+        <note>templates/content/_fields_aside_summary.html.twig:26</note>
+        <note>templates/media/edit.html.twig:121</note>
       </notes>
       <segment>
         <source>field.id</source>
@@ -257,7 +123,8 @@
     </unit>
     <unit id="FuCyk5C" name="field.status">
       <notes>
-        <note>templates/editcontent/edit.twig:76</note>
+        <note>templates/content/_fields_aside.html.twig:5</note>
+        <note>templates/users/_form.html.twig:153</note>
       </notes>
       <segment>
         <source>field.status</source>
@@ -266,8 +133,8 @@
     </unit>
     <unit id="O9wtVOp" name="field.createdAt">
       <notes>
-        <note>templates/editcontent/edit.twig:86</note>
-        <note>templates/editcontent/media_edit.twig:128</note>
+        <note>templates/content/_fields_aside_summary.html.twig:6</note>
+        <note>templates/media/edit.html.twig:151</note>
       </notes>
       <segment>
         <source>field.createdAt</source>
@@ -276,8 +143,10 @@
     </unit>
     <unit id="eVkSIKu" name="field.modifiedAt">
       <notes>
-        <note>templates/editcontent/edit.twig:94</note>
-        <note>templates/editcontent/media_edit.twig:135</note>
+        <note>src/Controller/Backend/ContentEditController.php:189</note>
+        <note>templates/content/_buttons.html.twig:50</note>
+        <note>templates/content/_fields_aside_summary.html.twig:16</note>
+        <note>templates/media/edit.html.twig:159</note>
       </notes>
       <segment>
         <source>field.modifiedAt</source>
@@ -286,7 +155,7 @@
     </unit>
     <unit id="3gdi1dy" name="field.publishedAt">
       <notes>
-        <note>templates/editcontent/edit.twig:102</note>
+        <note>templates/content/_fields_aside.html.twig:15</note>
       </notes>
       <segment>
         <source>field.publishedAt</source>
@@ -295,7 +164,7 @@
     </unit>
     <unit id="eN7IfEL" name="field.depublishedAt">
       <notes>
-        <note>templates/editcontent/edit.twig:110</note>
+        <note>templates/content/_fields_aside.html.twig:24</note>
       </notes>
       <segment>
         <source>field.depublishedAt</source>
@@ -304,7 +173,8 @@
     </unit>
     <unit id="VKhfRZB" name="field.title">
       <notes>
-        <note>templates/editcontent/media_edit.twig:47</note>
+        <note>templates/_partials/fields/embed.html.twig:31</note>
+        <note>templates/media/edit.html.twig:39</note>
       </notes>
       <segment>
         <source>field.title</source>
@@ -313,7 +183,7 @@
     </unit>
     <unit id="7_wwX8J" name="field.description">
       <notes>
-        <note>templates/editcontent/media_edit.twig:53</note>
+        <note>templates/media/edit.html.twig:45</note>
       </notes>
       <segment>
         <source>field.description</source>
@@ -322,7 +192,7 @@
     </unit>
     <unit id="hjDmcPC" name="field.copyright">
       <notes>
-        <note>templates/editcontent/media_edit.twig:59</note>
+        <note>templates/media/edit.html.twig:51</note>
       </notes>
       <segment>
         <source>field.copyright</source>
@@ -331,7 +201,7 @@
     </unit>
     <unit id="v0sitU8" name="field.originalFilename">
       <notes>
-        <note>templates/editcontent/media_edit.twig:66</note>
+        <note>templates/media/edit.html.twig:58</note>
       </notes>
       <segment>
         <source>field.originalFilename</source>
@@ -340,7 +210,8 @@
     </unit>
     <unit id="vlRe8Tx" name="field.width">
       <notes>
-        <note>templates/editcontent/media_edit.twig:105</note>
+        <note>templates/_partials/fields/embed.html.twig:29</note>
+        <note>templates/media/edit.html.twig:128</note>
       </notes>
       <segment>
         <source>field.width</source>
@@ -349,7 +220,8 @@
     </unit>
     <unit id="CZbXbM_" name="field.height">
       <notes>
-        <note>templates/editcontent/media_edit.twig:112</note>
+        <note>templates/_partials/fields/embed.html.twig:30</note>
+        <note>templates/media/edit.html.twig:135</note>
       </notes>
       <segment>
         <source>field.height</source>
@@ -358,7 +230,7 @@
     </unit>
     <unit id="Sz_u.OS" name="field.filesize">
       <notes>
-        <note>templates/editcontent/media_edit.twig:119</note>
+        <note>templates/media/edit.html.twig:142</note>
       </notes>
       <segment>
         <source>field.filesize</source>
@@ -367,7 +239,7 @@
     </unit>
     <unit id="RMPnq6o" name="label.username_or_email">
       <notes>
-        <note>templates/security/login.twig:61</note>
+        <note>src/Form/LoginType.php:31</note>
       </notes>
       <segment>
         <source>label.username_or_email</source>
@@ -376,7 +248,7 @@
     </unit>
     <unit id="IaF1MjB" name="label.rememberme">
       <notes>
-        <note>templates/security/login.twig:80</note>
+        <note>src/Form/LoginType.php:58</note>
       </notes>
       <segment>
         <source>label.rememberme</source>
@@ -385,7 +257,9 @@
     </unit>
     <unit id="k.JymqB" name="about.visit_bolt">
       <notes>
-        <note>templates/pages/about.twig:25</note>
+        <note>assets/js/app/toolbar/Components/Toolbar.vue:76</note>
+        <note>templates/_base/layout.html.twig:43</note>
+        <note>templates/pages/about.html.twig:54</note>
       </notes>
       <segment>
         <source>about.visit_bolt</source>
@@ -394,7 +268,9 @@
     </unit>
     <unit id="UZFanGF" name="about.bolt_documentation">
       <notes>
-        <note>templates/pages/about.twig:28</note>
+        <note>assets/js/app/toolbar/Components/Toolbar.vue:82</note>
+        <note>templates/_base/layout.html.twig:37</note>
+        <note>templates/pages/about.html.twig:57</note>
       </notes>
       <segment>
         <source>about.bolt_documentation</source>
@@ -403,7 +279,7 @@
     </unit>
     <unit id="FO7zDub" name="about.bolt_on_github">
       <notes>
-        <note>templates/pages/about.twig:31</note>
+        <note>templates/pages/about.html.twig:60</note>
       </notes>
       <segment>
         <source>about.bolt_on_github</source>
@@ -412,7 +288,7 @@
     </unit>
     <unit id="_9fS00R" name="about.used_libraries">
       <notes>
-        <note>templates/pages/about.twig:35</note>
+        <note>templates/pages/about.html.twig:64</note>
       </notes>
       <segment>
         <source>about.used_libraries</source>
@@ -421,37 +297,36 @@
     </unit>
     <unit id="tgLgLDQ" name="about.list_of_used_libraries">
       <notes>
-        <note>templates/pages/about.twig:37</note>
+        <note>templates/pages/about.html.twig:66</note>
       </notes>
       <segment>
         <source>about.list_of_used_libraries</source>
         <target>Di seguito l'elenco delle librerie di terze parti utilizzate da Bolt.</target>
       </segment>
     </unit>
-    <unit id="aYnbvsn" name="label.fullname">
-      <notes>
-        <note>src/Form/UserType.php:35</note>
-        <note>new</note>
-      </notes>
-      <segment>
-        <source>label.fullname</source>
-        <target>Nome completo</target>
-      </segment>
-    </unit>
     <unit id="D2N6_cP" name="label.email">
       <notes>
-        <note>src/Form/UserType.php:38</note>
-        <note>new</note>
+        <note>src/Form/ResetPasswordRequestFormType.php:25</note>
+        <note>templates/users/_form.html.twig:68</note>
+        <note>templates/users/profile.html.twig:51</note>
       </notes>
       <segment>
         <source>label.email</source>
         <target>Indirizzo Email</target>
       </segment>
     </unit>
+    <unit id="D2N7_cP" name="label.about">
+      <notes>
+        <note>templates/users/_form.html.twig:185</note>
+      </notes>
+      <segment>
+        <source>label.about</source>
+        <target>Su di me</target>
+      </segment>
+    </unit>
     <unit id="OBmPOoB" name="user.updated_successfully">
       <notes>
-        <note>src/Controller/Backend/UserController.php:33</note>
-        <note>new</note>
+        <note>src/Controller/Backend/UserEditController.php:129</note>
       </notes>
       <segment>
         <source>user.updated_successfully</source>
@@ -460,9 +335,9 @@
     </unit>
     <unit id="3hkt.eH" name="content.updated_successfully">
       <notes>
-        <note>src/Controller/Backend/EditMediaController.php:126</note>
-        <note>src/Controller/Backend/EditRecordController.php:86</note>
-        <note>new</note>
+        <note>src/Controller/Backend/ContentEditController.php:198</note>
+        <note>src/Controller/Backend/ContentEditController.php:208</note>
+        <note>src/Controller/Backend/MediaEditController.php:64</note>
       </notes>
       <segment>
         <source>content.updated_successfully</source>
@@ -471,8 +346,7 @@
     </unit>
     <unit id="IB0mNQh" name="content.created_successfully">
       <notes>
-        <note>src/Controller/Backend/EditMediaController.php:157</note>
-        <note>new</note>
+        <note>src/Controller/Backend/MediaEditController.php:88</note>
       </notes>
       <segment>
         <source>content.created_successfully</source>
@@ -481,8 +355,7 @@
     </unit>
     <unit id="b1jqjUC" name="editfile.could_not_write">
       <notes>
-        <note>src/Controller/Backend/EditFileController.php:101</note>
-        <note>new</note>
+        <note>src/Controller/Backend/FileEditController.php:106</note>
       </notes>
       <segment>
         <source>editfile.could_not_write</source>
@@ -490,517 +363,645 @@
       </segment>
     </unit>
     <unit id="mEDsKHk" name="label.locale">
+      <notes>
+        <note>templates/users/_form.html.twig:95</note>
+        <note>templates/users/profile.html.twig:72</note>
+      </notes>
       <segment>
         <source>label.locale</source>
-        <target>Locale</target>
-      </segment>
-    </unit>
-    <unit id="98Q5SA2" name="label.backend_theme">
-      <segment>
-        <source>label.backend_theme</source>
-        <target>Tema del Backend</target>
-      </segment>
-    </unit>
-    <unit id="Z84BVRW" name="English (en)">
-      <segment>
-        <source>English (en)</source>
-        <target>English (en)</target>
-      </segment>
-    </unit>
-    <unit id="eG9ABZd" name="Nederlands (dutch, nl)">
-      <segment>
-        <source>Nederlands (dutch, nl)</source>
-        <target>Nederlands (dutch, nl)</target>
-      </segment>
-    </unit>
-    <unit id="57LcBXV" name="Español (Spanish, es)">
-      <segment>
-        <source>Español (Spanish, es)</source>
-        <target>Español (Spanish, es)</target>
-      </segment>
-    </unit>
-    <unit id="e7RdvJ0" name="français (French, fr)">
-      <segment>
-        <source>français (French, fr)</source>
-        <target>Français (French, fr)</target>
-      </segment>
-    </unit>
-    <unit id="U1vrep2" name="Deutsch (German, de)">
-      <segment>
-        <source>Deutsch (German, de)</source>
-        <target>Deutsch (German, de)</target>
-      </segment>
-    </unit>
-    <unit id="EsWjyMS" name="Język Polski (Polish, pl)">
-      <segment>
-        <source>Język Polski (Polish, pl)</source>
-        <target>Język Polski (Polish, pl)</target>
-      </segment>
-    </unit>
-    <unit id="fbEbOrT" name="Brasilian Portuguese (Brasilian Portuguese, pt_BR)">
-      <segment>
-        <source>Brasilian Portuguese (Brasilian Portuguese, pt_BR)</source>
-        <target>Brasilian Portuguese (Brasilian Portuguese, pt_BR)</target>
-      </segment>
-    </unit>
-    <unit id="pBUPCm9" name="Italiano (Italian, it)">
-      <segment>
-        <source>Italiano (Italian, it)</source>
-        <target>Italiano (Italian, it)</target>
+        <target>Lingua</target>
       </segment>
     </unit>
     <unit id="Oiwdkpg" name="The Default theme">
+      <notes>
+        <note>templates/users/_form.html.twig:201</note>
+        <note>templates/users/profile.html.twig:85</note>
+      </notes>
       <segment>
         <source>The Default theme</source>
         <target>Il tema di default</target>
       </segment>
     </unit>
     <unit id="C389Knp" name="The Default Dark theme">
+      <notes>
+        <note>templates/users/_form.html.twig:202</note>
+        <note>templates/users/profile.html.twig:86</note>
+      </notes>
       <segment>
         <source>The Default Dark theme</source>
         <target>Il tema scuro di default</target>
       </segment>
     </unit>
     <unit id="kouGbMq" name="WoordPers: Kinda looks like that other CMS">
+      <notes>
+        <note>templates/users/_form.html.twig:204</note>
+        <note>templates/users/profile.html.twig:88</note>
+      </notes>
       <segment>
         <source>WoordPers: Kinda looks like that other CMS</source>
         <target>WoordPers: sembra un po' come quell'altro CMS</target>
       </segment>
     </unit>
     <unit id="7aLIA3c" name="caption.dashboard">
+      <notes>
+        <note>src/Menu/BackendMenuBuilder.php:53</note>
+        <note>templates/pages/dashboard.html.twig:6</note>
+      </notes>
       <segment>
         <source>caption.dashboard</source>
         <target>Dashboard</target>
       </segment>
     </unit>
-    <unit id="xuNRuUu" name="caption.translations: messages">
-      <segment>
-        <source>caption.translations: messages</source>
-        <target>caption.translations: messages</target>
-      </segment>
-    </unit>
     <unit id="K6TmK4B" name="caption.clear_cache">
+      <notes>
+        <note>src/Menu/BackendMenuBuilder.php:217</note>
+        <note>templates/pages/clearcache.html.twig:6</note>
+        <note>templates/pages/clearcache.html.twig:18</note>
+      </notes>
       <segment>
         <source>caption.clear_cache</source>
         <target>Cancella la cache</target>
       </segment>
     </unit>
-    <unit id="RRQ1EJ3" name="caption.check_database">
-      <segment>
-        <source>caption.check_database</source>
-        <target>Verifica del Database</target>
-      </segment>
-    </unit>
-    <unit id="cIiIXu_" name="caption.routing set up">
-      <segment>
-        <source>caption.routing set up</source>
-        <target>caption.routing set up</target>
-      </segment>
-    </unit>
     <unit id="2RUXD4A" name="caption.menu_setup">
+      <notes>
+        <note>src/Menu/BackendMenuBuilder.php:145</note>
+      </notes>
       <segment>
         <source>caption.menu_setup</source>
         <target>Impostazioni del Menu</target>
       </segment>
     </unit>
     <unit id="drK.0GZ" name="caption.taxonomies">
+      <notes>
+        <note>src/Menu/BackendMenuBuilder.php:134</note>
+      </notes>
       <segment>
         <source>caption.taxonomies</source>
         <target>Tassonomie</target>
       </segment>
     </unit>
     <unit id="_w7J5rZ" name="caption.contenttypes">
+      <notes>
+        <note>src/Menu/BackendMenuBuilder.php:123</note>
+      </notes>
       <segment>
         <source>caption.contenttypes</source>
         <target>Tipi di contenuto</target>
       </segment>
     </unit>
     <unit id="kXNBV9S" name="caption.main_configuration">
+      <notes>
+        <note>src/Menu/BackendMenuBuilder.php:112</note>
+      </notes>
       <segment>
         <source>caption.main_configuration</source>
         <target>Configurazione principale</target>
       </segment>
     </unit>
     <unit id="ipmA6Ah" name="caption.users_permissions">
+      <notes>
+        <note>src/Menu/BackendMenuBuilder.php:99</note>
+      </notes>
       <segment>
         <source>caption.users_permissions</source>
         <target><![CDATA[Utenti & Permessi]]></target>
       </segment>
     </unit>
     <unit id="zOLL.7E" name="caption.configuration">
+      <notes>
+        <note>src/Menu/BackendMenuBuilder.php:89</note>
+      </notes>
       <segment>
         <source>caption.configuration</source>
         <target>Configurazione</target>
       </segment>
     </unit>
     <unit id="ZO.uqIZ" name="caption.settings">
+      <notes>
+        <note>src/Menu/BackendMenuBuilder.php:77</note>
+      </notes>
       <segment>
         <source>caption.settings</source>
         <target>Impostazioni</target>
       </segment>
     </unit>
     <unit id="1xlE8ex" name="caption.content">
+      <notes>
+        <note>src/Menu/BackendMenuBuilder.php:61</note>
+      </notes>
       <segment>
         <source>caption.content</source>
         <target>Contenuto</target>
       </segment>
     </unit>
     <unit id="l4yt0BE" name="caption.file_management">
+      <notes>
+        <note>src/Menu/BackendMenuBuilder.php:260</note>
+        <note>templates/finder/finder.html.twig:6</note>
+      </notes>
       <segment>
         <source>caption.file_management</source>
         <target>Gestione File</target>
       </segment>
     </unit>
     <unit id="mfvtHPQ" name="caption.extensions">
+      <notes>
+        <note>src/Menu/BackendMenuBuilder.php:187</note>
+        <note>templates/pages/extension_details.html.twig:6</note>
+        <note>templates/pages/extensions.html.twig:6</note>
+      </notes>
       <segment>
         <source>caption.extensions</source>
         <target>Estensioni</target>
       </segment>
     </unit>
     <unit id="K4D568R" name="caption.view_edit_templates">
+      <notes>
+        <note>src/Menu/BackendMenuBuilder.php:280</note>
+      </notes>
       <segment>
         <source>caption.view_edit_templates</source>
         <target><![CDATA[Visualizza & modifica templates]]></target>
       </segment>
     </unit>
     <unit id="bq6bSf4" name="caption.uploaded_files">
+      <notes>
+        <note>src/Menu/BackendMenuBuilder.php:270</note>
+      </notes>
       <segment>
         <source>caption.uploaded_files</source>
         <target>Files caricati</target>
       </segment>
     </unit>
     <unit id="wBKDkwl" name="caption.routing_setup">
+      <notes>
+        <note>src/Menu/BackendMenuBuilder.php:157</note>
+      </notes>
       <segment>
         <source>caption.routing_setup</source>
         <target>Impostazioni di Routing</target>
       </segment>
     </unit>
     <unit id="dd5MzCM" name="caption.translations">
+      <notes>
+        <note>src/Menu/BackendMenuBuilder.php:227</note>
+        <note>templates/content/view_locales.html.twig:15</note>
+      </notes>
       <segment>
         <source>caption.translations</source>
         <target>Traduzioni / Etichette</target>
       </segment>
     </unit>
     <unit id="wLaDaK5" name="caption.about_bolt">
+      <notes>
+        <note>src/Menu/BackendMenuBuilder.php:248</note>
+        <note>templates/pages/about.html.twig:6</note>
+      </notes>
       <segment>
         <source>caption.about_bolt</source>
         <target>Info su Bolt</target>
       </segment>
     </unit>
     <unit id="xN1kSQQ" name="caption.bolt_payoff">
+      <notes>
+        <note>templates/pages/about.html.twig:11</note>
+      </notes>
       <segment>
         <source>caption.bolt_payoff</source>
         <target>Un CMS sofisticato, semplice e leggero</target>
       </segment>
     </unit>
     <unit id="HK7XTUX" name="caption.edit">
+      <notes>
+        <note>templates/content/edit.html.twig:22</note>
+      </notes>
       <segment>
         <source>caption.edit</source>
         <target>Modifica</target>
       </segment>
     </unit>
-    <unit id="dbyz2hj" name="caption.finder">
-      <segment>
-        <source>caption.finder</source>
-        <target>Finder</target>
-      </segment>
-    </unit>
     <unit id="QZYjRy0" name="caption.file_uploader">
+      <notes>
+        <note>templates/finder/_uploader.html.twig:8</note>
+      </notes>
       <segment>
         <source>caption.file_uploader</source>
         <target>Caricamento File</target>
       </segment>
     </unit>
     <unit id="LaDIuZA" name="caption.meta_information">
+      <notes>
+        <note>templates/finder/finder.html.twig:38</note>
+        <note>templates/media/edit.html.twig:105</note>
+      </notes>
       <segment>
         <source>caption.meta_information</source>
         <target>Meta informazioni</target>
       </segment>
     </unit>
     <unit id="DodjLNR" name="date">
+      <notes>
+        <note>assets/js/app/editor/Components/Date.vue:76</note>
+        <note>assets/js/filters/date.js:4</note>
+        <note>src/DataFixtures/ContentFixtures.php:357</note>
+        <note>src/Entity/Field/DateField.php:14</note>
+        <note>src/Storage/SelectQuery.php:299</note>
+        <note>src/Storage/SelectQuery.php:449</note>
+        <note>src/Twig/FieldExtension.php:52</note>
+        <note>src/Twig/HtmlExtension.php:106</note>
+        <note>templates/finder/_files_list.html.twig:9</note>
+        <note>templates/helpers/_field_blocks.twig:78</note>
+        <note>templates/helpers/_fields.twig:30</note>
+      </notes>
       <segment>
         <source>date</source>
         <target>Data</target>
       </segment>
     </unit>
     <unit id="zNy_hG8" name="size">
+      <notes>
+        <note>assets/js/app/listing/Components/Table/Row/index.vue:32</note>
+        <note>assets/js/app/listing/Components/Table/Row/index.vue:41</note>
+        <note>src/Controller/Backend/Async/UploadController.php:195</note>
+        <note>src/Controller/Backend/Async/UploadController.php:196</note>
+        <note>src/Entity/Field/ImageField.php:88</note>
+        <note>src/Entity/Field/ImageField.php:89</note>
+        <note>templates/finder/_files_list.html.twig:8</note>
+      </notes>
       <segment>
         <source>size</source>
         <target>Dimensioni</target>
       </segment>
     </unit>
     <unit id="gPYflhh" name="thumbnail">
+      <notes>
+        <note>src/Controller/ImageController.php:41</note>
+        <note>src/Controller/ImageController.php:113</note>
+        <note>src/Controller/ImageController.php:139</note>
+        <note>src/Entity/Field/ImageField.php:31</note>
+        <note>src/Entity/Field/ImageField.php:96</note>
+        <note>src/Twig/ImageExtension.php:45</note>
+        <note>src/Twig/ImageExtension.php:63</note>
+        <note>templates/_partials/fields/embed.html.twig:14</note>
+        <note>templates/finder/_files_list.html.twig:7</note>
+      </notes>
       <segment>
         <source>thumbnail</source>
-        <target>Thumbnail</target>
+        <target>Miniatura</target>
       </segment>
     </unit>
     <unit id="_XSgfqS" name="filename">
+      <notes>
+        <note>public/theme/skeleton/custom/test.twig:99</note>
+        <note>src/Controller/Backend/FilemanagerController.php:211</note>
+        <note>src/Controller/Backend/UserEditController.php:84</note>
+        <note>src/Controller/Backend/UserEditController.php:255</note>
+        <note>src/Controller/ImageController.php:41</note>
+        <note>src/DataFixtures/ContentFixtures.php:314</note>
+        <note>src/DataFixtures/ContentFixtures.php:323</note>
+        <note>src/DataFixtures/ContentFixtures.php:382</note>
+        <note>src/DataFixtures/ContentFixtures.php:394</note>
+        <note>src/DataFixtures/ContentFixtures.php:498</note>
+        <note>src/Entity/Field/FileExtrasTrait.php:15</note>
+        <note>src/Entity/Field/FileExtrasTrait.php:21</note>
+        <note>src/Entity/Field/FileField.php:22</note>
+        <note>src/Entity/Field/FileField.php:45</note>
+        <note>src/Entity/Field/FileField.php:63</note>
+        <note>src/Entity/Field/ImageField.php:28</note>
+        <note>src/Entity/Field/ImageField.php:72</note>
+        <note>src/Entity/Field/ImageField.php:87</note>
+        <note>src/Entity/Field/ImageField.php:94</note>
+        <note>src/Entity/Field/ImageField.php:107</note>
+        <note>src/Entity/Field/ImageField.php:108</note>
+        <note>src/Entity/Field/ImageField.php:116</note>
+        <note>src/Entity/Field/ImageField.php:120</note>
+        <note>src/Entity/Field/ImageField.php:144</note>
+        <note>src/Factory/MediaFactory.php:50</note>
+        <note>src/Repository/MediaRepository.php:27</note>
+        <note>src/Twig/ContentExtension.php:189</note>
+        <note>src/Twig/ImageExtension.php:162</note>
+        <note>src/Twig/ImageExtension.php:164</note>
+        <note>templates/_partials/fields/file.html.twig:31</note>
+        <note>templates/_partials/fields/image.html.twig:40</note>
+        <note>templates/finder/_files_list.html.twig:6</note>
+        <note>templates/media/edit.html.twig:31</note>
+        <note>tests/php/Twig/ContentExtensionTestCase.php:159</note>
+        <note>tests/php/Twig/ContentExtensionTestCase.php:175</note>
+      </notes>
       <segment>
         <source>filename</source>
         <target>Nome file</target>
       </segment>
     </unit>
     <unit id="Kw3N1AA" name="actions">
+      <notes>
+        <note>assets/js/app/listing/Components/Table/Row/index.vue:41</note>
+        <note>templates/_partials/_content_listing.html.twig:21</note>
+        <note>templates/finder/_files_list.html.twig:10</note>
+        <note>templates/finder/_folders.html.twig:7</note>
+      </notes>
       <segment>
         <source>actions</source>
         <target>Azioni</target>
       </segment>
     </unit>
     <unit id="KHvGNGW" name="directoryname">
+      <notes>
+        <note>templates/finder/_folders.html.twig:6</note>
+      </notes>
       <segment>
         <source>directoryname</source>
         <target>Nome Directory</target>
       </segment>
     </unit>
-    <unit id="ZV7_x5F" name="action.go">
-      <segment>
-        <source>action.go</source>
-        <target>Vai</target>
-      </segment>
-    </unit>
     <unit id="C15MbYY" name="form.quick_select_file">
+      <notes>
+        <note>templates/finder/_quickselect.html.twig:9</note>
+      </notes>
       <segment>
         <source>form.quick_select_file</source>
         <target>Selezione veloce di un file da modificare…</target>
       </segment>
     </unit>
-    <unit id="gFcV5nW" name="label.quick_select">
-      <segment>
-        <source>label.quick_select</source>
-        <target>Selezione veloce</target>
-      </segment>
-    </unit>
     <unit id="FSroufa" name="caption.path">
+      <notes>
+        <note>templates/finder/editfile.html.twig:26</note>
+        <note>templates/finder/finder.html.twig:40</note>
+      </notes>
       <segment>
         <source>caption.path</source>
         <target>Percorso</target>
       </segment>
     </unit>
     <unit id="y5otxEK" name="caption.filename">
+      <notes>
+        <note>templates/media/edit.html.twig:30</note>
+      </notes>
       <segment>
         <source>caption.filename</source>
         <target>Nome File</target>
       </segment>
     </unit>
-    <unit id="XNTbZW6" name="action.visit_site">
-      <segment>
-        <source>action.visit_site</source>
-        <target>Visita il  sito</target>
-      </segment>
-    </unit>
     <unit id="KfVJho2" name="action.create_new">
+      <notes>
+        <note>templates/content/listing.html.twig:63</note>
+      </notes>
       <segment>
         <source>action.create_new</source>
         <target>Crea nuovo</target>
       </segment>
     </unit>
     <unit id="b_RPpcB" name="general.greeting">
+      <notes>
+        <note>assets/js/app/toolbar/Components/Toolbar.vue:53</note>
+        <note>templates/_base/layout.html.twig:39</note>
+      </notes>
       <segment>
         <source>general.greeting</source>
-        <target>Hey, %name%!</target>
+        <target>Ciao, %name%!</target>
       </segment>
     </unit>
     <unit id="bmdn3u9" name="action.logout">
+      <notes>
+        <note>assets/js/app/toolbar/Components/Toolbar.vue:69</note>
+        <note>templates/_base/layout.html.twig:40</note>
+      </notes>
       <segment>
         <source>action.logout</source>
-        <target>Logout</target>
+        <target>Esci</target>
       </segment>
     </unit>
     <unit id="zOfpTLD" name="action.edit_profile">
+      <notes>
+        <note>assets/js/app/toolbar/Components/Toolbar.vue:63</note>
+        <note>templates/_base/layout.html.twig:42</note>
+      </notes>
       <segment>
         <source>action.edit_profile</source>
         <target>Modifica Profilo</target>
       </segment>
     </unit>
     <unit id="N_0yRcH" name="action.close_alert">
+      <notes>
+        <note>templates/_partials/_flash_messages.html.twig:1</note>
+      </notes>
       <segment>
         <source>action.close_alert</source>
         <target>chiudi</target>
       </segment>
     </unit>
     <unit id="Dvu2HQx" name="caption.api">
+      <notes>
+        <note>src/Menu/BackendMenuBuilder.php:207</note>
+      </notes>
       <segment>
         <source>caption.api</source>
         <target>API</target>
       </segment>
     </unit>
     <unit id="i4cbdta" name="caption.all_configuration_files">
+      <notes>
+        <note>src/Menu/BackendMenuBuilder.php:165</note>
+      </notes>
       <segment>
         <source>caption.all_configuration_files</source>
         <target>Tutti i files di configurazione</target>
       </segment>
     </unit>
     <unit id="OpKTKAL" name="caption.maintenance">
+      <notes>
+        <note>src/Menu/BackendMenuBuilder.php:177</note>
+      </notes>
       <segment>
         <source>caption.maintenance</source>
         <target>Manutenzione</target>
       </segment>
     </unit>
-    <unit id="hGJoUs5" name="caption.fixtures_dummy_content">
-      <segment>
-        <source>caption.fixtures_dummy_content</source>
-        <target>Fixtures (Contenti fittizi)</target>
-      </segment>
-    </unit>
     <unit id="P1FHg3Q" name="caption.edit_file">
+      <notes>
+        <note>templates/finder/editfile.html.twig:21</note>
+      </notes>
       <segment>
         <source>caption.edit_file</source>
         <target>Modifica File</target>
       </segment>
     </unit>
-    <unit id="_ef0RBR" name="caption.installation_checks">
-      <segment>
-        <source>caption.installation_checks</source>
-        <target>Verifica dell'installazione</target>
-      </segment>
-    </unit>
-    <unit id="pNPctrH" name="form.select_language">
-      <segment>
-        <source>form.select_language</source>
-        <target>Seleziona Lingua</target>
-      </segment>
-    </unit>
-    <unit id="9lJhqvA" name="field.locale">
-      <segment>
-        <source>field.locale</source>
-        <target>Locale</target>
-      </segment>
-    </unit>
     <unit id="8zEzq8N" name="field.current_locale">
+      <notes>
+        <note>templates/content/_localeswitcher.html.twig:7</note>
+      </notes>
       <segment>
         <source>field.current_locale</source>
         <target>Locale corrente</target>
       </segment>
     </unit>
     <unit id="ahZvOJz" name="field.switch_to_locale">
+      <notes>
+        <note>templates/content/_localeswitcher.html.twig:14</note>
+      </notes>
       <segment>
         <source>field.switch_to_locale</source>
         <target>Cambia locale</target>
       </segment>
     </unit>
     <unit id="aQX4Emy" name="field.author">
+      <notes>
+        <note>templates/_partials/fields/embed.html.twig:32</note>
+        <note>templates/content/_fields_aside.html.twig:33</note>
+      </notes>
       <segment>
         <source>field.author</source>
         <target>Autore</target>
       </segment>
     </unit>
     <unit id="UNBaDz." name="general.phrase.edit">
+      <notes>
+        <note>public/theme/skeleton/partials/_aside.twig:26</note>
+        <note>public/theme/skeleton/partials/_recordfooter.twig:4</note>
+        <note>templates/content/view_locales.html.twig:60</note>
+      </notes>
       <segment>
         <source>general.phrase.edit</source>
         <target>Modifica</target>
       </segment>
     </unit>
     <unit id="t2TNwOq" name="Unknown">
+      <notes>
+        <note>public/theme/skeleton/partials/_recordfooter.twig:7</note>
+      </notes>
       <segment>
         <source>Unknown</source>
         <target>Sconosciuto</target>
       </segment>
     </unit>
     <unit id="A_d5KPt" name="general.phrase.written-by-on">
+      <notes>
+        <note>public/theme/skeleton/partials/_recordfooter.twig:6</note>
+      </notes>
       <segment>
         <source>general.phrase.written-by-on</source>
         <target>Scritto da %name% il %date%.</target>
       </segment>
     </unit>
     <unit id="TVU.FCV" name="general.phrase.missing-about-page">
+      <notes>
+        <note>public/theme/skeleton/partials/_aside.twig:33</note>
+      </notes>
       <segment>
         <source>general.phrase.missing-about-page</source>
         <target>Manca la pagina "About"</target>
       </segment>
     </unit>
     <unit id="7iq8jIG" name="general.phrase.missing-about-page-block">
+      <notes>
+        <note>public/theme/skeleton/partials/_aside.twig:35</note>
+      </notes>
       <segment>
         <source>general.phrase.missing-about-page-block</source>
         <target>Manca il blocco "About"</target>
       </segment>
     </unit>
     <unit id="AGegYAN" name="contenttypes.generic.recent">
+      <notes>
+        <note>public/theme/skeleton/partials/_aside.twig:53</note>
+      </notes>
       <segment>
         <source>contenttypes.generic.recent</source>
         <target>%contenttypes% recenti</target>
       </segment>
     </unit>
     <unit id="gB.9hTu" name="general.phrase.search-ellipsis">
+      <notes>
+        <note>public/theme/skeleton/partials/_footer.twig:12</note>
+        <note>public/theme/skeleton/search.twig:23</note>
+      </notes>
       <segment>
         <source>general.phrase.search-ellipsis</source>
         <target>…</target>
       </segment>
     </unit>
     <unit id="wGlnx8X" name="general.phrase.search">
+      <notes>
+        <note>public/theme/skeleton/partials/_footer.twig:9</note>
+        <note>public/theme/skeleton/search.twig:11</note>
+        <note>public/theme/skeleton/search.twig:24</note>
+        <note>templates/_base/layout.html.twig:44</note>
+      </notes>
       <segment>
         <source>general.phrase.search</source>
         <target>Cerca</target>
       </segment>
     </unit>
-    <unit id="z0k8hRg" name="9fb3e6e">
-      <segment>
-        <source>9fb3e6e</source>
-        <target><![CDATA[Questo sito è <a href='%url%' target='_blank' title='CMS semplice e sofisticato'>realizzato con Bolt</a>.]]></target>
-      </segment>
-    </unit>
     <unit id="wNEwZy_" name="contenttypes.generic.overview">
+      <notes>
+        <note>public/theme/skeleton/partials/_aside.twig:60</note>
+      </notes>
       <segment>
         <source>contenttypes.generic.overview</source>
         <target>Panoramica dei %contenttypes%</target>
       </segment>
     </unit>
     <unit id="skuzBpI" name="contenttypes.generic.no-recent">
+      <notes>
+        <note>public/theme/skeleton/partials/_aside.twig:62</note>
+      </notes>
       <segment>
         <source>contenttypes.generic.no-recent</source>
         <target>Non è stato trovato alcun %contenttype%</target>
       </segment>
     </unit>
     <unit id="ma9mBv_" name="Menu">
+      <notes>
+        <note>public/theme/skeleton/partials/_footer.twig:4</note>
+      </notes>
       <segment>
         <source>Menu</source>
         <target>Menu</target>
       </segment>
     </unit>
     <unit id="ScJmuqq" name="Search">
+      <notes>
+        <note>src/DataFixtures/ContentFixtures.php:443</note>
+        <note>tests/cypress/integration/dashboard_globalsearch.spec.js:14</note>
+        <note>tests/cypress/integration/dashboard_globalsearch.spec.js:26</note>
+        <note>tests/cypress/integration/dashboard_globalsearch.spec.js:37</note>
+      </notes>
       <segment>
         <source>Search</source>
         <target>Cerca</target>
       </segment>
     </unit>
     <unit id="k.xuYv2" name="general.phrase.permalink">
+      <notes>
+        <note>public/theme/skeleton/partials/_recordfooter.twig:14</note>
+      </notes>
       <segment>
         <source>general.phrase.permalink</source>
         <target>Permalink</target>
       </segment>
     </unit>
-    <unit id="zsyp43M" name="label.displayname">
-      <segment>
-        <source>label.displayname</source>
-        <target>Displayname</target>
-      </segment>
-    </unit>
     <unit id="2MMvCKK" name="label.cache_cleared">
+      <notes>
+        <note>src/Controller/Backend/ClearCacheController.php:24</note>
+      </notes>
       <segment>
         <source>label.cache_cleared</source>
         <target>La Cache è stata svuotata correttamente!</target>
       </segment>
     </unit>
     <unit id="Wou02nK" name="caption.kitchensink">
+      <notes>
+        <note>src/Menu/BackendMenuBuilder.php:238</note>
+      </notes>
       <segment>
         <source>caption.kitchensink</source>
         <target>La Discarica</target>
       </segment>
     </unit>
-    <unit id="wrUiAsV" name="general.phrase.search-results-for-variable">
-      <notes>
-        <note>parameters:</note>
-        <note> '%search%': consequatur</note>
-      </notes>
-      <segment>
-        <source>general.phrase.search-results-for-variable</source>
-        <target>Risultati della ricerca di '%search%'.</target>
-      </segment>
-    </unit>
     <unit id="2CfJ3WY" name="general.phrase.search-results-for">
       <notes>
-        <note>parameters:</note>
-        <note> '%search%': ymnrubeyrvwearsytevsf</note>
+        <note>public/theme/skeleton/search.twig:11</note>
       </notes>
       <segment>
         <source>general.phrase.search-results-for</source>
@@ -1009,8 +1010,7 @@
     </unit>
     <unit id="V0VhH5g" name="general.phrase.no-search-results-for">
       <notes>
-        <note>parameters:</note>
-        <note> '%SEARCHTERM%': ymnrubeyrvwearsytevsf</note>
+        <note>public/theme/skeleton/search.twig:51</note>
       </notes>
       <segment>
         <source>general.phrase.no-search-results-for</source>
@@ -1018,117 +1018,2420 @@
       </segment>
     </unit>
     <unit id="_KyvT9o" name="general.phrase.no-search-term-provided">
+      <notes>
+        <note>public/theme/skeleton/search.twig:53</note>
+      </notes>
       <segment>
         <source>general.phrase.no-search-term-provided</source>
         <target>Inserire un termine di ricerca per ottenere risultati rilevanti.</target>
       </segment>
     </unit>
     <unit id="Pily_qo" name="general.phrase.read-more">
+      <notes>
+        <note>public/theme/skeleton/partials/_aside.twig:23</note>
+        <note>vendor/bolt/newswidget/templates/news.html.twig:10</note>
+      </notes>
       <segment>
         <source>general.phrase.read-more</source>
         <target>Altre informazioni</target>
       </segment>
     </unit>
     <unit id="psOa_9x" name="general.phrase.built-with-bolt">
+      <notes>
+        <note>public/theme/skeleton/partials/_footer.twig:17</note>
+      </notes>
       <segment>
         <source>general.phrase.built-with-bolt</source>
-        <target><![CDATA[Questo sito è <a href='%url%' target='_blank' title='CMS semplice e sofisticato'>realizzato con Bolt</a>.]]></target>
+        <target><![CDATA[Questo sito è <a href='https://boltcms.io' target='_blank' title='CMS semplice e sofisticato'>realizzato con Bolt</a>.]]></target>
       </segment>
     </unit>
     <unit id="5IxD63c" name="general.latest_bolt_news">
+      <notes>
+        <note>vendor/bolt/newswidget/templates/news.html.twig:3</note>
+      </notes>
       <segment>
         <source>general.latest_bolt_news</source>
         <target>Ultime notizie su Bolt</target>
       </segment>
     </unit>
     <unit id="dQIY7_J" name="action.preview">
+      <notes>
+        <note>templates/content/_buttons.html.twig:19</note>
+      </notes>
       <segment>
         <source>action.preview</source>
         <target>Anteprima</target>
       </segment>
     </unit>
     <unit id="ok6YulQ" name="action.view_saved">
+      <notes>
+        <note>templates/content/_buttons.html.twig:58</note>
+      </notes>
       <segment>
         <source>action.view_saved</source>
         <target>Mostra sul sito la versione salvata</target>
       </segment>
     </unit>
     <unit id="SeTqePC" name="label.display_name">
+      <notes>
+        <note>templates/users/_form.html.twig:26</note>
+        <note>templates/users/profile.html.twig:33</note>
+      </notes>
       <segment>
         <source>label.display_name</source>
         <target>Nome Display</target>
       </segment>
     </unit>
     <unit id="EvAqL__" name="caption.duplicate">
+      <notes>
+        <note>templates/content/edit.html.twig:22</note>
+      </notes>
       <segment>
         <source>caption.duplicate</source>
         <target>Duplica</target>
       </segment>
     </unit>
-    <unit id="pGkejkU" name="label.current_password">
-      <segment>
-        <source>label.current_password</source>
-        <target>Password corrente</target>
-      </segment>
-    </unit>
     <unit id="iiWFLaI" name="label.new_password">
+      <notes>
+        <note>src/Form/ChangePasswordFormType.php:40</note>
+      </notes>
       <segment>
         <source>label.new_password</source>
         <target>Nuova Password</target>
       </segment>
     </unit>
-    <unit id="Ucl9Jfc" name="label.new_password_confirm">
-      <segment>
-        <source>label.new_password_confirm</source>
-        <target>Nuova Password (conferma)</target>
-      </segment>
-    </unit>
     <unit id="Iyry5.g" name="editfile.updated_successfully">
+      <notes>
+        <note>src/Controller/Backend/FileEditController.php:104</note>
+      </notes>
       <segment>
         <source>editfile.updated_successfully</source>
         <target>Il File è stato modificato con successo!</target>
       </segment>
     </unit>
-    <unit id="eq5YMQf" name="9fb3e6e">
-      <segment>
-        <source>This website is &lt;a href='%url%' target='_blank' title='Sophisticated, lightweight &amp; simple CMS'&gt;Built with Bolt&lt;/a&gt;.</source>
-        <target><![CDATA[Questo sito è <a href='%url%' target='_blank' title='CMS semplice e sofisticato'>realizzato con Bolt</a>.]]></target>
-      </segment>
-    </unit>
     <unit id="3zlZmRK" name="action.add_user">
+      <notes>
+        <note>templates/users/add.html.twig:6</note>
+        <note>templates/users/listing.html.twig:109</note>
+        <note>templates/users/listing.html.twig:176</note>
+      </notes>
       <segment>
         <source>action.add_user</source>
         <target>Aggiungi Utente</target>
       </segment>
     </unit>
     <unit id="ruQIhH0" name="success">
+      <notes>
+        <note>assets/js/app/ajax-save.js:93</note>
+        <note>assets/js/app/ajax-save.js:97</note>
+        <note>src/Controller/Backend/BulkOperationsController.php:55</note>
+        <note>src/Controller/Backend/BulkOperationsController.php:82</note>
+        <note>src/Controller/Backend/ClearCacheController.php:24</note>
+        <note>src/Controller/Backend/ContentEditController.php:196</note>
+        <note>src/Controller/Backend/ContentEditController.php:197</note>
+        <note>src/Controller/Backend/ContentEditController.php:208</note>
+        <note>src/Controller/Backend/ContentEditController.php:264</note>
+        <note>src/Controller/Backend/ContentEditController.php:288</note>
+        <note>src/Controller/Backend/FileEditController.php:104</note>
+        <note>src/Controller/Backend/FileEditController.php:148</note>
+        <note>src/Controller/Backend/FileEditController.php:188</note>
+        <note>src/Controller/Backend/FilemanagerController.php:115</note>
+        <note>src/Controller/Backend/FilemanagerController.php:155</note>
+        <note>src/Controller/Backend/GeneralController.php:48</note>
+        <note>src/Controller/Backend/MediaEditController.php:64</note>
+        <note>src/Controller/Backend/MediaEditController.php:88</note>
+        <note>src/Controller/Backend/UserEditController.php:129</note>
+        <note>src/Controller/Backend/UserEditController.php:161</note>
+        <note>src/Controller/Backend/UserEditController.php:193</note>
+        <note>src/Twig/Notifications.php:21</note>
+        <note>templates/media/edit.html.twig:95</note>
+        <note>templates/pages/kitchensink.html.twig:81</note>
+        <note>templates/pages/kitchensink.html.twig:88</note>
+      </notes>
       <segment>
         <source>success</source>
         <target>Successo!</target>
       </segment>
     </unit>
     <unit id="YDH.7uR" name="user.updated_profile">
+      <notes>
+        <note>src/Controller/Backend/UserEditController.php:161</note>
+        <note>src/Controller/Backend/UserEditController.php:193</note>
+      </notes>
       <segment>
         <source>user.updated_profile</source>
         <target>Il Profilo Utente è stato aggiornato!</target>
       </segment>
     </unit>
     <unit id="iD6CNOO" name="label.roles">
+      <notes>
+        <note>templates/users/_form.html.twig:124</note>
+      </notes>
       <segment>
         <source>label.roles</source>
         <target>Ruoli</target>
       </segment>
     </unit>
     <unit id="7whLbH8" name="user.new_user">
+      <notes>
+        <note>templates/users/add.html.twig:11</note>
+        <note>templates/users/edit.html.twig:11</note>
+      </notes>
       <segment>
         <source>user.new_user</source>
         <target>Nuovo Utente</target>
       </segment>
     </unit>
-    <unit id="mo_k9.1" name="general.dashboard">
+    <unit id="TtmWqX3" name="action.view">
+      <notes>
+        <note>assets/js/app/sidebar/Components/Menu/_SubMenu.vue:9</note>
+        <note>templates/_base/layout.html.twig:93</note>
+      </notes>
       <segment>
-        <source>general.dashboard</source>
-        <target>general.dashboard</target>
+        <source>action.view</source>
+        <target>Visualizza</target>
+      </segment>
+    </unit>
+    <unit id="kaK5Wdr" name="slug.button_locked">
+      <notes>
+        <note>templates/_partials/fields/slug.html.twig:18</note>
+      </notes>
+      <segment>
+        <source>slug.button_locked</source>
+        <target>Bloccato</target>
+      </segment>
+    </unit>
+    <unit id="qcDEz5O" name="slug.button_edit">
+      <notes>
+        <note>templates/_partials/fields/slug.html.twig:19</note>
+      </notes>
+      <segment>
+        <source>slug.button_edit</source>
+        <target>Modifica</target>
+      </segment>
+    </unit>
+    <unit id="raO5QSf" name="slug.generate_from">
+      <notes>
+        <note>templates/_partials/fields/slug.html.twig:20</note>
+      </notes>
+      <segment>
+        <source>slug.generate_from</source>
+        <target>Genera da:</target>
+      </segment>
+    </unit>
+    <unit id="vptPhch" name="image.button_upload">
+      <notes>
+        <note>templates/_partials/fields/file.html.twig:16</note>
+        <note>templates/_partials/fields/filelist.html.twig:16</note>
+        <note>templates/_partials/fields/image.html.twig:17</note>
+        <note>templates/_partials/fields/imagelist.html.twig:16</note>
+        <note>templates/_partials/fields/simple_image.html.twig:13</note>
+        <note>templates/_partials/fields/simple_image.html.twig:58</note>
+      </notes>
+      <segment>
+        <source>image.button_upload</source>
+        <target>Carica</target>
+      </segment>
+    </unit>
+    <unit id="vIVO1lU" name="image.button_from_library">
+      <notes>
+        <note>templates/_partials/fields/file.html.twig:18</note>
+        <note>templates/_partials/fields/filelist.html.twig:18</note>
+        <note>templates/_partials/fields/image.html.twig:19</note>
+        <note>templates/_partials/fields/imagelist.html.twig:18</note>
+        <note>templates/_partials/fields/simple_image.html.twig:14</note>
+        <note>templates/_partials/fields/simple_image.html.twig:59</note>
+      </notes>
+      <segment>
+        <source>image.button_from_library</source>
+        <target>Dalla libreria</target>
+      </segment>
+    </unit>
+    <unit id="L0TE0M9" name="listing_table.actions.view_on_site">
+      <notes>
+        <note>templates/_partials/_content_listing.html.twig:23</note>
+      </notes>
+      <segment>
+        <source>listing_table.actions.view_on_site</source>
+        <target>Visualizza sul sito</target>
+      </segment>
+    </unit>
+    <unit id="PoauAuK" name="listing_table.actions.status_to_publish">
+      <notes>
+        <note>templates/_partials/_content_listing.html.twig:24</note>
+        <note>templates/_partials/_content_listing.html.twig:27</note>
+        <note>templates/content/listing.html.twig:43</note>
+      </notes>
+      <segment>
+        <source>listing_table.actions.status_to_publish</source>
+        <target>Cambia stato in "pubblicato"</target>
+      </segment>
+    </unit>
+    <unit id="ZJxfdD6" name="listing_table.actions.status_to_held">
+      <notes>
+        <note>templates/_partials/_content_listing.html.twig:25</note>
+        <note>templates/content/listing.html.twig:42</note>
+      </notes>
+      <segment>
+        <source>listing_table.actions.status_to_held</source>
+        <target>Cambia stato in "in attesa"</target>
+      </segment>
+    </unit>
+    <unit id="apyOs0o" name="listing_table.actions.status_to_draft">
+      <notes>
+        <note>templates/_partials/_content_listing.html.twig:26</note>
+        <note>templates/content/listing.html.twig:41</note>
+      </notes>
+      <segment>
+        <source>listing_table.actions.status_to_draft</source>
+        <target>Cambia stato in "bozza"</target>
+      </segment>
+    </unit>
+    <unit id="5H60Xq6" name="listing_table.actions.duplicate">
+      <notes>
+        <note>templates/_partials/_content_listing.html.twig:28</note>
+      </notes>
+      <segment>
+        <source>listing_table.actions.duplicate</source>
+        <target>Duplica</target>
+      </segment>
+    </unit>
+    <unit id="hR8ri.m" name="listing_table.actions.delete">
+      <notes>
+        <note>templates/_partials/_content_listing.html.twig:29</note>
+      </notes>
+      <segment>
+        <source>listing_table.actions.delete</source>
+        <target>Elimina</target>
+      </segment>
+    </unit>
+    <unit id="5zbX1vo" name="listing_table.actions.slug">
+      <notes>
+        <note>templates/_partials/_content_listing.html.twig:30</note>
+      </notes>
+      <segment>
+        <source>listing_table.actions.slug</source>
+        <target>Slug</target>
+      </segment>
+    </unit>
+    <unit id="wKDOBOC" name="listing_table.actions.created_on">
+      <notes>
+        <note>templates/_partials/_content_listing.html.twig:31</note>
+      </notes>
+      <segment>
+        <source>listing_table.actions.created_on</source>
+        <target>Creato il</target>
+      </segment>
+    </unit>
+    <unit id="tVX01Xl" name="listing_table.actions.published_on">
+      <notes>
+        <note>templates/_partials/_content_listing.html.twig:32</note>
+      </notes>
+      <segment>
+        <source>listing_table.actions.published_on</source>
+        <target>Pubblicato il</target>
+      </segment>
+    </unit>
+    <unit id="kHkjS5U" name="listing_table.actions.last_modified_on">
+      <notes>
+        <note>templates/_partials/_content_listing.html.twig:33</note>
+      </notes>
+      <segment>
+        <source>listing_table.actions.last_modified_on</source>
+        <target>Ultima modifica il</target>
+      </segment>
+    </unit>
+    <unit id="BdhsE_X" name="listing_select_box.card_header.selected">
+      <notes>
+        <note>templates/content/listing.html.twig:40</note>
+      </notes>
+      <segment>
+        <source>listing_select_box.card_header.selected</source>
+        <target>Selezionato</target>
+      </segment>
+    </unit>
+    <unit id="kHeY93_" name="editor_embed.content_url">
+      <notes>
+        <note>templates/_partials/fields/embed.html.twig:20</note>
+      </notes>
+      <segment>
+        <source>editor_embed.content_url</source>
+        <target>URL del contenuto da incorporare</target>
+      </segment>
+    </unit>
+    <unit id="VoIdmBa" name="editor_embed.placeholder_content_url">
+      <notes>
+        <note>templates/_partials/fields/embed.html.twig:21</note>
+      </notes>
+      <segment>
+        <source>editor_embed.placeholder_content_url</source>
+        <target>URL del contenuto su Facebook, Twitter, Soundcloud, Youtube, Vimeo…</target>
+      </segment>
+    </unit>
+    <unit id="1.Eb1GS" name="editor_embed.label_height">
+      <notes>
+        <note>templates/_partials/fields/embed.html.twig:22</note>
+      </notes>
+      <segment>
+        <source>editor_embed.label_height</source>
+        <target>Altezza</target>
+      </segment>
+    </unit>
+    <unit id="eWLSFJs" name="editor_embed.label_pixel">
+      <notes>
+        <note>templates/_partials/fields/embed.html.twig:23</note>
+      </notes>
+      <segment>
+        <source>editor_embed.label_pixel</source>
+        <target>pixel</target>
+      </segment>
+    </unit>
+    <unit id="EAtXrAm" name="editor_embed.label_matched_embed">
+      <notes>
+        <note>templates/_partials/fields/embed.html.twig:24</note>
+      </notes>
+      <segment>
+        <source>editor_embed.label_matched_embed</source>
+        <target>Incorporamento corrispondente</target>
+      </segment>
+    </unit>
+    <unit id="zATju4V" name="editor_embed.label_preview">
+      <notes>
+        <note>templates/_partials/fields/embed.html.twig:25</note>
+      </notes>
+      <segment>
+        <source>editor_embed.label_preview</source>
+        <target>Anteprima</target>
+      </segment>
+    </unit>
+    <unit id="9SQ0oaR" name="editor_embed.label_size">
+      <notes>
+        <note>templates/_partials/fields/embed.html.twig:26</note>
+      </notes>
+      <segment>
+        <source>editor_embed.label_size</source>
+        <target>Dimensione</target>
+      </segment>
+    </unit>
+    <unit id="oOuVKRv" name="image.placeholder_filename">
+      <notes>
+        <note>templates/_partials/fields/file.html.twig:20</note>
+        <note>templates/_partials/fields/filelist.html.twig:19</note>
+        <note>templates/_partials/fields/image.html.twig:21</note>
+        <note>templates/_partials/fields/imagelist.html.twig:19</note>
+        <note>templates/_partials/fields/simple_image.html.twig:16</note>
+        <note>templates/_partials/fields/simple_image.html.twig:61</note>
+      </notes>
+      <segment>
+        <source>image.placeholder_filename</source>
+        <target>Nome file (carica un nuovo file o selezionane uno esistente)</target>
+      </segment>
+    </unit>
+    <unit id="BWubOnS" name="image.placeholder_alt_text">
+      <notes>
+        <note>templates/_partials/fields/file.html.twig:21</note>
+        <note>templates/_partials/fields/filelist.html.twig:20</note>
+        <note>templates/_partials/fields/image.html.twig:22</note>
+        <note>templates/_partials/fields/imagelist.html.twig:20</note>
+        <note>templates/_partials/fields/simple_image.html.twig:17</note>
+        <note>templates/_partials/fields/simple_image.html.twig:62</note>
+      </notes>
+      <segment>
+        <source>image.placeholder_alt_text</source>
+        <target>Attributo alt</target>
+      </segment>
+    </unit>
+    <unit id="VPV0lFM" name="image.placeholder_title">
+      <notes>
+        <note>templates/_partials/fields/file.html.twig:22</note>
+        <note>templates/_partials/fields/filelist.html.twig:21</note>
+        <note>templates/_partials/fields/imagelist.html.twig:21</note>
+        <note>templates/_partials/fields/simple_image.html.twig:18</note>
+      </notes>
+      <segment>
+        <source>image.placeholder_title</source>
+        <target>Attributo title</target>
+      </segment>
+    </unit>
+    <unit id="Gabafxx" name="admin_sidebar.toggler">
+      <notes>
+        <note>templates/_base/layout.html.twig:91</note>
+      </notes>
+      <segment>
+        <source>admin_sidebar.toggler</source>
+        <target>Attiva/disattiva larghezza barra laterale</target>
+      </segment>
+    </unit>
+    <unit id="jXAelLe" name="admin_sidebar_toggler.toggle">
+      <notes>
+        <note>templates/_base/layout.html.twig:82</note>
+      </notes>
+      <segment>
+        <source>admin_sidebar_toggler.toggle</source>
+        <target><![CDATA[<span class="sr-only">Attiva/disattiva </span>menu]]></target>
+      </segment>
+    </unit>
+    <unit id="BINgtmK" name="editor_date.toggle">
+      <notes>
+        <note>templates/_partials/fields/date.html.twig:39</note>
+      </notes>
+      <segment>
+        <source>editor_date.toggle</source>
+        <target>Attiva/disattiva</target>
+      </segment>
+    </unit>
+    <unit id="z2AgHGp" name="flash_messages.notification">
+      <notes>
+        <note>src/Controller/Backend/ContentEditController.php:199</note>
+        <note>templates/_partials/_flash_messages.html.twig:8</note>
+      </notes>
+      <segment>
+        <source>flash_messages.notification</source>
+        <target>Notifica</target>
+      </segment>
+    </unit>
+    <unit id="ypPzS03" name="localeswitcher.button_info">
+      <notes>
+        <note>templates/content/_localeswitcher.html.twig:19</note>
+      </notes>
+      <segment>
+        <source>localeswitcher.button_info</source>
+        <target>Visualizza informazioni sulla localizzazione</target>
+      </segment>
+    </unit>
+    <unit id="wQ0WYAT" name="listing.title_sortby">
+      <notes>
+        <note>templates/content/listing.html.twig:69</note>
+        <note>templates/content/listing.html.twig:70</note>
+        <note>templates/users/listing.html.twig:190</note>
+        <note>templates/users/listing.html.twig:191</note>
+      </notes>
+      <segment>
+        <source>listing.title_sortby</source>
+        <target>Ordina per</target>
+      </segment>
+    </unit>
+    <unit id="pn22p7q" name="listing.placeholder_filter">
+      <notes>
+        <note>templates/content/listing.html.twig:106</note>
+        <note>templates/users/listing.html.twig:214</note>
+        <note>templates/users/listing.html.twig:215</note>
+      </notes>
+      <segment>
+        <source>listing.placeholder_filter</source>
+        <target>Parola chiave per filtrare…</target>
+      </segment>
+    </unit>
+    <unit id="ni4zApC" name="listing.button_filter">
+      <notes>
+        <note>templates/content/listing.html.twig:123</note>
+        <note>templates/users/listing.html.twig:220</note>
+      </notes>
+      <segment>
+        <source>listing.button_filter</source>
+        <target>Filtra</target>
+      </segment>
+    </unit>
+    <unit id="doNsgm0" name="listing.button_clear">
+      <notes>
+        <note>templates/content/listing.html.twig:126</note>
+        <note>templates/users/listing.html.twig:223</note>
+      </notes>
+      <segment>
+        <source>listing.button_clear</source>
+        <target>Cancella ordinamento/filtro</target>
+      </segment>
+    </unit>
+    <unit id="37kJiIe" name="view_locales.badge_default">
+      <notes>
+        <note>templates/content/view_locales.html.twig:99</note>
+      </notes>
+      <segment>
+        <source>view_locales.badge_default</source>
+        <target>Predefinito</target>
+      </segment>
+    </unit>
+    <unit id="JTRCo_U" name="view_locales.badge_ok">
+      <notes>
+        <note>templates/content/view_locales.html.twig:105</note>
+      </notes>
+      <segment>
+        <source>view_locales.badge_ok</source>
+        <target>OK</target>
+      </segment>
+    </unit>
+    <unit id="ufFUPp7" name="view_locales.badge_missing">
+      <notes>
+        <note>templates/content/view_locales.html.twig:101</note>
+      </notes>
+      <segment>
+        <source>view_locales.badge_missing</source>
+        <target>Mancante</target>
+      </segment>
+    </unit>
+    <unit id="QQvRJe." name="files_cards.button_toggle">
+      <notes>
+        <note>templates/finder/_files_actions.html.twig:10</note>
+      </notes>
+      <segment>
+        <source>files_cards.button_toggle</source>
+        <target>Attiva/disattiva menu a discesa</target>
+      </segment>
+    </unit>
+    <unit id="gtC_ujD" name="files_cards.action_edit_image_info">
+      <notes>
+        <note>templates/finder/_files_actions.html.twig:17</note>
+      </notes>
+      <segment>
+        <source>files_cards.action_edit_image_info</source>
+        <target>Modifica informazioni immagine</target>
+      </segment>
+    </unit>
+    <unit id="5LXvJfE" name="files_cards.action_edit_file">
+      <notes>
+        <note>templates/finder/_files_actions.html.twig:19</note>
+      </notes>
+      <segment>
+        <source>files_cards.action_edit_file</source>
+        <target>Modifica file nell’editor</target>
+      </segment>
+    </unit>
+    <unit id="H1pgP94" name="files_cards.action_view_original">
+      <notes>
+        <note>templates/finder/_files_actions.html.twig:25</note>
+      </notes>
+      <segment>
+        <source>files_cards.action_view_original</source>
+        <target>Visualizza originale</target>
+      </segment>
+    </unit>
+    <unit id="ZoY6ADX" name="files_cards.action_duplicate">
+      <notes>
+        <note>templates/finder/_files_actions.html.twig:36</note>
+      </notes>
+      <segment>
+        <source>files_cards.action_duplicate</source>
+        <target>Duplica</target>
+      </segment>
+    </unit>
+    <unit id="JjU6ZQP" name="files_cards.action_delete">
+      <notes>
+        <note>templates/finder/_files_actions.html.twig:49</note>
+      </notes>
+      <segment>
+        <source>files_cards.action_delete</source>
+        <target>Elimina</target>
+      </segment>
+    </unit>
+    <unit id="3jdNwuk" name="files_cards.label_filename">
+      <notes>
+        <note>templates/finder/_files_actions.html.twig:56</note>
+      </notes>
+      <segment>
+        <source>files_cards.label_filename</source>
+        <target>Nome file:</target>
+      </segment>
+    </unit>
+    <unit id="Y90_Pn1" name="files_cards.label_title">
+      <notes>
+        <note>templates/finder/_files_actions.html.twig:63</note>
+      </notes>
+      <segment>
+        <source>files_cards.label_title</source>
+        <target>Titolo:</target>
+      </segment>
+    </unit>
+    <unit id="EdCfIKX" name="files_cards.label_dimensions">
+      <notes>
+        <note>templates/finder/_files_actions.html.twig:70</note>
+      </notes>
+      <segment>
+        <source>files_cards.label_dimensions</source>
+        <target>Dimensioni:</target>
+      </segment>
+    </unit>
+    <unit id="eQBhceV" name="files_cards.label_filesize">
+      <notes>
+        <note>templates/finder/_files_actions.html.twig:76</note>
+      </notes>
+      <segment>
+        <source>files_cards.label_filesize</source>
+        <target>Dimensione file:</target>
+      </segment>
+    </unit>
+    <unit id="uiCjlwk" name="files_cards.label_created_on">
+      <notes>
+        <note>templates/finder/_files_actions.html.twig:81</note>
+      </notes>
+      <segment>
+        <source>files_cards.label_created_on</source>
+        <target>Creato il:</target>
+      </segment>
+    </unit>
+    <unit id=".fL0AbE" name="files_list.remark">
+      <notes>
+        <note>templates/finder/_files_list.html.twig:75</note>
+      </notes>
+      <segment>
+        <source>files_list.remark</source>
+        <target>Non sono presenti file in questa cartella. Seleziona una cartella in cui navigare.</target>
+      </segment>
+    </unit>
+    <unit id="v6cfPyt" name="quickselect.title_select">
+      <notes>
+        <note>templates/finder/_quickselect.html.twig:5</note>
+      </notes>
+      <segment>
+        <source>quickselect.title_select</source>
+        <target>Seleziona un file:</target>
+      </segment>
+    </unit>
+    <unit id="m3tNvJb" name="finder.button_list">
+      <notes>
+        <note>templates/finder/finder.html.twig:45</note>
+      </notes>
+      <segment>
+        <source>finder.button_list</source>
+        <target>Elenco</target>
+      </segment>
+    </unit>
+    <unit id="tRLgeoX" name="finder.button_cards">
+      <notes>
+        <note>templates/finder/finder.html.twig:49</note>
+      </notes>
+      <segment>
+        <source>finder.button_cards</source>
+        <target>Schede</target>
+      </segment>
+    </unit>
+    <unit id="nrWBJNm" name="extensions.title_desc">
+      <notes>
+        <note>templates/pages/extension_details.html.twig:24</note>
+        <note>templates/pages/extension_details.html.twig:51</note>
+        <note>templates/pages/extensions.html.twig:27</note>
+        <note>templates/pages/extensions.html.twig:44</note>
+      </notes>
+      <segment>
+        <source>extensions.title_desc</source>
+        <target>Descrizione:</target>
+      </segment>
+    </unit>
+    <unit id="7raDJAR" name="extensions.title_author">
+      <notes>
+        <note>templates/pages/extension_details.html.twig:26</note>
+        <note>templates/pages/extensions.html.twig:29</note>
+      </notes>
+      <segment>
+        <source>extensions.title_author</source>
+        <target>Autore:</target>
+      </segment>
+    </unit>
+    <unit id="UP8pNGy" name="extensions.title_package">
+      <notes>
+        <note>templates/pages/extension_details.html.twig:28</note>
+        <note>templates/pages/extensions.html.twig:31</note>
+      </notes>
+      <segment>
+        <source>extensions.title_package</source>
+        <target>Nome pacchetto / classe:</target>
+      </segment>
+    </unit>
+    <unit id="QFQ1uTC" name="extensions.title_version">
+      <notes>
+        <note>templates/pages/extension_details.html.twig:34</note>
+        <note>templates/pages/extensions.html.twig:37</note>
+      </notes>
+      <segment>
+        <source>extensions.title_version</source>
+        <target>Versione:</target>
+      </segment>
+    </unit>
+    <unit id="piuatxC" name="extensions.info_not_installed">
+      <notes>
+        <note>templates/pages/extension_details.html.twig:52</note>
+        <note>templates/pages/extensions.html.twig:45</note>
+      </notes>
+      <segment>
+        <source>extensions.info_not_installed</source>
+        <target>Questo è un pacchetto locale, non installato tramite Composer</target>
+      </segment>
+    </unit>
+    <unit id="3j1gEmk" name="extensions.title_class">
+      <notes>
+        <note>templates/pages/extension_details.html.twig:53</note>
+        <note>templates/pages/extensions.html.twig:46</note>
+      </notes>
+      <segment>
+        <source>extensions.title_class</source>
+        <target>Nome classe:</target>
+      </segment>
+    </unit>
+    <unit id="mjhFljb" name="extensions.button_configuration">
+      <notes>
+        <note>templates/pages/extension_details.html.twig:62</note>
+        <note>templates/pages/extensions.html.twig:58</note>
+      </notes>
+      <segment>
+        <source>extensions.button_configuration</source>
+        <target>Configurazione</target>
+      </segment>
+    </unit>
+    <unit id="r3ryNTG" name="extensions.button_source">
+      <notes>
+        <note>templates/pages/extension_details.html.twig:67</note>
+        <note>templates/pages/extensions.html.twig:63</note>
+      </notes>
+      <segment>
+        <source>extensions.button_source</source>
+        <target>Sorgente</target>
+      </segment>
+    </unit>
+    <unit id="qc3rFkZ" name="extensions.button_remove">
+      <notes>
+        <note>templates/pages/extension_details.html.twig:79</note>
+        <note>templates/pages/extensions.html.twig:74</note>
+      </notes>
+      <segment>
+        <source>extensions.button_remove</source>
+        <target>Rimuovi estensione</target>
+      </segment>
+    </unit>
+    <unit id="SLZyVzU" name="extensions.button_disable">
+      <notes>
+        <note>templates/pages/extension_details.html.twig:91</note>
+        <note>templates/pages/extensions.html.twig:86</note>
+      </notes>
+      <segment>
+        <source>extensions.button_disable</source>
+        <target>Disabilita estensione</target>
+      </segment>
+    </unit>
+    <unit id="beqzCkE" name="login.header_login">
+      <notes>
+        <note>templates/security/login.html.twig:40</note>
+      </notes>
+      <segment>
+        <source>login.header_login</source>
+        <target>Bolt » Accesso</target>
+      </segment>
+    </unit>
+    <unit id="7JK6jNv" name="extensions.message_not_implemented">
+      <notes>
+        <note>templates/pages/extension_details.html.twig:72</note>
+        <note>templates/pages/extension_details.html.twig:73</note>
+        <note>templates/pages/extension_details.html.twig:84</note>
+        <note>templates/pages/extension_details.html.twig:85</note>
+        <note>templates/pages/extensions.html.twig:68</note>
+        <note>templates/pages/extensions.html.twig:69</note>
+        <note>templates/pages/extensions.html.twig:79</note>
+        <note>templates/pages/extensions.html.twig:80</note>
+      </notes>
+      <segment>
+        <source>extensions.message_not_implemented</source>
+        <target>Non ancora implementato. Spiacenti!</target>
+      </segment>
+    </unit>
+    <unit id="Hlf9c1s" name="listing.title_overview">
+      <notes>
+        <note>templates/content/listing.html.twig:6</note>
+      </notes>
+      <segment>
+        <source>listing.title_overview</source>
+        <target>Panoramica per</target>
+      </segment>
+    </unit>
+    <unit id="8JeahIj" name="files_cards.message_no_files">
+      <notes>
+        <note>templates/finder/_files_cards.html.twig:48</note>
+      </notes>
+      <segment>
+        <source>files_cards.message_no_files</source>
+        <target>Non sono presenti file in questa cartella. Seleziona una cartella in cui navigare, sul lato destro.</target>
+      </segment>
+    </unit>
+    <unit id="pcq1NGk" name="listing_filter.button_compact">
+      <notes>
+        <note>templates/_partials/_content_listing.html.twig:13</note>
+      </notes>
+      <segment>
+        <source>listing_filter.button_compact</source>
+        <target>Compatto</target>
+      </segment>
+    </unit>
+    <unit id="xIztVmp" name="listing_filter.button_expanded">
+      <notes>
+        <note>templates/_partials/_content_listing.html.twig:14</note>
+      </notes>
+      <segment>
+        <source>listing_filter.button_expanded</source>
+        <target>Espanso</target>
+      </segment>
+    </unit>
+    <unit id="73A2bWM" name="finder.label_view">
+      <notes>
+        <note>templates/finder/finder.html.twig:41</note>
+      </notes>
+      <segment>
+        <source>finder.label_view</source>
+        <target>Visualizzazione:</target>
+      </segment>
+    </unit>
+    <unit id="Em.C0bV" name="listing_table.actions.button_edit">
+      <notes>
+        <note>templates/_partials/_content_listing.html.twig:34</note>
+      </notes>
+      <segment>
+        <source>listing_table.actions.button_edit</source>
+        <target>Modifica</target>
+      </segment>
+    </unit>
+    <unit id="Iy4HXCU" name="controller.user.title">
+      <notes>
+        <note>src/Controller/Backend/UserController.php:50</note>
+      </notes>
+      <segment>
+        <source>controller.user.title</source>
+        <target><![CDATA[Utenti e permessi]]></target>
+      </segment>
+    </unit>
+    <unit id="HBwIQ9b" name="controller.user.subtitle">
+      <notes>
+        <note>src/Controller/Backend/UserController.php:51</note>
+      </notes>
+      <segment>
+        <source>controller.user.subtitle</source>
+        <target>Per modificare gli utenti e i loro permessi</target>
+      </segment>
+    </unit>
+    <unit id="7cXqH5s" name="listing.title_display_name">
+      <notes>
+        <note>templates/users/listing.html.twig:20</note>
+      </notes>
+      <segment>
+        <source>listing.title_display_name</source>
+        <target>Nome visualizzato</target>
+      </segment>
+    </unit>
+    <unit id="Ay7xZ2h" name="listing.title_username">
+      <notes>
+        <note>templates/users/listing.html.twig:19</note>
+        <note>templates/users/listing.html.twig:122</note>
+      </notes>
+      <segment>
+        <source>listing.title_username</source>
+        <target>Nome utente</target>
+      </segment>
+    </unit>
+    <unit id="RN1tdtJ" name="listing.title_email">
+      <notes>
+        <note>templates/users/listing.html.twig:20</note>
+      </notes>
+      <segment>
+        <source>listing.title_email</source>
+        <target>Email</target>
+      </segment>
+    </unit>
+    <unit id="0pjZ.GV" name="listing.title_roles">
+      <notes>
+        <note>templates/users/listing.html.twig:21</note>
+      </notes>
+      <segment>
+        <source>listing.title_roles</source>
+        <target>Ruoli</target>
+      </segment>
+    </unit>
+    <unit id="hXEFV1n" name="listing.title_last_seen">
+      <notes>
+        <note>templates/users/listing.html.twig:22</note>
+        <note>templates/users/listing.html.twig:123</note>
+      </notes>
+      <segment>
+        <source>listing.title_last_seen</source>
+        <target>Durata della sessione</target>
+      </segment>
+    </unit>
+    <unit id="pn7kE17" name="listing.title_last_ip">
+      <notes>
+        <note>templates/users/listing.html.twig:23</note>
+      </notes>
+      <segment>
+        <source>listing.title_last_ip</source>
+        <target>Ultimo IP</target>
+      </segment>
+    </unit>
+    <unit id="GZ65uOC" name="listing.title_actions">
+      <notes>
+        <note>templates/users/listing.html.twig:24</note>
+      </notes>
+      <segment>
+        <source>listing.title_actions</source>
+        <target>Azioni</target>
+      </segment>
+    </unit>
+    <unit id="TpGxDI3" name="user.unknown_user">
+      <notes>
+        <note>templates/users/profile.html.twig:11</note>
+      </notes>
+      <segment>
+        <source>user.unknown_user</source>
+        <target>Utente sconosciuto</target>
+      </segment>
+    </unit>
+    <unit id="EaqUUfe" name="label.predominant_colors__in_image">
+      <notes>
+        <note>templates/media/edit.html.twig:114</note>
+      </notes>
+      <segment>
+        <source>label.predominant_colors__in_image</source>
+        <target>Colori predominanti nell’immagine</target>
+      </segment>
+    </unit>
+    <unit id="8RPjZ5w" name="general.phrase.overview-for">
+      <notes>
+        <note>public/theme/skeleton/listing.twig:14</note>
+      </notes>
+      <segment>
+        <source>general.phrase.overview-for</source>
+        <target>Panoramica per "%slug%"</target>
+      </segment>
+    </unit>
+    <unit id="6mze9DI" name="general.phrase.related-content">
+      <notes>
+        <note>public/theme/skeleton/partials/_recordfooter.twig:40</note>
+      </notes>
+      <segment>
+        <source>general.phrase.related-content</source>
+        <target>Contenuti correlati</target>
+      </segment>
+    </unit>
+    <unit id="odDw0du" name="action.search">
+      <notes>
+        <note>public/theme/skeleton/partials/_footer.twig:13</note>
+      </notes>
+      <segment>
+        <source>action.search</source>
+        <target>Cerca</target>
+      </segment>
+    </unit>
+    <unit id="QoeqyPT" name="caption.new_contenttype">
+      <notes>
+        <note>templates/content/edit.html.twig:17</note>
+        <note>templates/content/view_locales.html.twig:11</note>
+      </notes>
+      <segment>
+        <source>caption.new_contenttype</source>
+        <target>Nuovo %contenttype%</target>
+      </segment>
+    </unit>
+    <unit id="n.jOrkg" name="caption.untitled_contenttype">
+      <notes>
+        <note>templates/content/edit.html.twig:13</note>
+        <note>templates/content/view_locales.html.twig:10</note>
+      </notes>
+      <segment>
+        <source>caption.untitled_contenttype</source>
+        <target>%contenttype% senza titolo</target>
+      </segment>
+    </unit>
+    <unit id="Dgtkgju" name="title.edit_user_profile">
+      <notes>
+        <note>templates/users/profile.html.twig:6</note>
+      </notes>
+      <segment>
+        <source>title.edit_user_profile</source>
+        <target>Modifica profilo utente</target>
+      </segment>
+    </unit>
+    <unit id="rCKtTo5" name="caption.redirection_page">
+      <notes>
+        <note>templates/pages/menupage.html.twig:13</note>
+      </notes>
+      <segment>
+        <source>caption.redirection_page</source>
+        <target>Pagina di reindirizzamento</target>
+      </segment>
+    </unit>
+    <unit id="TtIlBDd" name="caption.edit_image">
+      <notes>
+        <note>templates/media/edit.html.twig:6</note>
+      </notes>
+      <segment>
+        <source>caption.edit_image</source>
+        <target>Modifica immagine</target>
+      </segment>
+    </unit>
+    <unit id="hiE9jap" name="password.suggested">
+      <notes>
+        <note>templates/users/_form.html.twig:44</note>
+      </notes>
+      <segment>
+        <source>password.suggested</source>
+        <target><![CDATA[Password sicura suggerita: <code>%password%</code>]]></target>
+      </segment>
+    </unit>
+    <unit id="fLOd6Zd" name="field.cropX">
+      <notes>
+        <note>templates/media/edit.html.twig:70</note>
+      </notes>
+      <segment>
+        <source>field.cropX</source>
+        <target>Ritaglio X</target>
+      </segment>
+    </unit>
+    <unit id="Sd_AbmV" name="field.cropXPostfix">
+      <notes>
+        <note>templates/media/edit.html.twig:73</note>
+      </notes>
+      <segment>
+        <source>field.cropXPostfix</source>
+        <target>Posizione del ritaglio sull’asse X, intervallo 0-100.</target>
+      </segment>
+    </unit>
+    <unit id="BQBmQHT" name="field.cropYPostfix">
+      <notes>
+        <note>templates/media/edit.html.twig:80</note>
+      </notes>
+      <segment>
+        <source>field.cropYPostfix</source>
+        <target>Posizione del ritaglio sull’asse Y, intervallo 0-100.</target>
+      </segment>
+    </unit>
+    <unit id="hi98HIj" name="field.cropY">
+      <notes>
+        <note>templates/media/edit.html.twig:77</note>
+      </notes>
+      <segment>
+        <source>field.cropY</source>
+        <target>Ritaglio Y</target>
+      </segment>
+    </unit>
+    <unit id="PHOpD5y" name="field.cropZoom">
+      <notes>
+        <note>templates/media/edit.html.twig:84</note>
+      </notes>
+      <segment>
+        <source>field.cropZoom</source>
+        <target>Fattore di zoom del ritaglio</target>
+      </segment>
+    </unit>
+    <unit id="tn6Z8wY" name="field.cropZoomPostfix">
+      <notes>
+        <note>templates/media/edit.html.twig:87</note>
+      </notes>
+      <segment>
+        <source>field.cropZoomPostfix</source>
+        <target>Livello di zoom del ritaglio, intervallo 1-10.</target>
+      </segment>
+    </unit>
+    <unit id="n.3JZvX" name="title.contentType">
+      <notes>
+        <note>templates/content/listing.html.twig:136</note>
+      </notes>
+      <segment>
+        <source>title.contentType</source>
+        <target>Tipo di contenuto</target>
+      </segment>
+    </unit>
+    <unit id="Hr2E9Oa" name="listing_table.no_results">
+      <notes>
+        <note>templates/_partials/_content_listing.html.twig:44</note>
+      </notes>
+      <segment>
+        <source>listing_table.no_results</source>
+        <target>Nessun risultato trovato. Amplia i criteri di filtraggio o aggiungi altri contenuti.</target>
+      </segment>
+    </unit>
+    <unit id="hp554Ds" name="listing.option_select_sortby">
+      <notes>
+        <note>templates/content/listing.html.twig:72</note>
+        <note>templates/users/listing.html.twig:193</note>
+      </notes>
+      <segment>
+        <source>listing.option_select_sortby</source>
+        <target>Seleziona il campo per l’ordinamento…</target>
+      </segment>
+    </unit>
+    <unit id="JEnqOi." name="title.primary_actions">
+      <notes>
+        <note>templates/content/edit.html.twig:103</note>
+      </notes>
+      <segment>
+        <source>title.primary_actions</source>
+        <target>Azioni principali</target>
+      </segment>
+    </unit>
+    <unit id="7616Os4" name="title.options">
+      <notes>
+        <note>templates/content/edit.html.twig:115</note>
+        <note>templates/users/listing.html.twig:59</note>
+      </notes>
+      <segment>
+        <source>title.options</source>
+        <target>Opzioni</target>
+      </segment>
+    </unit>
+    <unit id="hTKWQ6g" name="action.delete">
+      <notes>
+        <note>templates/_partials/fields/embed.html.twig:27</note>
+        <note>templates/content/_buttons.html.twig:69</note>
+        <note>templates/content/listing.html.twig:44</note>
+        <note>templates/finder/_folders.html.twig:39</note>
+        <note>templates/users/listing.html.twig:96</note>
+      </notes>
+      <segment>
+        <source>action.delete</source>
+        <target>Elimina</target>
+      </segment>
+    </unit>
+    <unit id="ezqx.4H" name="action.enable">
+      <notes>
+        <note>templates/users/listing.html.twig:76</note>
+      </notes>
+      <segment>
+        <source>action.enable</source>
+        <target>Abilita</target>
+      </segment>
+    </unit>
+    <unit id="ryXZRAu" name="action.disable">
+      <notes>
+        <note>templates/users/listing.html.twig:71</note>
+      </notes>
+      <segment>
+        <source>action.disable</source>
+        <target>Disabilita</target>
+      </segment>
+    </unit>
+    <unit id="Npkio79" name="listing.title_session_expires">
+      <notes>
+        <note>templates/users/listing.html.twig:124</note>
+      </notes>
+      <segment>
+        <source>listing.title_session_expires</source>
+        <target>La sessione scade</target>
+      </segment>
+    </unit>
+    <unit id="mmUDcto" name="listing.title_ip_address">
+      <notes>
+        <note>templates/users/listing.html.twig:125</note>
+      </notes>
+      <segment>
+        <source>listing.title_ip_address</source>
+        <target>Indirizzo IP</target>
+      </segment>
+    </unit>
+    <unit id="x9qAwrz" name="listing.title_browser">
+      <notes>
+        <note>templates/users/listing.html.twig:126</note>
+      </notes>
+      <segment>
+        <source>listing.title_browser</source>
+        <target>Browser / piattaforma</target>
+      </segment>
+    </unit>
+    <unit id="FqVh1Hv" name="image.button_remove">
+      <notes>
+        <note>templates/_partials/fields/file.html.twig:19</note>
+        <note>templates/_partials/fields/filelist.html.twig:22</note>
+        <note>templates/_partials/fields/image.html.twig:20</note>
+        <note>templates/_partials/fields/imagelist.html.twig:22</note>
+        <note>templates/_partials/fields/simple_image.html.twig:15</note>
+        <note>templates/_partials/fields/simple_image.html.twig:60</note>
+      </notes>
+      <segment>
+        <source>image.button_remove</source>
+        <target>Rimuovi</target>
+      </segment>
+    </unit>
+    <unit id="eHV6ZJB" name="image.button_edit_attributes">
+      <notes>
+        <note>templates/_partials/fields/file.html.twig:23</note>
+        <note>templates/_partials/fields/filelist.html.twig:26</note>
+        <note>templates/_partials/fields/image.html.twig:23</note>
+        <note>templates/_partials/fields/imagelist.html.twig:23</note>
+        <note>templates/_partials/fields/simple_image.html.twig:19</note>
+        <note>templates/_partials/fields/simple_image.html.twig:63</note>
+      </notes>
+      <segment>
+        <source>image.button_edit_attributes</source>
+        <target>Modifica attributi</target>
+      </segment>
+    </unit>
+    <unit id="Oj2UZ5J" name="image.add_new_image">
+      <notes>
+        <note>templates/_partials/fields/imagelist.html.twig:27</note>
+      </notes>
+      <segment>
+        <source>image.add_new_image</source>
+        <target>Aggiungi nuova immagine</target>
+      </segment>
+    </unit>
+    <unit id="8Q4FxVw" name="file.add_new_file">
+      <notes>
+        <note>templates/_partials/fields/filelist.html.twig:25</note>
+      </notes>
+      <segment>
+        <source>file.add_new_file</source>
+        <target>Aggiungi nuovo file</target>
+      </segment>
+    </unit>
+    <unit id=".t1ICS7" name="collection.remove_item">
+      <notes>
+        <note>templates/_partials/fields/_collection_buttons.html.twig:20</note>
+      </notes>
+      <segment>
+        <source>collection.remove_item</source>
+        <target>Rimuovi elemento</target>
+      </segment>
+    </unit>
+    <unit id="0C9.Vmh" name="collection.add_item">
+      <notes>
+        <note>templates/_partials/fields/collection.html.twig:6</note>
+      </notes>
+      <segment>
+        <source>collection.add_item</source>
+        <target>Aggiungi un nuovo elemento a "%name%"</target>
+      </segment>
+    </unit>
+    <unit id="ApPu4P_" name="collection.move_item_up">
+      <notes>
+        <note>templates/_partials/fields/_collection_buttons.html.twig:5</note>
+      </notes>
+      <segment>
+        <source>collection.move_item_up</source>
+        <target>Sposta su</target>
+      </segment>
+    </unit>
+    <unit id="KzBtfHi" name="collection.move_item_down">
+      <notes>
+        <note>templates/_partials/fields/_collection_buttons.html.twig:9</note>
+      </notes>
+      <segment>
+        <source>collection.move_item_down</source>
+        <target>Sposta giù</target>
+      </segment>
+    </unit>
+    <unit id="BFARQEU" name="extensions.button_detailed_view">
+      <notes>
+        <note>templates/pages/extensions.html.twig:54</note>
+      </notes>
+      <segment>
+        <source>extensions.button_detailed_view</source>
+        <target>Visualizza dettagli</target>
+      </segment>
+    </unit>
+    <unit id="hgNZLwW" name="extensions.title_configuration">
+      <notes>
+        <note>templates/pages/extension_details.html.twig:31</note>
+        <note>templates/pages/extensions.html.twig:34</note>
+      </notes>
+      <segment>
+        <source>extensions.title_configuration</source>
+        <target>File di configurazione</target>
+      </segment>
+    </unit>
+    <unit id="283aB_E" name="caption.file_upload.upload_text">
+      <notes>
+        <note>templates/finder/_uploader.html.twig:17</note>
+      </notes>
+      <segment>
+        <source>caption.file_upload.upload_text</source>
+        <target>Trascina qui i file da caricare</target>
+      </segment>
+    </unit>
+    <unit id="L_YQKUn" name="pager.next">
+      <notes>
+        <note>templates/helpers/_pager_basic.html.twig:66</note>
+        <note>templates/helpers/_pager_bootstrap.html.twig:74</note>
+        <note>templates/helpers/_pager_bulma.html.twig:34</note>
+        <note>templates/helpers/_pager_tailwind.html.twig:69</note>
+      </notes>
+      <segment>
+        <source>pager.next</source>
+        <target>Successivo</target>
+      </segment>
+    </unit>
+    <unit id="AMxTho9" name="pager.previous">
+      <notes>
+        <note>templates/helpers/_pager_basic.html.twig:30</note>
+        <note>templates/helpers/_pager_bootstrap.html.twig:33</note>
+        <note>templates/helpers/_pager_bulma.html.twig:28</note>
+        <note>templates/helpers/_pager_tailwind.html.twig:29</note>
+      </notes>
+      <segment>
+        <source>pager.previous</source>
+        <target>Precedente</target>
+      </segment>
+    </unit>
+    <unit id="7aSD0Qr" name="image.button_up">
+      <notes>
+        <note>templates/_partials/fields/filelist.html.twig:23</note>
+        <note>templates/_partials/fields/imagelist.html.twig:25</note>
+      </notes>
+      <segment>
+        <source>image.button_up</source>
+        <target>Su</target>
+      </segment>
+    </unit>
+    <unit id="WihD8Y5" name="image.button_down">
+      <notes>
+        <note>templates/_partials/fields/filelist.html.twig:24</note>
+        <note>templates/_partials/fields/imagelist.html.twig:26</note>
+      </notes>
+      <segment>
+        <source>image.button_down</source>
+        <target>Giù</target>
+      </segment>
+    </unit>
+    <unit id="fon6eNN" name="general.phrase.download">
+      <notes>
+        <note>templates/helpers/_field_blocks.twig:28</note>
+      </notes>
+      <segment>
+        <source>general.phrase.download</source>
+        <target>Scarica</target>
+      </segment>
+    </unit>
+    <unit id="2MtT_h0" name="caption.logviewer">
+      <notes>
+        <note>src/Menu/BackendMenuBuilder.php:197</note>
+        <note>templates/pages/logviewer.html.twig:6</note>
+      </notes>
+      <segment>
+        <source>caption.logviewer</source>
+        <target>Visualizzatore log</target>
+      </segment>
+    </unit>
+    <unit id="FlGE3qB" name="label.request">
+      <notes>
+        <note>templates/pages/logviewer.html.twig:39</note>
+      </notes>
+      <segment>
+        <source>label.request</source>
+        <target>Richiesta</target>
+      </segment>
+    </unit>
+    <unit id="l71Tprl" name="label.trace">
+      <notes>
+        <note>templates/pages/logviewer.html.twig:53</note>
+      </notes>
+      <segment>
+        <source>label.trace</source>
+        <target>Trace</target>
+      </segment>
+    </unit>
+    <unit id="29ZEo1r" name="label.context">
+      <notes>
+        <note>templates/pages/logviewer.html.twig:71</note>
+      </notes>
+      <segment>
+        <source>label.context</source>
+        <target>Contesto</target>
+      </segment>
+    </unit>
+    <unit id="txRonia" name="label.id">
+      <notes>
+        <note>templates/pages/logviewer.html.twig:19</note>
+      </notes>
+      <segment>
+        <source>label.id</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="IwLLxxx" name="label.level">
+      <notes>
+        <note>templates/pages/logviewer.html.twig:20</note>
+      </notes>
+      <segment>
+        <source>label.level</source>
+        <target>Livello</target>
+      </segment>
+    </unit>
+    <unit id="51OQi14" name="label.message">
+      <notes>
+        <note>templates/pages/logviewer.html.twig:23</note>
+      </notes>
+      <segment>
+        <source>label.message</source>
+        <target>Messaggio</target>
+      </segment>
+    </unit>
+    <unit id="S0f6iTL" name="label.timestamp">
+      <notes>
+        <note>templates/pages/logviewer.html.twig:25</note>
+      </notes>
+      <segment>
+        <source>label.timestamp</source>
+        <target>Timestamp</target>
+      </segment>
+    </unit>
+    <unit id="O2X4xZH" name="label.user">
+      <notes>
+        <note>templates/pages/logviewer.html.twig:86</note>
+      </notes>
+      <segment>
+        <source>label.user</source>
+        <target>Utente</target>
+      </segment>
+    </unit>
+    <unit id="3MuwWwe" name="listing.disabled">
+      <notes>
+        <note>templates/users/listing.html.twig:33</note>
+      </notes>
+      <segment>
+        <source>listing.disabled</source>
+        <target>Disabilitato</target>
+      </segment>
+    </unit>
+    <unit id="XQ2U6fN" name="slug.button_unlocked">
+      <notes>
+        <note>templates/_partials/fields/slug.html.twig:17</note>
+      </notes>
+      <segment>
+        <source>slug.button_unlocked</source>
+        <target>Sbloccato</target>
+      </segment>
+    </unit>
+    <unit id="jz2qkbb" name="general.phrase.no-content-found">
+      <notes>
+        <note>public/theme/skeleton/listing.twig:42</note>
+      </notes>
+      <segment>
+        <source>general.phrase.no-content-found</source>
+        <target>Nessun contenuto trovato</target>
+      </segment>
+    </unit>
+    <unit id="OPxagAY" name="general.phrase.none">
+      <notes>
+        <note>public/theme/skeleton/partials/_sub_taxonomylinks.twig:12</note>
+        <note>templates/helpers/_taxonomylinks.html.twig:14</note>
+      </notes>
+      <segment>
+        <source>general.phrase.none</source>
+        <target>Nessuno</target>
+      </segment>
+    </unit>
+    <unit id="SGlj7K2" name="view_locales.badge_empty">
+      <notes>
+        <note>templates/content/view_locales.html.twig:103</note>
+      </notes>
+      <segment>
+        <source>view_locales.badge_empty</source>
+        <target>Vuoto</target>
+      </segment>
+    </unit>
+    <unit id="WeJxw6Z" name="action.update_all">
+      <notes>
+        <note>templates/content/listing.html.twig:45</note>
+      </notes>
+      <segment>
+        <source>action.update_all</source>
+        <target>Applica a tutti</target>
+      </segment>
+    </unit>
+    <unit id="QVRwwK4" name="about.system_info">
+      <notes>
+        <note>templates/pages/about.html.twig:21</note>
+      </notes>
+      <segment>
+        <source>about.system_info</source>
+        <target>Informazioni di sistema</target>
+      </segment>
+    </unit>
+    <unit id="6Gw1lsE" name="action.confirm_delete">
+      <notes>
+        <note>templates/content/_buttons.html.twig:63</note>
+        <note>templates/finder/_folders.html.twig:40</note>
+        <note>templates/finder/_folders.html.twig:41</note>
+        <note>templates/users/listing.html.twig:89</note>
+        <note>templates/users/listing.html.twig:90</note>
+      </notes>
+      <segment>
+        <source>action.confirm_delete</source>
+        <target>Sei sicuro di voler eliminare questo contenuto?</target>
+      </segment>
+    </unit>
+    <unit id="z_tOHwq" name="placeholder.username_or_email">
+      <notes>
+        <note>src/Form/LoginType.php:38</note>
+      </notes>
+      <segment>
+        <source>placeholder.username_or_email</source>
+        <target>il tuo nome utente o email</target>
+      </segment>
+    </unit>
+    <unit id="xgYhRkc" name="placeholder.password">
+      <notes>
+        <note>src/Form/LoginType.php:52</note>
+      </notes>
+      <segment>
+        <source>placeholder.password</source>
+        <target>la tua password</target>
+      </segment>
+    </unit>
+    <unit id="KshyLfh" name="caption.other_content">
+      <notes>
+        <note>src/Menu/BackendMenuBuilder.php:336</note>
+      </notes>
+      <segment>
+        <source>caption.other_content</source>
+        <target>Altri contenuti</target>
+      </segment>
+    </unit>
+    <unit id="wHOF8eG" name="editfile.target_not_writable">
+      <notes>
+        <note>templates/finder/editfile.html.twig:39</note>
+      </notes>
+      <segment>
+        <source>editfile.target_not_writable</source>
+        <target>Il salvataggio è disabilitato perché il file di destinazione non è scrivibile.</target>
+      </segment>
+    </unit>
+    <unit id="hAysbHB" name="label.translatable">
+      <notes>
+        <note>templates/_partials/fields/_label.html.twig:6</note>
+      </notes>
+      <segment>
+        <source>label.translatable</source>
+        <target>Questo campo è traducibile</target>
+      </segment>
+    </unit>
+    <unit id="qqpGLJl" name="label.content">
+      <notes>
+        <note>templates/pages/logviewer.html.twig:92</note>
+      </notes>
+      <segment>
+        <source>label.content</source>
+        <target>Contenuto</target>
+      </segment>
+    </unit>
+    <unit id="v7ZTnja" name="file.delete_success">
+      <notes>
+        <note>src/Controller/Backend/FileEditController.php:148</note>
+      </notes>
+      <segment>
+        <source>file.delete_success</source>
+        <target>File eliminato con successo!</target>
+      </segment>
+    </unit>
+    <unit id="wHPoBzP" name="file.delete_confirm">
+      <notes>
+        <note>templates/finder/_files_actions.html.twig:42</note>
+        <note>templates/finder/_files_actions.html.twig:43</note>
+      </notes>
+      <segment>
+        <source>file.delete_confirm</source>
+        <target>Sei sicuro di voler eliminare questo file?</target>
+      </segment>
+    </unit>
+    <unit id="IWbf2by" name="listing.title_filterby">
+      <notes>
+        <note>templates/content/listing.html.twig:104</note>
+        <note>templates/users/listing.html.twig:207</note>
+      </notes>
+      <segment>
+        <source>listing.title_filterby</source>
+        <target>Cerca / Filtra per</target>
+      </segment>
+    </unit>
+    <unit id="Zssh7In" name="content.status_changed_successfully">
+      <notes>
+        <note>src/Controller/Backend/BulkOperationsController.php:55</note>
+        <note>src/Controller/Backend/ContentEditController.php:264</note>
+      </notes>
+      <segment>
+        <source>content.status_changed_successfully</source>
+        <target>Stato modificato con successo</target>
+      </segment>
+    </unit>
+    <unit id="GOhQBY9" name="content.deleted_successfully">
+      <notes>
+        <note>src/Controller/Backend/BulkOperationsController.php:82</note>
+        <note>src/Controller/Backend/ContentEditController.php:288</note>
+      </notes>
+      <segment>
+        <source>content.deleted_successfully</source>
+        <target>Contenuto eliminato con successo</target>
+      </segment>
+    </unit>
+    <unit id=".I3mIHo" name="label.current_status">
+      <notes>
+        <note>templates/content/_buttons.html.twig:46</note>
+      </notes>
+      <segment>
+        <source>label.current_status</source>
+        <target>Stato attuale</target>
+      </segment>
+    </unit>
+    <unit id="utGAKaQ" name="status.published">
+      <notes>
+        <note>src/Twig/ContentExtension.php:601</note>
+        <note>templates/content/_buttons.html.twig:47</note>
+      </notes>
+      <segment>
+        <source>status.published</source>
+        <target>Pubblicato</target>
+      </segment>
+    </unit>
+    <unit id="HJbHjee" name="status.draft">
+      <notes>
+        <note>src/Twig/ContentExtension.php:601</note>
+        <note>templates/content/_buttons.html.twig:47</note>
+      </notes>
+      <segment>
+        <source>status.draft</source>
+        <target>Bozza</target>
+      </segment>
+    </unit>
+    <unit id="h7dP3WY" name="status.timed">
+      <notes>
+        <note>src/Twig/ContentExtension.php:601</note>
+        <note>templates/content/_buttons.html.twig:47</note>
+      </notes>
+      <segment>
+        <source>status.timed</source>
+        <target>Programmato</target>
+      </segment>
+    </unit>
+    <unit id="oxqDDuK" name="status.held">
+      <notes>
+        <note>src/Twig/ContentExtension.php:601</note>
+        <note>templates/content/_buttons.html.twig:47</note>
+      </notes>
+      <segment>
+        <source>status.held</source>
+        <target>In attesa</target>
+      </segment>
+    </unit>
+    <unit id="JpJFIFq" name="collection.confirm_delete">
+      <notes>
+        <note>templates/_partials/fields/_collection_buttons.html.twig:13</note>
+        <note>templates/_partials/fields/_collection_buttons.html.twig:14</note>
+      </notes>
+      <segment>
+        <source>collection.confirm_delete</source>
+        <target>Sei sicuro di voler eliminare questo elemento della raccolta?</target>
+      </segment>
+    </unit>
+    <unit id="YZJO3Ul" name="upload.allow_file_types">
+      <notes>
+        <note>templates/_partials/fields/file.html.twig:5</note>
+        <note>templates/_partials/fields/filelist.html.twig:5</note>
+        <note>templates/_partials/fields/image.html.twig:5</note>
+        <note>templates/_partials/fields/imagelist.html.twig:5</note>
+        <note>templates/_partials/fields/simple_image.html.twig:5</note>
+        <note>templates/_partials/fields/simple_image.html.twig:49</note>
+        <note>templates/finder/_uploader.html.twig:3</note>
+      </notes>
+      <segment>
+        <source>upload.allow_file_types</source>
+        <target>Tipi di file consentiti per il caricamento</target>
+      </segment>
+    </unit>
+    <unit id="noOf4ML" name="upload.max_size">
+      <notes>
+        <note>templates/_partials/fields/file.html.twig:6</note>
+        <note>templates/_partials/fields/filelist.html.twig:6</note>
+        <note>templates/_partials/fields/image.html.twig:6</note>
+        <note>templates/_partials/fields/imagelist.html.twig:6</note>
+        <note>templates/_partials/fields/simple_image.html.twig:6</note>
+        <note>templates/_partials/fields/simple_image.html.twig:50</note>
+        <note>templates/finder/_uploader.html.twig:4</note>
+      </notes>
+      <segment>
+        <source>upload.max_size</source>
+        <target>Dimensione massima di caricamento</target>
+      </segment>
+    </unit>
+    <unit id="O_m7mx1" name="listing.placeholder_search">
+      <notes>
+        <note>assets/js/app/toolbar/Components/Toolbar.vue:26</note>
+        <note>assets/js/app/toolbar/Components/Toolbar.vue:27</note>
+        <note>templates/_base/layout.html.twig:45</note>
+      </notes>
+      <segment>
+        <source>listing.placeholder_search</source>
+        <target>Cerca per parola chiave …</target>
+      </segment>
+    </unit>
+    <unit id="munFS0n" name="title.filtered_by">
+      <notes>
+        <note>templates/pages/dashboard.html.twig:12</note>
+      </notes>
+      <segment>
+        <source>title.filtered_by</source>
+        <target><![CDATA[Tutti i contenuti, filtrati per <em>"%filter%"</em>.]]></target>
+      </segment>
+    </unit>
+    <unit id="GPd6Hap" name="action.view_site">
+      <notes>
+        <note>assets/js/app/toolbar/Components/Toolbar.vue:16</note>
+        <note>templates/_base/layout.html.twig:38</note>
+      </notes>
+      <segment>
+        <source>action.view_site</source>
+        <target>Visualizza sito web</target>
+      </segment>
+    </unit>
+    <unit id="f.rvF6y" name="action.new">
+      <notes>
+        <note>assets/js/app/sidebar/Components/Menu/_SubMenu.vue:5</note>
+        <note>templates/_base/layout.html.twig:92</note>
+        <note>templates/finder/_createfolder.html.twig:9</note>
+      </notes>
+      <segment>
+        <source>action.new</source>
+        <target>Nuovo</target>
+      </segment>
+    </unit>
+    <unit id="60xy4WG" name="extensions.no_dependencies">
+      <notes>
+        <note>templates/pages/extension_details.html.twig:39</note>
+      </notes>
+      <segment>
+        <source>extensions.no_dependencies</source>
+        <target>Nessuna dipendenza nota</target>
+      </segment>
+    </unit>
+    <unit id="LfwezhR" name="extensions.title_dependencies">
+      <notes>
+        <note>templates/pages/extension_details.html.twig:36</note>
+      </notes>
+      <segment>
+        <source>extensions.title_dependencies</source>
+        <target>Dipendenze</target>
+      </segment>
+    </unit>
+    <unit id="H9knE.O" name="collection.expand_all">
+      <notes>
+        <note>templates/_partials/fields/collection.html.twig:7</note>
+      </notes>
+      <segment>
+        <source>collection.expand_all</source>
+        <target>Espandi tutto</target>
+      </segment>
+    </unit>
+    <unit id="JjvI6hp" name="collection.collapse_all">
+      <notes>
+        <note>templates/_partials/fields/collection.html.twig:8</note>
+      </notes>
+      <segment>
+        <source>collection.collapse_all</source>
+        <target>Comprimi tutto</target>
+      </segment>
+    </unit>
+    <unit id="pXtciRI" name="content.edit_missing_definition">
+      <notes>
+        <note>templates/content/edit.html.twig:45</note>
+      </notes>
+      <segment>
+        <source>content.edit_missing_definition</source>
+        <target>La definizione per questo ContentType è mancante! La modifica di questo record non funzionerà come previsto. Controlla il tuo file contenttypes.yaml per assicurarti che contenga %contenttype%.</target>
+      </segment>
+    </unit>
+    <unit id="RBJ0NMl" name="collection.select">
+      <notes>
+        <note>templates/_partials/fields/collection.html.twig:10</note>
+      </notes>
+      <segment>
+        <source>collection.select</source>
+        <target>Seleziona …</target>
+      </segment>
+    </unit>
+    <unit id="2SSLP1K" name="form.empty_username_email">
+      <notes>
+        <note>src/Form/LoginType.php:34</note>
+      </notes>
+      <segment>
+        <source>form.empty_username_email</source>
+        <target>Inserisci il tuo nome utente o email</target>
+      </segment>
+    </unit>
+    <unit id="5Qf_RiO" name="form.empty_password">
+      <notes>
+        <note>src/Form/LoginType.php:46</note>
+      </notes>
+      <segment>
+        <source>form.empty_password</source>
+        <target>Inserisci la tua password</target>
+      </segment>
+    </unit>
+    <unit id="f8zXapF" name="form.empty_email">
+      <notes>
+        <note>src/Form/ResetPasswordRequestFormType.php:28</note>
+      </notes>
+      <segment>
+        <source>form.empty_email</source>
+        <target>Inserisci la tua email</target>
+      </segment>
+    </unit>
+    <unit id="fAmcKUQ" name="listing.title_filterby_field">
+      <notes>
+        <note>templates/content/listing.html.twig:112</note>
+      </notes>
+      <segment>
+        <source>listing.title_filterby_field</source>
+        <target>Filtra per campo</target>
+      </segment>
+    </unit>
+    <unit id="kciiidS" name="image.button_from_url">
+      <notes>
+        <note>templates/_partials/fields/image.html.twig:24</note>
+        <note>templates/_partials/fields/imagelist.html.twig:24</note>
+        <note>templates/_partials/fields/simple_image.html.twig:64</note>
+      </notes>
+      <segment>
+        <source>image.button_from_url</source>
+        <target>Da URL</target>
+      </segment>
+    </unit>
+    <unit id="QcN1pi8" name="files_cards.copy_to_clipboard">
+      <notes>
+        <note>templates/finder/_files_actions.html.twig:29</note>
+      </notes>
+      <segment>
+        <source>files_cards.copy_to_clipboard</source>
+        <target>Copia il link al file</target>
+      </segment>
+    </unit>
+    <unit id="S9k1S7Z" name="warning">
+      <notes>
+        <note>assets/js/app/ajax-save.js:39</note>
+        <note>src/Controller/Backend/FileEditController.php:82</note>
+        <note>src/Controller/Backend/FileEditController.php:106</note>
+        <note>src/Controller/Backend/FilemanagerController.php:111</note>
+        <note>src/Controller/Backend/FilemanagerController.php:150</note>
+        <note>src/Controller/Backend/GeneralController.php:50</note>
+        <note>src/Security/AuthenticationEntryPointRedirector.php:26</note>
+        <note>src/Twig/Notifications.php:42</note>
+        <note>templates/helpers/page_404.html.twig:36</note>
+        <note>templates/pages/kitchensink.html.twig:82</note>
+        <note>templates/pages/kitchensink.html.twig:89</note>
+        <note>vendor/bolt/configuration-notices-widget/src/Checks.php:55</note>
+      </notes>
+      <segment>
+        <source>warning</source>
+        <target>Avviso</target>
+      </segment>
+    </unit>
+    <unit id="4fyuUU." name="filemanager.create_folder_already_exists">
+      <notes>
+        <note>src/Controller/Backend/FilemanagerController.php:150</note>
+      </notes>
+      <segment>
+        <source>filemanager.create_folder_already_exists</source>
+        <target>La cartella esiste già</target>
+      </segment>
+    </unit>
+    <unit id="aSxePCB" name="filemanager.create_folder_error">
+      <notes>
+        <note>src/Controller/Backend/FilemanagerController.php:151</note>
+        <note>src/Controller/Backend/FilemanagerController.php:157</note>
+      </notes>
+      <segment>
+        <source>filemanager.create_folder_error</source>
+        <target>Impossibile creare la cartella</target>
+      </segment>
+    </unit>
+    <unit id="wbFKypA" name="filemanager.create_folder_success">
+      <notes>
+        <note>src/Controller/Backend/FilemanagerController.php:155</note>
+      </notes>
+      <segment>
+        <source>filemanager.create_folder_success</source>
+        <target>Cartella creata con successo.</target>
+      </segment>
+    </unit>
+    <unit id="lZxOEzh" name="filemanager.delete_folder_successful">
+      <notes>
+        <note>src/Controller/Backend/FilemanagerController.php:115</note>
+      </notes>
+      <segment>
+        <source>filemanager.delete_folder_successful</source>
+        <target>Cartella eliminata con successo</target>
+      </segment>
+    </unit>
+    <unit id="a6Xhtq0" name="folder.create_new">
+      <notes>
+        <note>templates/finder/_createfolder.html.twig:13</note>
+      </notes>
+      <segment>
+        <source>folder.create_new</source>
+        <target>Nuova cartella</target>
+      </segment>
+    </unit>
+    <unit id="nWMH_Nr" name="label.avatar">
+      <notes>
+        <note>templates/users/_form.html.twig:172</note>
+      </notes>
+      <segment>
+        <source>label.avatar</source>
+        <target>Avatar</target>
+      </segment>
+    </unit>
+    <unit id="i37ZNqN" name="login.forgotpassword">
+      <notes>
+        <note>templates/security/login.html.twig:64</note>
+      </notes>
+      <segment>
+        <source>login.forgotpassword</source>
+        <target>Password dimenticata</target>
+      </segment>
+    </unit>
+    <unit id="y.dIywE" name="reset_password.request_header">
+      <notes>
+        <note>templates/reset_password/check_email.html.twig:32</note>
+        <note>templates/reset_password/request.html.twig:4</note>
+        <note>templates/reset_password/request.html.twig:36</note>
+      </notes>
+      <segment>
+        <source>reset_password.request_header</source>
+        <target>Reimposta password</target>
+      </segment>
+    </unit>
+    <unit id="SwOgM7K" name="reset_password.request_description">
+      <notes>
+        <note>templates/reset_password/request.html.twig:42</note>
+      </notes>
+      <segment>
+        <source>reset_password.request_description</source>
+        <target>Inserisci il tuo indirizzo email e ti invieremo un link per reimpostare la password.</target>
+      </segment>
+    </unit>
+    <unit id="RX0Iuzi" name="reset_password.request_send">
+      <notes>
+        <note>templates/reset_password/request.html.twig:44</note>
+      </notes>
+      <segment>
+        <source>reset_password.request_send</source>
+        <target>Invia</target>
+      </segment>
+    </unit>
+    <unit id="lpzL089" name="Email">
+      <notes>
+        <note>src/Command/AddUserCommand.php:158</note>
+        <note>src/Command/ListUsersCommand.php:101</note>
+        <note>tests/cypress/integration-temporary-disabled/edit_record_1_field.spec.js:56</note>
+      </notes>
+      <segment>
+        <source>Email</source>
+        <target>Email</target>
+      </segment>
+    </unit>
+    <unit id="k9hekeu" name="reset_password.back-to-login">
+      <notes>
+        <note>templates/reset_password/request.html.twig:47</note>
+      </notes>
+      <segment>
+        <source>reset_password.back-to-login</source>
+        <target>Torna all’accesso</target>
+      </segment>
+    </unit>
+    <unit id="gVc0Uf4" name="reset_password.reset_header">
+      <notes>
+        <note>templates/reset_password/reset.html.twig:4</note>
+        <note>templates/reset_password/reset.html.twig:32</note>
+      </notes>
+      <segment>
+        <source>reset_password.reset_header</source>
+        <target>Reimposta la tua password</target>
+      </segment>
+    </unit>
+    <unit id="U6qdalg" name="reset_password.check_email_sent_header">
+      <notes>
+        <note>templates/reset_password/check_email.html.twig:4</note>
+      </notes>
+      <segment>
+        <source>reset_password.check_email_sent_header</source>
+        <target>Email di reimpostazione password inviata</target>
+      </segment>
+    </unit>
+    <unit id="SxW1D3L" name="reset_password.check_email_sent_text_1">
+      <notes>
+        <note>templates/reset_password/check_email.html.twig:35</note>
+      </notes>
+      <segment>
+        <source>reset_password.check_email_sent_text_1</source>
+        <target>È stata inviata un’email contenente un link su cui puoi fare clic per reimpostare la password. Questo link scadrà tra %hours% ora/e.</target>
+      </segment>
+    </unit>
+    <unit id="z25k4DS" name="reset_password.check_email_sent_text_2">
+      <notes>
+        <note>templates/reset_password/check_email.html.twig:36</note>
+      </notes>
+      <segment>
+        <source>reset_password.check_email_sent_text_2</source>
+        <target>Se non ricevi l’email, controlla la cartella spam o %tryagain%.</target>
+      </segment>
+    </unit>
+    <unit id="QpUMHfK" name="reset_password.reset_btn">
+      <notes>
+        <note>templates/reset_password/reset.html.twig:37</note>
+      </notes>
+      <segment>
+        <source>reset_password.reset_btn</source>
+        <target>Reimposta password</target>
+      </segment>
+    </unit>
+    <unit id="dp42qbF" name="reset_password.email_title">
+      <notes>
+        <note>templates/reset_password/email.html.twig:1</note>
+      </notes>
+      <segment>
+        <source>reset_password.email_title</source>
+        <target>Ciao!</target>
+      </segment>
+    </unit>
+    <unit id="xS2vvXw" name="reset_password.email_description">
+      <notes>
+        <note>templates/reset_password/email.html.twig:3</note>
+      </notes>
+      <segment>
+        <source>reset_password.email_description</source>
+        <target>Per reimpostare la password, visita il seguente link</target>
+      </segment>
+    </unit>
+    <unit id="apkSD11" name="reset_password.email_expire">
+      <notes>
+        <note>templates/reset_password/email.html.twig:7</note>
+      </notes>
+      <segment>
+        <source>reset_password.email_expire</source>
+        <target>Questo link scadrà tra %hours% ora/e.</target>
+      </segment>
+    </unit>
+    <unit id="_gg3hPE" name="reset_password.email_thanks">
+      <notes>
+        <note>templates/reset_password/email.html.twig:9</note>
+      </notes>
+      <segment>
+        <source>reset_password.email_thanks</source>
+        <target>Saluti!</target>
+      </segment>
+    </unit>
+    <unit id="harDiJR" name="reset_password.enter_pwd">
+      <notes>
+        <note>src/Form/ChangePasswordFormType.php:31</note>
+      </notes>
+      <segment>
+        <source>reset_password.enter_pwd</source>
+        <target>Inserisci una password</target>
+      </segment>
+    </unit>
+    <unit id="rU9cSfq" name="label.repeat_password">
+      <notes>
+        <note>src/Form/ChangePasswordFormType.php:43</note>
+      </notes>
+      <segment>
+        <source>label.repeat_password</source>
+        <target>Ripeti password</target>
+      </segment>
+    </unit>
+    <unit id="Tg5zdeo" name="reset_password.not_matching_pwds">
+      <notes>
+        <note>src/Form/ChangePasswordFormType.php:45</note>
+      </notes>
+      <segment>
+        <source>reset_password.not_matching_pwds</source>
+        <target>I campi della password devono corrispondere.</target>
+      </segment>
+    </unit>
+    <unit id="1JZeWxG" name="reset_password.minimum_length">
+      <notes>
+        <note>src/Form/ChangePasswordFormType.php:35</note>
+      </notes>
+      <segment>
+        <source>reset_password.minimum_length</source>
+        <target>La tua password deve contenere almeno %s caratteri</target>
+      </segment>
+    </unit>
+    <unit id="GUQYLn2" name="reset_password.no_token">
+      <notes>
+        <note>src/Controller/Backend/ResetPasswordController.php:99</note>
+      </notes>
+      <segment>
+        <source>reset_password.no_token</source>
+        <target>Nessun token di reimpostazione password trovato nell’URL o nella sessione.</target>
+      </segment>
+    </unit>
+    <unit id="SjuOnue" name="reset_password.reset_successful">
+      <notes>
+        <note>src/Controller/Backend/ResetPasswordController.php:134</note>
+      </notes>
+      <segment>
+        <source>reset_password.reset_successful</source>
+        <target>La tua password è stata reimpostata con successo.</target>
+      </segment>
+    </unit>
+    <unit id="5Xr92sQ" name="reset_password.problem_with_request">
+      <notes>
+        <note>src/Controller/Backend/ResetPasswordController.php:106</note>
+        <note>src/Controller/Backend/ResetPasswordController.php:169</note>
+      </notes>
+      <segment>
+        <source>reset_password.problem_with_request</source>
+        <target>Si è verificato un problema durante la gestione della richiesta di reimpostazione della password - %s</target>
+      </segment>
+    </unit>
+    <unit id="u3DMmBH" name="label.filtered_by">
+      <notes>
+        <note>templates/content/listing.html.twig:12</note>
+        <note>templates/content/listing.html.twig:13</note>
+      </notes>
+      <segment>
+        <source>label.filtered_by</source>
+        <target>filtrato per</target>
+      </segment>
+    </unit>
+    <unit id="qoZwSEY" name="action.preview_secure_share">
+      <notes>
+        <note>templates/content/_buttons.html.twig:34</note>
+      </notes>
+      <segment>
+        <source>action.preview_secure_share</source>
+        <target>Condividi link di anteprima sicuro</target>
+      </segment>
+    </unit>
+    <unit id="zYeSeNJ" name="action.stop_impersonating">
+      <notes>
+        <note>assets/js/app/toolbar/Components/Toolbar.vue:10</note>
+        <note>templates/_base/layout.html.twig:41</note>
+      </notes>
+      <segment>
+        <source>action.stop_impersonating</source>
+        <target>smetti di impersonare</target>
+      </segment>
+    </unit>
+    <unit id="W7z__Yi" name="action.impersonate">
+      <notes>
+        <note>templates/users/listing.html.twig:82</note>
+      </notes>
+      <segment>
+        <source>action.impersonate</source>
+        <target>impersona</target>
+      </segment>
+    </unit>
+    <unit id="qlucRr7" name="maintenance.activated_warning">
+      <notes>
+        <note>templates/widget/maintenance_mode.twig:25</note>
+      </notes>
+      <segment>
+        <source>maintenance.activated_warning</source>
+        <target>La modalità di manutenzione è attivata</target>
+      </segment>
+    </unit>
+    <unit id="CvNi3GD" name="action.refresh">
+      <notes>
+        <note>templates/_partials/fields/embed.html.twig:28</note>
+      </notes>
+      <segment>
+        <source>action.refresh</source>
+        <target>Aggiorna</target>
+      </segment>
+    </unit>
+    <unit id="9UKAP.V" name="listing_details_box.showing_records">
+      <notes>
+        <note>templates/content/listing.html.twig:148</note>
+      </notes>
+      <segment>
+        <source>listing_details_box.showing_records</source>
+        <target>Visualizzazione dei record %current% di %total%</target>
+      </segment>
+    </unit>
+    <unit id="UrywY0R" name="listing_details_box.name">
+      <notes>
+        <note>templates/content/listing.html.twig:154</note>
+      </notes>
+      <segment>
+        <source>listing_details_box.name</source>
+        <target>Nome: %name% (singolare: %singularName%)</target>
+      </segment>
+    </unit>
+    <unit id=".l3zbrq" name="listing_details_box.slug">
+      <notes>
+        <note>templates/content/listing.html.twig:160</note>
+      </notes>
+      <segment>
+        <source>listing_details_box.slug</source>
+        <target>Slug: %slug% (singolare: %singularSlug%)</target>
+      </segment>
+    </unit>
+    <unit id="eJ9YbdG" name="listing_details_box.record_template">
+      <notes>
+        <note>templates/content/listing.html.twig:166</note>
+      </notes>
+      <segment>
+        <source>listing_details_box.record_template</source>
+        <target>Template del record: %template%</target>
+      </segment>
+    </unit>
+    <unit id="tsc7_G3" name="listing_details_box.listing_template">
+      <notes>
+        <note>templates/content/listing.html.twig:172</note>
+      </notes>
+      <segment>
+        <source>listing_details_box.listing_template</source>
+        <target>Template dell’elenco: %template% (%listingRecords% record)</target>
+      </segment>
+    </unit>
+    <unit id="pPz9Ocx" name="listing_details_box.locales">
+      <notes>
+        <note>templates/content/listing.html.twig:186</note>
+      </notes>
+      <segment>
+        <source>listing_details_box.locales</source>
+        <target>Lingue: %locales%</target>
+      </segment>
+    </unit>
+    <unit id="z8r0TY6" name="action.edit_permissions">
+      <notes>
+        <note>templates/users/listing.html.twig:112</note>
+        <note>templates/users/listing.html.twig:183</note>
+      </notes>
+      <segment>
+        <source>action.edit_permissions</source>
+        <target>Modifica permessi</target>
+      </segment>
+    </unit>
+    <unit id="OYUVA5." name="general.label.search">
+      <notes>
+        <note>assets/js/app/toolbar/Components/Toolbar.vue:21</note>
+        <note>templates/_base/layout.html.twig:46</note>
+      </notes>
+      <segment>
+        <source>general.label.search</source>
+        <target>Cerca</target>
+      </segment>
+    </unit>
+    <unit id="wG04eAa" name="image.image_preview">
+      <notes>
+        <note>templates/_partials/fields/image.html.twig:25</note>
+      </notes>
+      <segment>
+        <source>image.image_preview</source>
+        <target>Anteprima dell’immagine</target>
+      </segment>
+    </unit>
+    <unit id="OEqzPDO" name="listing_table.actions.select_all">
+      <notes>
+        <note>templates/_partials/_content_listing.html.twig:15</note>
+      </notes>
+      <segment>
+        <source>listing_table.actions.select_all</source>
+        <target>Seleziona tutto</target>
+      </segment>
+    </unit>
+    <unit id="2hoKa1k" name="label.remembermeduration">
+      <notes>
+        <note>src/Form/LoginType.php:58</note>
+      </notes>
+      <segment>
+        <source>label.remembermeduration</source>
+        <target>Ricordami? (%duration% giorni)</target>
+      </segment>
+    </unit>
+    <unit id="eJG2.4P" name="listing.current_sessions_header">
+      <notes>
+        <note>templates/users/listing.html.twig:117</note>
+      </notes>
+      <segment>
+        <source>listing.current_sessions_header</source>
+        <target>Sessioni correnti</target>
+      </segment>
+    </unit>
+    <unit id="a_COwtV" name="image.button_upload_options">
+      <notes>
+        <note>templates/_partials/fields/file.html.twig:17</note>
+        <note>templates/_partials/fields/filelist.html.twig:17</note>
+        <note>templates/_partials/fields/image.html.twig:18</note>
+        <note>templates/_partials/fields/imagelist.html.twig:17</note>
+      </notes>
+      <segment>
+        <source>image.button_upload_options</source>
+        <target>Opzioni di caricamento</target>
+      </segment>
+    </unit>
+    <unit id="a_CQgly" name="Order">
+      <notes>
+        <note>templates/content/_taxonomies.html.twig:27</note>
+      </notes>
+      <segment>
+        <source>Order</source>
+        <target>Ordine</target>
+      </segment>
+    </unit>
+    <unit id="Y7ajNNN" name="placeholder.email">
+      <notes>
+        <note>src/Form/ResetPasswordRequestFormType.php:32</note>
+      </notes>
+      <segment>
+        <source>placeholder.email</source>
+        <target>la tua email</target>
+      </segment>
+    </unit>
+    <unit id="MjY7.cg" name="modal.title.file_field">
+      <notes>
+        <note>templates/_partials/fields/file.html.twig:24</note>
+        <note>templates/_partials/fields/filelist.html.twig:27</note>
+      </notes>
+      <segment>
+        <source>modal.title.file_field</source>
+        <target>Seleziona un file</target>
+      </segment>
+    </unit>
+    <unit id="0yPnNMd" name="modal.title.image_field">
+      <notes>
+        <note>templates/_partials/fields/image.html.twig:26</note>
+        <note>templates/_partials/fields/imagelist.html.twig:28</note>
+      </notes>
+      <segment>
+        <source>modal.title.image_field</source>
+        <target>Seleziona un’immagine</target>
+      </segment>
+    </unit>
+    <unit id="KIN.Ehy" name="modal.title.upload_from_url">
+      <notes>
+        <note>templates/_partials/fields/image.html.twig:27</note>
+        <note>templates/_partials/fields/imagelist.html.twig:29</note>
+      </notes>
+      <segment>
+        <source>modal.title.upload_from_url</source>
+        <target>Carica da URL</target>
+      </segment>
+    </unit>
+    <unit id="ODb3pJA" name="modal.text.loading">
+      <notes>
+        <note>templates/_base/layout.html.twig:142</note>
+        <note>templates/_base/layout.html.twig:149</note>
+      </notes>
+      <segment>
+        <source>modal.text.loading</source>
+        <target>Caricamento…</target>
+      </segment>
+    </unit>
+    <unit id="VlfWDQr" name="modal.button_save">
+      <notes>
+        <note>templates/_base/layout.html.twig:154</note>
+        <note>templates/_partials/fields/file.html.twig:25</note>
+        <note>templates/_partials/fields/filelist.html.twig:28</note>
+        <note>templates/_partials/fields/image.html.twig:28</note>
+        <note>templates/_partials/fields/imagelist.html.twig:30</note>
+      </notes>
+      <segment>
+        <source>modal.button_save</source>
+        <target>Salva</target>
+      </segment>
+    </unit>
+    <unit id="ct_I4w3" name="modal.button_deny">
+      <notes>
+        <note>templates/_base/layout.html.twig:153</note>
+        <note>templates/_partials/fields/file.html.twig:26</note>
+        <note>templates/_partials/fields/filelist.html.twig:29</note>
+        <note>templates/_partials/fields/image.html.twig:29</note>
+        <note>templates/_partials/fields/imagelist.html.twig:31</note>
+      </notes>
+      <segment>
+        <source>modal.button_deny</source>
+        <target>Chiudi</target>
       </segment>
     </unit>
   </file>

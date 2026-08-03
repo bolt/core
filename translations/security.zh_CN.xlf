@@ -1,70 +1,187 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-  <file source-language="zh-CN" target-language="zh-CN" datatype="plaintext" original="file.ext">
-    <header>
-      <tool tool-id="symfony" tool-name="Symfony"/>
-    </header>
-    <body>
-      <trans-unit id="baI_ZxO" resname="An authentication exception occurred.">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="zh-CN">
+  <file id="security.zh_CN">
+    <unit id="baI_ZxO" name="An authentication exception occurred.">
+      <notes>
+        <note>vendor/symfony/security-core/Exception/AuthenticationException.php:95</note>
+      </notes>
+      <segment>
         <source>An authentication exception occurred.</source>
         <target>身份验证发生异常。</target>
-      </trans-unit>
-      <trans-unit id="OETylMq" resname="Authentication credentials could not be found.">
+      </segment>
+    </unit>
+    <unit id="OETylMq" name="Authentication credentials could not be found.">
+      <notes>
+        <note>vendor/symfony/security-core/Exception/AuthenticationCredentialsNotFoundException.php:25</note>
+      </notes>
+      <segment>
         <source>Authentication credentials could not be found.</source>
         <target>没有找到身份验证的凭证。</target>
-      </trans-unit>
-      <trans-unit id="3RJINQ0" resname="Authentication request could not be processed due to a system problem.">
+      </segment>
+    </unit>
+    <unit id="3RJINQ0" name="Authentication request could not be processed due to a system problem.">
+      <notes>
+        <note>vendor/symfony/security-core/Exception/AuthenticationServiceException.php:24</note>
+      </notes>
+      <segment>
         <source>Authentication request could not be processed due to a system problem.</source>
         <target>由于系统故障，身份验证的请求无法被处理。</target>
-      </trans-unit>
-      <trans-unit id="qr0aiUo" resname="Invalid credentials.">
+      </segment>
+    </unit>
+    <unit id="qr0aiUo" name="Invalid credentials.">
+      <notes>
+        <note>tests/cypress/integration/login.spec.js:7</note>
+      </notes>
+      <segment>
         <source>Invalid credentials.</source>
         <target>无效的凭证。</target>
-      </trans-unit>
-      <trans-unit id="zrJWK0F" resname="Cookie has already been used by someone else.">
+      </segment>
+    </unit>
+    <unit id="zrJWK0F" name="Cookie has already been used by someone else.">
+      <notes>
+        <note>vendor/symfony/security-core/Exception/CookieTheftException.php:25</note>
+      </notes>
+      <segment>
         <source>Cookie has already been used by someone else.</source>
         <target>Cookie 已经被其他人使用。</target>
-      </trans-unit>
-      <trans-unit id="blC0fXX" resname="Not privileged to request the resource.">
+      </segment>
+    </unit>
+    <unit id="blC0fXX" name="Not privileged to request the resource.">
+      <notes>
+        <note>vendor/symfony/security-core/Exception/InsufficientAuthenticationException.php:26</note>
+      </notes>
+      <segment>
         <source>Not privileged to request the resource.</source>
         <target>没有权限请求此资源。</target>
-      </trans-unit>
-      <trans-unit id="dLzMRPR" resname="Invalid CSRF token.">
+      </segment>
+    </unit>
+    <unit id="dLzMRPR" name="Invalid CSRF token.">
+      <notes>
+        <note>vendor/symfony/security-core/Exception/InvalidCsrfTokenException.php:24</note>
+        <note>vendor/symfony/security-http/EventListener/CsrfProtectionListener.php:51</note>
+        <note>vendor/symfony/security-http/Firewall/LogoutListener.php:79</note>
+      </notes>
+      <segment>
         <source>Invalid CSRF token.</source>
         <target>无效的 CSRF token 。</target>
-      </trans-unit>
-      <trans-unit id="PhhlLem" resname="No authentication provider found to support the authentication token.">
+      </segment>
+    </unit>
+    <unit id="PhhlLem" name="No authentication provider found to support the authentication token.">
+      <notes>
+        <note>vendor/symfony/security-core/Exception/ProviderNotFoundException.php:25</note>
+      </notes>
+      <segment>
         <source>No authentication provider found to support the authentication token.</source>
         <target>没有找到支持此 token 的身份验证服务提供方。</target>
-      </trans-unit>
-      <trans-unit id="v_RS21A" resname="No session available, it either timed out or cookies are not enabled.">
+      </segment>
+    </unit>
+    <unit id="v_RS21A" name="No session available, it either timed out or cookies are not enabled.">
+      <notes>
+        <note>vendor/symfony/security-core/Exception/SessionUnavailableException.php:30</note>
+      </notes>
+      <segment>
         <source>No session available, it either timed out or cookies are not enabled.</source>
         <target>Session 不可用。会话超时或没有启用 cookies 。</target>
-      </trans-unit>
-      <trans-unit id="EYCKpDH" resname="No token could be found.">
+      </segment>
+    </unit>
+    <unit id="EYCKpDH" name="No token could be found.">
+      <notes>
+        <note>vendor/symfony/security-core/Exception/TokenNotFoundException.php:24</note>
+      </notes>
+      <segment>
         <source>No token could be found.</source>
         <target>找不到 token 。</target>
-      </trans-unit>
-      <trans-unit id="z3cOUZo" resname="Username could not be found.">
+      </segment>
+    </unit>
+    <unit id="z3cOUZo" name="Username could not be found.">
+      <notes>
+        <note>vendor/symfony/security-core/Exception/UserNotFoundException.php:26</note>
+      </notes>
+      <segment>
         <source>Username could not be found.</source>
         <target>找不到用户名。</target>
-      </trans-unit>
-      <trans-unit id="By5eLYM" resname="Account has expired.">
+      </segment>
+    </unit>
+    <unit id="By5eLYM" name="Account has expired.">
+      <notes>
+        <note>vendor/symfony/security-core/Exception/AccountExpiredException.php:24</note>
+      </notes>
+      <segment>
         <source>Account has expired.</source>
         <target>帐号已过期。</target>
-      </trans-unit>
-      <trans-unit id="YfZhiuA" resname="Credentials have expired.">
+      </segment>
+    </unit>
+    <unit id="YfZhiuA" name="Credentials have expired.">
+      <notes>
+        <note>vendor/symfony/security-core/Exception/CredentialsExpiredException.php:24</note>
+      </notes>
+      <segment>
         <source>Credentials have expired.</source>
         <target>凭证已过期。</target>
-      </trans-unit>
-      <trans-unit id="NrSSfLs" resname="Account is disabled.">
+      </segment>
+    </unit>
+    <unit id="NrSSfLs" name="Account is disabled.">
+      <notes>
+        <note>vendor/symfony/security-core/Exception/DisabledException.php:24</note>
+      </notes>
+      <segment>
         <source>Account is disabled.</source>
         <target>帐号已被禁用。</target>
-      </trans-unit>
-      <trans-unit id="O5ZyxHr" resname="Account is locked.">
+      </segment>
+    </unit>
+    <unit id="O5ZyxHr" name="Account is locked.">
+      <notes>
+        <note>vendor/symfony/security-core/Exception/LockedException.php:24</note>
+      </notes>
+      <segment>
         <source>Account is locked.</source>
         <target>帐号已被锁定。</target>
-      </trans-unit>
-    </body>
+      </segment>
+    </unit>
+    <unit id="w7KhJ8F" name="User is disabled.">
+      <notes>
+        <note>src/Exception/DisabledUserLoginAttemptException.php:16</note>
+      </notes>
+      <segment>
+        <source>User is disabled.</source>
+        <target>用户已被禁用。</target>
+      </segment>
+    </unit>
+    <unit id="NF.vvAN" name="You have to login in order to access this page.">
+      <notes>
+        <note>src/Security/AuthenticationEntryPointRedirector.php:26</note>
+      </notes>
+      <segment>
+        <source>You have to login in order to access this page.</source>
+        <target>您必须登录才能访问此页面。</target>
+      </segment>
+    </unit>
+    <unit id="gd.MOnZ" name="Too many failed login attempts, please try again later.">
+      <notes>
+        <note>~vendor/symfony/security-core/Exception/TooManyLoginAttemptsAuthenticationException.php:39</note>
+      </notes>
+      <segment>
+        <source>Too many failed login attempts, please try again later.</source>
+        <target>登入失败的次数过多，请稍后再试。</target>
+      </segment>
+    </unit>
+    <unit id="9qGC3hG" name="Too many failed login attempts, please try again in %minutes% minute.">
+      <notes>
+        <note>~vendor/symfony/security-core/Exception/TooManyLoginAttemptsAuthenticationException.php:39</note>
+      </notes>
+      <segment>
+        <source>Too many failed login attempts, please try again in %minutes% minute.</source>
+        <target>登入失败的次数过多，请在%minutes%分钟后再试。</target>
+      </segment>
+    </unit>
+    <unit id="AJR3lMs" name="Too many failed login attempts, please try again in %minutes% minutes.">
+      <notes>
+        <note>~vendor/symfony/security-core/Exception/TooManyLoginAttemptsAuthenticationException.php:39</note>
+      </notes>
+      <segment>
+        <source>Too many failed login attempts, please try again in %minutes% minutes.</source>
+        <target>登录尝试失败次数过多，请在 %minutes% 分钟后重试。</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

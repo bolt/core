@@ -1,0 +1,317 @@
+#!/usr/bin/env php
+<?php
+declare(strict_types=1);
+
+
+/*
+ * Validates the translation catalogues in translations/:
+ *
+ *  1. Structure parity: every <domain>.<locale>.xlf contains exactly the same
+ *     keys (and unit ids) as <domain>.en.xlf — nothing missing, nothing extra,
+ *     no duplicates.
+ *  2. Header sanity: <file id="domain.locale"> and trgLang match the filename.
+ *  3. Usage (messages domain): every key is referenced somewhere in the code
+ *     (src, templates, assets, config, public/theme, bundled bolt widgets),
+ *     and every key referenced in code exists in messages.en.xlf.
+ *     The security and validators domains are consumed by Symfony itself
+ *     (auth exception messageKeys, constraint messages), so only parity is
+ *     checked there.
+ *
+ * Exits 1 if any error is found, so it can run in CI:
+ *
+ *     php bin/validate-translations
+ */
+
+$root = dirname(__DIR__);
+$domains = ['messages', 'security', 'validators'];
+
+// Keys built at runtime, e.g. 'status.' ~ record.status in ContentExtension.
+$dynamicPrefixes = ['status.'];
+
+// Where translation keys may be referenced.
+$usageDirs = ['src', 'templates', 'assets/js', 'config', 'tests', 'public/theme', 'vendor/bolt'];
+$usageExtensions = ['php', 'twig', 'js', 'vue', 'yaml', 'yml'];
+
+// Fixed manifest of expected translation files. A deleted file must cause a
+// hard failure rather than silently validating fewer files.
+$expectedFiles = [
+    'messages.bg.xlf', 'messages.cs.xlf', 'messages.de.xlf', 'messages.el.xlf',
+    'messages.en.xlf', 'messages.es.xlf', 'messages.fr.xlf', 'messages.hu.xlf',
+    'messages.it.xlf', 'messages.nl.xlf', 'messages.pl.xlf', 'messages.pt_BR.xlf',
+    'messages.ru.xlf', 'messages.tr.xlf', 'messages.uk.xlf', 'messages.zh_CN.xlf',
+    'security.cs.xlf', 'security.de.xlf', 'security.el.xlf', 'security.en.xlf',
+    'security.es.xlf', 'security.fr.xlf', 'security.hu.xlf', 'security.nl.xlf',
+    'security.ru.xlf', 'security.tr.xlf', 'security.zh_CN.xlf',
+    'validators.cs.xlf', 'validators.de.xlf', 'validators.el.xlf', 'validators.en.xlf',
+    'validators.es.xlf', 'validators.fr.xlf', 'validators.hu.xlf', 'validators.it.xlf',
+    'validators.nl.xlf', 'validators.pl.xlf', 'validators.pt_BR.xlf',
+    'validators.ru.xlf', 'validators.tr.xlf', 'validators.uk.xlf', 'validators.zh_CN.xlf',
+];
+
+$errors = [];
+$warnings = [];
+
+// -------------------------------------------------------------------------
+// 0: verify the file manifest is complete
+// -------------------------------------------------------------------------
+foreach ($expectedFiles as $expected) {
+    if (! file_exists("{$root}/translations/{$expected}")) {
+        $errors[] = "{$expected}: expected file is missing from translations/";
+    }
+}
+$actualFiles = array_map(basename(...), glob("{$root}/translations/*.xlf") ?: []);
+foreach (array_diff($actualFiles, $expectedFiles) as $extra) {
+    $warnings[] = "{$extra}: file exists but is not in the expected manifest (add it to bin/validate-translations \$expectedFiles)";
+}
+
+/**
+ * @return array{units: array<string, string>, duplicates: string[], notes: array<string, string[]>, fileId: ?string, trgLang: ?string, loadError: bool}
+ */
+function parseXlf(string $path): array
+{
+    $dom = new DOMDocument();
+    if (! @$dom->load($path)) {
+        return [
+            'units' => [],
+            'duplicates' => [],
+            'notes' => [],
+            'fileId' => null,
+            'trgLang' => null,
+            'loadError' => true,
+        ];
+    }
+    $xliff = $dom->documentElement;
+    if ($xliff === null) {
+        return [
+            'units' => [],
+            'duplicates' => [],
+            'notes' => [],
+            'fileId' => null,
+            'trgLang' => null,
+            'loadError' => true,
+        ];
+    }
+    $xpath = new DOMXPath($dom);
+    $xpath->registerNamespace('x2', 'urn:oasis:names:tc:xliff:document:2.0');
+    $xpath->registerNamespace('x1', 'urn:oasis:names:tc:xliff:document:1.2');
+
+    $units = [];
+    $duplicates = [];
+    $notes = [];
+    foreach (['//x2:unit' => 'x2', '//x1:trans-unit' => 'x1'] as $query => $ns) {
+        $unitList = $xpath->query($query);
+        if ($unitList === false) {
+            continue;
+        }
+        /** @var DOMElement $unit */
+        foreach ($unitList as $unit) {
+            $sourceList = $xpath->query($ns === 'x2' ? 'x2:segment/x2:source' : 'x1:source', $unit);
+            $source = $sourceList !== false ? $sourceList->item(0) : null;
+            if (!$source instanceof DOMElement) {
+                continue;
+            }
+            $key = $source->textContent;
+            if (isset($units[$key])) {
+                $duplicates[] = $key;
+            }
+            $units[$key] = $unit->getAttribute('id');
+            $notes[$key] = [];
+            $noteList = $xpath->query($ns === 'x2' ? 'x2:notes/x2:note' : 'x1:note', $unit);
+            if ($noteList !== false) {
+                foreach ($noteList as $noteNode) {
+                    if ($noteNode instanceof DOMElement) {
+                        $notes[$key][] = $noteNode->textContent;
+                    }
+                }
+            }
+        }
+    }
+
+    $fileList = $xpath->query('//x2:file');
+    $file = $fileList !== false ? $fileList->item(0) : null;
+
+    return [
+        'units' => $units,
+        'duplicates' => $duplicates,
+        'notes' => $notes,
+        'fileId' => $file instanceof DOMElement ? $file->getAttribute('id') : null,
+        'trgLang' => $xliff->getAttribute('trgLang') ?: null,
+        'loadError' => false,
+    ];
+}
+
+// -------------------------------------------------------------------------
+// 1 + 2: structure parity and header sanity
+// -------------------------------------------------------------------------
+$enCatalogues = [];
+
+foreach ($domains as $domain) {
+    $enPath = "{$root}/translations/{$domain}.en.xlf";
+    if (! file_exists($enPath)) {
+        $errors[] = "{$domain}.en.xlf: file not found";
+        continue;
+    }
+    $en = parseXlf($enPath);
+    if ($en['loadError']) {
+        $errors[] = "{$domain}.en.xlf: failed to parse XML (malformed or truncated file)";
+        continue;
+    }
+    $enCatalogues[$domain] = $en;
+    foreach ($en['duplicates'] as $key) {
+        $errors[] = "{$domain}.en.xlf: duplicate key \"{$key}\"";
+    }
+
+    foreach (glob("{$root}/translations/{$domain}.*.xlf") ?: [] as $path) {
+        $filename = basename($path, '.xlf');
+        $locale = substr($filename, strlen($domain) + 1);
+        $parsed = $locale === 'en' ? $en : parseXlf($path);
+
+        if ($parsed['loadError']) {
+            $errors[] = "{$filename}.xlf: failed to parse XML (malformed or truncated file)";
+            continue;
+        }
+
+        if ($parsed['fileId'] !== $filename) {
+            $errors[] = "{$filename}.xlf: <file id=\"{$parsed['fileId']}\"> should be \"{$filename}\"";
+        }
+        $expectedTrgLang = str_replace('_', '-', $locale);
+        if ($parsed['trgLang'] !== null && $parsed['trgLang'] !== $expectedTrgLang) {
+            $errors[] = "{$filename}.xlf: trgLang=\"{$parsed['trgLang']}\" should be \"{$expectedTrgLang}\"";
+        }
+
+        if ($locale === 'en') {
+            continue;
+        }
+        foreach ($parsed['duplicates'] as $key) {
+            $errors[] = "{$filename}.xlf: duplicate key \"{$key}\"";
+        }
+        foreach (array_diff_key($en['units'], $parsed['units']) as $key => $id) {
+            $errors[] = "{$filename}.xlf: missing key \"{$key}\"";
+        }
+        foreach (array_diff_key($parsed['units'], $en['units']) as $key => $id) {
+            $errors[] = "{$filename}.xlf: redundant key \"{$key}\" (not in {$domain}.en.xlf)";
+        }
+        foreach (array_intersect_key($parsed['units'], $en['units']) as $key => $id) {
+            if ($id !== $en['units'][$key]) {
+                $warnings[] = "{$filename}.xlf: unit id \"{$id}\" for \"{$key}\" differs from en (\"{$en['units'][$key]}\")";
+            }
+            if (($parsed['notes'][$key] ?? []) !== ($en['notes'][$key] ?? [])) {
+                $errors[] = "{$filename}.xlf: <notes> for \"{$key}\" differ from {$domain}.en.xlf (run bin/update-translation-notes)";
+            }
+        }
+    }
+
+    // en notes must point at files that still exist
+    foreach ($en['notes'] as $key => $noteList) {
+        foreach ($noteList as $note) {
+            $notePath = explode(':', ltrim($note, '~'))[0];
+            if (! file_exists("{$root}/{$notePath}")) {
+                $warnings[] = "{$domain}.en.xlf: note \"{$note}\" for \"{$key}\" points at a missing file (run bin/update-translation-notes)";
+            }
+        }
+    }
+
+    // byte-level parity: outside <target>, trgLang and <file id>, every locale
+    // file must be identical to the en file (same order, notes, formatting)
+    $skeleton = static function (string $path): string {
+        $content = (string) file_get_contents($path);
+        $content = (string) preg_replace('/<target>.*?<\/target>/s', '<target>_</target>', $content);
+        $content = (string) preg_replace('/trgLang="[^"]*"/', 'trgLang="_"', $content, 1);
+
+        return (string) preg_replace('/<file id="[^"]*">/', '<file id="_">', $content, 1);
+    };
+    $enSkeleton = $skeleton($enPath);
+    foreach (glob("{$root}/translations/{$domain}.*.xlf") ?: [] as $path) {
+        if ($skeleton($path) !== $enSkeleton) {
+            $errors[] = basename($path) . ": file structure differs from {$domain}.en.xlf outside <target> (order, notes or formatting drift)";
+        }
+    }
+}
+
+// -------------------------------------------------------------------------
+// 3: usage audit for the messages domain
+// -------------------------------------------------------------------------
+$corpus = '';
+foreach ($usageDirs as $dir) {
+    $base = "{$root}/{$dir}";
+    if (! is_dir($base)) {
+        continue;
+    }
+    $iterator = new RecursiveIteratorIterator(
+        new RecursiveCallbackFilterIterator(
+            new RecursiveDirectoryIterator($base, FilesystemIterator::SKIP_DOTS),
+            static fn (SplFileInfo $f): bool => $f->getFilename() !== 'node_modules' && $f->getFilename() !== 'translations'
+        )
+    );
+    foreach ($iterator as $file) {
+        if ($file->isFile() && in_array($file->getExtension(), $usageExtensions, true)) {
+            $corpus .= (string) file_get_contents($file->getPathname()) . "\n";
+        }
+    }
+}
+
+if (isset($enCatalogues['messages'])) {
+    // 3a: every key in messages.en.xlf is referenced somewhere
+    foreach ($enCatalogues['messages']['units'] as $key => $id) {
+        if (str_contains($corpus, "'{$key}'") || str_contains($corpus, "\"{$key}\"") || str_contains($corpus, $key)) {
+            continue;
+        }
+        $dynamic = false;
+        foreach ($dynamicPrefixes as $prefix) {
+            if (str_starts_with($key, $prefix)) {
+                $dynamic = true;
+                break;
+            }
+        }
+        if (! $dynamic) {
+            $errors[] = "messages.en.xlf: unused key \"{$key}\" (not referenced in code, themes or bundled widgets)";
+        }
+    }
+
+    // 3b: every key referenced in code exists in one of the en catalogues
+    $known = [];
+    foreach ($enCatalogues as $catalogue) {
+        $known += $catalogue['units'];
+    }
+    $patterns = [
+        "/'([^'\\n]{2,120})'\\s*\\|\\s*trans\\b/",            // twig: 'key'|trans
+        '/\"([^\"\\n]{2,120})\"\\s*\\|\\s*trans\\b/',            // twig: "key"|trans
+        "/__\\(\\s*'([^'\\n]{2,120})'/",                      // twig helper: __('key')
+        "/->trans\\(\\s*'([^'\\n]{2,120})'/",                 // php: ->trans('key')
+        '/->trans\\(\\s*\"([^\"\\n]{2,120})\"/',
+    ];
+    $used = [];
+    foreach ($patterns as $pattern) {
+        preg_match_all($pattern, $corpus, $matches);
+        foreach ($matches[1] as $key) {
+            $used[$key] = true;
+        }
+    }
+    foreach (array_keys($used) as $key) {
+        if (in_array($key, $dynamicPrefixes, true)) {
+            continue; // concatenated at runtime, e.g. trans('status.' . $status)
+        }
+        if (! isset($known[$key])) {
+            $errors[] = "missing key \"{$key}\": referenced in code but present in no *.en.xlf catalogue";
+        }
+    }
+}
+
+// -------------------------------------------------------------------------
+// report
+// -------------------------------------------------------------------------
+foreach ($warnings as $warning) {
+    echo "\033[33m[WARN]\033[0m  {$warning}\n";
+}
+foreach ($errors as $error) {
+    echo "\033[31m[ERROR]\033[0m {$error}\n";
+}
+
+$files = count(glob("{$root}/translations/*.xlf") ?: []);
+if ($errors === []) {
+    echo "\033[32m[OK]\033[0m {$files} translation files validated: structure in sync with en, no unused or missing keys.\n";
+    exit(0);
+}
+
+printf("\n%d error(s), %d warning(s) in %d translation files.\n", count($errors), count($warnings), $files);
+exit(1);

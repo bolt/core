@@ -1,354 +1,719 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-  <file source-language="zh-CN" target-language="zh-CN" datatype="plaintext" original="file.ext">
-    <header>
-      <tool tool-id="symfony" tool-name="Symfony"/>
-    </header>
-    <body>
-      <trans-unit id="zh5oKD9" resname="This value should be false.">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="zh-CN">
+  <file id="validators.zh_CN">
+    <unit id="zh5oKD9" name="This value should be false.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/IsFalse.php:36</note>
+      </notes>
+      <segment>
         <source>This value should be false.</source>
         <target>该变量的值应为 false 。</target>
-      </trans-unit>
-      <trans-unit id="NN2_iru" resname="This value should be true.">
+      </segment>
+    </unit>
+    <unit id="NN2_iru" name="This value should be true.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/IsTrue.php:36</note>
+      </notes>
+      <segment>
         <source>This value should be true.</source>
         <target>该变量的值应为 true 。</target>
-      </trans-unit>
-      <trans-unit id="OjM_kpf" resname="This value should be of type {{ type }}.">
+      </segment>
+    </unit>
+    <unit id="OjM_kpf" name="This value should be of type {{ type }}.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Type.php:36</note>
+        <note>vendor/symfony/validator/Validator/RecursiveContextualValidator.php:767</note>
+      </notes>
+      <segment>
         <source>This value should be of type {{ type }}.</source>
         <target>该变量的类型应为 {{ type }} 。</target>
-      </trans-unit>
-      <trans-unit id="f0P5pBD" resname="This value should be blank.">
+      </segment>
+    </unit>
+    <unit id="f0P5pBD" name="This value should be blank.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Blank.php:36</note>
+      </notes>
+      <segment>
         <source>This value should be blank.</source>
         <target>该变量值应为空。</target>
-      </trans-unit>
-      <trans-unit id="ih.4TRN" resname="The value you selected is not a valid choice.">
+      </segment>
+    </unit>
+    <unit id="ih.4TRN" name="The value you selected is not a valid choice.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Choice.php:47</note>
+      </notes>
+      <segment>
         <source>The value you selected is not a valid choice.</source>
         <target>选定变量的值不是有效的选项。</target>
-      </trans-unit>
-      <trans-unit id="u81CkP8" resname="You must select at least {{ limit }} choice.|You must select at least {{ limit }} choices.">
-        <source>You must select at least {{ limit }} choice.|You must select at least {{ limit }} choices.</source>
-        <target>您至少要选择 {{ limit }} 个选项。</target>
-      </trans-unit>
-      <trans-unit id="nIvOQ_o" resname="You must select at most {{ limit }} choice.|You must select at most {{ limit }} choices.">
-        <source>You must select at most {{ limit }} choice.|You must select at most {{ limit }} choices.</source>
-        <target>您最多能选择 {{ limit }} 个选项。</target>
-      </trans-unit>
-      <trans-unit id="87zjiHi" resname="One or more of the given values is invalid.">
+      </segment>
+    </unit>
+    <unit id="87zjiHi" name="One or more of the given values is invalid.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Choice.php:48</note>
+      </notes>
+      <segment>
         <source>One or more of the given values is invalid.</source>
         <target>一个或者多个给定的值无效。</target>
-      </trans-unit>
-      <trans-unit id="3NeQftv" resname="This field was not expected.">
+      </segment>
+    </unit>
+    <unit id="3NeQftv" name="This field was not expected.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Collection.php:42</note>
+      </notes>
+      <segment>
         <source>This field was not expected.</source>
         <target>此字段是多余的。</target>
-      </trans-unit>
-      <trans-unit id="SwMV4zp" resname="This field is missing.">
+      </segment>
+    </unit>
+    <unit id="SwMV4zp" name="This field is missing.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Collection.php:43</note>
+      </notes>
+      <segment>
         <source>This field is missing.</source>
         <target>此字段缺失。</target>
-      </trans-unit>
-      <trans-unit id="LO2vFKN" resname="This value is not a valid date.">
+      </segment>
+    </unit>
+    <unit id="LO2vFKN" name="This value is not a valid date.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Date.php:38</note>
+      </notes>
+      <segment>
         <source>This value is not a valid date.</source>
         <target>该值不是一个有效的日期（date）。</target>
-      </trans-unit>
-      <trans-unit id="86dU_nv" resname="This value is not a valid datetime.">
+      </segment>
+    </unit>
+    <unit id="86dU_nv" name="This value is not a valid datetime.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/DateTime.php:41</note>
+        <note>vendor/symfony/validator/Constraints/Range.php:50</note>
+      </notes>
+      <segment>
         <source>This value is not a valid datetime.</source>
         <target>该值不是一个有效的日期时间（datetime）。</target>
-      </trans-unit>
-      <trans-unit id="PSvNXdi" resname="This value is not a valid email address.">
+      </segment>
+    </unit>
+    <unit id="PSvNXdi" name="This value is not a valid email address.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Email.php:54</note>
+      </notes>
+      <segment>
         <source>This value is not a valid email address.</source>
         <target>该值不是一个有效的邮件地址。</target>
-      </trans-unit>
-      <trans-unit id="3KeHbZy" resname="The file could not be found.">
+      </segment>
+    </unit>
+    <unit id="3KeHbZy" name="The file could not be found.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/File.php:57</note>
+      </notes>
+      <segment>
         <source>The file could not be found.</source>
         <target>文件未找到。</target>
-      </trans-unit>
-      <trans-unit id="KtJhQZo" resname="The file is not readable.">
+      </segment>
+    </unit>
+    <unit id="KtJhQZo" name="The file is not readable.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/File.php:58</note>
+      </notes>
+      <segment>
         <source>The file is not readable.</source>
         <target>文件不可读。</target>
-      </trans-unit>
-      <trans-unit id="JocOVM2" resname="The file is too large ({{ size }} {{ suffix }}). Allowed maximum size is {{ limit }} {{ suffix }}.">
-        <source>The file is too large ({{ size }} {{ suffix }}). Allowed maximum size is {{ limit }} {{ suffix }}.</source>
-        <target>文件太大 ({{ size }} {{ suffix }})。文件大小不可以超过 {{ limit }} {{ suffix }} 。</target>
-      </trans-unit>
-      <trans-unit id="YW21SPH" resname="The mime type of the file is invalid ({{ type }}). Allowed mime types are {{ types }}.">
-        <source>The mime type of the file is invalid ({{ type }}). Allowed mime types are {{ types }}.</source>
-        <target>无效的文件类型 ({{ type }}) 。允许的文件类型有 {{ types }} 。</target>
-      </trans-unit>
-      <trans-unit id="NubOmrs" resname="This value should be {{ limit }} or less.">
+      </segment>
+    </unit>
+    <unit id="NubOmrs" name="This value should be {{ limit }} or less.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Range.php:48</note>
+      </notes>
+      <segment>
         <source>This value should be {{ limit }} or less.</source>
         <target>这个变量的值应该小于或等于 {{ limit }}。</target>
-      </trans-unit>
-      <trans-unit id="HX7TOFm" resname="This value is too long. It should have {{ limit }} character or less.|This value is too long. It should have {{ limit }} characters or less.">
-        <source>This value is too long. It should have {{ limit }} character or less.|This value is too long. It should have {{ limit }} characters or less.</source>
-        <target>字符串太长，长度不可超过 {{ limit }} 个字符。</target>
-      </trans-unit>
-      <trans-unit id="qgR8M_U" resname="This value should be {{ limit }} or more.">
+      </segment>
+    </unit>
+    <unit id="qgR8M_U" name="This value should be {{ limit }} or more.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Range.php:47</note>
+      </notes>
+      <segment>
         <source>This value should be {{ limit }} or more.</source>
         <target>该变量的值应该大于或等于 {{ limit }}。</target>
-      </trans-unit>
-      <trans-unit id="ekfrU.c" resname="This value is too short. It should have {{ limit }} character or more.|This value is too short. It should have {{ limit }} characters or more.">
-        <source>This value is too short. It should have {{ limit }} character or more.|This value is too short. It should have {{ limit }} characters or more.</source>
-        <target>字符串太短，长度不可少于 {{ limit }} 个字符。</target>
-      </trans-unit>
-      <trans-unit id="1KV4L.t" resname="This value should not be blank.">
+      </segment>
+    </unit>
+    <unit id="1KV4L.t" name="This value should not be blank.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/NotBlank.php:38</note>
+      </notes>
+      <segment>
         <source>This value should not be blank.</source>
         <target>该变量不应为空。</target>
-      </trans-unit>
-      <trans-unit id="2G4Vepm" resname="This value should not be null.">
+      </segment>
+    </unit>
+    <unit id="2G4Vepm" name="This value should not be null.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/NotNull.php:36</note>
+      </notes>
+      <segment>
         <source>This value should not be null.</source>
         <target>该变量不应为 null 。</target>
-      </trans-unit>
-      <trans-unit id="yDc3m6E" resname="This value should be null.">
+      </segment>
+    </unit>
+    <unit id="yDc3m6E" name="This value should be null.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/IsNull.php:36</note>
+      </notes>
+      <segment>
         <source>This value should be null.</source>
         <target>该变量应为空 null 。</target>
-      </trans-unit>
-      <trans-unit id="zKzWejA" resname="This value is not valid.">
+      </segment>
+    </unit>
+    <unit id="zKzWejA" name="This value is not valid.">
+      <notes>
+        <note>vendor/symfony/form/Extension/Core/Type/FormType.php:188</note>
+        <note>vendor/symfony/form/Extension/Validator/Type/FormTypeValidatorExtension.php:61</note>
+        <note>vendor/symfony/validator/Constraints/Expression.php:40</note>
+        <note>vendor/symfony/validator/Constraints/Regex.php:37</note>
+      </notes>
+      <segment>
         <source>This value is not valid.</source>
         <target>该变量值无效 。</target>
-      </trans-unit>
-      <trans-unit id="HSuBZpQ" resname="This value is not a valid time.">
+      </segment>
+    </unit>
+    <unit id="HSuBZpQ" name="This value is not a valid time.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Time.php:39</note>
+      </notes>
+      <segment>
         <source>This value is not a valid time.</source>
         <target>该值不是一个有效的时间。</target>
-      </trans-unit>
-      <trans-unit id="snWc_QT" resname="This value is not a valid URL.">
+      </segment>
+    </unit>
+    <unit id="snWc_QT" name="This value is not a valid URL.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Url.php:37</note>
+      </notes>
+      <segment>
         <source>This value is not a valid URL.</source>
         <target>该值不是一个有效的 URL 。</target>
-      </trans-unit>
-      <trans-unit id="jpaLsb2" resname="The two values should be equal.">
+      </segment>
+    </unit>
+    <unit id="jpaLsb2" name="The two values should be equal.">
+      <segment>
         <source>The two values should be equal.</source>
         <target>这两个变量的值应该相等。</target>
-      </trans-unit>
-      <trans-unit id="fIlB1B_" resname="The file is too large. Allowed maximum size is {{ limit }} {{ suffix }}.">
+      </segment>
+    </unit>
+    <unit id="fIlB1B_" name="The file is too large. Allowed maximum size is {{ limit }} {{ suffix }}.">
+      <notes>
+        <note>vendor/symfony/form/Extension/Core/Type/FileType.php:147</note>
+        <note>vendor/symfony/validator/Constraints/File.php:65</note>
+      </notes>
+      <segment>
         <source>The file is too large. Allowed maximum size is {{ limit }} {{ suffix }}.</source>
         <target>文件太大，文件大小不可以超过 {{ limit }} {{ suffix }}。 </target>
-      </trans-unit>
-      <trans-unit id="tW7o0t9" resname="The file is too large.">
+      </segment>
+    </unit>
+    <unit id="tW7o0t9" name="The file is too large.">
+      <notes>
+        <note>vendor/symfony/form/Extension/Core/Type/FileType.php:153</note>
+        <note>vendor/symfony/validator/Constraints/File.php:66</note>
+      </notes>
+      <segment>
         <source>The file is too large.</source>
         <target>文件太大。</target>
-      </trans-unit>
-      <trans-unit id=".exF5Ww" resname="The file could not be uploaded.">
+      </segment>
+    </unit>
+    <unit id=".exF5Ww" name="The file could not be uploaded.">
+      <notes>
+        <note>vendor/symfony/form/Extension/Core/Type/FileType.php:155</note>
+        <note>vendor/symfony/validator/Constraints/File.php:72</note>
+      </notes>
+      <segment>
         <source>The file could not be uploaded.</source>
         <target>无法上传此文件。</target>
-      </trans-unit>
-      <trans-unit id="d7sS5yw" resname="This value should be a valid number.">
+      </segment>
+    </unit>
+    <unit id="d7sS5yw" name="This value should be a valid number.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Range.php:49</note>
+      </notes>
+      <segment>
         <source>This value should be a valid number.</source>
         <target>该值应该为有效的数字。</target>
-      </trans-unit>
-      <trans-unit id="1YC0pOd" resname="This value is not a valid country.">
-        <source>This value is not a valid country.</source>
-        <target>该值不是有效的国家名。</target>
-      </trans-unit>
-      <trans-unit id="BS2Ez6i" resname="This file is not a valid image.">
+      </segment>
+    </unit>
+    <unit id="BS2Ez6i" name="This file is not a valid image.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Image.php:82</note>
+      </notes>
+      <segment>
         <source>This file is not a valid image.</source>
         <target>该文件不是有效的图片。</target>
-      </trans-unit>
-      <trans-unit id="ydcT9kU" resname="This is not a valid IP address.">
+      </segment>
+    </unit>
+    <unit id="ydcT9kU" name="This is not a valid IP address.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Ip.php:85</note>
+      </notes>
+      <segment>
         <source>This is not a valid IP address.</source>
         <target>该值不是有效的IP地址。</target>
-      </trans-unit>
-      <trans-unit id="lDOGNFX" resname="This value is not a valid language.">
+      </segment>
+    </unit>
+    <unit id="lDOGNFX" name="This value is not a valid language.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Language.php:38</note>
+      </notes>
+      <segment>
         <source>This value is not a valid language.</source>
         <target>该值不是有效的语言名。</target>
-      </trans-unit>
-      <trans-unit id="y9IdYkA" resname="This value is not a valid locale.">
+      </segment>
+    </unit>
+    <unit id="y9IdYkA" name="This value is not a valid locale.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Locale.php:38</note>
+      </notes>
+      <segment>
         <source>This value is not a valid locale.</source>
         <target>该值不是有效的区域值（locale）。</target>
-      </trans-unit>
-      <trans-unit id="B5ebaMp" resname="This value is already used.">
+      </segment>
+    </unit>
+    <unit id="1YC0pOd" name="This value is not a valid country.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Country.php:38</note>
+      </notes>
+      <segment>
+        <source>This value is not a valid country.</source>
+        <target>该值不是有效的国家名。</target>
+      </segment>
+    </unit>
+    <unit id="B5ebaMp" name="This value is already used.">
+      <notes>
+        <note>vendor/symfony/doctrine-bridge/Validator/Constraints/UniqueEntity.php:33</note>
+      </notes>
+      <segment>
         <source>This value is already used.</source>
         <target>该值已经被使用。</target>
-      </trans-unit>
-      <trans-unit id="L6097a6" resname="The size of the image could not be detected.">
+      </segment>
+    </unit>
+    <unit id="L6097a6" name="The size of the image could not be detected.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Image.php:83</note>
+      </notes>
+      <segment>
         <source>The size of the image could not be detected.</source>
         <target>不能解析图片大小。</target>
-      </trans-unit>
-      <trans-unit id="zVtJJEa" resname="The image width is too big ({{ width }}px). Allowed maximum width is {{ max_width }}px.">
-        <source>The image width is too big ({{ width }}px). Allowed maximum width is {{ max_width }}px.</source>
-        <target>图片太宽 ({{ width }}px)，最大宽度为 {{ max_width }}px 。</target>
-      </trans-unit>
-      <trans-unit id="s8LFQGC" resname="The image width is too small ({{ width }}px). Minimum width expected is {{ min_width }}px.">
-        <source>The image width is too small ({{ width }}px). Minimum width expected is {{ min_width }}px.</source>
-        <target>图片宽度不够 ({{ width }}px)，最小宽度为 {{ min_width }}px 。</target>
-      </trans-unit>
-      <trans-unit id="Z.NgqFj" resname="The image height is too big ({{ height }}px). Allowed maximum height is {{ max_height }}px.">
-        <source>The image height is too big ({{ height }}px). Allowed maximum height is {{ max_height }}px.</source>
-        <target>图片太高 ({{ height }}px)，最大高度为 {{ max_height }}px 。</target>
-      </trans-unit>
-      <trans-unit id="AW1lWVM" resname="The image height is too small ({{ height }}px). Minimum height expected is {{ min_height }}px.">
-        <source>The image height is too small ({{ height }}px). Minimum height expected is {{ min_height }}px.</source>
-        <target>图片高度不够 ({{ height }}px)，最小高度为 {{ min_height }}px 。</target>
-      </trans-unit>
-      <trans-unit id="PSdMNab" resname="This value should be the user's current password.">
+      </segment>
+    </unit>
+    <unit id="PSdMNab" name="This value should be the user's current password.">
+      <notes>
+        <note>vendor/symfony/security-core/Validator/Constraints/UserPassword.php:29</note>
+      </notes>
+      <segment>
         <source>This value should be the user's current password.</source>
         <target>该变量的值应为用户当前的密码。</target>
-      </trans-unit>
-      <trans-unit id="gYImVyV" resname="This value should have exactly {{ limit }} character.|This value should have exactly {{ limit }} characters.">
-        <source>This value should have exactly {{ limit }} character.|This value should have exactly {{ limit }} characters.</source>
-        <target>该变量应为 {{ limit }} 个字符。</target>
-      </trans-unit>
-      <trans-unit id="xJ2Bcr_" resname="The file was only partially uploaded.">
+      </segment>
+    </unit>
+    <unit id="xJ2Bcr_" name="The file was only partially uploaded.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/File.php:67</note>
+      </notes>
+      <segment>
         <source>The file was only partially uploaded.</source>
         <target>该文件的上传不完整。</target>
-      </trans-unit>
-      <trans-unit id="HzkJDtF" resname="No file was uploaded.">
+      </segment>
+    </unit>
+    <unit id="HzkJDtF" name="No file was uploaded.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/File.php:68</note>
+      </notes>
+      <segment>
         <source>No file was uploaded.</source>
         <target>没有上传任何文件。</target>
-      </trans-unit>
-      <trans-unit id="mHfEaB3" resname="No temporary folder was configured in php.ini.">
+      </segment>
+    </unit>
+    <unit id="mHfEaB3" name="No temporary folder was configured in php.ini.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/File.php:69</note>
+      </notes>
+      <segment>
         <source>No temporary folder was configured in php.ini.</source>
         <target>php.ini 里没有配置临时文件目录。</target>
-      </trans-unit>
-      <trans-unit id="y9K3BGb" resname="Cannot write temporary file to disk.">
+      </segment>
+    </unit>
+    <unit id="y9K3BGb" name="Cannot write temporary file to disk.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/File.php:70</note>
+      </notes>
+      <segment>
         <source>Cannot write temporary file to disk.</source>
         <target>临时文件写入磁盘失败。</target>
-      </trans-unit>
-      <trans-unit id="kx3yHIM" resname="A PHP extension caused the upload to fail.">
+      </segment>
+    </unit>
+    <unit id="kx3yHIM" name="A PHP extension caused the upload to fail.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/File.php:71</note>
+      </notes>
+      <segment>
         <source>A PHP extension caused the upload to fail.</source>
         <target>某个 PHP 扩展造成上传失败。</target>
-      </trans-unit>
-      <trans-unit id="gTJYRl6" resname="This collection should contain {{ limit }} element or more.|This collection should contain {{ limit }} elements or more.">
-        <source>This collection should contain {{ limit }} element or more.|This collection should contain {{ limit }} elements or more.</source>
-        <target>该集合最少应包含 {{ limit }} 个元素。</target>
-      </trans-unit>
-      <trans-unit id="FFn3lVn" resname="This collection should contain {{ limit }} element or less.|This collection should contain {{ limit }} elements or less.">
-        <source>This collection should contain {{ limit }} element or less.|This collection should contain {{ limit }} elements or less.</source>
-        <target>该集合最多包含 {{ limit }} 个元素。</target>
-      </trans-unit>
-      <trans-unit id="bSdilZv" resname="This collection should contain exactly {{ limit }} element.|This collection should contain exactly {{ limit }} elements.">
-        <source>This collection should contain exactly {{ limit }} element.|This collection should contain exactly {{ limit }} elements.</source>
-        <target>该集合应包含 {{ limit }} 个元素 element 。</target>
-      </trans-unit>
-      <trans-unit id="MAzmID7" resname="Invalid card number.">
+      </segment>
+    </unit>
+    <unit id="MAzmID7" name="Invalid card number.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Luhn.php:42</note>
+      </notes>
+      <segment>
         <source>Invalid card number.</source>
         <target>无效的信用卡号。</target>
-      </trans-unit>
-      <trans-unit id="c3REGK3" resname="Unsupported card type or invalid card number.">
+      </segment>
+    </unit>
+    <unit id="c3REGK3" name="Unsupported card type or invalid card number.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/CardScheme.php:54</note>
+      </notes>
+      <segment>
         <source>Unsupported card type or invalid card number.</source>
         <target>不支持的信用卡类型或无效的信用卡号。</target>
-      </trans-unit>
-      <trans-unit id="XSVzcbV" resname="This is not a valid International Bank Account Number (IBAN).">
+      </segment>
+    </unit>
+    <unit id="XSVzcbV" name="This is not a valid International Bank Account Number (IBAN).">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Iban.php:46</note>
+      </notes>
+      <segment>
         <source>This is not a valid International Bank Account Number (IBAN).</source>
         <target>该值不是有效的国际银行帐号（IBAN）。</target>
-      </trans-unit>
-      <trans-unit id="yHirwNr" resname="This value is not a valid ISBN-10.">
+      </segment>
+    </unit>
+    <unit id="yHirwNr" name="This value is not a valid ISBN-10.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Isbn.php:49</note>
+      </notes>
+      <segment>
         <source>This value is not a valid ISBN-10.</source>
         <target>该值不是有效的10位国际标准书号（ISBN-10）。</target>
-      </trans-unit>
-      <trans-unit id="c_q0_ua" resname="This value is not a valid ISBN-13.">
+      </segment>
+    </unit>
+    <unit id="c_q0_ua" name="This value is not a valid ISBN-13.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Isbn.php:50</note>
+      </notes>
+      <segment>
         <source>This value is not a valid ISBN-13.</source>
         <target>该值不是有效的13位国际标准书号（ISBN-13）。</target>
-      </trans-unit>
-      <trans-unit id="M4FlD6n" resname="This value is neither a valid ISBN-10 nor a valid ISBN-13.">
+      </segment>
+    </unit>
+    <unit id="M4FlD6n" name="This value is neither a valid ISBN-10 nor a valid ISBN-13.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Isbn.php:51</note>
+      </notes>
+      <segment>
         <source>This value is neither a valid ISBN-10 nor a valid ISBN-13.</source>
         <target>该值不是有效的国际标准书号（ISBN-10 或 ISBN-13）。</target>
-      </trans-unit>
-      <trans-unit id="cuct0Ow" resname="This value is not a valid ISSN.">
+      </segment>
+    </unit>
+    <unit id="cuct0Ow" name="This value is not a valid ISSN.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Issn.php:47</note>
+      </notes>
+      <segment>
         <source>This value is not a valid ISSN.</source>
         <target>该值不是有效的国际标准期刊号（ISSN）。</target>
-      </trans-unit>
-      <trans-unit id="JBLs1a1" resname="This value is not a valid currency.">
+      </segment>
+    </unit>
+    <unit id="JBLs1a1" name="This value is not a valid currency.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Currency.php:39</note>
+      </notes>
+      <segment>
         <source>This value is not a valid currency.</source>
         <target>该值不是有效的货币名（currency）。</target>
-      </trans-unit>
-      <trans-unit id="c.WxzFW" resname="This value should be equal to {{ compared_value }}.">
+      </segment>
+    </unit>
+    <unit id="c.WxzFW" name="This value should be equal to {{ compared_value }}.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/EqualTo.php:35</note>
+      </notes>
+      <segment>
         <source>This value should be equal to {{ compared_value }}.</source>
         <target>该值应等于 {{ compared_value }} 。</target>
-      </trans-unit>
-      <trans-unit id="_jdjkwq" resname="This value should be greater than {{ compared_value }}.">
+      </segment>
+    </unit>
+    <unit id="_jdjkwq" name="This value should be greater than {{ compared_value }}.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/GreaterThan.php:35</note>
+      </notes>
+      <segment>
         <source>This value should be greater than {{ compared_value }}.</source>
         <target>该值应大于 {{ compared_value }} 。</target>
-      </trans-unit>
-      <trans-unit id="o8A8a0H" resname="This value should be greater than or equal to {{ compared_value }}.">
+      </segment>
+    </unit>
+    <unit id="o8A8a0H" name="This value should be greater than or equal to {{ compared_value }}.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/GreaterThanOrEqual.php:35</note>
+      </notes>
+      <segment>
         <source>This value should be greater than or equal to {{ compared_value }}.</source>
         <target>该值应大于或等于 {{ compared_value }} 。</target>
-      </trans-unit>
-      <trans-unit id="bOF1fpm" resname="This value should be identical to {{ compared_value_type }} {{ compared_value }}.">
-        <source>This value should be identical to {{ compared_value_type }} {{ compared_value }}.</source>
-        <target>该值应与 {{ compared_value_type }} {{ compared_value }} 相同。</target>
-      </trans-unit>
-      <trans-unit id="jG0QFKw" resname="This value should be less than {{ compared_value }}.">
+      </segment>
+    </unit>
+    <unit id="jG0QFKw" name="This value should be less than {{ compared_value }}.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/LessThan.php:35</note>
+      </notes>
+      <segment>
         <source>This value should be less than {{ compared_value }}.</source>
         <target>该值应小于 {{ compared_value }} 。</target>
-      </trans-unit>
-      <trans-unit id="9lWrKmm" resname="This value should be less than or equal to {{ compared_value }}.">
+      </segment>
+    </unit>
+    <unit id="9lWrKmm" name="This value should be less than or equal to {{ compared_value }}.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/LessThanOrEqual.php:35</note>
+      </notes>
+      <segment>
         <source>This value should be less than or equal to {{ compared_value }}.</source>
         <target>该值应小于或等于 {{ compared_value }} 。</target>
-      </trans-unit>
-      <trans-unit id="ftTwGs." resname="This value should not be equal to {{ compared_value }}.">
+      </segment>
+    </unit>
+    <unit id="ftTwGs." name="This value should not be equal to {{ compared_value }}.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/NotEqualTo.php:35</note>
+      </notes>
+      <segment>
         <source>This value should not be equal to {{ compared_value }}.</source>
         <target>该值不应先等于 {{ compared_value }} 。</target>
-      </trans-unit>
-      <trans-unit id="Bi22JLt" resname="This value should not be identical to {{ compared_value_type }} {{ compared_value }}.">
-        <source>This value should not be identical to {{ compared_value_type }} {{ compared_value }}.</source>
-        <target>该值不应与 {{ compared_value_type }} {{ compared_value }} 相同。</target>
-      </trans-unit>
-      <trans-unit id="VczCWzQ" resname="The image ratio is too big ({{ ratio }}). Allowed maximum ratio is {{ max_ratio }}.">
-        <source>The image ratio is too big ({{ ratio }}). Allowed maximum ratio is {{ max_ratio }}.</source>
-        <target>图片宽高比太大 ({{ ratio }})。允许的最大宽高比为 {{ max_ratio }}。</target>
-      </trans-unit>
-      <trans-unit id="v57PXhq" resname="The image ratio is too small ({{ ratio }}). Minimum ratio expected is {{ min_ratio }}.">
-        <source>The image ratio is too small ({{ ratio }}). Minimum ratio expected is {{ min_ratio }}.</source>
-        <target>图片宽高比太小 ({{ ratio }})。允许的最大宽高比为 {{ min_ratio }}。</target>
-      </trans-unit>
-      <trans-unit id="rpajj.a" resname="The image is square ({{ width }}x{{ height }}px). Square images are not allowed.">
+      </segment>
+    </unit>
+    <unit id="rpajj.a" name="The image is square ({{ width }}x{{ height }}px). Square images are not allowed.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Image.php:92</note>
+      </notes>
+      <segment>
         <source>The image is square ({{ width }}x{{ height }}px). Square images are not allowed.</source>
         <target>图片是方形的 ({{ width }}x{{ height }}px)。不允许使用方形的图片。</target>
-      </trans-unit>
-      <trans-unit id="G_lu2qW" resname="The image is landscape oriented ({{ width }}x{{ height }}px). Landscape oriented images are not allowed.">
-        <source>The image is landscape oriented ({{ width }}x{{ height }}px). Landscape oriented images are not allowed.</source>
-        <target>图片是横向的 ({{ width }}x{{ height }}px)。不允许使用横向的图片。</target>
-      </trans-unit>
-      <trans-unit id="sFyGx4B" resname="The image is portrait oriented ({{ width }}x{{ height }}px). Portrait oriented images are not allowed.">
-        <source>The image is portrait oriented ({{ width }}x{{ height }}px). Portrait oriented images are not allowed.</source>
-        <target>图片是纵向的 ({{ width }}x{{ height }}px)。不允许使用纵向的图片。</target>
-      </trans-unit>
-      <trans-unit id="jZgqcpL" resname="An empty file is not allowed.">
+      </segment>
+    </unit>
+    <unit id="jZgqcpL" name="An empty file is not allowed.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/File.php:62</note>
+      </notes>
+      <segment>
         <source>An empty file is not allowed.</source>
         <target>不允许使用空文件。</target>
-      </trans-unit>
-      <trans-unit id="bcfVezI" resname="The host could not be resolved.">
+      </segment>
+    </unit>
+    <unit id="bcfVezI" name="The host could not be resolved.">
+      <segment>
         <source>The host could not be resolved.</source>
         <target>主机名无法解析。</target>
-      </trans-unit>
-      <trans-unit id="NtzKvgt" resname="This value does not match the expected {{ charset }} charset.">
+      </segment>
+    </unit>
+    <unit id="NtzKvgt" name="This value does not match the expected {{ charset }} charset.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Length.php:57</note>
+      </notes>
+      <segment>
         <source>This value does not match the expected {{ charset }} charset.</source>
         <target>该值不符合 {{ charset }} 编码。</target>
-      </trans-unit>
-      <trans-unit id="Wi2y9.N" resname="This is not a valid Business Identifier Code (BIC).">
+      </segment>
+    </unit>
+    <unit id="Wi2y9.N" name="This is not a valid Business Identifier Code (BIC).">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Bic.php:49</note>
+      </notes>
+      <segment>
         <source>This is not a valid Business Identifier Code (BIC).</source>
         <target>这不是有效的业务标识符代码（BIC)。</target>
-      </trans-unit>
-      <trans-unit id="VKDowX6" resname="Error">
+      </segment>
+    </unit>
+    <unit id="VKDowX6" name="Error">
+      <notes>
+        <note>assets/js/app/ajax-save.js:37</note>
+      </notes>
+      <segment>
         <source>Error</source>
         <target>错误</target>
-      </trans-unit>
-      <trans-unit id="8zqt0Ik" resname="This is not a valid UUID.">
+      </segment>
+    </unit>
+    <unit id="8zqt0Ik" name="This is not a valid UUID.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Uuid.php:80</note>
+      </notes>
+      <segment>
         <source>This is not a valid UUID.</source>
         <target>这不是有效的UUID。</target>
-      </trans-unit>
-      <trans-unit id="ru.4wkH" resname="This value should be a multiple of {{ compared_value }}.">
+      </segment>
+    </unit>
+    <unit id="ru.4wkH" name="This value should be a multiple of {{ compared_value }}.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/DivisibleBy.php:34</note>
+      </notes>
+      <segment>
         <source>This value should be a multiple of {{ compared_value }}.</source>
         <target>此值应为 {{ compared_value }} 的倍数。</target>
-      </trans-unit>
-      <trans-unit id="M3vyK6s" resname="This Business Identifier Code (BIC) is not associated with IBAN {{ iban }}.">
+      </segment>
+    </unit>
+    <unit id="M3vyK6s" name="This Business Identifier Code (BIC) is not associated with IBAN {{ iban }}.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Bic.php:50</note>
+      </notes>
+      <segment>
         <source>This Business Identifier Code (BIC) is not associated with IBAN {{ iban }}.</source>
         <target>此业务标识符代码（BIC）与IBAN {{ iban }} 无关。</target>
-      </trans-unit>
-      <trans-unit id="2v2xpAh" resname="This value should be valid JSON.">
+      </segment>
+    </unit>
+    <unit id="2v2xpAh" name="This value should be valid JSON.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Json.php:36</note>
+      </notes>
+      <segment>
         <source>This value should be valid JSON.</source>
         <target>该值应该是有效的JSON。</target>
-      </trans-unit>
-      <trans-unit id=".SEaaBa" resname="This form should not contain extra fields.">
+      </segment>
+    </unit>
+    <unit id="9CWVEGq" name="This collection should contain only unique elements.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Unique.php:39</note>
+      </notes>
+      <segment>
+        <source>This collection should contain only unique elements.</source>
+        <target>该集合不能包含重复项。</target>
+      </segment>
+    </unit>
+    <unit id="WdvZfq." name="This value should be positive.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Positive.php:25</note>
+      </notes>
+      <segment>
+        <source>This value should be positive.</source>
+        <target>该值应为正数。</target>
+      </segment>
+    </unit>
+    <unit id="ubHMK2q" name="This value should be either positive or zero.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/PositiveOrZero.php:25</note>
+      </notes>
+      <segment>
+        <source>This value should be either positive or zero.</source>
+        <target>该值应为正数或零。</target>
+      </segment>
+    </unit>
+    <unit id="IwNTzo_" name="This value should be negative.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Negative.php:25</note>
+      </notes>
+      <segment>
+        <source>This value should be negative.</source>
+        <target>该值应为负数。</target>
+      </segment>
+    </unit>
+    <unit id="0GfwMfP" name="This value should be either negative or zero.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/NegativeOrZero.php:25</note>
+      </notes>
+      <segment>
+        <source>This value should be either negative or zero.</source>
+        <target>该值应为负数或零。</target>
+      </segment>
+    </unit>
+    <unit id="fs3qQZR" name="This value is not a valid timezone.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Timezone.php:35</note>
+      </notes>
+      <segment>
+        <source>This value is not a valid timezone.</source>
+        <target>该值不是有效的时区。</target>
+      </segment>
+    </unit>
+    <unit id="VvxxWas" name="This value should be between {{ min }} and {{ max }}.">
+      <notes>
+        <note>vendor/symfony/validator/Constraints/Range.php:46</note>
+      </notes>
+      <segment>
+        <source>This value should be between {{ min }} and {{ max }}.</source>
+        <target>该值应在 {{ min }} 和 {{ max }} 之间。</target>
+      </segment>
+    </unit>
+    <unit id=".SEaaBa" name="This form should not contain extra fields.">
+      <notes>
+        <note>vendor/symfony/form/Extension/Validator/Type/FormTypeValidatorExtension.php:64</note>
+      </notes>
+      <segment>
         <source>This form should not contain extra fields.</source>
         <target>该表单中不可有额外字段.</target>
-      </trans-unit>
-      <trans-unit id="WPnLAh9" resname="The uploaded file was too large. Please try to upload a smaller file.">
+      </segment>
+    </unit>
+    <unit id="WPnLAh9" name="The uploaded file was too large. Please try to upload a smaller file.">
+      <notes>
+        <note>vendor/symfony/form/Extension/Core/Type/FormType.php:181</note>
+      </notes>
+      <segment>
         <source>The uploaded file was too large. Please try to upload a smaller file.</source>
         <target>上传文件太大， 请重新尝试上传一个较小的文件.</target>
-      </trans-unit>
-      <trans-unit id="fvxWW3V" resname="The CSRF token is invalid. Please try to resubmit the form.">
+      </segment>
+    </unit>
+    <unit id="fvxWW3V" name="The CSRF token is invalid. Please try to resubmit the form.">
+      <notes>
+        <note>vendor/symfony/form/Extension/Csrf/Type/FormTypeCsrfExtension.php:101</note>
+      </notes>
+      <segment>
         <source>The CSRF token is invalid. Please try to resubmit the form.</source>
         <target>CSRF 验证符无效， 请重新提交.</target>
-      </trans-unit>
-    </body>
+      </segment>
+    </unit>
+    <unit id="LDy5h0B" name="user.duplicate_email">
+      <notes>
+        <note>src/Entity/User.php:24</note>
+      </notes>
+      <segment>
+        <source>user.duplicate_email</source>
+        <target>使用电子邮件 {{ value }} 的用户已存在。</target>
+      </segment>
+    </unit>
+    <unit id="D4OMpCY" name="user.duplicate_username">
+      <notes>
+        <note>src/Entity/User.php:25</note>
+      </notes>
+      <segment>
+        <source>user.duplicate_username</source>
+        <target>使用用户名 {{ value }} 的用户已存在。</target>
+      </segment>
+    </unit>
+    <unit id="HjWW.NS" name="user.not_valid_password">
+      <notes>
+        <note>src/Entity/User.php:57</note>
+      </notes>
+      <segment>
+        <source>user.not_valid_password</source>
+        <target>密码无效。密码应至少包含 6 个字符。</target>
+      </segment>
+    </unit>
+    <unit id="fkXL.k6" name="user.not_valid_email">
+      <notes>
+        <note>src/Entity/User.php:49</note>
+      </notes>
+      <segment>
+        <source>user.not_valid_email</source>
+        <target>电子邮件无效</target>
+      </segment>
+    </unit>
+    <unit id="4eH4IFY" name="user.username_invalid_characters">
+      <notes>
+        <note>src/Entity/User.php:43</note>
+      </notes>
+      <segment>
+        <source>user.username_invalid_characters</source>
+        <target>用户名只能包含小写拉丁字母、数字和下划线。</target>
+      </segment>
+    </unit>
+    <unit id="4oq.CNw" name="user.not_valid_display_name">
+      <notes>
+        <note>src/Entity/User.php:35</note>
+        <note>src/Entity/User.php:36</note>
+      </notes>
+      <segment>
+        <source>user.not_valid_display_name</source>
+        <target>显示名称无效</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
