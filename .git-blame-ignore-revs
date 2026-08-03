@@ -1,8 +1,0 @@
-# Revisions listed here are pure formatting churn and are skipped by
-# "git blame". GitHub applies this file automatically. To get the same
-# behaviour locally, run once:
-#
-#   git config blame.ignoreRevsFile .git-blame-ignore-revs
-
-# style(assets): apply Prettier 3 formatting
-97e8d0be2a56f9ac432fd88026a5319794c16842
