@@ -135,7 +135,7 @@ $(document).ready(function () {
 
                 // The save was rejected by the content validator, which returns its
                 // violations as JSON, so we can show the validator's own messages.
-                if (response && response.errors) {
+                if (jq.status === 422 && response && Array.isArray(response.errors)) {
                     let messages = response.errors.map(function(error) {
                         return error.message;
                     });
