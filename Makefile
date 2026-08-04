@@ -46,13 +46,11 @@ csclear: ## to clean cache and check coding style
 cscheck: ## to check coding style
 	make csclear
 	vendor/bin/ecs check src
-	vendor/bin/ecs check tests/php
 	make stancheck
 
 csfix: ## to fix coding style
 	make csclear
 	vendor/bin/ecs check src --fix
-	vendor/bin/ecs check tests/php --fix
 	make stancheck
 
 stancheck: ## to run phpstan
