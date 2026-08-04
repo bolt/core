@@ -721,7 +721,7 @@
     <unit id="0C9.Vmh" name="collection.add_item">
       <segment>
         <source>collection.add_item</source>
-        <target>Añadir elemento</target>
+        <target>Añadir un elemento nuevo a '%name%'</target>
       </segment>
     </unit>
     <unit id="ApPu4P_" name="collection.move_item_up">
