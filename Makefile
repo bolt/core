@@ -30,10 +30,10 @@ update:
 	$(COMPOSER) update && $(COMPOSER) outdated
 
 server: ## to start server
-	bin/console server:start 127.0.0.1:8088 -q || true
+	symfony server:start --no-tls --port=8088 -d || true
 
 server-stop: ## to stop server
-	bin/console server:stop
+	symfony server:stop
 
 cache: ## to clean cache
 	bin/console cache:clear
