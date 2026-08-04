@@ -2683,7 +2683,7 @@
       </notes>
       <segment>
         <source>reset_password.check_email_sent_text_1</source>
-        <target>Es wurde eine Email versandt, die einen Link enthält, auf den Sie klicken können, um Ihr Passwort zurückzusetzen. Dieser Link wird in %Stunden% Stunde(n) ablaufen.</target>
+        <target>Es wurde eine Email versandt, die einen Link enthält, auf den Sie klicken können, um Ihr Passwort zurückzusetzen. Dieser Link wird in %hours% Stunde(n) ablaufen.</target>
       </segment>
     </unit>
     <unit id="z25k4DS" name="reset_password.check_email_sent_text_2">
