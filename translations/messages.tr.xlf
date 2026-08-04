@@ -930,7 +930,7 @@
     <unit id="z0k8hRg" name="9fb3e6e">
       <segment>
         <source>9fb3e6e</source>
-        <target><![CDATA[Bu internet sitesi <a href='%url%' target='_blank' title='Gelişmiş, hafif & basit CMS'>Bolt ile yapılmıştır</a>.]]></target>
+        <target><![CDATA[Bu internet sitesi <a href='https://boltcms.io' target='_blank' title='Gelişmiş, hafif & basit CMS'>Bolt ile yapılmıştır</a>.]]></target>
       </segment>
     </unit>
     <unit id="wNEwZy_" name="contenttypes.generic.overview">
@@ -1026,7 +1026,7 @@
     <unit id="psOa_9x" name="general.phrase.built-with-bolt">
       <segment>
         <source>general.phrase.built-with-bolt</source>
-        <target><![CDATA[Bu internet sitesi <a href='%url%' target='_blank' title='Gelişmiş, hafif & basit CMS'>Bolt ile yapılmıştır</a>.]]></target>
+        <target><![CDATA[Bu internet sitesi <a href='https://boltcms.io' target='_blank' title='Gelişmiş, hafif & basit CMS'>Bolt ile yapılmıştır</a>.]]></target>
       </segment>
     </unit>
     <unit id="5IxD63c" name="general.latest_bolt_news">
