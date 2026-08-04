@@ -94,7 +94,7 @@
     <unit id="w7KhJ8F" name="User is disabled.">
       <segment state="translated">
         <source>User is disabled.</source>
-        <target>Uživatel je zakázán.</target>
+        <target>Uživatel je deaktivován.</target>
       </segment>
     </unit>
     <unit id="NF.vvAN" name="You have to login in order to access this page.">

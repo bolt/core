@@ -484,7 +484,7 @@
     <unit id="ru.4wkH" name="This value should be a multiple of {{ compared_value }}.">
       <segment>
         <source>This value should be a multiple of {{ compared_value }}.</source>
-        <target>Tato hodnota by měla být násobkem hodnoty{{ compared_value }}.</target>
+        <target>Tato hodnota by měla být násobkem hodnoty {{ compared_value }}.</target>
       </segment>
     </unit>
     <unit id="M3vyK6s" name="This Business Identifier Code (BIC) is not associated with IBAN {{ iban }}.">
@@ -502,7 +502,7 @@
     <unit id="9CWVEGq" name="This collection should contain only unique elements.">
       <segment>
         <source>This collection should contain only unique elements.</source>
-        <target>Tato kolekce by měla obsahovat pouze unikátní prvky</target>
+        <target>Tato kolekce by měla obsahovat pouze unikátní prvky.</target>
       </segment>
     </unit>
     <unit id="WdvZfq." name="This value should be positive.">
@@ -640,7 +640,7 @@
     <unit id="LDy5h0B" name="user.duplicate_email">
       <segment>
         <source>user.duplicate_email</source>
-        <target>Uživatel s {{ value }} e-mailem již existuje.</target>
+        <target>Uživatel s e-mailem {{ value }} již existuje.</target>
       </segment>
     </unit>
     <unit id="D4OMpCY" name="user.duplicate_username">
