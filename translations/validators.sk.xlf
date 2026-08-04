@@ -2,565 +2,565 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="sk">
   <file id="validators.sk">
     <unit id="zh5oKD9" name="This value should be false.">
-      <segment state="translated">
+      <segment>
         <source>This value should be false.</source>
         <target>Táto hodnota by mala byť nastavená na false.</target>
       </segment>
     </unit>
     <unit id="NN2_iru" name="This value should be true.">
-      <segment state="translated">
+      <segment>
         <source>This value should be true.</source>
         <target>Táto hodnota by mala byť nastavená na true.</target>
       </segment>
     </unit>
     <unit id="OjM_kpf" name="This value should be of type {{ type }}.">
-      <segment state="translated">
+      <segment>
         <source>This value should be of type {{ type }}.</source>
         <target>Táto hodnota by mala byť typu {{ type }}.</target>
       </segment>
     </unit>
     <unit id="f0P5pBD" name="This value should be blank.">
-      <segment state="translated">
+      <segment>
         <source>This value should be blank.</source>
         <target>Táto hodnota by mala byť prázdna.</target>
       </segment>
     </unit>
     <unit id="ih.4TRN" name="The value you selected is not a valid choice.">
-      <segment state="translated">
+      <segment>
         <source>The value you selected is not a valid choice.</source>
         <target>Vybraná hodnota nie je platnou možnosťou.</target>
       </segment>
     </unit>
     <unit id="7smtimf" name="0d999f2">
-      <segment state="translated">
+      <segment>
         <source>0d999f2</source>
         <target>Mali by ste vybrať minimálne {{ limit }} možnosť.|Mali by ste vybrať minimálne {{ limit }} možnosti.|Mali by ste vybrať minimálne {{ limit }} možností.</target>
       </segment>
     </unit>
     <unit id="JRlXq2Z" name="0824486">
-      <segment state="translated">
+      <segment>
         <source>0824486</source>
         <target>Mali by ste vybrať najviac {{ limit }} možnosť.|Mali by ste vybrať najviac {{ limit }} možnosti.|Mali by ste vybrať najviac {{ limit }} možností.</target>
       </segment>
     </unit>
     <unit id="87zjiHi" name="One or more of the given values is invalid.">
-      <segment state="translated">
+      <segment>
         <source>One or more of the given values is invalid.</source>
         <target>Jedna alebo viac zadaných hodnôt je neplatná.</target>
       </segment>
     </unit>
     <unit id="3NeQftv" name="This field was not expected.">
-      <segment state="translated">
+      <segment>
         <source>This field was not expected.</source>
         <target>Toto pole sa neočakávalo.</target>
       </segment>
     </unit>
     <unit id="SwMV4zp" name="This field is missing.">
-      <segment state="translated">
+      <segment>
         <source>This field is missing.</source>
         <target>Toto pole chýba.</target>
       </segment>
     </unit>
     <unit id="LO2vFKN" name="This value is not a valid date.">
-      <segment state="translated">
+      <segment>
         <source>This value is not a valid date.</source>
         <target>Táto hodnota nemá platný formát dátumu.</target>
       </segment>
     </unit>
     <unit id="86dU_nv" name="This value is not a valid datetime.">
-      <segment state="translated">
+      <segment>
         <source>This value is not a valid datetime.</source>
         <target>Táto hodnota nemá platný formát dátumu a času.</target>
       </segment>
     </unit>
     <unit id="PSvNXdi" name="This value is not a valid email address.">
-      <segment state="translated">
+      <segment>
         <source>This value is not a valid email address.</source>
         <target>Táto hodnota nie je platná e-mailová adresa.</target>
       </segment>
     </unit>
     <unit id="3KeHbZy" name="The file could not be found.">
-      <segment state="translated">
+      <segment>
         <source>The file could not be found.</source>
         <target>Súbor sa nepodarilo nájsť.</target>
       </segment>
     </unit>
     <unit id="KtJhQZo" name="The file is not readable.">
-      <segment state="translated">
+      <segment>
         <source>The file is not readable.</source>
         <target>Súbor nie je čitateľný.</target>
       </segment>
     </unit>
     <unit id="2O3FbJ6" name="1ad411a">
-      <segment state="translated">
+      <segment>
         <source>1ad411a</source>
         <target>Súbor je príliš veľký ({{ size }} {{ suffix }}). Maximálna povolená veľkosť je {{ limit }} {{ suffix }}.</target>
       </segment>
     </unit>
     <unit id="p4L.BFV" name="30a318d">
-      <segment state="translated">
+      <segment>
         <source>30a318d</source>
         <target>Typ MIME súboru je neplatný ({{ type }}). Povolené typy MIME sú {{ types }}.</target>
       </segment>
     </unit>
     <unit id="NubOmrs" name="This value should be {{ limit }} or less.">
-      <segment state="translated">
+      <segment>
         <source>This value should be {{ limit }} or less.</source>
         <target>Táto hodnota by mala byť {{ limit }} alebo menej.</target>
       </segment>
     </unit>
     <unit id="SjJg9Hy" name="0e0c1e1">
-      <segment state="translated">
+      <segment>
         <source>0e0c1e1</source>
         <target>Táto hodnota je príliš dlhá. Mala by mať najviac {{ limit }} znak.|Táto hodnota je príliš dlhá. Mala by mať najviac {{ limit }} znaky.|Táto hodnota je príliš dlhá. Mala by mať najviac {{ limit }} znakov.</target>
       </segment>
     </unit>
     <unit id="qgR8M_U" name="This value should be {{ limit }} or more.">
-      <segment state="translated">
+      <segment>
         <source>This value should be {{ limit }} or more.</source>
         <target>Táto hodnota by mala byť {{ limit }} alebo viac.</target>
       </segment>
     </unit>
     <unit id="JJVWzKj" name="5188ff9">
-      <segment state="translated">
+      <segment>
         <source>5188ff9</source>
         <target>Táto hodnota je príliš krátka. Mala by mať aspoň {{ limit }} znak.|Táto hodnota je príliš krátka. Mala by mať aspoň {{ limit }} znaky.|Táto hodnota je príliš krátka. Mala by mať aspoň {{ limit }} znakov.</target>
       </segment>
     </unit>
     <unit id="1KV4L.t" name="This value should not be blank.">
-      <segment state="translated">
+      <segment>
         <source>This value should not be blank.</source>
         <target>Táto hodnota by nemala byť prázdna.</target>
       </segment>
     </unit>
     <unit id="2G4Vepm" name="This value should not be null.">
-      <segment state="translated">
+      <segment>
         <source>This value should not be null.</source>
         <target>Táto hodnota by nemala byť null.</target>
       </segment>
     </unit>
     <unit id="yDc3m6E" name="This value should be null.">
-      <segment state="translated">
+      <segment>
         <source>This value should be null.</source>
         <target>Táto hodnota by mala byť null.</target>
       </segment>
     </unit>
     <unit id="zKzWejA" name="This value is not valid.">
-      <segment state="translated">
+      <segment>
         <source>This value is not valid.</source>
         <target>Táto hodnota nie je platná.</target>
       </segment>
     </unit>
     <unit id="HSuBZpQ" name="This value is not a valid time.">
-      <segment state="translated">
+      <segment>
         <source>This value is not a valid time.</source>
         <target>Táto hodnota nemá platný formát času.</target>
       </segment>
     </unit>
     <unit id="snWc_QT" name="This value is not a valid URL.">
-      <segment state="translated">
+      <segment>
         <source>This value is not a valid URL.</source>
         <target>Táto hodnota nie je platná adresa URL.</target>
       </segment>
     </unit>
     <unit id="jpaLsb2" name="The two values should be equal.">
-      <segment state="translated">
+      <segment>
         <source>The two values should be equal.</source>
         <target>Tieto dve hodnoty by mali byť rovnaké.</target>
       </segment>
     </unit>
     <unit id="fIlB1B_" name="The file is too large. Allowed maximum size is {{ limit }} {{ suffix }}.">
-      <segment state="translated">
+      <segment>
         <source>The file is too large. Allowed maximum size is {{ limit }} {{ suffix }}.</source>
         <target>Súbor je príliš veľký. Maximálna povolená veľkosť je {{ limit }} {{ suffix }}.</target>
       </segment>
     </unit>
     <unit id="tW7o0t9" name="The file is too large.">
-      <segment state="translated">
+      <segment>
         <source>The file is too large.</source>
         <target>Súbor je príliš veľký.</target>
       </segment>
     </unit>
     <unit id=".exF5Ww" name="The file could not be uploaded.">
-      <segment state="translated">
+      <segment>
         <source>The file could not be uploaded.</source>
         <target>Súbor sa nepodarilo nahrať.</target>
       </segment>
     </unit>
     <unit id="d7sS5yw" name="This value should be a valid number.">
-      <segment state="translated">
+      <segment>
         <source>This value should be a valid number.</source>
         <target>Táto hodnota by mala byť platné číslo.</target>
       </segment>
     </unit>
     <unit id="BS2Ez6i" name="This file is not a valid image.">
-      <segment state="translated">
+      <segment>
         <source>This file is not a valid image.</source>
         <target>Tento súbor nie je platný obrázok.</target>
       </segment>
     </unit>
     <unit id="ydcT9kU" name="This is not a valid IP address.">
-      <segment state="translated">
+      <segment>
         <source>This is not a valid IP address.</source>
         <target>Toto nie je platná IP adresa.</target>
       </segment>
     </unit>
     <unit id="lDOGNFX" name="This value is not a valid language.">
-      <segment state="translated">
+      <segment>
         <source>This value is not a valid language.</source>
         <target>Táto hodnota nie je platný jazyk.</target>
       </segment>
     </unit>
     <unit id="y9IdYkA" name="This value is not a valid locale.">
-      <segment state="translated">
+      <segment>
         <source>This value is not a valid locale.</source>
         <target>Táto hodnota nie je platné miestne nastavenie.</target>
       </segment>
     </unit>
     <unit id="1YC0pOd" name="This value is not a valid country.">
-      <segment state="translated">
+      <segment>
         <source>This value is not a valid country.</source>
         <target>Táto hodnota nie je platná krajina.</target>
       </segment>
     </unit>
     <unit id="B5ebaMp" name="This value is already used.">
-      <segment state="translated">
+      <segment>
         <source>This value is already used.</source>
         <target>Táto hodnota sa už používa.</target>
       </segment>
     </unit>
     <unit id="L6097a6" name="The size of the image could not be detected.">
-      <segment state="translated">
+      <segment>
         <source>The size of the image could not be detected.</source>
         <target>Rozmery obrázka sa nepodarilo zistiť.</target>
       </segment>
     </unit>
     <unit id="g9NoIBz" name="266051e">
-      <segment state="translated">
+      <segment>
         <source>266051e</source>
         <target>Šírka obrázka je príliš veľká ({{ width }}px). Maximálna povolená šírka je {{ max_width }}px.</target>
       </segment>
     </unit>
     <unit id="HTsQNva" name="c1c23f9">
-      <segment state="translated">
+      <segment>
         <source>c1c23f9</source>
         <target>Šírka obrázka je príliš malá ({{ width }}px). Minimálna očakávaná šírka je {{ min_width }}px.</target>
       </segment>
     </unit>
     <unit id="h3PRqha" name="9a128f7">
-      <segment state="translated">
+      <segment>
         <source>9a128f7</source>
         <target>Výška obrázka je príliš veľká ({{ height }}px). Maximálna povolená výška je {{ max_height }}px.</target>
       </segment>
     </unit>
     <unit id="IVraZ3b" name="8a4cd70">
-      <segment state="translated">
+      <segment>
         <source>8a4cd70</source>
         <target>Výška obrázka je príliš malá ({{ height }}px). Minimálna očakávaná výška je {{ min_height }}px.</target>
       </segment>
     </unit>
     <unit id="PSdMNab" name="This value should be the user's current password.">
-      <segment state="translated">
+      <segment>
         <source>This value should be the user's current password.</source>
         <target>Táto hodnota by mala byť aktuálne heslo používateľa.</target>
       </segment>
     </unit>
     <unit id="Anek_FY" name="fd389d6">
-      <segment state="translated">
+      <segment>
         <source>fd389d6</source>
         <target>Táto hodnota by mala mať presne {{ limit }} znak.|Táto hodnota by mala mať presne {{ limit }} znaky.|Táto hodnota by mala mať presne {{ limit }} znakov.</target>
       </segment>
     </unit>
     <unit id="xJ2Bcr_" name="The file was only partially uploaded.">
-      <segment state="translated">
+      <segment>
         <source>The file was only partially uploaded.</source>
         <target>Súbor bol nahraný iba čiastočne.</target>
       </segment>
     </unit>
     <unit id="HzkJDtF" name="No file was uploaded.">
-      <segment state="translated">
+      <segment>
         <source>No file was uploaded.</source>
         <target>Nebol nahraný žiadny súbor.</target>
       </segment>
     </unit>
     <unit id="mHfEaB3" name="No temporary folder was configured in php.ini.">
-      <segment state="translated">
+      <segment>
         <source>No temporary folder was configured in php.ini.</source>
         <target>V súbore php.ini nie je nastavený žiadny dočasný priečinok alebo nastavený priečinok neexistuje.</target>
       </segment>
     </unit>
     <unit id="y9K3BGb" name="Cannot write temporary file to disk.">
-      <segment state="translated">
+      <segment>
         <source>Cannot write temporary file to disk.</source>
         <target>Dočasný súbor sa nepodarilo zapísať na disk.</target>
       </segment>
     </unit>
     <unit id="kx3yHIM" name="A PHP extension caused the upload to fail.">
-      <segment state="translated">
+      <segment>
         <source>A PHP extension caused the upload to fail.</source>
         <target>Nahrávanie zlyhalo pre rozšírenie PHP.</target>
       </segment>
     </unit>
     <unit id="YuLxmhd" name="b54c218">
-      <segment state="translated">
+      <segment>
         <source>b54c218</source>
         <target>Táto kolekcia by mala obsahovať aspoň {{ limit }} prvok.|Táto kolekcia by mala obsahovať aspoň {{ limit }} prvky.|Táto kolekcia by mala obsahovať aspoň {{ limit }} prvkov.</target>
       </segment>
     </unit>
     <unit id="qXV2OMI" name="949632c">
-      <segment state="translated">
+      <segment>
         <source>949632c</source>
         <target>Táto kolekcia by mala obsahovať najviac {{ limit }} prvok.|Táto kolekcia by mala obsahovať najviac {{ limit }} prvky.|Táto kolekcia by mala obsahovať najviac {{ limit }} prvkov.</target>
       </segment>
     </unit>
     <unit id="BnjGMFh" name="e0582dc">
-      <segment state="translated">
+      <segment>
         <source>e0582dc</source>
         <target>Táto kolekcia by mala obsahovať presne {{ limit }} prvok.|Táto kolekcia by mala obsahovať presne {{ limit }} prvky.|Táto kolekcia by mala obsahovať presne {{ limit }} prvkov.</target>
       </segment>
     </unit>
     <unit id="MAzmID7" name="Invalid card number.">
-      <segment state="translated">
+      <segment>
         <source>Invalid card number.</source>
         <target>Neplatné číslo karty.</target>
       </segment>
     </unit>
     <unit id="c3REGK3" name="Unsupported card type or invalid card number.">
-      <segment state="translated">
+      <segment>
         <source>Unsupported card type or invalid card number.</source>
         <target>Nepodporovaný typ karty alebo neplatné číslo karty.</target>
       </segment>
     </unit>
     <unit id="XSVzcbV" name="This is not a valid International Bank Account Number (IBAN).">
-      <segment state="translated">
+      <segment>
         <source>This is not a valid International Bank Account Number (IBAN).</source>
         <target>Toto nie je platné medzinárodné číslo bankového účtu (IBAN).</target>
       </segment>
     </unit>
     <unit id="yHirwNr" name="This value is not a valid ISBN-10.">
-      <segment state="translated">
+      <segment>
         <source>This value is not a valid ISBN-10.</source>
         <target>Táto hodnota nie je platné ISBN-10.</target>
       </segment>
     </unit>
     <unit id="c_q0_ua" name="This value is not a valid ISBN-13.">
-      <segment state="translated">
+      <segment>
         <source>This value is not a valid ISBN-13.</source>
         <target>Táto hodnota nie je platné ISBN-13.</target>
       </segment>
     </unit>
     <unit id="M4FlD6n" name="This value is neither a valid ISBN-10 nor a valid ISBN-13.">
-      <segment state="translated">
+      <segment>
         <source>This value is neither a valid ISBN-10 nor a valid ISBN-13.</source>
         <target>Táto hodnota nie je platné ISBN-10 ani platné ISBN-13.</target>
       </segment>
     </unit>
     <unit id="cuct0Ow" name="This value is not a valid ISSN.">
-      <segment state="translated">
+      <segment>
         <source>This value is not a valid ISSN.</source>
         <target>Táto hodnota nie je platné ISSN.</target>
       </segment>
     </unit>
     <unit id="JBLs1a1" name="This value is not a valid currency.">
-      <segment state="translated">
+      <segment>
         <source>This value is not a valid currency.</source>
         <target>Táto hodnota nie je platná mena.</target>
       </segment>
     </unit>
     <unit id="c.WxzFW" name="This value should be equal to {{ compared_value }}.">
-      <segment state="translated">
+      <segment>
         <source>This value should be equal to {{ compared_value }}.</source>
         <target>Táto hodnota by mala byť rovná {{ compared_value }}.</target>
       </segment>
     </unit>
     <unit id="_jdjkwq" name="This value should be greater than {{ compared_value }}.">
-      <segment state="translated">
+      <segment>
         <source>This value should be greater than {{ compared_value }}.</source>
         <target>Táto hodnota by mala byť väčšia ako {{ compared_value }}.</target>
       </segment>
     </unit>
     <unit id="o8A8a0H" name="This value should be greater than or equal to {{ compared_value }}.">
-      <segment state="translated">
+      <segment>
         <source>This value should be greater than or equal to {{ compared_value }}.</source>
         <target>Táto hodnota by mala byť väčšia alebo rovná {{ compared_value }}.</target>
       </segment>
     </unit>
     <unit id="SreIWoo" name="9670078">
-      <segment state="translated">
+      <segment>
         <source>9670078</source>
         <target>Táto hodnota by mala byť identická s {{ compared_value_type }} {{ compared_value }}.</target>
       </segment>
     </unit>
     <unit id="jG0QFKw" name="This value should be less than {{ compared_value }}.">
-      <segment state="translated">
+      <segment>
         <source>This value should be less than {{ compared_value }}.</source>
         <target>Táto hodnota by mala byť menšia ako {{ compared_value }}.</target>
       </segment>
     </unit>
     <unit id="9lWrKmm" name="This value should be less than or equal to {{ compared_value }}.">
-      <segment state="translated">
+      <segment>
         <source>This value should be less than or equal to {{ compared_value }}.</source>
         <target>Táto hodnota by mala byť menšia alebo rovná {{ compared_value }}.</target>
       </segment>
     </unit>
     <unit id="ftTwGs." name="This value should not be equal to {{ compared_value }}.">
-      <segment state="translated">
+      <segment>
         <source>This value should not be equal to {{ compared_value }}.</source>
         <target>Táto hodnota by nemala byť rovná {{ compared_value }}.</target>
       </segment>
     </unit>
     <unit id="JIjdvtb" name="0eedf91">
-      <segment state="translated">
+      <segment>
         <source>0eedf91</source>
         <target>Táto hodnota by nemala byť identická s {{ compared_value_type }} {{ compared_value }}.</target>
       </segment>
     </unit>
     <unit id="vzvxzpR" name="9c3ad0f">
-      <segment state="translated">
+      <segment>
         <source>9c3ad0f</source>
         <target>Pomer strán obrázka je príliš veľký ({{ ratio }}). Maximálny povolený pomer strán je {{ max_ratio }}.</target>
       </segment>
     </unit>
     <unit id="LiDaIWN" name="4376d45">
-      <segment state="translated">
+      <segment>
         <source>4376d45</source>
         <target>Pomer strán obrázka je príliš malý ({{ ratio }}). Minimálny očakávaný pomer strán je {{ min_ratio }}.</target>
       </segment>
     </unit>
     <unit id="rpajj.a" name="The image is square ({{ width }}x{{ height }}px). Square images are not allowed.">
-      <segment state="translated">
+      <segment>
         <source>The image is square ({{ width }}x{{ height }}px). Square images are not allowed.</source>
         <target>Obrázok je štvorcový ({{ width }}x{{ height }}px). Štvorcové obrázky nie sú povolené.</target>
       </segment>
     </unit>
     <unit id="501jWTO" name="1dc128a">
-      <segment state="translated">
+      <segment>
         <source>1dc128a</source>
         <target>Obrázok je orientovaný na šírku ({{ width }}x{{ height }}px). Obrázky orientované na šírku nie sú povolené.</target>
       </segment>
     </unit>
     <unit id="J4L.QnM" name="9e27714">
-      <segment state="translated">
+      <segment>
         <source>9e27714</source>
         <target>Obrázok je orientovaný na výšku ({{ width }}x{{ height }}px). Obrázky orientované na výšku nie sú povolené.</target>
       </segment>
     </unit>
     <unit id="jZgqcpL" name="An empty file is not allowed.">
-      <segment state="translated">
+      <segment>
         <source>An empty file is not allowed.</source>
         <target>Prázdny súbor nie je povolený.</target>
       </segment>
     </unit>
     <unit id="bcfVezI" name="The host could not be resolved.">
-      <segment state="translated">
+      <segment>
         <source>The host could not be resolved.</source>
         <target>Názov hostiteľa sa nepodarilo preložiť.</target>
       </segment>
     </unit>
     <unit id="NtzKvgt" name="This value does not match the expected {{ charset }} charset.">
-      <segment state="translated">
+      <segment>
         <source>This value does not match the expected {{ charset }} charset.</source>
         <target>Táto hodnota nezodpovedá očakávanej znakovej sade {{ charset }}.</target>
       </segment>
     </unit>
     <unit id="Wi2y9.N" name="This is not a valid Business Identifier Code (BIC).">
-      <segment state="translated">
+      <segment>
         <source>This is not a valid Business Identifier Code (BIC).</source>
         <target>Toto nie je platný identifikačný kód podniku (BIC).</target>
       </segment>
     </unit>
     <unit id="VKDowX6" name="Error">
-      <segment state="translated">
+      <segment>
         <source>Error</source>
         <target>Chyba</target>
       </segment>
     </unit>
     <unit id="8zqt0Ik" name="This is not a valid UUID.">
-      <segment state="translated">
+      <segment>
         <source>This is not a valid UUID.</source>
         <target>Toto nie je platné UUID.</target>
       </segment>
     </unit>
     <unit id="ru.4wkH" name="This value should be a multiple of {{ compared_value }}.">
-      <segment state="translated">
+      <segment>
         <source>This value should be a multiple of {{ compared_value }}.</source>
         <target>Táto hodnota by mala byť násobkom hodnoty {{ compared_value }}.</target>
       </segment>
     </unit>
     <unit id="M3vyK6s" name="This Business Identifier Code (BIC) is not associated with IBAN {{ iban }}.">
-      <segment state="translated">
+      <segment>
         <source>This Business Identifier Code (BIC) is not associated with IBAN {{ iban }}.</source>
         <target>Tento identifikačný kód podniku (BIC) nie je spojený s IBAN {{ iban }}.</target>
       </segment>
     </unit>
     <unit id="2v2xpAh" name="This value should be valid JSON.">
-      <segment state="translated">
+      <segment>
         <source>This value should be valid JSON.</source>
         <target>Táto hodnota by mala byť platný JSON.</target>
       </segment>
     </unit>
     <unit id="9CWVEGq" name="This collection should contain only unique elements.">
-      <segment state="translated">
+      <segment>
         <source>This collection should contain only unique elements.</source>
         <target>Táto kolekcia by mala obsahovať iba jedinečné prvky.</target>
       </segment>
     </unit>
     <unit id="WdvZfq." name="This value should be positive.">
-      <segment state="translated">
+      <segment>
         <source>This value should be positive.</source>
         <target>Táto hodnota by mala byť kladná.</target>
       </segment>
     </unit>
     <unit id="ubHMK2q" name="This value should be either positive or zero.">
-      <segment state="translated">
+      <segment>
         <source>This value should be either positive or zero.</source>
         <target>Táto hodnota by mala byť kladná alebo nulová.</target>
       </segment>
     </unit>
     <unit id="IwNTzo_" name="This value should be negative.">
-      <segment state="translated">
+      <segment>
         <source>This value should be negative.</source>
         <target>Táto hodnota by mala byť záporná.</target>
       </segment>
     </unit>
     <unit id="0GfwMfP" name="This value should be either negative or zero.">
-      <segment state="translated">
+      <segment>
         <source>This value should be either negative or zero.</source>
         <target>Táto hodnota by mala byť záporná alebo nulová.</target>
       </segment>
     </unit>
     <unit id="fs3qQZR" name="This value is not a valid timezone.">
-      <segment state="translated">
+      <segment>
         <source>This value is not a valid timezone.</source>
         <target>Táto hodnota nie je platné časové pásmo.</target>
       </segment>
     </unit>
     <unit id="A3Gr4fn" name="7e27e92">
-      <segment state="translated">
+      <segment>
         <source>7e27e92</source>
         <target>Toto heslo uniklo pri narušení ochrany dát, nesmie sa použiť. Použite prosím iné heslo.</target>
       </segment>
     </unit>
     <unit id="VvxxWas" name="This value should be between {{ min }} and {{ max }}.">
-      <segment state="translated">
+      <segment>
         <source>This value should be between {{ min }} and {{ max }}.</source>
         <target>Táto hodnota by mala byť medzi {{ min }} a {{ max }}.</target>
       </segment>
     </unit>
     <unit id=".SEaaBa" name="This form should not contain extra fields.">
-      <segment state="translated">
+      <segment>
         <source>This form should not contain extra fields.</source>
         <target>Tento formulár by nemal obsahovať ďalšie polia.</target>
       </segment>
     </unit>
     <unit id="WPnLAh9" name="The uploaded file was too large. Please try to upload a smaller file.">
-      <segment state="translated">
+      <segment>
         <source>The uploaded file was too large. Please try to upload a smaller file.</source>
         <target>Nahraný súbor bol príliš veľký. Skúste prosím nahrať menší súbor.</target>
       </segment>
     </unit>
     <unit id="fvxWW3V" name="The CSRF token is invalid. Please try to resubmit the form.">
-      <segment state="translated">
+      <segment>
         <source>The CSRF token is invalid. Please try to resubmit the form.</source>
         <target>Token CSRF je neplatný. Skúste prosím formulár odoslať znova.</target>
       </segment>
@@ -569,7 +569,7 @@
       <notes>
         <note priority="1">obsolete</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>post.blank_summary</source>
         <target>Uveďte prosím zhrnutie svojho príspevku!</target>
       </segment>
@@ -578,7 +578,7 @@
       <notes>
         <note priority="1">obsolete</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>post.blank_content</source>
         <target>Váš príspevok by mal obsahovať nejaký obsah!</target>
       </segment>
@@ -587,7 +587,7 @@
       <notes>
         <note priority="1">obsolete</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>post.too_short_content</source>
         <target>Obsah príspevku je príliš krátky (minimálne {{ limit }} znakov)</target>
       </segment>
@@ -596,7 +596,7 @@
       <notes>
         <note priority="1">obsolete</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>post.too_many_tags</source>
         <target>Príliš veľa značiek (pridajte {{ limit }} značiek alebo menej)</target>
       </segment>
@@ -605,7 +605,7 @@
       <notes>
         <note priority="1">obsolete</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>comment.blank</source>
         <target>Nenechávajte prosím svoj komentár prázdny!</target>
       </segment>
@@ -614,7 +614,7 @@
       <notes>
         <note priority="1">obsolete</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>comment.too_short</source>
         <target>Komentár je príliš krátky (minimálne {{ limit }} znakov)</target>
       </segment>
@@ -623,7 +623,7 @@
       <notes>
         <note priority="1">obsolete</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>comment.too_long</source>
         <target>Komentár je príliš dlhý (maximálne {{ limit }} znakov)</target>
       </segment>
@@ -632,43 +632,43 @@
       <notes>
         <note priority="1">obsolete</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>comment.is_spam</source>
         <target>Obsah tohto komentára sa považuje za spam.</target>
       </segment>
     </unit>
     <unit id="LDy5h0B" name="user.duplicate_email">
-      <segment state="translated">
+      <segment>
         <source>user.duplicate_email</source>
         <target>Používateľ s e-mailom {{ value }} už existuje.</target>
       </segment>
     </unit>
     <unit id="D4OMpCY" name="user.duplicate_username">
-      <segment state="translated">
+      <segment>
         <source>user.duplicate_username</source>
         <target>Používateľ s používateľským menom {{ value }} už existuje.</target>
       </segment>
     </unit>
     <unit id="HjWW.NS" name="user.not_valid_password">
-      <segment state="translated">
+      <segment>
         <source>user.not_valid_password</source>
         <target>Neplatné heslo. Heslo musí obsahovať aspoň 6 znakov.</target>
       </segment>
     </unit>
     <unit id="fkXL.k6" name="user.not_valid_email">
-      <segment state="translated">
+      <segment>
         <source>user.not_valid_email</source>
         <target>Neplatný e-mail</target>
       </segment>
     </unit>
     <unit id="4eH4IFY" name="user.username_invalid_characters">
-      <segment state="translated">
+      <segment>
         <source>user.username_invalid_characters</source>
         <target>Používateľské meno smie obsahovať iba malé písmená latinky, číslice a podčiarkovníky.</target>
       </segment>
     </unit>
     <unit id="4oq.CNw" name="user.not_valid_display_name">
-      <segment state="translated">
+      <segment>
         <source>user.not_valid_display_name</source>
         <target>Neplatné zobrazované meno</target>
       </segment>

@@ -5,7 +5,7 @@
       <notes>
         <note>templates/debug/source_code.twig:26</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>not_available</source>
         <target>Nedostupné</target>
       </segment>
@@ -17,7 +17,7 @@
         <note>templates/bundles/TwigBundle/Exception/error500.html.twig:15</note>
         <note>templates/bundles/TwigBundle/Exception/error403.html.twig:15</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>http_error.name</source>
         <target>Chyba %status_code%</target>
       </segment>
@@ -26,7 +26,7 @@
       <notes>
         <note>templates/bundles/TwigBundle/Exception/error.html.twig:18</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>http_error.description</source>
         <target>Vyskytla sa neznáma chyba (HTTP %status_code%), ktorá zabránila dokončeniu vašej požiadavky.</target>
       </segment>
@@ -35,7 +35,7 @@
       <notes>
         <note>templates/bundles/TwigBundle/Exception/error.html.twig:21</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>http_error.suggestion</source>
         <target><![CDATA[Skúste túto stránku načítať znova o niekoľko minút alebo <a href="%url%">prejdite na domovskú stránku</a>.]]></target>
       </segment>
@@ -44,7 +44,7 @@
       <notes>
         <note>templates/bundles/TwigBundle/Exception/error403.html.twig:18</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>http_error_403.description</source>
         <target>Na prístup k tomuto zdroju nemáte oprávnenie.</target>
       </segment>
@@ -53,7 +53,7 @@
       <notes>
         <note>templates/bundles/TwigBundle/Exception/error403.html.twig:21</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>http_error_403.suggestion</source>
         <target>Požiadajte svojho manažéra alebo správcu systému, aby vám k tomuto zdroju pridelil prístup.</target>
       </segment>
@@ -62,7 +62,7 @@
       <notes>
         <note>templates/bundles/TwigBundle/Exception/error404.html.twig:18</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>http_error_404.description</source>
         <target>Požadovanú stránku sa nám nepodarilo nájsť.</target>
       </segment>
@@ -71,7 +71,7 @@
       <notes>
         <note>templates/bundles/TwigBundle/Exception/error404.html.twig:21</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>http_error_404.suggestion</source>
         <target><![CDATA[Skontrolujte, či v adrese nie je preklep, alebo <a href="%url%">prejdite na domovskú stránku</a>.]]></target>
       </segment>
@@ -80,7 +80,7 @@
       <notes>
         <note>templates/bundles/TwigBundle/Exception/error500.html.twig:18</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>http_error_500.description</source>
         <target>Došlo k internej chybe servera.</target>
       </segment>
@@ -89,7 +89,7 @@
       <notes>
         <note>templates/bundles/TwigBundle/Exception/error500.html.twig:21</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>http_error_500.suggestion</source>
         <target><![CDATA[Skúste túto stránku načítať znova o niekoľko minút alebo <a href="%url%">prejdite na domovskú stránku</a>.]]></target>
       </segment>
@@ -98,7 +98,7 @@
       <notes>
         <note>templates/debug/source_code.twig:17</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>title.source_code</source>
         <target>Zdrojový kód použitý na vykreslenie tejto stránky</target>
       </segment>
@@ -108,7 +108,7 @@
         <note>templates/debug/source_code.twig:22</note>
         <note>templates/debug/source_code.twig:25</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>title.controller_code</source>
         <target>Kód controllera</target>
       </segment>
@@ -117,7 +117,7 @@
       <notes>
         <note>templates/debug/source_code.twig:29</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>title.twig_template_code</source>
         <target>Kód šablóny Twig</target>
       </segment>
@@ -126,7 +126,7 @@
       <notes>
         <note>templates/users/edit.twig:4</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>title.edit_user</source>
         <target>Upraviť používateľa</target>
       </segment>
@@ -135,7 +135,7 @@
       <notes>
         <note>templates/debug/source_code.twig:7</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>action.show_code</source>
         <target>Zobraziť kód</target>
       </segment>
@@ -145,13 +145,13 @@
         <note>templates/users/change_password.twig:18</note>
         <note>templates/users/edit.twig:15</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>action.save</source>
         <target>Uložiť zmeny</target>
       </segment>
     </unit>
     <unit id="a2vzLi7" name="action.do_something">
-      <segment state="translated">
+      <segment>
         <source>action.do_something</source>
         <target>Urobiť niečo</target>
       </segment>
@@ -160,13 +160,13 @@
       <notes>
         <note>templates/users/change_password.twig:26</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>action.edit_user</source>
         <target>Upraviť používateľa</target>
       </segment>
     </unit>
     <unit id="ovKkXwU" name="action.edit">
-      <segment state="translated">
+      <segment>
         <source>action.edit</source>
         <target>Upraviť</target>
       </segment>
@@ -176,7 +176,7 @@
         <note>templates/security/login.twig:66</note>
         <note>src/Form/UserType.php:31</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>label.username</source>
         <target>Používateľské meno</target>
       </segment>
@@ -185,7 +185,7 @@
       <notes>
         <note>templates/debug/source_code.twig:3</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>help.show_code</source>
         <target><![CDATA[Kliknutím na toto tlačidlo zobrazíte zdrojový kód <strong>controllera</strong> a <strong>šablóny</strong>, ktoré boli použité na vykreslenie tejto stránky.]]></target>
       </segment>
@@ -194,7 +194,7 @@
       <notes>
         <note>templates/users/change_password.twig:12</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>info.change_password</source>
         <target>Po zmene hesla vás aplikácia odhlási.</target>
       </segment>
@@ -203,7 +203,7 @@
       <notes>
         <note>templates/security/login.twig:4</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>title.login</source>
         <target>Prihlásenie</target>
       </segment>
@@ -213,7 +213,7 @@
         <note>templates/security/login.twig:70</note>
         <note>templates/security/login.twig:75</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>label.password</source>
         <target>Heslo</target>
       </segment>
@@ -222,7 +222,7 @@
       <notes>
         <note>templates/security/login.twig:84</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>action.log_in</source>
         <target>Prihlásiť sa</target>
       </segment>
@@ -231,7 +231,7 @@
       <notes>
         <note>templates/content/listing.twig:9</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>title.contentlisting</source>
         <target>Výpis obsahu</target>
       </segment>
@@ -240,7 +240,7 @@
       <notes>
         <note>templates/users/edit.twig:24</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>action.change_password</source>
         <target>Zmeniť heslo</target>
       </segment>
@@ -250,7 +250,7 @@
         <note>templates/editcontent/edit.twig:118</note>
         <note>templates/editcontent/media_edit.twig:98</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>field.id</source>
         <target>ID</target>
       </segment>
@@ -259,7 +259,7 @@
       <notes>
         <note>templates/editcontent/edit.twig:76</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>field.status</source>
         <target>Stav</target>
       </segment>
@@ -269,7 +269,7 @@
         <note>templates/editcontent/edit.twig:86</note>
         <note>templates/editcontent/media_edit.twig:128</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>field.createdAt</source>
         <target>Vytvorené</target>
       </segment>
@@ -279,7 +279,7 @@
         <note>templates/editcontent/edit.twig:94</note>
         <note>templates/editcontent/media_edit.twig:135</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>field.modifiedAt</source>
         <target>Upravené</target>
       </segment>
@@ -288,7 +288,7 @@
       <notes>
         <note>templates/editcontent/edit.twig:102</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>field.publishedAt</source>
         <target>Zverejnené</target>
       </segment>
@@ -297,7 +297,7 @@
       <notes>
         <note>templates/editcontent/edit.twig:110</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>field.depublishedAt</source>
         <target>Stiahnuté</target>
       </segment>
@@ -306,7 +306,7 @@
       <notes>
         <note>templates/editcontent/media_edit.twig:47</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>field.title</source>
         <target>Titulok</target>
       </segment>
@@ -315,7 +315,7 @@
       <notes>
         <note>templates/editcontent/media_edit.twig:53</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>field.description</source>
         <target>Popis</target>
       </segment>
@@ -324,7 +324,7 @@
       <notes>
         <note>templates/editcontent/media_edit.twig:59</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>field.copyright</source>
         <target>Autorské práva</target>
       </segment>
@@ -333,7 +333,7 @@
       <notes>
         <note>templates/editcontent/media_edit.twig:66</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>field.originalFilename</source>
         <target>Pôvodný názov súboru</target>
       </segment>
@@ -342,7 +342,7 @@
       <notes>
         <note>templates/editcontent/media_edit.twig:105</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>field.width</source>
         <target>Šírka</target>
       </segment>
@@ -351,7 +351,7 @@
       <notes>
         <note>templates/editcontent/media_edit.twig:112</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>field.height</source>
         <target>Výška</target>
       </segment>
@@ -360,7 +360,7 @@
       <notes>
         <note>templates/editcontent/media_edit.twig:119</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>field.filesize</source>
         <target>Veľkosť súboru</target>
       </segment>
@@ -369,7 +369,7 @@
       <notes>
         <note>templates/security/login.twig:61</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>label.username_or_email</source>
         <target>Používateľské meno alebo e-mail</target>
       </segment>
@@ -378,7 +378,7 @@
       <notes>
         <note>templates/security/login.twig:80</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>label.rememberme</source>
         <target>Zapamätať si ma?</target>
       </segment>
@@ -387,7 +387,7 @@
       <notes>
         <note>templates/pages/about.twig:25</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>about.visit_bolt</source>
         <target>Navštívte Boltcms.io</target>
       </segment>
@@ -396,7 +396,7 @@
       <notes>
         <note>templates/pages/about.twig:28</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>about.bolt_documentation</source>
         <target>Dokumentácia Bolt</target>
       </segment>
@@ -405,7 +405,7 @@
       <notes>
         <note>templates/pages/about.twig:31</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>about.bolt_on_github</source>
         <target>Bolt na GitHube</target>
       </segment>
@@ -414,7 +414,7 @@
       <notes>
         <note>templates/pages/about.twig:35</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>about.used_libraries</source>
         <target>Použité knižnice / komponenty</target>
       </segment>
@@ -423,7 +423,7 @@
       <notes>
         <note>templates/pages/about.twig:37</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>about.list_of_used_libraries</source>
         <target>Nižšie sú uvedené knižnice tretích strán, ktoré Bolt používa.</target>
       </segment>
@@ -433,7 +433,7 @@
         <note>src/Form/UserType.php:35</note>
         <note>new</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>label.fullname</source>
         <target>Celé meno</target>
       </segment>
@@ -443,7 +443,7 @@
         <note>src/Form/UserType.php:38</note>
         <note>new</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>label.email</source>
         <target>E-mailová adresa</target>
       </segment>
@@ -453,7 +453,7 @@
         <note>src/Form/UserType.php:38</note>
         <note>new</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>label.about</source>
         <target>O používateľovi</target>
       </segment>
@@ -463,7 +463,7 @@
         <note>src/Controller/Backend/UserController.php:33</note>
         <note>new</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>user.updated_successfully</source>
         <target>Aktualizácia prebehla úspešne</target>
       </segment>
@@ -474,7 +474,7 @@
         <note>src/Controller/Backend/EditRecordController.php:86</note>
         <note>new</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>content.updated_successfully</source>
         <target>Obsah bol úspešne upravený</target>
       </segment>
@@ -484,7 +484,7 @@
         <note>src/Controller/Backend/EditMediaController.php:157</note>
         <note>new</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>content.created_successfully</source>
         <target>Médium bolo úspešne vytvorené</target>
       </segment>
@@ -494,493 +494,493 @@
         <note>src/Controller/Backend/EditFileController.php:101</note>
         <note>new</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>editfile.could_not_write</source>
         <target>Médium sa nepodarilo zapísať</target>
       </segment>
     </unit>
     <unit id="mEDsKHk" name="label.locale">
-      <segment state="translated">
+      <segment>
         <source>label.locale</source>
         <target>Jazyk</target>
       </segment>
     </unit>
     <unit id="98Q5SA2" name="label.backend_theme">
-      <segment state="translated">
+      <segment>
         <source>label.backend_theme</source>
         <target>Šablóna administrácie</target>
       </segment>
     </unit>
     <unit id="Z84BVRW" name="English (en)">
-      <segment state="translated">
+      <segment>
         <source>English (en)</source>
         <target>English (en)</target>
       </segment>
     </unit>
     <unit id="eG9ABZd" name="Nederlands (dutch, nl)">
-      <segment state="translated">
+      <segment>
         <source>Nederlands (dutch, nl)</source>
         <target>Nederlands (dutch, nl)</target>
       </segment>
     </unit>
     <unit id="57LcBXV" name="Español (Spanish, es)">
-      <segment state="translated">
+      <segment>
         <source>Español (Spanish, es)</source>
         <target>Español (Spanish, es)</target>
       </segment>
     </unit>
     <unit id="e7RdvJ0" name="français (French, fr)">
-      <segment state="translated">
+      <segment>
         <source>français (French, fr)</source>
         <target>français (French, fr)</target>
       </segment>
     </unit>
     <unit id="U1vrep2" name="Deutsch (German, de)">
-      <segment state="translated">
+      <segment>
         <source>Deutsch (German, de)</source>
         <target>Deutsch (German, de)</target>
       </segment>
     </unit>
     <unit id="EsWjyMS" name="Język Polski (Polish, pl)">
-      <segment state="translated">
+      <segment>
         <source>Język Polski (Polish, pl)</source>
         <target>Język Polski (Polish, pl)</target>
       </segment>
     </unit>
     <unit id="fbEbOrT" name="Brasilian Portuguese (Brasilian Portuguese, pt_BR)">
-      <segment state="translated">
+      <segment>
         <source>Brasilian Portuguese (Brasilian Portuguese, pt_BR)</source>
         <target>Brasilian Portuguese (Brasilian Portuguese, pt_BR)</target>
       </segment>
     </unit>
     <unit id="pBUPCm9" name="Italiano (Italian, it)">
-      <segment state="translated">
+      <segment>
         <source>Italiano (Italian, it)</source>
         <target>Italiano (Italian, it)</target>
       </segment>
     </unit>
     <unit id="Oiwdkpg" name="The Default theme">
-      <segment state="translated">
+      <segment>
         <source>The Default theme</source>
         <target>Predvolená šablóna</target>
       </segment>
     </unit>
     <unit id="C389Knp" name="The Default Dark theme">
-      <segment state="translated">
+      <segment>
         <source>The Default Dark theme</source>
         <target>Predvolená tmavá šablóna</target>
       </segment>
     </unit>
     <unit id="kouGbMq" name="WoordPers: Kinda looks like that other CMS">
-      <segment state="translated">
+      <segment>
         <source>WoordPers: Kinda looks like that other CMS</source>
         <target>WoordPers: Vyzerá tak trochu ako to iné CMS</target>
       </segment>
     </unit>
     <unit id="7aLIA3c" name="caption.dashboard">
-      <segment state="translated">
+      <segment>
         <source>caption.dashboard</source>
         <target>Nástenka Bolt</target>
       </segment>
     </unit>
     <unit id="xuNRuUu" name="caption.translations: messages">
-      <segment state="translated">
+      <segment>
         <source>caption.translations: messages</source>
         <target>Preklady: messages</target>
       </segment>
     </unit>
     <unit id="K6TmK4B" name="caption.clear_cache">
-      <segment state="translated">
+      <segment>
         <source>caption.clear_cache</source>
         <target>Vyčistiť cache</target>
       </segment>
     </unit>
     <unit id="RRQ1EJ3" name="caption.check_database">
-      <segment state="translated">
+      <segment>
         <source>caption.check_database</source>
         <target>Skontrolovať databázu</target>
       </segment>
     </unit>
     <unit id="cIiIXu_" name="caption.routing set up">
-      <segment state="translated">
+      <segment>
         <source>caption.routing set up</source>
         <target>Nastavenie smerovania</target>
       </segment>
     </unit>
     <unit id="2RUXD4A" name="caption.menu_setup">
-      <segment state="translated">
+      <segment>
         <source>caption.menu_setup</source>
         <target>Nastavenie menu</target>
       </segment>
     </unit>
     <unit id="drK.0GZ" name="caption.taxonomies">
-      <segment state="translated">
+      <segment>
         <source>caption.taxonomies</source>
         <target>Taxonómie</target>
       </segment>
     </unit>
     <unit id="_w7J5rZ" name="caption.contenttypes">
-      <segment state="translated">
+      <segment>
         <source>caption.contenttypes</source>
         <target>Typy obsahu</target>
       </segment>
     </unit>
     <unit id="kXNBV9S" name="caption.main_configuration">
-      <segment state="translated">
+      <segment>
         <source>caption.main_configuration</source>
         <target>Hlavná konfigurácia</target>
       </segment>
     </unit>
     <unit id="ipmA6Ah" name="caption.users_permissions">
-      <segment state="translated">
+      <segment>
         <source>caption.users_permissions</source>
         <target>Používatelia a oprávnenia</target>
       </segment>
     </unit>
     <unit id="zOLL.7E" name="caption.configuration">
-      <segment state="translated">
+      <segment>
         <source>caption.configuration</source>
         <target>Konfigurácia</target>
       </segment>
     </unit>
     <unit id="ZO.uqIZ" name="caption.settings">
-      <segment state="translated">
+      <segment>
         <source>caption.settings</source>
         <target>Nastavenia</target>
       </segment>
     </unit>
     <unit id="1xlE8ex" name="caption.content">
-      <segment state="translated">
+      <segment>
         <source>caption.content</source>
         <target>Obsah</target>
       </segment>
     </unit>
     <unit id="l4yt0BE" name="caption.file_management">
-      <segment state="translated">
+      <segment>
         <source>caption.file_management</source>
         <target>Správa súborov</target>
       </segment>
     </unit>
     <unit id="mfvtHPQ" name="caption.extensions">
-      <segment state="translated">
+      <segment>
         <source>caption.extensions</source>
         <target>Rozšírenia</target>
       </segment>
     </unit>
     <unit id="K4D568R" name="caption.view_edit_templates">
-      <segment state="translated">
+      <segment>
         <source>caption.view_edit_templates</source>
         <target>Zobraziť a upraviť šablóny</target>
       </segment>
     </unit>
     <unit id="bq6bSf4" name="caption.uploaded_files">
-      <segment state="translated">
+      <segment>
         <source>caption.uploaded_files</source>
-        <target>Nahraté súbory</target>
+        <target>Nahrané súbory</target>
       </segment>
     </unit>
     <unit id="wBKDkwl" name="caption.routing_setup">
-      <segment state="translated">
+      <segment>
         <source>caption.routing_setup</source>
         <target>Konfigurácia smerovania</target>
       </segment>
     </unit>
     <unit id="dd5MzCM" name="caption.translations">
-      <segment state="translated">
+      <segment>
         <source>caption.translations</source>
         <target>Preklady / popisky</target>
       </segment>
     </unit>
     <unit id="wLaDaK5" name="caption.about_bolt">
-      <segment state="translated">
+      <segment>
         <source>caption.about_bolt</source>
         <target>O systéme Bolt</target>
       </segment>
     </unit>
     <unit id="xN1kSQQ" name="caption.bolt_payoff">
-      <segment state="translated">
+      <segment>
         <source>caption.bolt_payoff</source>
         <target>Sofistikovaný, ľahký a jednoduchý CMS</target>
       </segment>
     </unit>
     <unit id="HK7XTUX" name="caption.edit">
-      <segment state="translated">
+      <segment>
         <source>caption.edit</source>
         <target>Upraviť</target>
       </segment>
     </unit>
     <unit id="QZYjRy0" name="caption.file_uploader">
-      <segment state="translated">
+      <segment>
         <source>caption.file_uploader</source>
         <target>Nahrávanie súborov</target>
       </segment>
     </unit>
     <unit id="LaDIuZA" name="caption.meta_information">
-      <segment state="translated">
+      <segment>
         <source>caption.meta_information</source>
         <target>Meta informácie</target>
       </segment>
     </unit>
     <unit id="DodjLNR" name="date">
-      <segment state="translated">
+      <segment>
         <source>date</source>
         <target>Dátum</target>
       </segment>
     </unit>
     <unit id="zNy_hG8" name="size">
-      <segment state="translated">
+      <segment>
         <source>size</source>
         <target>Veľkosť</target>
       </segment>
     </unit>
     <unit id="gPYflhh" name="thumbnail">
-      <segment state="translated">
+      <segment>
         <source>thumbnail</source>
         <target>Miniatúra</target>
       </segment>
     </unit>
     <unit id="_XSgfqS" name="filename">
-      <segment state="translated">
+      <segment>
         <source>filename</source>
         <target>Názov súboru</target>
       </segment>
     </unit>
     <unit id="Kw3N1AA" name="actions">
-      <segment state="translated">
+      <segment>
         <source>actions</source>
         <target>Akcie</target>
       </segment>
     </unit>
     <unit id="KHvGNGW" name="directoryname">
-      <segment state="translated">
+      <segment>
         <source>directoryname</source>
         <target>Názov priečinka</target>
       </segment>
     </unit>
     <unit id="ZV7_x5F" name="action.go">
-      <segment state="translated">
+      <segment>
         <source>action.go</source>
         <target>Prejsť</target>
       </segment>
     </unit>
     <unit id="C15MbYY" name="form.quick_select_file">
-      <segment state="translated">
+      <segment>
         <source>form.quick_select_file</source>
         <target>Rýchlo vyberte súbor na úpravu…</target>
       </segment>
     </unit>
     <unit id="gFcV5nW" name="label.quick_select">
-      <segment state="translated">
+      <segment>
         <source>label.quick_select</source>
         <target>Rýchly výber</target>
       </segment>
     </unit>
     <unit id="FSroufa" name="caption.path">
-      <segment state="translated">
+      <segment>
         <source>caption.path</source>
         <target>Cesta</target>
       </segment>
     </unit>
     <unit id="y5otxEK" name="caption.filename">
-      <segment state="translated">
+      <segment>
         <source>caption.filename</source>
         <target>Názov súboru</target>
       </segment>
     </unit>
     <unit id="XNTbZW6" name="action.visit_site">
-      <segment state="translated">
+      <segment>
         <source>action.visit_site</source>
         <target>Navštíviť webovú stránku</target>
       </segment>
     </unit>
     <unit id="KfVJho2" name="action.create_new">
-      <segment state="translated">
+      <segment>
         <source>action.create_new</source>
         <target>Vytvoriť nový</target>
       </segment>
     </unit>
     <unit id="b_RPpcB" name="general.greeting">
-      <segment state="translated">
+      <segment>
         <source>general.greeting</source>
         <target>Ahoj, %name%!</target>
       </segment>
     </unit>
     <unit id="bmdn3u9" name="action.logout">
-      <segment state="translated">
+      <segment>
         <source>action.logout</source>
         <target>Odhlásiť sa</target>
       </segment>
     </unit>
     <unit id="zOfpTLD" name="action.edit_profile">
-      <segment state="translated">
+      <segment>
         <source>action.edit_profile</source>
         <target>Upraviť profil</target>
       </segment>
     </unit>
     <unit id="N_0yRcH" name="action.close_alert">
-      <segment state="translated">
+      <segment>
         <source>action.close_alert</source>
         <target>Zavrieť</target>
       </segment>
     </unit>
     <unit id="Dvu2HQx" name="caption.api">
-      <segment state="translated">
+      <segment>
         <source>caption.api</source>
         <target>API</target>
       </segment>
     </unit>
     <unit id="i4cbdta" name="caption.all_configuration_files">
-      <segment state="translated">
+      <segment>
         <source>caption.all_configuration_files</source>
         <target>Všetky konfiguračné súbory</target>
       </segment>
     </unit>
     <unit id="OpKTKAL" name="caption.maintenance">
-      <segment state="translated">
+      <segment>
         <source>caption.maintenance</source>
         <target>Údržba</target>
       </segment>
     </unit>
     <unit id="hGJoUs5" name="caption.fixtures_dummy_content">
-      <segment state="translated">
+      <segment>
         <source>caption.fixtures_dummy_content</source>
         <target>Fixtures (ukážkový obsah)</target>
       </segment>
     </unit>
     <unit id="P1FHg3Q" name="caption.edit_file">
-      <segment state="translated">
+      <segment>
         <source>caption.edit_file</source>
         <target>Upraviť súbor</target>
       </segment>
     </unit>
     <unit id="_ef0RBR" name="caption.installation_checks">
-      <segment state="translated">
+      <segment>
         <source>caption.installation_checks</source>
         <target>Kontroly inštalácie</target>
       </segment>
     </unit>
     <unit id="pNPctrH" name="form.select_language">
-      <segment state="translated">
+      <segment>
         <source>form.select_language</source>
         <target>Vybrať jazyk</target>
       </segment>
     </unit>
     <unit id="9lJhqvA" name="field.locale">
-      <segment state="translated">
+      <segment>
         <source>field.locale</source>
         <target>Jazyk</target>
       </segment>
     </unit>
     <unit id="8zEzq8N" name="field.current_locale">
-      <segment state="translated">
+      <segment>
         <source>field.current_locale</source>
         <target>Aktuálny jazyk</target>
       </segment>
     </unit>
     <unit id="ahZvOJz" name="field.switch_to_locale">
-      <segment state="translated">
+      <segment>
         <source>field.switch_to_locale</source>
         <target>Prepnúť na jazyk</target>
       </segment>
     </unit>
     <unit id="aQX4Emy" name="field.author">
-      <segment state="translated">
+      <segment>
         <source>field.author</source>
         <target>Autor</target>
       </segment>
     </unit>
     <unit id="UNBaDz." name="general.phrase.edit">
-      <segment state="translated">
+      <segment>
         <source>general.phrase.edit</source>
         <target>Upraviť</target>
       </segment>
     </unit>
     <unit id="t2TNwOq" name="Unknown">
-      <segment state="translated">
+      <segment>
         <source>Unknown</source>
         <target>Neznáme</target>
       </segment>
     </unit>
     <unit id="A_d5KPt" name="general.phrase.written-by-on">
-      <segment state="translated">
+      <segment>
         <source>general.phrase.written-by-on</source>
         <target>Napísal(a) %name% dňa %date%.</target>
       </segment>
     </unit>
     <unit id="TVU.FCV" name="general.phrase.missing-about-page">
-      <segment state="translated">
+      <segment>
         <source>general.phrase.missing-about-page</source>
         <target>Stránka „O nás“ chýba</target>
       </segment>
     </unit>
     <unit id="7iq8jIG" name="general.phrase.missing-about-page-block">
-      <segment state="translated">
+      <segment>
         <source>general.phrase.missing-about-page-block</source>
         <target>Blok „O nás“ chýba</target>
       </segment>
     </unit>
     <unit id="AGegYAN" name="contenttypes.generic.recent">
-      <segment state="translated">
+      <segment>
         <source>contenttypes.generic.recent</source>
         <target>Nedávne %contenttypes%</target>
       </segment>
     </unit>
     <unit id="gB.9hTu" name="general.phrase.search-ellipsis">
-      <segment state="translated">
+      <segment>
         <source>general.phrase.search-ellipsis</source>
         <target>…</target>
       </segment>
     </unit>
     <unit id="wGlnx8X" name="general.phrase.search">
-      <segment state="translated">
+      <segment>
         <source>general.phrase.search</source>
         <target>Vyhľadávanie</target>
       </segment>
     </unit>
     <unit id="wNEwZy_" name="contenttypes.generic.overview">
-      <segment state="translated">
+      <segment>
         <source>contenttypes.generic.overview</source>
         <target>Prehľad %contenttypes%</target>
       </segment>
     </unit>
     <unit id="skuzBpI" name="contenttypes.generic.no-recent">
-      <segment state="translated">
+      <segment>
         <source>contenttypes.generic.no-recent</source>
         <target>Nenašiel sa žiadny nedávny %contenttype%</target>
       </segment>
     </unit>
     <unit id="ma9mBv_" name="Menu">
-      <segment state="translated">
+      <segment>
         <source>Menu</source>
         <target>Menu</target>
       </segment>
     </unit>
     <unit id="ScJmuqq" name="Search">
-      <segment state="translated">
+      <segment>
         <source>Search</source>
         <target>Hľadať</target>
       </segment>
     </unit>
     <unit id="k.xuYv2" name="general.phrase.permalink">
-      <segment state="translated">
+      <segment>
         <source>general.phrase.permalink</source>
         <target>Trvalý odkaz</target>
       </segment>
     </unit>
     <unit id="zsyp43M" name="label.displayname">
-      <segment state="translated">
+      <segment>
         <source>label.displayname</source>
         <target>Zobrazované meno</target>
       </segment>
     </unit>
     <unit id="2MMvCKK" name="label.cache_cleared">
-      <segment state="translated">
+      <segment>
         <source>label.cache_cleared</source>
         <target>Cache bola úspešne vyčistená!</target>
       </segment>
     </unit>
     <unit id="Wou02nK" name="caption.kitchensink">
-      <segment state="translated">
+      <segment>
         <source>caption.kitchensink</source>
         <target>Všehochuť (Kitchensink)</target>
       </segment>
@@ -990,7 +990,7 @@
         <note>parameters:</note>
         <note> '%search%': consequatur</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>general.phrase.search-results-for-variable</source>
         <target>Výsledky vyhľadávania pre '%search%'.</target>
       </segment>
@@ -1000,7 +1000,7 @@
         <note>parameters:</note>
         <note> '%search%': ymnrubeyrvwearsytevsf</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>general.phrase.search-results-for</source>
         <target>Výsledky vyhľadávania pre '%search%'.</target>
       </segment>
@@ -1010,1747 +1010,1747 @@
         <note>parameters:</note>
         <note> '%SEARCHTERM%': ymnrubeyrvwearsytevsf</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>general.phrase.no-search-results-for</source>
         <target>Pre '%search%' sa nenašli žiadne výsledky.</target>
       </segment>
     </unit>
     <unit id="_KyvT9o" name="general.phrase.no-search-term-provided">
-      <segment state="translated">
+      <segment>
         <source>general.phrase.no-search-term-provided</source>
-        <target>Zadajte prosím hľadaný výraz, aby sa dali zobraziť relevantné výsledky.</target>
+        <target>Zadajte prosím hľadaný výraz, aby sa zobrazili relevantné výsledky.</target>
       </segment>
     </unit>
     <unit id="Pily_qo" name="general.phrase.read-more">
-      <segment state="translated">
+      <segment>
         <source>general.phrase.read-more</source>
         <target>Čítať ďalej</target>
       </segment>
     </unit>
     <unit id="psOa_9x" name="general.phrase.built-with-bolt">
-      <segment state="translated">
+      <segment>
         <source>general.phrase.built-with-bolt</source>
         <target><![CDATA[Táto webová stránka je <a href='https://boltcms.io' target='_blank' title='Sofistikovaný, ľahký a jednoduchý CMS'>postavená na Bolte</a>.]]></target>
       </segment>
     </unit>
     <unit id="5IxD63c" name="general.latest_bolt_news">
-      <segment state="translated">
+      <segment>
         <source>general.latest_bolt_news</source>
-        <target>Novinky Bolt</target>
+        <target>Novinky Boltu</target>
       </segment>
     </unit>
     <unit id="dQIY7_J" name="action.preview">
-      <segment state="translated">
+      <segment>
         <source>action.preview</source>
         <target>Náhľad</target>
       </segment>
     </unit>
     <unit id="ok6YulQ" name="action.view_saved">
-      <segment state="translated">
+      <segment>
         <source>action.view_saved</source>
         <target>Zobraziť uloženú verziu</target>
       </segment>
     </unit>
     <unit id="SeTqePC" name="label.display_name">
-      <segment state="translated">
+      <segment>
         <source>label.display_name</source>
         <target>Zobrazované meno</target>
       </segment>
     </unit>
     <unit id="EvAqL__" name="caption.duplicate">
-      <segment state="translated">
+      <segment>
         <source>caption.duplicate</source>
         <target>Duplikovať</target>
       </segment>
     </unit>
     <unit id="pGkejkU" name="label.current_password">
-      <segment state="translated">
+      <segment>
         <source>label.current_password</source>
         <target>Aktuálne heslo</target>
       </segment>
     </unit>
     <unit id="iiWFLaI" name="label.new_password">
-      <segment state="translated">
+      <segment>
         <source>label.new_password</source>
         <target>Nové heslo</target>
       </segment>
     </unit>
     <unit id="Ucl9Jfc" name="label.new_password_confirm">
-      <segment state="translated">
+      <segment>
         <source>label.new_password_confirm</source>
         <target>Nové heslo (potvrdenie)</target>
       </segment>
     </unit>
     <unit id="Iyry5.g" name="editfile.updated_successfully">
-      <segment state="translated">
+      <segment>
         <source>editfile.updated_successfully</source>
         <target>Súbor bol úspešne aktualizovaný!</target>
       </segment>
     </unit>
     <unit id="3zlZmRK" name="action.add_user">
-      <segment state="translated">
+      <segment>
         <source>action.add_user</source>
         <target>Pridať používateľa</target>
       </segment>
     </unit>
     <unit id="ruQIhH0" name="success">
-      <segment state="translated">
+      <segment>
         <source>success</source>
         <target>Úspech!</target>
       </segment>
     </unit>
     <unit id="YDH.7uR" name="user.updated_profile">
-      <segment state="translated">
+      <segment>
         <source>user.updated_profile</source>
         <target>Používateľský profil bol aktualizovaný!</target>
       </segment>
     </unit>
     <unit id="iD6CNOO" name="label.roles">
-      <segment state="translated">
+      <segment>
         <source>label.roles</source>
         <target>Roly</target>
       </segment>
     </unit>
     <unit id="7whLbH8" name="user.new_user">
-      <segment state="translated">
+      <segment>
         <source>user.new_user</source>
         <target>Nový používateľ</target>
       </segment>
     </unit>
     <unit id="TtmWqX3" name="action.view">
-      <segment state="translated">
+      <segment>
         <source>action.view</source>
         <target>Zobraziť</target>
       </segment>
     </unit>
     <unit id="I2ykiIZ" name="caption.folders">
-      <segment state="translated">
+      <segment>
         <source>caption.folders</source>
         <target>Priečinky</target>
       </segment>
     </unit>
     <unit id="kaK5Wdr" name="slug.button_locked">
-      <segment state="translated">
+      <segment>
         <source>slug.button_locked</source>
         <target>Uzamknuté</target>
       </segment>
     </unit>
     <unit id="qcDEz5O" name="slug.button_edit">
-      <segment state="translated">
+      <segment>
         <source>slug.button_edit</source>
         <target>Upraviť</target>
       </segment>
     </unit>
     <unit id="raO5QSf" name="slug.generate_from">
-      <segment state="translated">
+      <segment>
         <source>slug.generate_from</source>
         <target>Vygenerovať z:</target>
       </segment>
     </unit>
     <unit id="vptPhch" name="image.button_upload">
-      <segment state="translated">
+      <segment>
         <source>image.button_upload</source>
         <target>Nahrať</target>
       </segment>
     </unit>
     <unit id="vIVO1lU" name="image.button_from_library">
-      <segment state="translated">
+      <segment>
         <source>image.button_from_library</source>
         <target>Z knižnice</target>
       </segment>
     </unit>
     <unit id="L0TE0M9" name="listing_table.actions.view_on_site">
-      <segment state="translated">
+      <segment>
         <source>listing_table.actions.view_on_site</source>
         <target>Zobraziť na stránke</target>
       </segment>
     </unit>
     <unit id="PoauAuK" name="listing_table.actions.status_to_publish">
-      <segment state="translated">
+      <segment>
         <source>listing_table.actions.status_to_publish</source>
         <target>Zmeniť stav na 'zverejnené'</target>
       </segment>
     </unit>
     <unit id="ZJxfdD6" name="listing_table.actions.status_to_held">
-      <segment state="translated">
+      <segment>
         <source>listing_table.actions.status_to_held</source>
         <target>Zmeniť stav na 'pozdržané'</target>
       </segment>
     </unit>
     <unit id="apyOs0o" name="listing_table.actions.status_to_draft">
-      <segment state="translated">
+      <segment>
         <source>listing_table.actions.status_to_draft</source>
         <target>Zmeniť stav na 'koncept'</target>
       </segment>
     </unit>
     <unit id="5H60Xq6" name="listing_table.actions.duplicate">
-      <segment state="translated">
+      <segment>
         <source>listing_table.actions.duplicate</source>
         <target>Duplikovať</target>
       </segment>
     </unit>
     <unit id="hR8ri.m" name="listing_table.actions.delete">
-      <segment state="translated">
+      <segment>
         <source>listing_table.actions.delete</source>
         <target>Zmazať</target>
       </segment>
     </unit>
     <unit id="5zbX1vo" name="listing_table.actions.slug">
-      <segment state="translated">
+      <segment>
         <source>listing_table.actions.slug</source>
         <target>Slug</target>
       </segment>
     </unit>
     <unit id="wKDOBOC" name="listing_table.actions.created_on">
-      <segment state="translated">
+      <segment>
         <source>listing_table.actions.created_on</source>
         <target>Vytvorené</target>
       </segment>
     </unit>
     <unit id="tVX01Xl" name="listing_table.actions.published_on">
-      <segment state="translated">
+      <segment>
         <source>listing_table.actions.published_on</source>
         <target>Zverejnené</target>
       </segment>
     </unit>
     <unit id="kHkjS5U" name="listing_table.actions.last_modified_on">
-      <segment state="translated">
+      <segment>
         <source>listing_table.actions.last_modified_on</source>
         <target>Naposledy upravené</target>
       </segment>
     </unit>
     <unit id="BdhsE_X" name="listing_select_box.card_header.selected">
-      <segment state="translated">
+      <segment>
         <source>listing_select_box.card_header.selected</source>
         <target>Vybrané</target>
       </segment>
     </unit>
     <unit id="jBpmj90" name="listing_select_box.card_body.records_passed">
-      <segment state="translated">
+      <segment>
         <source>listing_select_box.card_body.records_passed</source>
         <target>odovzdaných ID vybraných záznamov</target>
       </segment>
     </unit>
     <unit id="D8vDkhK" name="listing_select_box.card_body.remark">
-      <segment state="translated">
+      <segment>
         <source>listing_select_box.card_body.remark</source>
         <target>(tie sa dajú použiť napríklad s knižnicou axios na hromadnú úpravu/mazanie)</target>
       </segment>
     </unit>
     <unit id="kHeY93_" name="editor_embed.content_url">
-      <segment state="translated">
+      <segment>
         <source>editor_embed.content_url</source>
         <target>URL adresa obsahu na vloženie</target>
       </segment>
     </unit>
     <unit id="VoIdmBa" name="editor_embed.placeholder_content_url">
-      <segment state="translated">
+      <segment>
         <source>editor_embed.placeholder_content_url</source>
         <target>URL adresa obsahu z Facebooku, Twitteru, Soundcloudu, YouTube, Vimea…</target>
       </segment>
     </unit>
     <unit id="1.Eb1GS" name="editor_embed.label_height">
-      <segment state="translated">
+      <segment>
         <source>editor_embed.label_height</source>
         <target>Výška</target>
       </segment>
     </unit>
     <unit id="eWLSFJs" name="editor_embed.label_pixel">
-      <segment state="translated">
+      <segment>
         <source>editor_embed.label_pixel</source>
         <target>pixel</target>
       </segment>
     </unit>
     <unit id="EAtXrAm" name="editor_embed.label_matched_embed">
-      <segment state="translated">
+      <segment>
         <source>editor_embed.label_matched_embed</source>
         <target>Nájdený vložený obsah</target>
       </segment>
     </unit>
     <unit id="zATju4V" name="editor_embed.label_preview">
-      <segment state="translated">
+      <segment>
         <source>editor_embed.label_preview</source>
         <target>Náhľad</target>
       </segment>
     </unit>
     <unit id="9SQ0oaR" name="editor_embed.label_size">
-      <segment state="translated">
+      <segment>
         <source>editor_embed.label_size</source>
         <target>Veľkosť</target>
       </segment>
     </unit>
     <unit id="oOuVKRv" name="image.placeholder_filename">
-      <segment state="translated">
+      <segment>
         <source>image.placeholder_filename</source>
         <target>Názov súboru (nahrajte nový súbor alebo vyberte existujúci)</target>
       </segment>
     </unit>
     <unit id="BWubOnS" name="image.placeholder_alt_text">
-      <segment state="translated">
+      <segment>
         <source>image.placeholder_alt_text</source>
         <target>Atribút alt</target>
       </segment>
     </unit>
     <unit id="VPV0lFM" name="image.placeholder_title">
-      <segment state="translated">
+      <segment>
         <source>image.placeholder_title</source>
         <target>Atribút title</target>
       </segment>
     </unit>
     <unit id="Gabafxx" name="admin_sidebar.toggler">
-      <segment state="translated">
+      <segment>
         <source>admin_sidebar.toggler</source>
         <target>Prepnúť šírku bočného panela</target>
       </segment>
     </unit>
     <unit id="jXAelLe" name="admin_sidebar_toggler.toggle">
-      <segment state="translated">
+      <segment>
         <source>admin_sidebar_toggler.toggle</source>
         <target><![CDATA[<span class="sr-only">Prepnúť </span>menu]]></target>
       </segment>
     </unit>
     <unit id="BINgtmK" name="editor_date.toggle">
-      <segment state="translated">
+      <segment>
         <source>editor_date.toggle</source>
         <target>Prepnúť</target>
       </segment>
     </unit>
     <unit id="VQ2t655" name="file.label_filename">
-      <segment state="translated">
+      <segment>
         <source>file.label_filename</source>
         <target>Názov súboru</target>
       </segment>
     </unit>
     <unit id="tvpSmD7" name="file.label_title">
-      <segment state="translated">
+      <segment>
         <source>file.label_title</source>
         <target>Titulok</target>
       </segment>
     </unit>
     <unit id="hXT_hI." name="file.button_view">
-      <segment state="translated">
+      <segment>
         <source>file.button_view</source>
         <target>Zobraziť obrázok</target>
       </segment>
     </unit>
     <unit id="QKIqqOw" name="file.button_upload">
-      <segment state="translated">
+      <segment>
         <source>file.button_upload</source>
         <target>Nahrať obrázok</target>
       </segment>
     </unit>
     <unit id="4_JdYp1" name="file.remark">
-      <segment state="translated">
+      <segment>
         <source>file.remark</source>
         <target><![CDATA[Poznámka: Toto pole je prakticky rovnaké ako pole <code>image</code>.]]></target>
       </segment>
     </unit>
     <unit id="TJDc9vQ" name="file.label_alt">
-      <segment state="translated">
+      <segment>
         <source>file.label_alt</source>
         <target>Alt</target>
       </segment>
     </unit>
     <unit id="M.3olSc" name="filelist.remark">
-      <segment state="translated">
+      <segment>
         <source>filelist.remark</source>
         <target><![CDATA[Poznámka: Toto pole je prakticky rovnaké ako pole <code>imagelist</code>.]]></target>
       </segment>
     </unit>
     <unit id="zg5Dum5" name="geolocation.label_geolocation">
-      <segment state="translated">
+      <segment>
         <source>geolocation.label_geolocation</source>
         <target>Geolokácia:</target>
       </segment>
     </unit>
     <unit id="Com0pbc" name="geolocation.label_address">
-      <segment state="translated">
+      <segment>
         <source>geolocation.label_address</source>
         <target>Vyhľadávanie adresy</target>
       </segment>
     </unit>
     <unit id="3o0LPHj" name="geolocation.placeholder_address">
-      <segment state="translated">
+      <segment>
         <source>geolocation.placeholder_address</source>
         <target>Ulica, PSČ, mesto alebo iná lokalita…</target>
       </segment>
     </unit>
     <unit id="CC5QTmy" name="geolocation.label_lat">
-      <segment state="translated">
+      <segment>
         <source>geolocation.label_lat</source>
         <target>Zemepisná šírka</target>
       </segment>
     </unit>
     <unit id="MJ5WYEM" name="geolocation.label_address_matched">
-      <segment state="translated">
+      <segment>
         <source>geolocation.label_address_matched</source>
         <target>Nájdená adresa</target>
       </segment>
     </unit>
     <unit id="WJGjWG8" name="geolocation.label_marker">
-      <segment state="translated">
+      <segment>
         <source>geolocation.label_marker</source>
         <target>Umiestnenie značky</target>
       </segment>
     </unit>
     <unit id="SaP3OOf" name="geolocation.label_control">
-      <segment state="translated">
+      <segment>
         <source>geolocation.label_control</source>
         <target>Prichytiť k najbližšej adrese</target>
       </segment>
     </unit>
     <unit id="AHaenW3" name="geolocation.label_long">
-      <segment state="translated">
+      <segment>
         <source>geolocation.label_long</source>
         <target>Zemepisná dĺžka</target>
       </segment>
     </unit>
     <unit id="TkryUve" name="imagelist.remark">
-      <segment state="translated">
+      <segment>
         <source>imagelist.remark</source>
         <target><![CDATA[Poznámka: Toto pole je prakticky rovnaké ako pole <code>filelist</code>.]]></target>
       </segment>
     </unit>
     <unit id="z2AgHGp" name="flash_messages.notification">
-      <segment state="translated">
+      <segment>
         <source>flash_messages.notification</source>
         <target>Oznámenie</target>
       </segment>
     </unit>
     <unit id="qQKx1lR" name="buttons.button_toggle">
-      <segment state="translated">
+      <segment>
         <source>buttons.button_toggle</source>
         <target>Prepnúť rozbaľovaciu ponuku</target>
       </segment>
     </unit>
     <unit id="ypPzS03" name="localeswitcher.button_info">
-      <segment state="translated">
+      <segment>
         <source>localeswitcher.button_info</source>
         <target>Zobraziť informácie o lokalizácii</target>
       </segment>
     </unit>
     <unit id="wQ0WYAT" name="listing.title_sortby">
-      <segment state="translated">
+      <segment>
         <source>listing.title_sortby</source>
         <target>Zoradiť podľa</target>
       </segment>
     </unit>
     <unit id="ZGv90X8" name="listing.option_select_item">
-      <segment state="translated">
+      <segment>
         <source>listing.option_select_item</source>
         <target>Vybrať položku</target>
       </segment>
     </unit>
     <unit id="TIyjgb6" name="listing.title_title">
-      <segment state="translated">
+      <segment>
         <source>listing.title_title</source>
         <target>Titulok</target>
       </segment>
     </unit>
     <unit id="pn22p7q" name="listing.placeholder_filter">
-      <segment state="translated">
+      <segment>
         <source>listing.placeholder_filter</source>
         <target>Kľúčové slovo na filtrovanie…</target>
       </segment>
     </unit>
     <unit id="ni4zApC" name="listing.button_filter">
-      <segment state="translated">
+      <segment>
         <source>listing.button_filter</source>
         <target>Filtrovať</target>
       </segment>
     </unit>
     <unit id="doNsgm0" name="listing.button_clear">
-      <segment state="translated">
+      <segment>
         <source>listing.button_clear</source>
         <target>Zrušiť zoradenie/filter</target>
       </segment>
     </unit>
     <unit id="37kJiIe" name="view_locales.badge_default">
-      <segment state="translated">
+      <segment>
         <source>view_locales.badge_default</source>
         <target>Predvolené</target>
       </segment>
     </unit>
     <unit id="JTRCo_U" name="view_locales.badge_ok">
-      <segment state="translated">
+      <segment>
         <source>view_locales.badge_ok</source>
         <target>OK</target>
       </segment>
     </unit>
     <unit id="ufFUPp7" name="view_locales.badge_missing">
-      <segment state="translated">
+      <segment>
         <source>view_locales.badge_missing</source>
-        <target>Chýba</target>
+        <target>Chýbajúce</target>
       </segment>
     </unit>
     <unit id="QQvRJe." name="files_cards.button_toggle">
-      <segment state="translated">
+      <segment>
         <source>files_cards.button_toggle</source>
         <target>Prepnúť rozbaľovaciu ponuku</target>
       </segment>
     </unit>
     <unit id="gtC_ujD" name="files_cards.action_edit_image_info">
-      <segment state="translated">
+      <segment>
         <source>files_cards.action_edit_image_info</source>
         <target>Upraviť informácie o obrázku</target>
       </segment>
     </unit>
     <unit id="5LXvJfE" name="files_cards.action_edit_file">
-      <segment state="translated">
+      <segment>
         <source>files_cards.action_edit_file</source>
         <target>Upraviť súbor v editore</target>
       </segment>
     </unit>
     <unit id="H1pgP94" name="files_cards.action_view_original">
-      <segment state="translated">
+      <segment>
         <source>files_cards.action_view_original</source>
         <target>Zobraziť originál</target>
       </segment>
     </unit>
     <unit id="ZoY6ADX" name="files_cards.action_duplicate">
-      <segment state="translated">
+      <segment>
         <source>files_cards.action_duplicate</source>
         <target>Duplikovať</target>
       </segment>
     </unit>
     <unit id="JjU6ZQP" name="files_cards.action_delete">
-      <segment state="translated">
+      <segment>
         <source>files_cards.action_delete</source>
         <target>Zmazať</target>
       </segment>
     </unit>
     <unit id="3jdNwuk" name="files_cards.label_filename">
-      <segment state="translated">
+      <segment>
         <source>files_cards.label_filename</source>
         <target>Názov súboru:</target>
       </segment>
     </unit>
     <unit id="Y90_Pn1" name="files_cards.label_title">
-      <segment state="translated">
+      <segment>
         <source>files_cards.label_title</source>
         <target>Titulok:</target>
       </segment>
     </unit>
     <unit id="EdCfIKX" name="files_cards.label_dimensions">
-      <segment state="translated">
+      <segment>
         <source>files_cards.label_dimensions</source>
         <target>Rozmery:</target>
       </segment>
     </unit>
     <unit id="eQBhceV" name="files_cards.label_filesize">
-      <segment state="translated">
+      <segment>
         <source>files_cards.label_filesize</source>
         <target>Veľkosť súboru:</target>
       </segment>
     </unit>
     <unit id="uiCjlwk" name="files_cards.label_created_on">
-      <segment state="translated">
+      <segment>
         <source>files_cards.label_created_on</source>
         <target>Vytvorené:</target>
       </segment>
     </unit>
     <unit id=".fL0AbE" name="files_list.remark">
-      <segment state="translated">
+      <segment>
         <source>files_list.remark</source>
         <target>V tomto priečinku nie sú žiadne súbory. Vyberte priečinok, do ktorého chcete prejsť.</target>
       </segment>
     </unit>
     <unit id="v6cfPyt" name="quickselect.title_select">
-      <segment state="translated">
+      <segment>
         <source>quickselect.title_select</source>
         <target>Vyberte súbor:</target>
       </segment>
     </unit>
     <unit id="m3tNvJb" name="finder.button_list">
-      <segment state="translated">
+      <segment>
         <source>finder.button_list</source>
         <target>Zoznam</target>
       </segment>
     </unit>
     <unit id="tRLgeoX" name="finder.button_cards">
-      <segment state="translated">
+      <segment>
         <source>finder.button_cards</source>
         <target>Karty</target>
       </segment>
     </unit>
     <unit id="nrWBJNm" name="extensions.title_desc">
-      <segment state="translated">
+      <segment>
         <source>extensions.title_desc</source>
         <target>Popis:</target>
       </segment>
     </unit>
     <unit id="7raDJAR" name="extensions.title_author">
-      <segment state="translated">
+      <segment>
         <source>extensions.title_author</source>
         <target>Autor:</target>
       </segment>
     </unit>
     <unit id="UP8pNGy" name="extensions.title_package">
-      <segment state="translated">
+      <segment>
         <source>extensions.title_package</source>
         <target>Názov balíka / triedy:</target>
       </segment>
     </unit>
     <unit id="QFQ1uTC" name="extensions.title_version">
-      <segment state="translated">
+      <segment>
         <source>extensions.title_version</source>
         <target>Verzia:</target>
       </segment>
     </unit>
     <unit id="piuatxC" name="extensions.info_not_installed">
-      <segment state="translated">
+      <segment>
         <source>extensions.info_not_installed</source>
         <target>Toto je lokálny balík, nie je nainštalovaný cez Composer</target>
       </segment>
     </unit>
     <unit id="3j1gEmk" name="extensions.title_class">
-      <segment state="translated">
+      <segment>
         <source>extensions.title_class</source>
         <target>Názov triedy:</target>
       </segment>
     </unit>
     <unit id="mjhFljb" name="extensions.button_configuration">
-      <segment state="translated">
+      <segment>
         <source>extensions.button_configuration</source>
         <target>Konfigurácia</target>
       </segment>
     </unit>
     <unit id="r3ryNTG" name="extensions.button_source">
-      <segment state="translated">
+      <segment>
         <source>extensions.button_source</source>
         <target>Zdroj</target>
       </segment>
     </unit>
     <unit id="qc3rFkZ" name="extensions.button_remove">
-      <segment state="translated">
+      <segment>
         <source>extensions.button_remove</source>
         <target>Odstrániť rozšírenie</target>
       </segment>
     </unit>
     <unit id="SLZyVzU" name="extensions.button_disable">
-      <segment state="translated">
+      <segment>
         <source>extensions.button_disable</source>
         <target>Zakázať rozšírenie</target>
       </segment>
     </unit>
     <unit id="beqzCkE" name="login.header_login">
-      <segment state="translated">
+      <segment>
         <source>login.header_login</source>
         <target>Bolt » Prihlásenie</target>
       </segment>
     </unit>
     <unit id="7JK6jNv" name="extensions.message_not_implemented">
-      <segment state="translated">
+      <segment>
         <source>extensions.message_not_implemented</source>
         <target>Zatiaľ neimplementované. Prepáčte!</target>
       </segment>
     </unit>
     <unit id="Hlf9c1s" name="listing.title_overview">
-      <segment state="translated">
+      <segment>
         <source>listing.title_overview</source>
-        <target>Prehľad pre</target>
+        <target>Prehľad</target>
       </segment>
     </unit>
     <unit id="8JeahIj" name="files_cards.message_no_files">
-      <segment state="translated">
+      <segment>
         <source>files_cards.message_no_files</source>
         <target>V tomto priečinku nie sú žiadne súbory. Vyberte vpravo priečinok, do ktorého chcete prejsť.</target>
       </segment>
     </unit>
     <unit id="pcq1NGk" name="listing_filter.button_compact">
-      <segment state="translated">
+      <segment>
         <source>listing_filter.button_compact</source>
         <target>Kompaktné</target>
       </segment>
     </unit>
     <unit id="xIztVmp" name="listing_filter.button_expanded">
-      <segment state="translated">
+      <segment>
         <source>listing_filter.button_expanded</source>
         <target>Rozšírené</target>
       </segment>
     </unit>
     <unit id="73A2bWM" name="finder.label_view">
-      <segment state="translated">
+      <segment>
         <source>finder.label_view</source>
         <target>Zobrazenie:</target>
       </segment>
     </unit>
     <unit id="Em.C0bV" name="listing_table.actions.button_edit">
-      <segment state="translated">
+      <segment>
         <source>listing_table.actions.button_edit</source>
         <target>Upraviť</target>
       </segment>
     </unit>
     <unit id="Iy4HXCU" name="controller.user.title">
-      <segment state="translated">
+      <segment>
         <source>controller.user.title</source>
         <target>Používatelia a oprávnenia</target>
       </segment>
     </unit>
     <unit id="HBwIQ9b" name="controller.user.subtitle">
-      <segment state="translated">
+      <segment>
         <source>controller.user.subtitle</source>
         <target>Na úpravu používateľov a ich oprávnení</target>
       </segment>
     </unit>
     <unit id="0Gyf5xr" name="controller.database.check_title">
-      <segment state="translated">
+      <segment>
         <source>controller.database.check_title</source>
         <target>Kontrola databázy</target>
       </segment>
     </unit>
     <unit id="SeDwjX6" name="controller.database.check_subtitle">
-      <segment state="translated">
+      <segment>
         <source>controller.database.check_subtitle</source>
         <target>Na kontrolu databázy</target>
       </segment>
     </unit>
     <unit id="nJnALPG" name="controller.database.update_title">
-      <segment state="translated">
+      <segment>
         <source>controller.database.update_title</source>
         <target>Aktualizácia databázy</target>
       </segment>
     </unit>
     <unit id="nRE74_i" name="controller.database.update_subtitle">
-      <segment state="translated">
+      <segment>
         <source>controller.database.update_subtitle</source>
         <target>Na aktualizáciu databázy</target>
       </segment>
     </unit>
     <unit id="a3UNsKw" name="controller.omnisearch.title">
-      <segment state="translated">
+      <segment>
         <source>controller.omnisearch.title</source>
         <target>Omnisearch</target>
       </segment>
     </unit>
     <unit id="4N41oTU" name="controller.omnisearch.subtitle">
-      <segment state="translated">
+      <segment>
         <source>controller.omnisearch.subtitle</source>
         <target>Na vyhľadávanie naprieč celým systémom</target>
       </segment>
     </unit>
     <unit id="7cXqH5s" name="listing.title_display_name">
-      <segment state="translated">
+      <segment>
         <source>listing.title_display_name</source>
         <target>Zobrazované meno</target>
       </segment>
     </unit>
     <unit id="Ay7xZ2h" name="listing.title_username">
-      <segment state="translated">
+      <segment>
         <source>listing.title_username</source>
         <target>Používateľské meno</target>
       </segment>
     </unit>
     <unit id="RN1tdtJ" name="listing.title_email">
-      <segment state="translated">
+      <segment>
         <source>listing.title_email</source>
         <target>E-mail</target>
       </segment>
     </unit>
     <unit id="0pjZ.GV" name="listing.title_roles">
-      <segment state="translated">
+      <segment>
         <source>listing.title_roles</source>
         <target>Roly</target>
       </segment>
     </unit>
     <unit id="hXEFV1n" name="listing.title_last_seen">
-      <segment state="translated">
+      <segment>
         <source>listing.title_last_seen</source>
         <target>Dĺžka relácie</target>
       </segment>
     </unit>
     <unit id="pn7kE17" name="listing.title_last_ip">
-      <segment state="translated">
+      <segment>
         <source>listing.title_last_ip</source>
         <target>Posledná IP</target>
       </segment>
     </unit>
     <unit id="GZ65uOC" name="listing.title_actions">
-      <segment state="translated">
+      <segment>
         <source>listing.title_actions</source>
         <target>Akcie</target>
       </segment>
     </unit>
     <unit id="fkXL.k6" name="user.not_valid_email">
-      <segment state="translated">
+      <segment>
         <source>user.not_valid_email</source>
         <target>Neplatný e-mail</target>
       </segment>
     </unit>
     <unit id="HjWW.NS" name="user.not_valid_password">
-      <segment state="translated">
+      <segment>
         <source>user.not_valid_password</source>
         <target>Neplatné heslo. Heslo musí obsahovať aspoň 6 znakov.</target>
       </segment>
     </unit>
     <unit id="TpGxDI3" name="user.unknown_user">
-      <segment state="translated">
+      <segment>
         <source>user.unknown_user</source>
         <target>Neznámy používateľ</target>
       </segment>
     </unit>
     <unit id="EaqUUfe" name="label.predominant_colors__in_image">
-      <segment state="translated">
+      <segment>
         <source>label.predominant_colors__in_image</source>
         <target>Prevládajúce farby v obrázku</target>
       </segment>
     </unit>
     <unit id="8RPjZ5w" name="general.phrase.overview-for">
-      <segment state="translated">
+      <segment>
         <source>general.phrase.overview-for</source>
         <target>Prehľad pre '%slug%'</target>
       </segment>
     </unit>
     <unit id="6mze9DI" name="general.phrase.related-content">
-      <segment state="translated">
+      <segment>
         <source>general.phrase.related-content</source>
         <target>Súvisiaci obsah</target>
       </segment>
     </unit>
     <unit id="odDw0du" name="action.search">
-      <segment state="translated">
+      <segment>
         <source>action.search</source>
         <target>Hľadať</target>
       </segment>
     </unit>
     <unit id="QoeqyPT" name="caption.new_contenttype">
-      <segment state="translated">
+      <segment>
         <source>caption.new_contenttype</source>
         <target>Nový %contenttype%</target>
       </segment>
     </unit>
     <unit id="n.jOrkg" name="caption.untitled_contenttype">
-      <segment state="translated">
+      <segment>
         <source>caption.untitled_contenttype</source>
         <target>Nepomenovaný %contenttype%</target>
       </segment>
     </unit>
     <unit id="Dgtkgju" name="title.edit_user_profile">
-      <segment state="translated">
+      <segment>
         <source>title.edit_user_profile</source>
         <target>Upraviť používateľský profil</target>
       </segment>
     </unit>
     <unit id="rCKtTo5" name="caption.redirection_page">
-      <segment state="translated">
+      <segment>
         <source>caption.redirection_page</source>
         <target>Stránka presmerovania</target>
       </segment>
     </unit>
     <unit id="TtIlBDd" name="caption.edit_image">
-      <segment state="translated">
+      <segment>
         <source>caption.edit_image</source>
         <target>Upraviť obrázok</target>
       </segment>
     </unit>
     <unit id="MClSUET" name="general.phrase.select_language">
-      <segment state="translated">
+      <segment>
         <source>general.phrase.select_language</source>
         <target>Vyberte jazyk</target>
       </segment>
     </unit>
     <unit id="hiE9jap" name="password.suggested">
-      <segment state="translated">
+      <segment>
         <source>password.suggested</source>
         <target><![CDATA[Navrhované bezpečné heslo: <code>%password%</code>]]></target>
       </segment>
     </unit>
     <unit id="fLOd6Zd" name="field.cropX">
-      <segment state="translated">
+      <segment>
         <source>field.cropX</source>
         <target>Orezanie X</target>
       </segment>
     </unit>
     <unit id="Sd_AbmV" name="field.cropXPostfix">
-      <segment state="translated">
+      <segment>
         <source>field.cropXPostfix</source>
         <target>Pozícia orezania na osi X, rozsah 0-100. </target>
       </segment>
     </unit>
     <unit id="BQBmQHT" name="field.cropYPostfix">
-      <segment state="translated">
+      <segment>
         <source>field.cropYPostfix</source>
         <target>Pozícia orezania na osi Y, rozsah 0-100. </target>
       </segment>
     </unit>
     <unit id="hi98HIj" name="field.cropY">
-      <segment state="translated">
+      <segment>
         <source>field.cropY</source>
         <target>Orezanie Y</target>
       </segment>
     </unit>
     <unit id="PHOpD5y" name="field.cropZoom">
-      <segment state="translated">
+      <segment>
         <source>field.cropZoom</source>
         <target>Faktor priblíženia orezania</target>
       </segment>
     </unit>
     <unit id="tn6Z8wY" name="field.cropZoomPostfix">
-      <segment state="translated">
+      <segment>
         <source>field.cropZoomPostfix</source>
         <target>Úroveň priblíženia orezania, rozsah 1-10. </target>
       </segment>
     </unit>
     <unit id="n.3JZvX" name="title.contentType">
-      <segment state="translated">
+      <segment>
         <source>title.contentType</source>
         <target>Typ obsahu</target>
       </segment>
     </unit>
     <unit id="TSkqRw3" name="listing.title_taxonomy">
-      <segment state="translated">
+      <segment>
         <source>listing.title_taxonomy</source>
         <target>Taxonómia</target>
       </segment>
     </unit>
     <unit id="Hr2E9Oa" name="listing_table.no_results">
-      <segment state="translated">
+      <segment>
         <source>listing_table.no_results</source>
         <target>Nenašli sa žiadne výsledky. Rozšírte kritériá filtrovania alebo pridajte ďalší obsah.</target>
       </segment>
     </unit>
     <unit id="hp554Ds" name="listing.option_select_sortby">
-      <segment state="translated">
+      <segment>
         <source>listing.option_select_sortby</source>
         <target>Vyberte pole, podľa ktorého sa má zoradiť…</target>
       </segment>
     </unit>
     <unit id="JEnqOi." name="title.primary_actions">
-      <segment state="translated">
+      <segment>
         <source>title.primary_actions</source>
         <target>Hlavné akcie</target>
       </segment>
     </unit>
     <unit id="7616Os4" name="title.options">
-      <segment state="translated">
+      <segment>
         <source>title.options</source>
         <target>Možnosti</target>
       </segment>
     </unit>
     <unit id="hTKWQ6g" name="action.delete">
-      <segment state="translated">
+      <segment>
         <source>action.delete</source>
         <target>Zmazať</target>
       </segment>
     </unit>
     <unit id="ezqx.4H" name="action.enable">
-      <segment state="translated">
+      <segment>
         <source>action.enable</source>
         <target>Povoliť</target>
       </segment>
     </unit>
     <unit id="ryXZRAu" name="action.disable">
-      <segment state="translated">
+      <segment>
         <source>action.disable</source>
         <target>Zakázať</target>
       </segment>
     </unit>
     <unit id="29MN3Ip" name="user.enabled_successfully">
-      <segment state="translated">
+      <segment>
         <source>user.enabled_successfully</source>
         <target>Používateľ bol úspešne povolený!</target>
       </segment>
     </unit>
     <unit id="nj8qBZ5" name="user.disabled_successfully">
-      <segment state="translated">
+      <segment>
         <source>user.disabled_successfully</source>
         <target>Používateľ bol úspešne zakázaný!</target>
       </segment>
     </unit>
     <unit id="Npkio79" name="listing.title_session_expires">
-      <segment state="translated">
+      <segment>
         <source>listing.title_session_expires</source>
         <target>Platnosť relácie vyprší</target>
       </segment>
     </unit>
     <unit id="mmUDcto" name="listing.title_ip_address">
-      <segment state="translated">
+      <segment>
         <source>listing.title_ip_address</source>
         <target>IP adresa</target>
       </segment>
     </unit>
     <unit id="x9qAwrz" name="listing.title_browser">
-      <segment state="translated">
+      <segment>
         <source>listing.title_browser</source>
         <target>Prehliadač / platforma</target>
       </segment>
     </unit>
     <unit id="FqVh1Hv" name="image.button_remove">
-      <segment state="translated">
+      <segment>
         <source>image.button_remove</source>
         <target>Odstrániť</target>
       </segment>
     </unit>
     <unit id="eHV6ZJB" name="image.button_edit_attributes">
-      <segment state="translated">
+      <segment>
         <source>image.button_edit_attributes</source>
         <target>Upraviť atribúty</target>
       </segment>
     </unit>
     <unit id="s14vS9S" name="image.button_move_up">
-      <segment state="translated">
+      <segment>
         <source>image.button_move_up</source>
         <target>Posunúť vyššie</target>
       </segment>
     </unit>
     <unit id="xoOPAPl" name="image.button_move_down">
-      <segment state="translated">
+      <segment>
         <source>image.button_move_down</source>
         <target>Posunúť nižšie</target>
       </segment>
     </unit>
     <unit id="Oj2UZ5J" name="image.add_new_image">
-      <segment state="translated">
+      <segment>
         <source>image.add_new_image</source>
         <target>Pridať nový obrázok</target>
       </segment>
     </unit>
     <unit id="8Q4FxVw" name="file.add_new_file">
-      <segment state="translated">
+      <segment>
         <source>file.add_new_file</source>
         <target>Pridať nový súbor</target>
       </segment>
     </unit>
     <unit id=".t1ICS7" name="collection.remove_item">
-      <segment state="translated">
+      <segment>
         <source>collection.remove_item</source>
         <target>Odstrániť položku</target>
       </segment>
     </unit>
     <unit id="0C9.Vmh" name="collection.add_item">
-      <segment state="translated">
+      <segment>
         <source>collection.add_item</source>
         <target>Pridať novú položku do '%name%'</target>
       </segment>
     </unit>
     <unit id="ApPu4P_" name="collection.move_item_up">
-      <segment state="translated">
+      <segment>
         <source>collection.move_item_up</source>
         <target>Posunúť vyššie</target>
       </segment>
     </unit>
     <unit id="KzBtfHi" name="collection.move_item_down">
-      <segment state="translated">
+      <segment>
         <source>collection.move_item_down</source>
         <target>Posunúť nižšie</target>
       </segment>
     </unit>
     <unit id="BFARQEU" name="extensions.button_detailed_view">
-      <segment state="translated">
+      <segment>
         <source>extensions.button_detailed_view</source>
         <target>Zobraziť podrobnosti</target>
       </segment>
     </unit>
     <unit id="hgNZLwW" name="extensions.title_configuration">
-      <segment state="translated">
+      <segment>
         <source>extensions.title_configuration</source>
         <target>Konfiguračný súbor</target>
       </segment>
     </unit>
     <unit id="283aB_E" name="caption.file_upload.upload_text">
-      <segment state="translated">
+      <segment>
         <source>caption.file_upload.upload_text</source>
         <target>Súbory nahráte presunutím sem</target>
       </segment>
     </unit>
     <unit id="L_YQKUn" name="pager.next">
-      <segment state="translated">
+      <segment>
         <source>pager.next</source>
         <target>Ďalšia</target>
       </segment>
     </unit>
     <unit id="AMxTho9" name="pager.previous">
-      <segment state="translated">
+      <segment>
         <source>pager.previous</source>
         <target>Predchádzajúca</target>
       </segment>
     </unit>
     <unit id="7aSD0Qr" name="image.button_up">
-      <segment state="translated">
+      <segment>
         <source>image.button_up</source>
         <target>Hore</target>
       </segment>
     </unit>
     <unit id="WihD8Y5" name="image.button_down">
-      <segment state="translated">
+      <segment>
         <source>image.button_down</source>
         <target>Dole</target>
       </segment>
     </unit>
     <unit id="fon6eNN" name="general.phrase.download">
-      <segment state="translated">
+      <segment>
         <source>general.phrase.download</source>
         <target>Stiahnuť</target>
       </segment>
     </unit>
     <unit id="2MtT_h0" name="caption.logviewer">
-      <segment state="translated">
+      <segment>
         <source>caption.logviewer</source>
         <target>Prehliadač protokolu</target>
       </segment>
     </unit>
     <unit id="FlGE3qB" name="label.request">
-      <segment state="translated">
+      <segment>
         <source>label.request</source>
         <target>Požiadavka</target>
       </segment>
     </unit>
     <unit id="l71Tprl" name="label.trace">
-      <segment state="translated">
+      <segment>
         <source>label.trace</source>
         <target>Trasovanie</target>
       </segment>
     </unit>
     <unit id="29ZEo1r" name="label.context">
-      <segment state="translated">
+      <segment>
         <source>label.context</source>
         <target>Kontext</target>
       </segment>
     </unit>
     <unit id="txRonia" name="label.id">
-      <segment state="translated">
+      <segment>
         <source>label.id</source>
         <target>ID</target>
       </segment>
     </unit>
     <unit id="IwLLxxx" name="label.level">
-      <segment state="translated">
+      <segment>
         <source>label.level</source>
         <target>Úroveň</target>
       </segment>
     </unit>
     <unit id="51OQi14" name="label.message">
-      <segment state="translated">
+      <segment>
         <source>label.message</source>
         <target>Správa</target>
       </segment>
     </unit>
     <unit id="S0f6iTL" name="label.timestamp">
-      <segment state="translated">
+      <segment>
         <source>label.timestamp</source>
         <target>Časová značka</target>
       </segment>
     </unit>
     <unit id="O2X4xZH" name="label.user">
-      <segment state="translated">
+      <segment>
         <source>label.user</source>
         <target>Používateľ</target>
       </segment>
     </unit>
     <unit id="3MuwWwe" name="listing.disabled">
-      <segment state="translated">
+      <segment>
         <source>listing.disabled</source>
         <target>Zakázané</target>
       </segment>
     </unit>
     <unit id="XQ2U6fN" name="slug.button_unlocked">
-      <segment state="translated">
+      <segment>
         <source>slug.button_unlocked</source>
         <target>Odomknuté</target>
       </segment>
     </unit>
     <unit id="jz2qkbb" name="general.phrase.no-content-found">
-      <segment state="translated">
+      <segment>
         <source>general.phrase.no-content-found</source>
         <target>Nenašiel sa žiadny obsah</target>
       </segment>
     </unit>
     <unit id="FM8B.gO" name="general.phrase.empty-database">
-      <segment state="translated">
+      <segment>
         <source>general.phrase.empty-database</source>
         <target>Vyzerá to, že databáza je prázdna. Vytvorte nejaký obsah v administrácii Bolt alebo spustite príkaz na pridanie ukážkových údajov (dummy content). </target>
       </segment>
     </unit>
     <unit id="SGlj7K2" name="view_locales.badge_empty">
-      <segment state="translated">
+      <segment>
         <source>view_locales.badge_empty</source>
         <target>Prázdne</target>
       </segment>
     </unit>
     <unit id="WeJxw6Z" name="action.update_all">
-      <segment state="translated">
+      <segment>
         <source>action.update_all</source>
         <target>Použiť na všetko</target>
       </segment>
     </unit>
     <unit id="QVRwwK4" name="about.system_info">
-      <segment state="translated">
+      <segment>
         <source>about.system_info</source>
         <target>Systémové informácie</target>
       </segment>
     </unit>
     <unit id="4oq.CNw" name="user.not_valid_display_name">
-      <segment state="translated">
+      <segment>
         <source>user.not_valid_display_name</source>
         <target>Neplatné zobrazované meno</target>
       </segment>
     </unit>
     <unit id="6Gw1lsE" name="action.confirm_delete">
-      <segment state="translated">
+      <segment>
         <source>action.confirm_delete</source>
         <target>Naozaj chcete zmazať tento obsah?</target>
       </segment>
     </unit>
     <unit id="z_tOHwq" name="placeholder.username_or_email">
-      <segment state="translated">
+      <segment>
         <source>placeholder.username_or_email</source>
         <target>vaše používateľské meno alebo e-mail</target>
       </segment>
     </unit>
     <unit id="xgYhRkc" name="placeholder.password">
-      <segment state="translated">
+      <segment>
         <source>placeholder.password</source>
         <target>vaše heslo</target>
       </segment>
     </unit>
     <unit id="KshyLfh" name="caption.other_content">
-      <segment state="translated">
+      <segment>
         <source>caption.other_content</source>
         <target>Ďalší obsah</target>
       </segment>
     </unit>
     <unit id="wHOF8eG" name="editfile.target_not_writable">
-      <segment state="translated">
+      <segment>
         <source>editfile.target_not_writable</source>
         <target>Ukladanie je zakázané, pretože do cieľového súboru nie je možné zapisovať.</target>
       </segment>
     </unit>
     <unit id="hAysbHB" name="label.translatable">
-      <segment state="translated">
+      <segment>
         <source>label.translatable</source>
         <target>Toto pole je preložiteľné</target>
       </segment>
     </unit>
     <unit id="qqpGLJl" name="label.content">
-      <segment state="translated">
+      <segment>
         <source>label.content</source>
         <target>Obsah</target>
       </segment>
     </unit>
     <unit id="v7ZTnja" name="file.delete_success">
-      <segment state="translated">
+      <segment>
         <source>file.delete_success</source>
         <target>Súbor bol úspešne zmazaný!</target>
       </segment>
     </unit>
     <unit id="wHPoBzP" name="file.delete_confirm">
-      <segment state="translated">
+      <segment>
         <source>file.delete_confirm</source>
         <target>Naozaj chcete zmazať tento súbor?</target>
       </segment>
     </unit>
     <unit id="IWbf2by" name="listing.title_filterby">
-      <segment state="translated">
+      <segment>
         <source>listing.title_filterby</source>
         <target>Hľadať / filtrovať podľa</target>
       </segment>
     </unit>
     <unit id="Zssh7In" name="content.status_changed_successfully">
-      <segment state="translated">
+      <segment>
         <source>content.status_changed_successfully</source>
         <target>Stav bol úspešne zmenený</target>
       </segment>
     </unit>
     <unit id="GOhQBY9" name="content.deleted_successfully">
-      <segment state="translated">
+      <segment>
         <source>content.deleted_successfully</source>
         <target>Obsah bol úspešne zmazaný</target>
       </segment>
     </unit>
     <unit id=".I3mIHo" name="label.current_status">
-      <segment state="translated">
+      <segment>
         <source>label.current_status</source>
         <target>Aktuálny stav</target>
       </segment>
     </unit>
     <unit id="utGAKaQ" name="status.published">
-      <segment state="translated">
+      <segment>
         <source>status.published</source>
         <target>Zverejnené</target>
       </segment>
     </unit>
     <unit id="HJbHjee" name="status.draft">
-      <segment state="translated">
+      <segment>
         <source>status.draft</source>
         <target>Koncept</target>
       </segment>
     </unit>
     <unit id="h7dP3WY" name="status.timed">
-      <segment state="translated">
+      <segment>
         <source>status.timed</source>
         <target>Naplánované</target>
       </segment>
     </unit>
     <unit id="oxqDDuK" name="status.held">
-      <segment state="translated">
+      <segment>
         <source>status.held</source>
         <target>Pozdržané</target>
       </segment>
     </unit>
     <unit id="JpJFIFq" name="collection.confirm_delete">
-      <segment state="translated">
+      <segment>
         <source>collection.confirm_delete</source>
         <target>Naozaj chcete zmazať túto položku kolekcie?</target>
       </segment>
     </unit>
     <unit id="YZJO3Ul" name="upload.allow_file_types">
-      <segment state="translated">
+      <segment>
         <source>upload.allow_file_types</source>
         <target>Typy súborov povolené na nahranie</target>
       </segment>
     </unit>
     <unit id="noOf4ML" name="upload.max_size">
-      <segment state="translated">
+      <segment>
         <source>upload.max_size</source>
         <target>Maximálna veľkosť nahrávaného súboru</target>
       </segment>
     </unit>
     <unit id="O_m7mx1" name="listing.placeholder_search">
-      <segment state="translated">
+      <segment>
         <source>listing.placeholder_search</source>
         <target>Hľadať kľúčové slovo …</target>
       </segment>
     </unit>
     <unit id="munFS0n" name="title.filtered_by">
-      <segment state="translated">
+      <segment>
         <source>title.filtered_by</source>
         <target><![CDATA[Všetok obsah, filtrovaný podľa <em>'%filter%'</em>.]]></target>
       </segment>
     </unit>
     <unit id="GPd6Hap" name="action.view_site">
-      <segment state="translated">
+      <segment>
         <source>action.view_site</source>
         <target>Zobraziť webovú stránku</target>
       </segment>
     </unit>
     <unit id="f.rvF6y" name="action.new">
-      <segment state="translated">
+      <segment>
         <source>action.new</source>
         <target>Nové</target>
       </segment>
     </unit>
     <unit id="60xy4WG" name="extensions.no_dependencies">
-      <segment state="translated">
+      <segment>
         <source>extensions.no_dependencies</source>
         <target>Žiadne známe závislosti</target>
       </segment>
     </unit>
     <unit id="LfwezhR" name="extensions.title_dependencies">
-      <segment state="translated">
+      <segment>
         <source>extensions.title_dependencies</source>
         <target>Závislosti</target>
       </segment>
     </unit>
     <unit id="H9knE.O" name="collection.expand_all">
-      <segment state="translated">
+      <segment>
         <source>collection.expand_all</source>
         <target>Rozbaliť všetko</target>
       </segment>
     </unit>
     <unit id="JjvI6hp" name="collection.collapse_all">
-      <segment state="translated">
+      <segment>
         <source>collection.collapse_all</source>
         <target>Zbaliť všetko</target>
       </segment>
     </unit>
     <unit id="pXtciRI" name="content.edit_missing_definition">
-      <segment state="translated">
+      <segment>
         <source>content.edit_missing_definition</source>
         <target>Definícia tohto typu obsahu (ContentType) chýba! Úprava tohto záznamu nebude fungovať podľa očakávania. Skontrolujte prosím súbor contenttypes.yaml a uistite sa, že obsahuje %contenttype%.</target>
       </segment>
     </unit>
     <unit id="RBJ0NMl" name="collection.select">
-      <segment state="translated">
+      <segment>
         <source>collection.select</source>
         <target>Vybrať …</target>
       </segment>
     </unit>
     <unit id="2SSLP1K" name="form.empty_username_email">
-      <segment state="translated">
+      <segment>
         <source>form.empty_username_email</source>
         <target>Zadajte prosím svoje používateľské meno alebo e-mail</target>
       </segment>
     </unit>
     <unit id="5Qf_RiO" name="form.empty_password">
-      <segment state="translated">
+      <segment>
         <source>form.empty_password</source>
         <target>Zadajte prosím svoje heslo</target>
       </segment>
     </unit>
     <unit id="f8zXapF" name="form.empty_email">
-      <segment state="translated">
+      <segment>
         <source>form.empty_email</source>
         <target>Zadajte prosím svoj e-mail</target>
       </segment>
     </unit>
     <unit id="fAmcKUQ" name="listing.title_filterby_field">
-      <segment state="translated">
+      <segment>
         <source>listing.title_filterby_field</source>
         <target>Filtrovať podľa poľa</target>
       </segment>
     </unit>
     <unit id="kciiidS" name="image.button_from_url">
-      <segment state="translated">
+      <segment>
         <source>image.button_from_url</source>
         <target>Z adresy URL</target>
       </segment>
     </unit>
     <unit id="QcN1pi8" name="files_cards.copy_to_clipboard">
-      <segment state="translated">
+      <segment>
         <source>files_cards.copy_to_clipboard</source>
         <target>Kopírovať odkaz na súbor</target>
       </segment>
     </unit>
     <unit id="S9k1S7Z" name="warning">
-      <segment state="translated">
+      <segment>
         <source>warning</source>
         <target>Upozornenie</target>
       </segment>
     </unit>
     <unit id="4fyuUU." name="filemanager.create_folder_already_exists">
-      <segment state="translated">
+      <segment>
         <source>filemanager.create_folder_already_exists</source>
         <target>Priečinok už existuje</target>
       </segment>
     </unit>
     <unit id="aSxePCB" name="filemanager.create_folder_error">
-      <segment state="translated">
+      <segment>
         <source>filemanager.create_folder_error</source>
         <target>Priečinok sa nepodarilo vytvoriť</target>
       </segment>
     </unit>
     <unit id="wbFKypA" name="filemanager.create_folder_success">
-      <segment state="translated">
+      <segment>
         <source>filemanager.create_folder_success</source>
         <target>Priečinok bol úspešne vytvorený.</target>
       </segment>
     </unit>
     <unit id="lZxOEzh" name="filemanager.delete_folder_successful">
-      <segment state="translated">
+      <segment>
         <source>filemanager.delete_folder_successful</source>
-        <target>Priečinok bol úspešne odstránený</target>
+        <target>Priečinok bol úspešne zmazaný</target>
       </segment>
     </unit>
     <unit id="a6Xhtq0" name="folder.create_new">
-      <segment state="translated">
+      <segment>
         <source>folder.create_new</source>
         <target>Nový priečinok</target>
       </segment>
     </unit>
     <unit id="FcXvWL8" name="title.add_user">
-      <segment state="translated">
+      <segment>
         <source>title.add_user</source>
         <target>Pridať používateľa</target>
       </segment>
     </unit>
     <unit id="nWMH_Nr" name="label.avatar">
-      <segment state="translated">
+      <segment>
         <source>label.avatar</source>
         <target>Avatar</target>
       </segment>
     </unit>
     <unit id="i37ZNqN" name="login.forgotpassword">
-      <segment state="translated">
+      <segment>
         <source>login.forgotpassword</source>
         <target>Zabudnuté heslo</target>
       </segment>
     </unit>
     <unit id="y.dIywE" name="reset_password.request_header">
-      <segment state="translated">
+      <segment>
         <source>reset_password.request_header</source>
         <target>Obnovenie hesla</target>
       </segment>
     </unit>
     <unit id="SwOgM7K" name="reset_password.request_description">
-      <segment state="translated">
+      <segment>
         <source>reset_password.request_description</source>
         <target>Zadajte svoju e-mailovú adresu a pošleme vám odkaz na obnovenie hesla.</target>
       </segment>
     </unit>
     <unit id="RX0Iuzi" name="reset_password.request_send">
-      <segment state="translated">
+      <segment>
         <source>reset_password.request_send</source>
         <target>Odoslať</target>
       </segment>
     </unit>
     <unit id="lpzL089" name="Email">
-      <segment state="translated">
+      <segment>
         <source>Email</source>
         <target>E-mail</target>
       </segment>
     </unit>
     <unit id="k9hekeu" name="reset_password.back-to-login">
-      <segment state="translated">
+      <segment>
         <source>reset_password.back-to-login</source>
         <target>Späť na prihlásenie</target>
       </segment>
     </unit>
     <unit id="gVc0Uf4" name="reset_password.reset_header">
-      <segment state="translated">
+      <segment>
         <source>reset_password.reset_header</source>
         <target>Obnovte si heslo</target>
       </segment>
     </unit>
     <unit id="U6qdalg" name="reset_password.check_email_sent_header">
-      <segment state="translated">
+      <segment>
         <source>reset_password.check_email_sent_header</source>
         <target>E-mail na obnovenie hesla bol odoslaný</target>
       </segment>
     </unit>
     <unit id="SxW1D3L" name="reset_password.check_email_sent_text_1">
-      <segment state="translated">
+      <segment>
         <source>reset_password.check_email_sent_text_1</source>
         <target>Bol vám odoslaný e-mail s odkazom, na ktorý môžete kliknúť a obnoviť si heslo. Platnosť tohto odkazu vyprší za %hours% hod.</target>
       </segment>
     </unit>
     <unit id="z25k4DS" name="reset_password.check_email_sent_text_2">
-      <segment state="translated">
+      <segment>
         <source>reset_password.check_email_sent_text_2</source>
         <target>Ak e-mail nedostanete, skontrolujte priečinok so spamom alebo %tryagain%.</target>
       </segment>
     </unit>
     <unit id="QpUMHfK" name="reset_password.reset_btn">
-      <segment state="translated">
+      <segment>
         <source>reset_password.reset_btn</source>
         <target>Obnoviť heslo</target>
       </segment>
     </unit>
     <unit id="dp42qbF" name="reset_password.email_title">
-      <segment state="translated">
+      <segment>
         <source>reset_password.email_title</source>
         <target>Dobrý deň!</target>
       </segment>
     </unit>
     <unit id="xS2vvXw" name="reset_password.email_description">
-      <segment state="translated">
+      <segment>
         <source>reset_password.email_description</source>
         <target>Ak si chcete obnoviť heslo, navštívte nasledujúci odkaz</target>
       </segment>
     </unit>
     <unit id="apkSD11" name="reset_password.email_expire">
-      <segment state="translated">
+      <segment>
         <source>reset_password.email_expire</source>
         <target>Platnosť tohto odkazu vyprší za %hours% hod.</target>
       </segment>
     </unit>
     <unit id="_gg3hPE" name="reset_password.email_thanks">
-      <segment state="translated">
+      <segment>
         <source>reset_password.email_thanks</source>
         <target>Ďakujeme!</target>
       </segment>
     </unit>
     <unit id="harDiJR" name="reset_password.enter_pwd">
-      <segment state="translated">
+      <segment>
         <source>reset_password.enter_pwd</source>
         <target>Zadajte prosím heslo</target>
       </segment>
     </unit>
     <unit id="rU9cSfq" name="label.repeat_password">
-      <segment state="translated">
+      <segment>
         <source>label.repeat_password</source>
-        <target>Zopakujte heslo</target>
+        <target>Zopakovať heslo</target>
       </segment>
     </unit>
     <unit id="Tg5zdeo" name="reset_password.not_matching_pwds">
-      <segment state="translated">
+      <segment>
         <source>reset_password.not_matching_pwds</source>
         <target>Heslá sa musia zhodovať.</target>
       </segment>
     </unit>
     <unit id="1JZeWxG" name="reset_password.minimum_length">
-      <segment state="translated">
+      <segment>
         <source>reset_password.minimum_length</source>
         <target>Vaše heslo by malo mať aspoň %s znakov</target>
       </segment>
     </unit>
     <unit id="GUQYLn2" name="reset_password.no_token">
-      <segment state="translated">
+      <segment>
         <source>reset_password.no_token</source>
         <target>V adrese URL ani v relácii sa nenašiel token na obnovenie hesla.</target>
       </segment>
     </unit>
     <unit id="SjuOnue" name="reset_password.reset_successful">
-      <segment state="translated">
+      <segment>
         <source>reset_password.reset_successful</source>
         <target>Vaše heslo bolo úspešne obnovené.</target>
       </segment>
     </unit>
     <unit id="5Xr92sQ" name="reset_password.problem_with_request">
-      <segment state="translated">
+      <segment>
         <source>reset_password.problem_with_request</source>
         <target>Pri spracovaní vašej žiadosti o obnovenie hesla nastal problém - %s</target>
       </segment>
     </unit>
     <unit id="u3DMmBH" name="label.filtered_by">
-      <segment state="translated">
+      <segment>
         <source>label.filtered_by</source>
         <target>filtrované podľa</target>
       </segment>
     </unit>
     <unit id="qoZwSEY" name="action.preview_secure_share">
-      <segment state="translated">
+      <segment>
         <source>action.preview_secure_share</source>
         <target>Zdieľať zabezpečený odkaz na náhľad</target>
       </segment>
     </unit>
     <unit id="zYeSeNJ" name="action.stop_impersonating">
-      <segment state="translated">
+      <segment>
         <source>action.stop_impersonating</source>
         <target>ukončiť vydávanie sa za používateľa</target>
       </segment>
     </unit>
     <unit id="W7z__Yi" name="action.impersonate">
-      <segment state="translated">
+      <segment>
         <source>action.impersonate</source>
         <target>vydávať sa za používateľa</target>
       </segment>
     </unit>
     <unit id="qlucRr7" name="maintenance.activated_warning">
-      <segment state="translated">
+      <segment>
         <source>maintenance.activated_warning</source>
         <target>Režim údržby je aktivovaný</target>
       </segment>
     </unit>
     <unit id="CvNi3GD" name="action.refresh">
-      <segment state="translated">
+      <segment>
         <source>action.refresh</source>
         <target>Obnoviť</target>
       </segment>
     </unit>
     <unit id="9UKAP.V" name="listing_details_box.showing_records">
-      <segment state="translated">
+      <segment>
         <source>listing_details_box.showing_records</source>
         <target>Zobrazené záznamy %current% z %total%</target>
       </segment>
     </unit>
     <unit id="UrywY0R" name="listing_details_box.name">
-      <segment state="translated">
+      <segment>
         <source>listing_details_box.name</source>
         <target>Názov: %name% (jednotné číslo: %singularName%)</target>
       </segment>
     </unit>
     <unit id=".l3zbrq" name="listing_details_box.slug">
-      <segment state="translated">
+      <segment>
         <source>listing_details_box.slug</source>
         <target>Slug: %slug% (jednotné číslo: %singularSlug%)</target>
       </segment>
     </unit>
     <unit id="eJ9YbdG" name="listing_details_box.record_template">
-      <segment state="translated">
+      <segment>
         <source>listing_details_box.record_template</source>
         <target>Šablóna záznamu: %template%</target>
       </segment>
     </unit>
     <unit id="tsc7_G3" name="listing_details_box.listing_template">
-      <segment state="translated">
+      <segment>
         <source>listing_details_box.listing_template</source>
         <target>Šablóna výpisu: %template% (%listingRecords% záznamov)</target>
       </segment>
     </unit>
     <unit id="pPz9Ocx" name="listing_details_box.locales">
-      <segment state="translated">
+      <segment>
         <source>listing_details_box.locales</source>
         <target>Jazyky: %locales%</target>
       </segment>
     </unit>
     <unit id="z8r0TY6" name="action.edit_permissions">
-      <segment state="translated">
+      <segment>
         <source>action.edit_permissions</source>
         <target>Upraviť oprávnenia</target>
       </segment>
     </unit>
     <unit id="OYUVA5." name="general.label.search">
-      <segment state="translated">
+      <segment>
         <source>general.label.search</source>
         <target>Hľadať</target>
       </segment>
     </unit>
     <unit id="wG04eAa" name="image.image_preview">
-      <segment state="translated">
+      <segment>
         <source>image.image_preview</source>
         <target>Náhľad obrázka</target>
       </segment>
     </unit>
     <unit id="OEqzPDO" name="listing_table.actions.select_all">
-      <segment state="translated">
+      <segment>
         <source>listing_table.actions.select_all</source>
         <target>Vybrať všetko</target>
       </segment>
     </unit>
     <unit id="2hoKa1k" name="label.remembermeduration">
-      <segment state="translated">
+      <segment>
         <source>label.remembermeduration</source>
         <target>Zapamätať si ma? (%duration% dní)</target>
       </segment>
     </unit>
     <unit id="eJG2.4P" name="listing.current_sessions_header">
-      <segment state="translated">
+      <segment>
         <source>listing.current_sessions_header</source>
         <target>Aktuálne relácie</target>
       </segment>
     </unit>
     <unit id="a_COwtV" name="image.button_upload_options">
-      <segment state="translated">
+      <segment>
         <source>image.button_upload_options</source>
         <target>Možnosti nahrávania</target>
       </segment>
     </unit>
     <unit id="hKmDb7q" name="Share secure preview link">
-      <segment state="translated">
+      <segment>
         <source>Share secure preview link</source>
         <target>Zdieľať zabezpečený odkaz na náhľad</target>
       </segment>
     </unit>
     <unit id="a_CQgly" name="Order">
-      <segment state="translated">
+      <segment>
         <source>Order</source>
         <target>Poradie</target>
       </segment>
     </unit>
     <unit id="Y7ajNNN" name="placeholder.email">
-      <segment state="translated">
+      <segment>
         <source>placeholder.email</source>
         <target>váš e-mail</target>
       </segment>
     </unit>
     <unit id="NF.vvAN" name="You have to login in order to access this page.">
-      <segment state="translated">
+      <segment>
         <source>You have to login in order to access this page.</source>
         <target>Na prístup k tejto stránke sa musíte prihlásiť.</target>
       </segment>
     </unit>
     <unit id="MjY7.cg" name="modal.title.file_field">
-      <segment state="translated">
+      <segment>
         <source>modal.title.file_field</source>
         <target>Vyberte súbor</target>
       </segment>
     </unit>
     <unit id="0yPnNMd" name="modal.title.image_field">
-      <segment state="translated">
+      <segment>
         <source>modal.title.image_field</source>
         <target>Vyberte obrázok</target>
       </segment>
     </unit>
     <unit id="KIN.Ehy" name="modal.title.upload_from_url">
-      <segment state="translated">
+      <segment>
         <source>modal.title.upload_from_url</source>
         <target>Nahrať z adresy URL</target>
       </segment>
     </unit>
     <unit id="ODb3pJA" name="modal.text.loading">
-      <segment state="translated">
+      <segment>
         <source>modal.text.loading</source>
         <target>Načítava sa...</target>
       </segment>
     </unit>
     <unit id="VlfWDQr" name="modal.button_save">
-      <segment state="translated">
+      <segment>
         <source>modal.button_save</source>
         <target>Uložiť</target>
       </segment>
     </unit>
     <unit id="ct_I4w3" name="modal.button_deny">
-      <segment state="translated">
+      <segment>
         <source>modal.button_deny</source>
         <target>Zavrieť</target>
       </segment>
