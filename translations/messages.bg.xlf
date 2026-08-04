@@ -154,7 +154,7 @@
     <unit id="b_RPpcB" name="general.greeting">
       <segment>
         <source>general.greeting</source>
-        <target>Привет, админ!</target>
+        <target>Привет, %name%!</target>
       </segment>
     </unit>
     <unit id="bmdn3u9" name="action.logout">
@@ -1186,7 +1186,7 @@
     <unit id="tsc7_G3" name="listing_details_box.listing_template">
       <segment>
         <source>listing_details_box.listing_template</source>
-        <target>Шаблон за списък: %template%</target>
+        <target>Шаблон за списък: %template% (%listingRecords% записа)</target>
       </segment>
     </unit>
     <unit id="pPz9Ocx" name="listing_details_box.locales">

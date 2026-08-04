@@ -1812,7 +1812,7 @@
     <unit id="munFS0n" name="title.filtered_by">
       <segment>
         <source>title.filtered_by</source>
-        <target><![CDATA[A <em>'%szűrő%'-vel szűrt tartalom</em>.]]></target>
+        <target><![CDATA[A <em>'%filter%'-vel szűrt tartalom</em>.]]></target>
       </segment>
     </unit>
     <unit id="hgNZLwW" name="extensions.title_configuration">
@@ -1896,7 +1896,7 @@
     <unit id="0C9.Vmh" name="collection.add_item">
       <segment>
         <source>collection.add_item</source>
-        <target>Tétel hozzáadása</target>
+        <target>Új tétel hozzáadása ehhez: '%name%'</target>
       </segment>
     </unit>
     <unit id="H9knE.O" name="collection.expand_all">
