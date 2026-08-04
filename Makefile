@@ -56,7 +56,7 @@ csfix: ## to fix coding style
 	make stancheck
 
 stancheck: ## to run phpstan
-	vendor/bin/phpstan --memory-limit=1G analyse -c phpstan.neon src
+	vendor/bin/phpstan --memory-limit=1G analyse src
 
 test: ## to run phpunit tests
 	vendor/bin/phpunit
