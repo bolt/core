@@ -882,7 +882,7 @@
     <unit id="z0k8hRg" name="9fb3e6e">
       <segment state="translated">
         <source>9fb3e6e</source>
-        <target>Tyto stránky jsou &lt;a href='%url%' target='_blank' title='Sofistikovaný, lehký &amp; jednoduchý CMS'&gt;postaveny na Boltu&lt;/a&gt;.</target>
+        <target>Tyto stránky jsou &lt;a href='https://boltcms.io' target='_blank' title='Sofistikovaný, lehký &amp; jednoduchý CMS'&gt;postaveny na Boltu&lt;/a&gt;.</target>
       </segment>
     </unit>
     <unit id="wNEwZy_" name="contenttypes.generic.overview">
