@@ -992,7 +992,7 @@
       </notes>
       <segment>
         <source>general.phrase.search-results-for-variable</source>
-        <target>Результаты поиска по запросу "% search%".</target>
+        <target>Результаты поиска по запросу "%search%".</target>
       </segment>
     </unit>
     <unit id="2CfJ3WY" name="general.phrase.search-results-for">
@@ -1002,7 +1002,7 @@
       </notes>
       <segment>
         <source>general.phrase.search-results-for</source>
-        <target>Результаты поиска по запросу "% search%".</target>
+        <target>Результаты поиска по запросу "%search%".</target>
       </segment>
     </unit>
     <unit id="V0VhH5g" name="general.phrase.no-search-results-for">

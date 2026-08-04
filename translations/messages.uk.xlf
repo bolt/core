@@ -988,7 +988,7 @@
             </notes>
             <segment>
                 <source>general.phrase.search-results-for-variable</source>
-                <target>Результати пошуку за запитом "% search%".</target>
+                <target>Результати пошуку за запитом "%search%".</target>
             </segment>
         </unit>
         <unit id="2CfJ3WY" name="general.phrase.search-results-for">
@@ -998,7 +998,7 @@
             </notes>
             <segment>
                 <source>general.phrase.search-results-for</source>
-                <target>Результати пошуку за запитом "% search%".</target>
+                <target>Результати пошуку за запитом "%search%".</target>
             </segment>
         </unit>
         <unit id="V0VhH5g" name="general.phrase.no-search-results-for">
@@ -2352,7 +2352,7 @@
         <unit id="pXtciRI" name="content.edit_missing_definition">
             <segment>
                 <source>content.edit_missing_definition</source>
-                <target>Визначення цього Типу контенту відсутнє! Редагування цього запису не працюватиме належним чином. Будь ласка, перевірте свій contenttypes.yaml, щоб впевнитися, що він містить% contenttype%.</target>
+                <target>Визначення цього Типу контенту відсутнє! Редагування цього запису не працюватиме належним чином. Будь ласка, перевірте свій contenttypes.yaml, щоб впевнитися, що він містить %contenttype%.</target>
             </segment>
         </unit>
         <unit id="RBJ0NMl" name="collection.select">
