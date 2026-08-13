@@ -2683,7 +2683,7 @@
       </notes>
       <segment>
         <source>reset_password.check_email_sent_text_1</source>
-        <target>Es wurde eine Email versandt, die einen Link enthält, auf den Sie klicken können, um Ihr Passwort zurückzusetzen. Dieser Link wird in %Stunden% Stunde(n) ablaufen.</target>
+        <target>Es wurde eine Email versandt, die einen Link enthält, auf den Sie klicken können, um Ihr Passwort zurückzusetzen. Dieser Link wird in %hours% Stunde(n) ablaufen.</target>
       </segment>
     </unit>
     <unit id="z25k4DS" name="reset_password.check_email_sent_text_2">
@@ -2692,7 +2692,7 @@
       </notes>
       <segment>
         <source>reset_password.check_email_sent_text_2</source>
-        <target>Wenn Sie keine E-Mail erhalten, überprüfen Sie bitte Ihren Spam-Ordner oder versuchen Sie es erneut.</target>
+        <target>Wenn Sie keine E-Mail erhalten, überprüfen Sie bitte Ihren Spam-Ordner oder %tryagain%.</target>
       </segment>
     </unit>
     <unit id="dp42qbF" name="reset_password.email_title">
@@ -3094,7 +3094,7 @@
       </notes>
       <segment>
         <source>contenttypes.generic.overview</source>
-        <target>Seitenübersicht</target>
+        <target>Übersicht über %contenttypes%</target>
       </segment>
     </unit>
     <unit id="psOa_9x" name="general.phrase.built-with-bolt">
@@ -3112,7 +3112,7 @@
       </notes>
       <segment>
         <source>contenttypes.generic.recent</source>
-        <target>Neueste Seiten</target>
+        <target>Neueste %contenttypes%</target>
       </segment>
     </unit>
     <unit id="gB.9hTu" name="general.phrase.search-ellipsis">

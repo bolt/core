@@ -30,10 +30,10 @@ update:
 	$(COMPOSER) update && $(COMPOSER) outdated
 
 server: ## to start server
-	bin/console server:start 127.0.0.1:8088 -q || true
+	symfony server:start --no-tls --port=8088 -d || true
 
 server-stop: ## to stop server
-	bin/console server:stop
+	symfony server:stop
 
 cache: ## to clean cache
 	bin/console cache:clear
@@ -46,17 +46,15 @@ csclear: ## to clean cache and check coding style
 cscheck: ## to check coding style
 	make csclear
 	vendor/bin/ecs check src
-	vendor/bin/ecs check tests/php
 	make stancheck
 
 csfix: ## to fix coding style
 	make csclear
 	vendor/bin/ecs check src --fix
-	vendor/bin/ecs check tests/php --fix
 	make stancheck
 
 stancheck: ## to run phpstan
-	vendor/bin/phpstan --memory-limit=1G analyse -c phpstan.neon src
+	vendor/bin/phpstan --memory-limit=1G analyse src
 
 test: ## to run phpunit tests
 	vendor/bin/phpunit

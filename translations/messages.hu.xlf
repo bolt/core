@@ -930,7 +930,7 @@
     <unit id="z0k8hRg" name="9fb3e6e">
       <segment>
         <source>9fb3e6e</source>
-        <target><![CDATA[Ez a weboldal <a href='%url%' target='_blank' title='Az ésszerű és egyszerű, Bolt CMS'>-sel készült</a>.]]></target>
+        <target><![CDATA[Ez a weboldal <a href='https://boltcms.io' target='_blank' title='Az ésszerű és egyszerű, Bolt CMS'>-sel készült</a>.]]></target>
       </segment>
     </unit>
     <unit id="wNEwZy_" name="contenttypes.generic.overview">
@@ -1026,7 +1026,7 @@
     <unit id="psOa_9x" name="general.phrase.built-with-bolt">
       <segment>
         <source>general.phrase.built-with-bolt</source>
-        <target><![CDATA[Ez a weboldal <a href='%url%' target='_blank' title='Az ésszerű és egyszerű, Bolt CMS'>-sel készült</a>.]]></target>
+        <target><![CDATA[Ez a weboldal <a href='https://boltcms.io' target='_blank' title='Az ésszerű és egyszerű, Bolt CMS'>-sel készült</a>.]]></target>
       </segment>
     </unit>
     <unit id="5IxD63c" name="general.latest_bolt_news">
@@ -1085,8 +1085,8 @@
     </unit>
     <unit id="eq5YMQf">
       <segment>
-        <source>This website is &lt;a href='%url%' target='_blank' title='Sophisticated, lightweight &amp; simple CMS'&gt;Built with Bolt&lt;/a&gt;.</source>
-        <target><![CDATA[Ez a weboldal <a href='%url%' target='_blank' title='Az ésszerű és egyszerű, Bolt CMS'>-sel készült</a>.]]></target>
+        <source>This website is &lt;a href='https://boltcms.io' target='_blank' title='Sophisticated, lightweight &amp; simple CMS'&gt;Built with Bolt&lt;/a&gt;.</source>
+        <target><![CDATA[Ez a weboldal <a href='https://boltcms.io' target='_blank' title='Az ésszerű és egyszerű, Bolt CMS'>-sel készült</a>.]]></target>
       </segment>
     </unit>
     <unit id="3zlZmRK" name="action.add_user">
@@ -1812,7 +1812,7 @@
     <unit id="munFS0n" name="title.filtered_by">
       <segment>
         <source>title.filtered_by</source>
-        <target><![CDATA[A <em>'%szűrő%'-vel szűrt tartalom</em>.]]></target>
+        <target><![CDATA[A <em>'%filter%'-vel szűrt tartalom</em>.]]></target>
       </segment>
     </unit>
     <unit id="hgNZLwW" name="extensions.title_configuration">
@@ -1896,7 +1896,7 @@
     <unit id="0C9.Vmh" name="collection.add_item">
       <segment>
         <source>collection.add_item</source>
-        <target>Tétel hozzáadása</target>
+        <target>Új tétel hozzáadása ehhez: '%name%'</target>
       </segment>
     </unit>
     <unit id="H9knE.O" name="collection.expand_all">

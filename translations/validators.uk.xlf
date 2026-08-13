@@ -370,49 +370,49 @@
     <unit id="c.WxzFW" name="This value should be equal to {{ compared_value }}.">
       <segment>
         <source>This value should be equal to {{ compared_value }}.</source>
-        <target>Це значення повинно дорівнювати {{ compare_value }}.</target>
+        <target>Це значення повинно дорівнювати {{ compared_value }}.</target>
       </segment>
     </unit>
     <unit id="_jdjkwq" name="This value should be greater than {{ compared_value }}.">
       <segment>
         <source>This value should be greater than {{ compared_value }}.</source>
-        <target>Це значення повинно бути більше {{ compare_value }}.</target>
+        <target>Це значення повинно бути більше {{ compared_value }}.</target>
       </segment>
     </unit>
     <unit id="o8A8a0H" name="This value should be greater than or equal to {{ compared_value }}.">
       <segment>
         <source>This value should be greater than or equal to {{ compared_value }}.</source>
-        <target>Це значення повинно бути більше або дорівнювати {{ compare_value }}.</target>
+        <target>Це значення повинно бути більше або дорівнювати {{ compared_value }}.</target>
       </segment>
     </unit>
     <unit id="SreIWoo" name="9670078">
       <segment>
         <source>9670078</source>
-        <target>Це значення повинно бути ідентичним до {{ compare_value_type }} {{ compare_value }}.</target>
+        <target>Це значення повинно бути ідентичним до {{ compared_value_type }} {{ compared_value }}.</target>
       </segment>
     </unit>
     <unit id="jG0QFKw" name="This value should be less than {{ compared_value }}.">
       <segment>
         <source>This value should be less than {{ compared_value }}.</source>
-        <target>Це значення повинно бути менше {{ compare_value }}.</target>
+        <target>Це значення повинно бути менше {{ compared_value }}.</target>
       </segment>
     </unit>
     <unit id="9lWrKmm" name="This value should be less than or equal to {{ compared_value }}.">
       <segment>
         <source>This value should be less than or equal to {{ compared_value }}.</source>
-        <target>Це значення повинно бути менше або дорівнювати {{ compare_value }}.</target>
+        <target>Це значення повинно бути менше або дорівнювати {{ compared_value }}.</target>
       </segment>
     </unit>
     <unit id="ftTwGs." name="This value should not be equal to {{ compared_value }}.">
       <segment>
         <source>This value should not be equal to {{ compared_value }}.</source>
-        <target>Це значення не повинно дорівнювати {{ compare_value }}.</target>
+        <target>Це значення не повинно дорівнювати {{ compared_value }}.</target>
       </segment>
     </unit>
     <unit id="JIjdvtb" name="0eedf91">
       <segment>
         <source>0eedf91</source>
-        <target>Це значення не повинно бути ідентичним {{ compare_value_type }} {{ compare_value }}.</target>
+        <target>Це значення не повинно бути ідентичним {{ compared_value_type }} {{ compared_value }}.</target>
       </segment>
     </unit>
     <unit id="vzvxzpR" name="9c3ad0f">
@@ -436,13 +436,13 @@
     <unit id="501jWTO" name="1dc128a">
       <segment>
         <source>1dc128a</source>
-        <target>Зображення в альбомній орієнтації ({{ширина}} x {{высота}} пікселів). Зображення з альбомною орієнтацією не допускаються.</target>
+        <target>Зображення в альбомній орієнтації ({{ width }} x {{ height }} пікселів). Зображення з альбомною орієнтацією не допускаються.</target>
       </segment>
     </unit>
     <unit id="J4L.QnM" name="9e27714">
       <segment>
         <source>9e27714</source>
-        <target>Зображення в портретній орієнтації ({{ширина}} x {{высота}} пікселів). Портретно-орієнтовані зображення не допускаються.</target>
+        <target>Зображення в портретній орієнтації ({{ width }} x {{ height }} пікселів). Портретно-орієнтовані зображення не допускаються.</target>
       </segment>
     </unit>
     <unit id="jZgqcpL" name="An empty file is not allowed.">
@@ -484,7 +484,7 @@
     <unit id="ru.4wkH" name="This value should be a multiple of {{ compared_value }}.">
       <segment>
         <source>This value should be a multiple of {{ compared_value }}.</source>
-        <target>Це значення повинно бути кратним {{ compare_value }}.</target>
+        <target>Це значення повинно бути кратним {{ compared_value }}.</target>
       </segment>
     </unit>
     <unit id="M3vyK6s" name="This Business Identifier Code (BIC) is not associated with IBAN {{ iban }}.">

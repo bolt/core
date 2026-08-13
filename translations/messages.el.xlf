@@ -930,7 +930,7 @@
     <unit id="z0k8hRg" name="9fb3e6e">
       <segment>
         <source>9fb3e6e</source>
-        <target><![CDATA[Αυτός ο ιστότοπος είναι <a href='%url%' target='_blank' title='
+        <target><![CDATA[Αυτός ο ιστότοπος είναι <a href='https://boltcms.io' target='_blank' title='
 Εξελιγμένο, ελαφρύ & απλό CMS'>Χτισμένο με Bolt</a>.]]></target>
       </segment>
     </unit>
@@ -1027,7 +1027,7 @@
     <unit id="psOa_9x" name="general.phrase.built-with-bolt">
       <segment>
         <source>general.phrase.built-with-bolt</source>
-        <target><![CDATA[Αυτός ο ιστότοπος είναι <a href='%url%' target='_blank' title='Εξελιγμένο, ελαφρύ & απλό CMS'>Χτισμένο με Bolt</a>.]]></target>
+        <target><![CDATA[Αυτός ο ιστότοπος είναι <a href='https://boltcms.io' target='_blank' title='Εξελιγμένο, ελαφρύ & απλό CMS'>Χτισμένο με Bolt</a>.]]></target>
       </segment>
     </unit>
     <unit id="5IxD63c" name="general.latest_bolt_news">
