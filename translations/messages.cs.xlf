@@ -153,7 +153,7 @@
     <unit id="a2vzLi7" name="action.do_something">
       <segment state="translated">
         <source>action.do_something</source>
-        <target>Zmáčkni mě</target>
+        <target>Udělej něco</target>
       </segment>
     </unit>
     <unit id="etGJjTo" name="action.edit_user">
@@ -233,7 +233,7 @@
       </notes>
       <segment>
         <source>title.contentlisting</source>
-        <target>Contentlisting</target>
+        <target>Výpis obsahu</target>
       </segment>
     </unit>
     <unit id="CX_oSFd" name="action.change_password">
@@ -299,7 +299,7 @@
       </notes>
       <segment state="translated">
         <source>field.depublishedAt</source>
-        <target>Ztáhnuto</target>
+        <target>Staženo</target>
       </segment>
     </unit>
     <unit id="VKhfRZB" name="field.title">
@@ -344,7 +344,7 @@
       </notes>
       <segment state="translated">
         <source>field.width</source>
-        <target>šířka</target>
+        <target>Šířka</target>
       </segment>
     </unit>
     <unit id="CZbXbM_" name="field.height">
@@ -353,7 +353,7 @@
       </notes>
       <segment state="translated">
         <source>field.height</source>
-        <target>výška</target>
+        <target>Výška</target>
       </segment>
     </unit>
     <unit id="Sz_u.OS" name="field.filesize">
@@ -371,7 +371,7 @@
       </notes>
       <segment state="translated">
         <source>label.username_or_email</source>
-        <target>Uživatelské jméno nebo heslo</target>
+        <target>Uživatelské jméno nebo e-mail</target>
       </segment>
     </unit>
     <unit id="IaF1MjB" name="label.rememberme">
@@ -416,7 +416,7 @@
       </notes>
       <segment state="translated">
         <source>about.used_libraries</source>
-        <target>Uživatelské knihovny / komponenty</target>
+        <target>Použité knihovny / komponenty</target>
       </segment>
     </unit>
     <unit id="tgLgLDQ" name="about.list_of_used_libraries">
@@ -630,7 +630,7 @@
     <unit id="dd5MzCM" name="caption.translations">
       <segment state="translated">
         <source>caption.translations</source>
-        <target>Překlady / značky</target>
+        <target>Překlady / popisky</target>
       </segment>
     </unit>
     <unit id="wLaDaK5" name="caption.about_bolt">
@@ -684,7 +684,7 @@
     <unit id="_XSgfqS" name="filename">
       <segment state="translated">
         <source>filename</source>
-        <target>Název soubru</target>
+        <target>Název souboru</target>
       </segment>
     </unit>
     <unit id="Kw3N1AA" name="actions">
@@ -882,7 +882,7 @@
     <unit id="z0k8hRg" name="9fb3e6e">
       <segment state="translated">
         <source>9fb3e6e</source>
-        <target>Tyto stránky jsou &lt;a href='%url%' target='_blank' title='Sofistikovaný, lehký &amp; jednoduchý CMS'&gt;postaveny na Boltu&lt;/a&gt;.</target>
+        <target>Tyto stránky jsou &lt;a href='https://boltcms.io' target='_blank' title='Sofistikovaný, lehký &amp; jednoduchý CMS'&gt;postaveny na Boltu&lt;/a&gt;.</target>
       </segment>
     </unit>
     <unit id="wNEwZy_" name="contenttypes.generic.overview">
@@ -930,7 +930,7 @@
     <unit id="Wou02nK" name="caption.kitchensink">
       <segment>
         <source>caption.kitchensink</source>
-        <target>The Kitchensink</target>
+        <target>Všehochuť (Kitchensink)</target>
       </segment>
     </unit>
     <unit id="wrUiAsV" name="general.phrase.search-results-for-variable">
@@ -1008,7 +1008,7 @@
     <unit id="EvAqL__" name="caption.duplicate">
       <segment state="translated">
         <source>caption.duplicate</source>
-        <target>Kopie</target>
+        <target>Duplikovat</target>
       </segment>
     </unit>
     <unit id="pGkejkU" name="label.current_password">
@@ -1488,7 +1488,7 @@
     <unit id="eQBhceV" name="files_cards.label_filesize">
       <segment state="translated">
         <source>files_cards.label_filesize</source>
-        <target>Název souboru:</target>
+        <target>Velikost souboru:</target>
       </segment>
     </unit>
     <unit id="uiCjlwk" name="files_cards.label_created_on">
@@ -1692,7 +1692,7 @@
     <unit id="RN1tdtJ" name="listing.title_email">
       <segment>
         <source>listing.title_email</source>
-        <target>Email</target>
+        <target>E-mail</target>
       </segment>
     </unit>
     <unit id="0pjZ.GV" name="listing.title_roles">
@@ -1854,13 +1854,13 @@
     <unit id="Hr2E9Oa" name="listing_table.no_results">
       <segment>
         <source>listing_table.no_results</source>
-        <target>No results found. Broaden the filtering criteria, or add some more content.</target>
+        <target>Nebyly nalezeny žádné výsledky. Rozšiřte kritéria vyhledávání nebo přidejte další obsah.</target>
       </segment>
     </unit>
     <unit id="hp554Ds" name="listing.option_select_sortby">
       <segment>
         <source>listing.option_select_sortby</source>
-        <target>Select Field to sort by…</target>
+        <target>Vyberte pole pro řazení…</target>
       </segment>
     </unit>
     <unit id="JEnqOi." name="title.primary_actions">
@@ -1908,7 +1908,7 @@
     <unit id="Npkio79" name="listing.title_session_expires">
       <segment>
         <source>listing.title_session_expires</source>
-        <target>Session expires</target>
+        <target>Platnost relace vyprší</target>
       </segment>
     </unit>
     <unit id="mmUDcto" name="listing.title_ip_address">
@@ -2046,7 +2046,7 @@
     <unit id="l71Tprl" name="label.trace">
       <segment>
         <source>label.trace</source>
-        <target>Trace</target>
+        <target>Trasování</target>
       </segment>
     </unit>
     <unit id="29ZEo1r" name="label.context">
@@ -2358,13 +2358,13 @@
     <unit id="4fyuUU." name="filemanager.create_folder_already_exists">
       <segment>
         <source>filemanager.create_folder_already_exists</source>
-        <target>Složka již existuje.</target>
+        <target>Složka již existuje</target>
       </segment>
     </unit>
     <unit id="aSxePCB" name="filemanager.create_folder_error">
       <segment>
         <source>filemanager.create_folder_error</source>
-        <target>Nepodařilo se vytvořit složku.</target>
+        <target>Nepodařilo se vytvořit složku</target>
       </segment>
     </unit>
     <unit id="wbFKypA" name="filemanager.create_folder_success">
@@ -2376,7 +2376,7 @@
     <unit id="lZxOEzh" name="filemanager.delete_folder_successful">
       <segment>
         <source>filemanager.delete_folder_successful</source>
-        <target>Složka byla úspěšně odstraněna.</target>
+        <target>Složka byla úspěšně odstraněna</target>
       </segment>
     </unit>
     <unit id="a6Xhtq0" name="folder.create_new">
@@ -2448,7 +2448,7 @@
     <unit id="SxW1D3L" name="reset_password.check_email_sent_text_1">
       <segment>
         <source>reset_password.check_email_sent_text_1</source>
-        <target>Byl Vám zaslán e-mail s odkazem, na který můžete kliknout a obnovit tak své heslo. Platnost tohoto odkazu vyprší za %hours% hodin.</target>
+        <target>Byl Vám zaslán e-mail s odkazem, na který můžete kliknout a obnovit tak své heslo. Platnost tohoto odkazu vyprší za %hours% hod.</target>
       </segment>
     </unit>
     <unit id="z25k4DS" name="reset_password.check_email_sent_text_2">
@@ -2466,7 +2466,7 @@
     <unit id="dp42qbF" name="reset_password.email_title">
       <segment>
         <source>reset_password.email_title</source>
-        <target>Požadavek na změnu hesla</target>
+        <target>Dobrý den!</target>
       </segment>
     </unit>
     <unit id="xS2vvXw" name="reset_password.email_description">
@@ -2478,7 +2478,7 @@
     <unit id="apkSD11" name="reset_password.email_expire">
       <segment>
         <source>reset_password.email_expire</source>
-        <target>Platnost tohoto odkazu vyprší za %hours% hodin.</target>
+        <target>Platnost tohoto odkazu vyprší za %hours% hod.</target>
       </segment>
     </unit>
     <unit id="_gg3hPE" name="reset_password.email_thanks">
@@ -2538,13 +2538,13 @@
     <unit id="qoZwSEY" name="action.preview_secure_share">
       <segment>
         <source>action.preview_secure_share</source>
-        <target>Sdílet zabezpečený náhled odkazu</target>
+        <target>Sdílet zabezpečený odkaz na náhled</target>
       </segment>
     </unit>
     <unit id="zYeSeNJ" name="action.stop_impersonating">
       <segment>
         <source>action.stop_impersonating</source>
-        <target>Zastavit napodobování</target>
+        <target>Ukončit vydávání se za uživatele</target>
       </segment>
     </unit>
     <unit id="W7z__Yi" name="action.impersonate">
@@ -2574,31 +2574,31 @@
     <unit id="UrywY0R" name="listing_details_box.name">
       <segment>
         <source>listing_details_box.name</source>
-        <target>Jméno: %name% (singular: %singularName%)</target>
+        <target>Jméno: %name% (jednotné číslo: %singularName%)</target>
       </segment>
     </unit>
     <unit id=".l3zbrq" name="listing_details_box.slug">
       <segment>
         <source>listing_details_box.slug</source>
-        <target>Slug: %slug% (singular: %singularSlug%)</target>
+        <target>Slug: %slug% (jednotné číslo: %singularSlug%)</target>
       </segment>
     </unit>
     <unit id="eJ9YbdG" name="listing_details_box.record_template">
       <segment>
         <source>listing_details_box.record_template</source>
-        <target>Record template: %template%</target>
+        <target>Šablona záznamu: %template%</target>
       </segment>
     </unit>
     <unit id="tsc7_G3" name="listing_details_box.listing_template">
       <segment>
         <source>listing_details_box.listing_template</source>
-        <target>Listing template: %template% (%listingRecords% záznamů)</target>
+        <target>Šablona výpisu: %template% (%listingRecords% záznamů)</target>
       </segment>
     </unit>
     <unit id="pPz9Ocx" name="listing_details_box.locales">
       <segment>
         <source>listing_details_box.locales</source>
-        <target>Locales: %locales%</target>
+        <target>Lokalizace: %locales%</target>
       </segment>
     </unit>
     <unit id="z8r0TY6" name="action.edit_permissions">
@@ -2652,7 +2652,7 @@
     <unit id="a_CQgly" name="Order">
       <segment>
         <source>Order</source>
-        <target>Objednávka</target>
+        <target>Pořadí</target>
       </segment>
     </unit>
     <unit id="Y7ajNNN" name="placeholder.email">

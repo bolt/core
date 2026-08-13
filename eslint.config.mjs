@@ -1,62 +1,77 @@
 import js from '@eslint/js';
-import vuePlugin from 'eslint-plugin-vue';
-import prettierPlugin from 'eslint-plugin-prettier';
-import prettierConfig from 'eslint-config-prettier';
-import cypressPlugin from 'eslint-plugin-cypress';
+import cypress from 'eslint-plugin-cypress';
+import prettierRecommended from 'eslint-plugin-prettier/recommended';
+import vue from 'eslint-plugin-vue';
 import globals from 'globals';
-import vueParser from 'vue-eslint-parser';
-import babelParser from '@babel/eslint-parser';
 
 export default [
-    js.configs.recommended,
-    ...vuePlugin.configs['flat/recommended'],
     {
-        plugins: {
-            prettier: prettierPlugin,
-            cypress: cypressPlugin,
-        },
+        ignores: ['node_modules/**', 'public/assets/**', 'var/**', 'vendor/**'],
+    },
+
+    js.configs.recommended,
+
+    // The codebase is Vue 2.7, so use the vue2 preset rather than the Vue 3
+    // default. This is the flat-config equivalent of the old
+    // "plugin:vue/recommended" under eslint-plugin-vue 6.
+    ...vue.configs['flat/vue2-recommended'],
+
+    {
+        files: ['assets/**/*.{js,vue}'],
         languageOptions: {
+            ecmaVersion: 2022,
+            sourceType: 'module',
             globals: {
                 ...globals.browser,
                 ...globals.node,
-                ...cypressPlugin.configs.globals.globals,
-            },
-            parser: vueParser,
-            parserOptions: {
-                parser: babelParser,
-                ecmaVersion: 2017,
-                sourceType: 'module',
-                requireConfigFile: false,
-            },
-        },
-        settings: {
-            'import/resolver': {
-                node: {
-                    extensions: ['.js', '.vue'],
-                },
             },
         },
         rules: {
-            ...prettierConfig.rules,
-            ...prettierPlugin.configs.recommended.rules,
             'no-console': ['error', { allow: ['error', 'warn'] }],
             'no-debugger': 'error',
-            'vue/multi-word-component-names': 'off',
             'vue/require-default-prop': 'off',
             'vue/require-prop-type-constructor': 'off',
-            'prettier/prettier': ['error', { printWidth: 120 }],
-            // todo: To be resolved with Vue 3 upgrade (and possibly the other vue/* rules as well)
-            'vue/no-deprecated-delete-set': 'off',
-            'vue/no-deprecated-filter': 'off',
-            'vue/no-deprecated-slot-attribute': 'off',
-            'vue/no-deprecated-slot-scope-attribute': 'off',
+            // Component names and their kebab-case registrations are the public
+            // contract used by the Twig (in-DOM) templates; renaming them would
+            // be a breaking change, so these two stay off.
+            'vue/multi-word-component-names': 'off',
+            'vue/component-definition-name-casing': 'off',
+        },
+    },
+
+    // These three components write directly to their own props. That is a real
+    // bug class, but fixing it means reworking how each field propagates its
+    // value, which is a behaviour change and out of scope for a tooling PR.
+    // Scoped to the known offenders on purpose, so any *new* prop mutation
+    // elsewhere still fails the lint run.
+    {
+        files: [
+            'assets/js/app/editor/Components/File.vue',
+            'assets/js/app/editor/Components/Image.vue',
+            'assets/js/app/editor/Components/Select.vue',
+        ],
+        rules: {
             'vue/no-mutating-props': 'off',
         },
     },
+
+    // ESLint 10 adds no-useless-assignment, which flags a dead folderPath
+    // initialiser in these two components. Removing it is safe but it is still
+    // a change to runtime code, and this PR deliberately touches runtime code
+    // by formatting only. Deferred with the other findings above.
     {
-        files: ['**/*.vue'],
-        languageOptions: {
-            parser: vueParser,
+        files: ['assets/js/app/editor/Components/File.vue', 'assets/js/app/editor/Components/Image.vue'],
+        rules: {
+            'no-useless-assignment': 'off',
         },
     },
+
+    {
+        files: ['tests/cypress/**/*.js'],
+        ...cypress.configs.recommended,
+    },
+
+    // Must stay last: disables every stylistic rule that would fight Prettier
+    // and enables prettier/prettier. Formatting options live in .prettierrc.
+    prettierRecommended,
 ];

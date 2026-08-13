@@ -96,9 +96,6 @@ See the other options by running `npm run`.
 
   - Using the Symfony CLI tool, just run `symfony server:start`.
 
-  - Alternatively, run `bin/console server:start`
-  (if running `bin/console server:start`does not work because you don't have the pcntl extension, run `bin/console server:run`)
-
 In your browser, go to `http://127.0.0.1:8000/` for the frontend, and to
 `http://127.0.0.1:8000/bolt` for the Admin Panel.
 

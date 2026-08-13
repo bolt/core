@@ -936,7 +936,7 @@
     <unit id="z0k8hRg" name="9fb3e6e">
       <segment>
         <source>9fb3e6e</source>
-        <target><![CDATA[Questo sito è <a href='%url%' target='_blank' title='CMS semplice e sofisticato'>realizzato con Bolt</a>.]]></target>
+        <target><![CDATA[Questo sito è <a href='https://boltcms.io' target='_blank' title='CMS semplice e sofisticato'>realizzato con Bolt</a>.]]></target>
       </segment>
     </unit>
     <unit id="wNEwZy_" name="contenttypes.generic.overview">
@@ -1032,7 +1032,7 @@
     <unit id="psOa_9x" name="general.phrase.built-with-bolt">
       <segment>
         <source>general.phrase.built-with-bolt</source>
-        <target><![CDATA[Questo sito è <a href='%url%' target='_blank' title='CMS semplice e sofisticato'>realizzato con Bolt</a>.]]></target>
+        <target><![CDATA[Questo sito è <a href='https://boltcms.io' target='_blank' title='CMS semplice e sofisticato'>realizzato con Bolt</a>.]]></target>
       </segment>
     </unit>
     <unit id="5IxD63c" name="general.latest_bolt_news">
@@ -1091,8 +1091,8 @@
     </unit>
     <unit id="eq5YMQf" name="9fb3e6e">
       <segment>
-        <source>This website is &lt;a href='%url%' target='_blank' title='Sophisticated, lightweight &amp; simple CMS'&gt;Built with Bolt&lt;/a&gt;.</source>
-        <target><![CDATA[Questo sito è <a href='%url%' target='_blank' title='CMS semplice e sofisticato'>realizzato con Bolt</a>.]]></target>
+        <source>This website is &lt;a href='https://boltcms.io' target='_blank' title='Sophisticated, lightweight &amp; simple CMS'&gt;Built with Bolt&lt;/a&gt;.</source>
+        <target><![CDATA[Questo sito è <a href='https://boltcms.io' target='_blank' title='CMS semplice e sofisticato'>realizzato con Bolt</a>.]]></target>
       </segment>
     </unit>
     <unit id="3zlZmRK" name="action.add_user">

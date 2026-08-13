@@ -7,6 +7,14 @@ Released: Not yet released
 
 - The default query limit can now be configured. Thanks @Vondry! (https://github.com/bolt/core/pull/3727)
 
+## 6.1.7
+
+Released: 2026-08-13
+
+This release includes a security-related fix. Our thanks to @johnweeklys for identifying the issue and disclosing it to us responsibly! 👏🙏
+
+This release also contains a large update to our JS build dependencies, and a lot of translation fixes.
+
 ## 6.1.6
 
 Released: 2026-07-20
@@ -17,7 +25,7 @@ This is a small bugfix release.
 
 Released: 2026-07-12
 
-This release includes a security-related fix. Our thanks to @Vondry for identifying the issues and disclosing it to us responsibly! 👏🙏
+This release includes a security-related fix. Our thanks to @Vondry for identifying the issue and disclosing it to us responsibly! 👏🙏
 
 ### 🔐 Security related changes
 
