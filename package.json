@@ -44,7 +44,7 @@
         "locutus": "^3.0.25",
         "luxon": "^1.28.1",
         "no-scroll": "^2.1.1",
-        "node-vibrant": "^3.1.6",
+        "node-vibrant": "^4.0.4",
         "popper.js": "^1.16.1",
         "register-service-worker": "^1.7.2",
         "selectize": "^0.12.6",
