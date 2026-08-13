@@ -54,8 +54,7 @@ jobs:
         run: sed -i -e "/public const VERSION = / s/'.*/'${{ inputs.version }}';/" src/Version.php
 
       - name: Update JS version
-        run: |
-          sed -i -e "s/\"version\": \".*\",/\"version\": \"${{ inputs.version }}\",/" package.json
+        run: npm version ${{ inputs.version }} --no-git-tag-version
 
       - name: Run genversion
         run: npm run genversion
