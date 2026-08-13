@@ -66,7 +66,7 @@ $(document).ready(function () {
     function showValidationErrors(errors) {
         let container = $('<div id="editcontent-validation-errors"></div>');
 
-        errors.forEach(function(error) {
+        errors.forEach(function (error) {
             let alert = $('<div class="alert alert-danger" role="alert"></div>');
             alert.text(error.property ? error.property + ': ' + error.message : error.message);
             container.append(alert);
@@ -136,7 +136,7 @@ $(document).ready(function () {
                 // The save was rejected by the content validator, which returns its
                 // violations as JSON, so we can show the validator's own messages.
                 if (jq.status === 422 && response && Array.isArray(response.errors)) {
-                    let messages = response.errors.map(function(error) {
+                    let messages = response.errors.map(function (error) {
                         return error.message;
                     });
 
