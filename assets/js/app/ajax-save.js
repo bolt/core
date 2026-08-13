@@ -67,7 +67,16 @@ $(document).ready(function() {
 
     // For classic POST: disable only after native HTML5 validation has passed (submit event)
     if (elementSubmit.length) {
-        $(form).on('submit', function() {
+        $(form).on('submit', function(event) {
+            const submitter = event.originalEvent && event.originalEvent.submitter;
+            const target = (submitter && submitter.getAttribute('formtarget')) || form.attr('target');
+
+            // Submits that render in another tab or frame (like 'Preview') leave this page
+            // intact, so the save button must stay usable. See #3778.
+            if (target && !['_self', '_top', '_parent'].includes(target)) {
+                return;
+            }
+
             elementSubmit.prop('disabled', true);
         });
     }
