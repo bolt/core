@@ -21,6 +21,9 @@ jobs:
           - name: Lint on SCSS files
             run: npm run stylelint
 
+          - name: Check TypeScript types
+            run: npm run typecheck
+
           - name: Build for production
             run: npm run build
 

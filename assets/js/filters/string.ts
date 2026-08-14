@@ -1,15 +1,16 @@
-import Vue from 'vue';
-
-Vue.filter('slugify', string => {
+export function slugify(string: unknown) {
     if (string) {
         // based on https://gist.github.com/sgmurphy/3095196
-        string = String(string);
-        let opt = {
+        let slug = String(string);
+        const opt = {
             delimiter: '-',
             lowercase: true,
-            transliterate: typeof XRegExp === 'undefined' ? true : false,
+            // XRegExp is never bundled, so this is always true. Kept as-is from
+            // the original gist rather than silently changing the behaviour;
+            // reading it off globalThis is what the bare identifier did.
+            transliterate: typeof (globalThis as Record<string, unknown>).XRegExp === 'undefined' ? true : false,
         };
-        let char_map = {
+        const char_map: Record<string, string> = {
             // Latin
             À: 'A',
             Á: 'A',
@@ -304,48 +305,66 @@ Vue.filter('slugify', string => {
         };
 
         if (opt.transliterate) {
-            for (var k in char_map) {
-                string = string.replace(RegExp(k, 'g'), char_map[k]);
+            for (const k in char_map) {
+                slug = slug.replace(RegExp(k, 'g'), char_map[k]);
             }
         }
 
         // Replace non-alphanumeric characters with our delimiter
-        var alnum = RegExp('[^a-z0-9]+', 'ig');
-        string = string.replace(alnum, opt.delimiter);
+        const alnum = RegExp('[^a-z0-9]+', 'ig');
+        slug = slug.replace(alnum, opt.delimiter);
 
         // Remove duplicate delimiters
-        string = string.replace(RegExp('[' + opt.delimiter + ']{2,}', 'g'), opt.delimiter);
+        slug = slug.replace(RegExp('[' + opt.delimiter + ']{2,}', 'g'), opt.delimiter);
 
         // Remove delimiter from ends
-        string = string.replace(RegExp('(^' + opt.delimiter + '|' + opt.delimiter + '$)', 'g'), '');
+        slug = slug.replace(RegExp('(^' + opt.delimiter + '|' + opt.delimiter + '$)', 'g'), '');
 
-        string = opt.lowercase ? string.toLowerCase() : string;
-        return string.replace(/[^\w-]+/g, '');
+        slug = opt.lowercase ? slug.toLowerCase() : slug;
+        return slug.replace(/[^\w-]+/g, '');
     }
-});
 
-Vue.filter('strip', string => {
+    return undefined;
+}
+
+export function strip(string: unknown) {
     if (string) {
-        return string.replace(/(^")|("$)/g, '');
+        return String(string).replace(/(^")|("$)/g, '');
     }
-});
 
-Vue.filter('raw', string => {
+    return undefined;
+}
+
+export function raw(string: unknown) {
     if (string) {
-        let node = document.createElement('textarea');
-        node.innerHTML = string;
+        const node = document.createElement('textarea');
+        node.innerHTML = String(string);
         return node.value;
     }
-});
 
-Vue.filter('uppercase', string => {
-    if (string) return string.toUpperCase();
-});
+    return undefined;
+}
 
-Vue.filter('trim', (string, length) => {
-    if (length == undefined) {
-        length = 50;
+export function uppercase(string: unknown) {
+    if (string) return String(string).toUpperCase();
+
+    return undefined;
+}
+
+export function trim(string: unknown, length?: number | null) {
+    if (string === null || string === undefined) {
+        return undefined;
     }
 
-    return string.length > length ? string.substring(0, length - 1) + '…' : string;
-});
+    // `?? 50` rather than a default parameter: the original used `length ==
+    // undefined`, which also catches null, and a default parameter would not.
+    const max = length ?? 50;
+    // Deliberately not String()-coerced. The original read .length straight off
+    // the argument, so a non-string (a number, an object) had an undefined
+    // length, failed the comparison and was returned untouched for Vue's own
+    // stringifier to render. Coercing here would truncate numbers and turn
+    // objects into "[object Object]".
+    const str = string as string;
+
+    return str.length > max ? str.substring(0, max - 1) + '…' : str;
+}

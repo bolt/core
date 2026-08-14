@@ -3,7 +3,7 @@
         <ul class="listing__row--list">
             <li class="text-nowrap">
                 <span class="status" :class="`is-${record.status}`" :title="record.status"></span>
-                {{ record.publishedAt ? record.publishedAt : record.createdAt | date }}
+                {{ date(record.publishedAt ? record.publishedAt : record.createdAt) }}
             </li>
             <li v-if="size === 'normal'"><i class="fas fa-user"></i> {{ record.authorName }}</li>
             <li v-if="size === 'normal'">
@@ -20,12 +20,17 @@
 </template>
 
 <script>
+import { date } from '../../../../../filters/date';
+
 export default {
     name: 'MetaData',
     props: {
         type: String,
         size: String,
         record: Object,
+    },
+    methods: {
+        date,
     },
 };
 </script>

@@ -3,6 +3,7 @@ import cypress from 'eslint-plugin-cypress';
 import prettierRecommended from 'eslint-plugin-prettier/recommended';
 import vue from 'eslint-plugin-vue';
 import globals from 'globals';
+import tseslint from 'typescript-eslint';
 
 export default [
     {
@@ -16,8 +17,25 @@ export default [
     // "plugin:vue/recommended" under eslint-plugin-vue 6.
     ...vue.configs['flat/vue2-recommended'],
 
+    // Scoped to assets/**/*.ts so the Vue 2 SFCs, which are still plain JS, keep
+    // being linted by the vue2 preset above and are not parsed as TypeScript.
+    ...tseslint.configs.recommended.map(config => ({
+        ...config,
+        files: ['assets/**/*.ts'],
+    })),
+
     {
-        files: ['assets/**/*.{js,vue}'],
+        files: ['assets/**/*.ts'],
+        rules: {
+            // Warn, not error, while TypeScript is confined to the leaf modules.
+            // It becomes an error once the components are converted and there is
+            // a real surface for it to protect.
+            '@typescript-eslint/no-explicit-any': 'warn',
+        },
+    },
+
+    {
+        files: ['assets/**/*.{js,ts,vue}'],
         languageOptions: {
             ecmaVersion: 2022,
             sourceType: 'module',

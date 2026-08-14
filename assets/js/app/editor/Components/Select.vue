@@ -21,11 +21,11 @@
         >
             <template v-if="name === 'status'" slot="singleLabel" slot-scope="props">
                 <span class="status me-2" :class="`is-${props.option.key}`"></span>
-                {{ props.option.value | raw }}
+                {{ raw(props.option.value) }}
             </template>
             <template v-if="name === 'status'" #option="props">
                 <span class="status me-2" :class="`is-${props.option.key}`"></span>
-                {{ props.option.value | raw }}
+                {{ raw(props.option.value) }}
             </template>
 
             <template v-if="props.option.link_to_record_url" slot="singleLabel" slot-scope="props">
@@ -80,6 +80,7 @@
 <script>
 import Multiselect from 'vue-multiselect';
 import $ from 'jquery';
+import { raw } from '../../../filters/string';
 
 export default {
     name: 'EditorSelect',
@@ -181,6 +182,7 @@ export default {
         }
     },
     methods: {
+        raw,
         addTag(newTag) {
             const tag = {
                 key: newTag,
