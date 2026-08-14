@@ -9,6 +9,5 @@ Axios.defaults.headers.common = {
 
 import './jquery';
 import './codemirror';
-import './filters';
 import './app';
 import '../scss/bolt.scss';
