@@ -1785,18 +1785,6 @@
         <target>Műveletek</target>
       </segment>
     </unit>
-    <unit id="fkXL.k6" name="user.not_valid_email">
-      <segment>
-        <source>user.not_valid_email</source>
-        <target>Érvénytelen email cím</target>
-      </segment>
-    </unit>
-    <unit id="HjWW.NS" name="user.not_valid_password">
-      <segment>
-        <source>user.not_valid_password</source>
-        <target>Érvénytelen jelszó</target>
-      </segment>
-    </unit>
     <unit id="rCKtTo5" name="caption.redirection_page">
       <segment>
         <source>caption.redirection_page</source>

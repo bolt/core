@@ -1374,18 +1374,6 @@
         <target>Acties</target>
       </segment>
     </unit>
-    <unit id="fkXL.k6" name="user.not_valid_email">
-      <segment>
-        <source>user.not_valid_email</source>
-        <target>Invalid email</target>
-      </segment>
-    </unit>
-    <unit id="HjWW.NS" name="user.not_valid_password">
-      <segment>
-        <source>user.not_valid_password</source>
-        <target>Invalid password</target>
-      </segment>
-    </unit>
     <unit id="t2TNwOq" name="Unknown">
       <segment>
         <source>Unknown</source>
@@ -2074,12 +2062,6 @@
       <segment>
         <source>label.avatar</source>
         <target>Avatar</target>
-      </segment>
-    </unit>
-    <unit id="NF.vvAN" name="You have to login in order to access this page.">
-      <segment>
-        <source>You have to login in order to access this page.</source>
-        <target>Je moet ingelogd zijn om deze pagina te bekijken.</target>
       </segment>
     </unit>
     <unit id="MjY7.cg" name="modal.title.file_field">

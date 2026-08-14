@@ -1777,18 +1777,6 @@
         <target>Actions</target>
       </segment>
     </unit>
-    <unit id="fkXL.k6" name="user.not_valid_email">
-      <segment>
-        <source>user.not_valid_email</source>
-        <target>Email invalide</target>
-      </segment>
-    </unit>
-    <unit id="HjWW.NS" name="user.not_valid_password">
-      <segment>
-        <source>user.not_valid_password</source>
-        <target>Mot de passe incorrect. Le mot de passe doit contenir au moins 6 caractères.</target>
-      </segment>
-    </unit>
     <unit id="TpGxDI3" name="user.unknown_user">
       <segment>
         <source>user.unknown_user</source>
@@ -2183,12 +2171,6 @@
       <segment>
         <source>about.system_info</source>
         <target>Informations système</target>
-      </segment>
-    </unit>
-    <unit id="4oq.CNw" name="user.not_valid_display_name">
-      <segment>
-        <source>user.not_valid_display_name</source>
-        <target>Nom d'affichage non valide</target>
       </segment>
     </unit>
     <unit id="6Gw1lsE" name="action.confirm_delete">
@@ -2717,12 +2699,6 @@
       <segment>
         <source>placeholder.email</source>
         <target>votre email</target>
-      </segment>
-    </unit>
-    <unit id="NF.vvAN" name="You have to login in order to access this page.">
-      <segment>
-        <source>You have to login in order to access this page.</source>
-        <target>Vous devez vous connecter pour accéder à cette page.</target>
       </segment>
     </unit>
     <unit id="MjY7.cg" name="modal.title.file_field">

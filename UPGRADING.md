@@ -12,6 +12,23 @@ You will need to migrate to Bolt 6.1 first, migrate all your databases and after
 
 - `\Bolt\Doctrine\Migrations\ArrayToJsonMigrator`. This class was always meant to be temporary. If you use it in your migration, you should remove the usages in your migration (but make sure that it has already been executed on all your deployments).
 
+## Removed translations
+
+The following keys have been removed from the `messages` domain. Bolt itself only ever resolves them from the domain listed below, so this does not change anything Bolt renders. If your own code, templates or extensions translate one of these keys **from the `messages` domain**, update the call to use the correct domain, or add the key to your own `messages` catalogue.
+
+| Key | Now only in domain | Used by Bolt at |
+|---|---|---|
+| `user.not_valid_display_name` | `validators` | `src/Entity/User.php` (`Assert\NotBlank`, `Assert\Length`) |
+| `user.not_valid_email` | `validators` | `src/Entity/User.php` (`Assert\Email`) |
+| `user.not_valid_password` | `validators` | `src/Entity/User.php` (`Assert\Length`) |
+| `You have to login in order to access this page.` | `security` | `src/Security/AuthenticationEntryPointRedirector.php` |
+
+Note that Symfony's translator falls back between *locales*, but never between *domains*, so a lookup in `messages` will not fall back to `validators` or `security`.
+
+Affected locales: `cs`, `el`, `en`, `fr`, `hu`, `nl`, `ru`, `sk`, `tr`, `uk`, `zh_CN`.
+
+Where a locale had a translation in `messages` but not yet in the serving domain, the translation was moved rather than dropped (`security.fr`, `security.nl`, `validators.hu`, `validators.zh_CN`). Those locales previously fell back to English for these keys and now show their own translation.
+
 # From Bolt 6.0 to 6.1
 
 This release upgrades the erusev parsedown packages (used for Markdown) requirements to resolve issues with newer PHP version compatibility. However, this can have an impact on your existing pages as the Markdown parsing rules have changed.
