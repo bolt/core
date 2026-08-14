@@ -52,6 +52,7 @@
 
 <script>
 import field from '../mixins/value';
+import { slugify } from '../../../filters/string';
 
 export default {
     name: 'EditorSlug',
@@ -106,7 +107,7 @@ export default {
         },
         lockSlug() {
             this.$root.$emit('generate-from-title', false);
-            const slug = this.$options.filters.slugify(this.val);
+            const slug = slugify(this.val);
             this.val = slug;
             this.edit = false;
             this.locked = true;
@@ -119,7 +120,7 @@ export default {
                 title = title + ' ' + document.querySelector(`input[name='fields[${element}]']`).value;
             });
 
-            const slug = this.$options.filters.slugify(title);
+            const slug = slugify(title);
             this.val = slug;
             this.$root.$emit('generate-from-title', true);
 

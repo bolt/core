@@ -7,6 +7,7 @@
 <script>
 import trumbowyg from 'vue-trumbowyg';
 import 'trumbowyg/dist/ui/trumbowyg.css';
+import { strip } from '../../../filters/string';
 
 export default {
     name: 'EditorHtml',
@@ -40,7 +41,7 @@ export default {
         };
     },
     mounted() {
-        this.val = this.$options.filters.strip(this.value);
+        this.val = strip(this.value);
     },
 };
 </script>

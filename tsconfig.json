@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+        "target": "ES2020",
+        "module": "ESNext",
+        "moduleResolution": "bundler",
+        "lib": ["ES2020", "DOM", "DOM.Iterable"],
+
+        "strict": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitOverride": true,
+        "allowUnreachableCode": false,
+        "allowUnusedLabels": false,
+
+        "isolatedModules": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "forceConsistentCasingInFileNames": true,
+        "skipLibCheck": true,
+        "sourceMap": true
+    },
+
+    // Only .ts/.d.ts for now. The Vue SFCs have no lang="ts", so vue-loader
+    // routes their <script> blocks to babel-loader and ts-loader never sees
+    // them: they are NOT type-checked yet. They are added here when they move
+    // to <script setup lang="ts"> and the type checker becomes vue-tsc.
+    "include": ["assets/js/**/*.ts", "assets/js/**/*.d.ts"]
+}

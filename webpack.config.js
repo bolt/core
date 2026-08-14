@@ -48,15 +48,23 @@ Encore.addPlugin(
 
     .splitEntryChunks()
     .autoProvidejQuery()
-    .enableVueLoader()
+    // The `version` option is deliberately omitted. It only accepts 2 or 3,
+    // and passing 2 selects Encore's plain "vue2" target, which still demands
+    // vue-template-compiler. Left unset, Encore detects vue@2.7 from
+    // package.json and picks its "vue2.7" target instead, which relies on the
+    // SFC compiler that Vue 2.7 ships itself.
+    // `runtimeCompilerBuild` is required because the Twig templates mount
+    // components against in-DOM templates rather than render functions.
+    .enableVueLoader(() => {}, { runtimeCompilerBuild: true })
+    // Encore sets ts-loader's `appendTsSuffixTo` to /\.vue$/ by itself once the
+    // Vue loader is enabled, so no configuration callback is needed here.
+    .enableTypeScriptLoader()
     .enableSassLoader(options => {
         options.sassOptions = {
             silenceDeprecations: ['import', 'global-builtin', 'color-functions', 'legacy-js-api'],
             quietDeps: true,
         };
     })
-    .enablePostCssLoader()
-
-    .enableVueLoader(() => {}, { runtimeCompilerBuild: true });
+    .enablePostCssLoader();
 
 module.exports = Encore.getWebpackConfig();
