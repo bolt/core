@@ -667,5 +667,17 @@
         <target>A komment tartalma spamnek tűnik.</target>
       </segment>
     </unit>
+    <unit id="fkXL.k6" name="user.not_valid_email">
+      <segment>
+        <source>user.not_valid_email</source>
+        <target>Érvénytelen email cím</target>
+      </segment>
+    </unit>
+    <unit id="HjWW.NS" name="user.not_valid_password">
+      <segment>
+        <source>user.not_valid_password</source>
+        <target>Érvénytelen jelszó</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

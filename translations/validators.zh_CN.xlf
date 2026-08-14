@@ -517,5 +517,23 @@
         <target>CSRF 验证符无效， 请重新提交.</target>
       </segment>
     </unit>
+    <unit id="4oq.CNw" name="user.not_valid_display_name">
+      <segment>
+        <source>user.not_valid_display_name</source>
+        <target>无效的显示名称</target>
+      </segment>
+    </unit>
+    <unit id="fkXL.k6" name="user.not_valid_email">
+      <segment>
+        <source>user.not_valid_email</source>
+        <target>无效的电子邮件</target>
+      </segment>
+    </unit>
+    <unit id="HjWW.NS" name="user.not_valid_password">
+      <segment>
+        <source>user.not_valid_password</source>
+        <target>无效的密码，密码应至少包含6个字符。</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

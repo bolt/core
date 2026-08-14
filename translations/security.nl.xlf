@@ -91,5 +91,11 @@
         <target>Account is geblokkeerd.</target>
       </segment>
     </unit>
+    <unit id="NF.vvAN" name="You have to login in order to access this page.">
+      <segment>
+        <source>You have to login in order to access this page.</source>
+        <target>Je moet ingelogd zijn om deze pagina te bekijken.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
