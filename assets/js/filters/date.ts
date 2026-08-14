@@ -1,14 +1,17 @@
-import Vue from 'vue';
 import { DateTime } from 'luxon';
 
-Vue.filter('date', string => {
+export function date(string: unknown) {
     if (string) {
         return DateTime.fromISO(String(string)).toLocaleString();
     }
-});
 
-Vue.filter('datetime', string => {
+    return undefined;
+}
+
+export function datetime(string: unknown) {
     if (string) {
         return DateTime.fromISO(String(string)).toLocaleString(DateTime.DATETIME_MED);
     }
-});
+
+    return undefined;
+}

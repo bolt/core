@@ -8,12 +8,12 @@
             <!-- column details / excerpt -->
             <div class="listing__row--item is-details">
                 <a class="listing__row--item-title text-decoration-none" :href="record.extras.editLink" :title="slug">
-                    {{ record.extras.title | trim(62) | raw }}
+                    {{ raw(trim(record.extras.title, 62)) }}
                 </a>
                 <span v-if="record.extras.feature" class="badge" :class="`badge-${record.extras.feature}`">{{
                     record.extras.feature
                 }}</span>
-                <span class="listing__row--item-title-excerpt">{{ record.extras.excerpt | raw }}</span>
+                <span class="listing__row--item-title-excerpt">{{ raw(record.extras.excerpt) }}</span>
             </div>
             <!-- end column -->
 
@@ -46,6 +46,7 @@
 
 <script>
 import type from '../../../mixins/type';
+import { raw, trim } from '../../../../../filters/string';
 import Checkbox from './_Checkbox';
 import Meta from './_Meta';
 import Actions from './_Actions';
@@ -79,6 +80,10 @@ export default {
         sorting() {
             return this.$store.getters['general/getSorting'];
         },
+    },
+    methods: {
+        raw,
+        trim,
     },
 };
 </script>

@@ -6,6 +6,7 @@
 
 <script>
 import VueEasymde from 'vue-easymde';
+import { strip } from '../../../filters/string';
 
 export default {
     name: 'EditorMarkdown',
@@ -27,7 +28,7 @@ export default {
         };
     },
     mounted() {
-        this.val = this.$options.filters.strip(this.value);
+        this.val = strip(this.value);
     },
 };
 </script>
