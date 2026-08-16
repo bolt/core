@@ -2755,5 +2755,11 @@
         <target>Было отправлено электронное письмо, содержащее ссылку, по которой вы можете перейти, чтобы сбросить свой пароль. Срок действия этой ссылки истечёт через %hours% час(а/ов).</target>
       </segment>
     </unit>
+    <unit id="OPxagAY" name="general.phrase.none">
+      <segment>
+        <source>general.phrase.none</source>
+        <target>Нет</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

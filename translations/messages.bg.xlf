@@ -1207,5 +1207,11 @@
         <target>Общ преглед на</target>
       </segment>
     </unit>
+    <unit id="OPxagAY" name="general.phrase.none">
+      <segment>
+        <source>general.phrase.none</source>
+        <target>Няма</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

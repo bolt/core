@@ -2118,5 +2118,11 @@
         <target>Weet je zeker dat je dit collectie item wilt verwijderen?</target>
       </segment>
     </unit>
+    <unit id="OPxagAY" name="general.phrase.none">
+      <segment>
+        <source>general.phrase.none</source>
+        <target>Geen</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

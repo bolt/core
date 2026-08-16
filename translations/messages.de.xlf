@@ -3412,5 +3412,11 @@
         <target>Keine Ergebnisse gefunden. Erweitern Sie die Filterkriterien oder fügen Sie weitere Inhalte hinzu.</target>
       </segment>
     </unit>
+    <unit id="OPxagAY" name="general.phrase.none">
+      <segment>
+        <source>general.phrase.none</source>
+        <target>Keine Angabe</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

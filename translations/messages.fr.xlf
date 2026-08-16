@@ -2761,5 +2761,11 @@
         <target>Fermer</target>
       </segment>
     </unit>
+    <unit id="OPxagAY" name="general.phrase.none">
+      <segment>
+        <source>general.phrase.none</source>
+        <target>Aucun</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

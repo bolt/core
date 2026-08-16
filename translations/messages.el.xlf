@@ -2368,5 +2368,11 @@
         <target>Φιλτράρισμα ανά πεδίο</target>
       </segment>
     </unit>
+    <unit id="OPxagAY" name="general.phrase.none">
+      <segment>
+        <source>general.phrase.none</source>
+        <target>Κανένα</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
