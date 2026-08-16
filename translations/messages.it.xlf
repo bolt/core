@@ -1131,5 +1131,11 @@
         <target>general.dashboard</target>
       </segment>
     </unit>
+    <unit id="OPxagAY" name="general.phrase.none">
+      <segment>
+        <source>general.phrase.none</source>
+        <target>Nessuno</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

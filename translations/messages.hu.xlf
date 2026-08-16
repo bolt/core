@@ -2133,5 +2133,11 @@
         <target>Egyéb tartalom</target>
       </segment>
     </unit>
+    <unit id="OPxagAY" name="general.phrase.none">
+      <segment>
+        <source>general.phrase.none</source>
+        <target>Nincs</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

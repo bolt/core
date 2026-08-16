@@ -2703,5 +2703,11 @@
         <target>Zavřít</target>
       </segment>
     </unit>
+    <unit id="OPxagAY" name="general.phrase.none">
+      <segment>
+        <source>general.phrase.none</source>
+        <target>Žádné</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

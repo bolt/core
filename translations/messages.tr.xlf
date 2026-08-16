@@ -2367,5 +2367,11 @@
         <target>Alana göre filtrele</target>
       </segment>
     </unit>
+    <unit id="OPxagAY" name="general.phrase.none">
+      <segment>
+        <source>general.phrase.none</source>
+        <target>Yok</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

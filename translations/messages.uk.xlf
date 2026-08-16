@@ -2439,5 +2439,11 @@
                 <target>Аватар</target>
             </segment>
         </unit>
+        <unit id="OPxagAY" name="general.phrase.none">
+            <segment>
+                <source>general.phrase.none</source>
+                <target>Немає</target>
+            </segment>
+        </unit>
     </file>
 </xliff>

@@ -2673,5 +2673,11 @@
         <target>全选</target>
       </segment>
     </unit>
+    <unit id="OPxagAY" name="general.phrase.none">
+      <segment>
+        <source>general.phrase.none</source>
+        <target>无</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
