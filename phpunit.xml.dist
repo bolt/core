@@ -18,6 +18,8 @@
         <!-- ###+ doctrine/doctrine-bundle ### -->
         <env name="DATABASE_URL" value="sqlite:///%kernel.project_dir%/var/data/bolt.test.sqlite" force="true"/>
         <!-- ###- doctrine/doctrine-bundle ### -->
+        <!-- Set canonical in the general config. Keep empty to not use it. -->
+        <env name="BOLT_CANONICAL" value="http://localhost"/>
         <!-- ###+ nelmio/cors-bundle ### -->
         <env name="CORS_ALLOW_ORIGIN" value="^https?://localhost(:[0-9]+)?$"/>
         <!-- ###- nelmio/cors-bundle ### -->

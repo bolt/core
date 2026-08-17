@@ -68,6 +68,22 @@ class ContentHelper
             ];
         }
 
+        // Singletons are served at their slugless listing URL: ListingController
+        // forwards a singleton "listing" to the record. Canonicalize to that URL
+        // (`/{singularSlug}`) instead of the record-detail route
+        // (`/{singularSlug}/{slug}`), so a singleton has a single, slugless URL
+        // rather than two URLs serving identical content.
+        $definition = $record->getDefinition();
+        if ($definition !== null && $definition->get('singleton')) {
+            return [
+                'route' => 'listing_locale',
+                'params' => [
+                    'contentTypeSlug' => $record->getContentTypeSingularSlug(),
+                    '_locale' => $locale,
+                ],
+            ];
+        }
+
         return [
             'route' => $record->getDefinition()->get('record_route'),
             'params' => [
