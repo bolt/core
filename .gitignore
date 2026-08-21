@@ -19,6 +19,7 @@ webpack_stats.json
 ### Behat / Cypress / Front-end testing files
 bin/chromedriver*
 bin/selenium-server-standalone*
+coverage/
 tests/cypress/evidence
 
 ### File-system cruft and temporary files
