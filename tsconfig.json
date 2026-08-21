@@ -12,17 +12,34 @@
         "allowUnreachableCode": false,
         "allowUnusedLabels": false,
 
+        // The app is still mostly untyped JS. allowJs lets tsc infer what it
+        // can from those files when a spec imports one, rather than failing on
+        // an implicit any; checkJs stays off, so the JS itself is not checked.
+        "allowJs": true,
+        "checkJs": false,
+
         "isolatedModules": true,
         "esModuleInterop": true,
         "allowSyntheticDefaultImports": true,
         "forceConsistentCasingInFileNames": true,
         "skipLibCheck": true,
-        "sourceMap": true
+        "sourceMap": true,
+
+        "paths": {
+            "@/*": ["./assets/js/app/*"],
+            // Vuex 3 predates package "exports", so under bundler resolution
+            // tsc cannot find its typings. Point at them directly.
+            "vuex": ["./node_modules/vuex/types/index.d.ts"]
+        },
+        "types": ["vitest/globals"]
     },
 
     // Only .ts/.d.ts for now. The Vue SFCs have no lang="ts", so vue-loader
     // routes their <script> blocks to babel-loader and ts-loader never sees
     // them: they are NOT type-checked yet. They are added here when they move
     // to <script setup lang="ts"> and the type checker becomes vue-tsc.
-    "include": ["assets/js/**/*.ts", "assets/js/**/*.d.ts"]
+    //
+    // The specs are checked, so a stale selector or a wrong prop type fails
+    // `npm run typecheck` rather than waiting for the test run.
+    "include": ["assets/js/**/*.ts", "assets/js/**/*.d.ts", "tests/unit/**/*.ts"]
 }
