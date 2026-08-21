@@ -17,15 +17,15 @@ export default [
     // "plugin:vue/recommended" under eslint-plugin-vue 6.
     ...vue.configs['flat/vue2-recommended'],
 
-    // Scoped to assets/**/*.ts so the Vue 2 SFCs, which are still plain JS, keep
+    // Scoped to TypeScript files so the Vue 2 SFCs, which are still plain JS, keep
     // being linted by the vue2 preset above and are not parsed as TypeScript.
     ...tseslint.configs.recommended.map(config => ({
         ...config,
-        files: ['assets/**/*.ts'],
+        files: ['assets/**/*.ts', 'tests/unit/**/*.ts', 'vitest.config.ts'],
     })),
 
     {
-        files: ['assets/**/*.ts'],
+        files: ['assets/**/*.ts', 'tests/unit/**/*.ts', 'vitest.config.ts'],
         rules: {
             // Warn, not error, while TypeScript is confined to the leaf modules.
             // It becomes an error once the components are converted and there is
