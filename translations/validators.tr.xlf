@@ -424,7 +424,7 @@
     <unit id="LiDaIWN" name="4376d45">
       <segment>
         <source>4376d45</source>
-        <target>Görüntü oranı ({{ ratio }}) çok küçük. İzin verilen minimum oran {{ max_ratio }}.</target>
+        <target>Görüntü oranı ({{ ratio }}) çok küçük. İzin verilen minimum oran {{ min_ratio }}.</target>
       </segment>
     </unit>
     <unit id="rpajj.a" name="The image is square ({{ width }}x{{ height }}px). Square images are not allowed.">
