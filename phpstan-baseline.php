@@ -2588,24 +2588,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Event/Listener/ContentFillListener.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Parameter \\#1 \\$objectOrClass of class ReflectionClass constructor expects class\\-string\\<T of object\\>\\|T of object, string given\\.$#',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Event/Listener/FieldDiscriminatorListener.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Event\\\\Listener\\\\FieldDiscriminatorListener\\:\\:\\$map type has no value type specified in iterable type array\\.$#',
-	'identifier' => 'missingType.iterableValue',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Event/Listener/FieldDiscriminatorListener.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property Bolt\\\\Event\\\\Listener\\\\FieldDiscriminatorListener\\:\\:\\$tempMap type has no value type specified in iterable type array\\.$#',
-	'identifier' => 'missingType.iterableValue',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Event/Listener/FieldDiscriminatorListener.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Method Bolt\\\\Event\\\\Listener\\\\FieldFillListener\\:\\:clean\\(\\) has parameter \\$value with no type specified\\.$#',
 	'identifier' => 'missingType.parameter',
 	'count' => 1,
