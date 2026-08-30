@@ -70,7 +70,7 @@ class FieldDiscriminatorListener
 
     /**
      * @param class-string $class
-     * @return ($class is class-string<FieldInterface> ? true : false)
+     * @phpstan-assert-if-true class-string<FieldInterface> $class
      */
     private function isField(string $class): bool
     {
