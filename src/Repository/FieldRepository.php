@@ -96,7 +96,6 @@ class FieldRepository extends ServiceEntityRepository
         $classname = self::getFieldClassname($type);
 
         if ($classname && class_exists($classname)) {
-            /** @var Field $field */
             $field = new $classname();
         } else {
             $field = new Field();
@@ -121,11 +120,15 @@ class FieldRepository extends ServiceEntityRepository
         return $field;
     }
 
+    /**
+     * @return ?class-string<Field>
+     */
     public static function getFieldClassname(string $type): ?string
     {
         // The classname we want
         $classname = ucwords($type) . 'Field';
 
+        /** @var array<class-string<Field>> $classes */
         $classes = array_map(
             fn (ClassMetadata $entity): string => $entity->getName(),
             self::$em->getMetadataFactory()->getAllMetadata()
