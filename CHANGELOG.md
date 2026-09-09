@@ -1,6 +1,14 @@
 Changelog
 =========
 
+## 6.1.8
+
+Released: 2026-09-09
+
+This release includes security-related fixes. Our thanks to @orionhridoy for identifying the issues and disclosing it to us responsibly! 👏🙏
+
+This release also contains some more translation updates.
+
 ## 6.1.7
 
 Released: 2026-08-13
