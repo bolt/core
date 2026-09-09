@@ -6,6 +6,7 @@ namespace Bolt\Twig;
 
 use Bolt\Entity\Content;
 use Illuminate\Support\Collection;
+use RuntimeException;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
@@ -16,7 +17,7 @@ class CommonExtension extends AbstractExtension
     public function __construct(
         private readonly ContentExtension $contentExtension,
         private readonly FrontendMenuExtension $frontendMenuExtension,
-        private readonly LocaleExtension $localeExtension
+        private readonly LocaleExtension $localeExtension,
     ) {
     }
 
@@ -61,7 +62,17 @@ class CommonExtension extends AbstractExtension
 
     public function generateSecret(string $slug): string
     {
-        return md5(getenv('APP_SECRET') . $slug);
+        $secret = $_ENV['APP_SECRET'] ?? null;
+
+        if (empty($secret) && getenv('APP_SECRET')) {
+            $secret = getenv('APP_SECRET');
+        }
+
+        if (! $secret) {
+            throw new RuntimeException('App secret not set');
+        }
+
+        return md5($secret . $slug);
     }
 
     private function getLocale($item): ?string
