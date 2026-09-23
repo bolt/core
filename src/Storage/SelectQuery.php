@@ -594,12 +594,31 @@ class SelectQuery implements QueryInterface
         $newLeftExpression = $this->getRegularFieldLeftExpression($valueAlias, $filter);
 
         if (mb_strpos($newLeftExpression, 'IS NOT NULL') !== false) {
-            // Replace key like `:slug`, with `:slug_1`
-            $res = str_replace(':' . $filter->getKey(), ':' . key($filter->getParameters()), $newLeftExpression);
+            $parameters = array_keys($filter->getParameters());
 
-            return $res;
+            if (count($parameters) === 1) {
+                // Replace key like `:slug`, with `:slug_1`
+                return str_replace(':' . $filter->getKey(), ':' . $parameters[0], $newLeftExpression);
+            }
+
+            // A multi-value filter (`foo || bar`) produces one parameter per
+            // value, and this left expression embeds the placeholder itself.
+            // Collapsing it to the first parameter would drop the remaining
+            // comparisons from the DQL while they stay bound, which makes
+            // Doctrine throw "Too many parameters". Render the expression once
+            // per parameter instead, keeping the original AND/OR structure.
+            $result = $valueWhere;
+
+            foreach ($parameters as $parameter) {
+                $result = str_replace(
+                    $originalLeftExpression . ' = :' . $parameter,
+                    str_replace(':' . $filter->getKey(), ':' . $parameter, $newLeftExpression),
+                    $result
+                );
+            }
+
+            return $result;
         }
-
         return str_replace($originalLeftExpression, $newLeftExpression, $valueWhere);
     }
 
