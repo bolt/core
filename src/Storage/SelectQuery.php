@@ -592,13 +592,13 @@ class SelectQuery implements QueryInterface
         $valueWhere = $filter->getExpression();
 
         $newLeftExpression = $this->getRegularFieldLeftExpression($valueAlias, $filter);
-
         if (mb_strpos($newLeftExpression, 'IS NOT NULL') !== false) {
             $parameters = array_keys($filter->getParameters());
+            $placeholder = ':' . $filter->getKey();
 
             if (count($parameters) === 1) {
                 // Replace key like `:slug`, with `:slug_1`
-                return str_replace(':' . $filter->getKey(), ':' . $parameters[0], $newLeftExpression);
+                return str_replace($placeholder, ':' . $parameters[0], $newLeftExpression);
             }
 
             // A multi-value filter (`foo || bar`) produces one parameter per
@@ -612,7 +612,7 @@ class SelectQuery implements QueryInterface
             foreach ($parameters as $parameter) {
                 $result = str_replace(
                     $originalLeftExpression . ' = :' . $parameter,
-                    str_replace(':' . $filter->getKey(), ':' . $parameter, $newLeftExpression),
+                    str_replace($placeholder, ':' . $parameter, $newLeftExpression),
                     $result
                 );
             }
