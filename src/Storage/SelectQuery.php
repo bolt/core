@@ -586,7 +586,7 @@ class SelectQuery implements QueryInterface
 
         return $expr->__toString();
     }
-    
+
     private function getRegularFieldWhereExpression(Filter $filter, string $valueAlias): string
     {
         $originalLeftExpression = 'content.' . $filter->getKey();
