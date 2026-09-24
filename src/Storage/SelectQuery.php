@@ -12,6 +12,7 @@ use Bolt\Entity\Field\NumberField;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query\Expr\Andx;
 use Doctrine\ORM\Query\Expr\Base;
+use Doctrine\ORM\Query\Expr\Comparison;  
 use Doctrine\ORM\Query\Expr\Orx;
 use Doctrine\ORM\Query\Expr\Select;
 use Doctrine\ORM\Query\ParameterTypeInferer;
@@ -585,53 +586,95 @@ class SelectQuery implements QueryInterface
 
         return $expr->__toString();
     }
-
+    
     private function getRegularFieldWhereExpression(Filter $filter, string $valueAlias): string
     {
         $originalLeftExpression = 'content.' . $filter->getKey();
         $valueWhere = $filter->getExpression();
+        $parameters = $filter->getParameters();
+
+        // Placeholder as embedded by `JsonHelper::wrapJsonSearch()`, which names
+        // it after the field rather than after the bound parameter.
+        $fieldPlaceholder = ':' . $filter->getKey();
+
+        if (count($parameters) > 1) {
+            return $this->getMultiValueFieldWhereExpression($filter, $valueAlias, $fieldPlaceholder);
+        }
 
         $newLeftExpression = $this->getRegularFieldLeftExpression($valueAlias, $filter);
+
         if (mb_strpos($newLeftExpression, 'IS NOT NULL') !== false) {
-            $parameters = array_keys($filter->getParameters());
-            $placeholder = ':' . $filter->getKey();
+            // Replace key like `:slug`, with `:slug_1`
+            $res = str_replace($fieldPlaceholder, ':' . key($parameters), $newLeftExpression);
 
-            if (count($parameters) === 1) {
-                // Replace key like `:slug`, with `:slug_1`
-                return str_replace($placeholder, ':' . $parameters[0], $newLeftExpression);
-            }
-
-            // A multi-value filter (`foo || bar`) produces one parameter per
-            // value, and this left expression embeds the placeholder itself.
-            // Collapsing it to the first parameter would drop the remaining
-            // comparisons from the DQL while they stay bound, which makes
-            // Doctrine throw "Too many parameters". Render the expression once
-            // per parameter instead, keeping the original AND/OR structure.
-            $result = $valueWhere;
-
-            foreach ($parameters as $parameter) {
-                $result = str_replace(
-                    $originalLeftExpression . ' = :' . $parameter,
-                    str_replace($placeholder, ':' . $parameter, $newLeftExpression),
-                    $result
-                );
-            }
-
-            return $result;
+            return $res;
         }
+
         return str_replace($originalLeftExpression, $newLeftExpression, $valueWhere);
     }
 
-    private function getRegularFieldLeftExpression(string $valueAlias, Filter $filter): string
+    /**
+     * Builds the where expression for a multi-value filter, like `foo || bar`.
+     *
+     * Such a filter holds one bound parameter per value, and the parser gives
+     * every value its own operator, so `!foo || bar` mixes `<>` and `=`. The
+     * JSON expression has to be built per operand: `wrapJsonSearch()` embeds the
+     * placeholder and swallows the comparison, while `wrapJsonFunction()` only
+     * returns a left operand that keeps its own operator.
+     *
+     * Rendering just the first operand, as was done before, left the remaining
+     * parameters bound but unreferenced, which made Doctrine throw
+     * "Too many parameters".
+     */
+    private function getMultiValueFieldWhereExpression(Filter $filter, string $valueAlias, string $fieldPlaceholder): string
+    {
+        $parameters = $filter->getParameters();
+        $expression = $filter->getExpressionObject();
+        $glue = $expression instanceof Andx ? ' AND ' : ' OR ';
+        $parts = [];
+
+        foreach ($expression->getParts() as $part) {
+            if (! $part instanceof Comparison) {
+                $parts[] = (string) $part;
+
+                continue;
+            }
+
+            // Right hand side is the bound placeholder, like `:slug_1`.
+            $parameterPlaceholder = (string) $part->getRightExpr();
+            $parameter = mb_substr($parameterPlaceholder, 1);
+            $operator = $part->getOperator();
+
+            $leftExpression = $this->getRegularFieldLeftExpression(
+                $valueAlias,
+                $filter,
+                $operator,
+                $parameters[$parameter] ?? null
+            );
+
+            $parts[] = mb_strpos($leftExpression, 'IS NOT NULL') !== false
+                ? str_replace($fieldPlaceholder, $parameterPlaceholder, $leftExpression)
+                : $leftExpression . ' ' . $operator . ' ' . $parameterPlaceholder;
+        }
+
+        return '(' . implode($glue, $parts) . ')';
+    }
+
+    /**
+     * @param string|null $operator operator of the operand being built, when it
+     *                              cannot be derived from the whole expression
+     * @param mixed       $value    value bound to that operand
+     */
+    private function getRegularFieldLeftExpression(string $valueAlias, Filter $filter, ?string $operator = null, $value = null): string
     {
         $fieldName = $filter->getKey();
 
         // Grab the current value is a Bool or Int
-        $currentParameter = current($filter->getParameters());
+        $currentParameter = $value ?? current($filter->getParameters());
         $isBoolOrIntValue = filter_var($currentParameter, FILTER_VALIDATE_BOOLEAN) !== false || filter_var($currentParameter, FILTER_VALIDATE_INT) !== false;
 
         // Grab the operator
-        $operator = preg_match('/(=|<|>|<=|>=|<>|!=)/', $filter->getExpression(), $matches) ? $matches[0] : null;
+        $operator ??= preg_match('/(=|<|>|<=|>=|<>|!=)/', $filter->getExpression(), $matches) ? $matches[0] : null;
 
         if ($this->utils->isFieldType($this, $fieldName, NumberField::TYPE) && $this->utils->hasCast()) {
             return $this->utils->getNumericCastExpression($valueAlias);
