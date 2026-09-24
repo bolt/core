@@ -629,6 +629,10 @@ class SelectQuery implements QueryInterface
     private function getMultiValueFieldWhereExpression(Filter $filter, string $valueAlias, string $fieldPlaceholder): string
     {
         $parameters = $filter->getParameters();
+
+        // Multi-value filters are always built by `QueryParameterParser::
+        // multipleValueHandler()`, which composes them with `orX()` / `andX()`.
+        /** @var Orx|Andx $expression */
         $expression = $filter->getExpressionObject();
         $glue = $expression instanceof Andx ? ' AND ' : ' OR ';
         $parts = [];
