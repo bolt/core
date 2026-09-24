@@ -12,7 +12,7 @@ use Bolt\Entity\Field\NumberField;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query\Expr\Andx;
 use Doctrine\ORM\Query\Expr\Base;
-use Doctrine\ORM\Query\Expr\Comparison;  
+use Doctrine\ORM\Query\Expr\Comparison;
 use Doctrine\ORM\Query\Expr\Orx;
 use Doctrine\ORM\Query\Expr\Select;
 use Doctrine\ORM\Query\ParameterTypeInferer;
