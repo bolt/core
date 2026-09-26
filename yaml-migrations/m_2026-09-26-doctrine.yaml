@@ -1,0 +1,15 @@
+file: packages/doctrine.yaml
+since: 6.2.0
+
+remove:
+  doctrine:
+    dbal:
+      use_savepoints: ~
+    orm:
+      auto_generate_proxy_classes: ~ 
+
+  when@prod:
+    doctrine:
+      orm:
+        auto_generate_proxy_classes: ~ 
+        proxy_dir: ~

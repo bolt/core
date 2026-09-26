@@ -5,6 +5,7 @@ Changelog
 
 Released: Not yet released
 
+- Bolt now allows the use of doctrine/doctrine-bundle ^3.2. Make sure to check your own implementation when upgrading!
 - The default query limit can now be configured. Thanks @Vondry! (https://github.com/bolt/core/pull/3727)
 
 ## 6.1.8
