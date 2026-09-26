@@ -4,6 +4,10 @@
 
 You will need to migrate to Bolt 6.1 first, migrate all your databases and afterwards migrate to 6.2.
 
+## Doctrine Bundle
+
+Bolt now allows doctrine-bundle ^3.2, which means that you will need to validate your configuration. If you were using the default configuration, Bolt's migration should take care of it for you, but make sure to validate it yourself. See the upgrade notes of doctrine-bundle [3.0](https://github.com/doctrine/DoctrineBundle/blob/3.3.x/UPGRADE-3.0.md), [3.1](https://github.com/doctrine/DoctrineBundle/blob/3.3.x/UPGRADE-3.1.md) and [3.2](https://github.com/doctrine/DoctrineBundle/blob/3.3.x/UPGRADE-3.2.md).
+
 ## New functionality
 
 - You can now configure the default query limit. Thanks @Vondry! (https://github.com/bolt/core/pull/3727)
