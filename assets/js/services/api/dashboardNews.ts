@@ -1,18 +1,13 @@
 import axios from 'axios';
 
 export function getNews() {
-    // See getRecords() in ./content for why this goes through String() and why
-    // the local is typed.
-    const news: unknown = JSON.parse(String(localStorage.getItem('dashboardnews')));
-
-    return news;
+    // See getRecords() in ./content for why this goes through String().
+    return JSON.parse(String(localStorage.getItem('dashboardnews')));
 }
 
 export function fetchNews() {
     return axios.get('/async/news').then(response => {
         localStorage.setItem('dashboardnews', response.data);
-        const news: unknown = response.data;
-
-        return news;
+        return response.data;
     });
 }
