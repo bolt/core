@@ -937,12 +937,6 @@
         <target>Recherche</target>
       </segment>
     </unit>
-    <unit id="z0k8hRg" name="9fb3e6e">
-      <segment>
-        <source>9fb3e6e</source>
-        <target><![CDATA[Ce site est <a href='https://boltcms.io' target='_blank' title='Sophisticated, lightweight & simple CMS'>Construit avec Bolt</a>.]]></target>
-      </segment>
-    </unit>
     <unit id="wNEwZy_" name="contenttypes.generic.overview">
       <segment>
         <source>contenttypes.generic.overview</source>
@@ -2741,6 +2735,12 @@
       <segment>
         <source>general.phrase.none</source>
         <target>Aucun</target>
+      </segment>
+    </unit>
+    <unit id="z0k8hRg" name="9fb3e6e">
+      <segment>
+        <source>9fb3e6e</source>
+        <target><![CDATA[Ce site est <a href='https://boltcms.io' target='_blank' title='Sophisticated, lightweight & simple CMS'>Construit avec Bolt</a>.]]></target>
       </segment>
     </unit>
   </file>

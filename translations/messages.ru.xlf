@@ -2359,6 +2359,12 @@
         <target>Пожалуйста, введите ваш пароль</target>
       </segment>
     </unit>
+    <unit id="f8zXapF" name="form.empty_email">
+      <segment state="translated">
+        <source>form.empty_email</source>
+        <target>Пожалуйста, введите email</target>
+      </segment>
+    </unit>
     <unit id="fAmcKUQ" name="listing.title_filterby_field">
       <segment>
         <source>listing.title_filterby_field</source>
@@ -2425,48 +2431,6 @@
         <target>Аватар</target>
       </segment>
     </unit>
-    <unit id="dp42qbF" name="reset_password.email_title">
-      <segment state="translated">
-        <source>reset_password.email_title</source>
-        <target>Привет!</target>
-      </segment>
-    </unit>
-    <unit id="apkSD11" name="reset_password.email_expire">
-      <segment state="translated">
-        <source>reset_password.email_expire</source>
-        <target>Срок действия этой ссылки истечёт через %hours% час(а/ов).</target>
-      </segment>
-    </unit>
-    <unit id="lpzL089" name="Email">
-      <segment>
-        <source>Email</source>
-        <target>Email</target>
-      </segment>
-    </unit>
-    <unit id="0yPnNMd" name="modal.title.image_field">
-      <segment state="translated">
-        <source>modal.title.image_field</source>
-        <target>Выберите изображение</target>
-      </segment>
-    </unit>
-    <unit id="5Xr92sQ" name="reset_password.problem_with_request">
-      <segment state="translated">
-        <source>reset_password.problem_with_request</source>
-        <target>Возникла проблема с обработкой вашего запроса на сброс пароля - %s</target>
-      </segment>
-    </unit>
-    <unit id="Y7ajNNN" name="placeholder.email">
-      <segment state="translated">
-        <source>placeholder.email</source>
-        <target>ваш email</target>
-      </segment>
-    </unit>
-    <unit id="U6qdalg" name="reset_password.check_email_sent_header">
-      <segment state="translated">
-        <source>reset_password.check_email_sent_header</source>
-        <target>Электронное письмо для сброса пароля - отправлено</target>
-      </segment>
-    </unit>
     <unit id="i37ZNqN" name="login.forgotpassword">
       <segment state="translated">
         <source>login.forgotpassword</source>
@@ -2479,10 +2443,22 @@
         <target>Сбросить пароль</target>
       </segment>
     </unit>
-    <unit id="W7z__Yi" name="action.impersonate">
+    <unit id="SwOgM7K" name="reset_password.request_description">
       <segment state="translated">
-        <source>action.impersonate</source>
-        <target>выдавать себя за</target>
+        <source>reset_password.request_description</source>
+        <target>Введите свой адрес электронной почты, и мы вышлем вам ссылку для сброса вашего пароля.</target>
+      </segment>
+    </unit>
+    <unit id="RX0Iuzi" name="reset_password.request_send">
+      <segment state="translated">
+        <source>reset_password.request_send</source>
+        <target>Подтвердить</target>
+      </segment>
+    </unit>
+    <unit id="lpzL089" name="Email">
+      <segment>
+        <source>Email</source>
+        <target>Email</target>
       </segment>
     </unit>
     <unit id="k9hekeu" name="reset_password.back-to-login">
@@ -2491,16 +2467,76 @@
         <target>Вернуться к входу в систему</target>
       </segment>
     </unit>
-    <unit id="SjuOnue" name="reset_password.reset_successful">
+    <unit id="gVc0Uf4" name="reset_password.reset_header">
       <segment state="translated">
-        <source>reset_password.reset_successful</source>
-        <target>Ваш пароль был успешно сброшен.</target>
+        <source>reset_password.reset_header</source>
+        <target>Сбросьте свой пароль</target>
       </segment>
     </unit>
-    <unit id="VlfWDQr" name="modal.button_save">
+    <unit id="U6qdalg" name="reset_password.check_email_sent_header">
       <segment state="translated">
-        <source>modal.button_save</source>
-        <target>Сохранить</target>
+        <source>reset_password.check_email_sent_header</source>
+        <target>Электронное письмо для сброса пароля - отправлено</target>
+      </segment>
+    </unit>
+    <unit id="SxW1D3L" name="reset_password.check_email_sent_text_1">
+      <segment state="translated">
+        <source>reset_password.check_email_sent_text_1</source>
+        <target>Было отправлено электронное письмо, содержащее ссылку, по которой вы можете перейти, чтобы сбросить свой пароль. Срок действия этой ссылки истечёт через %hours% час(а/ов).</target>
+      </segment>
+    </unit>
+    <unit id="z25k4DS" name="reset_password.check_email_sent_text_2">
+      <segment state="translated">
+        <source>reset_password.check_email_sent_text_2</source>
+        <target>Если вы не получили электронное письмо, пожалуйста, проверьте свою папку со спамом или %tryagain%.</target>
+      </segment>
+    </unit>
+    <unit id="QpUMHfK" name="reset_password.reset_btn">
+      <segment state="translated">
+        <source>reset_password.reset_btn</source>
+        <target>Сбросить пароль</target>
+      </segment>
+    </unit>
+    <unit id="dp42qbF" name="reset_password.email_title">
+      <segment state="translated">
+        <source>reset_password.email_title</source>
+        <target>Привет!</target>
+      </segment>
+    </unit>
+    <unit id="xS2vvXw" name="reset_password.email_description">
+      <segment state="translated">
+        <source>reset_password.email_description</source>
+        <target>Чтобы сбросить свой пароль, пожалуйста, перейдите по следующей ссылке</target>
+      </segment>
+    </unit>
+    <unit id="apkSD11" name="reset_password.email_expire">
+      <segment state="translated">
+        <source>reset_password.email_expire</source>
+        <target>Срок действия этой ссылки истечёт через %hours% час(а/ов).</target>
+      </segment>
+    </unit>
+    <unit id="_gg3hPE" name="reset_password.email_thanks">
+      <segment state="translated">
+        <source>reset_password.email_thanks</source>
+        <target>Всего самого хорошего!</target>
+      </segment>
+    </unit>
+    <unit id="harDiJR" name="reset_password.enter_pwd">
+      <segment state="translated">
+        <source>reset_password.enter_pwd</source>
+        <target>Пожалуйста, введите пароль</target>
+      </segment>
+    </unit>
+    <unit id="rU9cSfq" name="label.repeat_password">
+      <segment state="translated">
+        <source>label.repeat_password</source>
+        <target>Повторите пароль</target>
+      </segment>
+    </unit>
+    <unit id="Tg5zdeo" name="reset_password.not_matching_pwds">
+      <segment state="translated">
+        <source>reset_password.not_matching_pwds</source>
+        <target>Пароли должны совпадать.</target>
       </segment>
     </unit>
     <unit id="1JZeWxG" name="reset_password.minimum_length">
@@ -2509,34 +2545,28 @@
         <target>Ваш пароль должен содержать не менее %s символов</target>
       </segment>
     </unit>
-    <unit id=".l3zbrq" name="listing_details_box.slug">
+    <unit id="GUQYLn2" name="reset_password.no_token">
       <segment state="translated">
-        <source>listing_details_box.slug</source>
-        <target>Сегмент адреса: %slug% (в ед. числе: %singularSlug%)</target>
+        <source>reset_password.no_token</source>
+        <target>Токен сброса пароля не найден ни в URL-адресе, ни в сеансе.</target>
       </segment>
     </unit>
-    <unit id="z8r0TY6" name="action.edit_permissions">
+    <unit id="SjuOnue" name="reset_password.reset_successful">
       <segment state="translated">
-        <source>action.edit_permissions</source>
-        <target>Редактировать права</target>
+        <source>reset_password.reset_successful</source>
+        <target>Ваш пароль был успешно сброшен.</target>
       </segment>
     </unit>
-    <unit id="qlucRr7" name="maintenance.activated_warning">
+    <unit id="5Xr92sQ" name="reset_password.problem_with_request">
       <segment state="translated">
-        <source>maintenance.activated_warning</source>
-        <target>Активирован режим технического обслуживания</target>
+        <source>reset_password.problem_with_request</source>
+        <target>Возникла проблема с обработкой вашего запроса на сброс пароля - %s</target>
       </segment>
     </unit>
-    <unit id="OYUVA5." name="general.label.search">
+    <unit id="u3DMmBH" name="label.filtered_by">
       <segment state="translated">
-        <source>general.label.search</source>
-        <target>Поиск</target>
-      </segment>
-    </unit>
-    <unit id="_gg3hPE" name="reset_password.email_thanks">
-      <segment state="translated">
-        <source>reset_password.email_thanks</source>
-        <target>Всего самого хорошего!</target>
+        <source>label.filtered_by</source>
+        <target>отфильтровано по</target>
       </segment>
     </unit>
     <unit id="qoZwSEY" name="action.preview_secure_share">
@@ -2551,16 +2581,16 @@
         <target>перестать выдавать себя за</target>
       </segment>
     </unit>
-    <unit id="tsc7_G3" name="listing_details_box.listing_template">
+    <unit id="W7z__Yi" name="action.impersonate">
       <segment state="translated">
-        <source>listing_details_box.listing_template</source>
-        <target>Шаблон списка: %template% (%listingRecords% записей)</target>
+        <source>action.impersonate</source>
+        <target>выдавать себя за</target>
       </segment>
     </unit>
-    <unit id="SwOgM7K" name="reset_password.request_description">
+    <unit id="qlucRr7" name="maintenance.activated_warning">
       <segment state="translated">
-        <source>reset_password.request_description</source>
-        <target>Введите свой адрес электронной почты, и мы вышлем вам ссылку для сброса вашего пароля.</target>
+        <source>maintenance.activated_warning</source>
+        <target>Активирован режим технического обслуживания</target>
       </segment>
     </unit>
     <unit id="CvNi3GD" name="action.refresh">
@@ -2569,82 +2599,10 @@
         <target>Обновить</target>
       </segment>
     </unit>
-    <unit id="harDiJR" name="reset_password.enter_pwd">
-      <segment state="translated">
-        <source>reset_password.enter_pwd</source>
-        <target>Пожалуйста, введите пароль</target>
-      </segment>
-    </unit>
-    <unit id="f8zXapF" name="form.empty_email">
-      <segment state="translated">
-        <source>form.empty_email</source>
-        <target>Пожалуйста, введите email</target>
-      </segment>
-    </unit>
-    <unit id="KIN.Ehy" name="modal.title.upload_from_url">
-      <segment state="translated">
-        <source>modal.title.upload_from_url</source>
-        <target>Загрузить с URL-адреса</target>
-      </segment>
-    </unit>
-    <unit id="ct_I4w3" name="modal.button_deny">
-      <segment state="translated">
-        <source>modal.button_deny</source>
-        <target>Закрыть</target>
-      </segment>
-    </unit>
-    <unit id="MjY7.cg" name="modal.title.file_field">
-      <segment state="translated">
-        <source>modal.title.file_field</source>
-        <target>Выберите файл</target>
-      </segment>
-    </unit>
-    <unit id="2hoKa1k" name="label.remembermeduration">
-      <segment state="translated">
-        <source>label.remembermeduration</source>
-        <target>Запомнить меня? (на %duration% дня(ей))</target>
-      </segment>
-    </unit>
-    <unit id="eJ9YbdG" name="listing_details_box.record_template">
-      <segment state="translated">
-        <source>listing_details_box.record_template</source>
-        <target>Шаблон записи: %template%</target>
-      </segment>
-    </unit>
-    <unit id="pPz9Ocx" name="listing_details_box.locales">
-      <segment state="translated">
-        <source>listing_details_box.locales</source>
-        <target>Локали: %locales%</target>
-      </segment>
-    </unit>
-    <unit id="RX0Iuzi" name="reset_password.request_send">
-      <segment state="translated">
-        <source>reset_password.request_send</source>
-        <target>Подтвердить</target>
-      </segment>
-    </unit>
-    <unit id="a_COwtV" name="image.button_upload_options">
-      <segment state="translated">
-        <source>image.button_upload_options</source>
-        <target>Параметры загрузки</target>
-      </segment>
-    </unit>
     <unit id="9UKAP.V" name="listing_details_box.showing_records">
       <segment state="translated">
         <source>listing_details_box.showing_records</source>
         <target>Показано %current% из %total% записей</target>
-      </segment>
-    </unit>
-    <unit id="gVc0Uf4" name="reset_password.reset_header">
-      <segment state="translated">
-        <source>reset_password.reset_header</source>
-        <target>Сбросьте свой пароль</target>
-      </segment>
-    </unit>
-    <unit id="u3DMmBH" name="label.filtered_by">
-      <segment state="translated">
-        <source>label.filtered_by</source>
-        <target>отфильтровано по</target>
       </segment>
     </unit>
     <unit id="UrywY0R" name="listing_details_box.name">
@@ -2653,34 +2611,40 @@
         <target>Имя: %name% (в ед. числе: %singularName%)</target>
       </segment>
     </unit>
-    <unit id="rU9cSfq" name="label.repeat_password">
+    <unit id=".l3zbrq" name="listing_details_box.slug">
       <segment state="translated">
-        <source>label.repeat_password</source>
-        <target>Повторите пароль</target>
+        <source>listing_details_box.slug</source>
+        <target>Сегмент адреса: %slug% (в ед. числе: %singularSlug%)</target>
       </segment>
     </unit>
-    <unit id="a_CQgly" name="Order">
+    <unit id="eJ9YbdG" name="listing_details_box.record_template">
       <segment state="translated">
-        <source>Order</source>
-        <target>Порядок</target>
+        <source>listing_details_box.record_template</source>
+        <target>Шаблон записи: %template%</target>
       </segment>
     </unit>
-    <unit id="ODb3pJA" name="modal.text.loading">
+    <unit id="tsc7_G3" name="listing_details_box.listing_template">
       <segment state="translated">
-        <source>modal.text.loading</source>
-        <target>Загрузка...</target>
+        <source>listing_details_box.listing_template</source>
+        <target>Шаблон списка: %template% (%listingRecords% записей)</target>
       </segment>
     </unit>
-    <unit id="OEqzPDO" name="listing_table.actions.select_all">
+    <unit id="pPz9Ocx" name="listing_details_box.locales">
       <segment state="translated">
-        <source>listing_table.actions.select_all</source>
-        <target>Выбрать все</target>
+        <source>listing_details_box.locales</source>
+        <target>Локали: %locales%</target>
       </segment>
     </unit>
-    <unit id="z25k4DS" name="reset_password.check_email_sent_text_2">
+    <unit id="z8r0TY6" name="action.edit_permissions">
       <segment state="translated">
-        <source>reset_password.check_email_sent_text_2</source>
-        <target>Если вы не получили электронное письмо, пожалуйста, проверьте свою папку со спамом или %tryagain%.</target>
+        <source>action.edit_permissions</source>
+        <target>Редактировать права</target>
+      </segment>
+    </unit>
+    <unit id="OYUVA5." name="general.label.search">
+      <segment state="translated">
+        <source>general.label.search</source>
+        <target>Поиск</target>
       </segment>
     </unit>
     <unit id="wG04eAa" name="image.image_preview">
@@ -2689,22 +2653,16 @@
         <target>Предварительный просмотр изображения</target>
       </segment>
     </unit>
-    <unit id="GUQYLn2" name="reset_password.no_token">
+    <unit id="OEqzPDO" name="listing_table.actions.select_all">
       <segment state="translated">
-        <source>reset_password.no_token</source>
-        <target>Токен сброса пароля не найден ни в URL-адресе, ни в сеансе.</target>
+        <source>listing_table.actions.select_all</source>
+        <target>Выбрать все</target>
       </segment>
     </unit>
-    <unit id="QpUMHfK" name="reset_password.reset_btn">
+    <unit id="2hoKa1k" name="label.remembermeduration">
       <segment state="translated">
-        <source>reset_password.reset_btn</source>
-        <target>Сбросить пароль</target>
-      </segment>
-    </unit>
-    <unit id="xS2vvXw" name="reset_password.email_description">
-      <segment state="translated">
-        <source>reset_password.email_description</source>
-        <target>Чтобы сбросить свой пароль, пожалуйста, перейдите по следующей ссылке</target>
+        <source>label.remembermeduration</source>
+        <target>Запомнить меня? (на %duration% дня(ей))</target>
       </segment>
     </unit>
     <unit id="eJG2.4P" name="listing.current_sessions_header">
@@ -2713,10 +2671,10 @@
         <target>Текущие сессии</target>
       </segment>
     </unit>
-    <unit id="Tg5zdeo" name="reset_password.not_matching_pwds">
+    <unit id="a_COwtV" name="image.button_upload_options">
       <segment state="translated">
-        <source>reset_password.not_matching_pwds</source>
-        <target>Пароли должны совпадать.</target>
+        <source>image.button_upload_options</source>
+        <target>Параметры загрузки</target>
       </segment>
     </unit>
     <unit id="hKmDb7q" name="Share secure preview link">
@@ -2725,10 +2683,52 @@
         <target>Поделитесь защищённой ссылкой для предварительного просмотра</target>
       </segment>
     </unit>
-    <unit id="SxW1D3L" name="reset_password.check_email_sent_text_1">
+    <unit id="a_CQgly" name="Order">
       <segment state="translated">
-        <source>reset_password.check_email_sent_text_1</source>
-        <target>Было отправлено электронное письмо, содержащее ссылку, по которой вы можете перейти, чтобы сбросить свой пароль. Срок действия этой ссылки истечёт через %hours% час(а/ов).</target>
+        <source>Order</source>
+        <target>Порядок</target>
+      </segment>
+    </unit>
+    <unit id="Y7ajNNN" name="placeholder.email">
+      <segment state="translated">
+        <source>placeholder.email</source>
+        <target>ваш email</target>
+      </segment>
+    </unit>
+    <unit id="MjY7.cg" name="modal.title.file_field">
+      <segment state="translated">
+        <source>modal.title.file_field</source>
+        <target>Выберите файл</target>
+      </segment>
+    </unit>
+    <unit id="0yPnNMd" name="modal.title.image_field">
+      <segment state="translated">
+        <source>modal.title.image_field</source>
+        <target>Выберите изображение</target>
+      </segment>
+    </unit>
+    <unit id="KIN.Ehy" name="modal.title.upload_from_url">
+      <segment state="translated">
+        <source>modal.title.upload_from_url</source>
+        <target>Загрузить с URL-адреса</target>
+      </segment>
+    </unit>
+    <unit id="ODb3pJA" name="modal.text.loading">
+      <segment state="translated">
+        <source>modal.text.loading</source>
+        <target>Загрузка...</target>
+      </segment>
+    </unit>
+    <unit id="VlfWDQr" name="modal.button_save">
+      <segment state="translated">
+        <source>modal.button_save</source>
+        <target>Сохранить</target>
+      </segment>
+    </unit>
+    <unit id="ct_I4w3" name="modal.button_deny">
+      <segment state="translated">
+        <source>modal.button_deny</source>
+        <target>Закрыть</target>
       </segment>
     </unit>
     <unit id="OPxagAY" name="general.phrase.none">

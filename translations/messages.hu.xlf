@@ -927,12 +927,6 @@
         <target>Keresés</target>
       </segment>
     </unit>
-    <unit id="z0k8hRg" name="9fb3e6e">
-      <segment>
-        <source>9fb3e6e</source>
-        <target><![CDATA[Ez a weboldal <a href='https://boltcms.io' target='_blank' title='Az ésszerű és egyszerű, Bolt CMS'>-sel készült</a>.]]></target>
-      </segment>
-    </unit>
     <unit id="wNEwZy_" name="contenttypes.generic.overview">
       <segment>
         <source>contenttypes.generic.overview</source>
@@ -1083,12 +1077,6 @@
         <target>Sikeres frissítés!</target>
       </segment>
     </unit>
-    <unit id="eq5YMQf">
-      <segment>
-        <source>This website is &lt;a href='https://boltcms.io' target='_blank' title='Sophisticated, lightweight &amp; simple CMS'&gt;Built with Bolt&lt;/a&gt;.</source>
-        <target><![CDATA[Ez a weboldal <a href='https://boltcms.io' target='_blank' title='Az ésszerű és egyszerű, Bolt CMS'>-sel készült</a>.]]></target>
-      </segment>
-    </unit>
     <unit id="3zlZmRK" name="action.add_user">
       <segment>
         <source>action.add_user</source>
@@ -1125,106 +1113,40 @@
         <target>Megtekintés:</target>
       </segment>
     </unit>
-    <unit id="PE1dkX_" name="Uploaded files">
-      <segment>
-        <source>Uploaded files</source>
-        <target>Feltöltött fájlok</target>
-      </segment>
-    </unit>
     <unit id="I2ykiIZ" name="caption.folders">
       <segment>
         <source>caption.folders</source>
         <target>Mappák</target>
       </segment>
     </unit>
-    <unit id="cu3W5DR" name="image.upload">
+    <unit id="kaK5Wdr" name="slug.button_locked">
       <segment>
-        <source>image.upload</source>
-        <target>Feltöltés</target>
+        <source>slug.button_locked</source>
+        <target>Zárolt</target>
       </segment>
     </unit>
-    <unit id="nrWBJNm" name="extensions.title_desc">
+    <unit id="qcDEz5O" name="slug.button_edit">
       <segment>
-        <source>extensions.title_desc</source>
-        <target>Meghatározás:</target>
+        <source>slug.button_edit</source>
+        <target>Szerkesztés</target>
       </segment>
     </unit>
-    <unit id="7raDJAR" name="extensions.title_author">
+    <unit id="raO5QSf" name="slug.generate_from">
       <segment>
-        <source>extensions.title_author</source>
-        <target>Szerző:</target>
+        <source>slug.generate_from</source>
+        <target>Generálás…</target>
       </segment>
     </unit>
-    <unit id="UP8pNGy" name="extensions.title_package">
+    <unit id="vptPhch" name="image.button_upload">
       <segment>
-        <source>extensions.title_package</source>
-        <target>Csomag / Osztály név:</target>
+        <source>image.button_upload</source>
+        <target>Kép feltöltése</target>
       </segment>
     </unit>
-    <unit id="QFQ1uTC" name="extensions.title_version">
+    <unit id="vIVO1lU" name="image.button_from_library">
       <segment>
-        <source>extensions.title_version</source>
-        <target>Verzió:</target>
-      </segment>
-    </unit>
-    <unit id="piuatxC" name="extensions.info_not_installed">
-      <segment>
-        <source>extensions.info_not_installed</source>
-        <target>Ez a csomag lokális, nem Composerrel lett telepítve</target>
-      </segment>
-    </unit>
-    <unit id="3j1gEmk" name="extensions.title_class">
-      <segment>
-        <source>extensions.title_class</source>
-        <target>Osztálynév:</target>
-      </segment>
-    </unit>
-    <unit id="mjhFljb" name="extensions.button_configuration">
-      <segment>
-        <source>extensions.button_configuration</source>
-        <target>Konfiguráció</target>
-      </segment>
-    </unit>
-    <unit id="r3ryNTG" name="extensions.button_source">
-      <segment>
-        <source>extensions.button_source</source>
-        <target>Forrás</target>
-      </segment>
-    </unit>
-    <unit id="7JK6jNv" name="extensions.message_not_implemented">
-      <segment>
-        <source>extensions.message_not_implemented</source>
-        <target>Sajnos még nincs implementálva!</target>
-      </segment>
-    </unit>
-    <unit id="qc3rFkZ" name="extensions.button_remove">
-      <segment>
-        <source>extensions.button_remove</source>
-        <target>Bővítmény törlése</target>
-      </segment>
-    </unit>
-    <unit id="SLZyVzU" name="extensions.button_disable">
-      <segment>
-        <source>extensions.button_disable</source>
-        <target>Bővítmény tiltása</target>
-      </segment>
-    </unit>
-    <unit id="z2AgHGp" name="flash_messages.notification">
-      <segment>
-        <source>flash_messages.notification</source>
-        <target>Értesítés</target>
-      </segment>
-    </unit>
-    <unit id="pcq1NGk" name="listing_filter.button_compact">
-      <segment>
-        <source>listing_filter.button_compact</source>
-        <target>Becsuk</target>
-      </segment>
-    </unit>
-    <unit id="xIztVmp" name="listing_filter.button_expanded">
-      <segment>
-        <source>listing_filter.button_expanded</source>
-        <target>Kinyit</target>
+        <source>image.button_from_library</source>
+        <target>Képtárból</target>
       </segment>
     </unit>
     <unit id="L0TE0M9" name="listing_table.actions.view_on_site">
@@ -1287,88 +1209,22 @@
         <target>Módosítva: </target>
       </segment>
     </unit>
-    <unit id="zg5Dum5" name="geolocation.label_geolocation">
+    <unit id="BdhsE_X" name="listing_select_box.card_header.selected">
       <segment>
-        <source>geolocation.label_geolocation</source>
-        <target>Geolokáció</target>
+        <source>listing_select_box.card_header.selected</source>
+        <target>Kijelölve</target>
       </segment>
     </unit>
-    <unit id="Com0pbc" name="geolocation.label_address">
+    <unit id="jBpmj90" name="listing_select_box.card_body.records_passed">
       <segment>
-        <source>geolocation.label_address</source>
-        <target>Cím keresés</target>
+        <source>listing_select_box.card_body.records_passed</source>
+        <target>a kijelölt rekord ID-ken végrehajtva</target>
       </segment>
     </unit>
-    <unit id="3o0LPHj" name="geolocation.placeholder_address">
+    <unit id="D8vDkhK" name="listing_select_box.card_body.remark">
       <segment>
-        <source>geolocation.placeholder_address</source>
-        <target>Utca, irányítószám, város vagy helyszín…</target>
-      </segment>
-    </unit>
-    <unit id="CC5QTmy" name="geolocation.label_lat">
-      <segment>
-        <source>geolocation.label_lat</source>
-        <target>Szélesség</target>
-      </segment>
-    </unit>
-    <unit id="AHaenW3" name="geolocation.label_long">
-      <segment>
-        <source>geolocation.label_long</source>
-        <target>Hosszúság</target>
-      </segment>
-    </unit>
-    <unit id="MJ5WYEM" name="geolocation.label_address_matched">
-      <segment>
-        <source>geolocation.label_address_matched</source>
-        <target>A pontos cím</target>
-      </segment>
-    </unit>
-    <unit id="WJGjWG8" name="geolocation.label_marker">
-      <segment>
-        <source>geolocation.label_marker</source>
-        <target>Megjelölés</target>
-      </segment>
-    </unit>
-    <unit id="SaP3OOf" name="geolocation.label_control">
-      <segment>
-        <source>geolocation.label_control</source>
-        <target>A legközelebbi címhez igazítás</target>
-      </segment>
-    </unit>
-    <unit id="VQ2t655" name="file.label_filename">
-      <segment>
-        <source>file.label_filename</source>
-        <target>Fájlnév</target>
-      </segment>
-    </unit>
-    <unit id="TJDc9vQ" name="file.label_alt">
-      <segment>
-        <source>file.label_alt</source>
-        <target>Alt</target>
-      </segment>
-    </unit>
-    <unit id="tvpSmD7" name="file.label_title">
-      <segment>
-        <source>file.label_title</source>
-        <target>Cím</target>
-      </segment>
-    </unit>
-    <unit id="hXT_hI." name="file.button_view">
-      <segment>
-        <source>file.button_view</source>
-        <target>Kép megtekintés</target>
-      </segment>
-    </unit>
-    <unit id="QKIqqOw" name="file.button_upload">
-      <segment>
-        <source>file.button_upload</source>
-        <target>Feltöltés</target>
-      </segment>
-    </unit>
-    <unit id="4_JdYp1" name="file.remark">
-      <segment>
-        <source>file.remark</source>
-        <target><![CDATA[Mejegyzés: Ez a mező ugyanaz mint az <code>image</code> mező.]]></target>
+        <source>listing_select_box.card_body.remark</source>
+        <target>(ezek egyfajta "Axion" tömeges törlés/módosítással dolgozhatók fel)</target>
       </segment>
     </unit>
     <unit id="kHeY93_" name="editor_embed.content_url">
@@ -1413,30 +1269,6 @@
         <target>Méret</target>
       </segment>
     </unit>
-    <unit id="BINgtmK" name="editor_date.toggle">
-      <segment>
-        <source>editor_date.toggle</source>
-        <target>Átváltás</target>
-      </segment>
-    </unit>
-    <unit id="M.3olSc" name="filelist.remark">
-      <segment>
-        <source>filelist.remark</source>
-        <target><![CDATA[Megjegyzés: Ez a mező ugyanaz mint az <code>imagelist</code> mező.]]></target>
-      </segment>
-    </unit>
-    <unit id="vptPhch" name="image.button_upload">
-      <segment>
-        <source>image.button_upload</source>
-        <target>Kép feltöltése</target>
-      </segment>
-    </unit>
-    <unit id="vIVO1lU" name="image.button_from_library">
-      <segment>
-        <source>image.button_from_library</source>
-        <target>Képtárból</target>
-      </segment>
-    </unit>
     <unit id="oOuVKRv" name="image.placeholder_filename">
       <segment>
         <source>image.placeholder_filename</source>
@@ -1455,22 +1287,112 @@
         <target>Cím</target>
       </segment>
     </unit>
-    <unit id="kaK5Wdr" name="slug.button_locked">
+    <unit id="Gabafxx" name="admin_sidebar.toggler">
       <segment>
-        <source>slug.button_locked</source>
-        <target>Zárolt</target>
+        <source>admin_sidebar.toggler</source>
+        <target>Oldalpanel szélesség átkapcsolás</target>
       </segment>
     </unit>
-    <unit id="qcDEz5O" name="slug.button_edit">
+    <unit id="jXAelLe" name="admin_sidebar_toggler.toggle">
       <segment>
-        <source>slug.button_edit</source>
-        <target>Szerkesztés</target>
+        <source>admin_sidebar_toggler.toggle</source>
+        <target>Menü átkapcsolás</target>
       </segment>
     </unit>
-    <unit id="raO5QSf" name="slug.generate_from">
+    <unit id="BINgtmK" name="editor_date.toggle">
       <segment>
-        <source>slug.generate_from</source>
-        <target>Generálás…</target>
+        <source>editor_date.toggle</source>
+        <target>Átváltás</target>
+      </segment>
+    </unit>
+    <unit id="VQ2t655" name="file.label_filename">
+      <segment>
+        <source>file.label_filename</source>
+        <target>Fájlnév</target>
+      </segment>
+    </unit>
+    <unit id="tvpSmD7" name="file.label_title">
+      <segment>
+        <source>file.label_title</source>
+        <target>Cím</target>
+      </segment>
+    </unit>
+    <unit id="hXT_hI." name="file.button_view">
+      <segment>
+        <source>file.button_view</source>
+        <target>Kép megtekintés</target>
+      </segment>
+    </unit>
+    <unit id="QKIqqOw" name="file.button_upload">
+      <segment>
+        <source>file.button_upload</source>
+        <target>Feltöltés</target>
+      </segment>
+    </unit>
+    <unit id="4_JdYp1" name="file.remark">
+      <segment>
+        <source>file.remark</source>
+        <target><![CDATA[Mejegyzés: Ez a mező ugyanaz mint az <code>image</code> mező.]]></target>
+      </segment>
+    </unit>
+    <unit id="TJDc9vQ" name="file.label_alt">
+      <segment>
+        <source>file.label_alt</source>
+        <target>Alt</target>
+      </segment>
+    </unit>
+    <unit id="M.3olSc" name="filelist.remark">
+      <segment>
+        <source>filelist.remark</source>
+        <target><![CDATA[Megjegyzés: Ez a mező ugyanaz mint az <code>imagelist</code> mező.]]></target>
+      </segment>
+    </unit>
+    <unit id="zg5Dum5" name="geolocation.label_geolocation">
+      <segment>
+        <source>geolocation.label_geolocation</source>
+        <target>Geolokáció</target>
+      </segment>
+    </unit>
+    <unit id="Com0pbc" name="geolocation.label_address">
+      <segment>
+        <source>geolocation.label_address</source>
+        <target>Cím keresés</target>
+      </segment>
+    </unit>
+    <unit id="3o0LPHj" name="geolocation.placeholder_address">
+      <segment>
+        <source>geolocation.placeholder_address</source>
+        <target>Utca, irányítószám, város vagy helyszín…</target>
+      </segment>
+    </unit>
+    <unit id="CC5QTmy" name="geolocation.label_lat">
+      <segment>
+        <source>geolocation.label_lat</source>
+        <target>Szélesség</target>
+      </segment>
+    </unit>
+    <unit id="MJ5WYEM" name="geolocation.label_address_matched">
+      <segment>
+        <source>geolocation.label_address_matched</source>
+        <target>A pontos cím</target>
+      </segment>
+    </unit>
+    <unit id="WJGjWG8" name="geolocation.label_marker">
+      <segment>
+        <source>geolocation.label_marker</source>
+        <target>Megjelölés</target>
+      </segment>
+    </unit>
+    <unit id="SaP3OOf" name="geolocation.label_control">
+      <segment>
+        <source>geolocation.label_control</source>
+        <target>A legközelebbi címhez igazítás</target>
+      </segment>
+    </unit>
+    <unit id="AHaenW3" name="geolocation.label_long">
+      <segment>
+        <source>geolocation.label_long</source>
+        <target>Hosszúság</target>
       </segment>
     </unit>
     <unit id="TkryUve" name="imagelist.remark">
@@ -1479,28 +1401,76 @@
         <target>__imagelist.remark</target>
       </segment>
     </unit>
-    <unit id="v6cfPyt" name="quickselect.title_select">
+    <unit id="z2AgHGp" name="flash_messages.notification">
       <segment>
-        <source>quickselect.title_select</source>
-        <target>__quickselect.title_select</target>
+        <source>flash_messages.notification</source>
+        <target>Értesítés</target>
       </segment>
     </unit>
-    <unit id=".fL0AbE" name="files_list.remark">
+    <unit id="qQKx1lR" name="buttons.button_toggle">
       <segment>
-        <source>files_list.remark</source>
-        <target><![CDATA[Megjegyzés: Ez a mező megegyezik a <code>filelist</code> mezővel.]]></target>
+        <source>buttons.button_toggle</source>
+        <target>Átkapcsolás</target>
       </segment>
     </unit>
-    <unit id="m3tNvJb" name="finder.button_list">
+    <unit id="ypPzS03" name="localeswitcher.button_info">
       <segment>
-        <source>finder.button_list</source>
-        <target>Lista</target>
+        <source>localeswitcher.button_info</source>
+        <target>Lokalizáció megtekintése</target>
       </segment>
     </unit>
-    <unit id="tRLgeoX" name="finder.button_cards">
+    <unit id="wQ0WYAT" name="listing.title_sortby">
       <segment>
-        <source>finder.button_cards</source>
-        <target>Mátrix</target>
+        <source>listing.title_sortby</source>
+        <target>Rendezés</target>
+      </segment>
+    </unit>
+    <unit id="ZGv90X8" name="listing.option_select_item">
+      <segment>
+        <source>listing.option_select_item</source>
+        <target>Elem kiválasztás</target>
+      </segment>
+    </unit>
+    <unit id="TIyjgb6" name="listing.title_title">
+      <segment>
+        <source>listing.title_title</source>
+        <target>Cím</target>
+      </segment>
+    </unit>
+    <unit id="pn22p7q" name="listing.placeholder_filter">
+      <segment>
+        <source>listing.placeholder_filter</source>
+        <target>Kulcsszó…</target>
+      </segment>
+    </unit>
+    <unit id="ni4zApC" name="listing.button_filter">
+      <segment>
+        <source>listing.button_filter</source>
+        <target>Szűrő</target>
+      </segment>
+    </unit>
+    <unit id="doNsgm0" name="listing.button_clear">
+      <segment>
+        <source>listing.button_clear</source>
+        <target>Szűrés/Rendezés törlése</target>
+      </segment>
+    </unit>
+    <unit id="37kJiIe" name="view_locales.badge_default">
+      <segment>
+        <source>view_locales.badge_default</source>
+        <target>Alapértelmezett</target>
+      </segment>
+    </unit>
+    <unit id="JTRCo_U" name="view_locales.badge_ok">
+      <segment>
+        <source>view_locales.badge_ok</source>
+        <target>OK</target>
+      </segment>
+    </unit>
+    <unit id="ufFUPp7" name="view_locales.badge_missing">
+      <segment>
+        <source>view_locales.badge_missing</source>
+        <target>Hiányzó</target>
       </segment>
     </unit>
     <unit id="QQvRJe." name="files_cards.button_toggle">
@@ -1569,10 +1539,88 @@
         <target>Létrehozva:</target>
       </segment>
     </unit>
-    <unit id="8JeahIj" name="files_cards.message_no_files">
+    <unit id=".fL0AbE" name="files_list.remark">
       <segment>
-        <source>files_cards.message_no_files</source>
-        <target>Nincs fájl ebben a mappában. Jobboldalon válassz ki egy mappát!</target>
+        <source>files_list.remark</source>
+        <target><![CDATA[Megjegyzés: Ez a mező megegyezik a <code>filelist</code> mezővel.]]></target>
+      </segment>
+    </unit>
+    <unit id="v6cfPyt" name="quickselect.title_select">
+      <segment>
+        <source>quickselect.title_select</source>
+        <target>__quickselect.title_select</target>
+      </segment>
+    </unit>
+    <unit id="m3tNvJb" name="finder.button_list">
+      <segment>
+        <source>finder.button_list</source>
+        <target>Lista</target>
+      </segment>
+    </unit>
+    <unit id="tRLgeoX" name="finder.button_cards">
+      <segment>
+        <source>finder.button_cards</source>
+        <target>Mátrix</target>
+      </segment>
+    </unit>
+    <unit id="nrWBJNm" name="extensions.title_desc">
+      <segment>
+        <source>extensions.title_desc</source>
+        <target>Meghatározás:</target>
+      </segment>
+    </unit>
+    <unit id="7raDJAR" name="extensions.title_author">
+      <segment>
+        <source>extensions.title_author</source>
+        <target>Szerző:</target>
+      </segment>
+    </unit>
+    <unit id="UP8pNGy" name="extensions.title_package">
+      <segment>
+        <source>extensions.title_package</source>
+        <target>Csomag / Osztály név:</target>
+      </segment>
+    </unit>
+    <unit id="QFQ1uTC" name="extensions.title_version">
+      <segment>
+        <source>extensions.title_version</source>
+        <target>Verzió:</target>
+      </segment>
+    </unit>
+    <unit id="piuatxC" name="extensions.info_not_installed">
+      <segment>
+        <source>extensions.info_not_installed</source>
+        <target>Ez a csomag lokális, nem Composerrel lett telepítve</target>
+      </segment>
+    </unit>
+    <unit id="3j1gEmk" name="extensions.title_class">
+      <segment>
+        <source>extensions.title_class</source>
+        <target>Osztálynév:</target>
+      </segment>
+    </unit>
+    <unit id="mjhFljb" name="extensions.button_configuration">
+      <segment>
+        <source>extensions.button_configuration</source>
+        <target>Konfiguráció</target>
+      </segment>
+    </unit>
+    <unit id="r3ryNTG" name="extensions.button_source">
+      <segment>
+        <source>extensions.button_source</source>
+        <target>Forrás</target>
+      </segment>
+    </unit>
+    <unit id="qc3rFkZ" name="extensions.button_remove">
+      <segment>
+        <source>extensions.button_remove</source>
+        <target>Bővítmény törlése</target>
+      </segment>
+    </unit>
+    <unit id="SLZyVzU" name="extensions.button_disable">
+      <segment>
+        <source>extensions.button_disable</source>
+        <target>Bővítmény tiltása</target>
       </segment>
     </unit>
     <unit id="beqzCkE" name="login.header_login">
@@ -1581,34 +1629,10 @@
         <target>Bejelentkezés</target>
       </segment>
     </unit>
-    <unit id="37kJiIe" name="view_locales.badge_default">
+    <unit id="7JK6jNv" name="extensions.message_not_implemented">
       <segment>
-        <source>view_locales.badge_default</source>
-        <target>Alapértelmezett</target>
-      </segment>
-    </unit>
-    <unit id="JTRCo_U" name="view_locales.badge_ok">
-      <segment>
-        <source>view_locales.badge_ok</source>
-        <target>OK</target>
-      </segment>
-    </unit>
-    <unit id="ufFUPp7" name="view_locales.badge_missing">
-      <segment>
-        <source>view_locales.badge_missing</source>
-        <target>Hiányzó</target>
-      </segment>
-    </unit>
-    <unit id="ypPzS03" name="localeswitcher.button_info">
-      <segment>
-        <source>localeswitcher.button_info</source>
-        <target>Lokalizáció megtekintése</target>
-      </segment>
-    </unit>
-    <unit id="qQKx1lR" name="buttons.button_toggle">
-      <segment>
-        <source>buttons.button_toggle</source>
-        <target>Átkapcsolás</target>
+        <source>extensions.message_not_implemented</source>
+        <target>Sajnos még nincs implementálva!</target>
       </segment>
     </unit>
     <unit id="Hlf9c1s" name="listing.title_overview">
@@ -1617,70 +1641,22 @@
         <target>Áttekintő</target>
       </segment>
     </unit>
-    <unit id="BdhsE_X" name="listing_select_box.card_header.selected">
+    <unit id="8JeahIj" name="files_cards.message_no_files">
       <segment>
-        <source>listing_select_box.card_header.selected</source>
-        <target>Kijelölve</target>
+        <source>files_cards.message_no_files</source>
+        <target>Nincs fájl ebben a mappában. Jobboldalon válassz ki egy mappát!</target>
       </segment>
     </unit>
-    <unit id="jBpmj90" name="listing_select_box.card_body.records_passed">
+    <unit id="pcq1NGk" name="listing_filter.button_compact">
       <segment>
-        <source>listing_select_box.card_body.records_passed</source>
-        <target>a kijelölt rekord ID-ken végrehajtva</target>
+        <source>listing_filter.button_compact</source>
+        <target>Becsuk</target>
       </segment>
     </unit>
-    <unit id="D8vDkhK" name="listing_select_box.card_body.remark">
+    <unit id="xIztVmp" name="listing_filter.button_expanded">
       <segment>
-        <source>listing_select_box.card_body.remark</source>
-        <target>(ezek egyfajta "Axion" tömeges törlés/módosítással dolgozhatók fel)</target>
-      </segment>
-    </unit>
-    <unit id="wQ0WYAT" name="listing.title_sortby">
-      <segment>
-        <source>listing.title_sortby</source>
-        <target>Rendezés</target>
-      </segment>
-    </unit>
-    <unit id="ZGv90X8" name="listing.option_select_item">
-      <segment>
-        <source>listing.option_select_item</source>
-        <target>Elem kiválasztás</target>
-      </segment>
-    </unit>
-    <unit id="TIyjgb6" name="listing.title_title">
-      <segment>
-        <source>listing.title_title</source>
-        <target>Cím</target>
-      </segment>
-    </unit>
-    <unit id="pn22p7q" name="listing.placeholder_filter">
-      <segment>
-        <source>listing.placeholder_filter</source>
-        <target>Kulcsszó…</target>
-      </segment>
-    </unit>
-    <unit id="ni4zApC" name="listing.button_filter">
-      <segment>
-        <source>listing.button_filter</source>
-        <target>Szűrő</target>
-      </segment>
-    </unit>
-    <unit id="doNsgm0" name="listing.button_clear">
-      <segment>
-        <source>listing.button_clear</source>
-        <target>Szűrés/Rendezés törlése</target>
-      </segment>
-    </unit>
-    <unit id="jXAelLe" name="admin_sidebar_toggler.toggle">
-      <segment>
-        <source>admin_sidebar_toggler.toggle</source>
-        <target>Menü átkapcsolás</target>
-      </segment>
-    </unit>
-    <unit id="Gabafxx" name="admin_sidebar.toggler">
-      <segment>
-        <source>admin_sidebar.toggler</source>
-        <target>Oldalpanel szélesség átkapcsolás</target>
+        <source>listing_filter.button_expanded</source>
+        <target>Kinyit</target>
       </segment>
     </unit>
     <unit id="73A2bWM" name="finder.label_view">
@@ -1785,238 +1761,10 @@
         <target>Műveletek</target>
       </segment>
     </unit>
-    <unit id="rCKtTo5" name="caption.redirection_page">
+    <unit id="EaqUUfe" name="label.predominant_colors__in_image">
       <segment>
-        <source>caption.redirection_page</source>
-        <target>Átirányítási oldal</target>
-      </segment>
-    </unit>
-    <unit id="QVRwwK4" name="about.system_info">
-      <segment>
-        <source>about.system_info</source>
-        <target>Rendszer információ</target>
-      </segment>
-    </unit>
-    <unit id="munFS0n" name="title.filtered_by">
-      <segment>
-        <source>title.filtered_by</source>
-        <target><![CDATA[A <em>'%filter%'-vel szűrt tartalom</em>.]]></target>
-      </segment>
-    </unit>
-    <unit id="hgNZLwW" name="extensions.title_configuration">
-      <segment>
-        <source>extensions.title_configuration</source>
-        <target>Konfigurációs fájl</target>
-      </segment>
-    </unit>
-    <unit id="LfwezhR" name="extensions.title_dependencies">
-      <segment>
-        <source>extensions.title_dependencies</source>
-        <target>Függőségek</target>
-      </segment>
-    </unit>
-    <unit id="60xy4WG" name="extensions.no_dependencies">
-      <segment>
-        <source>extensions.no_dependencies</source>
-        <target>Nincsenek ismert függőségek</target>
-      </segment>
-    </unit>
-    <unit id="2MtT_h0" name="caption.logviewer">
-      <segment>
-        <source>caption.logviewer</source>
-        <target>Napló</target>
-      </segment>
-    </unit>
-    <unit id="BFARQEU" name="extensions.button_detailed_view">
-      <segment>
-        <source>extensions.button_detailed_view</source>
-        <target>Részletek</target>
-      </segment>
-    </unit>
-    <unit id="YZJO3Ul" name="upload.allow_file_types">
-      <segment>
-        <source>upload.allow_file_types</source>
-        <target>Feltöltéshez engedélyezett fájlok</target>
-      </segment>
-    </unit>
-    <unit id="noOf4ML" name="upload.max_size">
-      <segment>
-        <source>upload.max_size</source>
-        <target>Feltölthető méret</target>
-      </segment>
-    </unit>
-    <unit id="FqVh1Hv" name="image.button_remove">
-      <segment>
-        <source>image.button_remove</source>
-        <target>Eltávolítás</target>
-      </segment>
-    </unit>
-    <unit id="eHV6ZJB" name="image.button_edit_attributes">
-      <segment>
-        <source>image.button_edit_attributes</source>
-        <target>Attributumok szerkesztése</target>
-      </segment>
-    </unit>
-    <unit id="ApPu4P_" name="collection.move_item_up">
-      <segment>
-        <source>collection.move_item_up</source>
-        <target>Mozgatás felfelé</target>
-      </segment>
-    </unit>
-    <unit id="KzBtfHi" name="collection.move_item_down">
-      <segment>
-        <source>collection.move_item_down</source>
-        <target>Mozgatás lefelé</target>
-      </segment>
-    </unit>
-    <unit id="JpJFIFq" name="collection.confirm_delete">
-      <segment>
-        <source>collection.confirm_delete</source>
-        <target>Biztos hogy törölni kívánod ezt az tételt?</target>
-      </segment>
-    </unit>
-    <unit id=".t1ICS7" name="collection.remove_item">
-      <segment>
-        <source>collection.remove_item</source>
-        <target>Tétel eltávolítása</target>
-      </segment>
-    </unit>
-    <unit id="0C9.Vmh" name="collection.add_item">
-      <segment>
-        <source>collection.add_item</source>
-        <target>Új tétel hozzáadása ehhez: '%name%'</target>
-      </segment>
-    </unit>
-    <unit id="H9knE.O" name="collection.expand_all">
-      <segment>
-        <source>collection.expand_all</source>
-        <target>Összes kibontása</target>
-      </segment>
-    </unit>
-    <unit id="JjvI6hp" name="collection.collapse_all">
-      <segment>
-        <source>collection.collapse_all</source>
-        <target>Összes becsukása</target>
-      </segment>
-    </unit>
-    <unit id="RBJ0NMl" name="collection.select">
-      <segment>
-        <source>collection.select</source>
-        <target>Kijelölés…</target>
-      </segment>
-    </unit>
-    <unit id="7aSD0Qr" name="image.button_up">
-      <segment>
-        <source>image.button_up</source>
-        <target>Fel</target>
-      </segment>
-    </unit>
-    <unit id="WihD8Y5" name="image.button_down">
-      <segment>
-        <source>image.button_down</source>
-        <target>Le</target>
-      </segment>
-    </unit>
-    <unit id="8Q4FxVw" name="file.add_new_file">
-      <segment>
-        <source>file.add_new_file</source>
-        <target>Új fájl hozzáadás</target>
-      </segment>
-    </unit>
-    <unit id="XQ2U6fN" name="slug.button_unlocked">
-      <segment>
-        <source>slug.button_unlocked</source>
-        <target>Feloldva</target>
-      </segment>
-    </unit>
-    <unit id="Oj2UZ5J" name="image.add_new_image">
-      <segment>
-        <source>image.add_new_image</source>
-        <target>Új kép hozzáadása</target>
-      </segment>
-    </unit>
-    <unit id="283aB_E" name="caption.file_upload.upload_text">
-      <segment>
-        <source>caption.file_upload.upload_text</source>
-        <target>Húzd ide a feltölteni kívánt fájlt</target>
-      </segment>
-    </unit>
-    <unit id="wHPoBzP" name="file.delete_confirm">
-      <segment>
-        <source>file.delete_confirm</source>
-        <target>Biztos törölni szeretnéd ezt a fájlt?</target>
-      </segment>
-    </unit>
-    <unit id="z_tOHwq" name="placeholder.username_or_email">
-      <segment>
-        <source>placeholder.username_or_email</source>
-        <target>felhasználónév vagy email</target>
-      </segment>
-    </unit>
-    <unit id="xgYhRkc" name="placeholder.password">
-      <segment>
-        <source>placeholder.password</source>
-        <target>jelszó</target>
-      </segment>
-    </unit>
-    <unit id="SGlj7K2" name="view_locales.badge_empty">
-      <segment>
-        <source>view_locales.badge_empty</source>
-        <target>Üres</target>
-      </segment>
-    </unit>
-    <unit id="pXtciRI" name="content.edit_missing_definition">
-      <segment>
-        <source>content.edit_missing_definition</source>
-        <target>A Tartalom Típus definíciója hiányzik! A rekordot nem lehet majd megfelelően szerkeszteni. Kérlek ellenőrizd a contenttypes.yaml fájlt, hogy az tartalmazza-e a %contenttype%-t!</target>
-      </segment>
-    </unit>
-    <unit id="JEnqOi." name="title.primary_actions">
-      <segment>
-        <source>title.primary_actions</source>
-        <target>Elsődleges műveletek</target>
-      </segment>
-    </unit>
-    <unit id="7616Os4" name="title.options">
-      <segment>
-        <source>title.options</source>
-        <target>Opciók</target>
-      </segment>
-    </unit>
-    <unit id="6Gw1lsE" name="action.confirm_delete">
-      <segment>
-        <source>action.confirm_delete</source>
-        <target>Biztos törölni kívánod ezt a tartalmat?</target>
-      </segment>
-    </unit>
-    <unit id="hTKWQ6g" name="action.delete">
-      <segment>
-        <source>action.delete</source>
-        <target>Törlés</target>
-      </segment>
-    </unit>
-    <unit id="WeJxw6Z" name="action.update_all">
-      <segment>
-        <source>action.update_all</source>
-        <target>Alkalmazás mindre</target>
-      </segment>
-    </unit>
-    <unit id="hp554Ds" name="listing.option_select_sortby">
-      <segment>
-        <source>listing.option_select_sortby</source>
-        <target>Rendezés mezőre…</target>
-      </segment>
-    </unit>
-    <unit id="IWbf2by" name="listing.title_filterby">
-      <segment>
-        <source>listing.title_filterby</source>
-        <target>Keresés / szűrés</target>
-      </segment>
-    </unit>
-    <unit id="n.3JZvX" name="title.contentType">
-      <segment>
-        <source>title.contentType</source>
-        <target>Tartalomtípus</target>
+        <source>label.predominant_colors__in_image</source>
+        <target>A kép meghatározó színei</target>
       </segment>
     </unit>
     <unit id="Dgtkgju" name="title.edit_user_profile">
@@ -2025,46 +1773,10 @@
         <target>Profil szerkesztés</target>
       </segment>
     </unit>
-    <unit id="Npkio79" name="listing.title_session_expires">
+    <unit id="rCKtTo5" name="caption.redirection_page">
       <segment>
-        <source>listing.title_session_expires</source>
-        <target>A munkafolyamat lejár</target>
-      </segment>
-    </unit>
-    <unit id="mmUDcto" name="listing.title_ip_address">
-      <segment>
-        <source>listing.title_ip_address</source>
-        <target>IP cím</target>
-      </segment>
-    </unit>
-    <unit id="x9qAwrz" name="listing.title_browser">
-      <segment>
-        <source>listing.title_browser</source>
-        <target>Böngésző / platform</target>
-      </segment>
-    </unit>
-    <unit id="AMxTho9" name="pager.previous">
-      <segment>
-        <source>pager.previous</source>
-        <target>Előző</target>
-      </segment>
-    </unit>
-    <unit id="L_YQKUn" name="pager.next">
-      <segment>
-        <source>pager.next</source>
-        <target>Következő</target>
-      </segment>
-    </unit>
-    <unit id="O_m7mx1" name="listing.placeholder_search">
-      <segment>
-        <source>listing.placeholder_search</source>
-        <target>Kulcsszó keresése…</target>
-      </segment>
-    </unit>
-    <unit id="f.rvF6y" name="action.new">
-      <segment>
-        <source>action.new</source>
-        <target>Új</target>
+        <source>caption.redirection_page</source>
+        <target>Átirányítási oldal</target>
       </segment>
     </unit>
     <unit id="TtIlBDd" name="caption.edit_image">
@@ -2085,16 +1797,16 @@
         <target>A kivágás pozíciója X tengelyen (0-100)</target>
       </segment>
     </unit>
-    <unit id="hi98HIj" name="field.cropY">
-      <segment>
-        <source>field.cropY</source>
-        <target>Kivágás (Y)</target>
-      </segment>
-    </unit>
     <unit id="BQBmQHT" name="field.cropYPostfix">
       <segment>
         <source>field.cropYPostfix</source>
         <target>A kivágás pozíciója Y tengelyen (0-100)</target>
+      </segment>
+    </unit>
+    <unit id="hi98HIj" name="field.cropY">
+      <segment>
+        <source>field.cropY</source>
+        <target>Kivágás (Y)</target>
       </segment>
     </unit>
     <unit id="PHOpD5y" name="field.cropZoom">
@@ -2109,10 +1821,190 @@
         <target>A kivágás nagyításának mértéke (1-10)</target>
       </segment>
     </unit>
-    <unit id="EaqUUfe" name="label.predominant_colors__in_image">
+    <unit id="n.3JZvX" name="title.contentType">
       <segment>
-        <source>label.predominant_colors__in_image</source>
-        <target>A kép meghatározó színei</target>
+        <source>title.contentType</source>
+        <target>Tartalomtípus</target>
+      </segment>
+    </unit>
+    <unit id="hp554Ds" name="listing.option_select_sortby">
+      <segment>
+        <source>listing.option_select_sortby</source>
+        <target>Rendezés mezőre…</target>
+      </segment>
+    </unit>
+    <unit id="JEnqOi." name="title.primary_actions">
+      <segment>
+        <source>title.primary_actions</source>
+        <target>Elsődleges műveletek</target>
+      </segment>
+    </unit>
+    <unit id="7616Os4" name="title.options">
+      <segment>
+        <source>title.options</source>
+        <target>Opciók</target>
+      </segment>
+    </unit>
+    <unit id="hTKWQ6g" name="action.delete">
+      <segment>
+        <source>action.delete</source>
+        <target>Törlés</target>
+      </segment>
+    </unit>
+    <unit id="Npkio79" name="listing.title_session_expires">
+      <segment>
+        <source>listing.title_session_expires</source>
+        <target>A munkafolyamat lejár</target>
+      </segment>
+    </unit>
+    <unit id="mmUDcto" name="listing.title_ip_address">
+      <segment>
+        <source>listing.title_ip_address</source>
+        <target>IP cím</target>
+      </segment>
+    </unit>
+    <unit id="x9qAwrz" name="listing.title_browser">
+      <segment>
+        <source>listing.title_browser</source>
+        <target>Böngésző / platform</target>
+      </segment>
+    </unit>
+    <unit id="FqVh1Hv" name="image.button_remove">
+      <segment>
+        <source>image.button_remove</source>
+        <target>Eltávolítás</target>
+      </segment>
+    </unit>
+    <unit id="eHV6ZJB" name="image.button_edit_attributes">
+      <segment>
+        <source>image.button_edit_attributes</source>
+        <target>Attributumok szerkesztése</target>
+      </segment>
+    </unit>
+    <unit id="Oj2UZ5J" name="image.add_new_image">
+      <segment>
+        <source>image.add_new_image</source>
+        <target>Új kép hozzáadása</target>
+      </segment>
+    </unit>
+    <unit id="8Q4FxVw" name="file.add_new_file">
+      <segment>
+        <source>file.add_new_file</source>
+        <target>Új fájl hozzáadás</target>
+      </segment>
+    </unit>
+    <unit id=".t1ICS7" name="collection.remove_item">
+      <segment>
+        <source>collection.remove_item</source>
+        <target>Tétel eltávolítása</target>
+      </segment>
+    </unit>
+    <unit id="0C9.Vmh" name="collection.add_item">
+      <segment>
+        <source>collection.add_item</source>
+        <target>Új tétel hozzáadása ehhez: '%name%'</target>
+      </segment>
+    </unit>
+    <unit id="ApPu4P_" name="collection.move_item_up">
+      <segment>
+        <source>collection.move_item_up</source>
+        <target>Mozgatás felfelé</target>
+      </segment>
+    </unit>
+    <unit id="KzBtfHi" name="collection.move_item_down">
+      <segment>
+        <source>collection.move_item_down</source>
+        <target>Mozgatás lefelé</target>
+      </segment>
+    </unit>
+    <unit id="BFARQEU" name="extensions.button_detailed_view">
+      <segment>
+        <source>extensions.button_detailed_view</source>
+        <target>Részletek</target>
+      </segment>
+    </unit>
+    <unit id="hgNZLwW" name="extensions.title_configuration">
+      <segment>
+        <source>extensions.title_configuration</source>
+        <target>Konfigurációs fájl</target>
+      </segment>
+    </unit>
+    <unit id="283aB_E" name="caption.file_upload.upload_text">
+      <segment>
+        <source>caption.file_upload.upload_text</source>
+        <target>Húzd ide a feltölteni kívánt fájlt</target>
+      </segment>
+    </unit>
+    <unit id="L_YQKUn" name="pager.next">
+      <segment>
+        <source>pager.next</source>
+        <target>Következő</target>
+      </segment>
+    </unit>
+    <unit id="AMxTho9" name="pager.previous">
+      <segment>
+        <source>pager.previous</source>
+        <target>Előző</target>
+      </segment>
+    </unit>
+    <unit id="7aSD0Qr" name="image.button_up">
+      <segment>
+        <source>image.button_up</source>
+        <target>Fel</target>
+      </segment>
+    </unit>
+    <unit id="WihD8Y5" name="image.button_down">
+      <segment>
+        <source>image.button_down</source>
+        <target>Le</target>
+      </segment>
+    </unit>
+    <unit id="2MtT_h0" name="caption.logviewer">
+      <segment>
+        <source>caption.logviewer</source>
+        <target>Napló</target>
+      </segment>
+    </unit>
+    <unit id="XQ2U6fN" name="slug.button_unlocked">
+      <segment>
+        <source>slug.button_unlocked</source>
+        <target>Feloldva</target>
+      </segment>
+    </unit>
+    <unit id="SGlj7K2" name="view_locales.badge_empty">
+      <segment>
+        <source>view_locales.badge_empty</source>
+        <target>Üres</target>
+      </segment>
+    </unit>
+    <unit id="WeJxw6Z" name="action.update_all">
+      <segment>
+        <source>action.update_all</source>
+        <target>Alkalmazás mindre</target>
+      </segment>
+    </unit>
+    <unit id="QVRwwK4" name="about.system_info">
+      <segment>
+        <source>about.system_info</source>
+        <target>Rendszer információ</target>
+      </segment>
+    </unit>
+    <unit id="6Gw1lsE" name="action.confirm_delete">
+      <segment>
+        <source>action.confirm_delete</source>
+        <target>Biztos törölni kívánod ezt a tartalmat?</target>
+      </segment>
+    </unit>
+    <unit id="z_tOHwq" name="placeholder.username_or_email">
+      <segment>
+        <source>placeholder.username_or_email</source>
+        <target>felhasználónév vagy email</target>
+      </segment>
+    </unit>
+    <unit id="xgYhRkc" name="placeholder.password">
+      <segment>
+        <source>placeholder.password</source>
+        <target>jelszó</target>
       </segment>
     </unit>
     <unit id="KshyLfh" name="caption.other_content">
@@ -2121,10 +2013,118 @@
         <target>Egyéb tartalom</target>
       </segment>
     </unit>
+    <unit id="wHPoBzP" name="file.delete_confirm">
+      <segment>
+        <source>file.delete_confirm</source>
+        <target>Biztos törölni szeretnéd ezt a fájlt?</target>
+      </segment>
+    </unit>
+    <unit id="IWbf2by" name="listing.title_filterby">
+      <segment>
+        <source>listing.title_filterby</source>
+        <target>Keresés / szűrés</target>
+      </segment>
+    </unit>
+    <unit id="JpJFIFq" name="collection.confirm_delete">
+      <segment>
+        <source>collection.confirm_delete</source>
+        <target>Biztos hogy törölni kívánod ezt az tételt?</target>
+      </segment>
+    </unit>
+    <unit id="YZJO3Ul" name="upload.allow_file_types">
+      <segment>
+        <source>upload.allow_file_types</source>
+        <target>Feltöltéshez engedélyezett fájlok</target>
+      </segment>
+    </unit>
+    <unit id="noOf4ML" name="upload.max_size">
+      <segment>
+        <source>upload.max_size</source>
+        <target>Feltölthető méret</target>
+      </segment>
+    </unit>
+    <unit id="O_m7mx1" name="listing.placeholder_search">
+      <segment>
+        <source>listing.placeholder_search</source>
+        <target>Kulcsszó keresése…</target>
+      </segment>
+    </unit>
+    <unit id="munFS0n" name="title.filtered_by">
+      <segment>
+        <source>title.filtered_by</source>
+        <target><![CDATA[A <em>'%filter%'-vel szűrt tartalom</em>.]]></target>
+      </segment>
+    </unit>
+    <unit id="f.rvF6y" name="action.new">
+      <segment>
+        <source>action.new</source>
+        <target>Új</target>
+      </segment>
+    </unit>
+    <unit id="60xy4WG" name="extensions.no_dependencies">
+      <segment>
+        <source>extensions.no_dependencies</source>
+        <target>Nincsenek ismert függőségek</target>
+      </segment>
+    </unit>
+    <unit id="LfwezhR" name="extensions.title_dependencies">
+      <segment>
+        <source>extensions.title_dependencies</source>
+        <target>Függőségek</target>
+      </segment>
+    </unit>
+    <unit id="H9knE.O" name="collection.expand_all">
+      <segment>
+        <source>collection.expand_all</source>
+        <target>Összes kibontása</target>
+      </segment>
+    </unit>
+    <unit id="JjvI6hp" name="collection.collapse_all">
+      <segment>
+        <source>collection.collapse_all</source>
+        <target>Összes becsukása</target>
+      </segment>
+    </unit>
+    <unit id="pXtciRI" name="content.edit_missing_definition">
+      <segment>
+        <source>content.edit_missing_definition</source>
+        <target>A Tartalom Típus definíciója hiányzik! A rekordot nem lehet majd megfelelően szerkeszteni. Kérlek ellenőrizd a contenttypes.yaml fájlt, hogy az tartalmazza-e a %contenttype%-t!</target>
+      </segment>
+    </unit>
+    <unit id="RBJ0NMl" name="collection.select">
+      <segment>
+        <source>collection.select</source>
+        <target>Kijelölés…</target>
+      </segment>
+    </unit>
     <unit id="OPxagAY" name="general.phrase.none">
       <segment>
         <source>general.phrase.none</source>
         <target>Nincs</target>
+      </segment>
+    </unit>
+    <unit id="z0k8hRg" name="9fb3e6e">
+      <segment>
+        <source>9fb3e6e</source>
+        <target><![CDATA[Ez a weboldal <a href='https://boltcms.io' target='_blank' title='Az ésszerű és egyszerű, Bolt CMS'>-sel készült</a>.]]></target>
+      </segment>
+    </unit>
+    <unit id="eq5YMQf">
+      <segment>
+        <source>This website is &lt;a href='https://boltcms.io' target='_blank' title='Sophisticated, lightweight &amp; simple CMS'&gt;Built with Bolt&lt;/a&gt;.</source>
+        <target><![CDATA[Ez a weboldal <a href='https://boltcms.io' target='_blank' title='Az ésszerű és egyszerű, Bolt CMS'>-sel készült</a>.]]></target>
+      </segment>
+    </unit>
+    <unit id="PE1dkX_" name="Uploaded files">
+      <segment>
+        <source>Uploaded files</source>
+        <target>Feltöltött fájlok</target>
+      </segment>
+    </unit>
+    <unit id="cu3W5DR" name="image.upload">
+      <segment>
+        <source>image.upload</source>
+        <target>Feltöltés</target>
       </segment>
     </unit>
   </file>

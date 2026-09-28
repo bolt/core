@@ -31,18 +31,6 @@
         <target>选定变量的值不是有效的选项。</target>
       </segment>
     </unit>
-    <unit id="u81CkP8">
-      <segment>
-        <source>You must select at least {{ limit }} choice.|You must select at least {{ limit }} choices.</source>
-        <target>您至少要选择 {{ limit }} 个选项。</target>
-      </segment>
-    </unit>
-    <unit id="nIvOQ_o">
-      <segment>
-        <source>You must select at most {{ limit }} choice.|You must select at most {{ limit }} choices.</source>
-        <target>您最多能选择 {{ limit }} 个选项。</target>
-      </segment>
-    </unit>
     <unit id="87zjiHi" name="One or more of the given values is invalid.">
       <segment>
         <source>One or more of the given values is invalid.</source>
@@ -91,40 +79,16 @@
         <target>文件不可读。</target>
       </segment>
     </unit>
-    <unit id="JocOVM2">
-      <segment>
-        <source>The file is too large ({{ size }} {{ suffix }}). Allowed maximum size is {{ limit }} {{ suffix }}.</source>
-        <target>文件太大 ({{ size }} {{ suffix }})。文件大小不可以超过 {{ limit }} {{ suffix }} 。</target>
-      </segment>
-    </unit>
-    <unit id="YW21SPH">
-      <segment>
-        <source>The mime type of the file is invalid ({{ type }}). Allowed mime types are {{ types }}.</source>
-        <target>无效的文件类型 ({{ type }}) 。允许的文件类型有 {{ types }} 。</target>
-      </segment>
-    </unit>
     <unit id="NubOmrs" name="This value should be {{ limit }} or less.">
       <segment>
         <source>This value should be {{ limit }} or less.</source>
         <target>这个变量的值应该小于或等于 {{ limit }}。</target>
       </segment>
     </unit>
-    <unit id="HX7TOFm">
-      <segment>
-        <source>This value is too long. It should have {{ limit }} character or less.|This value is too long. It should have {{ limit }} characters or less.</source>
-        <target>字符串太长，长度不可超过 {{ limit }} 个字符。</target>
-      </segment>
-    </unit>
     <unit id="qgR8M_U" name="This value should be {{ limit }} or more.">
       <segment>
         <source>This value should be {{ limit }} or more.</source>
         <target>该变量的值应该大于或等于 {{ limit }}。</target>
-      </segment>
-    </unit>
-    <unit id="ekfrU.c">
-      <segment>
-        <source>This value is too short. It should have {{ limit }} character or more.|This value is too short. It should have {{ limit }} characters or more.</source>
-        <target>字符串太短，长度不可少于 {{ limit }} 个字符。</target>
       </segment>
     </unit>
     <unit id="1KV4L.t" name="This value should not be blank.">
@@ -193,12 +157,6 @@
         <target>该值应该为有效的数字。</target>
       </segment>
     </unit>
-    <unit id="1YC0pOd" name="This value is not a valid country.">
-      <segment>
-        <source>This value is not a valid country.</source>
-        <target>该值不是有效的国家名。</target>
-      </segment>
-    </unit>
     <unit id="BS2Ez6i" name="This file is not a valid image.">
       <segment>
         <source>This file is not a valid image.</source>
@@ -223,6 +181,12 @@
         <target>该值不是有效的区域值（locale）。</target>
       </segment>
     </unit>
+    <unit id="1YC0pOd" name="This value is not a valid country.">
+      <segment>
+        <source>This value is not a valid country.</source>
+        <target>该值不是有效的国家名。</target>
+      </segment>
+    </unit>
     <unit id="B5ebaMp" name="This value is already used.">
       <segment>
         <source>This value is already used.</source>
@@ -235,40 +199,10 @@
         <target>不能解析图片大小。</target>
       </segment>
     </unit>
-    <unit id="zVtJJEa">
-      <segment>
-        <source>The image width is too big ({{ width }}px). Allowed maximum width is {{ max_width }}px.</source>
-        <target>图片太宽 ({{ width }}px)，最大宽度为 {{ max_width }}px 。</target>
-      </segment>
-    </unit>
-    <unit id="s8LFQGC">
-      <segment>
-        <source>The image width is too small ({{ width }}px). Minimum width expected is {{ min_width }}px.</source>
-        <target>图片宽度不够 ({{ width }}px)，最小宽度为 {{ min_width }}px 。</target>
-      </segment>
-    </unit>
-    <unit id="Z.NgqFj">
-      <segment>
-        <source>The image height is too big ({{ height }}px). Allowed maximum height is {{ max_height }}px.</source>
-        <target>图片太高 ({{ height }}px)，最大高度为 {{ max_height }}px 。</target>
-      </segment>
-    </unit>
-    <unit id="AW1lWVM">
-      <segment>
-        <source>The image height is too small ({{ height }}px). Minimum height expected is {{ min_height }}px.</source>
-        <target>图片高度不够 ({{ height }}px)，最小高度为 {{ min_height }}px 。</target>
-      </segment>
-    </unit>
     <unit id="PSdMNab" name="This value should be the user's current password.">
       <segment>
         <source>This value should be the user's current password.</source>
         <target>该变量的值应为用户当前的密码。</target>
-      </segment>
-    </unit>
-    <unit id="gYImVyV">
-      <segment>
-        <source>This value should have exactly {{ limit }} character.|This value should have exactly {{ limit }} characters.</source>
-        <target>该变量应为 {{ limit }} 个字符。</target>
       </segment>
     </unit>
     <unit id="xJ2Bcr_" name="The file was only partially uploaded.">
@@ -299,24 +233,6 @@
       <segment>
         <source>A PHP extension caused the upload to fail.</source>
         <target>某个 PHP 扩展造成上传失败。</target>
-      </segment>
-    </unit>
-    <unit id="gTJYRl6">
-      <segment>
-        <source>This collection should contain {{ limit }} element or more.|This collection should contain {{ limit }} elements or more.</source>
-        <target>该集合最少应包含 {{ limit }} 个元素。</target>
-      </segment>
-    </unit>
-    <unit id="FFn3lVn">
-      <segment>
-        <source>This collection should contain {{ limit }} element or less.|This collection should contain {{ limit }} elements or less.</source>
-        <target>该集合最多包含 {{ limit }} 个元素。</target>
-      </segment>
-    </unit>
-    <unit id="bSdilZv">
-      <segment>
-        <source>This collection should contain exactly {{ limit }} element.|This collection should contain exactly {{ limit }} elements.</source>
-        <target>该集合应包含 {{ limit }} 个元素 element 。</target>
       </segment>
     </unit>
     <unit id="MAzmID7" name="Invalid card number.">
@@ -385,12 +301,6 @@
         <target>该值应大于或等于 {{ compared_value }} 。</target>
       </segment>
     </unit>
-    <unit id="bOF1fpm">
-      <segment>
-        <source>This value should be identical to {{ compared_value_type }} {{ compared_value }}.</source>
-        <target>该值应与 {{ compared_value_type }} {{ compared_value }} 相同。</target>
-      </segment>
-    </unit>
     <unit id="jG0QFKw" name="This value should be less than {{ compared_value }}.">
       <segment>
         <source>This value should be less than {{ compared_value }}.</source>
@@ -409,40 +319,10 @@
         <target>该值不应先等于 {{ compared_value }} 。</target>
       </segment>
     </unit>
-    <unit id="Bi22JLt">
-      <segment>
-        <source>This value should not be identical to {{ compared_value_type }} {{ compared_value }}.</source>
-        <target>该值不应与 {{ compared_value_type }} {{ compared_value }} 相同。</target>
-      </segment>
-    </unit>
-    <unit id="VczCWzQ">
-      <segment>
-        <source>The image ratio is too big ({{ ratio }}). Allowed maximum ratio is {{ max_ratio }}.</source>
-        <target>图片宽高比太大 ({{ ratio }})。允许的最大宽高比为 {{ max_ratio }}。</target>
-      </segment>
-    </unit>
-    <unit id="v57PXhq">
-      <segment>
-        <source>The image ratio is too small ({{ ratio }}). Minimum ratio expected is {{ min_ratio }}.</source>
-        <target>图片宽高比太小 ({{ ratio }})。允许的最大宽高比为 {{ min_ratio }}。</target>
-      </segment>
-    </unit>
     <unit id="rpajj.a" name="The image is square ({{ width }}x{{ height }}px). Square images are not allowed.">
       <segment>
         <source>The image is square ({{ width }}x{{ height }}px). Square images are not allowed.</source>
         <target>图片是方形的 ({{ width }}x{{ height }}px)。不允许使用方形的图片。</target>
-      </segment>
-    </unit>
-    <unit id="G_lu2qW">
-      <segment>
-        <source>The image is landscape oriented ({{ width }}x{{ height }}px). Landscape oriented images are not allowed.</source>
-        <target>图片是横向的 ({{ width }}x{{ height }}px)。不允许使用横向的图片。</target>
-      </segment>
-    </unit>
-    <unit id="sFyGx4B">
-      <segment>
-        <source>The image is portrait oriented ({{ width }}x{{ height }}px). Portrait oriented images are not allowed.</source>
-        <target>图片是纵向的 ({{ width }}x{{ height }}px)。不允许使用纵向的图片。</target>
       </segment>
     </unit>
     <unit id="jZgqcpL" name="An empty file is not allowed.">
@@ -517,10 +397,10 @@
         <target>CSRF 验证符无效， 请重新提交.</target>
       </segment>
     </unit>
-    <unit id="4oq.CNw" name="user.not_valid_display_name">
+    <unit id="HjWW.NS" name="user.not_valid_password">
       <segment>
-        <source>user.not_valid_display_name</source>
-        <target>无效的显示名称</target>
+        <source>user.not_valid_password</source>
+        <target>无效的密码，密码应至少包含6个字符。</target>
       </segment>
     </unit>
     <unit id="fkXL.k6" name="user.not_valid_email">
@@ -529,10 +409,130 @@
         <target>无效的电子邮件</target>
       </segment>
     </unit>
-    <unit id="HjWW.NS" name="user.not_valid_password">
+    <unit id="4oq.CNw" name="user.not_valid_display_name">
       <segment>
-        <source>user.not_valid_password</source>
-        <target>无效的密码，密码应至少包含6个字符。</target>
+        <source>user.not_valid_display_name</source>
+        <target>无效的显示名称</target>
+      </segment>
+    </unit>
+    <unit id="u81CkP8">
+      <segment>
+        <source>You must select at least {{ limit }} choice.|You must select at least {{ limit }} choices.</source>
+        <target>您至少要选择 {{ limit }} 个选项。</target>
+      </segment>
+    </unit>
+    <unit id="nIvOQ_o">
+      <segment>
+        <source>You must select at most {{ limit }} choice.|You must select at most {{ limit }} choices.</source>
+        <target>您最多能选择 {{ limit }} 个选项。</target>
+      </segment>
+    </unit>
+    <unit id="JocOVM2">
+      <segment>
+        <source>The file is too large ({{ size }} {{ suffix }}). Allowed maximum size is {{ limit }} {{ suffix }}.</source>
+        <target>文件太大 ({{ size }} {{ suffix }})。文件大小不可以超过 {{ limit }} {{ suffix }} 。</target>
+      </segment>
+    </unit>
+    <unit id="YW21SPH">
+      <segment>
+        <source>The mime type of the file is invalid ({{ type }}). Allowed mime types are {{ types }}.</source>
+        <target>无效的文件类型 ({{ type }}) 。允许的文件类型有 {{ types }} 。</target>
+      </segment>
+    </unit>
+    <unit id="HX7TOFm">
+      <segment>
+        <source>This value is too long. It should have {{ limit }} character or less.|This value is too long. It should have {{ limit }} characters or less.</source>
+        <target>字符串太长，长度不可超过 {{ limit }} 个字符。</target>
+      </segment>
+    </unit>
+    <unit id="ekfrU.c">
+      <segment>
+        <source>This value is too short. It should have {{ limit }} character or more.|This value is too short. It should have {{ limit }} characters or more.</source>
+        <target>字符串太短，长度不可少于 {{ limit }} 个字符。</target>
+      </segment>
+    </unit>
+    <unit id="zVtJJEa">
+      <segment>
+        <source>The image width is too big ({{ width }}px). Allowed maximum width is {{ max_width }}px.</source>
+        <target>图片太宽 ({{ width }}px)，最大宽度为 {{ max_width }}px 。</target>
+      </segment>
+    </unit>
+    <unit id="s8LFQGC">
+      <segment>
+        <source>The image width is too small ({{ width }}px). Minimum width expected is {{ min_width }}px.</source>
+        <target>图片宽度不够 ({{ width }}px)，最小宽度为 {{ min_width }}px 。</target>
+      </segment>
+    </unit>
+    <unit id="Z.NgqFj">
+      <segment>
+        <source>The image height is too big ({{ height }}px). Allowed maximum height is {{ max_height }}px.</source>
+        <target>图片太高 ({{ height }}px)，最大高度为 {{ max_height }}px 。</target>
+      </segment>
+    </unit>
+    <unit id="AW1lWVM">
+      <segment>
+        <source>The image height is too small ({{ height }}px). Minimum height expected is {{ min_height }}px.</source>
+        <target>图片高度不够 ({{ height }}px)，最小高度为 {{ min_height }}px 。</target>
+      </segment>
+    </unit>
+    <unit id="gYImVyV">
+      <segment>
+        <source>This value should have exactly {{ limit }} character.|This value should have exactly {{ limit }} characters.</source>
+        <target>该变量应为 {{ limit }} 个字符。</target>
+      </segment>
+    </unit>
+    <unit id="gTJYRl6">
+      <segment>
+        <source>This collection should contain {{ limit }} element or more.|This collection should contain {{ limit }} elements or more.</source>
+        <target>该集合最少应包含 {{ limit }} 个元素。</target>
+      </segment>
+    </unit>
+    <unit id="FFn3lVn">
+      <segment>
+        <source>This collection should contain {{ limit }} element or less.|This collection should contain {{ limit }} elements or less.</source>
+        <target>该集合最多包含 {{ limit }} 个元素。</target>
+      </segment>
+    </unit>
+    <unit id="bSdilZv">
+      <segment>
+        <source>This collection should contain exactly {{ limit }} element.|This collection should contain exactly {{ limit }} elements.</source>
+        <target>该集合应包含 {{ limit }} 个元素 element 。</target>
+      </segment>
+    </unit>
+    <unit id="bOF1fpm">
+      <segment>
+        <source>This value should be identical to {{ compared_value_type }} {{ compared_value }}.</source>
+        <target>该值应与 {{ compared_value_type }} {{ compared_value }} 相同。</target>
+      </segment>
+    </unit>
+    <unit id="Bi22JLt">
+      <segment>
+        <source>This value should not be identical to {{ compared_value_type }} {{ compared_value }}.</source>
+        <target>该值不应与 {{ compared_value_type }} {{ compared_value }} 相同。</target>
+      </segment>
+    </unit>
+    <unit id="VczCWzQ">
+      <segment>
+        <source>The image ratio is too big ({{ ratio }}). Allowed maximum ratio is {{ max_ratio }}.</source>
+        <target>图片宽高比太大 ({{ ratio }})。允许的最大宽高比为 {{ max_ratio }}。</target>
+      </segment>
+    </unit>
+    <unit id="v57PXhq">
+      <segment>
+        <source>The image ratio is too small ({{ ratio }}). Minimum ratio expected is {{ min_ratio }}.</source>
+        <target>图片宽高比太小 ({{ ratio }})。允许的最大宽高比为 {{ min_ratio }}。</target>
+      </segment>
+    </unit>
+    <unit id="G_lu2qW">
+      <segment>
+        <source>The image is landscape oriented ({{ width }}x{{ height }}px). Landscape oriented images are not allowed.</source>
+        <target>图片是横向的 ({{ width }}x{{ height }}px)。不允许使用横向的图片。</target>
+      </segment>
+    </unit>
+    <unit id="sFyGx4B">
+      <segment>
+        <source>The image is portrait oriented ({{ width }}x{{ height }}px). Portrait oriented images are not allowed.</source>
+        <target>图片是纵向的 ({{ width }}x{{ height }}px)。不允许使用纵向的图片。</target>
       </segment>
     </unit>
   </file>

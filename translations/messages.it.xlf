@@ -699,12 +699,6 @@
         <target>Modifica</target>
       </segment>
     </unit>
-    <unit id="dbyz2hj" name="caption.finder">
-      <segment>
-        <source>caption.finder</source>
-        <target>Finder</target>
-      </segment>
-    </unit>
     <unit id="QZYjRy0" name="caption.file_uploader">
       <segment>
         <source>caption.file_uploader</source>
@@ -933,12 +927,6 @@
         <target>Cerca</target>
       </segment>
     </unit>
-    <unit id="z0k8hRg" name="9fb3e6e">
-      <segment>
-        <source>9fb3e6e</source>
-        <target><![CDATA[Questo sito è <a href='https://boltcms.io' target='_blank' title='CMS semplice e sofisticato'>realizzato con Bolt</a>.]]></target>
-      </segment>
-    </unit>
     <unit id="wNEwZy_" name="contenttypes.generic.overview">
       <segment>
         <source>contenttypes.generic.overview</source>
@@ -1089,12 +1077,6 @@
         <target>Il File è stato modificato con successo!</target>
       </segment>
     </unit>
-    <unit id="eq5YMQf" name="9fb3e6e">
-      <segment>
-        <source>This website is &lt;a href='https://boltcms.io' target='_blank' title='Sophisticated, lightweight &amp; simple CMS'&gt;Built with Bolt&lt;/a&gt;.</source>
-        <target><![CDATA[Questo sito è <a href='https://boltcms.io' target='_blank' title='CMS semplice e sofisticato'>realizzato con Bolt</a>.]]></target>
-      </segment>
-    </unit>
     <unit id="3zlZmRK" name="action.add_user">
       <segment>
         <source>action.add_user</source>
@@ -1125,16 +1107,34 @@
         <target>Nuovo Utente</target>
       </segment>
     </unit>
-    <unit id="mo_k9.1" name="general.dashboard">
-      <segment>
-        <source>general.dashboard</source>
-        <target>general.dashboard</target>
-      </segment>
-    </unit>
     <unit id="OPxagAY" name="general.phrase.none">
       <segment>
         <source>general.phrase.none</source>
         <target>Nessuno</target>
+      </segment>
+    </unit>
+    <unit id="dbyz2hj" name="caption.finder">
+      <segment>
+        <source>caption.finder</source>
+        <target>Finder</target>
+      </segment>
+    </unit>
+    <unit id="z0k8hRg" name="9fb3e6e">
+      <segment>
+        <source>9fb3e6e</source>
+        <target><![CDATA[Questo sito è <a href='https://boltcms.io' target='_blank' title='CMS semplice e sofisticato'>realizzato con Bolt</a>.]]></target>
+      </segment>
+    </unit>
+    <unit id="eq5YMQf" name="9fb3e6e">
+      <segment>
+        <source>This website is &lt;a href='https://boltcms.io' target='_blank' title='Sophisticated, lightweight &amp; simple CMS'&gt;Built with Bolt&lt;/a&gt;.</source>
+        <target><![CDATA[Questo sito è <a href='https://boltcms.io' target='_blank' title='CMS semplice e sofisticato'>realizzato con Bolt</a>.]]></target>
+      </segment>
+    </unit>
+    <unit id="mo_k9.1" name="general.dashboard">
+      <segment>
+        <source>general.dashboard</source>
+        <target>general.dashboard</target>
       </segment>
     </unit>
   </file>
