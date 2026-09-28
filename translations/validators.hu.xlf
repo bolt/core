@@ -31,18 +31,6 @@
         <target>A választott érték érvénytelen.</target>
       </segment>
     </unit>
-    <unit id="u81CkP8">
-      <segment>
-        <source>You must select at least {{ limit }} choice.|You must select at least {{ limit }} choices.</source>
-        <target>Legalább {{ limit }} értéket kell kiválasztani.|Legalább {{ limit }} értéket kell kiválasztani.</target>
-      </segment>
-    </unit>
-    <unit id="nIvOQ_o">
-      <segment>
-        <source>You must select at most {{ limit }} choice.|You must select at most {{ limit }} choices.</source>
-        <target>Legfeljebb {{ limit }} értéket lehet kiválasztani.|Legfeljebb {{ limit }} értéket lehet kiválasztani.</target>
-      </segment>
-    </unit>
     <unit id="87zjiHi" name="One or more of the given values is invalid.">
       <segment>
         <source>One or more of the given values is invalid.</source>
@@ -91,40 +79,16 @@
         <target>A fájl nem olvasható.</target>
       </segment>
     </unit>
-    <unit id="JocOVM2">
-      <segment>
-        <source>The file is too large ({{ size }} {{ suffix }}). Allowed maximum size is {{ limit }} {{ suffix }}.</source>
-        <target>A fájl túl nagy ({{ size }} {{ suffix }}). A legnagyobb megengedett méret {{ limit }} {{ suffix }}.</target>
-      </segment>
-    </unit>
-    <unit id="YW21SPH">
-      <segment>
-        <source>The mime type of the file is invalid ({{ type }}). Allowed mime types are {{ types }}.</source>
-        <target>A fájl MIME típusa érvénytelen ({{ type }}). Az engedélyezett MIME típusok: {{ types }}.</target>
-      </segment>
-    </unit>
     <unit id="NubOmrs" name="This value should be {{ limit }} or less.">
       <segment>
         <source>This value should be {{ limit }} or less.</source>
         <target>Ez az érték legfeljebb {{ limit }} lehet.</target>
       </segment>
     </unit>
-    <unit id="HX7TOFm">
-      <segment>
-        <source>This value is too long. It should have {{ limit }} character or less.|This value is too long. It should have {{ limit }} characters or less.</source>
-        <target>Ez az érték túl hosszú. Legfeljebb {{ limit }} karaktert tartalmazhat.|Ez az érték túl hosszú. Legfeljebb {{ limit }} karaktert tartalmazhat.</target>
-      </segment>
-    </unit>
     <unit id="qgR8M_U" name="This value should be {{ limit }} or more.">
       <segment>
         <source>This value should be {{ limit }} or more.</source>
         <target>Ez az érték legalább {{ limit }} kell, hogy legyen.</target>
-      </segment>
-    </unit>
-    <unit id="ekfrU.c">
-      <segment>
-        <source>This value is too short. It should have {{ limit }} character or more.|This value is too short. It should have {{ limit }} characters or more.</source>
-        <target>Ez az érték túl rövid. Legalább {{ limit }} karaktert kell tartalmaznia.|Ez az érték túl rövid. Legalább {{ limit }} karaktert kell tartalmaznia.</target>
       </segment>
     </unit>
     <unit id="1KV4L.t" name="This value should not be blank.">
@@ -235,40 +199,10 @@
         <target>A kép méretét nem lehet megállapítani.</target>
       </segment>
     </unit>
-    <unit id="zVtJJEa">
-      <segment>
-        <source>The image width is too big ({{ width }}px). Allowed maximum width is {{ max_width }}px.</source>
-        <target>A kép szélessége túl nagy ({{ width }}px). A megengedett legnagyobb szélesség {{ max_width }}px.</target>
-      </segment>
-    </unit>
-    <unit id="s8LFQGC">
-      <segment>
-        <source>The image width is too small ({{ width }}px). Minimum width expected is {{ min_width }}px.</source>
-        <target>A kép szélessége túl kicsi ({{ width }}px). Az elvárt legkisebb szélesség {{ min_width }}px.</target>
-      </segment>
-    </unit>
-    <unit id="Z.NgqFj">
-      <segment>
-        <source>The image height is too big ({{ height }}px). Allowed maximum height is {{ max_height }}px.</source>
-        <target>A kép magassága túl nagy ({{ height }}px). A megengedett legnagyobb magasság {{ max_height }}px.</target>
-      </segment>
-    </unit>
-    <unit id="AW1lWVM">
-      <segment>
-        <source>The image height is too small ({{ height }}px). Minimum height expected is {{ min_height }}px.</source>
-        <target>A kép magassága túl kicsi ({{ height }}px). Az elvárt legkisebb magasság {{ min_height }}px.</target>
-      </segment>
-    </unit>
     <unit id="PSdMNab" name="This value should be the user's current password.">
       <segment>
         <source>This value should be the user's current password.</source>
         <target>Ez az érték a felhasználó jelenlegi jelszavával kell megegyezzen.</target>
-      </segment>
-    </unit>
-    <unit id="gYImVyV">
-      <segment>
-        <source>This value should have exactly {{ limit }} character.|This value should have exactly {{ limit }} characters.</source>
-        <target>Ennek az értéknek pontosan {{ limit }} karaktert kell tartalmaznia.|Ennek az értéknek pontosan {{ limit }} karaktert kell tartalmaznia.</target>
       </segment>
     </unit>
     <unit id="xJ2Bcr_" name="The file was only partially uploaded.">
@@ -299,24 +233,6 @@
       <segment>
         <source>A PHP extension caused the upload to fail.</source>
         <target>Egy PHP bővítmény miatt a feltöltés nem sikerült.</target>
-      </segment>
-    </unit>
-    <unit id="gTJYRl6">
-      <segment>
-        <source>This collection should contain {{ limit }} element or more.|This collection should contain {{ limit }} elements or more.</source>
-        <target>Ennek a gyűjteménynek legalább {{ limit }} elemet kell tartalmaznia.|Ennek a gyűjteménynek legalább {{ limit }} elemet kell tartalmaznia.</target>
-      </segment>
-    </unit>
-    <unit id="FFn3lVn">
-      <segment>
-        <source>This collection should contain {{ limit }} element or less.|This collection should contain {{ limit }} elements or less.</source>
-        <target>Ez a gyűjtemény legfeljebb {{ limit }} elemet tartalmazhat.|Ez a gyűjtemény legfeljebb {{ limit }} elemet tartalmazhat.</target>
-      </segment>
-    </unit>
-    <unit id="bSdilZv">
-      <segment>
-        <source>This collection should contain exactly {{ limit }} element.|This collection should contain exactly {{ limit }} elements.</source>
-        <target>Ennek a gyűjteménynek pontosan {{ limit }} elemet kell tartalmaznia.|Ennek a gyűjteménynek pontosan {{ limit }} elemet kell tartalmaznia.</target>
       </segment>
     </unit>
     <unit id="MAzmID7" name="Invalid card number.">
@@ -385,12 +301,6 @@
         <target>Ez az érték nagyobb vagy egyenlő legyen, mint {{ compared_value }}.</target>
       </segment>
     </unit>
-    <unit id="bOF1fpm">
-      <segment>
-        <source>This value should be identical to {{ compared_value_type }} {{ compared_value }}.</source>
-        <target>Ez az érték ugyanolyan legyen, mint {{ compared_value_type }} {{ compared_value }}.</target>
-      </segment>
-    </unit>
     <unit id="jG0QFKw" name="This value should be less than {{ compared_value }}.">
       <segment>
         <source>This value should be less than {{ compared_value }}.</source>
@@ -409,40 +319,10 @@
         <target>Ez az érték ne legyen {{ compared_value }}.</target>
       </segment>
     </unit>
-    <unit id="Bi22JLt">
-      <segment>
-        <source>This value should not be identical to {{ compared_value_type }} {{ compared_value }}.</source>
-        <target>Ez az érték ne legyen ugyanolyan, mint {{ compared_value_type }} {{ compared_value }}.</target>
-      </segment>
-    </unit>
-    <unit id="VczCWzQ">
-      <segment>
-        <source>The image ratio is too big ({{ ratio }}). Allowed maximum ratio is {{ max_ratio }}.</source>
-        <target>A képarány túl nagy ({{ ratio }}). A megengedett legnagyobb képarány {{ max_ratio }}.</target>
-      </segment>
-    </unit>
-    <unit id="v57PXhq">
-      <segment>
-        <source>The image ratio is too small ({{ ratio }}). Minimum ratio expected is {{ min_ratio }}.</source>
-        <target>A képarány túl kicsi ({{ ratio }}). A megengedett legkisebb képarány {{ min_ratio }}.</target>
-      </segment>
-    </unit>
     <unit id="rpajj.a" name="The image is square ({{ width }}x{{ height }}px). Square images are not allowed.">
       <segment>
         <source>The image is square ({{ width }}x{{ height }}px). Square images are not allowed.</source>
         <target>A kép négyzet alakú ({{ width }}x{{ height }}px). A négyzet alakú képek nem engedélyezettek.</target>
-      </segment>
-    </unit>
-    <unit id="G_lu2qW">
-      <segment>
-        <source>The image is landscape oriented ({{ width }}x{{ height }}px). Landscape oriented images are not allowed.</source>
-        <target>A kép fekvő tájolású ({{ width }}x{{ height }}px). A fekvő tájolású képek nem engedélyezettek.</target>
-      </segment>
-    </unit>
-    <unit id="sFyGx4B">
-      <segment>
-        <source>The image is portrait oriented ({{ width }}x{{ height }}px). Portrait oriented images are not allowed.</source>
-        <target>A kép álló tájolású ({{ width }}x{{ height }}px). Az álló tájolású képek nem engedélyezettek.</target>
       </segment>
     </unit>
     <unit id="jZgqcpL" name="An empty file is not allowed.">
@@ -499,6 +379,12 @@
         <target>Ez az érték érvényes JSON kell, hogy legyen.</target>
       </segment>
     </unit>
+    <unit id="9CWVEGq" name="This collection should contain only unique elements.">
+      <segment>
+        <source>This collection should contain only unique elements.</source>
+        <target>Ez a gyűjtemény csak egyedi elemeket tartalmazhat.</target>
+      </segment>
+    </unit>
     <unit id="WdvZfq." name="This value should be positive.">
       <segment>
         <source>This value should be positive.</source>
@@ -523,52 +409,16 @@
         <target>Ennek az értéknek negatívnak vagy nullának kell lennie.</target>
       </segment>
     </unit>
-    <unit id="9CWVEGq" name="This collection should contain only unique elements.">
-      <segment>
-        <source>This collection should contain only unique elements.</source>
-        <target>Ez a gyűjtemény csak egyedi elemeket tartalmazhat.</target>
-      </segment>
-    </unit>
     <unit id="fs3qQZR" name="This value is not a valid timezone.">
       <segment>
         <source>This value is not a valid timezone.</source>
         <target>Ez az érték nem egy érvényes időzóna.</target>
       </segment>
     </unit>
-    <unit id="40dnsod">
-      <segment>
-        <source>This password has been leaked in a data breach, it must not be used. Please use another password.</source>
-        <target>Ez a jelszó korábban egy adatvédelmi incidens során illetéktelenek kezébe került, így nem használható. Kérjük, használjon másik jelszót.</target>
-      </segment>
-    </unit>
     <unit id="VvxxWas" name="This value should be between {{ min }} and {{ max }}.">
       <segment>
         <source>This value should be between {{ min }} and {{ max }}.</source>
         <target>Ennek az értéknek {{ min }} és {{ max }} között kell lennie.</target>
-      </segment>
-    </unit>
-    <unit id="7g313cV" name="This value is not a valid hostname.">
-      <segment>
-        <source>This value is not a valid hostname.</source>
-        <target>Ez az érték nem egy érvényes állomásnév (hosztnév).</target>
-      </segment>
-    </unit>
-    <unit id="xwtBimR">
-      <segment>
-        <source>The number of elements in this collection should be a multiple of {{ compared_value }}.</source>
-        <target>A gyűjteményben lévő elemek számának oszthatónak kell lennie a következővel: {{ compared_value }}.</target>
-      </segment>
-    </unit>
-    <unit id="FDRZr.s" name="This value should satisfy at least one of the following constraints:">
-      <segment>
-        <source>This value should satisfy at least one of the following constraints:</source>
-        <target>Ennek az értéknek meg kell felelni legalább egynek a következő feltételek közül:</target>
-      </segment>
-    </unit>
-    <unit id="WwY0IGI" name="Each element of this collection should satisfy its own set of constraints.">
-      <segment>
-        <source>Each element of this collection should satisfy its own set of constraints.</source>
-        <target>A gyűjtemény minden elemének meg kell felelni a saját feltételeinek.</target>
       </segment>
     </unit>
     <unit id=".SEaaBa" name="This form should not contain extra fields.">
@@ -587,12 +437,6 @@
       <segment>
         <source>The CSRF token is invalid. Please try to resubmit the form.</source>
         <target>Érvénytelen CSRF token. Kérem, próbálja újra elküldeni az űrlapot.</target>
-      </segment>
-    </unit>
-    <unit id="eo1zeih" name="This value is not a valid HTML5 color.">
-      <segment>
-        <source>This value is not a valid HTML5 color.</source>
-        <target>Ez az érték nem egy érvényes HTML5 szín.</target>
       </segment>
     </unit>
     <unit id="TG1D5NO" name="post.blank_summary">
@@ -667,16 +511,172 @@
         <target>A komment tartalma spamnek tűnik.</target>
       </segment>
     </unit>
+    <unit id="HjWW.NS" name="user.not_valid_password">
+      <segment>
+        <source>user.not_valid_password</source>
+        <target>Érvénytelen jelszó</target>
+      </segment>
+    </unit>
     <unit id="fkXL.k6" name="user.not_valid_email">
       <segment>
         <source>user.not_valid_email</source>
         <target>Érvénytelen email cím</target>
       </segment>
     </unit>
-    <unit id="HjWW.NS" name="user.not_valid_password">
+    <unit id="u81CkP8">
       <segment>
-        <source>user.not_valid_password</source>
-        <target>Érvénytelen jelszó</target>
+        <source>You must select at least {{ limit }} choice.|You must select at least {{ limit }} choices.</source>
+        <target>Legalább {{ limit }} értéket kell kiválasztani.|Legalább {{ limit }} értéket kell kiválasztani.</target>
+      </segment>
+    </unit>
+    <unit id="nIvOQ_o">
+      <segment>
+        <source>You must select at most {{ limit }} choice.|You must select at most {{ limit }} choices.</source>
+        <target>Legfeljebb {{ limit }} értéket lehet kiválasztani.|Legfeljebb {{ limit }} értéket lehet kiválasztani.</target>
+      </segment>
+    </unit>
+    <unit id="JocOVM2">
+      <segment>
+        <source>The file is too large ({{ size }} {{ suffix }}). Allowed maximum size is {{ limit }} {{ suffix }}.</source>
+        <target>A fájl túl nagy ({{ size }} {{ suffix }}). A legnagyobb megengedett méret {{ limit }} {{ suffix }}.</target>
+      </segment>
+    </unit>
+    <unit id="YW21SPH">
+      <segment>
+        <source>The mime type of the file is invalid ({{ type }}). Allowed mime types are {{ types }}.</source>
+        <target>A fájl MIME típusa érvénytelen ({{ type }}). Az engedélyezett MIME típusok: {{ types }}.</target>
+      </segment>
+    </unit>
+    <unit id="HX7TOFm">
+      <segment>
+        <source>This value is too long. It should have {{ limit }} character or less.|This value is too long. It should have {{ limit }} characters or less.</source>
+        <target>Ez az érték túl hosszú. Legfeljebb {{ limit }} karaktert tartalmazhat.|Ez az érték túl hosszú. Legfeljebb {{ limit }} karaktert tartalmazhat.</target>
+      </segment>
+    </unit>
+    <unit id="ekfrU.c">
+      <segment>
+        <source>This value is too short. It should have {{ limit }} character or more.|This value is too short. It should have {{ limit }} characters or more.</source>
+        <target>Ez az érték túl rövid. Legalább {{ limit }} karaktert kell tartalmaznia.|Ez az érték túl rövid. Legalább {{ limit }} karaktert kell tartalmaznia.</target>
+      </segment>
+    </unit>
+    <unit id="zVtJJEa">
+      <segment>
+        <source>The image width is too big ({{ width }}px). Allowed maximum width is {{ max_width }}px.</source>
+        <target>A kép szélessége túl nagy ({{ width }}px). A megengedett legnagyobb szélesség {{ max_width }}px.</target>
+      </segment>
+    </unit>
+    <unit id="s8LFQGC">
+      <segment>
+        <source>The image width is too small ({{ width }}px). Minimum width expected is {{ min_width }}px.</source>
+        <target>A kép szélessége túl kicsi ({{ width }}px). Az elvárt legkisebb szélesség {{ min_width }}px.</target>
+      </segment>
+    </unit>
+    <unit id="Z.NgqFj">
+      <segment>
+        <source>The image height is too big ({{ height }}px). Allowed maximum height is {{ max_height }}px.</source>
+        <target>A kép magassága túl nagy ({{ height }}px). A megengedett legnagyobb magasság {{ max_height }}px.</target>
+      </segment>
+    </unit>
+    <unit id="AW1lWVM">
+      <segment>
+        <source>The image height is too small ({{ height }}px). Minimum height expected is {{ min_height }}px.</source>
+        <target>A kép magassága túl kicsi ({{ height }}px). Az elvárt legkisebb magasság {{ min_height }}px.</target>
+      </segment>
+    </unit>
+    <unit id="gYImVyV">
+      <segment>
+        <source>This value should have exactly {{ limit }} character.|This value should have exactly {{ limit }} characters.</source>
+        <target>Ennek az értéknek pontosan {{ limit }} karaktert kell tartalmaznia.|Ennek az értéknek pontosan {{ limit }} karaktert kell tartalmaznia.</target>
+      </segment>
+    </unit>
+    <unit id="gTJYRl6">
+      <segment>
+        <source>This collection should contain {{ limit }} element or more.|This collection should contain {{ limit }} elements or more.</source>
+        <target>Ennek a gyűjteménynek legalább {{ limit }} elemet kell tartalmaznia.|Ennek a gyűjteménynek legalább {{ limit }} elemet kell tartalmaznia.</target>
+      </segment>
+    </unit>
+    <unit id="FFn3lVn">
+      <segment>
+        <source>This collection should contain {{ limit }} element or less.|This collection should contain {{ limit }} elements or less.</source>
+        <target>Ez a gyűjtemény legfeljebb {{ limit }} elemet tartalmazhat.|Ez a gyűjtemény legfeljebb {{ limit }} elemet tartalmazhat.</target>
+      </segment>
+    </unit>
+    <unit id="bSdilZv">
+      <segment>
+        <source>This collection should contain exactly {{ limit }} element.|This collection should contain exactly {{ limit }} elements.</source>
+        <target>Ennek a gyűjteménynek pontosan {{ limit }} elemet kell tartalmaznia.|Ennek a gyűjteménynek pontosan {{ limit }} elemet kell tartalmaznia.</target>
+      </segment>
+    </unit>
+    <unit id="bOF1fpm">
+      <segment>
+        <source>This value should be identical to {{ compared_value_type }} {{ compared_value }}.</source>
+        <target>Ez az érték ugyanolyan legyen, mint {{ compared_value_type }} {{ compared_value }}.</target>
+      </segment>
+    </unit>
+    <unit id="Bi22JLt">
+      <segment>
+        <source>This value should not be identical to {{ compared_value_type }} {{ compared_value }}.</source>
+        <target>Ez az érték ne legyen ugyanolyan, mint {{ compared_value_type }} {{ compared_value }}.</target>
+      </segment>
+    </unit>
+    <unit id="VczCWzQ">
+      <segment>
+        <source>The image ratio is too big ({{ ratio }}). Allowed maximum ratio is {{ max_ratio }}.</source>
+        <target>A képarány túl nagy ({{ ratio }}). A megengedett legnagyobb képarány {{ max_ratio }}.</target>
+      </segment>
+    </unit>
+    <unit id="v57PXhq">
+      <segment>
+        <source>The image ratio is too small ({{ ratio }}). Minimum ratio expected is {{ min_ratio }}.</source>
+        <target>A képarány túl kicsi ({{ ratio }}). A megengedett legkisebb képarány {{ min_ratio }}.</target>
+      </segment>
+    </unit>
+    <unit id="G_lu2qW">
+      <segment>
+        <source>The image is landscape oriented ({{ width }}x{{ height }}px). Landscape oriented images are not allowed.</source>
+        <target>A kép fekvő tájolású ({{ width }}x{{ height }}px). A fekvő tájolású képek nem engedélyezettek.</target>
+      </segment>
+    </unit>
+    <unit id="sFyGx4B">
+      <segment>
+        <source>The image is portrait oriented ({{ width }}x{{ height }}px). Portrait oriented images are not allowed.</source>
+        <target>A kép álló tájolású ({{ width }}x{{ height }}px). Az álló tájolású képek nem engedélyezettek.</target>
+      </segment>
+    </unit>
+    <unit id="40dnsod">
+      <segment>
+        <source>This password has been leaked in a data breach, it must not be used. Please use another password.</source>
+        <target>Ez a jelszó korábban egy adatvédelmi incidens során illetéktelenek kezébe került, így nem használható. Kérjük, használjon másik jelszót.</target>
+      </segment>
+    </unit>
+    <unit id="7g313cV" name="This value is not a valid hostname.">
+      <segment>
+        <source>This value is not a valid hostname.</source>
+        <target>Ez az érték nem egy érvényes állomásnév (hosztnév).</target>
+      </segment>
+    </unit>
+    <unit id="xwtBimR">
+      <segment>
+        <source>The number of elements in this collection should be a multiple of {{ compared_value }}.</source>
+        <target>A gyűjteményben lévő elemek számának oszthatónak kell lennie a következővel: {{ compared_value }}.</target>
+      </segment>
+    </unit>
+    <unit id="FDRZr.s" name="This value should satisfy at least one of the following constraints:">
+      <segment>
+        <source>This value should satisfy at least one of the following constraints:</source>
+        <target>Ennek az értéknek meg kell felelni legalább egynek a következő feltételek közül:</target>
+      </segment>
+    </unit>
+    <unit id="WwY0IGI" name="Each element of this collection should satisfy its own set of constraints.">
+      <segment>
+        <source>Each element of this collection should satisfy its own set of constraints.</source>
+        <target>A gyűjtemény minden elemének meg kell felelni a saját feltételeinek.</target>
+      </segment>
+    </unit>
+    <unit id="eo1zeih" name="This value is not a valid HTML5 color.">
+      <segment>
+        <source>This value is not a valid HTML5 color.</source>
+        <target>Ez az érték nem egy érvényes HTML5 szín.</target>
       </segment>
     </unit>
   </file>

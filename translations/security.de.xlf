@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="de">
   <file id="security.de">
-    <unit id="NF.vvAN" name="You have to login in order to access this page.">
-      <notes>
-        <note category="file-source" priority="1">bolt-core/src/Security/AuthenticationEntryPointRedirector.php:27</note>
-      </notes>
-      <segment>
-        <source>You have to login in order to access this page.</source>
-        <target>Sie müssen sich anmelden, um auf diese Seite zugreifen zu können.</target>
-      </segment>
-    </unit>
     <unit id="baI_ZxO" name="An authentication exception occurred.">
       <notes>
         <note category="state" priority="1">obsolete</note>
@@ -143,6 +134,15 @@
       <segment>
         <source>Account is locked.</source>
         <target>Der Account ist gesperrt.</target>
+      </segment>
+    </unit>
+    <unit id="NF.vvAN" name="You have to login in order to access this page.">
+      <notes>
+        <note category="file-source" priority="1">bolt-core/src/Security/AuthenticationEntryPointRedirector.php:27</note>
+      </notes>
+      <segment>
+        <source>You have to login in order to access this page.</source>
+        <target>Sie müssen sich anmelden, um auf diese Seite zugreifen zu können.</target>
       </segment>
     </unit>
     <unit id="gd.MOnZ" name="Too many failed login attempts, please try again later.">

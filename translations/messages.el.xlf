@@ -927,13 +927,6 @@
         <target>Αναζήτηση</target>
       </segment>
     </unit>
-    <unit id="z0k8hRg" name="9fb3e6e">
-      <segment>
-        <source>9fb3e6e</source>
-        <target><![CDATA[Αυτός ο ιστότοπος είναι <a href='https://boltcms.io' target='_blank' title='
-Εξελιγμένο, ελαφρύ & απλό CMS'>Χτισμένο με Bolt</a>.]]></target>
-      </segment>
-    </unit>
     <unit id="wNEwZy_" name="contenttypes.generic.overview">
       <segment>
         <source>contenttypes.generic.overview</source>
@@ -2354,6 +2347,13 @@
       <segment>
         <source>general.phrase.none</source>
         <target>Κανένα</target>
+      </segment>
+    </unit>
+    <unit id="z0k8hRg" name="9fb3e6e">
+      <segment>
+        <source>9fb3e6e</source>
+        <target><![CDATA[Αυτός ο ιστότοπος είναι <a href='https://boltcms.io' target='_blank' title='
+Εξελιγμένο, ελαφρύ & απλό CMS'>Χτισμένο με Bolt</a>.]]></target>
       </segment>
     </unit>
   </file>

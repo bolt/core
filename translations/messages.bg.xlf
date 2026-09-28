@@ -1,16 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="bg">
   <file id="messages.bg">
+    <unit id="1sstKF9" name="title.edit_user">
+      <segment>
+        <source>title.edit_user</source>
+        <target>Редактирай потребител</target>
+      </segment>
+    </unit>
     <unit id="HLtdhYw" name="action.save">
       <segment>
         <source>action.save</source>
         <target>Запази</target>
       </segment>
     </unit>
-    <unit id="TpGxDI3" name="user.unknown_user">
+    <unit id="a2vzLi7" name="action.do_something">
       <segment>
-        <source>user.unknown_user</source>
-        <target>Неизвестен потребител</target>
+        <source>action.do_something</source>
+        <target>Направи нещо</target>
+      </segment>
+    </unit>
+    <unit id="ovKkXwU" name="action.edit">
+      <segment>
+        <source>action.edit</source>
+        <target>Редактирай</target>
+      </segment>
+    </unit>
+    <unit id="LDhDPrF" name="label.username">
+      <segment>
+        <source>label.username</source>
+        <target>Потребителско име</target>
+      </segment>
+    </unit>
+    <unit id="9pvowqn" name="label.password">
+      <segment>
+        <source>label.password</source>
+        <target>Парола</target>
+      </segment>
+    </unit>
+    <unit id="vJwSCBO" name="title.contentlisting">
+      <segment>
+        <source>title.contentlisting</source>
+        <target>Списък на записи</target>
+      </segment>
+    </unit>
+    <unit id="SNELzJ2" name="field.id">
+      <segment>
+        <source>field.id</source>
+        <target>Идентификатор</target>
+      </segment>
+    </unit>
+    <unit id="FuCyk5C" name="field.status">
+      <segment>
+        <source>field.status</source>
+        <target>Статус</target>
+      </segment>
+    </unit>
+    <unit id="O9wtVOp" name="field.createdAt">
+      <segment>
+        <source>field.createdAt</source>
+        <target>Създаден на</target>
+      </segment>
+    </unit>
+    <unit id="eVkSIKu" name="field.modifiedAt">
+      <segment>
+        <source>field.modifiedAt</source>
+        <target>Променен на</target>
+      </segment>
+    </unit>
+    <unit id="3gdi1dy" name="field.publishedAt">
+      <segment>
+        <source>field.publishedAt</source>
+        <target>Публикуван на</target>
+      </segment>
+    </unit>
+    <unit id="eN7IfEL" name="field.depublishedAt">
+      <segment>
+        <source>field.depublishedAt</source>
+        <target>Отпубликуван на</target>
+      </segment>
+    </unit>
+    <unit id="k.JymqB" name="about.visit_bolt">
+      <segment>
+        <source>about.visit_bolt</source>
+        <target>Посети Boltcms.io</target>
+      </segment>
+    </unit>
+    <unit id="UZFanGF" name="about.bolt_documentation">
+      <segment>
+        <source>about.bolt_documentation</source>
+        <target>Болт документация</target>
+      </segment>
+    </unit>
+    <unit id="FO7zDub" name="about.bolt_on_github">
+      <segment>
+        <source>about.bolt_on_github</source>
+        <target>Болт в GitHub</target>
+      </segment>
+    </unit>
+    <unit id="_9fS00R" name="about.used_libraries">
+      <segment>
+        <source>about.used_libraries</source>
+        <target>Потребителски библиотеки / компоненти</target>
+      </segment>
+    </unit>
+    <unit id="tgLgLDQ" name="about.list_of_used_libraries">
+      <segment>
+        <source>about.list_of_used_libraries</source>
+        <target>Отдолу са външните библиотеки, използвани от Болт:</target>
+      </segment>
+    </unit>
+    <unit id="D2N6_cP" name="label.email">
+      <segment>
+        <source>label.email</source>
+        <target>Имейл адрес</target>
+      </segment>
+    </unit>
+    <unit id="mEDsKHk" name="label.locale">
+      <segment>
+        <source>label.locale</source>
+        <target>Локал</target>
       </segment>
     </unit>
     <unit id="7aLIA3c" name="caption.dashboard">
@@ -19,46 +127,10 @@
         <target>Болт табло</target>
       </segment>
     </unit>
-    <unit id="1xlE8ex" name="caption.content">
+    <unit id="K6TmK4B" name="caption.clear_cache">
       <segment>
-        <source>caption.content</source>
-        <target>Съдържание</target>
-      </segment>
-    </unit>
-    <unit id="ZO.uqIZ" name="caption.settings">
-      <segment>
-        <source>caption.settings</source>
-        <target>Настройки</target>
-      </segment>
-    </unit>
-    <unit id="zOLL.7E" name="caption.configuration">
-      <segment>
-        <source>caption.configuration</source>
-        <target>Конфигурация</target>
-      </segment>
-    </unit>
-    <unit id="ipmA6Ah" name="caption.users_permissions">
-      <segment>
-        <source>caption.users_permissions</source>
-        <target>Потребители и права за достъп</target>
-      </segment>
-    </unit>
-    <unit id="kXNBV9S" name="caption.main_configuration">
-      <segment>
-        <source>caption.main_configuration</source>
-        <target>Основна конфигурация</target>
-      </segment>
-    </unit>
-    <unit id="_w7J5rZ" name="caption.contenttypes">
-      <segment>
-        <source>caption.contenttypes</source>
-        <target>Типове съдържание</target>
-      </segment>
-    </unit>
-    <unit id="drK.0GZ" name="caption.taxonomies">
-      <segment>
-        <source>caption.taxonomies</source>
-        <target>Таксономии</target>
+        <source>caption.clear_cache</source>
+        <target>Изчисти кеш паметта</target>
       </segment>
     </unit>
     <unit id="2RUXD4A" name="caption.menu_setup">
@@ -67,64 +139,46 @@
         <target>Настройки на навицагията</target>
       </segment>
     </unit>
-    <unit id="wBKDkwl" name="caption.routing_setup">
+    <unit id="drK.0GZ" name="caption.taxonomies">
       <segment>
-        <source>caption.routing_setup</source>
-        <target>Конфигурация на маршрутите</target>
+        <source>caption.taxonomies</source>
+        <target>Таксономии</target>
       </segment>
     </unit>
-    <unit id="i4cbdta" name="caption.all_configuration_files">
+    <unit id="_w7J5rZ" name="caption.contenttypes">
       <segment>
-        <source>caption.all_configuration_files</source>
-        <target>Всички конфугурационни файлове</target>
+        <source>caption.contenttypes</source>
+        <target>Типове съдържание</target>
       </segment>
     </unit>
-    <unit id="OpKTKAL" name="caption.maintenance">
+    <unit id="kXNBV9S" name="caption.main_configuration">
       <segment>
-        <source>caption.maintenance</source>
-        <target>Поддръжка</target>
+        <source>caption.main_configuration</source>
+        <target>Основна конфигурация</target>
       </segment>
     </unit>
-    <unit id="mfvtHPQ" name="caption.extensions">
+    <unit id="ipmA6Ah" name="caption.users_permissions">
       <segment>
-        <source>caption.extensions</source>
-        <target>Разширения</target>
+        <source>caption.users_permissions</source>
+        <target>Потребители и права за достъп</target>
       </segment>
     </unit>
-    <unit id="2MtT_h0" name="caption.logviewer">
+    <unit id="zOLL.7E" name="caption.configuration">
       <segment>
-        <source>caption.logviewer</source>
-        <target>Преглед на дневника</target>
+        <source>caption.configuration</source>
+        <target>Конфигурация</target>
       </segment>
     </unit>
-    <unit id="Dvu2HQx" name="caption.api">
+    <unit id="ZO.uqIZ" name="caption.settings">
       <segment>
-        <source>caption.api</source>
-        <target>ППИ (API)</target>
+        <source>caption.settings</source>
+        <target>Настройки</target>
       </segment>
     </unit>
-    <unit id="K6TmK4B" name="caption.clear_cache">
+    <unit id="1xlE8ex" name="caption.content">
       <segment>
-        <source>caption.clear_cache</source>
-        <target>Изчисти кеш паметта</target>
-      </segment>
-    </unit>
-    <unit id="dd5MzCM" name="caption.translations">
-      <segment>
-        <source>caption.translations</source>
-        <target>Преводи / етикети</target>
-      </segment>
-    </unit>
-    <unit id="Wou02nK" name="caption.kitchensink">
-      <segment>
-        <source>caption.kitchensink</source>
-        <target>Всички компоненти</target>
-      </segment>
-    </unit>
-    <unit id="wLaDaK5" name="caption.about_bolt">
-      <segment>
-        <source>caption.about_bolt</source>
-        <target>За Болт</target>
+        <source>caption.content</source>
+        <target>Съдържание</target>
       </segment>
     </unit>
     <unit id="l4yt0BE" name="caption.file_management">
@@ -133,10 +187,10 @@
         <target>Управление на файловете</target>
       </segment>
     </unit>
-    <unit id="bq6bSf4" name="caption.uploaded_files">
+    <unit id="mfvtHPQ" name="caption.extensions">
       <segment>
-        <source>caption.uploaded_files</source>
-        <target>Качени файлове</target>
+        <source>caption.extensions</source>
+        <target>Разширения</target>
       </segment>
     </unit>
     <unit id="K4D568R" name="caption.view_edit_templates">
@@ -145,10 +199,100 @@
         <target>Преглед и редакция на шаблоните</target>
       </segment>
     </unit>
-    <unit id="UZFanGF" name="about.bolt_documentation">
+    <unit id="bq6bSf4" name="caption.uploaded_files">
       <segment>
-        <source>about.bolt_documentation</source>
-        <target>Болт документация</target>
+        <source>caption.uploaded_files</source>
+        <target>Качени файлове</target>
+      </segment>
+    </unit>
+    <unit id="wBKDkwl" name="caption.routing_setup">
+      <segment>
+        <source>caption.routing_setup</source>
+        <target>Конфигурация на маршрутите</target>
+      </segment>
+    </unit>
+    <unit id="dd5MzCM" name="caption.translations">
+      <segment>
+        <source>caption.translations</source>
+        <target>Преводи / етикети</target>
+      </segment>
+    </unit>
+    <unit id="wLaDaK5" name="caption.about_bolt">
+      <segment>
+        <source>caption.about_bolt</source>
+        <target>За Болт</target>
+      </segment>
+    </unit>
+    <unit id="xN1kSQQ" name="caption.bolt_payoff">
+      <segment>
+        <source>caption.bolt_payoff</source>
+        <target>Функционална, лека и лесна система за управление на съдържанието</target>
+      </segment>
+    </unit>
+    <unit id="HK7XTUX" name="caption.edit">
+      <segment>
+        <source>caption.edit</source>
+        <target>Редактирай</target>
+      </segment>
+    </unit>
+    <unit id="QZYjRy0" name="caption.file_uploader">
+      <segment>
+        <source>caption.file_uploader</source>
+        <target>Прикачване на файлове</target>
+      </segment>
+    </unit>
+    <unit id="LaDIuZA" name="caption.meta_information">
+      <segment>
+        <source>caption.meta_information</source>
+        <target>Мета информация</target>
+      </segment>
+    </unit>
+    <unit id="DodjLNR" name="date">
+      <segment>
+        <source>date</source>
+        <target>Дата</target>
+      </segment>
+    </unit>
+    <unit id="zNy_hG8" name="size">
+      <segment>
+        <source>size</source>
+        <target>Размер</target>
+      </segment>
+    </unit>
+    <unit id="gPYflhh" name="thumbnail">
+      <segment>
+        <source>thumbnail</source>
+        <target>Миниатюра</target>
+      </segment>
+    </unit>
+    <unit id="_XSgfqS" name="filename">
+      <segment>
+        <source>filename</source>
+        <target>Име на файла</target>
+      </segment>
+    </unit>
+    <unit id="Kw3N1AA" name="actions">
+      <segment>
+        <source>actions</source>
+        <target>Действия</target>
+      </segment>
+    </unit>
+    <unit id="KHvGNGW" name="directoryname">
+      <segment>
+        <source>directoryname</source>
+        <target>Име на директорията</target>
+      </segment>
+    </unit>
+    <unit id="FSroufa" name="caption.path">
+      <segment>
+        <source>caption.path</source>
+        <target>Път</target>
+      </segment>
+    </unit>
+    <unit id="KfVJho2" name="action.create_new">
+      <segment>
+        <source>action.create_new</source>
+        <target>Създай нов</target>
       </segment>
     </unit>
     <unit id="b_RPpcB" name="general.greeting">
@@ -169,10 +313,40 @@
         <target>Редактирай профил</target>
       </segment>
     </unit>
-    <unit id="k.JymqB" name="about.visit_bolt">
+    <unit id="N_0yRcH" name="action.close_alert">
       <segment>
-        <source>about.visit_bolt</source>
-        <target>Посети Boltcms.io</target>
+        <source>action.close_alert</source>
+        <target>Затвори</target>
+      </segment>
+    </unit>
+    <unit id="Dvu2HQx" name="caption.api">
+      <segment>
+        <source>caption.api</source>
+        <target>ППИ (API)</target>
+      </segment>
+    </unit>
+    <unit id="i4cbdta" name="caption.all_configuration_files">
+      <segment>
+        <source>caption.all_configuration_files</source>
+        <target>Всички конфугурационни файлове</target>
+      </segment>
+    </unit>
+    <unit id="OpKTKAL" name="caption.maintenance">
+      <segment>
+        <source>caption.maintenance</source>
+        <target>Поддръжка</target>
+      </segment>
+    </unit>
+    <unit id="P1FHg3Q" name="caption.edit_file">
+      <segment>
+        <source>caption.edit_file</source>
+        <target>Редактирай файл</target>
+      </segment>
+    </unit>
+    <unit id="aQX4Emy" name="field.author">
+      <segment>
+        <source>field.author</source>
+        <target>Автор</target>
       </segment>
     </unit>
     <unit id="wGlnx8X" name="general.phrase.search">
@@ -181,46 +355,34 @@
         <target>Търсене</target>
       </segment>
     </unit>
-    <unit id="O_m7mx1" name="listing.placeholder_search">
+    <unit id="2MMvCKK" name="label.cache_cleared">
       <segment>
-        <source>listing.placeholder_search</source>
-        <target>Търси клучова дума…</target>
+        <source>label.cache_cleared</source>
+        <target>Кеш паметта беше изчистена успешно!</target>
       </segment>
     </unit>
-    <unit id="Dgtkgju" name="title.edit_user_profile">
+    <unit id="Wou02nK" name="caption.kitchensink">
       <segment>
-        <source>title.edit_user_profile</source>
-        <target>Редактирай потребителски профил</target>
+        <source>caption.kitchensink</source>
+        <target>Всички компоненти</target>
       </segment>
     </unit>
-    <unit id="jXAelLe" name="admin_sidebar_toggler.toggle">
+    <unit id="Pily_qo" name="general.phrase.read-more">
       <segment>
-        <source>admin_sidebar_toggler.toggle</source>
-        <target><![CDATA[<span class="sr-only">Превключи </span>меню	]]></target>
+        <source>general.phrase.read-more</source>
+        <target>Прочети повече</target>
       </segment>
     </unit>
-    <unit id="Gabafxx" name="admin_sidebar.toggler">
+    <unit id="5IxD63c" name="general.latest_bolt_news">
       <segment>
-        <source>admin_sidebar.toggler</source>
-        <target>Превключи ширина на страничната лента</target>
+        <source>general.latest_bolt_news</source>
+        <target>Последни новини от Болт</target>
       </segment>
     </unit>
-    <unit id="f.rvF6y" name="action.new">
+    <unit id="dQIY7_J" name="action.preview">
       <segment>
-        <source>action.new</source>
-        <target>Нов</target>
-      </segment>
-    </unit>
-    <unit id="TtmWqX3" name="action.view">
-      <segment>
-        <source>action.view</source>
+        <source>action.preview</source>
         <target>Прегледай</target>
-      </segment>
-    </unit>
-    <unit id="LDhDPrF" name="label.username">
-      <segment>
-        <source>label.username</source>
-        <target>Потребителско име</target>
       </segment>
     </unit>
     <unit id="SeTqePC" name="label.display_name">
@@ -229,34 +391,10 @@
         <target>Показано име</target>
       </segment>
     </unit>
-    <unit id="9pvowqn" name="label.password">
+    <unit id="3zlZmRK" name="action.add_user">
       <segment>
-        <source>label.password</source>
-        <target>Парола</target>
-      </segment>
-    </unit>
-    <unit id="D2N6_cP" name="label.email">
-      <segment>
-        <source>label.email</source>
-        <target>Имейл адрес</target>
-      </segment>
-    </unit>
-    <unit id="mEDsKHk" name="label.locale">
-      <segment>
-        <source>label.locale</source>
-        <target>Локал</target>
-      </segment>
-    </unit>
-    <unit id="N_0yRcH" name="action.close_alert">
-      <segment>
-        <source>action.close_alert</source>
-        <target>Затвори</target>
-      </segment>
-    </unit>
-    <unit id="z2AgHGp" name="flash_messages.notification">
-      <segment>
-        <source>flash_messages.notification</source>
-        <target>Известие</target>
+        <source>action.add_user</source>
+        <target>Добави потребител</target>
       </segment>
     </unit>
     <unit id="ruQIhH0" name="success">
@@ -271,16 +409,58 @@
         <target>Потребителският профил беше актуализиран!</target>
       </segment>
     </unit>
-    <unit id="pcq1NGk" name="listing_filter.button_compact">
+    <unit id="iD6CNOO" name="label.roles">
       <segment>
-        <source>listing_filter.button_compact</source>
-        <target>Компактен</target>
+        <source>label.roles</source>
+        <target>Роли</target>
       </segment>
     </unit>
-    <unit id="xIztVmp" name="listing_filter.button_expanded">
+    <unit id="7whLbH8" name="user.new_user">
       <segment>
-        <source>listing_filter.button_expanded</source>
-        <target>Разширен</target>
+        <source>user.new_user</source>
+        <target>Нов потребител</target>
+      </segment>
+    </unit>
+    <unit id="TtmWqX3" name="action.view">
+      <segment>
+        <source>action.view</source>
+        <target>Прегледай</target>
+      </segment>
+    </unit>
+    <unit id="I2ykiIZ" name="caption.folders">
+      <segment>
+        <source>caption.folders</source>
+        <target>Папки</target>
+      </segment>
+    </unit>
+    <unit id="kaK5Wdr" name="slug.button_locked">
+      <segment>
+        <source>slug.button_locked</source>
+        <target>Заключен</target>
+      </segment>
+    </unit>
+    <unit id="qcDEz5O" name="slug.button_edit">
+      <segment>
+        <source>slug.button_edit</source>
+        <target>Редактирай</target>
+      </segment>
+    </unit>
+    <unit id="raO5QSf" name="slug.generate_from">
+      <segment>
+        <source>slug.generate_from</source>
+        <target>Генерирай от:</target>
+      </segment>
+    </unit>
+    <unit id="vptPhch" name="image.button_upload">
+      <segment>
+        <source>image.button_upload</source>
+        <target>Прикачи</target>
+      </segment>
+    </unit>
+    <unit id="vIVO1lU" name="image.button_from_library">
+      <segment>
+        <source>image.button_from_library</source>
+        <target>От библиотеката</target>
       </segment>
     </unit>
     <unit id="L0TE0M9" name="listing_table.actions.view_on_site">
@@ -343,208 +523,10 @@
         <target>Последно променен на</target>
       </segment>
     </unit>
-    <unit id="Em.C0bV" name="listing_table.actions.button_edit">
+    <unit id="BdhsE_X" name="listing_select_box.card_header.selected">
       <segment>
-        <source>listing_table.actions.button_edit</source>
-        <target>Промени</target>
-      </segment>
-    </unit>
-    <unit id="AMxTho9" name="pager.previous">
-      <segment>
-        <source>pager.previous</source>
-        <target>Предишна страница</target>
-      </segment>
-    </unit>
-    <unit id="L_YQKUn" name="pager.next">
-      <segment>
-        <source>pager.next</source>
-        <target>Следваща страница</target>
-      </segment>
-    </unit>
-    <unit id="JEnqOi." name="title.primary_actions">
-      <segment>
-        <source>title.primary_actions</source>
-        <target>Основни действия</target>
-      </segment>
-    </unit>
-    <unit id="dQIY7_J" name="action.preview">
-      <segment>
-        <source>action.preview</source>
-        <target>Прегледай</target>
-      </segment>
-    </unit>
-    <unit id=".I3mIHo" name="label.current_status">
-      <segment>
-        <source>label.current_status</source>
-        <target>Настоящ статус</target>
-      </segment>
-    </unit>
-    <unit id="oxqDDuK" name="status.held">
-      <segment>
-        <source>status.held</source>
-        <target>Задържан</target>
-      </segment>
-    </unit>
-    <unit id="6Gw1lsE" name="action.confirm_delete">
-      <segment>
-        <source>action.confirm_delete</source>
-        <target>Сигурен/а ли си, че искаш да изтриеш настоящото съдържание?</target>
-      </segment>
-    </unit>
-    <unit id="hTKWQ6g" name="action.delete">
-      <segment>
-        <source>action.delete</source>
-        <target>Изтрий</target>
-      </segment>
-    </unit>
-    <unit id="7616Os4" name="title.options">
-      <segment>
-        <source>title.options</source>
-        <target>Опции</target>
-      </segment>
-    </unit>
-    <unit id="FuCyk5C" name="field.status">
-      <segment>
-        <source>field.status</source>
-        <target>Статус</target>
-      </segment>
-    </unit>
-    <unit id="utGAKaQ" name="status.published">
-      <segment>
-        <source>status.published</source>
-        <target>Публикуван</target>
-      </segment>
-    </unit>
-    <unit id="h7dP3WY" name="status.timed">
-      <segment>
-        <source>status.timed</source>
-        <target>Определен за време</target>
-      </segment>
-    </unit>
-    <unit id="HJbHjee" name="status.draft">
-      <segment>
-        <source>status.draft</source>
-        <target>Чернова</target>
-      </segment>
-    </unit>
-    <unit id="3gdi1dy" name="field.publishedAt">
-      <segment>
-        <source>field.publishedAt</source>
-        <target>Публикуван на</target>
-      </segment>
-    </unit>
-    <unit id="BINgtmK" name="editor_date.toggle">
-      <segment>
-        <source>editor_date.toggle</source>
-        <target>Превключи</target>
-      </segment>
-    </unit>
-    <unit id="eN7IfEL" name="field.depublishedAt">
-      <segment>
-        <source>field.depublishedAt</source>
-        <target>Отпубликуван на</target>
-      </segment>
-    </unit>
-    <unit id="aQX4Emy" name="field.author">
-      <segment>
-        <source>field.author</source>
-        <target>Автор</target>
-      </segment>
-    </unit>
-    <unit id="O9wtVOp" name="field.createdAt">
-      <segment>
-        <source>field.createdAt</source>
-        <target>Създаден на</target>
-      </segment>
-    </unit>
-    <unit id="eVkSIKu" name="field.modifiedAt">
-      <segment>
-        <source>field.modifiedAt</source>
-        <target>Променен на</target>
-      </segment>
-    </unit>
-    <unit id="SNELzJ2" name="field.id">
-      <segment>
-        <source>field.id</source>
-        <target>Идентификатор</target>
-      </segment>
-    </unit>
-    <unit id="HK7XTUX" name="caption.edit">
-      <segment>
-        <source>caption.edit</source>
-        <target>Редактирай</target>
-      </segment>
-    </unit>
-    <unit id="XQ2U6fN" name="slug.button_unlocked">
-      <segment>
-        <source>slug.button_unlocked</source>
-        <target>Отключен</target>
-      </segment>
-    </unit>
-    <unit id="kaK5Wdr" name="slug.button_locked">
-      <segment>
-        <source>slug.button_locked</source>
-        <target>Заключен</target>
-      </segment>
-    </unit>
-    <unit id="qcDEz5O" name="slug.button_edit">
-      <segment>
-        <source>slug.button_edit</source>
-        <target>Редактирай</target>
-      </segment>
-    </unit>
-    <unit id="raO5QSf" name="slug.generate_from">
-      <segment>
-        <source>slug.generate_from</source>
-        <target>Генерирай от:</target>
-      </segment>
-    </unit>
-    <unit id="YZJO3Ul" name="upload.allow_file_types">
-      <segment>
-        <source>upload.allow_file_types</source>
-        <target>Типове файлове, разрешени за прикачване:</target>
-      </segment>
-    </unit>
-    <unit id="noOf4ML" name="upload.max_size">
-      <segment>
-        <source>upload.max_size</source>
-        <target>Максимален размер на файла:</target>
-      </segment>
-    </unit>
-    <unit id="vptPhch" name="image.button_upload">
-      <segment>
-        <source>image.button_upload</source>
-        <target>Прикачи</target>
-      </segment>
-    </unit>
-    <unit id="vIVO1lU" name="image.button_from_library">
-      <segment>
-        <source>image.button_from_library</source>
-        <target>От библиотеката</target>
-      </segment>
-    </unit>
-    <unit id="FqVh1Hv" name="image.button_remove">
-      <segment>
-        <source>image.button_remove</source>
-        <target>Премахни</target>
-      </segment>
-    </unit>
-    <unit id="oOuVKRv" name="image.placeholder_filename">
-      <segment>
-        <source>image.placeholder_filename</source>
-        <target>Име на файл (прикачи нов файл или избери съществуващ)</target>
-      </segment>
-    </unit>
-    <unit id="BWubOnS" name="image.placeholder_alt_text">
-      <segment>
-        <source>image.placeholder_alt_text</source>
-        <target>Алтернативно съобщение</target>
-      </segment>
-    </unit>
-    <unit id="eHV6ZJB" name="image.button_edit_attributes">
-      <segment>
-        <source>image.button_edit_attributes</source>
-        <target>Редактирай атрибутите</target>
+        <source>listing_select_box.card_header.selected</source>
+        <target>Избран(и)</target>
       </segment>
     </unit>
     <unit id="kHeY93_" name="editor_embed.content_url">
@@ -589,6 +571,144 @@
         <target>Размер</target>
       </segment>
     </unit>
+    <unit id="oOuVKRv" name="image.placeholder_filename">
+      <segment>
+        <source>image.placeholder_filename</source>
+        <target>Име на файл (прикачи нов файл или избери съществуващ)</target>
+      </segment>
+    </unit>
+    <unit id="BWubOnS" name="image.placeholder_alt_text">
+      <segment>
+        <source>image.placeholder_alt_text</source>
+        <target>Алтернативно съобщение</target>
+      </segment>
+    </unit>
+    <unit id="Gabafxx" name="admin_sidebar.toggler">
+      <segment>
+        <source>admin_sidebar.toggler</source>
+        <target>Превключи ширина на страничната лента</target>
+      </segment>
+    </unit>
+    <unit id="jXAelLe" name="admin_sidebar_toggler.toggle">
+      <segment>
+        <source>admin_sidebar_toggler.toggle</source>
+        <target><![CDATA[<span class="sr-only">Превключи </span>меню	]]></target>
+      </segment>
+    </unit>
+    <unit id="BINgtmK" name="editor_date.toggle">
+      <segment>
+        <source>editor_date.toggle</source>
+        <target>Превключи</target>
+      </segment>
+    </unit>
+    <unit id="z2AgHGp" name="flash_messages.notification">
+      <segment>
+        <source>flash_messages.notification</source>
+        <target>Известие</target>
+      </segment>
+    </unit>
+    <unit id="wQ0WYAT" name="listing.title_sortby">
+      <segment>
+        <source>listing.title_sortby</source>
+        <target>Сортирай по</target>
+      </segment>
+    </unit>
+    <unit id="pn22p7q" name="listing.placeholder_filter">
+      <segment>
+        <source>listing.placeholder_filter</source>
+        <target>Дума за търсене</target>
+      </segment>
+    </unit>
+    <unit id="ni4zApC" name="listing.button_filter">
+      <segment>
+        <source>listing.button_filter</source>
+        <target>Търсене</target>
+      </segment>
+    </unit>
+    <unit id="QQvRJe." name="files_cards.button_toggle">
+      <segment>
+        <source>files_cards.button_toggle</source>
+        <target>Превключи падащото меню</target>
+      </segment>
+    </unit>
+    <unit id="gtC_ujD" name="files_cards.action_edit_image_info">
+      <segment>
+        <source>files_cards.action_edit_image_info</source>
+        <target>Промени информацията на снимката</target>
+      </segment>
+    </unit>
+    <unit id="5LXvJfE" name="files_cards.action_edit_file">
+      <segment>
+        <source>files_cards.action_edit_file</source>
+        <target>Редактирай файла в редактора</target>
+      </segment>
+    </unit>
+    <unit id="H1pgP94" name="files_cards.action_view_original">
+      <segment>
+        <source>files_cards.action_view_original</source>
+        <target>Виж оригинала</target>
+      </segment>
+    </unit>
+    <unit id="ZoY6ADX" name="files_cards.action_duplicate">
+      <segment>
+        <source>files_cards.action_duplicate</source>
+        <target>Копирай</target>
+      </segment>
+    </unit>
+    <unit id="JjU6ZQP" name="files_cards.action_delete">
+      <segment>
+        <source>files_cards.action_delete</source>
+        <target>Изтрий</target>
+      </segment>
+    </unit>
+    <unit id="3jdNwuk" name="files_cards.label_filename">
+      <segment>
+        <source>files_cards.label_filename</source>
+        <target>Име на файла:</target>
+      </segment>
+    </unit>
+    <unit id="Y90_Pn1" name="files_cards.label_title">
+      <segment>
+        <source>files_cards.label_title</source>
+        <target>Заглавие:</target>
+      </segment>
+    </unit>
+    <unit id="EdCfIKX" name="files_cards.label_dimensions">
+      <segment>
+        <source>files_cards.label_dimensions</source>
+        <target>Размери:</target>
+      </segment>
+    </unit>
+    <unit id="eQBhceV" name="files_cards.label_filesize">
+      <segment>
+        <source>files_cards.label_filesize</source>
+        <target>Размер на файла:</target>
+      </segment>
+    </unit>
+    <unit id="uiCjlwk" name="files_cards.label_created_on">
+      <segment>
+        <source>files_cards.label_created_on</source>
+        <target>Създаден на</target>
+      </segment>
+    </unit>
+    <unit id=".fL0AbE" name="files_list.remark">
+      <segment>
+        <source>files_list.remark</source>
+        <target>Няма файлове в настоящата папка. Избери папка.</target>
+      </segment>
+    </unit>
+    <unit id="m3tNvJb" name="finder.button_list">
+      <segment>
+        <source>finder.button_list</source>
+        <target>Лист</target>
+      </segment>
+    </unit>
+    <unit id="tRLgeoX" name="finder.button_cards">
+      <segment>
+        <source>finder.button_cards</source>
+        <target>Карти</target>
+      </segment>
+    </unit>
     <unit id="nrWBJNm" name="extensions.title_desc">
       <segment>
         <source>extensions.title_desc</source>
@@ -607,22 +727,10 @@
         <target>Пакет / име на клас:</target>
       </segment>
     </unit>
-    <unit id="hgNZLwW" name="extensions.title_configuration">
-      <segment>
-        <source>extensions.title_configuration</source>
-        <target>Конфигурационен файл</target>
-      </segment>
-    </unit>
     <unit id="QFQ1uTC" name="extensions.title_version">
       <segment>
         <source>extensions.title_version</source>
         <target>Версия</target>
-      </segment>
-    </unit>
-    <unit id="BFARQEU" name="extensions.button_detailed_view">
-      <segment>
-        <source>extensions.button_detailed_view</source>
-        <target>Виж детайлите</target>
       </segment>
     </unit>
     <unit id="mjhFljb" name="extensions.button_configuration">
@@ -637,12 +745,6 @@
         <target>Програмен код</target>
       </segment>
     </unit>
-    <unit id="7JK6jNv" name="extensions.message_not_implemented">
-      <segment>
-        <source>extensions.message_not_implemented</source>
-        <target>Все още не работи. Извинете!</target>
-      </segment>
-    </unit>
     <unit id="qc3rFkZ" name="extensions.button_remove">
       <segment>
         <source>extensions.button_remove</source>
@@ -655,22 +757,52 @@
         <target>Изключи разширението</target>
       </segment>
     </unit>
-    <unit id="rCKtTo5" name="caption.redirection_page">
+    <unit id="7JK6jNv" name="extensions.message_not_implemented">
       <segment>
-        <source>caption.redirection_page</source>
-        <target>Страница за пренасочване</target>
+        <source>extensions.message_not_implemented</source>
+        <target>Все още не работи. Извинете!</target>
       </segment>
     </unit>
-    <unit id="HBwIQ9b" name="controller.user.subtitle">
+    <unit id="Hlf9c1s" name="listing.title_overview">
       <segment>
-        <source>controller.user.subtitle</source>
-        <target>За редактиране на потребителите и техните права за достъп</target>
+        <source>listing.title_overview</source>
+        <target>Общ преглед на</target>
+      </segment>
+    </unit>
+    <unit id="pcq1NGk" name="listing_filter.button_compact">
+      <segment>
+        <source>listing_filter.button_compact</source>
+        <target>Компактен</target>
+      </segment>
+    </unit>
+    <unit id="xIztVmp" name="listing_filter.button_expanded">
+      <segment>
+        <source>listing_filter.button_expanded</source>
+        <target>Разширен</target>
+      </segment>
+    </unit>
+    <unit id="73A2bWM" name="finder.label_view">
+      <segment>
+        <source>finder.label_view</source>
+        <target>Виж:</target>
+      </segment>
+    </unit>
+    <unit id="Em.C0bV" name="listing_table.actions.button_edit">
+      <segment>
+        <source>listing_table.actions.button_edit</source>
+        <target>Промени</target>
       </segment>
     </unit>
     <unit id="Iy4HXCU" name="controller.user.title">
       <segment>
         <source>controller.user.title</source>
         <target>Потребители и права за достъп</target>
+      </segment>
+    </unit>
+    <unit id="HBwIQ9b" name="controller.user.subtitle">
+      <segment>
+        <source>controller.user.subtitle</source>
+        <target>За редактиране на потребителите и техните права за достъп</target>
       </segment>
     </unit>
     <unit id="7cXqH5s" name="listing.title_display_name">
@@ -715,22 +847,64 @@
         <target>Действия</target>
       </segment>
     </unit>
-    <unit id="ovKkXwU" name="action.edit">
+    <unit id="TpGxDI3" name="user.unknown_user">
       <segment>
-        <source>action.edit</source>
-        <target>Редактирай</target>
+        <source>user.unknown_user</source>
+        <target>Неизвестен потребител</target>
+      </segment>
+    </unit>
+    <unit id="Dgtkgju" name="title.edit_user_profile">
+      <segment>
+        <source>title.edit_user_profile</source>
+        <target>Редактирай потребителски профил</target>
+      </segment>
+    </unit>
+    <unit id="rCKtTo5" name="caption.redirection_page">
+      <segment>
+        <source>caption.redirection_page</source>
+        <target>Страница за пренасочване</target>
+      </segment>
+    </unit>
+    <unit id="hiE9jap" name="password.suggested">
+      <segment>
+        <source>password.suggested</source>
+        <target><![CDATA[Предложена сигурна парола: <code>%password%</code>]]></target>
+      </segment>
+    </unit>
+    <unit id="n.3JZvX" name="title.contentType">
+      <segment>
+        <source>title.contentType</source>
+        <target>Тип съдържание</target>
+      </segment>
+    </unit>
+    <unit id="hp554Ds" name="listing.option_select_sortby">
+      <segment>
+        <source>listing.option_select_sortby</source>
+        <target>Избери поле за сортиране</target>
+      </segment>
+    </unit>
+    <unit id="JEnqOi." name="title.primary_actions">
+      <segment>
+        <source>title.primary_actions</source>
+        <target>Основни действия</target>
+      </segment>
+    </unit>
+    <unit id="7616Os4" name="title.options">
+      <segment>
+        <source>title.options</source>
+        <target>Опции</target>
+      </segment>
+    </unit>
+    <unit id="hTKWQ6g" name="action.delete">
+      <segment>
+        <source>action.delete</source>
+        <target>Изтрий</target>
       </segment>
     </unit>
     <unit id="ryXZRAu" name="action.disable">
       <segment>
         <source>action.disable</source>
         <target>Деактиривай</target>
-      </segment>
-    </unit>
-    <unit id="3zlZmRK" name="action.add_user">
-      <segment>
-        <source>action.add_user</source>
-        <target>Добави потребител</target>
       </segment>
     </unit>
     <unit id="Npkio79" name="listing.title_session_expires">
@@ -751,40 +925,70 @@
         <target>Браузър / платформа</target>
       </segment>
     </unit>
-    <unit id="7whLbH8" name="user.new_user">
+    <unit id="FqVh1Hv" name="image.button_remove">
       <segment>
-        <source>user.new_user</source>
-        <target>Нов потребител</target>
+        <source>image.button_remove</source>
+        <target>Премахни</target>
       </segment>
     </unit>
-    <unit id="1sstKF9" name="title.edit_user">
+    <unit id="eHV6ZJB" name="image.button_edit_attributes">
       <segment>
-        <source>title.edit_user</source>
-        <target>Редактирай потребител</target>
+        <source>image.button_edit_attributes</source>
+        <target>Редактирай атрибутите</target>
       </segment>
     </unit>
-    <unit id="hiE9jap" name="password.suggested">
+    <unit id="BFARQEU" name="extensions.button_detailed_view">
       <segment>
-        <source>password.suggested</source>
-        <target><![CDATA[Предложена сигурна парола: <code>%password%</code>]]></target>
+        <source>extensions.button_detailed_view</source>
+        <target>Виж детайлите</target>
       </segment>
     </unit>
-    <unit id="iD6CNOO" name="label.roles">
+    <unit id="hgNZLwW" name="extensions.title_configuration">
       <segment>
-        <source>label.roles</source>
-        <target>Роли</target>
+        <source>extensions.title_configuration</source>
+        <target>Конфигурационен файл</target>
       </segment>
     </unit>
-    <unit id="FSroufa" name="caption.path">
+    <unit id="283aB_E" name="caption.file_upload.upload_text">
       <segment>
-        <source>caption.path</source>
-        <target>Път</target>
+        <source>caption.file_upload.upload_text</source>
+        <target>Пусни файлове тук, за да прикачиш</target>
       </segment>
     </unit>
-    <unit id="P1FHg3Q" name="caption.edit_file">
+    <unit id="L_YQKUn" name="pager.next">
       <segment>
-        <source>caption.edit_file</source>
-        <target>Редактирай файл</target>
+        <source>pager.next</source>
+        <target>Следваща страница</target>
+      </segment>
+    </unit>
+    <unit id="AMxTho9" name="pager.previous">
+      <segment>
+        <source>pager.previous</source>
+        <target>Предишна страница</target>
+      </segment>
+    </unit>
+    <unit id="2MtT_h0" name="caption.logviewer">
+      <segment>
+        <source>caption.logviewer</source>
+        <target>Преглед на дневника</target>
+      </segment>
+    </unit>
+    <unit id="FlGE3qB" name="label.request">
+      <segment>
+        <source>label.request</source>
+        <target>Заявка (request)</target>
+      </segment>
+    </unit>
+    <unit id="l71Tprl" name="label.trace">
+      <segment>
+        <source>label.trace</source>
+        <target>Следа (trace)</target>
+      </segment>
+    </unit>
+    <unit id="29ZEo1r" name="label.context">
+      <segment>
+        <source>label.context</source>
+        <target>Контекст</target>
       </segment>
     </unit>
     <unit id="txRonia" name="label.id">
@@ -811,298 +1015,16 @@
         <target>Време</target>
       </segment>
     </unit>
-    <unit id="FlGE3qB" name="label.request">
-      <segment>
-        <source>label.request</source>
-        <target>Заявка (request)</target>
-      </segment>
-    </unit>
-    <unit id="l71Tprl" name="label.trace">
-      <segment>
-        <source>label.trace</source>
-        <target>Следа (trace)</target>
-      </segment>
-    </unit>
-    <unit id="29ZEo1r" name="label.context">
-      <segment>
-        <source>label.context</source>
-        <target>Контекст</target>
-      </segment>
-    </unit>
     <unit id="O2X4xZH" name="label.user">
       <segment>
         <source>label.user</source>
         <target>Потребител</target>
       </segment>
     </unit>
-    <unit id="2MMvCKK" name="label.cache_cleared">
+    <unit id="XQ2U6fN" name="slug.button_unlocked">
       <segment>
-        <source>label.cache_cleared</source>
-        <target>Кеш паметта беше изчистена успешно!</target>
-      </segment>
-    </unit>
-    <unit id="cH6rDCP" name="Button">
-      <segment>
-        <source>Button</source>
-        <target>Бутон</target>
-      </segment>
-    </unit>
-    <unit id="1LzKCXS" name="&lt;strong&gt;Well done!&lt;/strong&gt; You successfully read this important alert message.">
-      <segment>
-        <source>&lt;strong&gt;Well done!&lt;/strong&gt; You successfully read this important alert message.</source>
-        <target><![CDATA[<strong>Поздравления!</strong> Успешно пречете това важно известие.]]></target>
-      </segment>
-    </unit>
-    <unit id="Bicbr0l" name="info">
-      <segment>
-        <source>info</source>
-        <target>Информация</target>
-      </segment>
-    </unit>
-    <unit id="RaGzSx5" name="57d589f">
-      <segment>
-        <source>57d589f</source>
-        <target><![CDATA[<strong>Внимание</strong> Това известие се нуждае от внимание, но не е от изключителна важност.]]></target>
-      </segment>
-    </unit>
-    <unit id="S9k1S7Z" name="warning">
-      <segment>
-        <source>warning</source>
-        <target>Предупреждение</target>
-      </segment>
-    </unit>
-    <unit id="JYILFeM" name="&lt;strong&gt;Warning!&lt;/strong&gt; Better check yourself, you're not looking too good.">
-      <segment>
-        <source>&lt;strong&gt;Warning!&lt;/strong&gt; Better check yourself, you're not looking too good.</source>
-        <target><![CDATA[<strong>Предупреждение!</strong> Провери се, защото не изглеждаш много добре.]]></target>
-      </segment>
-    </unit>
-    <unit id="Ej.WZqo" name="danger">
-      <segment>
-        <source>danger</source>
-        <target>Опасност</target>
-      </segment>
-    </unit>
-    <unit id="OGd6iOm" name="&lt;strong&gt;Oh snap!&lt;/strong&gt; Change a few things up and try submitting again.">
-      <segment>
-        <source>&lt;strong&gt;Oh snap!&lt;/strong&gt; Change a few things up and try submitting again.</source>
-        <target><![CDATA[<strong>Ох, нещо се случи</strong> Промени няколко неща и опитай да изпратиш отново.]]></target>
-      </segment>
-    </unit>
-    <unit id="5IxD63c" name="general.latest_bolt_news">
-      <segment>
-        <source>general.latest_bolt_news</source>
-        <target>Последни новини от Болт</target>
-      </segment>
-    </unit>
-    <unit id="Pily_qo" name="general.phrase.read-more">
-      <segment>
-        <source>general.phrase.read-more</source>
-        <target>Прочети повече</target>
-      </segment>
-    </unit>
-    <unit id="a2vzLi7" name="action.do_something">
-      <segment>
-        <source>action.do_something</source>
-        <target>Направи нещо</target>
-      </segment>
-    </unit>
-    <unit id="hAysbHB" name="label.translatable">
-      <segment>
-        <source>label.translatable</source>
-        <target>Това поле може да се преведе</target>
-      </segment>
-    </unit>
-    <unit id="xN1kSQQ" name="caption.bolt_payoff">
-      <segment>
-        <source>caption.bolt_payoff</source>
-        <target>Функционална, лека и лесна система за управление на съдържанието</target>
-      </segment>
-    </unit>
-    <unit id="QVRwwK4" name="about.system_info">
-      <segment>
-        <source>about.system_info</source>
-        <target>Системна информация</target>
-      </segment>
-    </unit>
-    <unit id="FO7zDub" name="about.bolt_on_github">
-      <segment>
-        <source>about.bolt_on_github</source>
-        <target>Болт в GitHub</target>
-      </segment>
-    </unit>
-    <unit id="_9fS00R" name="about.used_libraries">
-      <segment>
-        <source>about.used_libraries</source>
-        <target>Потребителски библиотеки / компоненти</target>
-      </segment>
-    </unit>
-    <unit id="tgLgLDQ" name="about.list_of_used_libraries">
-      <segment>
-        <source>about.list_of_used_libraries</source>
-        <target>Отдолу са външните библиотеки, използвани от Болт:</target>
-      </segment>
-    </unit>
-    <unit id="LaDIuZA" name="caption.meta_information">
-      <segment>
-        <source>caption.meta_information</source>
-        <target>Мета информация</target>
-      </segment>
-    </unit>
-    <unit id="73A2bWM" name="finder.label_view">
-      <segment>
-        <source>finder.label_view</source>
-        <target>Виж:</target>
-      </segment>
-    </unit>
-    <unit id="m3tNvJb" name="finder.button_list">
-      <segment>
-        <source>finder.button_list</source>
-        <target>Лист</target>
-      </segment>
-    </unit>
-    <unit id="tRLgeoX" name="finder.button_cards">
-      <segment>
-        <source>finder.button_cards</source>
-        <target>Карти</target>
-      </segment>
-    </unit>
-    <unit id="QZYjRy0" name="caption.file_uploader">
-      <segment>
-        <source>caption.file_uploader</source>
-        <target>Прикачване на файлове</target>
-      </segment>
-    </unit>
-    <unit id="283aB_E" name="caption.file_upload.upload_text">
-      <segment>
-        <source>caption.file_upload.upload_text</source>
-        <target>Пусни файлове тук, за да прикачиш</target>
-      </segment>
-    </unit>
-    <unit id="I2ykiIZ" name="caption.folders">
-      <segment>
-        <source>caption.folders</source>
-        <target>Папки</target>
-      </segment>
-    </unit>
-    <unit id="KHvGNGW" name="directoryname">
-      <segment>
-        <source>directoryname</source>
-        <target>Име на директорията</target>
-      </segment>
-    </unit>
-    <unit id="Kw3N1AA" name="actions">
-      <segment>
-        <source>actions</source>
-        <target>Действия</target>
-      </segment>
-    </unit>
-    <unit id="_XSgfqS" name="filename">
-      <segment>
-        <source>filename</source>
-        <target>Име на файла</target>
-      </segment>
-    </unit>
-    <unit id="gPYflhh" name="thumbnail">
-      <segment>
-        <source>thumbnail</source>
-        <target>Миниатюра</target>
-      </segment>
-    </unit>
-    <unit id="zNy_hG8" name="size">
-      <segment>
-        <source>size</source>
-        <target>Размер</target>
-      </segment>
-    </unit>
-    <unit id="DodjLNR" name="date">
-      <segment>
-        <source>date</source>
-        <target>Дата</target>
-      </segment>
-    </unit>
-    <unit id="QQvRJe." name="files_cards.button_toggle">
-      <segment>
-        <source>files_cards.button_toggle</source>
-        <target>Превключи падащото меню</target>
-      </segment>
-    </unit>
-    <unit id="gtC_ujD" name="files_cards.action_edit_image_info">
-      <segment>
-        <source>files_cards.action_edit_image_info</source>
-        <target>Промени информацията на снимката</target>
-      </segment>
-    </unit>
-    <unit id="H1pgP94" name="files_cards.action_view_original">
-      <segment>
-        <source>files_cards.action_view_original</source>
-        <target>Виж оригинала</target>
-      </segment>
-    </unit>
-    <unit id="ZoY6ADX" name="files_cards.action_duplicate">
-      <segment>
-        <source>files_cards.action_duplicate</source>
-        <target>Копирай</target>
-      </segment>
-    </unit>
-    <unit id="wHPoBzP" name="file.delete_confirm">
-      <segment>
-        <source>file.delete_confirm</source>
-        <target>Сигурен/а ли си, че искаш да изтриеш този файл?</target>
-      </segment>
-    </unit>
-    <unit id="JjU6ZQP" name="files_cards.action_delete">
-      <segment>
-        <source>files_cards.action_delete</source>
-        <target>Изтрий</target>
-      </segment>
-    </unit>
-    <unit id="3jdNwuk" name="files_cards.label_filename">
-      <segment>
-        <source>files_cards.label_filename</source>
-        <target>Име на файла:</target>
-      </segment>
-    </unit>
-    <unit id="Y90_Pn1" name="files_cards.label_title">
-      <segment>
-        <source>files_cards.label_title</source>
-        <target>Заглавие:</target>
-      </segment>
-    </unit>
-    <unit id="EdCfIKX" name="files_cards.label_dimensions">
-      <segment>
-        <source>files_cards.label_dimensions</source>
-        <target>Размери:</target>
-      </segment>
-    </unit>
-    <unit id="eQBhceV" name="files_cards.label_filesize">
-      <segment>
-        <source>files_cards.label_filesize</source>
-        <target>Размер на файла:</target>
-      </segment>
-    </unit>
-    <unit id="uiCjlwk" name="files_cards.label_created_on">
-      <segment>
-        <source>files_cards.label_created_on</source>
-        <target>Създаден на</target>
-      </segment>
-    </unit>
-    <unit id="5LXvJfE" name="files_cards.action_edit_file">
-      <segment>
-        <source>files_cards.action_edit_file</source>
-        <target>Редактирай файла в редактора</target>
-      </segment>
-    </unit>
-    <unit id=".fL0AbE" name="files_list.remark">
-      <segment>
-        <source>files_list.remark</source>
-        <target>Няма файлове в настоящата папка. Избери папка.</target>
-      </segment>
-    </unit>
-    <unit id="BdhsE_X" name="listing_select_box.card_header.selected">
-      <segment>
-        <source>listing_select_box.card_header.selected</source>
-        <target>Избран(и)</target>
+        <source>slug.button_unlocked</source>
+        <target>Отключен</target>
       </segment>
     </unit>
     <unit id="WeJxw6Z" name="action.update_all">
@@ -1111,28 +1033,28 @@
         <target>Приложи за всички</target>
       </segment>
     </unit>
-    <unit id="vJwSCBO" name="title.contentlisting">
+    <unit id="QVRwwK4" name="about.system_info">
       <segment>
-        <source>title.contentlisting</source>
-        <target>Списък на записи</target>
+        <source>about.system_info</source>
+        <target>Системна информация</target>
       </segment>
     </unit>
-    <unit id="KfVJho2" name="action.create_new">
+    <unit id="6Gw1lsE" name="action.confirm_delete">
       <segment>
-        <source>action.create_new</source>
-        <target>Създай нов</target>
+        <source>action.confirm_delete</source>
+        <target>Сигурен/а ли си, че искаш да изтриеш настоящото съдържание?</target>
       </segment>
     </unit>
-    <unit id="wQ0WYAT" name="listing.title_sortby">
+    <unit id="hAysbHB" name="label.translatable">
       <segment>
-        <source>listing.title_sortby</source>
-        <target>Сортирай по</target>
+        <source>label.translatable</source>
+        <target>Това поле може да се преведе</target>
       </segment>
     </unit>
-    <unit id="hp554Ds" name="listing.option_select_sortby">
+    <unit id="wHPoBzP" name="file.delete_confirm">
       <segment>
-        <source>listing.option_select_sortby</source>
-        <target>Избери поле за сортиране</target>
+        <source>file.delete_confirm</source>
+        <target>Сигурен/а ли си, че искаш да изтриеш този файл?</target>
       </segment>
     </unit>
     <unit id="IWbf2by" name="listing.title_filterby">
@@ -1141,22 +1063,70 @@
         <target>Търси / филтрирай по</target>
       </segment>
     </unit>
-    <unit id="pn22p7q" name="listing.placeholder_filter">
+    <unit id=".I3mIHo" name="label.current_status">
       <segment>
-        <source>listing.placeholder_filter</source>
-        <target>Дума за търсене</target>
+        <source>label.current_status</source>
+        <target>Настоящ статус</target>
       </segment>
     </unit>
-    <unit id="ni4zApC" name="listing.button_filter">
+    <unit id="utGAKaQ" name="status.published">
       <segment>
-        <source>listing.button_filter</source>
-        <target>Търсене</target>
+        <source>status.published</source>
+        <target>Публикуван</target>
       </segment>
     </unit>
-    <unit id="n.3JZvX" name="title.contentType">
+    <unit id="HJbHjee" name="status.draft">
       <segment>
-        <source>title.contentType</source>
-        <target>Тип съдържание</target>
+        <source>status.draft</source>
+        <target>Чернова</target>
+      </segment>
+    </unit>
+    <unit id="h7dP3WY" name="status.timed">
+      <segment>
+        <source>status.timed</source>
+        <target>Определен за време</target>
+      </segment>
+    </unit>
+    <unit id="oxqDDuK" name="status.held">
+      <segment>
+        <source>status.held</source>
+        <target>Задържан</target>
+      </segment>
+    </unit>
+    <unit id="YZJO3Ul" name="upload.allow_file_types">
+      <segment>
+        <source>upload.allow_file_types</source>
+        <target>Типове файлове, разрешени за прикачване:</target>
+      </segment>
+    </unit>
+    <unit id="noOf4ML" name="upload.max_size">
+      <segment>
+        <source>upload.max_size</source>
+        <target>Максимален размер на файла:</target>
+      </segment>
+    </unit>
+    <unit id="O_m7mx1" name="listing.placeholder_search">
+      <segment>
+        <source>listing.placeholder_search</source>
+        <target>Търси клучова дума…</target>
+      </segment>
+    </unit>
+    <unit id="f.rvF6y" name="action.new">
+      <segment>
+        <source>action.new</source>
+        <target>Нов</target>
+      </segment>
+    </unit>
+    <unit id="S9k1S7Z" name="warning">
+      <segment>
+        <source>warning</source>
+        <target>Предупреждение</target>
+      </segment>
+    </unit>
+    <unit id="zYeSeNJ" name="action.stop_impersonating">
+      <segment>
+        <source>action.stop_impersonating</source>
+        <target>Спри симулация на роля</target>
       </segment>
     </unit>
     <unit id="9UKAP.V" name="listing_details_box.showing_records">
@@ -1195,22 +1165,52 @@
         <target>Локали: %locales%</target>
       </segment>
     </unit>
-    <unit id="zYeSeNJ" name="action.stop_impersonating">
-      <segment>
-        <source>action.stop_impersonating</source>
-        <target>Спри симулация на роля</target>
-      </segment>
-    </unit>
-    <unit id="Hlf9c1s" name="listing.title_overview">
-      <segment>
-        <source>listing.title_overview</source>
-        <target>Общ преглед на</target>
-      </segment>
-    </unit>
     <unit id="OPxagAY" name="general.phrase.none">
       <segment>
         <source>general.phrase.none</source>
         <target>Няма</target>
+      </segment>
+    </unit>
+    <unit id="cH6rDCP" name="Button">
+      <segment>
+        <source>Button</source>
+        <target>Бутон</target>
+      </segment>
+    </unit>
+    <unit id="1LzKCXS" name="&lt;strong&gt;Well done!&lt;/strong&gt; You successfully read this important alert message.">
+      <segment>
+        <source>&lt;strong&gt;Well done!&lt;/strong&gt; You successfully read this important alert message.</source>
+        <target><![CDATA[<strong>Поздравления!</strong> Успешно пречете това важно известие.]]></target>
+      </segment>
+    </unit>
+    <unit id="Bicbr0l" name="info">
+      <segment>
+        <source>info</source>
+        <target>Информация</target>
+      </segment>
+    </unit>
+    <unit id="RaGzSx5" name="57d589f">
+      <segment>
+        <source>57d589f</source>
+        <target><![CDATA[<strong>Внимание</strong> Това известие се нуждае от внимание, но не е от изключителна важност.]]></target>
+      </segment>
+    </unit>
+    <unit id="JYILFeM" name="&lt;strong&gt;Warning!&lt;/strong&gt; Better check yourself, you're not looking too good.">
+      <segment>
+        <source>&lt;strong&gt;Warning!&lt;/strong&gt; Better check yourself, you're not looking too good.</source>
+        <target><![CDATA[<strong>Предупреждение!</strong> Провери се, защото не изглеждаш много добре.]]></target>
+      </segment>
+    </unit>
+    <unit id="Ej.WZqo" name="danger">
+      <segment>
+        <source>danger</source>
+        <target>Опасност</target>
+      </segment>
+    </unit>
+    <unit id="OGd6iOm" name="&lt;strong&gt;Oh snap!&lt;/strong&gt; Change a few things up and try submitting again.">
+      <segment>
+        <source>&lt;strong&gt;Oh snap!&lt;/strong&gt; Change a few things up and try submitting again.</source>
+        <target><![CDATA[<strong>Ох, нещо се случи</strong> Промени няколко неща и опитай да изпратиш отново.]]></target>
       </segment>
     </unit>
   </file>

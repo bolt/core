@@ -927,12 +927,6 @@
                 <target>Пошук</target>
             </segment>
         </unit>
-        <unit id="z0k8hRg" name="9fb3e6e">
-            <segment>
-                <source>9fb3e6e</source>
-                <target>Цей сайт &lt;a href='https://boltcms.io' target='_blank' title='Вишукана, легка та проста CMS'&gt;сделан на Bolt&lt;/a&gt;.</target>
-            </segment>
-        </unit>
         <unit id="wNEwZy_" name="contenttypes.generic.overview">
             <segment>
                 <source>contenttypes.generic.overview</source>
@@ -2425,6 +2419,12 @@
             <segment>
                 <source>general.phrase.none</source>
                 <target>Немає</target>
+            </segment>
+        </unit>
+        <unit id="z0k8hRg" name="9fb3e6e">
+            <segment>
+                <source>9fb3e6e</source>
+                <target>Цей сайт &lt;a href='https://boltcms.io' target='_blank' title='Вишукана, легка та проста CMS'&gt;сделан на Bolt&lt;/a&gt;.</target>
             </segment>
         </unit>
     </file>
