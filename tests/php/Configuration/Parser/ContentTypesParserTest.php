@@ -70,9 +70,10 @@ class ContentTypesParserTest extends ParserTestBase
         $contentTypesParser = new ContentTypesParser($this->getProjectDir(), $generalParser->parse(), self::DEFAULT_LOCALE, self::ALLOWED_LOCALES);
         $config = $contentTypesParser->parse();
 
-        $this->assertCount(9, $config);
+        $this->assertCount(10, $config);
 
         $this->assertArrayHasKey('homepage', $config);
+        $this->assertArrayHasKey('about', $config);
         $this->assertCount(self::AMOUNT_OF_ATTRIBUTES_IN_CONTENT_TYPE, $config['homepage']);
 
         $this->assertSame('Homepage', $config['homepage']['name']);
