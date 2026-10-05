@@ -20,6 +20,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\Asset\PathPackage;
 use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -48,6 +49,10 @@ class TwigAwareController extends AbstractController
         Canonical $canonical,
         Sanitiser $sanitiser,
         TemplateChooser $templateChooser,
+        // Explicit, because only the project's own services get the `$defaultLocale`
+        // bind from config/services.yaml: controllers of extensions, registered by
+        // the generated config/services_bolt.yaml, could not be autowired otherwise.
+        #[Autowire(param: 'locale')]
         string $defaultLocale,
         CommonExtension $commonExtension
     ): void {
