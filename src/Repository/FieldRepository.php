@@ -96,7 +96,6 @@ class FieldRepository extends ServiceEntityRepository
         $classname = self::getFieldClassname($type);
 
         if ($classname && class_exists($classname)) {
-            /** @var Field $field */
             $field = new $classname();
         } else {
             $field = new Field();
@@ -121,17 +120,22 @@ class FieldRepository extends ServiceEntityRepository
         return $field;
     }
 
+    /**
+     * @return class-string<Field>|null
+     */
     public static function getFieldClassname(string $type): ?string
     {
         // The classname we want
         $classname = ucwords($type) . 'Field';
 
+        /** @var array<class-string> $classes */
         $classes = array_map(
             fn (ClassMetadata $entity): string => $entity->getName(),
             self::$em->getMetadataFactory()->getAllMetadata()
         );
 
         // Classnames of all fields (classes that implement Bolt\Entity\FieldInterface)
+        /** @var Collection<int, class-string<Field>> $allFields */
         $allFields = collect($classes)->filter(
             fn (string $class): bool => in_array(FieldInterface::class, class_implements($class), true)
         );

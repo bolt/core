@@ -22,10 +22,18 @@ class FieldDiscriminatorListener
 {
     private readonly MappingDriver $mappingDriver;
 
-    /** The temporary map used for one run, when computing everything */
+    /**
+     * The temporary map used for one run, when computing everything
+     *
+     * @var array<class-string<FieldInterface>, string>
+     */
     private array $tempMap = [];
 
-    /** The cached map, this holds the results after a computation, also for other classes */
+    /**
+     * The cached map, this holds the results after a computation, also for other classes
+     *
+     * @var array<class-string<FieldInterface>, array<string, class-string<FieldInterface>>>
+     */
     private array $map = [];
 
     /**
@@ -38,6 +46,7 @@ class FieldDiscriminatorListener
 
     public function loadClassMetadata(LoadClassMetadataEventArgs $event): void
     {
+        /** @var class-string $className */
         $className = $event->getClassMetadata()->name;
         if ($this->isField($className) === false) {
             return;
@@ -59,14 +68,20 @@ class FieldDiscriminatorListener
         $event->getClassMetadata()->setDiscriminatorMap($this->map[$className]);
     }
 
+    /**
+     * @param class-string $class
+     * @phpstan-assert-if-true class-string<FieldInterface> $class
+     */
     private function isField(string $class): bool
     {
         return is_subclass_of($class, FieldInterface::class);
     }
 
+    /**
+     * @param class-string<FieldInterface> $class
+     */
     private function extractFieldType(string $class): string
     {
-        /** @var FieldInterface $field */
         $field = new $class();
         $fieldType = $field->getType();
         if (in_array($fieldType, $this->tempMap, true) === true) {
@@ -76,6 +91,9 @@ class FieldDiscriminatorListener
         return $fieldType;
     }
 
+    /**
+     * @param class-string<FieldInterface> $className
+     */
     private function checkFamily(string $className): void
     {
         $this->tempMap[$className] = $this->extractFieldType($className);
@@ -84,13 +102,20 @@ class FieldDiscriminatorListener
 
         if ($parentClass !== false) {
             // Also check all the parents of our child
-            $this->checkFamily($parentClass->name);
+
+            /** @var class-string<FieldInterface> $parentClassName */
+            $parentClassName = $parentClass->name;
+
+            $this->checkFamily($parentClassName);
         } else {
             // Find all the children of this class
             $this->checkChildren($className);
         }
     }
 
+    /**
+     * @param class-string<FieldInterface> $parentClassName
+     */
     private function checkChildren(string $parentClassName): void
     {
         foreach ($this->mappingDriver->getAllClassNames() as $className) {
