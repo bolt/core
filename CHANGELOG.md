@@ -1,6 +1,12 @@
 Changelog
 =========
 
+## 6.1.9
+
+Released: 2026-10-09
+
+This release includes security-related fixes (dependencies only).
+
 ## 6.1.8
 
 Released: 2026-09-09
