@@ -53,7 +53,7 @@ class ImageController
 
         $this->parseParameters($paramString);
         $this->createServer($request);
-        $this->saveThumb($request, $filename);
+        $this->saveThumb($request, $paramString, $filename);
 
         return $this->buildResponse($request, $filename);
     }
@@ -82,21 +82,31 @@ class ImageController
         return $this->config->getPath($path, $absolute, $additional);
     }
 
-    private function saveThumb(Request $request, string $filename): void
+    private function saveThumb(Request $request, string $paramString, string $filename): void
     {
         if (! $this->config->get('general/thumbnails/save_files', true)) {
+            return;
+        }
+
+        // A `?path=` query changes the image but not the URL path, so such thumbnails are not saved.
+        if ($request->query->has('path')) {
+            return;
+        }
+
+        // The web server serves a saved thumbnail only if it lies at the path of its URL, so it is
+        // stored under the requested parameter string (e.g. `400×300×80×crop`), not a normalized one.
+        // That string comes from the URL: Path::join() resolves `.` and `..` segments (and `\` on
+        // Windows), so only save the thumbnail if that did not change the path.
+        $thumbsPath = Path::canonicalize($this->getPath($request, 'thumbs'));
+        $thumbPath = Path::join($thumbsPath, $paramString, $filename);
+
+        if ($thumbPath !== $thumbsPath . '/' . $paramString . '/' . $filename) {
             return;
         }
 
         $filesystem = new Filesystem();
         $folderMode = $this->config->get('general/filepermissions/folders', 0775);
         $fileMode = $this->config->get('general/filepermissions/files', 0664);
-
-        $thumbPath = Path::join(
-            $this->getPath($request, 'thumbs'),
-            $this->parameterPath(),
-            $filename
-        );
 
         try {
             $imageBlob = $this->buildImage($request, $filename);
@@ -213,18 +223,6 @@ class ImageController
             'c', 'crop' => 'crop',
             default => $fit,
         };
-    }
-
-    private function parameterPath(): string
-    {
-        return sprintf(
-            '%d_%d_%d_%s_%s',
-            $this->parameters['w'] ?? 0,
-            $this->parameters['h'] ?? 0,
-            $this->parameters['q'] ?? 0,
-            $this->parameters['fit'] ?? '',
-            $this->parameters['location'] ?? ''
-        );
     }
 
     public function sendErrorImage(): Response
