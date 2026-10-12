@@ -183,6 +183,96 @@ class ImageControllerTest extends WebTestCase
         $this->assertNothingSaved();
     }
 
+    /**
+     * Normally the web server serves a saved thumbnail, but if the request still reaches PHP (e.g.
+     * without `try_files` in Nginx), the saved file is served instead of generating it again.
+     */
+    public function testSavedThumbnailIsServed(): void
+    {
+        $url = '/thumbs/153×94/kitten.jpg';
+        $savedFile = self::PUBLIC_DIR . $url;
+        $savedImage = file_get_contents(self::PUBLIC_DIR . '/files/kitten2.jpg');
+        (new Filesystem())->dumpFile($savedFile, $savedImage);
+        touch($savedFile, $modified = time() - 3600);
+
+        $client = static::createClient();
+        $client->request('GET', self::encode($url));
+
+        $this->assertResponseIsSuccessful();
+        $this->assertSame($savedImage, $client->getInternalResponse()->getContent());
+        $this->assertSame($savedImage, file_get_contents($savedFile), 'Expected the saved thumbnail not to be generated again.');
+        $this->assertResponseHeaderSame('Content-Type', 'image/jpeg');
+        $this->assertResponseHeaderSame('Last-Modified', gmdate('D, d M Y H:i:s', $modified) . ' GMT');
+        $this->assertResponseHasHeader('ETag');
+        $etag = $client->getResponse()->headers->get('ETag');
+
+        $client->request('GET', self::encode($url), server: ['HTTP_IF_MODIFIED_SINCE' => gmdate('D, d M Y H:i:s', $modified) . ' GMT']);
+
+        $this->assertResponseStatusCodeSame(304);
+        $this->assertSame('', $client->getInternalResponse()->getContent());
+
+        $client->request('GET', self::encode($url), server: ['HTTP_IF_NONE_MATCH' => $etag]);
+
+        $this->assertResponseStatusCodeSame(304);
+    }
+
+    /**
+     * A saved thumbnail is served with the headers the web server sends for any image, e.g. in
+     * `files/`: validators, but no lifetime. That is also the case for the request that generates it,
+     * and for anonymous visitors, although the firewall uses the session on every request.
+     */
+    public function testThumbnailHasTheHeadersOfAnImageFile(): void
+    {
+        $url = '/thumbs/155×94/kitten.jpg';
+        $client = static::createClient();
+        $client->request('GET', self::encode($url));
+        $this->assertFileExists(self::PUBLIC_DIR . $url);
+
+        $generated = $client->getResponse()->headers;
+
+        $client->request('GET', self::encode($url));
+        $saved = $client->getResponse()->headers;
+
+        foreach ([$generated, $saved] as $headers) {
+            $this->assertSame('public', $headers->get('Cache-Control'));
+            $this->assertFalse($headers->has('Expires'));
+            $this->assertSame('image/jpeg', $headers->get('Content-Type'));
+            $this->assertSame(gmdate('D, d M Y H:i:s', filemtime(self::PUBLIC_DIR . $url)) . ' GMT', $headers->get('Last-Modified'));
+            $this->assertNotNull($headers->get('ETag'));
+            $this->assertSame([], $headers->getCookies());
+        }
+        $this->assertSame($generated->get('ETag'), $saved->get('ETag'));
+    }
+
+    /**
+     * A response that may set the session cookie must not be cached.
+     */
+    public function testThumbnailIsNotCacheableWithStartedSession(): void
+    {
+        $client = static::createClient();
+        $client->request('GET', self::encode('/thumbs/158×94/kitten.jpg?_locale=en'));
+
+        $this->assertResponseIsSuccessful();
+        $this->assertFileExists(self::PUBLIC_DIR . '/thumbs/158×94/kitten.jpg');
+        $this->assertNotEmpty($client->getResponse()->headers->getCookies(), 'Expected the response to set the session cookie.');
+        $this->assertFalse($client->getResponse()->headers->hasCacheControlDirective('public'));
+        $this->assertTrue($client->getResponse()->headers->hasCacheControlDirective('private'));
+    }
+
+    public function testSavedSvgIsServedAsSvg(): void
+    {
+        $url = '/thumbs/154×94×80×themes/image-controller-test/logo.svg';
+        $client = static::createClient();
+        $client->request('GET', self::encode($url));
+        $this->assertFileExists(self::PUBLIC_DIR . $url);
+
+        $client->request('GET', self::encode($url));
+
+        $this->assertResponseIsSuccessful();
+        $this->assertResponseHeaderSame('Content-Type', 'image/svg+xml');
+        $this->assertSame(file_get_contents(self::THEME_IMAGE_DIR . '/logo.svg'), $client->getInternalResponse()->getContent());
+    }
+
     private function assertSavedAtThePathOfItsUrl(KernelBrowser $client, string $url): void
     {
         $client->request('GET', self::encode($url));

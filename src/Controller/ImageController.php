@@ -13,8 +13,11 @@ use League\Glide\Server;
 use League\Glide\ServerFactory;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Path;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\EventListener\AbstractSessionListener;
+use Symfony\Component\Mime\MimeTypes;
 use Symfony\Component\Routing\Attribute\Route;
 use Throwable;
 
@@ -57,7 +60,15 @@ class ImageController
         $thumbPath = $this->getThumbPath($request, $paramString, $filename);
 
         if ($thumbPath !== null) {
-            $this->saveThumb($request, $filename, $thumbPath);
+            // Normally the web server serves a saved thumbnail, but it can still reach PHP, e.g. when the
+            // web server isn't configured for that, or when it was saved by a parallel request.
+            if (! is_file($thumbPath)) {
+                $this->saveThumb($request, $filename, $thumbPath);
+            }
+
+            if (is_file($thumbPath)) {
+                return $this->buildFileResponse($request, $thumbPath);
+            }
         }
 
         return $this->buildResponse($request, $filename);
@@ -196,6 +207,29 @@ class ImageController
         } catch (FileNotFoundException) {
             return $this->sendErrorImage();
         }
+    }
+
+    /**
+     * Serves a saved thumbnail with the same headers as the web server sends for it, and for any
+     * other image: Last-Modified, an ETag and no lifetime, so it is cached like those.
+     */
+    private function buildFileResponse(Request $request, string $path): Response
+    {
+        $response = new BinaryFileResponse($path);
+        // Like the web server, by extension, and not by sniffing the content.
+        $response->headers->set('Content-Type', MimeTypes::getDefault()->getMimeTypes(Path::getExtension($path, true))[0] ?? 'application/octet-stream');
+        $response->setEtag(sprintf('%x-%x', $response->getFile()->getSize(), $response->getFile()->getMTime()));
+        $response->isNotModified($request);
+
+        // Symfony makes a response private and uncacheable as soon as the session is used, which the
+        // remember-me authenticator of the firewall does on every request. A thumbnail doesn't depend
+        // on the session, so keep it cacheable, unless the session was started (e.g. for a logged-in
+        // user): the response could then set the session cookie, which must not be cached.
+        if (! $request->hasSession() || ! $request->getSession()->isStarted()) {
+            $response->headers->set(AbstractSessionListener::NO_AUTO_CACHE_CONTROL_HEADER, 'true');
+        }
+
+        return $response;
     }
 
     /**
