@@ -366,6 +366,32 @@ class ImageControllerTest extends WebTestCase
         $this->assertTrue($client->getResponse()->headers->hasCacheControlDirective('private'));
     }
 
+    /**
+     * Thumbnails are outside the firewall: a visitor with a remember-me cookie is not logged in for
+     * them, which would load the user, start a session and make the response uncacheable.
+     */
+    public function testThumbnailDoesNotLogInWithRememberMeCookie(): void
+    {
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/bolt/login');
+        $client->request('POST', '/bolt/login', ['login' => [
+            'username' => 'admin',
+            'password' => 'admin%1',
+            'remember_me' => '1',
+            '_token' => $crawler->filter('input[name="login[_token]"]')->attr('value'),
+        ]]);
+        $rememberMe = $client->getCookieJar()->get('REMEMBERME');
+        $this->assertNotNull($rememberMe, 'Expected the login to set the remember-me cookie.');
+        $client->getCookieJar()->clear();
+        $client->getCookieJar()->set($rememberMe);
+
+        $client->request('GET', self::encode('/thumbs/159×94×junk/kitten.jpg'));
+
+        $this->assertResponseIsSuccessful();
+        $this->assertSame([], $client->getResponse()->headers->getCookies());
+        $this->assertResponseHeaderSame('Cache-Control', 'max-age=31536000, public');
+    }
+
     public function testSavedSvgIsServedAsSvg(): void
     {
         $url = '/thumbs/154×94×80×themes/image-controller-test/logo.svg';

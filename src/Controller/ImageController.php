@@ -274,10 +274,11 @@ class ImageController
     }
 
     /**
-     * Symfony makes a response private and uncacheable as soon as the session is used, which the
-     * remember-me authenticator of the firewall does on every request. Thumbnails don't depend on the
-     * session, so keep their caching headers, unless the session was started (e.g. for a logged-in
-     * user): the response could then set the session cookie, which must not be cached.
+     * Symfony makes a response private and uncacheable as soon as the session is used, even if it is
+     * only read. Thumbnails are outside the firewall, but other listeners may still read the session.
+     * Thumbnails don't depend on it, so keep their caching headers, unless the session was started
+     * (e.g. by a `_locale` in the query): the response could then set the session cookie, which must
+     * not be cached.
      */
     private function allowCaching(Request $request, Response $response): Response
     {

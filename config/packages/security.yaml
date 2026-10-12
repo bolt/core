@@ -22,6 +22,12 @@ security:
       pattern: ^/(_(profiler|wdt)|css|images|js)/
       security: false
     
+    # Thumbnails are public and the same for every user, so don't authenticate (and with remember-me,
+    # load the user and start a session) for each one that is generated.
+    thumbs:
+      pattern: ^/thumbs/
+      security: false
+
     api:
       pattern: ^/api
       http_basic: ~
