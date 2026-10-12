@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 /**
  * With `thumbnails: save_files: true` a generated thumbnail must be stored at the path of its URL,
@@ -267,6 +268,21 @@ class ImageControllerTest extends WebTestCase
 
         $this->assertResponseStatusCodeSame(304);
         $this->assertSame('', $client->getInternalResponse()->getContent());
+    }
+
+    /**
+     * A saved thumbnail is not also kept in Glide's cache, and the response is the saved file.
+     */
+    public function testSavedThumbnailIsNotCached(): void
+    {
+        $client = static::createClient();
+        $cacheFolder = static::getContainer()->get(Config::class)->getPath('cache', true, ['thumbnails', 'files', 'kitten.jpg']);
+        $cachedFiles = is_dir($cacheFolder) ? $this->entries($cacheFolder) : [];
+
+        $this->assertSavedAtThePathOfItsUrl($client, '/thumbs/156×94×80×crop/kitten.jpg');
+
+        $this->assertInstanceOf(BinaryFileResponse::class, $client->getResponse());
+        $this->assertSame($cachedFiles, is_dir($cacheFolder) ? $this->entries($cacheFolder) : []);
     }
 
     public function testSavedSvgIsServedAsSvg(): void

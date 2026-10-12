@@ -74,11 +74,13 @@ class ImageController
         if ($thumbPath !== null) {
             // Normally the web server serves a saved thumbnail, but it can still reach PHP, e.g. when the
             // web server isn't configured for that, or when it was saved by a parallel request.
+            if (! is_file($thumbPath)) {
+                $this->saveThumb($filename, $thumbPath);
+            }
+
             if (is_file($thumbPath)) {
                 return $this->buildFileResponse($request, $thumbPath);
             }
-
-            $this->saveThumb($request, $filename, $thumbPath);
         }
 
         return $this->buildResponse($request, $filename);
@@ -168,14 +170,14 @@ class ImageController
         return $thumbPath;
     }
 
-    private function saveThumb(Request $request, string $filename, string $thumbPath): void
+    private function saveThumb(string $filename, string $thumbPath): void
     {
         $filesystem = new Filesystem();
         $folderMode = $this->config->get('general/filepermissions/folders', 0775);
         $fileMode = $this->config->get('general/filepermissions/files', 0664);
 
         try {
-            $imageBlob = $this->buildImage($request, $filename);
+            $imageBlob = $this->buildImage($filename);
             $filesystem->mkdir(dirname($thumbPath), $folderMode);
             $filesystem->dumpFile($thumbPath, $imageBlob);
             $filesystem->chmod($thumbPath, $fileMode);
@@ -184,7 +186,11 @@ class ImageController
         }
     }
 
-    private function buildImage(Request $request, string $filename): string
+    /**
+     * Generates a thumbnail to save. This bypasses Glide's cache, which would only keep a second copy
+     * of the saved file.
+     */
+    private function buildImage(string $filename): string
     {
         // In case we're trying to "thumbnail" a svg, just return the whole thing.
         if ($this->isSvg($filename)) {
@@ -193,18 +199,13 @@ class ImageController
             return file_get_contents($filepath);
         }
 
-        if ($request->query->has('path')) {
-            $filename = sprintf('%s/%s', $request->query->getString('path'), $filename);
-        }
-
-        // Glide serves an image from its cache without checking that the source still exists.
         if (! $this->server->sourceFileExists($filename)) {
             throw new FileNotFoundException(sprintf('Could not find the image `%s`.', $filename));
         }
 
-        $cacheFile = $this->server->makeImage($filename, $this->parameters);
+        $source = $this->server->getSource()->read($this->server->getSourcePath($filename));
 
-        return $this->server->getCache()->read($cacheFile);
+        return $this->server->getApi()->run($source, $this->server->getAllParams($this->parameters));
     }
 
     private function buildResponse(Request $request, string $filename): Response
