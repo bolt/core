@@ -9,6 +9,7 @@ use Bolt\Controller\CsrfTrait;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Repository\MediaRepository;
 use Bolt\Utils\PathCanonicalize;
+use Bolt\Utils\ThumbnailCacheClearer;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Path;
@@ -33,7 +34,8 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
 
     public function __construct(
         private MediaRepository $mediaRepository,
-        private EntityManagerInterface $em
+        private EntityManagerInterface $em,
+        private ThumbnailCacheClearer $thumbnailCacheClearer
     ) {
         $this->filesystem = new Filesystem();
     }
@@ -136,7 +138,7 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
             $this->em->flush();
         }
 
-        $filePath = PathCanonicalize::canonicalize($locationName, $path);
+        $filePath = PathCanonicalize::canonicalize($this->config->getPath((string) $locationName), $path);
 
         try {
             $this->filesystem->remove($filePath);
@@ -144,6 +146,8 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
             // something wrong happened, we don't need the uploaded files anymore
             throw $e;
         }
+
+        $this->thumbnailCacheClearer->clearFor($filePath);
 
         $this->addFlash('success', 'file.delete_success');
 

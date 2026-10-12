@@ -1204,7 +1204,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'message' => '#^Parameter \\#1 \\$basePath of static method Bolt\\\\Utils\\\\PathCanonicalize\\:\\:canonicalize\\(\\) expects string, string\\|null given\\.$#',
 	'identifier' => 'argument.type',
-	'count' => 2,
+	'count' => 1,
 	'path' => __DIR__ . '/src/Controller/Backend/FileEditController.php',
 ];
 $ignoreErrors[] = [

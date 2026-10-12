@@ -11,6 +11,7 @@ use Bolt\Controller\TwigAwareController;
 use Bolt\Repository\MediaRepository;
 use Bolt\Utils\Excerpt;
 use Bolt\Utils\PathCanonicalize;
+use Bolt\Utils\ThumbnailCacheClearer;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\Filesystem\Exception\IOException;
@@ -33,7 +34,8 @@ class FilemanagerController extends TwigAwareController implements BackendZoneIn
     public function __construct(
         private FileLocations $fileLocations,
         private MediaRepository $mediaRepository,
-        private Filesystem $filesystem
+        private Filesystem $filesystem,
+        private ThumbnailCacheClearer $thumbnailCacheClearer
     ) {
     }
 
@@ -112,6 +114,7 @@ class FilemanagerController extends TwigAwareController implements BackendZoneIn
         } else {
             try {
                 $this->filesystem->remove($folder);
+                $this->thumbnailCacheClearer->clearFor($folder);
                 $this->addFlash('success', 'filemanager.delete_folder_successful');
             } catch (IOException) {
                 $this->addFlash('danger', 'filemanager.delete_folder_error');
