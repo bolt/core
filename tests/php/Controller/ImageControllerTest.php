@@ -248,6 +248,48 @@ class ImageControllerTest extends WebTestCase
         $this->assertSame(round(152 / 114, 1), round($width / $height, 1), 'Expected the aspect ratio to be kept.');
     }
 
+    public function testThumbnailIsLimitedToMaxImageSizeByDefault(): void
+    {
+        $client = static::createClient();
+
+        $this->assertSavedAtThePathOfItsUrl($client, '/thumbs/4000×4000×80×stretch/kitten.jpg');
+
+        [$width, $height] = getimagesizefromstring($client->getInternalResponse()->getContent());
+        $this->assertLessThanOrEqual(3840 * 2160, $width * $height);
+    }
+
+    /**
+     * @return iterable<string, array{array<string, int|string|null>, int, int}>
+     */
+    public static function missingDimensionProvider(): iterable
+    {
+        yield 'width only' => [['width' => 404], 404, 303];
+        yield 'width only, cropped' => [['width' => 408, 'fit' => 'crop'], 408, 306];
+        yield 'height only, cropped' => [['height' => 96, 'fit' => 'crop'], 128, 96];
+        // A box of 3000×10000 pixels is larger than `max_image_size`, the thumbnail is not.
+        yield 'large width only' => [['width' => 3000], 3000, 2250];
+    }
+
+    /**
+     * ThumbnailHelper uses 10000 for a missing width or height. The thumbnail must keep the aspect
+     * ratio of the image (1600×1200) instead of being cropped to a strip of 10000 pixels high or
+     * wide, and only its own size must count towards `max_image_size`.
+     *
+     * @param array<string, int|string|null> $arguments
+     */
+    #[DataProvider('missingDimensionProvider')]
+    public function testMissingDimensionFollowsTheAspectRatio(array $arguments, int $expectedWidth, int $expectedHeight): void
+    {
+        $client = static::createClient();
+        $url = (new ThumbnailHelper(static::getContainer()->get(Config::class)))->path('kitten.jpg', ...$arguments);
+        $this->assertStringContainsString('10000', $url);
+
+        $this->assertSavedAtThePathOfItsUrl($client, $url);
+
+        [$width, $height] = getimagesizefromstring($client->getInternalResponse()->getContent());
+        $this->assertSame([$expectedWidth, $expectedHeight], [$width, $height]);
+    }
+
     /**
      * Normally the web server serves a saved thumbnail, but if the request still reaches PHP (e.g.
      * without `try_files` in Nginx), the saved file is served instead of generating it again.

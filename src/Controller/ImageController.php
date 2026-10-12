@@ -25,10 +25,15 @@ use Throwable;
 class ImageController
 {
     /**
-     * The default maximum number of pixels of a generated image. ThumbnailHelper uses 10000 for a
-     * missing width or height, so this allows e.g. a thumbnail of 4000 pixels wide.
+     * The default maximum number of pixels of a generated image: that of a 4K UHD screen, which is
+     * more than an optimized image on a website needs.
      */
-    private const MAX_IMAGE_SIZE = 4000 * 10000;
+    private const MAX_IMAGE_SIZE = 3840 * 2160;
+
+    /**
+     * The width or height that ThumbnailHelper uses when it is missing.
+     */
+    private const MISSING_DIMENSION = 10000;
 
     private Server $server;
 
@@ -294,6 +299,15 @@ class ImageController
             'location' => 'files',
             'q' => (! empty($raw[2]) && 0 <= $raw[2] && $raw[2] <= 100) ? (int) $raw[2] : 80,
         ];
+
+        // Pass a missing width or height to Glide as 0, so it derives it from the aspect ratio of the
+        // image. Otherwise e.g. `400×10000×crop` is cropped to a strip of 10000 pixels high, and the
+        // size of that strip instead of the size of the thumbnail counts towards `max_image_size`.
+        foreach (['w', 'h'] as $dimension) {
+            if ($this->parameters[$dimension] === self::MISSING_DIMENSION) {
+                $this->parameters[$dimension] = 0;
+            }
+        }
 
         if (isset($raw[4])) {
             $this->parameters['fit'] = $this->parseFit($raw[3]);
