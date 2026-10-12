@@ -140,6 +140,10 @@ class ImageControllerTest extends WebTestCase
         yield 'width with exponent' => ['/thumbs/1e2×94/kitten.jpg'];
         yield 'non-numeric width' => ['/thumbs/abc×94/kitten.jpg'];
         yield 'empty height' => ['/thumbs/130×/kitten.jpg'];
+        // Glide decodes the filename a second time, so these read files/kitten.jpg.
+        yield 'double encoded parent folder' => ['/thumbs/130×94/foo/%252e%252e/kitten.jpg'];
+        yield 'double encoded parent folder, other prefix' => ['/thumbs/130×94/bar/%252e%252e/kitten.jpg'];
+        yield 'double encoded character' => ['/thumbs/130×94/kitte%256e.jpg'];
     }
 
     #[DataProvider('unsavedThumbnailProvider')]

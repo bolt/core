@@ -158,6 +158,13 @@ class ImageController
             return null;
         }
 
+        // The router has decoded the filename once, but Glide decodes it again, so a double-encoded
+        // `%252e%252e` passes the checks above as `%2e%2e` and Glide reads `..`. Saving those would
+        // store a separate copy of the same image for every `<anything>/%252e%252e/` prefix.
+        if (rawurldecode($filename) !== $filename) {
+            return null;
+        }
+
         // The web server serves a saved thumbnail only if it lies at the path of its URL, so it is
         // stored under the requested parameter string (e.g. `400×300×80×crop`), not a normalized one.
         // That string comes from the URL: Path::join() resolves `.` and `..` segments (and `\` on
