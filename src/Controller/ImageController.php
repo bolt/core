@@ -143,6 +143,12 @@ class ImageController
             return null;
         }
 
+        // Glide serves an image from its cache even after the image itself was deleted, which would
+        // save the deleted image again. buildResponse() responds with the error image instead.
+        if (! is_file(Path::join($this->getPath($request), $filename))) {
+            return null;
+        }
+
         return $thumbPath;
     }
 

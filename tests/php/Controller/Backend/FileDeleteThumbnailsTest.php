@@ -17,6 +17,8 @@ class FileDeleteThumbnailsTest extends WebTestCase
 {
     private const PUBLIC_DIR = __DIR__ . '/../../../../public';
 
+    private const ERROR_IMAGE = __DIR__ . '/../../../../assets/static/images/404-image.png';
+
     private const FOLDER = 'file-delete-thumbnails-test';
 
     private const THUMBNAIL_URL = '/thumbs/9124×94/' . self::FOLDER . '/kitten.jpg';
@@ -53,6 +55,7 @@ class FileDeleteThumbnailsTest extends WebTestCase
 
         $this->assertFileDoesNotExist(self::PUBLIC_DIR . '/files/' . self::FOLDER . '/kitten.jpg');
         $this->assertFileDoesNotExist(self::PUBLIC_DIR . self::THUMBNAIL_URL);
+        $this->assertThumbnailIsGone();
     }
 
     public function testDeletingAFolderRemovesTheThumbnailsInIt(): void
@@ -61,6 +64,19 @@ class FileDeleteThumbnailsTest extends WebTestCase
         $this->client->click($crawler->filter(sprintf('a[href*="filemanager-actions/delete"][href*="%s"]', self::FOLDER))->link());
 
         $this->assertDirectoryDoesNotExist(self::PUBLIC_DIR . '/files/' . self::FOLDER);
+        $this->assertFileDoesNotExist(self::PUBLIC_DIR . self::THUMBNAIL_URL);
+        $this->assertThumbnailIsGone();
+    }
+
+    /**
+     * The next request for the thumbnail gets the error image, and doesn't save the deleted image
+     * again from Glide's cache.
+     */
+    private function assertThumbnailIsGone(): void
+    {
+        $this->client->request('GET', str_replace('×', rawurlencode('×'), self::THUMBNAIL_URL));
+
+        $this->assertSame(sha1_file(self::ERROR_IMAGE), sha1($this->client->getInternalResponse()->getContent()), 'Expected the error image.');
         $this->assertFileDoesNotExist(self::PUBLIC_DIR . self::THUMBNAIL_URL);
     }
 }

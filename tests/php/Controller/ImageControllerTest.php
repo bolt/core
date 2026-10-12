@@ -184,6 +184,26 @@ class ImageControllerTest extends WebTestCase
     }
 
     /**
+     * Glide keeps a generated image in its cache, also after the image itself is deleted (e.g. over
+     * FTP). Its thumbnail must not be saved again from that cache, or the web server serves it.
+     */
+    public function testThumbnailOfADeletedImageIsNotSavedAgain(): void
+    {
+        $image = self::PUBLIC_DIR . '/files/image-controller-test-deleted.jpg';
+        $url = '/thumbs/160×94/image-controller-test-deleted.jpg';
+        (new Filesystem())->copy(self::PUBLIC_DIR . '/files/kitten.jpg', $image);
+        $client = static::createClient();
+        $client->request('GET', self::encode($url));
+        $this->assertFileExists(self::PUBLIC_DIR . $url);
+
+        (new Filesystem())->remove([$image, self::PUBLIC_DIR . $url]);
+        $client->request('GET', self::encode($url));
+
+        $this->assertSame(sha1_file(self::ERROR_IMAGE), sha1($client->getInternalResponse()->getContent()), 'Expected the error image.');
+        $this->assertFileDoesNotExist(self::PUBLIC_DIR . $url);
+    }
+
+    /**
      * Normally the web server serves a saved thumbnail, but if the request still reaches PHP (e.g.
      * without `try_files` in Nginx), the saved file is served instead of generating it again.
      */
