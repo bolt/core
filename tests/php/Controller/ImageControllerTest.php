@@ -41,6 +41,7 @@ class ImageControllerTest extends WebTestCase
     public static function setUpBeforeClass(): void
     {
         (new Filesystem())->copy(self::PUBLIC_DIR . '/files/kitten.jpg', self::THEME_IMAGE_DIR . '/kitten.jpg');
+        (new Filesystem())->copy(__DIR__ . '/../../../assets/static/images/bolt_logo_dashboard.svg', self::THEME_IMAGE_DIR . '/logo.svg');
     }
 
     public static function tearDownAfterClass(): void
@@ -240,6 +241,46 @@ class ImageControllerTest extends WebTestCase
         [$width, $height] = getimagesizefromstring($client->getInternalResponse()->getContent());
         $this->assertLessThanOrEqual(100 * 100, $width * $height);
         $this->assertSame(round(152 / 114, 1), round($width / $height, 1), 'Expected the aspect ratio to be kept.');
+    }
+
+    /**
+     * Normally the web server serves a saved thumbnail, but if the request still reaches PHP (e.g.
+     * without `try_files` in Nginx), the saved file is served instead of generating it again.
+     */
+    public function testSavedThumbnailIsServed(): void
+    {
+        $url = '/thumbs/153×94/kitten.jpg';
+        $savedFile = self::PUBLIC_DIR . $url;
+        $savedImage = file_get_contents(self::PUBLIC_DIR . '/files/kitten2.jpg');
+        (new Filesystem())->dumpFile($savedFile, $savedImage);
+        touch($savedFile, $modified = time() - 3600);
+
+        $client = static::createClient();
+        $client->request('GET', self::encode($url));
+
+        $this->assertResponseIsSuccessful();
+        $this->assertSame($savedImage, $client->getInternalResponse()->getContent());
+        $this->assertSame($savedImage, file_get_contents($savedFile), 'Expected the saved thumbnail not to be generated again.');
+        $this->assertResponseHeaderSame('Content-Type', 'image/jpeg');
+
+        $client->request('GET', self::encode($url), server: ['HTTP_IF_MODIFIED_SINCE' => gmdate('D, d M Y H:i:s', $modified) . ' GMT']);
+
+        $this->assertResponseStatusCodeSame(304);
+        $this->assertSame('', $client->getInternalResponse()->getContent());
+    }
+
+    public function testSavedSvgIsServedAsSvg(): void
+    {
+        $url = '/thumbs/154×94×80×themes/image-controller-test/logo.svg';
+        $client = static::createClient();
+        $client->request('GET', self::encode($url));
+        $this->assertFileExists(self::PUBLIC_DIR . $url);
+
+        $client->request('GET', self::encode($url));
+
+        $this->assertResponseIsSuccessful();
+        $this->assertResponseHeaderSame('Content-Type', 'image/svg+xml');
+        $this->assertSame(file_get_contents(self::THEME_IMAGE_DIR . '/logo.svg'), $client->getInternalResponse()->getContent());
     }
 
     private function assertSavedAtThePathOfItsUrl(KernelBrowser $client, string $url): void

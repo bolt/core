@@ -6,6 +6,7 @@ namespace Bolt\Controller;
 
 use Bolt\Configuration\Config;
 use Bolt\Utils\PathCanonicalize;
+use DateTimeImmutable;
 use Exception;
 use League\Glide\Filesystem\FileNotFoundException;
 use League\Glide\Responses\SymfonyResponseFactory;
@@ -13,8 +14,10 @@ use League\Glide\Server;
 use League\Glide\ServerFactory;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Path;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mime\MimeTypes;
 use Symfony\Component\Routing\Attribute\Route;
 use Throwable;
 
@@ -65,7 +68,18 @@ class ImageController
         }
 
         $this->createServer();
-        $this->saveThumb($request, $paramString, $filename);
+
+        $thumbPath = $this->getThumbPath($request, $paramString, $filename);
+
+        if ($thumbPath !== null) {
+            // Normally the web server serves a saved thumbnail, but it can still reach PHP, e.g. when the
+            // web server isn't configured for that, or when it was saved by a parallel request.
+            if (is_file($thumbPath)) {
+                return $this->buildFileResponse($request, $thumbPath);
+            }
+
+            $this->saveThumb($request, $filename, $thumbPath);
+        }
 
         return $this->buildResponse($request, $filename);
     }
@@ -116,25 +130,28 @@ class ImageController
             && ! Path::isBasePath($this->config->getPath('thumbs'), $sourcePath);
     }
 
-    private function saveThumb(Request $request, string $paramString, string $filename): void
+    /**
+     * Returns the path to save the thumbnail at, or null if it must not be saved.
+     */
+    private function getThumbPath(Request $request, string $paramString, string $filename): ?string
     {
         if (! $this->config->get('general/thumbnails/save_files', true)) {
-            return;
+            return null;
         }
 
         // A `?path=` query changes the image but not the URL path, so such thumbnails are not saved.
         if ($request->query->has('path')) {
-            return;
+            return null;
         }
 
         if (! $this->hasOnlyKnownParameters($paramString)) {
-            return;
+            return null;
         }
 
         // Never create hidden files or folders: a `thumbs/.htaccess/` folder makes Apache refuse every
         // request below `thumbs/`. This also rules out `.` and `..`.
         if (preg_match('#(^|/)\.#', $paramString . '/' . $filename)) {
-            return;
+            return null;
         }
 
         // The web server serves a saved thumbnail only if it lies at the path of its URL, so it is
@@ -145,9 +162,14 @@ class ImageController
         $thumbPath = Path::join($thumbsPath, $paramString, $filename);
 
         if ($thumbPath !== $thumbsPath . '/' . $paramString . '/' . $filename) {
-            return;
+            return null;
         }
 
+        return $thumbPath;
+    }
+
+    private function saveThumb(Request $request, string $filename, string $thumbPath): void
+    {
         $filesystem = new Filesystem();
         $folderMode = $this->config->get('general/filepermissions/folders', 0775);
         $fileMode = $this->config->get('general/filepermissions/files', 0664);
@@ -220,6 +242,20 @@ class ImageController
     private function splitParameters(string $paramString): array
     {
         return explode('×', (string) preg_replace('/([0-9])(x)([0-9a-z])/i', '\1×\3', $paramString));
+    }
+
+    /**
+     * Serves a saved thumbnail with the same caching headers as Glide's responses.
+     */
+    private function buildFileResponse(Request $request, string $path): Response
+    {
+        $response = new BinaryFileResponse($path);
+        $response->headers->set('Content-Type', MimeTypes::getDefault()->getMimeTypes(Path::getExtension($path, true))[0] ?? 'application/octet-stream');
+        $response->setMaxAge(31536000);
+        $response->setExpires(new DateTimeImmutable('+1 year'));
+        $response->isNotModified($request);
+
+        return $response;
     }
 
     private function parseParameters(string $paramString): void
