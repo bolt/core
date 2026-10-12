@@ -20,6 +20,12 @@ use Throwable;
 
 class ImageController
 {
+    /**
+     * The default maximum number of pixels of a generated image. ThumbnailHelper uses 10000 for a
+     * missing width or height, so this allows e.g. a thumbnail of 4000 pixels wide.
+     */
+    private const MAX_IMAGE_SIZE = 4000 * 10000;
+
     private Server $server;
 
     /**
@@ -66,6 +72,10 @@ class ImageController
 
     private function createServer(): void
     {
+        // Width and height come from the URL, so limit the number of pixels of a generated image (larger
+        // ones are scaled down), or a single request for e.g. 20000×20000 exhausts memory and CPU.
+        $maxImageSize = (int) $this->config->get('general/thumbnails/max_image_size', self::MAX_IMAGE_SIZE);
+
         $this->server = ServerFactory::create([
             'response' => new SymfonyResponseFactory(),
             'source' => $this->getPath(),
@@ -73,6 +83,7 @@ class ImageController
             // Glide's cache key is the path relative to the location, so without a prefix per location,
             // e.g. `themes/foo.jpg` would be served from the cache for `files/foo.jpg`.
             'cache_path_prefix' => Path::makeRelative($this->getPath(), $this->config->getPath('web')),
+            'max_image_size' => $maxImageSize > 0 ? $maxImageSize : self::MAX_IMAGE_SIZE,
         ]);
     }
 

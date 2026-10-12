@@ -6,6 +6,7 @@ namespace Bolt\Tests\Controller;
 
 use Bolt\Configuration\Config;
 use Bolt\Utils\ThumbnailHelper;
+use Illuminate\Support\Collection;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -221,6 +222,26 @@ class ImageControllerTest extends WebTestCase
         $this->assertSame($thumbsEntries, $this->entries(self::PUBLIC_DIR . '/thumbs'));
     }
 
+    /**
+     * Larger thumbnails than `max_image_size` pixels are scaled down, so a request for a huge
+     * thumbnail can't exhaust memory and CPU.
+     */
+    public function testThumbnailIsLimitedToMaxImageSize(): void
+    {
+        $client = static::createClient();
+        $this->setConfig('general/thumbnails/max_image_size', 100 * 100);
+
+        // Glide's cache doesn't take the maximum size into account.
+        $config = static::getContainer()->get(Config::class);
+        (new Filesystem())->remove($config->getPath('cache', true, ['thumbnails', 'files', 'kitten.jpg']));
+
+        $this->assertSavedAtThePathOfItsUrl($client, '/thumbs/152×114×80×crop/kitten.jpg');
+
+        [$width, $height] = getimagesizefromstring($client->getInternalResponse()->getContent());
+        $this->assertLessThanOrEqual(100 * 100, $width * $height);
+        $this->assertSame(round(152 / 114, 1), round($width / $height, 1), 'Expected the aspect ratio to be kept.');
+    }
+
     private function assertSavedAtThePathOfItsUrl(KernelBrowser $client, string $url): void
     {
         $client->request('GET', self::encode($url));
@@ -236,6 +257,21 @@ class ImageControllerTest extends WebTestCase
     {
         $this->assertSame($this->existingPublicEntries, $this->entries(self::PUBLIC_DIR, 0));
         $this->assertSame($this->existingThumbsEntries, $this->entries(self::PUBLIC_DIR . '/thumbs'));
+    }
+
+    /**
+     * Changes a config value of the booted kernel, for its next request.
+     */
+    private function setConfig(string $path, mixed $value): void
+    {
+        $keys = explode('/', $path);
+        $last = array_pop($keys);
+
+        $data = (fn (): Collection => $this->data)->call(static::getContainer()->get(Config::class));
+        foreach ($keys as $key) {
+            $data = $data[$key];
+        }
+        $data[$last] = $value;
     }
 
     /**

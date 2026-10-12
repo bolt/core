@@ -167,8 +167,10 @@ records_per_page: 8
 
 # Default settings for thumbnails.
 #
-# quality:       Quality should be between 0 (horrible, small file) and 100 (best, huge file).
-# save_files:    Save files in the thumbs/ folder, so subsequent requests will serve file directly. Great for performance
+# quality:        Quality should be between 0 (horrible, small file) and 100 (best, huge file).
+# save_files:     Save files in the thumbs/ folder, so subsequent requests will serve file directly. Great for performance
+# max_image_size: The maximum number of pixels (width × height) of a generated thumbnail. Larger thumbnails are
+#                 scaled down, so a request for a huge thumbnail can't exhaust the memory of the server.
 #
 # Note: If you change these values, you might need to clear the cache before
 #       they show up.
@@ -178,6 +180,7 @@ thumbnails:
   default_cropping: crop
   quality: 80
   save_files: true
+  max_image_size: 40000000
 
 # File permissions for read/write/execute to set on folders and files that are
 # created. The exact permissions you should be setting depends on the system
