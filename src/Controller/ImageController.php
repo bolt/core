@@ -45,41 +45,61 @@ class ImageController
             return $this->sendErrorImage();
         }
 
+        // The location is part of the parameters, so they must be parsed before the filename is checked.
+        $this->parseParameters($paramString);
+
         try {
-            $filename = PathCanonicalize::canonicalize($this->getPath($request), $filename, true);
+            $filename = PathCanonicalize::canonicalize($this->getPath(), $filename, true);
         } catch (Exception) {
             return $this->sendErrorImage();
         }
 
-        $this->parseParameters($paramString);
-        $this->createServer($request);
+        if (! $this->isAllowedSource($filename)) {
+            return $this->sendErrorImage();
+        }
+
+        $this->createServer();
         $this->saveThumb($request, $paramString, $filename);
 
         return $this->buildResponse($request, $filename);
     }
 
-    private function createServer(Request $request): void
+    private function createServer(): void
     {
         $this->server = ServerFactory::create([
             'response' => new SymfonyResponseFactory(),
-            'source' => $this->getPath($request),
-            'cache' => $this->getPath($request, 'cache', true, 'thumbnails'),
+            'source' => $this->getPath(),
+            'cache' => $this->getPath('cache', true, 'thumbnails'),
         ]);
     }
 
-    private function getLocation(Request $request): string
+    private function getLocation(): string
     {
-        return $this->parameters['location']
-            ?? $request->query->getString('location', 'files') ?? 'files';
+        return $this->parameters['location'] ?? 'files';
     }
 
-    private function getPath(Request $request, ?string $path = null, bool $absolute = true, $additional = null): string
+    private function getPath(?string $path = null, bool $absolute = true, $additional = null): string
     {
         if (! $path) {
-            $path = $this->getLocation($request);
+            $path = $this->getLocation();
         }
 
         return $this->config->getPath($path, $absolute, $additional);
+    }
+
+    /**
+     * The location comes from the URL and is resolved like any path, so `site`, `config` or `..`
+     * would read images from anywhere in (or above) the project. Only read images from locations
+     * inside the web root, like `files` and `themes`, which are public anyway, and never from the
+     * `thumbs` folder, so no thumbnails are made of thumbnails.
+     */
+    private function isAllowedSource(string $filename): bool
+    {
+        $locationPath = $this->getPath();
+        $sourcePath = Path::join($locationPath, $filename);
+
+        return Path::isBasePath($this->config->getPath('web'), $locationPath)
+            && ! Path::isBasePath($this->config->getPath('thumbs'), $sourcePath);
     }
 
     private function saveThumb(Request $request, string $paramString, string $filename): void
@@ -103,7 +123,7 @@ class ImageController
         // stored under the requested parameter string (e.g. `400×300×80×crop`), not a normalized one.
         // That string comes from the URL: Path::join() resolves `.` and `..` segments (and `\` on
         // Windows), so only save the thumbnail if that did not change the path.
-        $thumbsPath = Path::canonicalize($this->getPath($request, 'thumbs'));
+        $thumbsPath = Path::canonicalize($this->getPath('thumbs'));
         $thumbPath = Path::join($thumbsPath, $paramString, $filename);
 
         if ($thumbPath !== $thumbsPath . '/' . $paramString . '/' . $filename) {
@@ -128,7 +148,7 @@ class ImageController
     {
         // In case we're trying to "thumbnail" a svg, just return the whole thing.
         if ($this->isSvg($filename)) {
-            $filepath = sprintf('%s%s%s', $this->getPath($request), DIRECTORY_SEPARATOR, $filename);
+            $filepath = sprintf('%s%s%s', $this->getPath(), DIRECTORY_SEPARATOR, $filename);
 
             return file_get_contents($filepath);
         }
@@ -144,7 +164,7 @@ class ImageController
 
     private function buildResponse(Request $request, string $filename): Response
     {
-        $filepath = $this->getPath($request, null, false, $filename);
+        $filepath = $this->getPath(null, false, $filename);
 
         if (! (new Filesystem())->exists($filepath)) {
             // $notice = sprintf("The file '%s' does not exist.", $filepath);

@@ -23,17 +23,32 @@ class ImageControllerTest extends WebTestCase
     private const PUBLIC_DIR = __DIR__ . '/../../../public';
     private const ERROR_IMAGE = __DIR__ . '/../../../assets/static/images/404-image.png';
 
+    /**
+     * A folder in public/theme/ with an image, for thumbnails with the `themes` location.
+     */
+    private const THEME_IMAGE_DIR = self::PUBLIC_DIR . '/theme/image-controller-test';
+
     /** Files and folders in public/ that existed before the test. */
     private array $existingPublicEntries = [];
 
-    /** Files and folders in public/thumbs/ that existed before the test. */
+    /** Files and folders in public/thumbs/ (and below) that existed before the test. */
     private array $existingThumbsEntries = [];
+
+    public static function setUpBeforeClass(): void
+    {
+        (new Filesystem())->copy(self::PUBLIC_DIR . '/files/kitten.jpg', self::THEME_IMAGE_DIR . '/kitten.jpg');
+    }
+
+    public static function tearDownAfterClass(): void
+    {
+        (new Filesystem())->remove(self::THEME_IMAGE_DIR);
+    }
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->existingPublicEntries = $this->entries(self::PUBLIC_DIR);
+        $this->existingPublicEntries = $this->entries(self::PUBLIC_DIR, 0);
         $this->existingThumbsEntries = $this->entries(self::PUBLIC_DIR . '/thumbs');
     }
 
@@ -55,6 +70,10 @@ class ImageControllerTest extends WebTestCase
         yield 'fit with focal point' => ['/thumbs/126×94×80×crop-50-30/kitten.jpg'];
         yield 'fit with focal point and zoom' => ['/thumbs/131×94×80×crop-50-30-1.3/kitten.jpg'];
         yield 'x as separator' => ['/thumbs/127x94x80/kitten.jpg'];
+        yield 'files location' => ['/thumbs/133×94×80×crop×files/kitten.jpg'];
+        yield 'themes location' => ['/thumbs/134×94×80×crop×themes/image-controller-test/kitten.jpg'];
+        yield 'themes location without fit' => ['/thumbs/135×94×80×themes/image-controller-test/kitten.jpg'];
+        yield 'web root as location' => ['/thumbs/136×94×80×crop×web/files/kitten.jpg'];
     }
 
     #[DataProvider('thumbnailUrlProvider')]
@@ -105,6 +124,13 @@ class ImageControllerTest extends WebTestCase
         yield 'double encoded dots' => ['/thumbs/132×94/%252E%252E/%252E%252E/assets/static/images/placeholder.png'];
         yield 'backslashes' => ['/thumbs/132×94/..%5C..%5Cassets%5Cstatic%5Cimages%5Cplaceholder.png'];
         yield 'path query' => ['/thumbs/132×94/placeholder.png?path=../../assets/static/images'];
+        yield 'location query' => ['/thumbs/132×94/assets/static/images/placeholder.png?location=site'];
+        yield 'project root as location' => ['/thumbs/132×94×80×crop×site/assets/static/images/placeholder.png'];
+        yield 'svg, project root as location' => ['/thumbs/132×94×80×crop×site/assets/static/images/bolt_logo_dashboard.svg'];
+        yield 'project root as location without fit' => ['/thumbs/132×94×80×site/assets/static/images/placeholder.png'];
+        yield 'project root as location alias' => ['/thumbs/132×94×80×crop×%25site%25/assets/static/images/placeholder.png'];
+        yield 'project root as relative location' => ['/thumbs/132×94×80×crop×./assets/static/images/placeholder.png'];
+        yield 'parent of the project as location' => ['/thumbs/132×94×80×crop×../' . basename(dirname(__DIR__, 3)) . '/assets/static/images/placeholder.png'];
     }
 
     #[DataProvider('pathTraversalProvider')]
@@ -118,9 +144,28 @@ class ImageControllerTest extends WebTestCase
         $this->assertNothingSaved();
     }
 
+    /**
+     * Thumbnails are not made of thumbnails: through the `thumbs` location, or through a location
+     * that contains the `thumbs` folder.
+     */
+    public function testThumbnailOfAThumbnailIsNotServed(): void
+    {
+        $client = static::createClient();
+        $client->request('GET', self::encode('/thumbs/137×94/kitten.jpg'));
+        $this->assertFileExists(self::PUBLIC_DIR . '/thumbs/137×94/kitten.jpg');
+        $thumbsEntries = $this->entries(self::PUBLIC_DIR . '/thumbs');
+
+        foreach (['/thumbs/138×94×80×crop×thumbs/137×94/kitten.jpg', '/thumbs/138×94×80×crop×web/thumbs/137×94/kitten.jpg'] as $url) {
+            $client->request('GET', self::encode($url));
+
+            $this->assertSame(sha1_file(self::ERROR_IMAGE), sha1($client->getInternalResponse()->getContent()), sprintf('Expected the error image for %s.', $url));
+            $this->assertSame($thumbsEntries, $this->entries(self::PUBLIC_DIR . '/thumbs'));
+        }
+    }
+
     private function assertNothingSaved(): void
     {
-        $this->assertSame($this->existingPublicEntries, $this->entries(self::PUBLIC_DIR));
+        $this->assertSame($this->existingPublicEntries, $this->entries(self::PUBLIC_DIR, 0));
         $this->assertSame($this->existingThumbsEntries, $this->entries(self::PUBLIC_DIR . '/thumbs'));
     }
 
@@ -133,13 +178,18 @@ class ImageControllerTest extends WebTestCase
     }
 
     /**
-     * @return string[]
+     * @return string[] the paths of the files and folders in `$folder`, relative to it
      */
-    private function entries(string $folder): array
+    private function entries(string $folder, ?int $depth = null): array
     {
+        $finder = (new Finder())->in($folder)->ignoreDotFiles(false);
+        if ($depth !== null) {
+            $finder->depth($depth);
+        }
+
         $entries = [];
-        foreach ((new Finder())->in($folder)->depth(0)->ignoreDotFiles(false) as $entry) {
-            $entries[] = $entry->getFilename();
+        foreach ($finder as $entry) {
+            $entries[] = $entry->getRelativePathname();
         }
         sort($entries);
 
