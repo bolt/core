@@ -11,27 +11,37 @@ use Symfony\Component\Finder\Finder;
 
 /**
  * With `thumbnails: save_files: true` a generated thumbnail must be stored at the path of its URL,
- * so that the web server serves the next request for it straight from disk, without PHP.
+ * so that the web server serves the next request for it straight from disk, without PHP: Apache
+ * only rewrites to index.php if `%{REQUEST_FILENAME}` is not a file (see public/.htaccess), Nginx
+ * does the same with `try_files $uri`.
+ *
+ * Both the parameters and the filename of a thumbnail URL are user input, so it must also not be
+ * possible to read or write files outside the `files` and `thumbs` folders through them.
  */
 class ImageControllerTest extends WebTestCase
 {
     private const PUBLIC_DIR = __DIR__ . '/../../../public';
+    private const ERROR_IMAGE = __DIR__ . '/../../../assets/static/images/404-image.png';
 
-    /** Folders below public/thumbs/ that existed before the test. */
-    private array $existingThumbFolders = [];
+    /** Files and folders in public/ that existed before the test. */
+    private array $existingPublicEntries = [];
+
+    /** Files and folders in public/thumbs/ that existed before the test. */
+    private array $existingThumbsEntries = [];
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->existingThumbFolders = $this->thumbFolders();
+        $this->existingPublicEntries = $this->entries(self::PUBLIC_DIR);
+        $this->existingThumbsEntries = $this->entries(self::PUBLIC_DIR . '/thumbs');
     }
 
     protected function tearDown(): void
     {
         (new Filesystem())->remove(array_map(
-            fn (string $folder): string => self::PUBLIC_DIR . '/thumbs/' . $folder,
-            array_diff($this->thumbFolders(), $this->existingThumbFolders)
+            fn (string $entry): string => self::PUBLIC_DIR . '/thumbs/' . $entry,
+            array_diff($this->entries(self::PUBLIC_DIR . '/thumbs'), $this->existingThumbsEntries)
         ));
 
         parent::tearDown();
@@ -76,9 +86,41 @@ class ImageControllerTest extends WebTestCase
         $client->request('GET', self::encode($url));
 
         $this->assertResponseIsSuccessful();
-        $this->assertFileDoesNotExist(self::PUBLIC_DIR . '/kitten.jpg');
-        $this->assertFileDoesNotExist(self::PUBLIC_DIR . '/thumbs/kitten.jpg');
-        $this->assertSame($this->existingThumbFolders, $this->thumbFolders());
+        $this->assertNothingSaved();
+    }
+
+    /**
+     * Each URL tries to reach an image in assets/static/images/ in the project root, outside the
+     * `files` folder (and outside the web root). SVGs are read directly instead of through Glide.
+     */
+    public static function pathTraversalProvider(): iterable
+    {
+        yield 'svg, parent folders' => ['/thumbs/132×94/../../assets/static/images/bolt_logo_dashboard.svg'];
+        yield 'svg, encoded slashes' => ['/thumbs/132×94/..%2F..%2Fassets%2Fstatic%2Fimages%2Fbolt_logo_dashboard.svg'];
+        yield 'parent folders' => ['/thumbs/132×94/../../assets/static/images/placeholder.png'];
+        yield 'parent folders after a subfolder' => ['/thumbs/132×94/foo/../../../assets/static/images/placeholder.png'];
+        yield 'encoded dots' => ['/thumbs/132×94/%2E%2E/%2E%2E/assets/static/images/placeholder.png'];
+        yield 'encoded slashes' => ['/thumbs/132×94/..%2F..%2Fassets%2Fstatic%2Fimages%2Fplaceholder.png'];
+        yield 'double encoded dots' => ['/thumbs/132×94/%252E%252E/%252E%252E/assets/static/images/placeholder.png'];
+        yield 'backslashes' => ['/thumbs/132×94/..%5C..%5Cassets%5Cstatic%5Cimages%5Cplaceholder.png'];
+        yield 'path query' => ['/thumbs/132×94/placeholder.png?path=../../assets/static/images'];
+    }
+
+    #[DataProvider('pathTraversalProvider')]
+    public function testImageOutsideTheFilesFolderIsNotServed(string $url): void
+    {
+        $client = static::createClient();
+        $client->request('GET', self::encode($url));
+
+        $this->assertResponseIsSuccessful();
+        $this->assertSame(sha1_file(self::ERROR_IMAGE), sha1($client->getInternalResponse()->getContent()), 'Expected the error image.');
+        $this->assertNothingSaved();
+    }
+
+    private function assertNothingSaved(): void
+    {
+        $this->assertSame($this->existingPublicEntries, $this->entries(self::PUBLIC_DIR));
+        $this->assertSame($this->existingThumbsEntries, $this->entries(self::PUBLIC_DIR . '/thumbs'));
     }
 
     /**
@@ -92,14 +134,14 @@ class ImageControllerTest extends WebTestCase
     /**
      * @return string[]
      */
-    private function thumbFolders(): array
+    private function entries(string $folder): array
     {
-        $folders = [];
-        foreach ((new Finder())->directories()->in(self::PUBLIC_DIR . '/thumbs')->depth(0) as $folder) {
-            $folders[] = $folder->getFilename();
+        $entries = [];
+        foreach ((new Finder())->in($folder)->depth(0) as $entry) {
+            $entries[] = $entry->getFilename();
         }
-        sort($folders);
+        sort($entries);
 
-        return $folders;
+        return $entries;
     }
 }
