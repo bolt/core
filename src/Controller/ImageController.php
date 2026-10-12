@@ -12,6 +12,8 @@ use League\Glide\Filesystem\FileNotFoundException;
 use League\Glide\Responses\SymfonyResponseFactory;
 use League\Glide\Server;
 use League\Glide\ServerFactory;
+use Psr\Log\LoggerInterface;
+use Symfony\Component\Filesystem\Exception\IOException;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Path;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -49,7 +51,8 @@ class ImageController
     private array $parameters = [];
 
     public function __construct(
-        private readonly Config $config
+        private readonly Config $config,
+        private readonly LoggerInterface $logger
     ) {
     }
 
@@ -80,12 +83,15 @@ class ImageController
         if ($thumbPath !== null) {
             // Normally the web server serves a saved thumbnail, but it can still reach PHP, e.g. when the
             // web server isn't configured for that, or when it was saved by a parallel request.
-            if (! is_file($thumbPath)) {
-                $this->saveThumb($filename, $thumbPath);
-            }
+            $imageBlob = is_file($thumbPath) ? null : $this->saveThumb($filename, $thumbPath);
 
             if (is_file($thumbPath)) {
                 return $this->buildFileResponse($request, $thumbPath);
+            }
+
+            // Saving it failed, so respond with the generated thumbnail instead of generating it again.
+            if ($imageBlob !== null) {
+                return $this->buildImageResponse($request, $imageBlob, $thumbPath);
             }
         }
 
@@ -184,20 +190,36 @@ class ImageController
         return $thumbPath;
     }
 
-    private function saveThumb(string $filename, string $thumbPath): void
+    /**
+     * Returns the generated thumbnail, also if saving it failed, or null if it couldn't be generated.
+     */
+    private function saveThumb(string $filename, string $thumbPath): ?string
     {
+        try {
+            $imageBlob = $this->buildImage($filename);
+        } catch (Throwable) {
+            // buildResponse() responds instead, e.g. with the error image if the image doesn't exist.
+            return null;
+        }
+
         $filesystem = new Filesystem();
         $folderMode = $this->config->get('general/filepermissions/folders', 0775);
         $fileMode = $this->config->get('general/filepermissions/files', 0664);
 
         try {
-            $imageBlob = $this->buildImage($filename);
             $filesystem->mkdir(dirname($thumbPath), $folderMode);
             $filesystem->dumpFile($thumbPath, $imageBlob);
             $filesystem->chmod($thumbPath, $fileMode);
-        } catch (Throwable) {
-            // Fail silently, output user-friendly exception elsewhere.
+        } catch (IOException $e) {
+            // An error, not a warning: this thumbnail (and likely every other one) is generated again
+            // for each request, e.g. because the `thumbs` folder is not writable.
+            $this->logger->error('Could not save the thumbnail {path}: {message}', [
+                'path' => $thumbPath,
+                'message' => $e->getMessage(),
+            ]);
         }
+
+        return $imageBlob;
     }
 
     /**
@@ -264,13 +286,28 @@ class ImageController
      */
     private function buildFileResponse(Request $request, string $path): Response
     {
-        $response = new BinaryFileResponse($path);
-        $response->headers->set('Content-Type', MimeTypes::getDefault()->getMimeTypes(Path::getExtension($path, true))[0] ?? 'application/octet-stream');
-        $response->setMaxAge(31536000);
-        $response->setExpires(new DateTimeImmutable('+1 year'));
+        $response = $this->setCachingHeaders(new BinaryFileResponse($path), $path);
         $response->isNotModified($request);
 
         return $this->allowCaching($request, $response);
+    }
+
+    /**
+     * Serves a generated thumbnail that could not be saved, with the same caching headers.
+     */
+    private function buildImageResponse(Request $request, string $imageBlob, string $path): Response
+    {
+        return $this->allowCaching($request, $this->setCachingHeaders(new Response($imageBlob), $path));
+    }
+
+    private function setCachingHeaders(Response $response, string $path): Response
+    {
+        $response->headers->set('Content-Type', MimeTypes::getDefault()->getMimeTypes(Path::getExtension($path, true))[0] ?? 'application/octet-stream');
+        $response->setPublic();
+        $response->setMaxAge(31536000);
+        $response->setExpires(new DateTimeImmutable('+1 year'));
+
+        return $response;
     }
 
     /**

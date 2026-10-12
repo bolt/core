@@ -80,7 +80,8 @@ class ThumbnailCacheClearer
         try {
             (new Filesystem())->remove(array_unique($targets));
         } catch (IOException $e) {
-            $this->logger->warning('Could not remove the thumbnails of {path}: {message}', [
+            // An error, not a warning: the thumbnails of a deleted image stay public.
+            $this->logger->error('Could not remove the thumbnails of {path}: {message}', [
                 'path' => $path,
                 'message' => $e->getMessage(),
             ]);

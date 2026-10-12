@@ -7,6 +7,7 @@ namespace Bolt\Tests\Controller;
 use Bolt\Configuration\Config;
 use Bolt\Utils\ThumbnailHelper;
 use Illuminate\Support\Collection;
+use Monolog\Handler\TestHandler;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -330,6 +331,31 @@ class ImageControllerTest extends WebTestCase
 
         $this->assertInstanceOf(BinaryFileResponse::class, $client->getResponse());
         $this->assertSame($cachedFiles, is_dir($cacheFolder) ? $this->entries($cacheFolder) : []);
+    }
+
+    /**
+     * If a thumbnail can't be saved (e.g. because the `thumbs` folder is not writable), the generated
+     * thumbnail is served instead of generating it again through Glide, and the error is logged.
+     */
+    public function testThumbnailThatCannotBeSavedIsServed(): void
+    {
+        // A file where the folder for the parameters would be created makes saving fail.
+        (new Filesystem())->dumpFile(self::PUBLIC_DIR . '/thumbs/160×94', '');
+
+        $client = static::createClient();
+        $logs = new TestHandler();
+        static::getContainer()->get('logger')->pushHandler($logs);
+        $cacheFolder = static::getContainer()->get(Config::class)->getPath('cache', true, ['thumbnails', 'files', 'kitten.jpg']);
+        $cachedFiles = is_dir($cacheFolder) ? $this->entries($cacheFolder) : [];
+
+        $client->request('GET', self::encode('/thumbs/160×94/kitten.jpg'));
+
+        $this->assertResponseIsSuccessful();
+        $this->assertResponseHeaderSame('Content-Type', 'image/jpeg');
+        $this->assertResponseHeaderSame('Cache-Control', 'max-age=31536000, public');
+        $this->assertSame([160, 94], array_slice(getimagesizefromstring($client->getInternalResponse()->getContent()), 0, 2));
+        $this->assertSame($cachedFiles, is_dir($cacheFolder) ? $this->entries($cacheFolder) : [], 'Expected the thumbnail not to be generated again by Glide.');
+        $this->assertTrue($logs->hasErrorThatContains('Could not save the thumbnail'));
     }
 
     /**
