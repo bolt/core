@@ -93,6 +93,12 @@ class ImageController
             return;
         }
 
+        // Never create hidden files or folders: a `thumbs/.htaccess/` folder makes Apache refuse every
+        // request below `thumbs/`. This also rules out `.` and `..`.
+        if (preg_match('#(^|/)\.#', $paramString . '/' . $filename)) {
+            return;
+        }
+
         // The web server serves a saved thumbnail only if it lies at the path of its URL, so it is
         // stored under the requested parameter string (e.g. `400×300×80×crop`), not a normalized one.
         // That string comes from the URL: Path::join() resolves `.` and `..` segments (and `\` on

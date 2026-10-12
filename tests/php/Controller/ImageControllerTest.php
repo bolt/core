@@ -75,6 +75,7 @@ class ImageControllerTest extends WebTestCase
         yield 'parent folder as parameters' => ['/thumbs/../kitten.jpg'];
         yield 'encoded parent folder as parameters' => ['/thumbs/%2E%2E/kitten.jpg'];
         yield 'current folder as parameters' => ['/thumbs/./kitten.jpg'];
+        yield 'hidden folder as parameters (Apache refuses requests below a .htaccess folder)' => ['/thumbs/.htaccess/kitten.jpg'];
         yield 'path query (changes the image, not the URL path)' => ['/thumbs/129×94×80/kitten.jpg?path='];
         yield 'missing source image' => ['/thumbs/130×94×80/does-not-exist.jpg'];
     }
@@ -137,7 +138,7 @@ class ImageControllerTest extends WebTestCase
     private function entries(string $folder): array
     {
         $entries = [];
-        foreach ((new Finder())->in($folder)->depth(0) as $entry) {
+        foreach ((new Finder())->in($folder)->depth(0)->ignoreDotFiles(false) as $entry) {
             $entries[] = $entry->getFilename();
         }
         sort($entries);
