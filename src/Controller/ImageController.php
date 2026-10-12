@@ -116,6 +116,10 @@ class ImageController
             return;
         }
 
+        if (! $this->hasOnlyKnownParameters($paramString)) {
+            return;
+        }
+
         // Never create hidden files or folders: a `thumbs/.htaccess/` folder makes Apache refuse every
         // request below `thumbs/`. This also rules out `.` and `..`.
         if (preg_match('#(^|/)\.#', $paramString . '/' . $filename)) {
@@ -199,9 +203,17 @@ class ImageController
         }
     }
 
+    /**
+     * @return string[]
+     */
+    private function splitParameters(string $paramString): array
+    {
+        return explode('×', (string) preg_replace('/([0-9])(x)([0-9a-z])/i', '\1×\3', $paramString));
+    }
+
     private function parseParameters(string $paramString): void
     {
-        $raw = explode('×', (string) preg_replace('/([0-9])(x)([0-9a-z])/i', '\1×\3', $paramString));
+        $raw = $this->splitParameters($paramString);
 
         $this->parameters = [
             'w' => (isset($raw[0]) && is_numeric($raw[0])) ? (int) $raw[0] : 400,
@@ -223,6 +235,48 @@ class ImageController
                 $this->parameters['location'] = $raw[3];
             }
         }
+    }
+
+    /**
+     * Each parameter string is saved as a separate file, while parseParameters() ignores unknown or
+     * superfluous segments. Only save thumbnails for parameter strings of which every segment is
+     * understood, so `400×300×80×crop×files×<anything>` can't fill the disk with copies of the same
+     * thumbnail. Segments are checked in the order parseParameters() reads them; a location has
+     * already been checked by isAllowedSource().
+     */
+    private function hasOnlyKnownParameters(string $paramString): bool
+    {
+        $raw = $this->splitParameters($paramString);
+
+        $isSize = fn (string $value): bool => (bool) preg_match('/^(0|[1-9]\d{0,4})$/', $value);
+        $isQuality = fn (string $value): bool => (bool) preg_match('/^(0|[1-9]\d?|100)$/', $value);
+        $isFit = fn (string $value): bool => $this->isKnownFit($this->parseFit($value));
+
+        if (count($raw) > 5 || ! $isSize($raw[0]) || (isset($raw[1]) && ! $isSize($raw[1]))) {
+            return false;
+        }
+
+        if (isset($raw[2]) && ! $isQuality($raw[2]) && ! $isFit($raw[2])) {
+            return false;
+        }
+
+        // Without a fifth segment, the fourth one is a location if it doesn't look like a fit.
+        if (isset($raw[3]) && (isset($raw[4]) || $this->testFit($this->parseFit($raw[3])))) {
+            return $isFit($raw[3]);
+        }
+
+        return true;
+    }
+
+    /**
+     * The fits Glide understands (see League\Glide\Manipulators\Size::getFit()), each in one form only.
+     */
+    private function isKnownFit(string $fit): bool
+    {
+        return (bool) preg_match(
+            '/^(contain|max|fill|fill-max|stretch|(crop|cover)(-(top-left|top|top-right|left|center|right|bottom-left|bottom|bottom-right))?|crop-\d{1,3}-\d{1,3}(-\d{1,3}(\.\d{1,2})?)?)$/',
+            $fit
+        );
     }
 
     private function isSvg(string $filename): bool

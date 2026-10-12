@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace Bolt\Tests\Controller;
 
+use Bolt\Configuration\Config;
+use Bolt\Utils\ThumbnailHelper;
 use PHPUnit\Framework\Attributes\DataProvider;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
@@ -74,19 +77,46 @@ class ImageControllerTest extends WebTestCase
         yield 'themes location' => ['/thumbs/134×94×80×crop×themes/image-controller-test/kitten.jpg'];
         yield 'themes location without fit' => ['/thumbs/135×94×80×themes/image-controller-test/kitten.jpg'];
         yield 'web root as location' => ['/thumbs/136×94×80×crop×web/files/kitten.jpg'];
+        yield 'fit without quality' => ['/thumbs/139×94×crop/kitten.jpg'];
+        yield 'fit with position' => ['/thumbs/140×94×80×crop-top-left/kitten.jpg'];
+        yield 'fit-max' => ['/thumbs/141×94×80×fill-max/kitten.jpg'];
+        yield 'zero quality' => ['/thumbs/150×94×0/kitten.jpg'];
     }
 
     #[DataProvider('thumbnailUrlProvider')]
     public function testThumbnailIsSavedAtThePathOfItsUrl(string $url): void
     {
+        $this->assertSavedAtThePathOfItsUrl(static::createClient(), $url);
+    }
+
+    /**
+     * @return iterable<string, array{array<string, int|string|null>}>
+     */
+    public static function thumbnailHelperProvider(): iterable
+    {
+        yield 'width and height' => [['width' => 142, 'height' => 94]];
+        yield 'width only' => [['width' => 143]];
+        yield 'height only' => [['height' => 94]];
+        yield 'fit' => [['width' => 144, 'height' => 94, 'fit' => 'crop']];
+        yield 'fit alias' => [['width' => 145, 'height' => 94, 'fit' => 'default']];
+        yield 'fit with focal point and zoom' => [['width' => 146, 'height' => 94, 'fit' => 'crop-50-30-1.3']];
+        yield 'files location' => [['width' => 147, 'height' => 94, 'location' => 'files', 'fit' => 'crop']];
+        yield 'themes location' => [['width' => 148, 'height' => 94, 'location' => 'themes', 'path' => 'image-controller-test']];
+        yield 'themes location and fit' => [['width' => 149, 'height' => 94, 'location' => 'themes', 'path' => 'image-controller-test', 'fit' => 'crop']];
+    }
+
+    /**
+     * Every thumbnail URL that Bolt generates must be saved.
+     *
+     * @param array<string, int|string|null> $arguments
+     */
+    #[DataProvider('thumbnailHelperProvider')]
+    public function testThumbnailWithUrlFromThumbnailHelperIsSaved(array $arguments): void
+    {
         $client = static::createClient();
-        $client->request('GET', self::encode($url));
+        $url = (new ThumbnailHelper(static::getContainer()->get(Config::class)))->path('kitten.jpg', ...$arguments);
 
-        $this->assertResponseIsSuccessful();
-
-        $savedFile = self::PUBLIC_DIR . rawurldecode($url);
-        $this->assertFileExists($savedFile, 'The web server can only serve a saved thumbnail from the path of its URL.');
-        $this->assertSame($client->getInternalResponse()->getContent(), file_get_contents($savedFile));
+        $this->assertSavedAtThePathOfItsUrl($client, $url);
     }
 
     public static function unsavedThumbnailProvider(): iterable
@@ -97,6 +127,16 @@ class ImageControllerTest extends WebTestCase
         yield 'hidden folder as parameters (Apache refuses requests below a .htaccess folder)' => ['/thumbs/.htaccess/kitten.jpg'];
         yield 'path query (changes the image, not the URL path)' => ['/thumbs/129×94×80/kitten.jpg?path='];
         yield 'missing source image' => ['/thumbs/130×94×80/does-not-exist.jpg'];
+        yield 'unknown segment after the location' => ['/thumbs/130×94×80×crop×files×junk/kitten.jpg'];
+        yield 'unknown fit' => ['/thumbs/130×94×junk/kitten.jpg'];
+        yield 'unknown fit before the location' => ['/thumbs/130×94×80×junk×files/kitten.jpg'];
+        yield 'unknown focal point' => ['/thumbs/130×94×80×crop-junk/kitten.jpg'];
+        yield 'repeated focal point' => ['/thumbs/130×94×80×crop-50-30-50-30/kitten.jpg'];
+        yield 'quality out of range' => ['/thumbs/130×94×101/kitten.jpg'];
+        yield 'width with leading zero' => ['/thumbs/0130×94/kitten.jpg'];
+        yield 'width with exponent' => ['/thumbs/1e2×94/kitten.jpg'];
+        yield 'non-numeric width' => ['/thumbs/abc×94/kitten.jpg'];
+        yield 'empty height' => ['/thumbs/130×/kitten.jpg'];
     }
 
     #[DataProvider('unsavedThumbnailProvider')]
@@ -179,6 +219,17 @@ class ImageControllerTest extends WebTestCase
 
         $this->assertSame(sha1_file(self::ERROR_IMAGE), sha1($client->getInternalResponse()->getContent()), 'Expected the error image.');
         $this->assertSame($thumbsEntries, $this->entries(self::PUBLIC_DIR . '/thumbs'));
+    }
+
+    private function assertSavedAtThePathOfItsUrl(KernelBrowser $client, string $url): void
+    {
+        $client->request('GET', self::encode($url));
+
+        $this->assertResponseIsSuccessful();
+
+        $savedFile = self::PUBLIC_DIR . rawurldecode($url);
+        $this->assertFileExists($savedFile, 'The web server can only serve a saved thumbnail from the path of its URL.');
+        $this->assertSame($client->getInternalResponse()->getContent(), file_get_contents($savedFile));
     }
 
     private function assertNothingSaved(): void
