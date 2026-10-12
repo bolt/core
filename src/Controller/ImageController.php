@@ -70,6 +70,9 @@ class ImageController
             'response' => new SymfonyResponseFactory(),
             'source' => $this->getPath(),
             'cache' => $this->getPath('cache', true, 'thumbnails'),
+            // Glide's cache key is the path relative to the location, so without a prefix per location,
+            // e.g. `themes/foo.jpg` would be served from the cache for `files/foo.jpg`.
+            'cache_path_prefix' => Path::makeRelative($this->getPath(), $this->config->getPath('web')),
         ]);
     }
 
@@ -155,6 +158,11 @@ class ImageController
 
         if ($request->query->has('path')) {
             $filename = sprintf('%s/%s', $request->query->getString('path'), $filename);
+        }
+
+        // Glide serves an image from its cache without checking that the source still exists.
+        if (! $this->server->sourceFileExists($filename)) {
+            throw new FileNotFoundException(sprintf('Could not find the image `%s`.', $filename));
         }
 
         $cacheFile = $this->server->makeImage($filename, $this->parameters);

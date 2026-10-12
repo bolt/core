@@ -163,6 +163,24 @@ class ImageControllerTest extends WebTestCase
         }
     }
 
+    /**
+     * Glide caches images by their path relative to the location, so the cache must be separate for
+     * each location: an image that only exists in the theme must not be served from the cache, or
+     * saved, for a URL with the `files` location.
+     */
+    public function testCachedImageOfAnotherLocationIsNotServed(): void
+    {
+        $client = static::createClient();
+        $client->request('GET', self::encode('/thumbs/151×94×80×themes/image-controller-test/kitten.jpg'));
+        $this->assertNotSame(sha1_file(self::ERROR_IMAGE), sha1($client->getInternalResponse()->getContent()));
+        $thumbsEntries = $this->entries(self::PUBLIC_DIR . '/thumbs');
+
+        $client->request('GET', self::encode('/thumbs/151×94×80/image-controller-test/kitten.jpg'));
+
+        $this->assertSame(sha1_file(self::ERROR_IMAGE), sha1($client->getInternalResponse()->getContent()), 'Expected the error image.');
+        $this->assertSame($thumbsEntries, $this->entries(self::PUBLIC_DIR . '/thumbs'));
+    }
+
     private function assertNothingSaved(): void
     {
         $this->assertSame($this->existingPublicEntries, $this->entries(self::PUBLIC_DIR, 0));
