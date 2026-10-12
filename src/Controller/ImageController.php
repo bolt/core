@@ -217,14 +217,18 @@ class ImageController
 
     /**
      * Serves a saved thumbnail with the same headers as the web server sends for it, and for any
-     * other image: Last-Modified, an ETag and no lifetime, so it is cached like those.
+     * other image: Last-Modified and no lifetime, so it is cached like those.
+     *
+     * Without an ETag: every web server makes its own (from the inode, size or modification time,
+     * each in its own format), so a browser that revalidates this response with the web server,
+     * which serves the saved file from then on, would get the whole file again instead of a 304.
+     * With only Last-Modified, it revalidates with If-Modified-Since, which any web server answers.
      */
     private function buildFileResponse(Request $request, string $path): Response
     {
         $response = new BinaryFileResponse($path);
         // Like the web server, by extension, and not by sniffing the content.
         $response->headers->set('Content-Type', MimeTypes::getDefault()->getMimeTypes(Path::getExtension($path, true))[0] ?? 'application/octet-stream');
-        $response->setEtag(sprintf('%x-%x', $response->getFile()->getSize(), $response->getFile()->getMTime()));
         $response->isNotModified($request);
 
         // Symfony makes a response private and uncacheable as soon as the session is used, which the

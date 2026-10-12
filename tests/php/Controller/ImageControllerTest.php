@@ -223,23 +223,20 @@ class ImageControllerTest extends WebTestCase
         $this->assertSame($savedImage, file_get_contents($savedFile), 'Expected the saved thumbnail not to be generated again.');
         $this->assertResponseHeaderSame('Content-Type', 'image/jpeg');
         $this->assertResponseHeaderSame('Last-Modified', gmdate('D, d M Y H:i:s', $modified) . ' GMT');
-        $this->assertResponseHasHeader('ETag');
-        $etag = $client->getResponse()->headers->get('ETag');
 
         $client->request('GET', self::encode($url), server: ['HTTP_IF_MODIFIED_SINCE' => gmdate('D, d M Y H:i:s', $modified) . ' GMT']);
 
         $this->assertResponseStatusCodeSame(304);
         $this->assertSame('', $client->getInternalResponse()->getContent());
-
-        $client->request('GET', self::encode($url), server: ['HTTP_IF_NONE_MATCH' => $etag]);
-
-        $this->assertResponseStatusCodeSame(304);
     }
 
     /**
      * A saved thumbnail is served with the headers the web server sends for any image, e.g. in
-     * `files/`: validators, but no lifetime. That is also the case for the request that generates it,
-     * and for anonymous visitors, although the firewall uses the session on every request.
+     * `files/`: Last-Modified, but no lifetime. That is also the case for the request that generates
+     * it, and for anonymous visitors, although the firewall uses the session on every request.
+     *
+     * No ETag: the web server, which serves the saved file from then on, makes its own, so the
+     * browser would get the whole file again when it revalidates with an ETag from PHP.
      */
     public function testThumbnailHasTheHeadersOfAnImageFile(): void
     {
@@ -258,10 +255,9 @@ class ImageControllerTest extends WebTestCase
             $this->assertFalse($headers->has('Expires'));
             $this->assertSame('image/jpeg', $headers->get('Content-Type'));
             $this->assertSame(gmdate('D, d M Y H:i:s', filemtime(self::PUBLIC_DIR . $url)) . ' GMT', $headers->get('Last-Modified'));
-            $this->assertNotNull($headers->get('ETag'));
+            $this->assertFalse($headers->has('ETag'));
             $this->assertSame([], $headers->getCookies());
         }
-        $this->assertSame($generated->get('ETag'), $saved->get('ETag'));
     }
 
     /**
