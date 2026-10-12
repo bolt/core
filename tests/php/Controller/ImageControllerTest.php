@@ -263,6 +263,7 @@ class ImageControllerTest extends WebTestCase
         $this->assertSame($savedImage, $client->getInternalResponse()->getContent());
         $this->assertSame($savedImage, file_get_contents($savedFile), 'Expected the saved thumbnail not to be generated again.');
         $this->assertResponseHeaderSame('Content-Type', 'image/jpeg');
+        $this->assertResponseHeaderSame('Cache-Control', 'max-age=31536000, public');
 
         $client->request('GET', self::encode($url), server: ['HTTP_IF_MODIFIED_SINCE' => gmdate('D, d M Y H:i:s', $modified) . ' GMT']);
 
@@ -283,6 +284,40 @@ class ImageControllerTest extends WebTestCase
 
         $this->assertInstanceOf(BinaryFileResponse::class, $client->getResponse());
         $this->assertSame($cachedFiles, is_dir($cacheFolder) ? $this->entries($cacheFolder) : []);
+    }
+
+    /**
+     * Thumbnails that are not saved are served by Glide, with the same caching headers.
+     */
+    public function testUnsavedThumbnailIsCacheable(): void
+    {
+        $url = '/thumbs/157×94×junk/kitten.jpg';
+        $client = static::createClient();
+        $client->request('GET', self::encode($url));
+
+        $this->assertResponseIsSuccessful();
+        $this->assertNothingSaved();
+        $this->assertResponseHeaderSame('Cache-Control', 'max-age=31536000, public');
+        $this->assertResponseHasHeader('Last-Modified');
+
+        $client->request('GET', self::encode($url), server: ['HTTP_IF_MODIFIED_SINCE' => $client->getResponse()->headers->get('Last-Modified')]);
+
+        $this->assertResponseStatusCodeSame(304);
+        $this->assertSame('', $client->getInternalResponse()->getContent());
+    }
+
+    /**
+     * A response that may set the session cookie must not be cached.
+     */
+    public function testThumbnailIsNotCacheableWithStartedSession(): void
+    {
+        $client = static::createClient();
+        $client->request('GET', self::encode('/thumbs/158×94×junk/kitten.jpg?_locale=en'));
+
+        $this->assertResponseIsSuccessful();
+        $this->assertNotEmpty($client->getResponse()->headers->getCookies(), 'Expected the response to set the session cookie.');
+        $this->assertFalse($client->getResponse()->headers->hasCacheControlDirective('public'));
+        $this->assertTrue($client->getResponse()->headers->hasCacheControlDirective('private'));
     }
 
     public function testSavedSvgIsServedAsSvg(): void

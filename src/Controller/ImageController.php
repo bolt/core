@@ -17,6 +17,7 @@ use Symfony\Component\Filesystem\Path;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\EventListener\AbstractSessionListener;
 use Symfony\Component\Mime\MimeTypes;
 use Symfony\Component\Routing\Attribute\Route;
 use Throwable;
@@ -67,7 +68,7 @@ class ImageController
             return $this->sendErrorImage();
         }
 
-        $this->createServer();
+        $this->createServer($request);
 
         $thumbPath = $this->getThumbPath($request, $paramString, $filename);
 
@@ -86,14 +87,15 @@ class ImageController
         return $this->buildResponse($request, $filename);
     }
 
-    private function createServer(): void
+    private function createServer(Request $request): void
     {
         // Width and height come from the URL, so limit the number of pixels of a generated image (larger
         // ones are scaled down), or a single request for e.g. 20000×20000 exhausts memory and CPU.
         $maxImageSize = (int) $this->config->get('general/thumbnails/max_image_size', self::MAX_IMAGE_SIZE);
 
         $this->server = ServerFactory::create([
-            'response' => new SymfonyResponseFactory(),
+            // With the request, Glide sets Last-Modified and responds to If-Modified-Since.
+            'response' => new SymfonyResponseFactory($request),
             'source' => $this->getPath(),
             'cache' => $this->getPath('cache', true, 'thumbnails'),
             // Glide's cache key is the path relative to the location, so without a prefix per location,
@@ -231,7 +233,7 @@ class ImageController
         }
 
         try {
-            return $this->server->getImageResponse($filename, $this->parameters);
+            return $this->allowCaching($request, $this->server->getImageResponse($filename, $this->parameters));
         } catch (FileNotFoundException) {
             return $this->sendErrorImage();
         }
@@ -255,6 +257,21 @@ class ImageController
         $response->setMaxAge(31536000);
         $response->setExpires(new DateTimeImmutable('+1 year'));
         $response->isNotModified($request);
+
+        return $this->allowCaching($request, $response);
+    }
+
+    /**
+     * Symfony makes a response private and uncacheable as soon as the session is used, which the
+     * remember-me authenticator of the firewall does on every request. Thumbnails don't depend on the
+     * session, so keep their caching headers, unless the session was started (e.g. for a logged-in
+     * user): the response could then set the session cookie, which must not be cached.
+     */
+    private function allowCaching(Request $request, Response $response): Response
+    {
+        if (! $request->hasSession() || ! $request->getSession()->isStarted()) {
+            $response->headers->set(AbstractSessionListener::NO_AUTO_CACHE_CONTROL_HEADER, 'true');
+        }
 
         return $response;
     }
