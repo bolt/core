@@ -155,7 +155,7 @@ class TwigAwareController extends AbstractController
             $params['_locale'] = $this->defaultLocale;
         }
 
-        return $this->redirectToRoute($request->get('_route'), $params);
+        return $this->redirectToRoute($request->attributes->get('_route'), $params);
     }
 
     private function setTwigLoader(): void
@@ -246,18 +246,18 @@ class TwigAwareController extends AbstractController
             'returnmultiple' => true,
         ];
 
-        if ($request->get('sortBy')) {
+        if ($request->query->get('sortBy')) {
             $params['order'] = $this->getFromRequest($request, 'sortBy');
         } else {
             $params['order'] = $order;
         }
 
-        if ($request->get('filter')) {
-            $key = $request->get('filterKey', 'anyField');
+        if ($request->query->get('filter')) {
+            $key = $request->query->get('filterKey', 'anyField');
             $params[$key] = '%' . $this->getFromRequest($request, 'filter') . '%';
         }
 
-        if ($request->get('taxonomy')) {
+        if ($request->query->get('taxonomy')) {
             $taxonomy = explode('=', (string) $this->getFromRequest($request, 'taxonomy'));
             $params[$taxonomy[0]] = $taxonomy[1];
         }
@@ -267,15 +267,23 @@ class TwigAwareController extends AbstractController
 
     public function getFromRequestRaw(Request $request, string $parameter): string
     {
-        return $request->get($parameter) ?? '';
+        return $this->getRequestParameter($request, $parameter) ?? '';
     }
 
     public function getFromRequest(Request $request, string $parameter, ?string $default = null): ?string
     {
-        $parameter = mb_trim($this->sanitiser->clean($request->get($parameter, '') ?? ''));
+        $parameter = mb_trim($this->sanitiser->clean($this->getRequestParameter($request, $parameter, '') ?? ''));
 
         // `clean` returns a string, but we want to be able to get `null`.
         return empty($parameter) ? $default : $parameter;
+    }
+
+    protected function getRequestParameter(Request $request, string $parameter, mixed $default = null): mixed
+    {
+        return $request->attributes->get(
+            $parameter,
+            $request->query->get($parameter, $request->request->get($parameter, $default))
+        );
     }
 
     public function getFromRequestArray(Request $request, array $parameters, ?string $default = null): ?string

@@ -48,7 +48,7 @@ class DetailController extends TwigAwareController implements FrontendZoneInterf
         $this->contentHelper->setCanonicalPath($record);
 
         // Check if we're attempting to preview an unpublished Record
-        if ($record && $this->validateSecret($request->get('secret') ?? '', (string) $record->getId())) {
+        if ($record && $this->validateSecret($request->query->get('secret', ''), (string) $record->getId())) {
             $requirePublished = false;
         }
 

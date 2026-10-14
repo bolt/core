@@ -123,7 +123,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
     {
         $this->validateCsrf($request, 'useredit');
 
-        $newStatus = $request->get('status') ?? UserStatus::DISABLED;
+        $newStatus = $request->query->get('status', $request->request->get('status')) ?? UserStatus::DISABLED;
 
         $user->setStatus($newStatus);
         $this->addFlash('success', 'user.updated_successfully');
