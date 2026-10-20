@@ -1,0 +1,14 @@
+# ContentType with upload fields that rely on the default 'extensions'
+
+uploads:
+  name: Uploads
+  singular_name: Upload
+  fields:
+    image:
+      type: image
+    imagelist:
+      type: imagelist
+    file:
+      type: file
+    filelist:
+      type: filelist

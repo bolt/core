@@ -151,4 +151,30 @@ class ContentTypesParserTest extends ParserTestBase
         $this->assertSame('Corge', $config['corges']['singular_name']);
         $this->assertSame('corge', $config['corges']['singular_slug']);
     }
+
+    public function testUploadFieldExtensionsAreLists(): void
+    {
+        $file = self::getBasePath() . 'upload_fields_content_types.yaml';
+
+        // Disallowing 'svg' while keeping 'avif' and 'webp' leaves a gap in the default image extensions
+        $generalConfig = (new GeneralParser($this->getProjectDir()))->parse();
+        $generalConfig->put('accept_file_types', ['gif', 'jpg', 'jpeg', 'png', 'webp', 'avif', 'pdf']);
+
+        $contentTypesParser = new ContentTypesParser($this->getProjectDir(), $generalConfig, self::DEFAULT_LOCALE, self::ALLOWED_LOCALES, $file);
+        $fields = $contentTypesParser->parse()['uploads']['fields'];
+
+        $expected = [
+            'image' => ['gif', 'jpg', 'jpeg', 'png', 'avif', 'webp'],
+            'imagelist' => ['gif', 'jpg', 'jpeg', 'png', 'avif', 'webp'],
+            'file' => ['gif', 'jpg', 'jpeg', 'png', 'webp', 'avif', 'pdf'],
+            'filelist' => ['gif', 'jpg', 'jpeg', 'png', 'webp', 'avif', 'pdf'],
+        ];
+
+        foreach ($expected as $field => $extensions) {
+            $actual = Collection::make($fields[$field]['extensions'])->all();
+
+            $this->assertSame($extensions, $actual, sprintf('Field "%s" has unexpected extensions', $field));
+            $this->assertSame(json_encode($extensions), json_encode($actual), sprintf('Field "%s" extensions do not serialise as a JSON array', $field));
+        }
+    }
 }
