@@ -63,7 +63,7 @@ class UploadController extends AbstractController implements AsyncZoneInterface
             ], Response::HTTP_FORBIDDEN);
         }
 
-        $url = $request->get('url', '');
+        $url = $request->request->get('url', '');
 
         // Make sure the submitting URL is a valid URL
         $violations = $validator->validate($url, new Url());

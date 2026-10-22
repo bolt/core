@@ -22,7 +22,17 @@ trait CsrfTrait
 
     protected function validateCsrf(Request $request, string $tokenId): void
     {
-        $token = new CsrfToken($tokenId, $request->get('_csrf_token', $request->get('token')));
+        $tokenValue = $request->attributes->get(
+            '_csrf_token',
+            $request->query->get(
+                '_csrf_token',
+                $request->request->get(
+                    '_csrf_token',
+                    $request->attributes->get('token', $request->query->get('token', $request->request->get('token')))
+                )
+            )
+        );
+        $token = new CsrfToken($tokenId, $tokenValue);
 
         if (! $this->csrfTokenManager->isTokenValid($token)) {
             throw new InvalidCsrfTokenException();

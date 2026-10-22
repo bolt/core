@@ -25,8 +25,7 @@ trait ServicesTrait
     /** @var EntityManagerInterface */
     protected $entityManager;
 
-    /** @var ContainerInterface */
-    protected $container;
+    protected ?ContainerInterface $servicesContainer = null;
 
     /** @var Query */
     protected $query;
@@ -45,8 +44,8 @@ trait ServicesTrait
         $this->entityManager = $objects['manager'];
         $this->query = $objects['query'];
 
-        if (! $this->container && $container = $objects['container'] ?? null) {
-            $this->container = $container;
+        if (! $this->servicesContainer && $container = $objects['container'] ?? null) {
+            $this->servicesContainer = $container;
         }
     }
 
@@ -147,7 +146,7 @@ trait ServicesTrait
 
     public function getContainer(): ContainerInterface
     {
-        return $this->container;
+        return $this->servicesContainer;
     }
 
     public function getQuery(): Query
