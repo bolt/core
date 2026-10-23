@@ -97,11 +97,5 @@
         <target>Пользователь отключён.</target>
       </segment>
     </unit>
-	<unit id="NF.vvAN" name="You have to login in order to access this page.">
-      <segment>
-        <source>You have to login in order to access this page.</source>
-        <target>Для доступа к этой странице вам необходимо войти в систему.</target>
-      </segment>
-    </unit>
   </file>
 </xliff> 

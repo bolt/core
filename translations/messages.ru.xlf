@@ -2743,12 +2743,6 @@
         <target>Пароли должны совпадать.</target>
       </segment>
     </unit>
-    <unit id="hKmDb7q" name="Share secure preview link">
-      <segment state="translated">
-        <source>Share secure preview link</source>
-        <target>Поделитесь защищённой ссылкой для предварительного просмотра</target>
-      </segment>
-    </unit>
     <unit id="SxW1D3L" name="reset_password.check_email_sent_text_1">
       <segment state="translated">
         <source>reset_password.check_email_sent_text_1</source>

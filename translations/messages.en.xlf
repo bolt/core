@@ -2695,12 +2695,6 @@
         <target>Upload Options</target>
       </segment>
     </unit>
-    <unit id="hKmDb7q" name="Share secure preview link">
-      <segment>
-        <source>Share secure preview link</source>
-        <target>Share secure preview link</target>
-      </segment>
-    </unit>
     <unit id="a_CQgly" name="Order">
       <segment>
         <source>Order</source>
