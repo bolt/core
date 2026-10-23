@@ -12,8 +12,11 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class AuthenticationEntryPointRedirector implements AuthenticationEntryPointInterface
 {
+    /**
+     * @phpstan-ignore constructor.unusedParameter ($translator is kept for backwards compatibility, remove in 7.0. The flash message is translated when rendered)
+     */
     public function __construct(
-        private readonly TranslatorInterface $translator,
+        TranslatorInterface $translator,
         private readonly UrlGeneratorInterface $urlGenerator
     ) {
     }
@@ -23,7 +26,7 @@ class AuthenticationEntryPointRedirector implements AuthenticationEntryPointInte
         // add a custom flash message and redirect to the login page
         /** @var Session $session */
         $session = $request->getSession();
-        $session->getFlashBag()->add('warning', $this->translator->trans('You have to login in order to access this page.', [], 'security'));
+        $session->getFlashBag()->add('warning', 'You have to login in order to access this page.');
 
         return new RedirectResponse($this->urlGenerator->generate('bolt_login'));
     }
