@@ -305,7 +305,7 @@ class ContentTypesParser extends BaseParser
 
         // Image and File fields should have 'extensions' as an array, and a defined upload location
         if (in_array($field['type'], ['file', 'filelist', 'image', 'imagelist'], true)) {
-            $field['extensions'] = (array) $field['extensions'];
+            $field['extensions'] = array_values((array) $field['extensions']);
 
             if (empty($field['upload'])) {
                 $field['upload'] = $this->generalConfig->get('upload_location');

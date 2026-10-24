@@ -9,7 +9,7 @@
     <h4>{{ __('general.phrase.search') }}</h4>
 
     <form method="get" action="{{ path('search') }}" id="searchform-inline" enctype="text/plain">
-        <input type="search" value="{{ searchTerm|default() }}" placeholder="{{ __('general.phrase.search-ellipsis') }}" name="searchTerm" >
+        <input type="search" value="{{ searchTerm|default()|escape }}" placeholder="{{ __('general.phrase.search-ellipsis') }}" name="searchTerm" >
         <button type="submit">{{ __('action.search') }}</button>
     </form>
 

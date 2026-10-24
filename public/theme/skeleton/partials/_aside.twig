@@ -50,16 +50,16 @@
 
         {% setcontent records = ct.slug latest limit 3 %}
 
-        <h5>{{ __('contenttypes.generic.recent', {'%contenttypes%': ct.name}) }}</h5>
+        <h5>{{ __('contenttypes.generic.recent', {'%contenttypes%': ct.name|escape}) }}</h5>
         {% if records|length %}
             <ul>
                 {% for record in records %}
                     <li><a href="{{ record|link }}">{{ record|title }}</a></li>
                 {% endfor %}
             </ul>
-            <p><a href="{{ path('listing', {'contentTypeSlug': ct.slug}) }}">{{ __('contenttypes.generic.overview',{'%contenttypes%': ct.name}) }} &raquo;</a></p>
+            <p><a href="{{ path('listing', {'contentTypeSlug': ct.slug}) }}">{{ __('contenttypes.generic.overview',{'%contenttypes%': ct.name|escape}) }} &raquo;</a></p>
         {% else %}
-            <p>{{ __('contenttypes.generic.no-recent', {'%contenttype%': ct.slug}) }}</p>
+            <p>{{ __('contenttypes.generic.no-recent', {'%contenttype%': ct.slug|escape}) }}</p>
         {% endif %}
 
     {% endfor %}

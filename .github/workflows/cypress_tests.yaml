@@ -12,7 +12,10 @@ jobs:
     name: Cypress Tests
     runs-on: ubuntu-latest
     env:
+      BOLT_CANONICAL: https://example.org
       PHP_VERSION: 8.2
+      APP_DEBUG: 0
+      APP_ENV: prod
     steps:
       - uses: actions/checkout@v6
       - uses: shivammathur/setup-php@v2
@@ -23,7 +26,7 @@ jobs:
           coverage: none
           tools: symfony-cli
           # Configure PHP to disable Session garbage collector and fix the timezone to UTC like Bolt use to compare date.
-          ini-values: session.gc_probability=0, date.timezone=UTC
+          ini-values: session.gc_probability=0, date.timezone=UTC, max_execution_time = 60, max_input_time = 60, default_socket_timeout = 60, opcache.enable = 0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Use Node.js ${{ env.NODE_VERSION }}
@@ -43,8 +46,10 @@ jobs:
           path: /tmp/npm-cache
           key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
       - run: composer install --no-progress --no-interaction
+      - name: Prepare cache
+        run: php bin/console cache:warmup
       - name: Show Bolt info
-        run: ./bin/console bolt:info --ansi
+        run: php bin/console bolt:info --ansi
       - name: Install NPM dependencies
         run: npm ci --prefer-offline --no-audit --cache /tmp/npm-cache
       - name: Install other dependencies
@@ -59,32 +64,34 @@ jobs:
       - name: Prepare environment
         run: |
           # Prepare php assets
-          ./bin/console assets:install --symlink --relative public --ansi
-          ./bin/console bolt:copy-assets --ansi
+          php bin/console assets:install --symlink --relative public --ansi
+          php bin/console bolt:copy-assets --ansi
 
           # build assets
           npm run build
           sudo chmod -R 777 config/ public/files/ public/theme/ public/thumbs/ var/
 
           # prepare web server for e2e tests
-          ./bin/console doctrine:schema:create -q
-          ./bin/console doctrine:migrations:sync-metadata-storage -q
-          ./bin/console doctrine:migrations:version --add --all -n -q
-          ./bin/console doctrine:fixtures:load --group=without-images -n
+          php bin/console doctrine:schema:create -q
+          php bin/console doctrine:migrations:sync-metadata-storage -q
+          php bin/console doctrine:migrations:version --add --all -n -q
+          php bin/console doctrine:fixtures:load --group=without-images -n
+      - name: Start webserver
+        run: |
+          symfony server:start --no-tls --port=8088 -d --no-workers
+          curl http://127.0.0.1:8088
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
           install: false
-          start: symfony server:start --no-tls --port=8088 -d
           command: npm run cypress:ci
-          wait-on: 'http://127.0.0.1:8088'
         env:
-          BOLT_CANONICAL: https://example.org
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-evidence
           path: |
+            ~/.config/symfony-cli/log
             tests/cypress/evidence
             var/log
