@@ -45,6 +45,8 @@ jobs:
           path: /tmp/npm-cache
           key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
       - run: composer install --no-progress --no-interaction
+      - name: Prepare cache
+        run: php bin/console cache:warmup
       - name: Show Bolt info
         run: ./bin/console bolt:info --ansi
       - name: Install NPM dependencies
