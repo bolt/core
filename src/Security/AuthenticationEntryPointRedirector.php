@@ -8,17 +8,10 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Http\EntryPoint\AuthenticationEntryPointInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class AuthenticationEntryPointRedirector implements AuthenticationEntryPointInterface
 {
-    /**
-     * @phpstan-ignore constructor.unusedParameter ($translator is kept for backwards compatibility, remove in 7.0. The flash message is translated when rendered)
-     */
-    public function __construct(
-        TranslatorInterface $translator,
-        private readonly UrlGeneratorInterface $urlGenerator
-    ) {
+    public function __construct(private readonly UrlGeneratorInterface $urlGenerator) {
     }
 
     public function start(Request $request, ?AuthenticationException $authException = null): RedirectResponse
