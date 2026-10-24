@@ -1501,12 +1501,6 @@
         <target>Attribute bearbeiten</target>
       </segment>
     </unit>
-    <unit id="NF.vvAN" name="You have to login in order to access this page.">
-      <segment>
-        <source>You have to login in order to access this page.</source>
-        <target>Sie müssen sich anmelden, um auf diese Seite zugreifen zu können.</target>
-      </segment>
-    </unit>
     <unit id="MjY7.cg" name="modal.title.file_field">
       <notes>
         <note category="file-source" priority="1">bolt-core/templates/_partials/fields/file.html.twig:24</note>
