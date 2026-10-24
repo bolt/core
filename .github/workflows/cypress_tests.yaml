@@ -13,6 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       PHP_VERSION: 8.2
+      APP_DEBUG: 0
+      APP_ENV: prod
     steps:
       - uses: actions/checkout@v6
       - uses: shivammathur/setup-php@v2
