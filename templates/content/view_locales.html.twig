@@ -7,8 +7,8 @@
 {% endfor %}
 
 {% set displayTitle = record|title()|default(record.id ?
-    __('caption.untitled_contenttype', {'%contenttype%': record.definition.singular_name}) :
-    __('caption.new_contenttype', {'%contenttype%': record.definition.singular_name}) ) %}
+    __('caption.untitled_contenttype', {'%contenttype%': record.definition.singular_name|escape}) :
+    __('caption.new_contenttype', {'%contenttype%': record.definition.singular_name|escape}) ) %}
 
 {# The 'title' and 'shoulder' blocks are the main heading of the page. #}
 {% block shoulder %}
