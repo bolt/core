@@ -26,7 +26,7 @@ jobs:
           coverage: none
           tools: symfony-cli
           # Configure PHP to disable Session garbage collector and fix the timezone to UTC like Bolt use to compare date.
-          ini-values: session.gc_probability=0, date.timezone=UTC, max_execution_time = 60, max_input_time = 60, default_socket_timeout = 60
+          ini-values: session.gc_probability=0, date.timezone=UTC, max_execution_time = 60, max_input_time = 60, default_socket_timeout = 60, opcache.enable = 0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Use Node.js ${{ env.NODE_VERSION }}
