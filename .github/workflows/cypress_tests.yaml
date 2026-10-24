@@ -26,7 +26,7 @@ jobs:
           coverage: none
           tools: symfony-cli
           # Configure PHP to disable Session garbage collector and fix the timezone to UTC like Bolt use to compare date.
-          ini-values: session.gc_probability=0, date.timezone=UTC
+          ini-values: session.gc_probability=0, date.timezone=UTC, max_execution_time = 60, max_input_time = 60, default_socket_timeout = 60
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Use Node.js ${{ env.NODE_VERSION }}
@@ -77,13 +77,14 @@ jobs:
           php bin/console doctrine:migrations:version --add --all -n -q
           php bin/console doctrine:fixtures:load --group=without-images -n
       - name: Start webserver
-        run: symfony server:start --no-tls --port=8088 -d
+        run: |
+          symfony server:start --no-tls --port=8088 -d --no-workers
+          curl http://127.0.0.1:8088
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
           install: false
           command: npm run cypress:ci
-          wait-on: 'http://127.0.0.1:8088'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/upload-artifact@v4
@@ -91,5 +92,6 @@ jobs:
         with:
           name: cypress-evidence
           path: |
+            ~/.config/symfony-cli/log
             tests/cypress/evidence
             var/log
