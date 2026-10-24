@@ -1,6 +1,12 @@
 Changelog
 =========
 
+## 6.1.0
+
+Released: 2026-10-24
+
+A small bugfix release, combined with some dependency updates. 
+
 ## 6.1.9
 
 Released: 2026-10-09
