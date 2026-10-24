@@ -11,7 +11,9 @@ use Symfony\Component\Security\Http\EntryPoint\AuthenticationEntryPointInterface
 
 class AuthenticationEntryPointRedirector implements AuthenticationEntryPointInterface
 {
-    public function __construct(private readonly UrlGeneratorInterface $urlGenerator) {
+    public function __construct(
+        private readonly UrlGeneratorInterface $urlGenerator
+    ) {
     }
 
     public function start(Request $request, ?AuthenticationException $authException = null): RedirectResponse
