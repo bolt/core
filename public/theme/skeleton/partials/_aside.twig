@@ -57,7 +57,7 @@
                     <li><a href="{{ record|link }}">{{ record|title }}</a></li>
                 {% endfor %}
             </ul>
-            <p><a href="{{ path('listing', {'contentTypeSlug': ct.slug|escape}) }}">{{ __('contenttypes.generic.overview',{'%contenttypes%': ct.name|escape}) }} &raquo;</a></p>
+            <p><a href="{{ path('listing', {'contentTypeSlug': ct.slug}) }}">{{ __('contenttypes.generic.overview',{'%contenttypes%': ct.name|escape}) }} &raquo;</a></p>
         {% else %}
             <p>{{ __('contenttypes.generic.no-recent', {'%contenttype%': ct.slug|escape}) }}</p>
         {% endif %}
