@@ -8,12 +8,10 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Http\EntryPoint\AuthenticationEntryPointInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class AuthenticationEntryPointRedirector implements AuthenticationEntryPointInterface
 {
     public function __construct(
-        private readonly TranslatorInterface $translator,
         private readonly UrlGeneratorInterface $urlGenerator
     ) {
     }
@@ -23,7 +21,7 @@ class AuthenticationEntryPointRedirector implements AuthenticationEntryPointInte
         // add a custom flash message and redirect to the login page
         /** @var Session $session */
         $session = $request->getSession();
-        $session->getFlashBag()->add('warning', $this->translator->trans('You have to login in order to access this page.', [], 'security'));
+        $session->getFlashBag()->add('warning', 'You have to login in order to access this page.');
 
         return new RedirectResponse($this->urlGenerator->generate('bolt_login'));
     }
