@@ -2446,7 +2446,7 @@
     <unit id="NF.vvAN" name="You have to login in order to access this page.">
       <segment state="translated">
         <source>You have to login in order to access this page.</source>
-        <target>Для доступа к этой странице вам необходимо войти в систему.</target>
+        <target>Вы должны войти в систему, чтобы получить доступ к этой странице.</target>
       </segment>
     </unit>
     <unit id="dp42qbF" name="reset_password.email_title">
@@ -2741,6 +2741,12 @@
       <segment state="translated">
         <source>reset_password.not_matching_pwds</source>
         <target>Пароли должны совпадать.</target>
+      </segment>
+    </unit>
+    <unit id="hKmDb7q" name="Share secure preview link">
+      <segment state="translated">
+        <source>Share secure preview link</source>
+        <target>Поделитесь защищённой ссылкой для предварительного просмотра</target>
       </segment>
     </unit>
     <unit id="SxW1D3L" name="reset_password.check_email_sent_text_1">
