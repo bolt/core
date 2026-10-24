@@ -10,11 +10,11 @@
 {% if record|title(currentlocale) %}
     {% set displayTitle = record|title(currentlocale) %}
 {% elseif record.id %}
-    {% set displayTitle = __('caption.untitled_contenttype', {'%contenttype%': record.definition.singular_name}) %}
+    {% set displayTitle = __('caption.untitled_contenttype', {'%contenttype%': record.definition.singular_name|escape}) %}
 {% elseif record.definition.singleton %}
     {% set displayTitle = record.definition.singular_name %}
 {% else %}
-    {% set displayTitle = __('caption.new_contenttype', {'%contenttype%': record.definition.singular_name}) %}
+    {% set displayTitle = __('caption.new_contenttype', {'%contenttype%': record.definition.singular_name|escape}) %}
 {% endif %}
 
 {# The 'title' and 'shoulder' blocks are the main heading of the page. #}

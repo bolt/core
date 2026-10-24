@@ -11,7 +11,7 @@
     {# If used for listing a taxonomy, we add a heading #}
     {% if taxonomy is defined %}
         <h1>
-            {{ __('general.phrase.overview-for', {'%slug%': taxonomy.options[slug]|default(slug) }) }}
+            {{ __('general.phrase.overview-for', {'%slug%': taxonomy.options[slug]|default(slug)|escape }) }}
         </h1>
     {% endif %}
 
