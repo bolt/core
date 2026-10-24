@@ -48,7 +48,7 @@ jobs:
       - name: Prepare cache
         run: php bin/console cache:warmup
       - name: Show Bolt info
-        run: ./bin/console bolt:info --ansi
+        run: php bin/console bolt:info --ansi
       - name: Install NPM dependencies
         run: npm ci --prefer-offline --no-audit --cache /tmp/npm-cache
       - name: Install other dependencies
@@ -63,18 +63,18 @@ jobs:
       - name: Prepare environment
         run: |
           # Prepare php assets
-          ./bin/console assets:install --symlink --relative public --ansi
-          ./bin/console bolt:copy-assets --ansi
+          php bin/console assets:install --symlink --relative public --ansi
+          php bin/console bolt:copy-assets --ansi
 
           # build assets
           npm run build
           sudo chmod -R 777 config/ public/files/ public/theme/ public/thumbs/ var/
 
           # prepare web server for e2e tests
-          ./bin/console doctrine:schema:create -q
-          ./bin/console doctrine:migrations:sync-metadata-storage -q
-          ./bin/console doctrine:migrations:version --add --all -n -q
-          ./bin/console doctrine:fixtures:load --group=without-images -n
+          php bin/console doctrine:schema:create -q
+          php bin/console doctrine:migrations:sync-metadata-storage -q
+          php bin/console doctrine:migrations:version --add --all -n -q
+          php bin/console doctrine:fixtures:load --group=without-images -n
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
