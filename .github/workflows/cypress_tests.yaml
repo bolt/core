@@ -12,6 +12,7 @@ jobs:
     name: Cypress Tests
     runs-on: ubuntu-latest
     env:
+      BOLT_CANONICAL: https://example.org
       PHP_VERSION: 8.2
       APP_DEBUG: 0
       APP_ENV: prod
@@ -75,15 +76,15 @@ jobs:
           php bin/console doctrine:migrations:sync-metadata-storage -q
           php bin/console doctrine:migrations:version --add --all -n -q
           php bin/console doctrine:fixtures:load --group=without-images -n
+      - name: Start webserver
+        run: symfony server:start --no-tls --port=8088 -d
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
           install: false
-          start: symfony server:start --no-tls --port=8088 -d
           command: npm run cypress:ci
           wait-on: 'http://127.0.0.1:8088'
         env:
-          BOLT_CANONICAL: https://example.org
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/upload-artifact@v4
         if: failure()
