@@ -4,6 +4,7 @@ import $ from 'jquery';
 import { afterEach, beforeEach, expect, vi } from 'vitest';
 import { resetDom } from './helpers/dom';
 import { installWarningHandler, resetWarnings, reviewWarnings } from './helpers/warnings';
+import { webpackContext } from './helpers/webpack-context';
 
 Vue.config.productionTip = false;
 Vue.config.devtools = false;
@@ -13,6 +14,11 @@ Vue.config.devtools = false;
 // the globals in the browser build — is never imported by a component.
 (window as unknown as Record<string, unknown>).$ = $;
 (window as unknown as Record<string, unknown>).jQuery = $;
+
+// The target vitest.config.ts rewrites `import.meta.webpackContext` to. Html.vue
+// calls it when the module is first imported, so it has to exist before any spec
+// imports a component.
+(globalThis as unknown as Record<string, unknown>).__webpackContext = webpackContext;
 
 // Date.vue's updated() hook calls both on the flatpickr input. jsdom's
 // constraint-validation support is partial, so make sure they exist.
