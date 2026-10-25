@@ -114,8 +114,9 @@ class TwigAwareController extends AbstractController
         }
 
         // If the locale is the wrong locale
-        if (! $this->validLocaleForContentType($request, $recordDefinition)) {
-            return $this->redirectToDefaultLocale($request);
+        if (! $this->validLocaleForContentType($request, $recordDefinition)
+            && ($redirect = $this->redirectToDefaultLocaleOrFallback($request)) instanceof Response) {
+            return $redirect;
         }
 
         $singularSlug = $record->getContentTypeSingularSlug();
@@ -145,8 +146,37 @@ class TwigAwareController extends AbstractController
         return $request->getLocale() === $this->defaultLocale;
     }
 
+    /**
+     * Redirects to the same route in the default locale. When there's no route to
+     * redirect to (a forwarded request, or an error page where routing never
+     * matched), resets the request to the default locale and returns `null` so the
+     * caller can render instead of erroring.
+     *
+     * Only the given request is reset, so on an error page `<html lang>` may still
+     * show the URL locale while the record renders in the default one. Harmless:
+     * only non-localized content takes this path.
+     */
+    protected function redirectToDefaultLocaleOrFallback(Request $request): ?Response
+    {
+        $redirect = $this->redirectToDefaultLocale($request);
+
+        if ($redirect instanceof Response) {
+            return $redirect;
+        }
+
+        $request->setLocale($this->defaultLocale);
+
+        return null;
+    }
+
     protected function redirectToDefaultLocale(Request $request): ?Response
     {
+        // No route matched (e.g. on an error page): nothing to redirect to.
+        $route = $request->attributes->get('_route');
+        if (! $route) {
+            return null;
+        }
+
         $request->getSession()->set('_locale', $this->defaultLocale);
 
         $params = $request->attributes->get('_route_params');
@@ -155,7 +185,7 @@ class TwigAwareController extends AbstractController
             $params['_locale'] = $this->defaultLocale;
         }
 
-        return $this->redirectToRoute($request->get('_route'), $params);
+        return $this->redirectToRoute($route, $params);
     }
 
     private function setTwigLoader(): void
