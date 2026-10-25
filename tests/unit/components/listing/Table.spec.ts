@@ -23,18 +23,17 @@ const rowStub = {
     template: '<div class="row-stub">{{ record.id }}</div>',
 };
 
-const renderedIds = (wrapper: ReturnType<typeof mount>) =>
-    wrapper.findAll('.row-stub').wrappers.map(row => Number(row.text()));
+const renderedIds = (wrapper: ReturnType<typeof mount>) => wrapper.findAll('.row-stub').map(row => Number(row.text()));
 
 const mountTable = (seedRecords: unknown[]) => {
     const testStore = createListingStore({ listing: { records: seedRecords } });
+    const written = testStore.writes('listing', 'records');
     return {
         ...testStore,
+        written,
         wrapper: mount(Table, {
-            localVue: testStore.localVue,
-            store: testStore.store,
-            propsData: { labels },
-            stubs: { draggable: draggableStub, 'table-row': rowStub },
+            global: { plugins: [testStore.pinia], stubs: { draggable: draggableStub, 'table-row': rowStub } },
+            props: { labels },
         }),
     };
 };
@@ -56,11 +55,11 @@ describe('Listing Table', () => {
     it('hands the records to the draggable list', () => {
         const { wrapper } = mountTable(records);
 
-        expect(wrapper.findComponent(draggableStub).props('value')).toEqual(records);
+        expect(wrapper.findComponent(draggableStub).props('modelValue')).toEqual(records);
     });
 
     it('writes a reordering back to the store', async () => {
-        const { wrapper, store, dispatched } = mountTable(records);
+        const { wrapper, stores, written } = mountTable(records);
         const reordered = [records[1], records[0]];
 
         (wrapper.findComponent(draggableStub).vm as unknown as { reorder: (list: unknown[]) => void }).reorder(
@@ -68,14 +67,14 @@ describe('Listing Table', () => {
         );
         await nextTick();
 
-        expect(dispatched('listing/setRecords')).toEqual([reordered]);
-        expect(store.getters['listing/getOrder']).toEqual([2, 1]);
+        expect(written).toEqual([reordered]);
+        expect(stores.listing.records.map(record => record.id)).toEqual([2, 1]);
     });
 
     it('re-renders in the new order after a reordering', async () => {
-        const { wrapper, store } = mountTable(records);
+        const { wrapper, stores } = mountTable(records);
 
-        await store.dispatch('listing/setRecords', [records[1], records[0]]);
+        stores.listing.records = [records[1], records[0]] as typeof stores.listing.records;
         await nextTick();
 
         expect(renderedIds(wrapper)).toEqual([2, 1]);
@@ -84,8 +83,8 @@ describe('Listing Table', () => {
     it('passes the labels down to every row', () => {
         const { wrapper } = mountTable(records);
 
-        const rows = wrapper.findAllComponents(rowStub).wrappers;
+        const rows = wrapper.findAllComponents(rowStub);
         expect(rows).toHaveLength(2);
-        rows.forEach(row => expect(row.props('labels')).toBe(labels));
+        rows.forEach(row => expect(row.props('labels')).toEqual(labels));
     });
 });

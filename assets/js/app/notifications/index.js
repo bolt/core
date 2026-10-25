@@ -2,8 +2,8 @@ import $ from 'jquery';
 import { Toast } from 'bootstrap';
 
 $(document).ready(function () {
-    var toastElList = [].slice.call(document.querySelectorAll('.toast'));
-    var toastList = toastElList.map(function (toastEl) {
+    const toastElList = [].slice.call(document.querySelectorAll('.toast'));
+    const toastList = toastElList.map(function (toastEl) {
         return new Toast(toastEl, []);
     });
 

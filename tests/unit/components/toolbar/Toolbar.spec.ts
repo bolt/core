@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils';
+import { nextTick } from 'vue';
 import { afterEach, describe, expect, it } from 'vitest';
 import Toolbar from '@/toolbar/Components/Toolbar.vue';
 import { createToolbarStore } from '../../helpers/store';
@@ -23,7 +24,7 @@ const urlPaths = {
     bolt_logout: '/bolt/logout',
 };
 
-const propsData = {
+const props = {
     siteName: 'Example',
     menu: [],
     labels,
@@ -34,20 +35,21 @@ const propsData = {
     avatar: '',
 };
 
-// The toolbar reads its colour from the `--admin-toolbar` custom property in
-// created() and writes it to the store, so seeding the store directly would be
+// The toolbar reads its colour from the `--admin-toolbar` custom property once
+// mounted and writes it to the store, so seeding the store directly would be
 // overwritten. Set the property instead.
-const mountToolbar = (props: Record<string, unknown> = {}, toolbarColor?: string) => {
+const mountToolbar = (overrides: Record<string, unknown> = {}, toolbarColor?: string) => {
     if (toolbarColor !== undefined) {
         document.body.style.setProperty('--admin-toolbar', toolbarColor);
     }
     const testStore = createToolbarStore();
+    const written = testStore.writes('general', 'toolbarColor');
     return {
         ...testStore,
+        written,
         wrapper: mount(Toolbar, {
-            localVue: testStore.localVue,
-            store: testStore.store,
-            propsData: { ...propsData, ...props },
+            global: { plugins: [testStore.pinia] },
+            props: { ...props, ...overrides },
         }),
     };
 };
@@ -76,7 +78,7 @@ describe('Toolbar', () => {
     it('renders the profile menu links', () => {
         const { wrapper } = mountToolbar();
 
-        const hrefs = wrapper.findAll('.profile__dropdown a').wrappers.map(link => link.attributes('href'));
+        const hrefs = wrapper.findAll('.profile__dropdown a').map(link => link.attributes('href'));
         expect(hrefs).toEqual(['/bolt/profile-edit', '/bolt/logout', 'https://boltcms.io/', 'https://docs.bolt.cm/']);
     });
 
@@ -112,70 +114,33 @@ describe('Toolbar', () => {
         expect(wrapper.find('.toolbar-item__profile').text()).toContain('impersonating');
     });
 
-    it('reads the toolbar colour off the page on creation', () => {
-        const { store, dispatched } = mountToolbar({}, '#ffffff');
+    it('reads the toolbar colour off the page once mounted', () => {
+        const { stores, written } = mountToolbar({}, '#ffffff');
 
-        expect(dispatched('general/toolbarColor')).toEqual(['#ffffff']);
-        expect(store.getters['general/toolbarColor']).toBe('#ffffff');
+        expect(written).toEqual(['#ffffff']);
+        expect(stores.general.toolbarColor).toBe('#ffffff');
     });
 
-    it('uses dark text on a light toolbar', () => {
+    it('uses dark text on a light toolbar', async () => {
         const { wrapper } = mountToolbar({}, '#ffffff');
+        await nextTick();
 
         expect(wrapper.find('.admin__toolbar--body').classes()).toContain('is-light');
     });
 
-    it('uses light text on a dark toolbar', () => {
+    it('uses light text on a dark toolbar', async () => {
         const { wrapper } = mountToolbar({}, '#111111');
+        await nextTick();
 
         expect(wrapper.find('.admin__toolbar--body').classes()).toContain('is-dark');
     });
 
-    describe('the create menu', () => {
-        // `createMenu` and the `menu` prop it reads are dead code: nothing in the
-        // template renders either, so there is no DOM to assert on and these
-        // tests go through the instance. Covered anyway so that the behaviour is
-        // pinned if the menu is ever wired back up — and so the dead code is
-        // visible rather than quietly rotting.
-        const createMenu = (menu: unknown[]) => {
-            const { wrapper } = mountToolbar({ menu });
-            return (wrapper.vm as unknown as { createMenu: { name: string }[] }).createMenu;
-        };
-
-        it('offers a named content type', () => {
-            const item = { name: 'Pages', singular_name: 'Page', singleton: false, submenu: [] };
-
-            expect(createMenu([item])).toEqual([item]);
+    it('renders nothing for the content type menu it is given', () => {
+        // Twig still passes `menu`, but the toolbar has no create menu to put it in.
+        const { wrapper } = mountToolbar({
+            menu: [{ name: 'Pages', singular_name: 'Page', singleton: false, submenu: [] }],
         });
 
-        it('leaves out a content type with no singular name', () => {
-            expect(createMenu([{ name: 'Pages', singleton: false, submenu: [] }])).toEqual([]);
-        });
-
-        it('offers a singleton that has no record yet', () => {
-            const empty = { name: 'Homepage', singular_name: 'Homepage', singleton: true, submenu: [] };
-            const missing = { name: 'Footer', singular_name: 'Footer', singleton: true, submenu: null };
-
-            expect(createMenu([empty, missing])).toEqual([empty, missing]);
-        });
-
-        it('leaves out a singleton that already has its record', () => {
-            const filled = {
-                name: 'Homepage',
-                singular_name: 'Homepage',
-                singleton: true,
-                submenu: [{ editLink: '/bolt/edit/1' }],
-            };
-
-            expect(createMenu([filled])).toEqual([]);
-        });
-
-        it('renders nothing for it, since no template uses it', () => {
-            const { wrapper } = mountToolbar({
-                menu: [{ name: 'Pages', singular_name: 'Page', singleton: false, submenu: [] }],
-            });
-
-            expect(wrapper.text()).not.toContain('Pages');
-        });
+        expect(wrapper.text()).not.toContain('Pages');
     });
 });

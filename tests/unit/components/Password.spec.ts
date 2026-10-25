@@ -16,7 +16,7 @@ const defaultProps = {
 // togglePassword looks its own input up through jQuery by id, so the component
 // has to be in the document rather than detached.
 const mountPassword = (props: Record<string, unknown> = {}) =>
-    mount(Password, { propsData: { ...defaultProps, ...props }, attachTo: document.body });
+    mount(Password, { props: { ...defaultProps, ...props }, attachTo: document.body });
 
 const input = (wrapper: ReturnType<typeof mount>) => wrapper.find('input');
 const toggle = (wrapper: ReturnType<typeof mount>) => wrapper.find('.toggle-password');

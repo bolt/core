@@ -8,7 +8,7 @@ const defaultProps = { id: 'field-body', value: 'Body copy', name: 'fields[body]
 describe('EditorTextarea', () => {
     it('renders the unescaped value and field metadata', async () => {
         const wrapper = mount(Textarea, {
-            propsData: {
+            props: {
                 ...defaultProps,
                 value: 'Fish &amp; Chips',
                 required: true,
@@ -35,7 +35,7 @@ describe('EditorTextarea', () => {
     });
 
     it('omits optional attributes when unset', () => {
-        const wrapper = mount(Textarea, { propsData: defaultProps });
+        const wrapper = mount(Textarea, { props: defaultProps });
 
         const textarea = wrapper.find('textarea');
         expect(textarea.attributes('required')).toBeUndefined();
@@ -45,13 +45,13 @@ describe('EditorTextarea', () => {
     });
 
     it('marks the textarea readonly', () => {
-        const wrapper = mount(Textarea, { propsData: { ...defaultProps, readonly: true } });
+        const wrapper = mount(Textarea, { props: { ...defaultProps, readonly: true } });
 
         expect(wrapper.find('textarea').attributes('readonly')).toBeDefined();
     });
 
     it('treats a numeric height as a rows count', () => {
-        const wrapper = mount(Textarea, { propsData: { ...defaultProps, height: 12 } });
+        const wrapper = mount(Textarea, { props: { ...defaultProps, height: 12 } });
 
         const textarea = wrapper.find('textarea');
         expect(textarea.attributes('rows')).toBe('12');
@@ -59,7 +59,7 @@ describe('EditorTextarea', () => {
     });
 
     it('treats a height with a unit as a css height', () => {
-        const wrapper = mount(Textarea, { propsData: { ...defaultProps, height: '400px' } });
+        const wrapper = mount(Textarea, { props: { ...defaultProps, height: '400px' } });
 
         const textarea = wrapper.find('textarea');
         expect((textarea.element as HTMLTextAreaElement).style.height).toBe('400px');
@@ -67,7 +67,7 @@ describe('EditorTextarea', () => {
     });
 
     it('keeps the rendered value in step with typing', async () => {
-        const wrapper = mount(Textarea, { propsData: defaultProps });
+        const wrapper = mount(Textarea, { props: defaultProps });
 
         await wrapper.find('textarea').setValue('Edited');
         // Re-render: a field that only displayed its prop would be reset to it.

@@ -5,13 +5,15 @@ import SidebarToggler from '@/sidebar/Components/_SidebarToggler.vue';
 import { createSidebarStore } from '../../helpers/store';
 import { withAdminShell } from '../../helpers/dom';
 
-const propsData = { version: '6.1.7', aboutLink: '/bolt/about', labels: { toggler: 'Toggle sidebar' } };
+const props = { version: '6.1.7', aboutLink: '/bolt/about', labels: { toggler: 'Toggle sidebar' } };
 
 const mountToggler = (slimSidebar = false) => {
     const testStore = createSidebarStore({ general: { slimSidebar } });
+    const written = testStore.writes('general', 'slimSidebar');
     return {
         ...testStore,
-        wrapper: mount(SidebarToggler, { localVue: testStore.localVue, store: testStore.store, propsData }),
+        written,
+        wrapper: mount(SidebarToggler, { global: { plugins: [testStore.pinia] }, props }),
     };
 };
 
@@ -26,26 +28,26 @@ describe('SidebarToggler', () => {
     it('asks the store to go slim when clicked', async () => {
         withAdminShell();
 
-        const { wrapper, dispatched } = mountToggler();
+        const { wrapper, written } = mountToggler();
         await wrapper.find('button').trigger('click');
 
-        expect(dispatched('general/slimSidebar')).toEqual([true]);
+        expect(written).toEqual([true]);
     });
 
     it('asks the store to go wide again when already slim', async () => {
         withAdminShell();
 
-        const { wrapper, dispatched } = mountToggler(true);
+        const { wrapper, written } = mountToggler(true);
         await wrapper.find('button').trigger('click');
 
-        expect(dispatched('general/slimSidebar')).toEqual([false]);
+        expect(written).toEqual([false]);
     });
 
     it('marks the admin shell slim and remembers the choice', async () => {
         withAdminShell();
 
-        const { store } = mountToggler();
-        await store.dispatch('general/slimSidebar', true);
+        const { stores } = mountToggler();
+        stores.general.slimSidebar = true;
         await nextTick();
 
         expect(document.querySelector('.admin')!.classList.contains('is-slim')).toBe(true);
@@ -55,8 +57,8 @@ describe('SidebarToggler', () => {
     it('unmarks the admin shell when going wide again', async () => {
         withAdminShell();
 
-        const { store } = mountToggler(true);
-        await store.dispatch('general/slimSidebar', false);
+        const { stores } = mountToggler(true);
+        stores.general.slimSidebar = false;
         await nextTick();
 
         expect(document.querySelector('.admin')!.classList.contains('is-slim')).toBe(false);

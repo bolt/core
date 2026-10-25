@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Backend;
 
+use Bolt\Controller\TwigAwareController;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[IsGranted(attribute: 'clearcache')]
-class ClearCacheController extends AbstractController implements BackendZoneInterface
+class ClearCacheController extends TwigAwareController implements BackendZoneInterface
 {
     #[Route(path: '/clearcache', name: 'bolt_clear_cache')]
     public function index(KernelInterface $kernel): Response

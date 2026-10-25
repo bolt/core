@@ -50,7 +50,7 @@ const oembed = {
 
 const mountEmbed = (props: Record<string, unknown> = {}) => {
     withCsrfToken('token-123');
-    return mount(Embed, { propsData: { ...defaultProps, ...props } });
+    return mount(Embed, { props: { ...defaultProps, ...props } });
 };
 
 const field = (wrapper: ReturnType<typeof mount>, selector: string) =>
@@ -83,7 +83,7 @@ describe('EditorEmbed', () => {
     it('posts each part of the embed under its own field name', () => {
         const wrapper = mountEmbed();
 
-        const names = wrapper.findAll('input').wrappers.map(input => input.attributes('name'));
+        const names = wrapper.findAll('input').map(input => input.attributes('name'));
         expect(names).toEqual([
             'fields[video][url]',
             'fields[video][width]',

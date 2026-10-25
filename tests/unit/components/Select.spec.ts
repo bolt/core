@@ -1,10 +1,9 @@
-import { mount } from '@vue/test-utils';
+import { flushPromises, mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 import { describe, expect, it, vi } from 'vitest';
 import $ from 'jquery';
 import Select from '@/editor/Components/Select.vue';
 import { multiselectStub } from '../helpers/stubs';
-import { flushPromises } from '../helpers/async';
 
 const options = [
     { key: 'published', value: 'Published' },
@@ -32,8 +31,8 @@ const mountSelect = (props: Record<string, unknown> = {}) =>
     mount(Select, {
         // `options` and `value` are pushed to in place by addTag, so give each
         // mount its own copy.
-        propsData: { ...defaultProps, options: [...options], value: [], ...props },
-        stubs: { multiselect: multiselectStub },
+        props: { ...defaultProps, options: [...options], value: [], ...props },
+        global: { stubs: { 'vue-multiselect': multiselectStub } },
     });
 
 /** The hidden input is what the form actually posts. */
@@ -155,7 +154,7 @@ describe('EditorSelect', () => {
         const wrapper = mountSelect({ name: 'status' });
         await nextTick();
 
-        const rendered = wrapper.findAll('.stub-option').wrappers;
+        const rendered = wrapper.findAll('.stub-option');
         expect(rendered).toHaveLength(3);
         expect(rendered[0].find('.status').classes()).toContain('is-published');
         expect(rendered[0].text()).toBe('Published');
@@ -165,7 +164,7 @@ describe('EditorSelect', () => {
         const wrapper = mountSelect({ value: ['draft', 'held'] });
         await nextTick();
 
-        const tags = wrapper.findAll('.stub-tag .multiselect__tag').wrappers;
+        const tags = wrapper.findAll('.stub-tag .multiselect__tag');
         expect(tags).toHaveLength(2);
         expect(tags[0].attributes('id')).toBe('draft');
         expect(tags[0].attributes('draggable')).toBe('true');
@@ -193,7 +192,7 @@ describe('EditorSelect', () => {
         await nextTick();
         expect(submitted(wrapper)).toBe('["published","draft","held"]');
 
-        const tags = wrapper.findAll('.stub-tag .multiselect__tag').wrappers;
+        const tags = wrapper.findAll('.stub-tag .multiselect__tag');
         await tags[0].trigger('dragstart', { dataTransfer: { setData: vi.fn() } });
         await tags[2].trigger('drop', { dataTransfer: { getData: () => 'published' } });
 
@@ -204,7 +203,7 @@ describe('EditorSelect', () => {
         const wrapper = mountSelect({ value: ['published', 'draft'] });
         await nextTick();
 
-        const tag = wrapper.findAll('.stub-tag .multiselect__tag').at(0);
+        const tag = wrapper.findAll('.stub-tag .multiselect__tag')[0];
         await tag.trigger('dragstart', { dataTransfer: { setData: vi.fn() } });
         expect(tag.classes()).toContain('dragging');
 
@@ -216,7 +215,7 @@ describe('EditorSelect', () => {
         const wrapper = mountSelect({ value: ['published', 'draft'] });
         await nextTick();
 
-        const [dragged, target] = wrapper.findAll('.stub-tag .multiselect__tag').wrappers;
+        const [dragged, target] = wrapper.findAll('.stub-tag .multiselect__tag');
         await dragged.trigger('dragstart', { dataTransfer: { setData: vi.fn() } });
 
         await target.trigger('dragover');
@@ -277,12 +276,72 @@ describe('EditorSelect', () => {
         });
     });
 
-    // Only passes after 8a8b199e. `fixSelectedItems` starts with `!this.value
-    // ? [] : ...`, so a value of 0 is treated as no value at all and the
-    // selection is silently dropped.
-    it.todo('keeps an option whose key is the number 0 selected');
+    it('keeps an option whose key is the number 0 selected', async () => {
+        // 0 is falsy, so a truthiness check on the value would drop it.
+        const wrapper = mountSelect({
+            options: [
+                { key: 0, value: 'Zero' },
+                { key: 1, value: 'One' },
+            ],
+            value: 0,
+            multiple: false,
+        });
+        await nextTick();
 
-    // Only passes after 8d54e750. addTag pushes unconditionally, so tagging
-    // a single-select field ends up with two selected items.
-    it.todo('replaces the selection when tagging in single-select mode');
+        expect(submitted(wrapper)).toBe('[0]');
+        expect((picker(wrapper).props('modelValue') as { key: number }).key).toBe(0);
+    });
+
+    it('replaces the selection when tagging in single-select mode', async () => {
+        const wrapper = mountSelect({ value: undefined, multiple: false, taggable: true });
+        await nextTick();
+
+        const tag = (label: string) => (picker(wrapper).vm as unknown as { tag: (l: string) => void }).tag(label);
+        tag('First tag');
+        tag('Second tag');
+        await nextTick();
+
+        expect(submitted(wrapper)).toBe('["Second tag"]');
+        expect((picker(wrapper).props('modelValue') as { key: string }).key).toBe('Second tag');
+    });
+
+    it('removes a tag through its remove icon', async () => {
+        const wrapper = mountSelect({ name: 'tags', value: ['draft', 'held'] });
+        await nextTick();
+
+        await wrapper.findAll('.multiselect__tag-icon')[0].trigger('mousedown');
+
+        expect(submitted(wrapper)).toBe('["held"]');
+    });
+
+    it('removes a tag from the keyboard', async () => {
+        const wrapper = mountSelect({ name: 'tags', value: ['draft', 'held'] });
+        await nextTick();
+
+        await wrapper.findAll('.multiselect__tag-icon')[1].trigger('keypress', { key: 'Enter' });
+
+        expect(submitted(wrapper)).toBe('["draft"]');
+    });
+
+    it('offers an edit link on a single selection that has one', async () => {
+        const linked = [
+            { key: 'a', value: 'A record', link_to_record_url: '/bolt/edit/1' },
+            { key: 'b', value: 'Another record' },
+        ];
+        const wrapper = mountSelect({ name: 'related', options: linked, value: 'a', multiple: false });
+        await nextTick();
+
+        const label = wrapper.find('.stub-single-label');
+        expect(label.text()).toContain('A record');
+        expect(label.find('.multiselect__tag__edit a').attributes('href')).toBe('/bolt/edit/1');
+    });
+
+    it('hands the error message to the picker only when there is one', async () => {
+        const withMessage = mountSelect();
+        const without = mountSelect({ errormessage: false });
+        await nextTick();
+
+        expect(withMessage.findComponent(multiselectStub).attributes('data-errormessage')).toBe('Pick one');
+        expect(without.findComponent(multiselectStub).attributes('data-errormessage')).toBeUndefined();
+    });
 });

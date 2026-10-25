@@ -2,6 +2,7 @@ import { mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 import { describe, expect, it } from 'vitest';
 import Text from '@/editor/Components/Text.vue';
+import { eventBus } from '@/eventBus';
 import { emitOnBus, recordBus } from '../helpers/bus';
 
 const defaultProps = {
@@ -18,16 +19,17 @@ const defaultProps = {
     autofocus: false,
 };
 
-// Slug and Text talk to each other over the root instance's event bus, which a
-// Slug field elsewhere on the page would normally drive.
-const startGenerating = async (wrapper: ReturnType<typeof mount>) => {
-    emitOnBus(wrapper, 'generate-from-title', true);
+// Slug and Text talk to each other over the shared event bus, which a Slug
+// field elsewhere on the page would normally drive. A Slug names the title
+// fields it is generated from; `title` is this field's key.
+const setGenerating = async (active: boolean, sources = ['title']) => {
+    emitOnBus('generate-from-title', { sources, active });
     await nextTick();
 };
 
 describe('EditorText', () => {
     it('renders the unescaped value and field metadata', async () => {
-        const wrapper = mount(Text, { propsData: { ...defaultProps, value: 'Fish &amp; Chips' } });
+        const wrapper = mount(Text, { props: { ...defaultProps, value: 'Fish &amp; Chips' } });
         await nextTick();
 
         const input = wrapper.find('input');
@@ -43,7 +45,7 @@ describe('EditorText', () => {
     });
 
     it('omits optional attributes when unset or false', () => {
-        const wrapper = mount(Text, { propsData: { value: '', name: 'fields[title]' } });
+        const wrapper = mount(Text, { props: { value: '', name: 'fields[title]' } });
 
         const input = wrapper.find('input');
         expect(input.attributes('required')).toBeUndefined();
@@ -54,7 +56,7 @@ describe('EditorText', () => {
 
     it('renders disabled, readonly and autofocus when set', () => {
         const wrapper = mount(Text, {
-            propsData: { ...defaultProps, disabled: true, readonly: true, autofocus: true },
+            props: { ...defaultProps, disabled: true, readonly: true, autofocus: true },
         });
 
         const input = wrapper.find('input');
@@ -64,19 +66,19 @@ describe('EditorText', () => {
     });
 
     it('maps the "large" type to the bootstrap large class', () => {
-        const wrapper = mount(Text, { propsData: { ...defaultProps, type: 'large' } });
+        const wrapper = mount(Text, { props: { ...defaultProps, type: 'large' } });
 
         expect(wrapper.find('input').classes()).toContain('form-control-lg');
     });
 
     it('passes any other type through as a class', () => {
-        const wrapper = mount(Text, { propsData: { ...defaultProps, type: 'form-control-sm' } });
+        const wrapper = mount(Text, { props: { ...defaultProps, type: 'form-control-sm' } });
 
         expect(wrapper.find('input').classes()).toContain('form-control-sm');
     });
 
     it('keeps the rendered value in step with typing', async () => {
-        const wrapper = mount(Text, { propsData: defaultProps });
+        const wrapper = mount(Text, { props: defaultProps });
         await nextTick();
 
         await wrapper.find('input').setValue('New title');
@@ -87,8 +89,8 @@ describe('EditorText', () => {
     });
 
     it('stays quiet on the bus until slug generation is switched on', async () => {
-        const wrapper = mount(Text, { propsData: defaultProps });
-        const asked = recordBus(wrapper, 'slugify-from-title');
+        const wrapper = mount(Text, { props: defaultProps });
+        const asked = recordBus('slugify-from-title');
         await nextTick();
 
         await wrapper.find('input').setValue('New title');
@@ -97,43 +99,53 @@ describe('EditorText', () => {
     });
 
     it('asks for a new slug on every keystroke once generation is on', async () => {
-        const wrapper = mount(Text, { propsData: defaultProps });
-        const asked = recordBus(wrapper, 'slugify-from-title');
+        const wrapper = mount(Text, { props: defaultProps });
+        const asked = recordBus('slugify-from-title');
         await nextTick();
-        await startGenerating(wrapper);
+        await setGenerating(true);
 
         await wrapper.find('input').setValue('New title');
         await wrapper.find('input').setValue('New title 2');
 
-        expect(asked).toHaveLength(2);
+        expect(asked).toEqual([{ source: 'title' }, { source: 'title' }]);
     });
 
     it('stops asking when generation is switched off again', async () => {
-        const wrapper = mount(Text, { propsData: defaultProps });
-        const asked = recordBus(wrapper, 'slugify-from-title');
+        const wrapper = mount(Text, { props: defaultProps });
+        const asked = recordBus('slugify-from-title');
         await nextTick();
-        await startGenerating(wrapper);
+        await setGenerating(true);
 
         await wrapper.find('input').setValue('New title');
-        emitOnBus(wrapper, 'generate-from-title', false);
-        await nextTick();
+        await setGenerating(false);
         await wrapper.find('input').setValue('New title 2');
 
         expect(asked).toHaveLength(1);
     });
 
-    it.skip('accepts a numeric value and renders it as text', () => {
-        // Only passes after 7450e402 ("Keep media crop values numeric") widens
-        // the `value` prop to accept a Number. Today a numeric value trips
-        // Vue's prop-type check.
-        const wrapper = mount(Text, { propsData: { ...defaultProps, value: 50 } });
+    it('accepts a numeric value and renders it as text', () => {
+        // The media edit page passes the crop values as raw numbers.
+        const wrapper = mount(Text, { props: { ...defaultProps, value: 50 } });
 
         expect((wrapper.find('input').element as HTMLInputElement).value).toBe('50');
     });
 
-    // Only passes on refactor/vue3-composition-api, where the mitt event bus
-    // carries `{ sources, active }` / `{ source }` payloads. The Vue 2.7
-    // $root bus broadcasts a bare boolean, so every Text field on the page
-    // drives every Slug field.
-    it.todo('only regenerates the slug it is scoped to');
+    it('ignores generation switched on for other title fields', async () => {
+        const wrapper = mount(Text, { props: defaultProps });
+        const asked = recordBus('slugify-from-title');
+        await setGenerating(true, ['other_title']);
+
+        await wrapper.find('input').setValue('New title');
+
+        expect(asked).toEqual([]);
+    });
+
+    it('stops listening to the bus once unmounted', () => {
+        const wrapper = mount(Text, { props: defaultProps });
+        expect(eventBus.all.get('generate-from-title')).toHaveLength(1);
+
+        wrapper.unmount();
+
+        expect(eventBus.all.get('generate-from-title') ?? []).toHaveLength(0);
+    });
 });

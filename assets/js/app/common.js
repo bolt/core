@@ -144,7 +144,10 @@ $(document).ready(function () {
     /*
      ** Copy text to clipboard. Used in filemanager actions.
      */
-    new ClipboardJS('*[data-clipboard-text]');
+    const clipboard = new ClipboardJS('*[data-clipboard-text]');
+    clipboard.on('success', function (event) {
+        event.clearSelection();
+    });
     /* End of copy text to clipboard */
 
     /*

@@ -1,75 +1,90 @@
-import Vue from 'vue';
-import Vuex, { Store, type Module } from 'vuex';
-import { createLocalVue } from '@vue/test-utils';
-import { vi } from 'vitest';
+import { createPinia, setActivePinia, type Pinia } from 'pinia';
+import { watch } from 'vue';
 
-import listingGeneral from '@/listing/store/modules/general/index.js';
-import listingListing from '@/listing/store/modules/listing/index.js';
-import listingSelecting from '@/listing/store/modules/selecting/index.js';
-import editorGeneral from '@/editor/store/modules/general/index.js';
-import sidebarGeneral from '@/sidebar/store/modules/general/index.js';
-import toolbarGeneral from '@/toolbar/store/modules/general/index.js';
+import { useGeneralStore as useListingGeneralStore, useListingStore, useSelectingStore } from '@/listing/store';
+import { useGeneralStore as useSidebarGeneralStore } from '@/sidebar/store';
+import { useGeneralStore as useToolbarGeneralStore } from '@/toolbar/store';
 
 /**
  * Store factories.
  *
- * These build a *real* store out of the application's own modules, so the real
- * getters, mutations and actions run — only the initial state is seeded.
+ * These build a *real* Pinia instance out of the application's own stores, so
+ * the real getters and actions run — only the initial state is seeded.
  *
- * Two things make this necessary rather than importing the store directly:
+ * Each factory makes a fresh Pinia and makes it the active one, so no state is
+ * shared across specs. Pass `pinia` to mount() as `global: { plugins: [pinia] }`
+ * so the component resolves the same stores the spec seeded and observes.
  *
- *  - Each `store/index.js` exports `new Vuex.Store(...)`, a module-level
- *    singleton, so importing it would share state across every spec in a run.
- *  - The modules export their state as a plain shared object (`const state =
- *    {...}; export default state`) rather than a factory, so even a fresh
- *    `new Vuex.Store()` would alias the same state object. Hence the clone.
+ * The components write most of their state straight onto the store rather than
+ * going through an action, so there are two recorders: `writes()` for state
+ * assignments and `calls()` for actions.
  */
 
-// The store modules are plain untyped JS, so this describes only the shape the
-// helpers below need to read: the state to clone, and the rest passed straight
-// through to Vuex.
-type StoreModule = Module<Record<string, unknown>, unknown> & {
-    state: Record<string, unknown>;
+type AnyStore = {
+    $id: string;
+    $patch(state: Record<string, unknown>): void;
+    $onAction(callback: (context: { name: string; args: unknown[] }) => void): () => void;
 };
 
-export interface TestStore {
-    /** Pass to mount() as `store`. */
-    store: Store<unknown>;
-    /** Pass to mount() as `localVue`. */
-    localVue: typeof Vue;
-    /** Arguments of every `dispatch('<name>', payload)` call, in order. */
-    dispatched(action: string): unknown[];
+export interface TestStore<Stores extends Record<string, AnyStore>> {
+    /** Pass to mount() as `global: { plugins: [pinia] }`. */
+    pinia: Pinia;
+    /** The stores themselves, for reading state back. */
+    stores: Stores;
+    /**
+     * Every value written to `stores[store][key]`, in order. Only changes are
+     * seen — writing the value a key already holds records nothing.
+     */
+    writes(store: keyof Stores, key: string): unknown[];
+    /** Arguments of every call to the action `stores[store][action]`, in order. */
+    calls(store: keyof Stores, action: string): unknown[][];
 }
 
-function seedModule(module: StoreModule, seed: Record<string, unknown> = {}): StoreModule {
-    return {
-        ...module,
-        // A factory, so each store gets its own state object. The seed is
-        // cloned too: callers routinely pass a fixture defined once at the top
-        // of a spec, and mutations like `selecting/select` push straight into
-        // state, which would write back into that shared fixture.
-        state: () => ({ ...structuredClone(module.state), ...structuredClone(seed) }),
-    } as unknown as StoreModule;
-}
+function build<Stores extends Record<string, AnyStore>>(
+    create: () => Stores,
+    seeds: Partial<Record<keyof Stores, Record<string, unknown>>>,
+): TestStore<Stores> {
+    const pinia = createPinia();
+    setActivePinia(pinia);
 
-function build(modules: Record<string, StoreModule>, seeds: Record<string, Record<string, unknown>>): TestStore {
-    const localVue = createLocalVue();
-    localVue.use(Vuex);
-
-    const seeded: Record<string, StoreModule> = {};
-    for (const [name, module] of Object.entries(modules)) {
-        seeded[name] = seedModule(module, seeds[name]);
+    const stores = create();
+    for (const [name, seed] of Object.entries(seeds)) {
+        // Cloned: callers routinely pass a fixture defined once at the top of
+        // a spec, and actions like `select` push straight into state, which
+        // would write back into that shared fixture.
+        stores[name as keyof Stores].$patch(structuredClone(seed as Record<string, unknown>));
     }
 
-    const store = new Vuex.Store({ modules: seeded });
-    const dispatch = vi.spyOn(store, 'dispatch');
+    const written: Record<string, unknown[]> = {};
+    const called: Record<string, unknown[][]> = {};
 
     return {
-        store,
-        localVue,
-        dispatched(action: string): unknown[] {
-            const calls = dispatch.mock.calls as unknown as [string, unknown][];
-            return calls.filter(call => call[0] === action).map(call => call[1]);
+        pinia,
+        stores,
+        writes(store, key) {
+            const id = `${String(store)}.${key}`;
+            if (!written[id]) {
+                written[id] = [];
+                const target = stores[store] as unknown as Record<string, unknown>;
+                watch(
+                    () => target[key],
+                    value => written[id].push(value),
+                    { flush: 'sync' },
+                );
+            }
+            return written[id];
+        },
+        calls(store, action) {
+            const id = `${String(store)}.${action}`;
+            if (!called[id]) {
+                called[id] = [];
+                stores[store].$onAction(({ name, args }) => {
+                    if (name === action) {
+                        called[id].push(args);
+                    }
+                });
+            }
+            return called[id];
         },
     };
 }
@@ -77,32 +92,24 @@ function build(modules: Record<string, StoreModule>, seeds: Record<string, Recor
 export interface ListingSeed {
     general?: { type?: string | null; rowSize?: string; sorting?: boolean };
     listing?: { records?: unknown[] };
-    selecting?: { selectAll?: boolean; selectedCount?: number; selected?: unknown[] };
+    selecting?: { selectAll?: boolean; selected?: number[] };
 }
 
-export function createListingStore(seed: ListingSeed = {}): TestStore {
+export function createListingStore(seed: ListingSeed = {}) {
     return build(
-        {
-            general: listingGeneral as StoreModule,
-            listing: listingListing as StoreModule,
-            selecting: listingSelecting as StoreModule,
-        },
+        () => ({
+            general: useListingGeneralStore(),
+            listing: useListingStore(),
+            selecting: useSelectingStore(),
+        }),
         seed as Record<string, Record<string, unknown>>,
     );
 }
 
-/**
- * The editor's own store. Note no editor component reads it — the slim-sidebar
- * flag it holds is driven from the sidebar's store instead.
- */
-export function createEditorStore(seed: { general?: { slimSidebar?: boolean } } = {}): TestStore {
-    return build({ general: editorGeneral as StoreModule }, seed as Record<string, Record<string, unknown>>);
+export function createSidebarStore(seed: { general?: { slimSidebar?: boolean } } = {}) {
+    return build(() => ({ general: useSidebarGeneralStore() }), seed);
 }
 
-export function createSidebarStore(seed: { general?: { slimSidebar?: boolean } } = {}): TestStore {
-    return build({ general: sidebarGeneral as StoreModule }, seed as Record<string, Record<string, unknown>>);
-}
-
-export function createToolbarStore(seed: { general?: { toolbarColor?: string | null } } = {}): TestStore {
-    return build({ general: toolbarGeneral as StoreModule }, seed as Record<string, Record<string, unknown>>);
+export function createToolbarStore(seed: { general?: { toolbarColor?: string } } = {}) {
+    return build(() => ({ general: useToolbarGeneralStore() }), seed);
 }

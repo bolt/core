@@ -1,9 +1,9 @@
 import { mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import Slug from '@/editor/Components/Slug.vue';
+import { eventBus } from '@/eventBus';
 import { withTitleFields } from '../helpers/dom';
-import { flushPromises } from '../helpers/async';
 import { emitOnBus, recordBus } from '../helpers/bus';
 
 const labels = {
@@ -28,17 +28,17 @@ const defaultProps = {
     isNew: false,
 };
 
-const mountSlug = (props: Record<string, unknown> = {}) => mount(Slug, { propsData: { ...defaultProps, ...props } });
+const mountSlug = (props: Record<string, unknown> = {}) => mount(Slug, { props: { ...defaultProps, ...props } });
 
 const input = (wrapper: ReturnType<typeof mount>) => wrapper.find('input').element as HTMLInputElement;
 const toggleButton = (wrapper: ReturnType<typeof mount>) => wrapper.find('button.dropdown-toggle');
 const dropdownItems = (wrapper: ReturnType<typeof mount>) =>
-    wrapper.findAll('.dropdown-item').wrappers.map(item => item.text().trim());
+    wrapper.findAll('.dropdown-item').map(item => item.text().trim());
 
 // Which actions are offered depends on the current state, so pick by label
 // rather than by position.
 const clickItem = (wrapper: ReturnType<typeof mount>, label: string) => {
-    const item = wrapper.findAll('.dropdown-item').wrappers.find(entry => entry.text().trim() === label);
+    const item = wrapper.findAll('.dropdown-item').find(entry => entry.text().trim() === label);
     if (!item) {
         throw new Error(`No "${label}" action; offered: ${dropdownItems(wrapper).join(', ')}`);
     }
@@ -46,9 +46,10 @@ const clickItem = (wrapper: ReturnType<typeof mount>, label: string) => {
 };
 
 // mounted() defers its work into a setTimeout, so the initial state settles a
-// macrotask later.
+// timer turn later. test-utils' flushPromises is a setImmediate, which runs
+// ahead of that timer, so wait for a timer of our own instead.
 const settle = async () => {
-    await flushPromises();
+    await new Promise(resolve => setTimeout(resolve, 0));
     await nextTick();
 };
 
@@ -174,7 +175,7 @@ describe('EditorSlug', () => {
         const wrapper = mountSlug();
         await settle();
 
-        emitOnBus(wrapper, 'slugify-from-title');
+        emitOnBus('slugify-from-title', { source: 'title' });
         await nextTick();
 
         expect(input(wrapper).value).toBe('a-fresh-title');
@@ -183,23 +184,23 @@ describe('EditorSlug', () => {
     it('tells the title fields to start driving the slug once it generates', async () => {
         withTitleFields({ title: 'A Fresh Title' });
         const wrapper = mountSlug();
-        const generating = recordBus(wrapper, 'generate-from-title');
+        const generating = recordBus('generate-from-title');
         await settle();
 
         await clickItem(wrapper, 'Generate from title');
 
-        expect(generating).toEqual([[true]]);
+        expect(generating).toEqual([{ sources: ['title'], active: true }]);
     });
 
     it('tells the title fields to stop driving the slug once it is edited by hand', async () => {
         withTitleFields({ title: 'A page' });
         const wrapper = mountSlug();
-        const generating = recordBus(wrapper, 'generate-from-title');
+        const generating = recordBus('generate-from-title');
         await settle();
 
         await clickItem(wrapper, 'Edit');
 
-        expect(generating).toEqual([[false]]);
+        expect(generating).toEqual([{ sources: ['title'], active: false }]);
     });
 
     it('disables the dropdown when the field is read-only', async () => {
@@ -210,22 +211,34 @@ describe('EditorSlug', () => {
         expect(toggleButton(wrapper).attributes('disabled')).toBeDefined();
     });
 
-    it('fails to initialise when a source field is missing from the page', async () => {
-        // Pinning current behaviour: mounted() dereferences the result of
-        // document.querySelector with no guard, so a `generate` naming a field
-        // Twig did not render throws a TypeError. It happens inside a
-        // setTimeout, so it escapes Vue's error handling entirely and surfaces
-        // as an unhandled exception rather than being contained.
-        vi.useFakeTimers();
+    it('treats a source field missing from the page as empty', async () => {
         withTitleFields({ title: 'A page' });
-        mountSlug({ generate: 'title,nonexistent' });
+        const wrapper = mountSlug({ generate: 'title,nonexistent' });
+        await settle();
 
-        expect(() => vi.runAllTimers()).toThrow(TypeError);
+        await clickItem(wrapper, 'Generate from title,nonexistent');
+
+        expect(input(wrapper).value).toBe('a-page');
     });
 
-    // Only passes on refactor/vue3-composition-api, where the mitt event bus
-    // carries a `{ source }` payload. The Vue 2.7 $root bus broadcasts
-    // 'slugify-from-title' with no payload, so every Slug on the page
-    // regenerates whenever any Text field changes — see 3778f430.
-    it.todo('only responds to the title fields it is scoped to');
+    it('only responds to the title fields it is scoped to', async () => {
+        withTitleFields({ title: 'A Fresh Title' });
+        const wrapper = mountSlug();
+        await settle();
+
+        emitOnBus('slugify-from-title', { source: 'other_title' });
+        await nextTick();
+
+        expect(input(wrapper).value).toBe('existing-slug');
+    });
+
+    it('stops listening to the bus once unmounted', async () => {
+        withTitleFields({ title: 'A Fresh Title' });
+        const wrapper = mountSlug();
+        await settle();
+
+        wrapper.unmount();
+
+        expect(eventBus.all.get('slugify-from-title') ?? []).toHaveLength(0);
+    });
 });

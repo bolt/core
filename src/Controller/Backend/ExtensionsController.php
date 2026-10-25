@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Backend;
 
+use Bolt\Controller\TwigAwareController;
 use Bolt\Extension\BaseExtension;
 use Bolt\Extension\ExtensionRegistry;
 use ComposerPackages\Dependencies;
 use ComposerPackages\Versions;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[IsGranted(attribute: 'extensions')]
-class ExtensionsController extends AbstractController implements BackendZoneInterface
+class ExtensionsController extends TwigAwareController implements BackendZoneInterface
 {
     private readonly Dependencies $dependenciesManager;
 

@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { flushPromises } from '../helpers/async';
+import { jqueryReady } from '../helpers/jquery';
 
 const { toastInstances } = vi.hoisted(() => ({ toastInstances: [] as { show: ReturnType<typeof vi.fn> }[] }));
 
@@ -21,7 +21,7 @@ vi.mock('bootstrap', () => ({
 const loadNotifications = async () => {
     vi.resetModules();
     await import('@/notifications');
-    await flushPromises();
+    await jqueryReady();
 };
 
 beforeEach(() => {

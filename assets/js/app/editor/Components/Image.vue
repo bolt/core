@@ -9,7 +9,7 @@
             <div class="col-12 col-md-3 order-md-2">
                 <div class="editor__image--preview">
                     <a
-                        v-if="thumbnailImage !== null && thumbnailImage !== ''"
+                        v-if="thumbnailImage"
                         class="editor__image--preview-image"
                         :href="previewImage"
                         :style="`background-image: url('${thumbnailImage}')`"
@@ -22,6 +22,7 @@
                 <div class="input-group mb-3">
                     <input :name="name + '[media]'" type="hidden" :value="media" />
                     <input
+                        :aria-label="labels.placeholder_filename"
                         :title="name + ' filename'"
                         class="form-control"
                         :name="name + '[filename]'"
@@ -30,33 +31,35 @@
                         :value="filenameData"
                         data-readonly="readonly"
                         :required="required"
-                        :data-errormessage="errormessage"
+                        :data-errormessage="typeof errormessage === 'string' ? errormessage : undefined"
                     />
                 </div>
                 <div v-if="includeAlt" class="input-group mb-3">
                     <div class="col-sm-2">
-                        <label>Alt:</label>
+                        <label :for="name + '-alt'">Alt:</label>
                     </div>
                     <div class="col-sm-10">
                         <input
+                            :id="name + '-alt'"
                             v-model="altData"
                             :title="name + ' alt'"
                             class="form-control"
                             :name="name + '[alt]'"
                             type="text"
                             :readonly="readonly"
-                            :pattern="pattern"
-                            :placeholder="getPlaceholder"
+                            :pattern="typeof pattern === 'string' ? pattern : undefined"
+                            :placeholder="getPlaceholder || undefined"
                         />
                     </div>
                 </div>
                 <div v-for="(extraFieldProps, extraField) in extraFields" :key="extraField" class="input-group mb-3">
                     <div class="col-sm-2">
-                        <label>{{ extraFieldProps.label }}:</label>
+                        <label :for="name + '-' + extraField">{{ extraFieldProps.label }}:</label>
                     </div>
                     <div class="col-sm-10">
                         <input
-                            v-model="extraData[extraField]"
+                            :id="name + '-' + extraField"
+                            v-model="extraDataValues[extraField]"
                             :title="name + ' ' + extraField"
                             class="form-control"
                             :name="name + '[' + extraField + ']'"
@@ -160,7 +163,8 @@
                             :disabled="readonly"
                             @click="onRemoveImage"
                         >
-                            <i class="fas fa-fw fa-trash"></i> {{ labels.button_remove }}
+                            <i class="fas fa-fw fa-trash"></i>
+                            {{ labels.button_remove }}
                         </button>
                     </div>
                 </div>
@@ -185,137 +189,173 @@
             tabindex="-1"
             type="file"
             :accept="acceptedExtensions"
-            @change="uploadFile($event.target.files[0])"
+            @change="uploadSelectedFile"
         />
     </div>
 </template>
 
-<script>
+<script setup lang="ts">
+import { ref, computed, reactive, watch, useTemplateRef } from 'vue';
 import noScroll from 'no-scroll';
 import baguetteBox from 'baguettebox.js';
-import field from '../mixins/value';
 import Axios from 'axios';
-import { Modal } from 'bootstrap';
+import type { AxiosError, AxiosProgressEvent } from 'axios';
 import { renable } from '../../patience-is-a-virtue';
 import { resetModalContent } from '../../modal';
+import { createServerFileBrowser, type ServerFile } from '../utils/serverFileBrowser';
+import { getUploadErrorMessage, type UploadErrorResponse } from '../utils/upload';
 
-export default {
-    name: 'EditorImage',
-    mixins: [field],
-    props: {
-        filename: String,
-        name: String,
-        id: String,
-        required: Boolean,
-        readonly: Boolean,
-        thumbnail: String,
-        alt: String,
-        includeAlt: Boolean,
-        directory: String,
-        directoryurl: String,
-        media: Number | String,
-        csrfToken: String,
-        labels: Object,
-        filelist: String,
-        extensions: Array,
-        attributesLink: String,
-        inImagelist: Boolean,
-        isFirstInImagelist: Boolean,
-        isLastInImagelist: Boolean,
-        errormessage: String | Boolean, //string if errormessage is set, and false otherwise
-        pattern: String | Boolean,
-        placeholder: String | Boolean,
-        extraFields: Array,
-        extraData: Array,
-    },
-    emits: ['move-image-up', 'move-image-down', 'remove'],
-    data() {
-        return {
-            previewImage: null,
-            thumbnailImage: null,
-            isDragging: false,
-            dragCount: 0,
-            progress: 0,
-            filenameData: this.filename,
-            altData: this.alt,
-        };
-    },
-    computed: {
-        fieldId() {
-            return this.id;
-        },
-        fieldName() {
-            return this.name + '[]';
-        },
-        token() {
-            return this.csrfToken;
-        },
-        acceptedExtensions() {
-            return this.extensions.map(ext => '.' + ext).join();
-        },
-        getPlaceholder() {
-            if (this.placeholder) {
-                return this.placeholder;
-            }
+const props = defineProps<{
+    filename?: string;
+    name?: string;
+    id?: string;
+    required?: boolean;
+    readonly?: boolean;
+    thumbnail?: string;
+    alt?: string;
+    // Passed by imagelist.html.twig (via Imagelist) and simple_image.html.twig,
+    // where the image record carries a `title`. Not rendered by the image field
+    // itself; declared so it doesn't leak onto the root element as an attribute.
+    title?: string;
+    includeAlt?: boolean;
+    directory?: string;
+    directoryurl?: string;
+    media?: number | string;
+    csrfToken?: string;
+    labels: Record<string, string>;
+    filelist?: string;
+    extensions: string[];
+    attributesLink?: string;
+    inImagelist?: boolean;
+    isFirstInImagelist?: boolean;
+    isLastInImagelist?: boolean;
+    errormessage?: string | boolean; //string if errormessage is set, and false otherwise
+    pattern?: string | boolean;
+    placeholder?: string | boolean;
+    extraFields?: Record<string, { label: string; placeholder?: string }>;
+    extraData?: Record<string, string | number | boolean | Record<string, string> | string[] | undefined> | string[];
+}>();
 
-            return this.labels.placeholder_alt_text;
-        },
-    },
-    mounted() {
-        this.resetImage();
-    },
-    updated() {
-        this.resetImage();
-        baguetteBox.run('.editor__image--preview', {
-            afterShow: () => {
-                noScroll.on();
-            },
-            afterHide: () => {
-                noScroll.off();
-            },
-        });
-    },
-    methods: {
-        resetImage() {
-            if (!this.filenameData) {
-                this.previewImage = null;
-                this.thumbnailImage = null;
-                return;
-            }
-            this.previewImage = `/thumbs/1000×1000/` + this.filenameData;
-            this.thumbnailImage = `/thumbs/400×300/` + this.filenameData;
-        },
-        onMoveImageDown() {
-            this.$emit('move-image-down', this);
-        },
-        onMoveImageUp() {
-            this.$emit('move-image-up', this);
-        },
-        onRemoveImage() {
-            this.filenameData = null;
-            this.resetImage();
-            // only reset altData if alt should be displayed.
-            if (this.includeAlt) this.altData = '';
-            this.$emit('remove', this);
-        },
-        selectUploadFile() {
-            this.$refs.selectFile.click();
-        },
-        generateModalContent(inputOptions) {
-            let filePath = '';
-            let folderPath = inputOptions[0].value;
-            let baseAsyncPath = inputOptions[0].base_url_path;
-            let modalContent = '<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-2">';
-            // If we are deep in the directory, add an arrow to navigate back to previous folder
-            if (folderPath.includes('/')) {
-                let pathChunks = inputOptions[0].value.split('/');
-                pathChunks.pop();
-                pathChunks.pop();
-                filePath = pathChunks.join('/');
-                let baseAsyncUrl = `${baseAsyncPath}?location=${filePath}&type=images`;
+const emit = defineEmits<{
+    (e: 'moveImageDown', payload: { fieldName: string }): void;
+    (e: 'moveImageUp', payload: { fieldName: string }): void;
+    (e: 'remove', payload: { fieldName: string }): void;
+}>();
 
-                if (filePath != '') {
-                    modalContent += `
+const isDragging = ref(false);
+const dragCount = ref(0);
+const progress = ref(0);
+const filenameData = ref(props.filename ?? '');
+const altData = ref(props.alt);
+// Extra-field values reach us in two shapes, both driven by the Bolt backend:
+// - standalone image field: image.html.twig builds a `{ extraKey: value }` object
+//   (see the `attribute(field, extraKey)` loop), keyed only by the extra fields;
+// - inside an imagelist: the parent passes the whole image record (ImageField::
+//   getValue()), which also carries base keys like filename/media/thumbnail/extra.
+// It can even arrive as an indexed array. Normalize to a lookup and keep only the
+// declared extra-field keys, so base keys never leak into the submitted values.
+const extraDataLookup: Record<string, unknown> = Object.fromEntries(Object.entries(props.extraData ?? {}));
+const extraDataValues = reactive<Record<string, string>>(
+    Object.fromEntries(Object.keys(props.extraFields ?? {}).map(key => [key, String(extraDataLookup[key] ?? '')])),
+);
+
+const selectFile = useTemplateRef<HTMLInputElement>('selectFile');
+
+const fieldId = computed(() => props.id);
+const fieldName = computed(() => props.name + '[]');
+const token = computed(() => props.csrfToken);
+const acceptedExtensions = computed(() => props.extensions.map(ext => '.' + ext).join());
+const getPlaceholder = computed(() => {
+    if (typeof props.placeholder === 'string' && props.placeholder) {
+        return props.placeholder;
+    }
+
+    return props.labels.placeholder_alt_text;
+});
+const thumbs = computed(() =>
+    filenameData.value
+        ? {
+              preview: `/thumbs/1000×1000/` + filenameData.value,
+              thumbnail: `/thumbs/400×300/` + filenameData.value,
+          }
+        : { preview: undefined, thumbnail: undefined },
+);
+const previewImage = computed(() => thumbs.value.preview);
+const thumbnailImage = computed(() => thumbs.value.thumbnail);
+
+const { selectServerFile } = createServerFileBrowser({
+    initialFilelist: props.filelist,
+    extensions: props.extensions,
+    labels: props.labels,
+    modalTitlePrefix: 'Select an image',
+    generateModalContent,
+    onSelect: selectedImage => {
+        filenameData.value = selectedImage;
+    },
+    onOpenError: err => {
+        window.alert(err.message + '<br>Image did not upload.');
+    },
+    onNavigateError: err => {
+        window.alert(err.message + '<br>Image did not upload.');
+    },
+});
+
+watch(previewImage, initPreviewLightbox, { flush: 'post', immediate: true });
+
+function initPreviewLightbox() {
+    if (!previewImage.value) {
+        return;
+    }
+
+    baguetteBox.run('.editor__image--preview', {
+        afterShow: () => {
+            noScroll.on();
+        },
+        afterHide: () => {
+            noScroll.off();
+        },
+    });
+}
+
+function onMoveImageDown() {
+    emit('moveImageDown', { fieldName: fieldName.value });
+}
+
+function onMoveImageUp() {
+    emit('moveImageUp', { fieldName: fieldName.value });
+}
+
+function onRemoveImage() {
+    filenameData.value = '';
+    // only reset altData if alt should be displayed.
+    if (props.includeAlt) altData.value = '';
+    emit('remove', { fieldName: fieldName.value });
+}
+
+function selectUploadFile() {
+    selectFile.value?.click();
+}
+
+function generateModalContent(inputOptions: ServerFile[]) {
+    const firstOption = inputOptions[0];
+    if (!firstOption) {
+        return '';
+    }
+
+    let filePath = '';
+    let folderPath = firstOption.value;
+    let baseAsyncPath = firstOption.base_url_path ?? '';
+    let modalContent = '<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-2">';
+    // If we are deep in the directory, add an arrow to navigate back to previous folder
+    if (folderPath.includes('/')) {
+        let pathChunks = firstOption.value.split('/');
+        pathChunks.pop();
+        pathChunks.pop();
+        filePath = pathChunks.join('/');
+        let baseAsyncUrl = `${baseAsyncPath}?location=${filePath}&type=images`;
+
+        if (filePath != '') {
+            modalContent += `
                     <div class="col">
                         <div class="card h-100">
                             <a href="${baseAsyncUrl}" class="directory d-flex justify-content-center w-100 flex-grow-1 text-decoration-none align-self-center">
@@ -330,14 +370,14 @@ export default {
                             </div>
                         </div>
                     </div>`;
-                }
-            }
-            inputOptions.forEach((element, key) => {
-                if (element.group == 'directories') {
-                    filePath = element.value;
-                    let baseAsyncUrl = `${baseAsyncPath}?location=${filePath}&type=images`;
-                    // let directoryPath = '/bolt/async/list_files?location=files/' + element.value + '&type=images';
-                    modalContent += `
+        }
+    }
+    inputOptions.forEach((element, key) => {
+        if (element.group == 'directories') {
+            filePath = element.value;
+            let baseAsyncUrl = `${baseAsyncPath}?location=${filePath}&type=images`;
+            // let directoryPath = '/bolt/async/list_files?location=files/' + element.value + '&type=images';
+            modalContent += `
                     <div class="col">
                         <div class="card">
                             <a href="${baseAsyncUrl}" class="directory d-flex justify-content-center w-100 flex-grow-1 text-decoration-none align-self-center">
@@ -352,8 +392,8 @@ export default {
                             </div>
                         </div>
                     </div>`;
-                } else {
-                    modalContent += `
+        } else {
+            modalContent += `
                     <div class="col">
                         <div class="card">
                             <img src="/thumbs/250×150×crop/${element.value.replace('files/', '')}" loading="lazy">
@@ -370,245 +410,153 @@ export default {
                         </div>
                     </div>
                     `;
-                }
-            });
-            modalContent += `</div>`;
-            return modalContent;
-        },
-        generateUploadFromURLModalContent() {
-            let modalContent = '';
-            modalContent += `
+        }
+    });
+    modalContent += `</div>`;
+    return modalContent;
+}
+
+function generateUploadFromURLModalContent() {
+    let modalContent = '';
+    modalContent += `
                 <form>
                     <input class="form-control" autocomplete="off" type="text" name="from-url-input">
                 </form>
             `;
-            return modalContent;
+    return modalContent;
+}
+
+function onDragEnter(e: DragEvent) {
+    e.preventDefault();
+    dragCount.value++;
+    isDragging.value = true;
+    return false;
+}
+
+function onDragLeave(e: DragEvent) {
+    e.preventDefault();
+    dragCount.value--;
+    if (dragCount.value <= 0) isDragging.value = false;
+}
+
+function onDrop(e: DragEvent) {
+    e.preventDefault();
+    e.stopPropagation();
+    isDragging.value = false;
+    dragCount.value = 0;
+    const image = e.dataTransfer?.files[0];
+    if (!image) {
+        return;
+    }
+
+    return uploadFile(image);
+}
+
+function uploadSelectedFile(event: Event) {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (file) {
+        uploadFile(file);
+    }
+}
+
+function uploadFile(file: File) {
+    if (!props.directory) {
+        return;
+    }
+
+    const fd = new FormData();
+    const config = {
+        onUploadProgress: (progressEvent: AxiosProgressEvent) => {
+            const total = progressEvent.total ?? progressEvent.loaded;
+            const percentCompleted = total > 0 ? Math.round((progressEvent.loaded * 100) / total) : 0;
+            progress.value = percentCompleted;
         },
-        selectServerFile(event) {
-            let thisField = this;
-            Axios.get(this.filelist)
-                .then(res => {
-                    let inputOptions = this.filterServerFiles(res.data);
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    };
+    fd.append('image', file);
+    fd.append('_csrf_token', token.value ?? '');
+    Axios.post<string>(props.directory, fd, config)
+        .then(res => {
+            filenameData.value = res.data;
+            progress.value = 0;
+        })
+        .catch((err: AxiosError<UploadErrorResponse>) => {
+            const message = getUploadErrorMessage(err);
+            window.alert(message);
+            console.warn(message);
+            progress.value = 0;
+        });
+}
 
-                    var resourcesModal = document.getElementById('resourcesModal');
-                    var bootstrapResourcesModal = document.querySelector('#resourcesModal');
-                    var resourcesModalObject = Modal.getOrCreateInstance(bootstrapResourcesModal); // Returns a Bootstrap modal instance
-                    var button = event.target;
-                    var title = button.getAttribute('data-modal-title');
-                    var modalDialog = resourcesModal.querySelector('.modal-dialog');
-                    var modalTitle = resourcesModal.querySelector('.modal-title');
-                    var modalBody = resourcesModal.querySelector('.modal-body');
-                    var modalFooter = resourcesModal.querySelector('.modal-footer');
-                    var modalBodyContent = this.generateModalContent(inputOptions);
+function uploadFileFromUrl(event: Event) {
+    const uploadUrl = props.directoryurl;
+    if (!uploadUrl) {
+        return;
+    }
 
-                    modalDialog.classList.add(button.getAttribute('data-modal-dialog-class'));
-                    modalTitle.innerHTML = title;
-                    modalBody.innerHTML = modalBodyContent;
-                    modalFooter.remove();
+    const config = {
+        onUploadProgress: (progressEvent: AxiosProgressEvent) => {
+            const total = progressEvent.total ?? progressEvent.loaded;
+            const percentCompleted = total > 0 ? Math.round((progressEvent.loaded * 100) / total) : 0;
+            progress.value = percentCompleted;
+        },
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    };
 
-                    var directoryLinks = resourcesModal.querySelectorAll('.directory');
+    const resourcesModal = document.getElementById('resourcesModal');
+    const saveButton = document.getElementById('modalButtonAccept');
+    const button = event.target as HTMLElement;
+    const title = button.getAttribute('data-modal-title');
+    const modalTitle = resourcesModal?.querySelector<HTMLElement>('.modal-title');
+    const modalBody = resourcesModal?.querySelector<HTMLElement>('.modal-body');
+    if (!resourcesModal || !saveButton || !modalTitle || !modalBody) {
+        return;
+    }
 
-                    directoryLinks.forEach(link => {
-                        link.addEventListener('click', e => {
-                            e.preventDefault();
-                            this.filelist = link.href;
-                            thisField.filelist = link.href;
-                            this.navigateDirectory();
-                            // return false;
-                        });
+    const modalBodyContent = generateUploadFromURLModalContent();
+    modalTitle.innerHTML = title ?? '';
+
+    setTimeout(() => {
+        modalBody.innerHTML = modalBodyContent;
+    }, 1);
+
+    saveButton.addEventListener(
+        'click',
+        () => {
+            const imageURL = (modalBody.querySelector('input[name=from-url-input]') as HTMLInputElement).value;
+            if (imageURL) {
+                const fd = new FormData();
+                fd.append('url', imageURL);
+                fd.append('_csrf_token', token.value ?? '');
+                Axios.post<string>(uploadUrl, fd, config)
+                    .then(res => {
+                        filenameData.value = res.data;
+                        progress.value = 0;
+                    })
+                    .catch((err: AxiosError<UploadErrorResponse>) => {
+                        const message = getUploadErrorMessage(err);
+                        window.alert(message);
+                        console.warn(message);
+                        progress.value = 0;
                     });
-
-                    var cards = modalBody.querySelectorAll('.form-check-input');
-                    cards.forEach(card => {
-                        card.addEventListener('click', () => {
-                            resourcesModalObject.hide();
-                        });
-                    });
-
-                    resourcesModal.addEventListener(
-                        'hidden.bs.modal',
-                        () => {
-                            if (modalBody.querySelector('input[type=checkbox]:checked')) {
-                                var selectedImage = modalBody.querySelector('input[type=checkbox]:checked').value;
-                                thisField.filenameData = selectedImage.replace('files/', '');
-                                thisField.thumbnailData = `/thumbs/400×300/${selectedImage.replace('files/', '')}`;
-                                thisField.previewData = `/thumbs/1000×1000/${selectedImage.replace('files/', '')}`;
-                            }
-                            // Reset modal body content when the modal is closed
-                            resetModalContent(this.labels);
-                        },
-                        { once: true },
-                    );
-
-                    renable();
-                })
-                .catch(err => {
-                    window.alert(err.response.data + '<br>Image did not upload.');
-                    renable();
-                });
+            }
         },
-        navigateDirectory() {
-            let thisField = this;
-            Axios.get(this.filelist)
-                .then(res => {
-                    let inputOptions = this.filterServerFiles(res.data);
-                    let folderPath = '';
+        { once: true },
+    );
 
-                    // Generate current folder path to add to modal title
-                    folderPath = inputOptions[0].value.split('/');
-                    folderPath.pop();
-                    folderPath = folderPath.join('/');
-
-                    var resourcesModal = document.getElementById('resourcesModal');
-                    var bootstrapResourcesModal = document.querySelector('#resourcesModal');
-                    var resourcesModalObject = Modal.getOrCreateInstance(bootstrapResourcesModal); // Returns a Bootstrap modal instance
-                    var modalTitle = resourcesModal.querySelector('.modal-title');
-                    var modalBody = resourcesModal.querySelector('.modal-body');
-                    var modalBodyContent = this.generateModalContent(inputOptions);
-
-                    modalTitle.innerHTML = 'Select an image: <i class="fas fa-solid fa-folder-tree"></i>' + folderPath;
-                    modalBody.innerHTML = modalBodyContent;
-
-                    var directoryLinks = resourcesModal.querySelectorAll('.directory');
-
-                    directoryLinks.forEach(link => {
-                        link.addEventListener('click', e => {
-                            e.preventDefault();
-                            this.filelist = link.href;
-                            thisField.filelist = link.href;
-                            this.navigateDirectory(e);
-                        });
-                    });
-
-                    var cards = modalBody.querySelectorAll('.form-check-input');
-                    cards.forEach(card => {
-                        card.addEventListener('click', () => {
-                            resourcesModalObject.hide();
-                        });
-                    });
-                })
-                .catch(err => {
-                    window.alert(err.response.data + '<br>Image did not upload.');
-                    renable();
-                });
+    resourcesModal.addEventListener(
+        'hidden.bs.modal',
+        () => {
+            // Reset modal body content when the modal is closed
+            resetModalContent(props.labels);
         },
-        onDragEnter(e) {
-            e.preventDefault();
-            this.dragCount++;
-            this.isDragging = true;
-            return false;
-        },
-        onDragLeave(e) {
-            e.preventDefault();
-            this.dragCount--;
-            if (this.dragCount <= 0) this.isDragging = false;
-        },
-        onDrop(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            this.isDragging = false;
-            this.dragCount = 0;
-            const image = e.dataTransfer.files[0];
-            return this.uploadFile(image);
-        },
-        uploadFile(file) {
-            const fd = new FormData();
-            const config = {
-                onUploadProgress: progressEvent => {
-                    const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-                    this.progress = percentCompleted;
-                },
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-            };
-            fd.append('image', file);
-            fd.append('_csrf_token', this.token);
-            Axios.post(this.directory, fd, config)
-                .then(res => {
-                    this.filenameData = res.data;
-                    this.thumbnailData = `/thumbs/400×300/${res.data}`;
-                    this.previewData = `/thumbs/1000×1000/${res.data}`;
-                    this.progress = 0;
-                })
-                .catch(err => {
-                    window.alert(err.response.data.error.message);
-                    console.warn(err.response.data.error.message);
-                    this.progress = 0;
-                });
-        },
-        uploadFileFromUrl() {
-            let thisField = this;
-            const config = {
-                onUploadProgress: progressEvent => {
-                    const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-                    this.progress = percentCompleted;
-                },
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-            };
+        { once: true },
+    );
 
-            var resourcesModal = document.getElementById('resourcesModal');
-            var saveButton = document.getElementById('modalButtonAccept');
-            var button = event.target;
-            var title = button.getAttribute('data-modal-title');
-            var modalTitle = resourcesModal.querySelector('.modal-title');
-            var modalBody = resourcesModal.querySelector('.modal-body');
-            var modalBodyContent = this.generateUploadFromURLModalContent();
-            modalTitle.innerHTML = title;
-
-            setTimeout(() => {
-                modalBody.innerHTML = modalBodyContent;
-            }, 1);
-
-            saveButton.addEventListener(
-                'click',
-                () => {
-                    var imageURL = modalBody.querySelector('input[name=from-url-input]').value;
-                    if (imageURL) {
-                        const fd = new FormData();
-                        fd.append('url', imageURL);
-                        fd.append('_csrf_token', thisField.token);
-                        Axios.post(thisField.directoryurl, fd, config)
-                            .then(res => {
-                                thisField.filenameData = res.data;
-                                thisField.thumbnailData = `/thumbs/400×300/${res.data}`;
-                                thisField.previewData = `/thumbs/1000×1000/${res.data}`;
-                                thisField.progress = 0;
-                            })
-                            .catch(err => {
-                                window.alert(err.response.data.error.message);
-                                console.warn(err.response.data.error.message);
-                                thisField.progress = 0;
-                            });
-                    }
-                },
-                { once: true },
-            );
-
-            resourcesModal.addEventListener(
-                'hidden.bs.modal',
-                () => {
-                    // Reset modal body content when the modal is closed
-                    resetModalContent(this.labels);
-                },
-                { once: true },
-            );
-
-            renable();
-        },
-        filterServerFiles(files) {
-            let self = this;
-            return files.filter(function (file) {
-                let ext = /(?:\.([^.]+))?$/.exec(file.text)[1];
-                // If it's a directory, return the directory
-                if (file.group == 'directories') {
-                    return file;
-                }
-                return self.extensions.includes(ext);
-            });
-        },
-    },
-};
+    renable();
+}
 </script>

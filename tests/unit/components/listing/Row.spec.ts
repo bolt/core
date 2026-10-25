@@ -30,9 +30,8 @@ const record = {
 const mountRow = (seed: ListingSeed = {}, overrides: Record<string, unknown> = {}) => {
     const testStore = createListingStore({ general: { type: 'pages' }, ...seed });
     return mount(Row, {
-        localVue: testStore.localVue,
-        store: testStore.store,
-        propsData: { record: { ...record, ...overrides }, labels },
+        global: { plugins: [testStore.pinia] },
+        props: { record: { ...record, ...overrides }, labels },
     });
 };
 
@@ -99,14 +98,13 @@ describe('Listing Row', () => {
     it('reflects the current row size', async () => {
         const testStore = createListingStore({ general: { type: 'pages', rowSize: 'small' } });
         const wrapper = mount(Row, {
-            localVue: testStore.localVue,
-            store: testStore.store,
-            propsData: { record, labels },
+            global: { plugins: [testStore.pinia] },
+            props: { record, labels },
         });
 
         expect(wrapper.find('.listing__row').classes()).toContain('is-small');
 
-        await testStore.store.dispatch('general/setRowSize', 'normal');
+        testStore.stores.general.rowSize = 'normal';
         await nextTick();
 
         expect(wrapper.find('.listing__row').classes()).toContain('is-normal');
@@ -140,27 +138,39 @@ describe('Listing Row', () => {
         expect(wrapper.find('.listing__row--item-title').attributes('title')).toBe('een-pagina');
     });
 
-    it('tracks the sorting flag, though nothing renders it', async () => {
-        // The `sorting` computed is dead code — the row template never reads it,
-        // the drag handle lives in _Sorting.vue instead. Pinned through the
-        // instance since there is no DOM surface, so that the Vue 3 migration
-        // can see it and decide whether to drop it.
-        const testStore = createListingStore({ general: { type: 'pages' } });
-        const wrapper = mount(Row, {
-            localVue: testStore.localVue,
-            store: testStore.store,
-            propsData: { record, labels },
-        });
-        expect((wrapper.vm as unknown as { sorting: boolean }).sorting).toBe(false);
-
-        await testStore.store.dispatch('general/setSorting', true);
-        await nextTick();
-
-        expect((wrapper.vm as unknown as { sorting: boolean }).sorting).toBe(true);
-    });
-
     it('titles the row with an empty slug rather than throwing', () => {
         const wrapper = mountRow({}, { fieldValues: { slug: null } });
+
+        expect(wrapper.find('.listing__row--item-title').attributes('title')).toBe('');
+    });
+
+    it('renders a record that carries no extras', () => {
+        const wrapper = mountRow({}, { extras: undefined });
+
+        expect(wrapper.find('.listing__row--item-title').text()).toBe('');
+        expect(wrapper.find('.badge').exists()).toBe(false);
+        expect(wrapper.find('.is-thumbnail').exists()).toBe(false);
+    });
+
+    it('leaves the thumbnail alt off when the image has none', () => {
+        const wrapper = mountRow(
+            {},
+            { extras: { ...record.extras, image: { thumbnail: '/thumbs/a.jpg', alt: null } } },
+        );
+
+        expect(wrapper.find('.is-thumbnail img').attributes('alt')).toBeUndefined();
+    });
+
+    it('renders before a content type is known, without row action labels', () => {
+        const testStore = createListingStore();
+        const wrapper = mount(Row, { global: { plugins: [testStore.pinia] }, props: { record, labels: {} } });
+
+        expect(wrapper.find('.is-actions').exists()).toBe(true);
+        expect(wrapper.find('.listing--checkbox').exists()).toBe(true);
+    });
+
+    it('titles the row with an empty slug when a localised slug has no locales', () => {
+        const wrapper = mountRow({}, { fieldValues: { slug: {} } });
 
         expect(wrapper.find('.listing__row--item-title').attributes('title')).toBe('');
     });

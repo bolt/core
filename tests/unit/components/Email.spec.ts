@@ -5,7 +5,7 @@ import Email from '@/editor/Components/Email.vue';
 describe('EditorEmail', () => {
     it('renders an email input carrying the value and field metadata', () => {
         const wrapper = mount(Email, {
-            propsData: {
+            props: {
                 value: 'bob@example.org',
                 name: 'fields[email]',
                 id: 'field-email',
@@ -29,13 +29,13 @@ describe('EditorEmail', () => {
     });
 
     it('renders the envelope icon', () => {
-        const wrapper = mount(Email, { propsData: { value: '', name: 'fields[email]' } });
+        const wrapper = mount(Email, { props: { value: '', name: 'fields[email]' } });
 
         expect(wrapper.find('i.fa-envelope').exists()).toBe(true);
     });
 
     it('omits optional attributes when unset', () => {
-        const wrapper = mount(Email, { propsData: { value: '', name: 'fields[email]' } });
+        const wrapper = mount(Email, { props: { value: '', name: 'fields[email]' } });
 
         const input = wrapper.find('input');
         expect(input.attributes('required')).toBeUndefined();
@@ -46,7 +46,7 @@ describe('EditorEmail', () => {
 
     it('marks the input readonly', () => {
         const wrapper = mount(Email, {
-            propsData: { value: '', name: 'fields[email]', readonly: true },
+            props: { value: '', name: 'fields[email]', readonly: true },
         });
 
         expect(wrapper.find('input').attributes('readonly')).toBeDefined();

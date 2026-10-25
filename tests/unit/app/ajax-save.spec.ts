@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { jqueryReady } from '../helpers/jquery';
 import $ from 'jquery';
-import { flushPromises } from '../helpers/async';
 
 const { toastInstance } = vi.hoisted(() => ({ toastInstance: { show: vi.fn() } }));
 // A plain function, not an arrow: ajax-save.js calls `new Toast(...)`.
@@ -44,7 +44,7 @@ const editFormDom = (options: { recordId?: string; ajaxButton?: boolean; classic
 const loadAjaxSave = async () => {
     vi.resetModules();
     await import('@/ajax-save');
-    await flushPromises();
+    await jqueryReady();
 };
 
 /** The options handed to $.ajax by the last save. */
@@ -145,7 +145,7 @@ describe('ajax-save.js', () => {
             'success',
         );
         // The toast is instantiated from a nested ready handler, a turn later.
-        await flushPromises();
+        await jqueryReady();
 
         expect(Toast).toHaveBeenCalledWith(document.querySelector('.toast'), []);
         expect(toastInstance.show).toHaveBeenCalled();

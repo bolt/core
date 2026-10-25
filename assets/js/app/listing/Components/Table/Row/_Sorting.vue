@@ -4,13 +4,10 @@
     </button>
 </template>
 
-<script>
-export default {
-    name: 'Sorting',
-    computed: {
-        sorting() {
-            return this.$store.getters['general/getSorting'];
-        },
-    },
-};
+<script setup lang="ts">
+import { computed } from 'vue';
+import { useGeneralStore } from '../../../store';
+
+const generalStore = useGeneralStore();
+const sorting = computed(() => generalStore.sorting);
 </script>

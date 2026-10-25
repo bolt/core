@@ -17,38 +17,38 @@ const item = {
 
 describe('Sidebar SubMenu', () => {
     it('renders the new and listing actions', () => {
-        const wrapper = mount(SubMenu, { propsData: { item, labels } });
+        const wrapper = mount(SubMenu, { props: { item, labels } });
 
         const actions = wrapper.findAll('.link--actions a');
-        expect(actions.at(0).attributes('href')).toBe('/bolt/new/pages');
-        expect(actions.at(0).text()).toBe('New');
-        expect(actions.at(1).attributes('href')).toBe('/bolt/content/pages');
-        expect(actions.at(1).text()).toBe('View Pages');
+        expect(actions[0].attributes('href')).toBe('/bolt/new/pages');
+        expect(actions[0].text()).toBe('New');
+        expect(actions[1].attributes('href')).toBe('/bolt/content/pages');
+        expect(actions[1].text()).toBe('View Pages');
     });
 
     it('omits the new action when there is no new link', () => {
         const wrapper = mount(SubMenu, {
-            propsData: { item: { ...item, link_new: null }, labels },
+            props: { item: { ...item, link_new: null }, labels },
         });
 
         const actions = wrapper.findAll('.link--actions a');
         expect(actions).toHaveLength(1);
-        expect(actions.at(0).attributes('href')).toBe('/bolt/content/pages');
+        expect(actions[0].attributes('href')).toBe('/bolt/content/pages');
     });
 
     it('renders a link per submenu record', () => {
-        const wrapper = mount(SubMenu, { propsData: { item, labels } });
+        const wrapper = mount(SubMenu, { props: { item, labels } });
 
         const records = wrapper.findAll('li:not(.link--actions) a');
         expect(records).toHaveLength(2);
-        expect(records.at(0).attributes('href')).toBe('/bolt/edit/1');
-        expect(records.at(0).text()).toBe('About');
-        expect(records.at(1).text()).toBe('Contact');
+        expect(records[0].attributes('href')).toBe('/bolt/edit/1');
+        expect(records[0].text()).toBe('About');
+        expect(records[1].text()).toBe('Contact');
     });
 
     it('falls back to "(Untitled)" for a record with no name', () => {
         const wrapper = mount(SubMenu, {
-            propsData: {
+            props: {
                 item: { ...item, submenu: [{ name: '', icon: 'fa-file', editLink: '/bolt/edit/3' }] },
                 labels,
             },
@@ -59,7 +59,7 @@ describe('Sidebar SubMenu', () => {
 
     it('renders record names as html, since Twig sends them escaped', () => {
         const wrapper = mount(SubMenu, {
-            propsData: {
+            props: {
                 item: { ...item, submenu: [{ name: 'A <em>fancy</em> title', icon: 'fa-file', editLink: '/x' }] },
                 labels,
             },
@@ -69,7 +69,7 @@ describe('Sidebar SubMenu', () => {
     });
 
     it('renders only the actions when the submenu is empty', () => {
-        const wrapper = mount(SubMenu, { propsData: { item: { ...item, submenu: [] }, labels } });
+        const wrapper = mount(SubMenu, { props: { item: { ...item, submenu: [] }, labels } });
 
         expect(wrapper.findAll('li:not(.link--actions)')).toHaveLength(0);
     });

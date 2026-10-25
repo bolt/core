@@ -4,7 +4,7 @@ import ProgressBar from '@/editor/Components/ProgressBar.vue';
 
 describe('ProgressBar', () => {
     it('renders the value and max as aria attributes', () => {
-        const wrapper = mount(ProgressBar, { propsData: { value: 25, max: 50 } });
+        const wrapper = mount(ProgressBar, { props: { value: 25, max: 50 } });
 
         const bar = wrapper.find('.progress-bar');
         expect(bar.attributes('aria-valuenow')).toBe('25');
@@ -13,7 +13,7 @@ describe('ProgressBar', () => {
     });
 
     it('sets the bar width to the value as a percentage of max', () => {
-        const wrapper = mount(ProgressBar, { propsData: { value: 25, max: 50 } });
+        const wrapper = mount(ProgressBar, { props: { value: 25, max: 50 } });
 
         expect((wrapper.find('.progress-bar').element as HTMLElement).style.width).toBe('50%');
     });
@@ -28,7 +28,7 @@ describe('ProgressBar', () => {
     });
 
     it('applies an explicit height and omits it otherwise', () => {
-        expect((mount(ProgressBar, { propsData: { height: '4px' } }).element as HTMLElement).style.height).toBe('4px');
+        expect((mount(ProgressBar, { props: { height: '4px' } }).element as HTMLElement).style.height).toBe('4px');
         expect((mount(ProgressBar).element as HTMLElement).style.height).toBe('');
     });
 });

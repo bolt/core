@@ -10,22 +10,22 @@ describe('ThemeSelect', () => {
     it('offers the default and light themes', () => {
         const wrapper = mount(ThemeSelect);
 
-        expect(wrapper.findAll('.theme--name').wrappers.map(name => name.text())).toEqual(['Default', 'Light']);
+        expect(wrapper.findAll('.theme--name').map(name => name.text())).toEqual(['Default', 'Light']);
     });
 
     it('renders a colour swatch per palette entry', () => {
         const wrapper = mount(ThemeSelect);
 
-        const swatches = wrapper.findAll('.theme').at(0).findAll('.theme--palette span');
+        const swatches = wrapper.findAll('.theme')[0].findAll('.theme--palette span');
         expect(swatches).toHaveLength(4);
-        expect(swatches.at(0).attributes('style')).toContain('background-color: rgb(26, 85, 151)');
+        expect(swatches[0].attributes('style')).toContain('background-color: rgb(26, 85, 151)');
     });
 
     it('swaps the stylesheet to the chosen theme', async () => {
         withThemeLink('/assets/theme-default.css');
         const wrapper = mount(ThemeSelect);
 
-        await wrapper.findAll('.theme').at(1).trigger('click');
+        await wrapper.findAll('.theme')[1].trigger('click');
 
         expect(themeHref()).toBe('/assets/theme-light.css');
     });
@@ -34,7 +34,7 @@ describe('ThemeSelect', () => {
         withThemeLink('/build/css/nested/theme-light.css');
         const wrapper = mount(ThemeSelect);
 
-        await wrapper.findAll('.theme').at(0).trigger('click');
+        await wrapper.findAll('.theme')[0].trigger('click');
 
         expect(themeHref()).toBe('/build/css/nested/theme-default.css');
     });
@@ -43,20 +43,17 @@ describe('ThemeSelect', () => {
         withThemeLink('/assets/theme-light.css');
         const wrapper = mount(ThemeSelect);
 
-        await wrapper.findAll('.theme').at(1).trigger('click');
+        await wrapper.findAll('.theme')[1].trigger('click');
 
         expect(themeHref()).toBe('/assets/theme-light.css');
     });
 
-    it('fails to swap when the page has no theme stylesheet', async () => {
-        // Pinning current behaviour: selectTheme dereferences the result of
-        // document.querySelector('#theme') with no guard, so on a page that
-        // never rendered the link the click throws instead of doing nothing.
+    it('does nothing when the page has no theme stylesheet', async () => {
         const wrapper = mount(ThemeSelect);
 
-        const errors = await captureVueErrors(() => wrapper.findAll('.theme').at(0).trigger('click'));
+        const errors = await captureVueErrors(() => wrapper.findAll('.theme')[0].trigger('click'));
 
-        expect(errors).toHaveLength(1);
-        expect(errors[0]).toBeInstanceOf(TypeError);
+        expect(errors).toEqual([]);
+        expect(document.querySelector('#theme')).toBeNull();
     });
 });

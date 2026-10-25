@@ -1,12 +1,9 @@
-import Vue from 'vue';
-import { enableAutoDestroy } from '@vue/test-utils';
+import { enableAutoUnmount } from '@vue/test-utils';
 import $ from 'jquery';
 import { afterEach, beforeEach, expect, vi } from 'vitest';
+import { eventBus } from '@/eventBus';
 import { resetDom } from './helpers/dom';
 import { installWarningHandler, resetWarnings, reviewWarnings } from './helpers/warnings';
-
-Vue.config.productionTip = false;
-Vue.config.devtools = false;
 
 // Several components reach for the global jQuery rather than importing it:
 // Collection.vue uses `window.$` directly, and assets/js/jquery.js — which sets
@@ -14,7 +11,7 @@ Vue.config.devtools = false;
 (window as unknown as Record<string, unknown>).$ = $;
 (window as unknown as Record<string, unknown>).jQuery = $;
 
-// Date.vue's updated() hook calls both on the flatpickr input. jsdom's
+// Date.vue's validity handling calls both on the flatpickr input. jsdom's
 // constraint-validation support is partial, so make sure they exist.
 if (!HTMLInputElement.prototype.reportValidity) {
     HTMLInputElement.prototype.reportValidity = () => true;
@@ -55,6 +52,7 @@ afterEach(() => {
     resetWarnings();
 
     resetDom();
+    eventBus.all.clear();
     localStorage.clear();
     vi.clearAllTimers();
     vi.useRealTimers();
@@ -69,7 +67,7 @@ afterEach(() => {
 });
 
 // Registered after the hook above so that it runs first (Vitest runs afterEach
-// hooks in reverse order): every wrapper is destroyed while its DOM is still in
+// hooks in reverse order): every wrapper is unmounted while its DOM is still in
 // place, and any warning the teardown raises is still reviewed. Without it a
 // component outlives its test, along with its watchers, timers and listeners.
-enableAutoDestroy(afterEach);
+enableAutoUnmount(afterEach);

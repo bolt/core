@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div ref="rootEl">
         <div class="input-group">
             <flat-pickr
                 v-model="val"
@@ -9,7 +9,7 @@
                 :form="form"
                 :name="name"
                 placeholder="Select date"
-                :data-errormessage="errormessage"
+                :data-errormessage="errormessage === false ? undefined : errormessage"
             >
             </flat-pickr>
             <button
@@ -22,7 +22,7 @@
                 onclick="this.blur()"
             >
                 <i class="fa fa-calendar">
-                    <span class="sr-only" aria-hidden="true">{{ labels.toggle }}</span>
+                    <span class="sr-only" aria-hidden="true">{{ parsedLabels.toggle }}</span>
                 </i>
             </button>
             <button
@@ -35,114 +35,108 @@
                 onclick="this.blur()"
             >
                 <i class="fa fa-times">
-                    <span class="sr-only" aria-hidden="true">{{ labels.clear }}</span>
+                    <span class="sr-only" aria-hidden="true">{{ parsedLabels.clear }}</span>
                 </i>
             </button>
         </div>
     </div>
 </template>
 
-<script>
-import $ from 'jquery';
-import value from '../mixins/value';
+<script setup lang="ts">
+import { ref, computed, watch, onMounted, onUpdated } from 'vue';
+import type { Locale } from 'flatpickr/dist/types/locale';
+import type { Options } from 'flatpickr/dist/types/options';
 import flatPickr from 'vue-flatpickr-component';
+import { useFieldValue } from '../composables/useFieldValue';
 
-export default {
-    name: 'EditorDate',
+declare const require: (path: string) => { default: Record<string, Locale> };
 
-    components: {
-        flatPickr,
-    },
+const props = defineProps<{
+    value?: string;
+    name: string;
+    readonly: boolean;
+    mode?: string;
+    form: string;
+    locale?: string;
+    labels?: string | Record<string, string>;
+    required: boolean;
+    errormessage: string | boolean;
+}>();
 
-    mixins: [value],
+const mode = computed(() => props.mode || 'date');
+const locale = computed(() => props.locale || 'en');
+const labels = computed(() => props.labels || '');
 
-    props: {
-        value: {
-            type: String,
-            required: false,
-            default: '',
-        },
-        name: {
-            type: String,
-            required: true,
-        },
-        readonly: {
-            type: Boolean,
-            required: true,
-        },
-        mode: {
-            type: String,
-            default: 'date',
-        },
-        form: {
-            type: String,
-            required: true,
-        },
-        locale: {
-            type: String,
-            default: 'en',
-        },
-        labels: {
-            type: String,
-            default: '',
-        },
-        required: {
-            type: Boolean,
-            required: true,
-        },
-        errormessage: {
-            type: String | Boolean,
-            required: true,
-        },
-    },
+const { val } = useFieldValue<string>(props.value ?? '');
 
-    data: () => {
-        return {
-            config: {
-                wrap: true,
-                altFormat: 'F j, Y',
-                altInput: true,
-                dateFormat: 'Y-m-d H:i:S',
-                enableTime: false,
-            },
-        };
-    },
+const rootEl = ref<HTMLElement | null>(null);
 
-    created() {
-        if (this.locale !== 'en') {
-            const lang = require(`flatpickr/dist/l10n/${this.locale}.js`).default[this.locale];
-            this.config.locale = lang;
+function getLocale() {
+    if (locale.value !== 'en') {
+        try {
+            return require(`flatpickr/dist/l10n/${locale.value}.js`).default[locale.value];
+        } catch {
+            return undefined;
         }
-        if (this.mode === 'datetime') {
-            this.config.enableTime = true;
-            this.config.altFormat = `F j, Y - h:i K`;
-        }
-    },
+    }
+    return undefined;
+}
 
-    updated() {
-        this.fixRequired();
-    },
+// flatpickr rejects `locale: undefined` (throws "invalid locale undefined"), so
+// only include the key when a locale was actually resolved; otherwise flatpickr
+// falls back to its built-in English default.
+const flatpickrLocale = getLocale();
+const config = ref<Partial<Options>>({
+    wrap: true,
+    altFormat: mode.value === 'datetime' ? 'F j, Y - h:i K' : 'F j, Y',
+    altInput: true,
+    dateFormat: 'Y-m-d H:i:S',
+    enableTime: mode.value === 'datetime',
+    ...(flatpickrLocale ? { locale: flatpickrLocale } : {}),
+});
 
-    methods: {
-        fixRequired() {
-            if (!this.required) {
-                return;
-            }
+const parsedLabels = computed(() => {
+    try {
+        return typeof labels.value === 'string' ? JSON.parse(labels.value || '{}') : labels.value;
+    } catch {
+        return {};
+    }
+});
 
-            const input = $(this.$el).find('.editor--date.input');
+function fixRequired(reportValidity = false) {
+    if (!props.required || !rootEl.value) {
+        return;
+    }
 
-            if (this.val === '') {
-                input.attr('required', true);
-            } else {
-                input.removeAttr('required');
-            }
+    const input = rootEl.value.querySelector('.editor--date.input') as HTMLInputElement;
+    if (!input) return;
 
-            // This is needed to make sure validation
-            // popup shows "please fill in this field"
-            // rather than undefined.
-            input[0].reportValidity();
-            input[0].setCustomValidity('');
-        },
-    },
-};
+    if (val.value === '') {
+        input.required = true;
+    } else {
+        input.removeAttribute('required');
+    }
+
+    // Only surface the native validation popup after a user interaction or a
+    // subsequent update — never on the initial mount. Calling reportValidity()
+    // on mount would flash "please fill in this field" on page load for every
+    // empty required date field, before the user has touched the form.
+    if (!reportValidity) {
+        return;
+    }
+
+    if (input.reportValidity) {
+        input.reportValidity();
+    }
+    if (input.setCustomValidity) {
+        input.setCustomValidity('');
+    }
+}
+
+onMounted(() => fixRequired(false));
+onUpdated(() => fixRequired(true));
+
+watch(val, () => {
+    fixRequired(true);
+});
 </script>
