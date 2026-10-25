@@ -46,6 +46,16 @@ describe('listing store — selecting', () => {
         expect(stores.selecting.selectedCount).toBe(2);
     });
 
+    it('does not select the same id twice', () => {
+        const { stores } = createListingStore();
+
+        stores.selecting.select(1);
+        stores.selecting.select(1);
+
+        expect(stores.selecting.selected).toEqual([1]);
+        expect(stores.selecting.selectedCount).toBe(1);
+    });
+
     it('removes a deselected id', () => {
         const { stores } = createListingStore();
 
@@ -57,18 +67,16 @@ describe('listing store — selecting', () => {
         expect(stores.selecting.selectedCount).toBe(1);
     });
 
-    it('lets the count drift below the list when an unselected id is deselected', () => {
-        // Pinning current behaviour: deSelect decrements unconditionally but only
-        // splices when the id is actually present, so the count and the list can
-        // disagree. Components never take that path today, which is why it has
-        // gone unnoticed.
+    it('keeps the count in step with the list when an unselected id is deselected', () => {
+        // The Vuex module decremented the count unconditionally, so it could
+        // drift below the list. The count is now derived from the list.
         const { stores } = createListingStore();
 
         stores.selecting.select(1);
         stores.selecting.deSelect(99);
 
         expect(stores.selecting.selected).toEqual([1]);
-        expect(stores.selecting.selectedCount).toBe(0);
+        expect(stores.selecting.selectedCount).toBe(1);
     });
 });
 

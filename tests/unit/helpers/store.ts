@@ -102,7 +102,7 @@ function build<Stores extends Record<string, AnyStore>>(
 export interface ListingSeed {
     general?: { type?: string | null; rowSize?: string; sorting?: boolean };
     listing?: { records?: unknown[] };
-    selecting?: { selectAll?: boolean; selectedCount?: number; selected?: number[] };
+    selecting?: { selectAll?: boolean; selected?: number[] };
 }
 
 export function createListingStore(seed: ListingSeed = {}) {
