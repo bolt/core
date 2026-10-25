@@ -3,7 +3,6 @@ import { createPinia, PiniaVuePlugin, setActivePinia, type Pinia } from 'pinia';
 import { createLocalVue } from '@vue/test-utils';
 
 import { useGeneralStore as useListingGeneralStore, useListingStore, useSelectingStore } from '@/listing/store';
-import { useGeneralStore as useEditorGeneralStore } from '@/editor/store';
 import { useGeneralStore as useSidebarGeneralStore } from '@/sidebar/store';
 import { useGeneralStore as useToolbarGeneralStore } from '@/toolbar/store';
 
@@ -114,14 +113,6 @@ export function createListingStore(seed: ListingSeed = {}) {
         }),
         seed as Record<string, Record<string, unknown>>,
     );
-}
-
-/**
- * The editor's own store. Note no editor component reads it — the slim-sidebar
- * flag it holds is driven from the sidebar's store instead.
- */
-export function createEditorStore(seed: { general?: { slimSidebar?: boolean } } = {}) {
-    return build(() => ({ general: useEditorGeneralStore() }), seed);
 }
 
 export function createSidebarStore(seed: { general?: { slimSidebar?: boolean } } = {}) {

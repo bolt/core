@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { createEditorStore, createSidebarStore, createToolbarStore } from '../helpers/store';
+import { createSidebarStore, createToolbarStore } from '../helpers/store';
 
 describe('sidebar store', () => {
     it('starts with a full-width sidebar', () => {
@@ -20,15 +20,5 @@ describe('toolbar store', () => {
         expect(createToolbarStore({ general: { toolbarColor: '#112233' } }).stores.general.toolbarColor).toBe(
             '#112233',
         );
-    });
-});
-
-describe('editor store', () => {
-    it('starts with a full-width sidebar', () => {
-        expect(createEditorStore().stores.general.slimSidebar).toBe(false);
-    });
-
-    it('can be seeded as slim', () => {
-        expect(createEditorStore({ general: { slimSidebar: true } }).stores.general.slimSidebar).toBe(true);
     });
 });

@@ -67,8 +67,6 @@ export default defineConfig({
                 'assets/js/app/sidebar/index.js',
                 'assets/js/app/toolbar/index.js',
                 'assets/js/app/login/index.js',
-                // A leftover Vuex module that nothing imports. Dead code.
-                'assets/js/app/listing/store/modules/type/**',
             ],
             // The gate is 90% across the board.
             //
