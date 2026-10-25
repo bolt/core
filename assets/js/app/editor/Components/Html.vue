@@ -21,11 +21,11 @@ const langFiles = import.meta.webpackContext('trumbowyg/dist/langs', {
 });
 
 // Trumbowyg names some languages differently from the ISO codes Bolt uses. Its `my`
-// is Malay, while ISO `my` is Burmese, so that one must not match as-is.
+// file is meant to be Malay, while ISO `my` is Burmese, so that one must not match
+// as-is. Malay (`ms`) is not aliased to it either: the file registers itself as `id`.
 const langAliases = new Map([
     ['be', 'by'],
     ['fil', 'ph'],
-    ['ms', 'my'],
     ['my', null],
     ['nn', 'nb'],
     ['no', 'nb'],
@@ -70,6 +70,12 @@ async function loadLang(locale) {
     try {
         await langFiles(`./${lang}.min.js`);
     } catch {
+        return 'en';
+    }
+
+    // A file that registers itself under another name would leave Trumbowyg without
+    // the language it was told to use.
+    if (!jQuery.trumbowyg.langs[lang]) {
         return 'en';
     }
 
