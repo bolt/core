@@ -97,11 +97,5 @@
         <target>Používateľ je deaktivovaný.</target>
       </segment>
     </unit>
-    <unit id="NF.vvAN" name="You have to login in order to access this page.">
-      <segment>
-        <source>You have to login in order to access this page.</source>
-        <target>Na prístup k tejto stránke sa musíte prihlásiť.</target>
-      </segment>
-    </unit>
   </file>
 </xliff>
