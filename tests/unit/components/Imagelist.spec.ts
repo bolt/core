@@ -14,7 +14,7 @@ const imageStub = {
         isFirstInImagelist: { type: Boolean, default: false },
         isLastInImagelist: { type: Boolean, default: false },
         readonly: { type: Boolean, default: false },
-        extraFields: { type: Array, default: () => [] },
+        extraFields: { type: Object, default: () => ({}) },
         extraData: { type: Object, default: () => ({}) },
     },
     computed: {
@@ -52,15 +52,15 @@ const defaultProps = {
 const mountImagelist = (images: unknown[], props: Record<string, unknown> = {}) =>
     mount(Imagelist, {
         // `images` is mutated in place by data(), so hand each mount its own copy.
-        propsData: { ...defaultProps, images: JSON.parse(JSON.stringify(images)), ...props },
-        stubs: { 'editor-image': imageStub },
+        props: { ...defaultProps, images: JSON.parse(JSON.stringify(images)), ...props },
+        global: { stubs: { 'editor-image': imageStub } },
     });
 
-const rows = (wrapper: ReturnType<typeof mount>) => wrapper.findAll('.image-stub').wrappers.map(row => row.text());
+const rows = (wrapper: ReturnType<typeof mount>) => wrapper.findAll('.image-stub').map(row => row.text());
 const names = (wrapper: ReturnType<typeof mount>) =>
-    wrapper.findAll('.image-stub').wrappers.map(row => row.attributes('data-name'));
+    wrapper.findAll('.image-stub').map(row => row.attributes('data-name'));
 const child = (wrapper: ReturnType<typeof mount>, index: number) =>
-    wrapper.findAllComponents(imageStub).at(index).vm as unknown as {
+    wrapper.findAllComponents(imageStub)[index].vm as unknown as {
         moveUp: () => void;
         moveDown: () => void;
         remove: () => void;
@@ -90,16 +90,23 @@ describe('EditorImagelist', () => {
     });
 
     it('passes the extra fields down to each row', () => {
-        const extraFields = ['caption', 'credit'];
+        const extraFields = { caption: { label: 'Caption' }, credit: { label: 'Credit', placeholder: 'Who' } };
         const wrapper = mountImagelist(images, { extraFields });
 
-        expect(wrapper.findAllComponents(imageStub).at(0).props('extraFields')).toEqual(extraFields);
+        expect(wrapper.findAllComponents(imageStub)[0].props('extraFields')).toEqual(extraFields);
+    });
+
+    it('passes no extra fields down when there are none', () => {
+        // Twig json_encodes an empty `extra` definition as a list, not a map.
+        const wrapper = mountImagelist(images, { extraFields: [] });
+
+        expect(wrapper.findAllComponents(imageStub)[0].props('extraFields')).toEqual({});
     });
 
     it('tells each row whether it is first or last', () => {
         const wrapper = mountImagelist([{ filename: 'a.jpg' }, { filename: 'b.jpg' }, { filename: 'c.jpg' }]);
 
-        const children = wrapper.findAllComponents(imageStub).wrappers;
+        const children = wrapper.findAllComponents(imageStub);
         expect(children.map(c => c.props('isFirstInImagelist'))).toEqual([true, false, false]);
         expect(children.map(c => c.props('isLastInImagelist'))).toEqual([false, false, true]);
     });
@@ -175,7 +182,7 @@ describe('EditorImagelist', () => {
         child(wrapper, 2).remove();
         await nextTick();
 
-        const children = wrapper.findAllComponents(imageStub).wrappers;
+        const children = wrapper.findAllComponents(imageStub);
         expect(children.map(c => c.props('isLastInImagelist'))).toEqual([false, true]);
     });
 
@@ -198,5 +205,13 @@ describe('EditorImagelist', () => {
 
         expect(rows(wrapper)).not.toContain('10.jpg');
         expect(rows(wrapper)).toHaveLength(11);
+    });
+
+    it('starts empty when the image list is missing', () => {
+        const wrapper = mount(Imagelist, { props: defaultProps, global: { stubs: { 'editor-image': imageStub } } });
+
+        expect(rows(wrapper)).toEqual([]);
+        // The empty-value input still posts the field, so it is cleared on save.
+        expect(wrapper.find(`input[type="hidden"][name="${defaultProps.name}"]`).exists()).toBe(true);
     });
 });

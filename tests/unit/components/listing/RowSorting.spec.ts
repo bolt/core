@@ -5,7 +5,7 @@ import { createListingStore } from '../../helpers/store';
 
 const mountSorting = (sorting: boolean) => {
     const testStore = createListingStore({ general: { sorting } });
-    return mount(Sorting, { localVue: testStore.localVue, store: testStore.store });
+    return mount(Sorting, { global: { plugins: [testStore.pinia] } });
 };
 
 describe('Listing row Sorting handle', () => {

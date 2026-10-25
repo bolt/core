@@ -35,10 +35,10 @@ const record = {
 };
 
 const mountActions = (overrides: Record<string, unknown> = {}) =>
-    mount(Actions, { propsData: { type: 'pages', record: { ...record, ...overrides }, labels } });
+    mount(Actions, { props: { type: 'pages', record: { ...record, ...overrides }, labels } });
 
 const dropdownHrefs = (wrapper: ReturnType<typeof mount>) =>
-    wrapper.findAll('.edit-actions__dropdown a').wrappers.map(link => link.attributes('href'));
+    wrapper.findAll('.edit-actions__dropdown a').map(link => link.attributes('href'));
 
 describe('Listing row Actions', () => {
     it('renders the edit button', () => {
@@ -122,12 +122,11 @@ describe('Listing row Actions', () => {
         expect(wrapper.find('code').attributes('title')).toBe(long);
     });
 
-    it.skip('hides the status links when the record has no status link', () => {
-        // Only passes after fcb39369 ("Hide listing status links when statusLink
-        // is unavailable"). Today the links are always rendered, so a record
-        // without a statusLink gets href="undefined&status=published".
+    it('hides the status links when the record has no status link', () => {
+        // Rendering them anyway would produce href="undefined&status=published".
         const wrapper = mountActions({ status: 'draft', extras: { ...record.extras, statusLink: undefined } });
 
-        expect(dropdownHrefs(wrapper)).not.toContain('undefined&status=published');
+        expect(dropdownHrefs(wrapper).filter(href => href?.includes('&status='))).toEqual([]);
+        expect(wrapper.find('.status.is-published').exists()).toBe(false);
     });
 });

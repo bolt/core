@@ -1,7 +1,9 @@
 import js from '@eslint/js';
 import cypress from 'eslint-plugin-cypress';
 import prettierRecommended from 'eslint-plugin-prettier/recommended';
+import sonarjs from 'eslint-plugin-sonarjs';
 import vue from 'eslint-plugin-vue';
+import vuejsAccessibility from 'eslint-plugin-vuejs-accessibility';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
@@ -12,31 +14,23 @@ export default [
 
     js.configs.recommended,
 
-    // The codebase is Vue 2.7, so use the vue2 preset rather than the Vue 3
-    // default. This is the flat-config equivalent of the old
-    // "plugin:vue/recommended" under eslint-plugin-vue 6.
-    ...vue.configs['flat/vue2-recommended'],
+    ...tseslint.configs.recommended,
 
-    // Scoped to TypeScript files so the Vue 2 SFCs, which are still plain JS, keep
-    // being linted by the vue2 preset above and are not parsed as TypeScript.
-    ...tseslint.configs.recommended.map(config => ({
-        ...config,
-        files: ['assets/**/*.ts', 'tests/unit/**/*.ts', 'vitest.config.ts'],
-    })),
+    ...vue.configs['flat/recommended'],
 
-    {
-        files: ['assets/**/*.ts', 'tests/unit/**/*.ts', 'vitest.config.ts'],
-        rules: {
-            // Warn, not error, while TypeScript is confined to the leaf modules.
-            // It becomes an error once the components are converted and there is
-            // a real surface for it to protect.
-            '@typescript-eslint/no-explicit-any': 'warn',
-        },
-    },
+    ...vuejsAccessibility.configs['flat/recommended'],
+
+    sonarjs.configs.recommended,
 
     {
         files: ['assets/**/*.{js,ts,vue}'],
         languageOptions: {
+            // The SFCs use <script setup lang="ts">, so vue-eslint-parser hands
+            // their script blocks to the TypeScript parser.
+            parserOptions: {
+                parser: tseslint.parser,
+                extraFileExtensions: ['.vue'],
+            },
             ecmaVersion: 2022,
             sourceType: 'module',
             globals: {
@@ -54,33 +48,30 @@ export default [
             // be a breaking change, so these two stay off.
             'vue/multi-word-component-names': 'off',
             'vue/component-definition-name-casing': 'off',
+            '@typescript-eslint/no-this-alias': 'off',
+            '@typescript-eslint/no-require-imports': 'off',
+            'vuejs-accessibility/label-has-for': [
+                'error',
+                {
+                    required: {
+                        some: ['nesting', 'id'],
+                    },
+                },
+            ],
         },
     },
 
-    // These three components write directly to their own props. That is a real
-    // bug class, but fixing it means reworking how each field propagates its
-    // value, which is a behaviour change and out of scope for a tooling PR.
-    // Scoped to the known offenders on purpose, so any *new* prop mutation
-    // elsewhere still fails the lint run.
-    {
-        files: [
-            'assets/js/app/editor/Components/File.vue',
-            'assets/js/app/editor/Components/Image.vue',
-            'assets/js/app/editor/Components/Select.vue',
-        ],
-        rules: {
-            'vue/no-mutating-props': 'off',
-        },
-    },
-
-    // ESLint 10 adds no-useless-assignment, which flags a dead folderPath
-    // initialiser in these two components. Removing it is safe but it is still
-    // a change to runtime code, and this PR deliberately touches runtime code
-    // by formatting only. Deferred with the other findings above.
     {
         files: ['assets/js/app/editor/Components/File.vue', 'assets/js/app/editor/Components/Image.vue'],
         rules: {
-            'no-useless-assignment': 'off',
+            'vuejs-accessibility/no-static-element-interactions': 'off',
+        },
+    },
+
+    {
+        files: ['assets/js/app/editor/Components/Text.vue'],
+        rules: {
+            'vuejs-accessibility/no-autofocus': 'off',
         },
     },
 

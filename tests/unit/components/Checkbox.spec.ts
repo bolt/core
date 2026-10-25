@@ -20,40 +20,41 @@ const submitted = (wrapper: ReturnType<typeof mount>) =>
 
 describe('EditorCheckbox', () => {
     it('renders the label and field metadata', () => {
-        const wrapper = mount(Checkbox, { propsData: defaultProps });
+        const wrapper = mount(Checkbox, { props: defaultProps });
 
         expect(wrapper.find('label').text()).toBe('Featured');
-        expect(wrapper.find('label').attributes('for')).toBe('fields[featured]');
+        // Points at the checkbox's id, so clicking the label toggles it.
+        expect(wrapper.find('label').attributes('for')).toBe('field-featured');
         expect(visible(wrapper).attributes('id')).toBe('field-featured');
         expect(visible(wrapper).attributes('name')).toBe('fields[featured]');
     });
 
     it('reflects an unchecked value', () => {
-        const wrapper = mount(Checkbox, { propsData: defaultProps });
+        const wrapper = mount(Checkbox, { props: defaultProps });
 
         expect((visible(wrapper).element as HTMLInputElement).checked).toBe(false);
         expect(submitted(wrapper).value).toBe('false');
     });
 
     it('reflects a checked value', () => {
-        const wrapper = mount(Checkbox, { propsData: { ...defaultProps, value: true } });
+        const wrapper = mount(Checkbox, { props: { ...defaultProps, value: true } });
 
         expect((visible(wrapper).element as HTMLInputElement).checked).toBe(true);
         expect(submitted(wrapper).value).toBe('true');
     });
 
     it('mirrors a change into the submitted value', async () => {
-        const wrapper = mount(Checkbox, { propsData: defaultProps });
+        const wrapper = mount(Checkbox, { props: defaultProps });
 
-        await visible(wrapper).setChecked(true);
+        await visible(wrapper).setValue(true);
         expect(submitted(wrapper).value).toBe('true');
 
-        await visible(wrapper).setChecked(false);
+        await visible(wrapper).setValue(false);
         expect(submitted(wrapper).value).toBe('false');
     });
 
     it('renders switch mode with the switch classes', () => {
-        const wrapper = mount(Checkbox, { propsData: { ...defaultProps, mode: 'switch' } });
+        const wrapper = mount(Checkbox, { props: { ...defaultProps, mode: 'switch' } });
 
         const control = wrapper.find('.custom-control');
         expect(control.classes()).toContain('form-switch');
@@ -61,7 +62,7 @@ describe('EditorCheckbox', () => {
     });
 
     it('does not add the switch class in check mode', () => {
-        const wrapper = mount(Checkbox, { propsData: defaultProps });
+        const wrapper = mount(Checkbox, { props: defaultProps });
 
         expect(wrapper.find('.custom-control').classes()).not.toContain('form-switch');
     });

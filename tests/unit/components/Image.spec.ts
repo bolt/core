@@ -1,13 +1,13 @@
-import { mount } from '@vue/test-utils';
+import { flushPromises, mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import Axios from 'axios';
 import ImageField from '@/editor/Components/Image.vue';
+import baguetteBox from 'baguettebox.js';
+import noScroll from 'no-scroll';
 import { renable } from '@/patience-is-a-virtue';
 import { resetModalContent } from '@/modal';
 import { withResourcesModal } from '../helpers/dom';
-import { flushPromises } from '../helpers/async';
-import { expectVueWarning } from '../helpers/warnings';
 
 vi.mock('axios', () => ({ default: { get: vi.fn(), post: vi.fn() } }));
 vi.mock('@/patience-is-a-virtue', () => ({ renable: vi.fn() }));
@@ -54,12 +54,12 @@ const defaultProps = {
     inImagelist: false,
     isFirstInImagelist: false,
     isLastInImagelist: false,
-    extraFields: [],
-    extraData: [],
+    extraFields: {},
+    extraData: {},
 };
 
-const mountImage = (props: Record<string, unknown> = {}) =>
-    mount(ImageField, { propsData: { ...defaultProps, ...props } });
+const mountImage = (props: Record<string, unknown> = {}, options: { attachTo?: HTMLElement } = {}) =>
+    mount(ImageField, { props: { ...defaultProps, ...props }, ...options });
 
 const value = (wrapper: ReturnType<typeof mount>, selector: string) =>
     (wrapper.find(selector).element as HTMLInputElement).value;
@@ -67,7 +67,7 @@ const filenameInput = 'input[name="fields[image][filename]"]';
 const altInput = 'input[name="fields[image][alt]"]';
 const preview = (wrapper: ReturnType<typeof mount>) => wrapper.find('.editor__image--preview-image');
 const button = (wrapper: ReturnType<typeof mount>, label: string) =>
-    wrapper.findAll('button').wrappers.find(b => b.text().trim() === label)!;
+    wrapper.findAll('button').find(b => b.text().trim() === label)!;
 
 const serverImages = [
     { text: 'a.jpg', group: 'files', value: 'files/a.jpg', base_url_path: '/bolt/async/filelist' },
@@ -128,12 +128,6 @@ describe('EditorImage', () => {
     });
 
     it('renders an input per extra field, bound to the record', async () => {
-        // `extraFields` and `extraData` are declared as Array, but the template
-        // iterates the first as an object and keys into the second by field
-        // name — so real usage always trips Vue's prop-type check. Imagelist.vue
-        // passes objects too; the declarations are simply wrong.
-        expectVueWarning(/Invalid prop: type check failed for prop "extraFields"/);
-        expectVueWarning(/Invalid prop: type check failed for prop "extraData"/);
         const wrapper = mountImage({
             extraFields: { caption: { label: 'Caption', placeholder: 'Say something' } },
             extraData: { caption: 'A caption' },
@@ -144,7 +138,7 @@ describe('EditorImage', () => {
         expect(caption.exists()).toBe(true);
         expect((caption.element as HTMLInputElement).value).toBe('A caption');
         expect(caption.attributes('placeholder')).toBe('Say something');
-        expect(wrapper.findAll('label').wrappers.map(l => l.text())).toContain('Caption:');
+        expect(wrapper.findAll('label').map(l => l.text())).toContain('Caption:');
     });
 
     it('offers the attributes link only once an image is chosen', async () => {
@@ -170,8 +164,8 @@ describe('EditorImage', () => {
         await button(wrapper, 'Move up').trigger('click');
         await button(wrapper, 'Move down').trigger('click');
 
-        expect(wrapper.emitted('move-image-up')).toHaveLength(1);
-        expect(wrapper.emitted('move-image-down')).toHaveLength(1);
+        expect(wrapper.emitted('moveImageUp')).toHaveLength(1);
+        expect(wrapper.emitted('moveImageDown')).toHaveLength(1);
     });
 
     it('cannot move the first image up or the last one down', () => {
@@ -286,7 +280,8 @@ describe('EditorImage', () => {
         // failure, so it is left to the Vue 3 branch to fix and cover.
 
         it('highlights the field while an image is dragged over it', async () => {
-            const wrapper = mountImage();
+            // Attached: isVisible() only reads the real style of an element in the document.
+            const wrapper = mountImage({}, { attachTo: document.body });
             const dropZone = wrapper.find('.editor__image');
 
             await dropZone.trigger('dragenter');
@@ -397,14 +392,34 @@ describe('EditorImage', () => {
             expect(alert).toHaveBeenCalledWith('Could not read the directory<br>Image did not upload.');
             expect(renable).toHaveBeenCalled();
         });
+
+        it('surfaces the server message when the failure is a real AxiosError', async () => {
+            const alert = vi.spyOn(window, 'alert').mockImplementation(() => undefined);
+            // A genuine AxiosError is an Error that also carries `.response`; its
+            // generic message must not shadow the one the server sent.
+            vi.mocked(Axios.get).mockRejectedValue(
+                Object.assign(new Error('Request failed with status code 400'), {
+                    response: { data: { error: { message: 'Server says no' } } },
+                }),
+            );
+            const wrapper = mountImage();
+            await nextTick();
+            withResourcesModal();
+
+            await button(wrapper, 'From library').trigger('click');
+            await flushPromises();
+
+            expect(alert).toHaveBeenCalledWith('Server says no<br>Image did not upload.');
+        });
     });
 
     describe('uploading from a url', () => {
         const openUrlModal = async (wrapper: ReturnType<typeof mount>) => {
             withResourcesModal();
             await button(wrapper, 'From URL').trigger('click');
-            // The url form is written into the modal on a 1ms timeout.
-            await flushPromises();
+            // The url form is written into the modal on a 1ms timeout. A timer
+            // of the same delay set after it fires after it.
+            await new Promise(resolve => setTimeout(resolve, 1));
         };
 
         it('offers a url form in the modal', async () => {
@@ -467,13 +482,223 @@ describe('EditorImage', () => {
         });
     });
 
-    // Only passes after 40d34700. Today the whole record is handed to
-    // `extra-data`, so keys of the base record (filename, alt, media…) leak
-    // into the extra-field inputs when an extra field shares their name.
-    it.todo('binds a declared extra field when passed a whole image record');
+    it('binds a declared extra field when passed a whole image record', async () => {
+        // In an image list the parent passes the whole record as extra-data,
+        // base keys (filename, media…) alongside the extra values.
+        const wrapper = mountImage({
+            extraFields: { caption: { label: 'Caption', placeholder: 'Caption…' } },
+            extraData: { filename: 'foo.jpg', media: 5, thumbnail: '/thumbs/foo.jpg', caption: 'Old caption' },
+        });
+        await nextTick();
 
-    // Only passes after 9f243336, which moves the file browser into
-    // editor/utils/serverFileBrowser.ts and reads the server's message.
-    // That module does not exist on this branch.
-    it.todo('surfaces the server message when a browse failure is a real AxiosError');
+        expect(value(wrapper, 'input[name="fields[image][caption]"]')).toBe('Old caption');
+    });
+
+    it('keeps typed alt text and extra field values for the form', async () => {
+        const wrapper = mountImage({
+            extraFields: { caption: { label: 'Caption' } },
+            extraData: { caption: 'Old caption' },
+        });
+
+        await wrapper.find(altInput).setValue('A better description');
+        await wrapper.find('input[name="fields[image][caption]"]').setValue('New caption');
+
+        expect(value(wrapper, altInput)).toBe('A better description');
+        expect(value(wrapper, 'input[name="fields[image][caption]"]')).toBe('New caption');
+    });
+
+    it('locks page scrolling while the preview lightbox is open', async () => {
+        vi.mocked(baguetteBox.run).mockClear();
+        vi.mocked(noScroll.on).mockClear();
+        vi.mocked(noScroll.off).mockClear();
+        mountImage();
+        await nextTick();
+
+        expect(baguetteBox.run).toHaveBeenCalledTimes(1);
+        const [selector, options] = vi.mocked(baguetteBox.run).mock.calls[0];
+        expect(selector).toBe('.editor__image--preview');
+
+        options!.afterShow!();
+        expect(noScroll.on).toHaveBeenCalledTimes(1);
+        options!.afterHide!();
+        expect(noScroll.off).toHaveBeenCalledTimes(1);
+    });
+
+    it('starts no lightbox when there is no image', async () => {
+        vi.mocked(baguetteBox.run).mockClear();
+        mountImage({ filename: '' });
+        await nextTick();
+
+        expect(baguetteBox.run).not.toHaveBeenCalled();
+    });
+
+    describe('picking a file', () => {
+        const file = new File(['bytes'], 'picked.jpg', { type: 'image/jpeg' });
+        const fileInput = (wrapper: ReturnType<typeof mount>) => wrapper.find('input[type="file"]');
+        const pick = (wrapper: ReturnType<typeof mount>, files: File[]) => {
+            Object.defineProperty(fileInput(wrapper).element, 'files', { value: files, configurable: true });
+            return fileInput(wrapper).trigger('change');
+        };
+
+        it('opens the file picker from the upload button', async () => {
+            const wrapper = mountImage();
+            const click = vi.spyOn(fileInput(wrapper).element as HTMLInputElement, 'click');
+
+            await button(wrapper, 'Upload').trigger('click');
+
+            expect(click).toHaveBeenCalledTimes(1);
+        });
+
+        it('uploads the picked file', async () => {
+            vi.mocked(Axios.post).mockResolvedValue({ data: 'picked.jpg' });
+            const wrapper = mountImage();
+
+            await pick(wrapper, [file]);
+            await flushPromises();
+
+            expect((vi.mocked(Axios.post).mock.calls[0][1] as FormData).get('image')).toBe(file);
+            expect(value(wrapper, filenameInput)).toBe('picked.jpg');
+        });
+
+        it('does nothing when the picker is cancelled', async () => {
+            const wrapper = mountImage();
+
+            await pick(wrapper, []);
+
+            expect(Axios.post).not.toHaveBeenCalled();
+        });
+
+        it('does not upload without an upload directory', async () => {
+            const wrapper = mountImage({ directory: '' });
+
+            await pick(wrapper, [file]);
+
+            expect(Axios.post).not.toHaveBeenCalled();
+        });
+    });
+
+    it('ignores a drop that carries no file', async () => {
+        const wrapper = mountImage();
+
+        await wrapper.find('.editor__image').trigger('drop', { dataTransfer: { files: [] } });
+
+        expect(Axios.post).not.toHaveBeenCalled();
+    });
+
+    it('offers no url upload without an upload endpoint', async () => {
+        const wrapper = mountImage({ directoryurl: '' });
+        withResourcesModal();
+
+        await button(wrapper, 'From URL').trigger('click');
+        await new Promise(resolve => setTimeout(resolve, 1));
+
+        expect(document.querySelector('input[name=from-url-input]')).toBeNull();
+    });
+
+    it('resets the modal once the url upload dialog is closed', async () => {
+        const wrapper = mountImage();
+        withResourcesModal();
+        await button(wrapper, 'From URL').trigger('click');
+
+        document.getElementById('resourcesModal')!.dispatchEvent(new Event('hidden.bs.modal'));
+
+        expect(resetModalContent).toHaveBeenCalledWith(labels);
+    });
+
+    it('omits optional attributes when they are unset or false', () => {
+        // Twig passes `false` for an unset pattern, placeholder or error message.
+        const wrapper = mountImage({ pattern: false, placeholder: false, errormessage: false });
+
+        expect(wrapper.find(filenameInput).attributes('data-errormessage')).toBeUndefined();
+        expect(wrapper.find(altInput).attributes('pattern')).toBeUndefined();
+        expect(wrapper.find(altInput).attributes('placeholder')).toBe(labels.placeholder_alt_text);
+    });
+
+    it('binds the optional attributes where they apply when set', () => {
+        const wrapper = mountImage({ pattern: '[a-z ]+', errormessage: 'Pick an image' });
+
+        expect(wrapper.find(filenameInput).attributes('data-errormessage')).toBe('Pick an image');
+        expect(wrapper.find(altInput).attributes('pattern')).toBe('[a-z ]+');
+    });
+
+    it('starts empty without a filename, extra fields or extra data', () => {
+        const wrapper = mountImage({ filename: undefined, extraFields: undefined, extraData: undefined });
+
+        expect(value(wrapper, filenameInput)).toBe('');
+        expect(wrapper.findAll('input[type="text"]')).toHaveLength(2);
+    });
+
+    it('offers a way back up out of a subdirectory', async () => {
+        vi.mocked(Axios.get).mockResolvedValue({
+            data: [{ text: 'b.jpg', group: 'files', value: 'files/sub/b.jpg', base_url_path: '/bolt/async/filelist' }],
+        });
+        const wrapper = mountImage();
+        withResourcesModal();
+
+        await button(wrapper, 'From library').trigger('click');
+        await flushPromises();
+
+        const up = document.querySelector('.modal-body a.directory') as HTMLAnchorElement;
+        expect(up.href).toContain('location=files');
+        expect(up.href).toContain('type=images');
+    });
+
+    it('renders an empty modal for a folder with nothing in it', async () => {
+        vi.mocked(Axios.get).mockResolvedValue({ data: [] });
+        const wrapper = mountImage();
+        withResourcesModal();
+
+        await button(wrapper, 'From library').trigger('click');
+        await flushPromises();
+
+        expect(document.querySelector('.modal-body')!.innerHTML).toBe('');
+    });
+
+    it('measures progress against what was sent when the total is unknown', async () => {
+        let reportProgress!: (event: { loaded: number; total?: number }) => void;
+        vi.mocked(Axios.post).mockImplementation((_url, _body, config) => {
+            reportProgress = (config as { onUploadProgress: typeof reportProgress }).onUploadProgress;
+            return new Promise(() => undefined) as never;
+        });
+        const wrapper = mountImage();
+        const file = new File(['bytes'], 'new.jpg', { type: 'image/jpeg' });
+        await wrapper.find('.editor__image').trigger('drop', { dataTransfer: { files: [file] } });
+
+        reportProgress({ loaded: 40 });
+        await nextTick();
+        expect(wrapper.find('.progress-bar').attributes('aria-valuenow')).toBe('100');
+
+        reportProgress({ loaded: 0, total: 0 });
+        await nextTick();
+        expect(wrapper.find('.progress').exists()).toBe(false);
+    });
+
+    it('shows progress while fetching from a url', async () => {
+        let reportProgress!: (event: { loaded: number; total?: number }) => void;
+        vi.mocked(Axios.post).mockImplementation((_url, _body, config) => {
+            reportProgress = (config as { onUploadProgress: typeof reportProgress }).onUploadProgress;
+            return new Promise(() => undefined) as never;
+        });
+        const wrapper = mountImage();
+        withResourcesModal();
+        await button(wrapper, 'From URL').trigger('click');
+        await new Promise(resolve => setTimeout(resolve, 1));
+        (document.querySelector('input[name=from-url-input]') as HTMLInputElement).value = 'https://example.org/a.jpg';
+        (document.getElementById('modalButtonAccept') as HTMLButtonElement).click();
+
+        reportProgress({ loaded: 30, total: 60 });
+        await nextTick();
+
+        expect(wrapper.find('.progress-bar').attributes('aria-valuenow')).toBe('50');
+    });
+
+    it('does nothing for a url upload when the page has no modal', async () => {
+        const wrapper = mountImage();
+
+        await button(wrapper, 'From URL').trigger('click');
+        await new Promise(resolve => setTimeout(resolve, 1));
+
+        expect(Axios.post).not.toHaveBeenCalled();
+        expect(renable).not.toHaveBeenCalled();
+    });
 });

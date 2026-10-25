@@ -1,23 +1,18 @@
-import { mount } from '@vue/test-utils';
+import { flushPromises, mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
-import { afterEach, describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import $ from 'jquery';
-import { flushPromises } from '../helpers/async';
 import Collection from '@/editor/Components/Collection.vue';
 
 /**
- * Collection.vue is driven by jQuery rather than Vue: the collection items come
- * from Twig, and mounted() delegates click handlers off `document` for them. So
- * this spec mounts into the document and drives real jQuery events.
+ * Collection.vue is driven by jQuery as much as by Vue: the collection items
+ * come from Twig, and the mounted hook delegates click handlers off `document`
+ * for them. So this spec mounts into the document and drives real jQuery events.
  *
- * Those delegated handlers are never torn down — the component has no
- * beforeDestroy — so every mount adds another set to `document`. Left alone
- * they accumulate across tests and a single click fires the same handler once
- * per mount, which quietly cancels out the toggles. The afterEach below removes
- * them so each test starts clean.
- *
- * Worth knowing: nothing removes them in the browser either. It does not bite
- * today only because a collection field mounts once per page load.
+ * Those delegated handlers are namespaced and removed again on unmount, which
+ * the global teardown does after every test (see ../setup.ts). Without that
+ * they would accumulate across tests and a single click would fire the same
+ * handler once per mount, quietly cancelling out the toggles.
  */
 
 const labels = {
@@ -74,25 +69,20 @@ const defaultProps = {
 
 const mountCollection = (props: Record<string, unknown> = {}) =>
     mount(Collection, {
-        propsData: { ...defaultProps, existingFields: [], ...props },
+        props: { ...defaultProps, existingFields: [], ...props },
         attachTo: document.body,
     });
 
-const items = (wrapper: ReturnType<typeof mount>) => wrapper.findAll('.collection-item').wrappers;
+const items = (wrapper: ReturnType<typeof mount>) => wrapper.findAll('.collection-item');
 const titles = (wrapper: ReturnType<typeof mount>) =>
     items(wrapper).map(item => item.find('.collection-item-title').text());
-const addButton = (wrapper: ReturnType<typeof mount>) => wrapper.find('button.btn-small, a.dropdown-item');
-
-afterEach(() => {
-    $(document).off('click');
-    $('#modalButtonAccept').off('click');
-});
+const addButton = (wrapper: ReturnType<typeof mount>) => wrapper.find('button.btn-small, button.dropdown-item');
 
 describe('EditorCollection', () => {
     it('renders the field label and the expand controls', () => {
         const wrapper = mountCollection();
 
-        expect(wrapper.find('label').text()).toBe('Blocks:');
+        expect(wrapper.find('.expand-buttons > span').text()).toBe('Blocks:');
         expect(wrapper.find('.collection-expand-all').text()).toBe('Expand all');
         expect(wrapper.find('.collection-collapse-all').text()).toBe('Collapse all');
         expect(wrapper.attributes('id')).toBe('blocks');
@@ -134,7 +124,7 @@ describe('EditorCollection', () => {
         const wrapper = mountCollection();
 
         expect(wrapper.find('.dropdown').exists()).toBe(true);
-        const options = wrapper.findAll('a.dropdown-item').wrappers;
+        const options = wrapper.findAll('button.dropdown-item');
         expect(options.map(option => option.attributes('data-template'))).toEqual(['Text block', 'Image block']);
     });
 
@@ -149,7 +139,7 @@ describe('EditorCollection', () => {
     it('adds an item of the chosen template', async () => {
         const wrapper = mountCollection();
 
-        await wrapper.findAll('a.dropdown-item').at(1).trigger('click');
+        await wrapper.findAll('button.dropdown-item')[1].trigger('click');
 
         expect(items(wrapper)).toHaveLength(1);
         expect(titles(wrapper)).toEqual(['Image block']);
@@ -161,7 +151,7 @@ describe('EditorCollection', () => {
         await addButton(wrapper).trigger('click');
         await addButton(wrapper).trigger('click');
 
-        const names = wrapper.findAll('.collection-item input').wrappers.map(input => input.attributes('name'));
+        const names = wrapper.findAll('.collection-item input').map(input => input.attributes('name'));
         expect(names).toHaveLength(2);
         expect(names[0]).not.toBe(names[1]);
         expect(names[0]).not.toContain('TEMPLATEHASH');
@@ -267,12 +257,9 @@ describe('EditorCollection', () => {
         expect(remaining).toEqual(['fields[blocks][b]']);
     });
 
-    it('frees up a slot as soon as remove is clicked, before it is confirmed', async () => {
-        // Pinning current behaviour, which is a bug. The remove handler
-        // decrements the counter straight away and only defers the removal
-        // itself to the confirmation's accept button. Cancelling the modal
-        // leaves the item in place with its slot already given back, so the
-        // limit can be exceeded. Note the accept button is never clicked here.
+    it('keeps the slot taken until the removal is confirmed', async () => {
+        // Cancelling the confirmation leaves the item in place, so it must not
+        // have given its slot back, or the limit could be exceeded.
         const wrapper = mountCollection({ existingFields: [field('a', 'First')], limit: 1 });
         document.body.insertAdjacentHTML('beforeend', '<button id="modalButtonAccept"></button>');
         expect(wrapper.find('button.dropdown-toggle').attributes('disabled')).toBeDefined();
@@ -282,7 +269,23 @@ describe('EditorCollection', () => {
             .element.dispatchEvent(new MouseEvent('click', { bubbles: true }));
         await nextTick();
 
+        expect(wrapper.find('button.dropdown-toggle').attributes('disabled')).toBeDefined();
+
+        $('#modalButtonAccept').trigger('click');
+        await nextTick();
+
         expect(wrapper.find('button.dropdown-toggle').attributes('disabled')).toBeUndefined();
+    });
+
+    it('removes its document handlers when unmounted', async () => {
+        const wrapper = mountCollection({ existingFields: [field('a', 'First')], variant: 'expanded' });
+        const summary = wrapper.find('.summary').element;
+
+        wrapper.unmount();
+        document.body.appendChild(summary.closest('.collection-container') ?? summary);
+        summary.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+
+        expect(summary.closest('.collection-item')?.classList.contains('collapsed')).toBe(false);
     });
 
     it('shows the value of the first text field as the item title', async () => {

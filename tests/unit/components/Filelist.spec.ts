@@ -3,7 +3,6 @@ import { nextTick } from 'vue';
 import { describe, expect, it } from 'vitest';
 import Filelist from '@/editor/Components/Filelist.vue';
 import { captureVueErrors } from '../helpers/errors';
-import { expectVueWarning } from '../helpers/warnings';
 
 // File.vue emits its own component instance as the payload, and Filelist reads
 // `fieldName` off it to work out which row moved. The stub reproduces that
@@ -53,15 +52,15 @@ const defaultProps = {
 const mountFilelist = (files: unknown[], props: Record<string, unknown> = {}) =>
     mount(Filelist, {
         // `files` is mutated in place by data(), so hand each mount its own copy.
-        propsData: { ...defaultProps, files: JSON.parse(JSON.stringify(files)), ...props },
-        stubs: { 'editor-file': fileStub },
+        props: { ...defaultProps, files: JSON.parse(JSON.stringify(files)), ...props },
+        global: { stubs: { 'editor-file': fileStub } },
     });
 
-const rows = (wrapper: ReturnType<typeof mount>) => wrapper.findAll('.file-stub').wrappers.map(row => row.text());
+const rows = (wrapper: ReturnType<typeof mount>) => wrapper.findAll('.file-stub').map(row => row.text());
 const names = (wrapper: ReturnType<typeof mount>) =>
-    wrapper.findAll('.file-stub').wrappers.map(row => row.attributes('data-name'));
+    wrapper.findAll('.file-stub').map(row => row.attributes('data-name'));
 const child = (wrapper: ReturnType<typeof mount>, index: number) =>
-    wrapper.findAllComponents(fileStub).at(index).vm as unknown as {
+    wrapper.findAllComponents(fileStub)[index].vm as unknown as {
         moveUp: () => void;
         moveDown: () => void;
         remove: () => void;
@@ -100,7 +99,7 @@ describe('EditorFilelist', () => {
     it('tells each row whether it is first or last', () => {
         const wrapper = mountFilelist([{ filename: 'a.pdf' }, { filename: 'b.pdf' }, { filename: 'c.pdf' }]);
 
-        const children = wrapper.findAllComponents(fileStub).wrappers;
+        const children = wrapper.findAllComponents(fileStub);
         expect(children.map(c => c.props('isFirstInFilelist'))).toEqual([true, false, false]);
         expect(children.map(c => c.props('isLastInFilelist'))).toEqual([false, false, true]);
     });
@@ -184,16 +183,15 @@ describe('EditorFilelist', () => {
         expect(rows(wrapper)).toHaveLength(11);
     });
 
-    it('fails to render when the file list is missing', async () => {
-        // Pinning current behaviour: data() calls `this.files.forEach` with no
-        // guard, so a field rendered without a `files` prop throws instead of
-        // starting empty. Twig always passes one today. With data() gone the
-        // template then renders against state that was never declared.
-        expectVueWarning(/"containerFiles" is not defined on the instance/);
+    it('starts empty when the file list is missing', async () => {
+        let wrapper!: ReturnType<typeof mount>;
         const errors = await captureVueErrors(() => {
-            mount(Filelist, { propsData: defaultProps, stubs: { 'editor-file': fileStub } });
+            wrapper = mount(Filelist, { props: defaultProps, global: { stubs: { 'editor-file': fileStub } } });
         });
 
-        expect(errors[0]).toBeInstanceOf(TypeError);
+        expect(errors).toEqual([]);
+        expect(rows(wrapper)).toEqual([]);
+        // The empty-value input still posts the field, so it is cleared on save.
+        expect(wrapper.find(`input[type="hidden"][name="${defaultProps.name}"]`).exists()).toBe(true);
     });
 });

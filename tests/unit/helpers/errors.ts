@@ -1,25 +1,28 @@
-import Vue from 'vue';
+import { config } from '@vue/test-utils';
 
 /**
- * Captures errors thrown inside Vue lifecycle hooks.
+ * Captures errors thrown inside Vue lifecycle hooks and event handlers.
  *
  * Vue does not let a hook error propagate to the caller — it routes it through
- * `config.errorHandler`, or logs it as a warning when no handler is set. Our
- * global warnHandler turns warnings into failures (see ../setup.ts), so a spec
- * that deliberately exercises a throwing hook has to intercept it here.
+ * `app.config.errorHandler`, or logs it when no handler is set. Our global
+ * warnHandler turns warnings into failures (see ../setup.ts), so a spec that
+ * deliberately exercises a throwing hook has to intercept it here.
+ *
+ * Every mount() copies test-utils' global config onto its own app, so the
+ * component has to be mounted inside `run` for the handler to reach it.
  */
 export async function captureVueErrors(run: () => void | Promise<void>): Promise<Error[]> {
     const captured: Error[] = [];
-    const previous = Vue.config.errorHandler;
+    const previous = config.global.config.errorHandler;
 
-    Vue.config.errorHandler = (error: Error) => {
-        captured.push(error);
+    config.global.config.errorHandler = (error: unknown) => {
+        captured.push(error as Error);
     };
 
     try {
         await run();
     } finally {
-        Vue.config.errorHandler = previous;
+        config.global.config.errorHandler = previous;
     }
 
     return captured;

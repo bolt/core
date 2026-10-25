@@ -11,7 +11,7 @@
                         type="checkbox"
                         @click="enableSelectAll(!selectAll)"
                     />
-                    <label class="form-check-label form-label" for="selectAll" @click="enableSelectAll(!selectAll)">
+                    <label class="form-check-label form-label" for="selectAll">
                         <span class="sr-only">{{ labels.select_all }}</span>
                     </label>
                 </div>
@@ -59,46 +59,39 @@
     </nav>
 </template>
 
-<script>
-import type from '../mixins/type';
+<script setup lang="ts">
+import { computed, watch } from 'vue';
+import { useGeneralStore, useSelectingStore } from '../store';
 
-export default {
-    name: 'ListingFilter',
-    mixins: [type],
-    props: {
-        labels: Object,
-    },
-    computed: {
-        size() {
-            return this.$store.getters['general/getRowSize'];
-        },
-        sorting() {
-            return this.$store.getters['general/getSorting'];
-        },
-        selectAll() {
-            return this.$store.getters['selecting/selectAll'];
-        },
-    },
-    watch: {
-        sorting() {
-            if (this.sorting) this.$store.dispatch('selecting/selectAll', false);
-        },
-    },
-    created() {
-        const size = localStorage.getItem('listing-row-size');
-        if (size !== null) this.$store.dispatch('general/setRowSize', size);
-    },
-    methods: {
-        enableSorting(arg) {
-            this.$store.dispatch('general/setSorting', arg);
-        },
-        enableSelectAll(arg) {
-            this.$store.dispatch('selecting/selectAll', arg);
-        },
-        changeSize(size) {
-            this.$store.dispatch('general/setRowSize', size);
-            localStorage.setItem('listing-row-size', size);
-        },
-    },
-};
+defineProps<{
+    labels: Record<string, string>;
+}>();
+
+const generalStore = useGeneralStore();
+const selectingStore = useSelectingStore();
+
+const type = computed(() => generalStore.type);
+const size = computed(() => generalStore.rowSize);
+const sorting = computed(() => generalStore.sorting);
+const selectAll = computed(() => selectingStore.selectAll);
+
+watch(sorting, newSorting => {
+    if (newSorting) {
+        selectingStore.selectAll = false;
+    }
+});
+
+const sizeFromStorage = localStorage.getItem('listing-row-size');
+if (sizeFromStorage !== null) {
+    generalStore.rowSize = sizeFromStorage;
+}
+
+function enableSelectAll(arg: boolean) {
+    selectingStore.selectAll = arg;
+}
+
+function changeSize(newSize: string) {
+    generalStore.rowSize = newSize;
+    localStorage.setItem('listing-row-size', newSize);
+}
 </script>

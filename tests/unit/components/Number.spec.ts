@@ -6,7 +6,7 @@ import NumberField from '@/editor/Components/Number.vue';
 describe('EditorNumber', () => {
     it('renders a number input carrying the value and field metadata', async () => {
         const wrapper = mount(NumberField, {
-            propsData: {
+            props: {
                 id: 'field-weight',
                 value: '42',
                 name: 'fields[weight]',
@@ -37,7 +37,7 @@ describe('EditorNumber', () => {
     });
 
     it('omits optional attributes when unset', () => {
-        const wrapper = mount(NumberField, { propsData: { value: '1', name: 'fields[weight]' } });
+        const wrapper = mount(NumberField, { props: { value: '1', name: 'fields[weight]' } });
 
         const input = wrapper.find('input');
         expect(input.attributes('required')).toBeUndefined();
@@ -48,14 +48,14 @@ describe('EditorNumber', () => {
 
     it('marks the input readonly', () => {
         const wrapper = mount(NumberField, {
-            propsData: { value: '1', name: 'fields[weight]', readonly: true },
+            props: { value: '1', name: 'fields[weight]', readonly: true },
         });
 
         expect(wrapper.find('input').attributes('readonly')).toBeDefined();
     });
 
     it('keeps the rendered value in step with typing', async () => {
-        const wrapper = mount(NumberField, { propsData: { value: '1', name: 'fields[weight]' } });
+        const wrapper = mount(NumberField, { props: { value: '1', name: 'fields[weight]' } });
 
         await wrapper.find('input').setValue('99');
         // Re-render: a field that only displayed its prop would be reset to it.

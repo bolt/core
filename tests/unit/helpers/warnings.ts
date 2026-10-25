@@ -1,4 +1,4 @@
-import Vue from 'vue';
+import { config } from '@vue/test-utils';
 
 /**
  * Vue warnings are failures by default (see ../setup.ts). A spec that
@@ -11,22 +11,11 @@ const expected: RegExp[] = [];
 const seen: string[] = [];
 
 /**
- * Warnings that are pre-existing defects in the Vue 2.7 components rather than
- * problems with a test. All are fixed on refactor/vue3-composition-api; when a
- * fix lands, delete its entry and the warning starts failing again.
+ * Installed on test-utils' global config rather than on an app, because every
+ * mount() creates its own app and copies this config onto it.
  */
-const KNOWN_DEFECTS = [
-    // `type: String | Boolean` on ~10 props. The bitwise OR of two constructors
-    // evaluates to 0, so Vue rejects it as a type and prop validation is dead
-    // for those props. The fix is to declare `type: [String, Boolean]`.
-    /Invalid prop type: "0" is not a constructor/,
-    // File.vue, Image.vue and Select.vue write to their own props. Already
-    // whitelisted for `vue/no-mutating-props` in eslint.config.mjs.
-    /Avoid mutating a prop directly/,
-];
-
 export function installWarningHandler(): void {
-    Vue.config.warnHandler = (message: string) => {
+    config.global.config.warnHandler = (message: string) => {
         seen.push(message);
     };
 }
@@ -45,8 +34,7 @@ export function resetWarnings(): void {
  * Returns the unexpected warnings, and the expected patterns that never fired.
  */
 export function reviewWarnings(): { unexpected: string[]; missing: RegExp[] } {
-    const allowed = [...KNOWN_DEFECTS, ...expected];
-    const unexpected = seen.filter(message => !allowed.some(pattern => pattern.test(message)));
+    const unexpected = seen.filter(message => !expected.some(pattern => pattern.test(message)));
     const missing = expected.filter(pattern => !seen.some(message => pattern.test(message)));
 
     return { unexpected, missing };

@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { jqueryReady } from '../helpers/jquery';
 import $ from 'jquery';
-import { flushPromises } from '../helpers/async';
 import { version } from '../../../assets/js/version';
 
 /**
@@ -11,8 +11,7 @@ import { version } from '../../../assets/js/version';
 const loadCommon = async () => {
     vi.resetModules();
     await import('@/common');
-    // The ready handler runs on a microtask once the document is already loaded.
-    await flushPromises();
+    await jqueryReady();
 };
 
 const givenDom = (html: string) => {
@@ -84,7 +83,9 @@ describe('common.js', () => {
     });
 
     it('rewrites iso dates as relative times', async () => {
-        const lastWeek = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
+        // An hour past the seven days: Luxon 3 truncates rather than rounds, so
+        // exactly seven days ago reads "6 days ago" by the time it is formatted.
+        const lastWeek = new Date(Date.now() - (7 * 24 + 1) * 60 * 60 * 1000).toISOString();
         givenDom(`<span class="datetime-relative">${lastWeek}</span>`);
 
         await loadCommon();

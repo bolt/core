@@ -20,7 +20,7 @@ const rendered = (iso: string) => DateTime.fromISO(iso).toLocaleString();
 
 describe('Listing row Meta', () => {
     it('renders the status marker and the published date', () => {
-        const wrapper = mount(Meta, { propsData: { type: 'pages', size: 'normal', record } });
+        const wrapper = mount(Meta, { props: { type: 'pages', size: 'normal', record } });
 
         const status = wrapper.find('.status');
         expect(status.classes()).toContain('is-published');
@@ -30,14 +30,14 @@ describe('Listing row Meta', () => {
 
     it('falls back to the created date when there is no published date', () => {
         const wrapper = mount(Meta, {
-            propsData: { type: 'pages', size: 'normal', record: { ...record, publishedAt: null } },
+            props: { type: 'pages', size: 'normal', record: { ...record, publishedAt: null } },
         });
 
         expect(wrapper.text()).toContain(rendered('2024-01-01T10:00:00'));
     });
 
     it('renders the author and content type at normal size', () => {
-        const wrapper = mount(Meta, { propsData: { type: 'pages', size: 'normal', record } });
+        const wrapper = mount(Meta, { props: { type: 'pages', size: 'normal', record } });
 
         expect(wrapper.text()).toContain('Bob den Otter');
         expect(wrapper.text()).toContain('Page');
@@ -46,14 +46,14 @@ describe('Listing row Meta', () => {
     });
 
     it('shows only the date row at compact size', () => {
-        const wrapper = mount(Meta, { propsData: { type: 'pages', size: 'compact', record } });
+        const wrapper = mount(Meta, { props: { type: 'pages', size: 'compact', record } });
 
         expect(wrapper.findAll('.listing__row--list li')).toHaveLength(1);
         expect(wrapper.text()).not.toContain('Bob den Otter');
     });
 
     it('links the content type on the dashboard', () => {
-        const wrapper = mount(Meta, { propsData: { type: 'dashboard', size: 'normal', record } });
+        const wrapper = mount(Meta, { props: { type: 'dashboard', size: 'normal', record } });
 
         const link = wrapper.find('.listing__row--list a');
         expect(link.attributes('href')).toBe('/bolt/content/pages');
@@ -61,7 +61,7 @@ describe('Listing row Meta', () => {
     });
 
     it('renders the content type as plain text outside the dashboard', () => {
-        const wrapper = mount(Meta, { propsData: { type: 'pages', size: 'normal', record } });
+        const wrapper = mount(Meta, { props: { type: 'pages', size: 'normal', record } });
 
         expect(wrapper.find('.listing__row--list a').exists()).toBe(false);
         expect(wrapper.text()).toContain('Page');

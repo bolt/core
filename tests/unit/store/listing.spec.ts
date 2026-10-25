@@ -1,119 +1,101 @@
 import { describe, expect, it } from 'vitest';
 import { createListingStore } from '../helpers/store';
 
-describe('listing store — general module', () => {
+describe('listing store — general', () => {
     it('starts with no type, normal rows and sorting off', () => {
-        const { store } = createListingStore();
+        const { stores } = createListingStore();
 
-        expect(store.getters['general/getType']).toBeNull();
-        expect(store.getters['general/getRowSize']).toBe('normal');
-        expect(store.getters['general/getSorting']).toBe(false);
+        expect(stores.general.type).toBeNull();
+        expect(stores.general.rowSize).toBe('normal');
+        expect(stores.general.sorting).toBe(false);
     });
 
-    it('records the content type', async () => {
-        const { store } = createListingStore();
+    it('can be seeded', () => {
+        const { stores } = createListingStore({ general: { type: 'pages', rowSize: 'compact', sorting: true } });
 
-        await store.dispatch('general/setType', 'pages');
-
-        expect(store.getters['general/getType']).toBe('pages');
-    });
-
-    it('records the row size and the sorting flag', async () => {
-        const { store } = createListingStore();
-
-        await store.dispatch('general/setRowSize', 'compact');
-        await store.dispatch('general/setSorting', true);
-
-        expect(store.getters['general/getRowSize']).toBe('compact');
-        expect(store.getters['general/getSorting']).toBe(true);
+        expect(stores.general.type).toBe('pages');
+        expect(stores.general.rowSize).toBe('compact');
+        expect(stores.general.sorting).toBe(true);
     });
 });
 
-describe('listing store — listing module', () => {
+describe('listing store — listing', () => {
     it('starts with no records', () => {
-        const { store } = createListingStore();
+        const { stores } = createListingStore();
 
-        expect(store.getters['listing/getRecords']).toEqual([]);
-        expect(store.getters['listing/getOrder']).toEqual([]);
-    });
-
-    it('exposes the record order as a list of ids', async () => {
-        const { store } = createListingStore();
-
-        await store.dispatch('listing/setRecords', [{ id: 7 }, { id: 3 }, { id: 5 }]);
-
-        expect(store.getters['listing/getOrder']).toEqual([7, 3, 5]);
-    });
-
-    it('reflects a reordering in the order getter', async () => {
-        const { store } = createListingStore({ listing: { records: [{ id: 1 }, { id: 2 }] } });
-
-        await store.dispatch('listing/setRecords', [{ id: 2 }, { id: 1 }]);
-
-        expect(store.getters['listing/getOrder']).toEqual([2, 1]);
+        expect(stores.listing.records).toEqual([]);
     });
 });
 
-describe('listing store — selecting module', () => {
+describe('listing store — selecting', () => {
     it('starts with nothing selected', () => {
-        const { store } = createListingStore();
+        const { stores } = createListingStore();
 
-        expect(store.getters['selecting/selectAll']).toBe(false);
-        expect(store.getters['selecting/selected']).toEqual([]);
-        expect(store.getters['selecting/selectedCount']).toBe(0);
+        expect(stores.selecting.selectAll).toBe(false);
+        expect(stores.selecting.selected).toEqual([]);
+        expect(stores.selecting.selectedCount).toBe(0);
     });
 
-    it('tracks selected ids and their count', async () => {
-        const { store } = createListingStore();
+    it('tracks selected ids and their count', () => {
+        const { stores } = createListingStore();
 
-        await store.dispatch('selecting/select', 1);
-        await store.dispatch('selecting/select', 2);
+        stores.selecting.select(1);
+        stores.selecting.select(2);
 
-        expect(store.getters['selecting/selected']).toEqual([1, 2]);
-        expect(store.getters['selecting/selectedCount']).toBe(2);
+        expect(stores.selecting.selected).toEqual([1, 2]);
+        expect(stores.selecting.selectedCount).toBe(2);
     });
 
-    it('removes a deselected id', async () => {
-        const { store } = createListingStore();
+    it('does not select the same id twice', () => {
+        const { stores } = createListingStore();
 
-        await store.dispatch('selecting/select', 1);
-        await store.dispatch('selecting/select', 2);
-        await store.dispatch('selecting/deSelect', 1);
+        stores.selecting.select(1);
+        stores.selecting.select(1);
 
-        expect(store.getters['selecting/selected']).toEqual([2]);
-        expect(store.getters['selecting/selectedCount']).toBe(1);
+        expect(stores.selecting.selected).toEqual([1]);
+        expect(stores.selecting.selectedCount).toBe(1);
     });
 
-    it('lets the count drift below the list when an unselected id is deselected', async () => {
-        // Pinning current behaviour: deSelect decrements unconditionally but only
-        // splices when the id is actually present, so the count and the list can
-        // disagree. Components never take that path today, which is why it has
-        // gone unnoticed.
-        const { store } = createListingStore();
+    it('removes a deselected id', () => {
+        const { stores } = createListingStore();
 
-        await store.dispatch('selecting/select', 1);
-        await store.dispatch('selecting/deSelect', 99);
+        stores.selecting.select(1);
+        stores.selecting.select(2);
+        stores.selecting.deSelect(1);
 
-        expect(store.getters['selecting/selected']).toEqual([1]);
-        expect(store.getters['selecting/selectedCount']).toBe(0);
+        expect(stores.selecting.selected).toEqual([2]);
+        expect(stores.selecting.selectedCount).toBe(1);
     });
 
-    it('records the select-all flag', async () => {
-        const { store } = createListingStore();
+    it('keeps the count in step with the list when an unselected id is deselected', () => {
+        // The Vuex module decremented the count unconditionally, so it could
+        // drift below the list. The count is now derived from the list.
+        const { stores } = createListingStore();
 
-        await store.dispatch('selecting/selectAll', true);
+        stores.selecting.select(1);
+        stores.selecting.deSelect(99);
 
-        expect(store.getters['selecting/selectAll']).toBe(true);
+        expect(stores.selecting.selected).toEqual([1]);
+        expect(stores.selecting.selectedCount).toBe(1);
     });
 });
 
 describe('store factory isolation', () => {
-    it('gives each store its own state', async () => {
+    it('gives each store its own state', () => {
         const first = createListingStore();
         const second = createListingStore();
 
-        await first.store.dispatch('listing/setRecords', [{ id: 1 }]);
+        first.stores.listing.records = [{ id: 1 } as never];
 
-        expect(second.store.getters['listing/getRecords']).toEqual([]);
+        expect(second.stores.listing.records).toEqual([]);
+    });
+
+    it('does not write a seed back into the fixture it was given', () => {
+        const seed = { selecting: { selected: [1] } };
+        const { stores } = createListingStore(seed);
+
+        stores.selecting.select(2);
+
+        expect(seed.selecting.selected).toEqual([1]);
     });
 });

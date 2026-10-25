@@ -11,33 +11,31 @@
             :max="max"
             :required="required"
             :readonly="readonly"
-            :data-errormessage="errormessage"
-            :pattern="pattern"
-            :placeholder="placeholder"
+            :data-errormessage="typeof errormessage === 'string' ? errormessage : undefined"
+            :pattern="typeof pattern === 'string' ? pattern : undefined"
+            :placeholder="typeof placeholder === 'string' ? placeholder : undefined"
         />
     </div>
 </template>
 
-<script>
-import val from '../mixins/value';
+<script setup lang="ts">
+import { useFieldValue } from '../composables/useFieldValue';
 
-export default {
-    name: 'EditorNumber',
-    mixins: [val],
-    props: {
-        id: String,
-        value: String,
-        name: String,
-        step: Number | String,
-        min: Number,
-        max: Number,
-        type: String,
-        disabled: Boolean,
-        required: Boolean,
-        readonly: Boolean,
-        errormessage: String | Boolean, //string if errormessage is set, and false otherwise
-        pattern: String | Boolean,
-        placeholder: String | Boolean,
-    },
-};
+const props = defineProps<{
+    id?: string;
+    value?: string;
+    name?: string;
+    step?: number | string;
+    min?: number;
+    max?: number;
+    type?: string;
+    disabled?: boolean;
+    required?: boolean;
+    readonly?: boolean;
+    errormessage?: string | boolean; //string if errormessage is set, and false otherwise
+    pattern?: string | boolean;
+    placeholder?: string | boolean;
+}>();
+
+const { val } = useFieldValue(props.value);
 </script>

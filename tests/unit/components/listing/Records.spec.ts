@@ -11,23 +11,34 @@ describe('Listing Records', () => {
 
     const mountRecords = (props: Record<string, unknown> = {}) => {
         const testStore = createListingStore();
+        const types = testStore.writes('general', 'type');
+        const written = testStore.writes('listing', 'records');
         return {
             ...testStore,
+            types,
+            written,
             wrapper: mount(Records, {
-                localVue: testStore.localVue,
-                store: testStore.store,
-                propsData: { type: 'articles', data: records, labels: { title: 'Title' }, ...props },
+                global: { plugins: [testStore.pinia] },
+                props: { type: 'articles', data: records, labels: { title: 'Title' }, ...props },
             }),
         };
     };
 
     it('seeds the store from its props on creation', () => {
-        const { store, dispatched } = mountRecords();
+        const { stores, types, written } = mountRecords();
 
-        expect(dispatched('general/setType')).toEqual(['articles']);
-        expect(dispatched('listing/setRecords')).toEqual([records]);
-        expect(store.getters['general/getType']).toBe('articles');
-        expect(store.getters['listing/getRecords']).toEqual(records);
+        expect(types).toEqual(['articles']);
+        expect(written).toEqual([records]);
+        expect(stores.general.type).toBe('articles');
+        expect(stores.listing.records).toEqual(records);
+    });
+
+    it('leaves the store alone for props it was not given', () => {
+        const { stores, types, written } = mountRecords({ type: undefined, data: undefined });
+
+        expect(types).toEqual([]);
+        expect(written).toEqual([]);
+        expect(stores.general.type).toBeNull();
     });
 
     it('renders its container', () => {

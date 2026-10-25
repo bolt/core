@@ -1,4 +1,4 @@
-import { mount } from '@vue/test-utils';
+import { flushPromises, mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import Axios from 'axios';
@@ -7,7 +7,6 @@ import FileField from '@/editor/Components/File.vue';
 import { renable } from '@/patience-is-a-virtue';
 import { resetModalContent } from '@/modal';
 import { withResourcesModal } from '../helpers/dom';
-import { flushPromises } from '../helpers/async';
 
 vi.mock('axios', () => ({ default: { get: vi.fn(), post: vi.fn() } }));
 vi.mock('@/patience-is-a-virtue', () => ({ renable: vi.fn() }));
@@ -47,15 +46,15 @@ const defaultProps = {
     readonly: false,
 };
 
-const mountFile = (props: Record<string, unknown> = {}) =>
-    mount(FileField, { propsData: { ...defaultProps, ...props } });
+const mountFile = (props: Record<string, unknown> = {}, options: { attachTo?: HTMLElement } = {}) =>
+    mount(FileField, { props: { ...defaultProps, ...props }, ...options });
 
 const value = (wrapper: ReturnType<typeof mount>, selector: string) =>
     (wrapper.find(selector).element as HTMLInputElement).value;
 const filenameInput = 'input[name="fields[document][filename]"]';
 const titleInput = 'input[name="fields[document][title]"]';
 const button = (wrapper: ReturnType<typeof mount>, label: string) =>
-    wrapper.findAll('button').wrappers.find(b => b.text().trim() === label)!;
+    wrapper.findAll('button').find(b => b.text().trim() === label)!;
 
 const serverFiles = [
     { text: 'files/', group: 'directories', value: 'files/', base_url_path: '/bolt/async/filelist' },
@@ -130,8 +129,8 @@ describe('EditorFile', () => {
         await button(wrapper, 'Move up').trigger('click');
         await button(wrapper, 'Move down').trigger('click');
 
-        expect(wrapper.emitted('move-file-up')).toHaveLength(1);
-        expect(wrapper.emitted('move-file-down')).toHaveLength(1);
+        expect(wrapper.emitted('moveFileUp')).toHaveLength(1);
+        expect(wrapper.emitted('moveFileDown')).toHaveLength(1);
     });
 
     it('cannot move the first file up or the last one down', () => {
@@ -260,11 +259,12 @@ describe('EditorFile', () => {
             await wrapper.find('.editor__file').trigger('drop', { dataTransfer: { files: [file] } });
             await flushPromises();
 
-            expect(alert).toHaveBeenCalledWith('unknown error<br>File did not upload.');
+            expect(alert).toHaveBeenCalledWith('upload error<br>File did not upload.');
         });
 
         it('highlights the field while a file is dragged over it', async () => {
-            const wrapper = mountFile();
+            // Attached: isVisible() only reads the real style of an element in the document.
+            const wrapper = mountFile({}, { attachTo: document.body });
             const dropZone = wrapper.find('.editor__file');
 
             await dropZone.trigger('dragenter');
@@ -275,7 +275,8 @@ describe('EditorFile', () => {
         });
 
         it('keeps the highlight while dragging across child elements', async () => {
-            const wrapper = mountFile();
+            // Attached: isVisible() only reads the real style of an element in the document.
+            const wrapper = mountFile({}, { attachTo: document.body });
             const dropZone = wrapper.find('.editor__file');
 
             await dropZone.trigger('dragenter');
@@ -420,9 +421,79 @@ describe('EditorFile', () => {
         });
     });
 
-    // Only passes after 2f840c0d, which declares the props Twig passes.
-    // Until then `placeholder`, `pattern` and friends arrive as undeclared
-    // attributes and fall through onto the root element instead of being
-    // bound where the template expects them.
-    it.todo('omits optional attributes when they are unset or false');
+    it('omits optional attributes when they are unset or false', () => {
+        // Twig passes `false` for an unset pattern, placeholder or error message.
+        const wrapper = mountFile({ pattern: false, placeholder: false, errormessage: false });
+
+        const filename = wrapper.find('input[name="fields[document][filename]"]');
+        const title = wrapper.find('input[name="fields[document][title]"]');
+        expect(filename.attributes('data-errormessage')).toBeUndefined();
+        expect(title.attributes('pattern')).toBeUndefined();
+        expect(title.attributes('placeholder')).toBe(labels.placeholder_title);
+        // Declared as props, so none of them falls through onto the root.
+        expect(wrapper.attributes('pattern')).toBeUndefined();
+        expect(wrapper.attributes('placeholder')).toBeUndefined();
+    });
+
+    it('binds the optional attributes where they apply when set', () => {
+        const wrapper = mountFile({ pattern: '[a-z]+', placeholder: 'Describe it', errormessage: 'Pick a file' });
+
+        const filename = wrapper.find('input[name="fields[document][filename]"]');
+        const title = wrapper.find('input[name="fields[document][title]"]');
+        expect(filename.attributes('data-errormessage')).toBe('Pick a file');
+        expect(title.attributes('pattern')).toBe('[a-z]+');
+        expect(title.attributes('placeholder')).toBe('Describe it');
+    });
+
+    it('keeps a typed title for the form', async () => {
+        const wrapper = mountFile();
+
+        await wrapper.find('input[name="fields[document][title]"]').setValue('A better title');
+
+        expect(value(wrapper, 'input[name="fields[document][title]"]')).toBe('A better title');
+    });
+
+    describe('picking a file', () => {
+        const file = new File(['bytes'], 'picked.pdf', { type: 'application/pdf' });
+        const fileInput = (wrapper: ReturnType<typeof mount>) => wrapper.find('input[type="file"]');
+        const pick = (wrapper: ReturnType<typeof mount>, files: File[]) => {
+            Object.defineProperty(fileInput(wrapper).element, 'files', { value: files, configurable: true });
+            return fileInput(wrapper).trigger('change');
+        };
+
+        it('uploads the picked file', async () => {
+            vi.mocked(Axios.post).mockResolvedValue({ data: 'picked.pdf' });
+            const wrapper = mountFile();
+
+            await pick(wrapper, [file]);
+            await flushPromises();
+
+            expect((vi.mocked(Axios.post).mock.calls[0][1] as FormData).get('file')).toBe(file);
+            expect(value(wrapper, 'input[name="fields[document][filename]"]')).toBe('picked.pdf');
+        });
+
+        it('does nothing when the picker is cancelled', async () => {
+            const wrapper = mountFile();
+
+            await pick(wrapper, []);
+
+            expect(Axios.post).not.toHaveBeenCalled();
+        });
+
+        it('does not upload without an upload directory', async () => {
+            const wrapper = mountFile({ directory: '' });
+
+            await pick(wrapper, [file]);
+
+            expect(Axios.post).not.toHaveBeenCalled();
+        });
+    });
+
+    it('ignores a drop that carries no file', async () => {
+        const wrapper = mountFile();
+
+        await wrapper.find('.editor__file').trigger('drop', { dataTransfer: { files: [] } });
+
+        expect(Axios.post).not.toHaveBeenCalled();
+    });
 });

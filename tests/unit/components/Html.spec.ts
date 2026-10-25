@@ -12,7 +12,7 @@ const defaultProps = {
 };
 
 const mountHtml = (props: Record<string, unknown> = {}) =>
-    mount(Html, { propsData: { ...defaultProps, ...props }, stubs: { trumbowyg: trumbowygStub } });
+    mount(Html, { props: { ...defaultProps, ...props }, global: { stubs: { trumbowyg: trumbowygStub } } });
 
 const editor = (wrapper: ReturnType<typeof mount>) => wrapper.findComponent(trumbowygStub);
 
@@ -29,14 +29,14 @@ describe('EditorHtml', () => {
         const wrapper = mountHtml({ value: '"Some <strong>html</strong>"' });
         await nextTick();
 
-        expect(editor(wrapper).props('value')).toBe('Some <strong>html</strong>');
+        expect(editor(wrapper).props('modelValue')).toBe('Some <strong>html</strong>');
     });
 
     it('loads an unquoted value unchanged', async () => {
         const wrapper = mountHtml();
         await nextTick();
 
-        expect(editor(wrapper).props('value')).toBe('Some <strong>html</strong>');
+        expect(editor(wrapper).props('modelValue')).toBe('Some <strong>html</strong>');
     });
 
     it('starts empty when there is no value', async () => {
@@ -55,7 +55,7 @@ describe('EditorHtml', () => {
         (editor(wrapper).vm as unknown as { type: (html: string) => void }).type('<p>Edited</p>');
         await nextTick();
 
-        expect(editor(wrapper).props('value')).toBe('<p>Edited</p>');
+        expect(editor(wrapper).props('modelValue')).toBe('<p>Edited</p>');
     });
 
     it('configures the toolbar buttons', async () => {

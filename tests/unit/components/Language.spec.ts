@@ -11,12 +11,12 @@ const locales = [
 
 const mountLanguage = (props: Record<string, unknown> = {}) =>
     mount(Language, {
-        propsData: { label: 'Language', locales, current: 'en', ...props },
-        stubs: { multiselect: multiselectStub },
+        props: { label: 'Language', locales, current: 'en', ...props },
+        global: { stubs: { 'vue-multiselect': multiselectStub } },
     });
 
 const picker = (wrapper: ReturnType<typeof mount>) => wrapper.findComponent(multiselectStub);
-const chosen = (wrapper: ReturnType<typeof mount>) => picker(wrapper).props('value') as { code: string };
+const chosen = (wrapper: ReturnType<typeof mount>) => picker(wrapper).props('modelValue') as { code: string };
 
 // switchLocale navigates by assigning window.location.href, which jsdom refuses
 // to do. Swap in a plain object so the assignment is observable instead.
@@ -30,7 +30,8 @@ describe('EditorLanguage', () => {
     it('renders the label', () => {
         const wrapper = mountLanguage();
 
-        expect(wrapper.find('label').text()).toBe('Language');
+        // A span rather than a label: there is no input for it to label.
+        expect(wrapper.find('.form-label').text()).toBe('Language');
     });
 
     it('starts on the current locale', async () => {
@@ -75,7 +76,7 @@ describe('EditorLanguage', () => {
         const wrapper = mountLanguage();
         await nextTick();
 
-        const options = wrapper.findAll('.stub-option').wrappers;
+        const options = wrapper.findAll('.stub-option');
         expect(options).toHaveLength(2);
         expect(options[1].find('span.fp').classes()).toContain('fp-nl');
         expect(options[1].text()).toContain('Dutch');

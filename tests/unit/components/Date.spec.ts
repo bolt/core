@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import flatPickr from 'vue-flatpickr-component';
 import DateField from '@/editor/Components/Date.vue';
 
@@ -24,7 +24,7 @@ const defaultProps = {
 };
 
 const mountDate = (props: Record<string, unknown> = {}) =>
-    mount(DateField, { propsData: { ...defaultProps, ...props }, attachTo: document.body });
+    mount(DateField, { props: { ...defaultProps, ...props }, attachTo: document.body });
 
 /** The hidden input flatpickr posts. */
 const submitted = (wrapper: ReturnType<typeof mount>) => wrapper.find('input[data-input]');
@@ -133,10 +133,9 @@ describe('EditorDate', () => {
 
     it('never actually marks an emptied required field as required', async () => {
         // Pinning current behaviour, which is a bug. fixRequired() adds the
-        // attribute when `this.val === ''`, but clearing the picker sets `val`
-        // to null, so the strict comparison never matches and the field is left
+        // attribute when `val === ''`, but clearing the picker sets `val` to
+        // null, so the strict comparison never matches and the field is left
         // unmarked — the browser will happily submit the form with it empty.
-        // 37b95add reworks this hook.
         const wrapper = mountDate({ required: true });
         await nextTick();
 
@@ -154,14 +153,59 @@ describe('EditorDate', () => {
         expect(visible(wrapper).attributes('required')).toBeUndefined();
     });
 
-    // Cannot run under Vite: created() resolves the locale file with a
-    // template-literal `require()`, which has no meaning in an ES module and
-    // throws "require is not defined". Unblocked by e286000a, which replaces
-    // the dynamic require.
-    it.todo('loads the flatpickr locale for a non-english locale');
+    it('loads the flatpickr locale for a non-english locale', () => {
+        mountDate({ locale: 'nl' });
 
-    // Only passes after 37b95add. Today fixRequired() calls reportValidity()
-    // from updated(), so an empty required field can flash the browser's
-    // "please fill in this field" popup before the user has touched it.
-    it.todo('does not surface the native validation popup on mount');
+        const weekdays = [...document.querySelectorAll('.flatpickr-weekday')].map(day => day.textContent?.trim());
+        expect(weekdays).toContain('ma');
+    });
+
+    it('does not surface the native validation popup on mount', async () => {
+        const reportValidity = vi.spyOn(HTMLInputElement.prototype, 'reportValidity').mockReturnValue(true);
+        const wrapper = mountDate({ required: true, value: '' });
+        await nextTick();
+
+        // Still required, so the browser blocks the submission…
+        expect(visible(wrapper).attributes('required')).toBeDefined();
+        // …but the "please fill in this field" bubble waits for the user.
+        expect(reportValidity).not.toHaveBeenCalled();
+
+        await pick(wrapper, '2024-03-16 10:00:00');
+
+        expect(reportValidity).toHaveBeenCalled();
+    });
+
+    it('reads the button labels from an object or a json string', async () => {
+        const fromObject = mountDate({ labels: { toggle: 'Open calendar', clear: 'Clear date' } });
+        const fromString = mountDate({ labels: '{"toggle":"Kalender"}' });
+        await nextTick();
+
+        expect(fromObject.find('button[data-toggle] .sr-only').text()).toBe('Open calendar');
+        expect(fromObject.find('button[data-clear] .sr-only').text()).toBe('Clear date');
+        expect(fromString.find('button[data-toggle] .sr-only').text()).toBe('Kalender');
+    });
+
+    it('renders unlabelled buttons when the labels cannot be read', async () => {
+        const wrapper = mountDate({ labels: '{not json' });
+        await nextTick();
+
+        expect(wrapper.find('button[data-toggle] .sr-only').text()).toBe('');
+    });
+
+    it('defaults to an english date picker when no mode or locale is given', async () => {
+        const wrapper = mountDate({ mode: undefined, locale: undefined, labels: undefined });
+        await nextTick();
+
+        expect(config(wrapper).enableTime).toBe(false);
+        expect(config(wrapper).locale).toBeUndefined();
+    });
+
+    it('hands the error message to the picker only when there is one', async () => {
+        const withMessage = mountDate();
+        const without = mountDate({ errormessage: false });
+        await nextTick();
+
+        expect(submitted(withMessage).attributes('data-errormessage')).toBe('Pick a date');
+        expect(submitted(without).attributes('data-errormessage')).toBeUndefined();
+    });
 });
