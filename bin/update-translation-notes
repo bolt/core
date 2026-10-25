@@ -1,0 +1,235 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+/*
+ * Regenerates the <notes> blocks in translations/*.xlf so every unit lists
+ * the real usage locations (path:line) of its key in the codebase — src,
+ * templates, assets, themes and the bundled bolt widgets. The same notes are
+ * written to the en file and every locale file, so all catalogues stay
+ * identical in structure.
+ *
+ * Units whose keys are consumed by Symfony itself (standard security and
+ * validator messages) have no code location and therefore carry no notes.
+ *
+ * Run it after moving or adding translation keys:
+ *
+ *     php bin/update-translation-notes
+ */
+
+$root = dirname(__DIR__);
+$domains = ['messages', 'security', 'validators'];
+
+// Keys built at runtime: 'status.published' is used via trans('status.' . $status).
+$dynamicPrefixes = ['status.'];
+
+$usageDirs = ['src', 'templates', 'assets/js', 'config', 'tests', 'public/theme', 'vendor/bolt'];
+$usageExtensions = ['php', 'twig', 'js', 'vue', 'yaml', 'yml'];
+
+// Standard security/validator messages have no in-repo usage: they are emitted
+// by Symfony itself. For those, note the vendor source that produces them
+// (the exception returning the messageKey, the constraint declaring the message).
+$vendorFallbackDirs = [
+    'security' => ['vendor/symfony/security-core', 'vendor/symfony/security-http'],
+    'validators' => ['vendor/symfony/validator', 'vendor/symfony/form', 'vendor/symfony/doctrine-bridge', 'vendor/symfony/security-core'],
+];
+
+// ---------------------------------------------------------------------------
+// load the usage corpus
+// ---------------------------------------------------------------------------
+/**
+ * @param  string[]  $dirs
+ * @param  string[]  $extensions
+ * @return array<string, string> relative path => file content
+ */
+function loadCorpus(string $root, array $dirs, array $extensions): array
+{
+    $corpus = [];
+    foreach ($dirs as $dir) {
+        $base = "{$root}/{$dir}";
+        if (! is_dir($base)) {
+            continue;
+        }
+        $iterator = new RecursiveIteratorIterator(
+            new RecursiveCallbackFilterIterator(
+                new RecursiveDirectoryIterator($base, FilesystemIterator::SKIP_DOTS),
+                static fn (SplFileInfo $f): bool => $f->getFilename() !== 'node_modules' && $f->getFilename() !== 'translations'
+            )
+        );
+        foreach ($iterator as $file) {
+            if ($file->isFile() && in_array($file->getExtension(), $extensions, true)) {
+                $corpus[substr((string) $file->getPathname(), strlen($root) + 1)] = (string) file_get_contents($file->getPathname());
+            }
+        }
+    }
+    ksort($corpus);
+
+    return $corpus;
+}
+
+$corpus = loadCorpus($root, $usageDirs, $usageExtensions);
+
+/**
+ * @var array<string, string[]> cached line splits per file
+ */
+$lineCache = [];
+
+/**
+ * @param  array<string, string>   $corpus
+ * @param  array<string, string[]> $lineCache
+ * @return string[] "path:line" locations where $needle occurs
+ */
+function locate(array $corpus, string $needle, array &$lineCache): array
+{
+    $locations = [];
+    foreach ($corpus as $path => $content) {
+        if (! str_contains($content, $needle)) {
+            continue;
+        }
+        if (! isset($lineCache[$path])) {
+            $lineCache[$path] = explode("\n", $content);
+        }
+        foreach ($lineCache[$path] as $i => $line) {
+            if (str_contains($line, $needle)) {
+                $locations[] = $path . ':' . ($i + 1);
+            }
+        }
+    }
+
+    return $locations;
+}
+
+/**
+ * @param  array<string, string>   $corpus
+ * @param  string[]                $dynamicPrefixes
+ * @param  array<string, string[]> $lineCache
+ * @param  array<string, string>   $vendorCorpus
+ * @param  array<string, string[]> $vendorLineCache
+ * @return string[]
+ */
+function usageNotes(array $corpus, string $key, array $dynamicPrefixes, array &$lineCache, array $vendorCorpus = [], array &$vendorLineCache = []): array
+{
+    $fuzzy = false;
+    // quoted occurrences are precise; fall back to a plain substring match
+    $locations = array_merge(locate($corpus, "'{$key}'", $lineCache), locate($corpus, "\"{$key}\"", $lineCache));
+    if ($locations === []) {
+        $locations = locate($corpus, $key, $lineCache);
+    }
+    if ($locations === []) {
+        foreach ($dynamicPrefixes as $prefix) {
+            if (str_starts_with($key, $prefix)) {
+                $locations = locate($corpus, "'{$prefix}'", $lineCache);
+                break;
+            }
+        }
+    }
+    if ($locations === [] && $vendorCorpus !== []) {
+        $escaped = str_replace("'", "\\'", $key); // 'user\'s current password.'
+        $locations = array_merge(
+            locate($vendorCorpus, "'{$key}'", $vendorLineCache),
+            locate($vendorCorpus, "\"{$key}\"", $vendorLineCache),
+            $escaped !== $key ? locate($vendorCorpus, "'{$escaped}'", $vendorLineCache) : []
+        );
+        // messages assembled at runtime, e.g. 'try again '.'in %minutes% minute':
+        // retry with the key progressively shortened from the right
+        $prefix = $key;
+        while ($locations === [] && str_contains($prefix, ' ')) {
+            $lastSpace = strrpos($prefix, ' ');
+            if ($lastSpace === false) {
+                break;
+            }
+            $prefix = trim(substr($prefix, 0, $lastSpace));
+            if (strlen($prefix) < 25) {
+                break;
+            }
+            $locations = locate($vendorCorpus, $prefix, $vendorLineCache);
+            if ($locations !== []) {
+                $fuzzy = true;
+            }
+        }
+    }
+    $locations = array_values(array_unique($locations));
+
+    // Sort by path first, then by line number numerically (not lexicographically).
+    usort($locations, static function (string $a, string $b): int {
+        $aColon = (int) strrpos($a, ':');
+        $bColon = (int) strrpos($b, ':');
+        $pathCmp = strcmp(substr($a, 0, $aColon), substr($b, 0, $bColon));
+        if ($pathCmp !== 0) {
+            return $pathCmp;
+        }
+        return ((int) substr($a, $aColon + 1)) - ((int) substr($b, $bColon + 1));
+    });
+
+    // Prefix fuzzy matches with '~' so downstream tools can identify them.
+    if ($fuzzy && $locations !== []) {
+        $locations = array_map(static fn (string $loc): string => '~' . $loc, $locations);
+    }
+
+    return $locations;
+}
+
+// ---------------------------------------------------------------------------
+// rewrite the xlf files
+// ---------------------------------------------------------------------------
+$notesByDomain = [];
+
+// Pre-load vendor corpora once across domains (avoids double-reading shared
+// vendor dirs like symfony/security-core that appear in multiple domains).
+$vendorCorpusCache = [];
+foreach ($vendorFallbackDirs as $domain => $dirs) {
+    foreach ($dirs as $dir) {
+        if (! isset($vendorCorpusCache[$dir])) {
+            $vendorCorpusCache[$dir] = loadCorpus($root, [$dir], ['php']);
+        }
+    }
+}
+
+foreach ($domains as $domain) {
+    // compute notes once per domain, based on the en key set
+    $enContent = (string) file_get_contents("{$root}/translations/{$domain}.en.xlf");
+    preg_match_all('/<source>(.*?)<\/source>/s', $enContent, $matches);
+    $vendorCorpus = [];
+    foreach ($vendorFallbackDirs[$domain] ?? [] as $dir) {
+        $vendorCorpus += $vendorCorpusCache[$dir];
+    }
+    $vendorLineCache = [];
+    $notes = [];
+    foreach ($matches[1] as $escapedKey) {
+        $key = html_entity_decode($escapedKey, ENT_QUOTES | ENT_XML1, 'UTF-8');
+        $notes[$key] = usageNotes($corpus, $key, $dynamicPrefixes, $lineCache, $vendorCorpus, $vendorLineCache);
+    }
+    $notesByDomain[$domain] = $notes;
+
+    foreach (glob("{$root}/translations/{$domain}.*.xlf") ?: [] as $path) {
+        $content = (string) file_get_contents($path);
+        $content = (string) preg_replace_callback(
+            '/([ \t]*)<unit [^>]*>\n(?:[ \t]*<notes>.*?<\/notes>\n)?(.*?<\/unit>\n)/s',
+            static function (array $m) use ($notes): string {
+                preg_match('/<source>(.*?)<\/source>/s', $m[0], $src);
+                $key = html_entity_decode($src[1] ?? '', ENT_QUOTES | ENT_XML1, 'UTF-8');
+                preg_match('/^[ \t]*<unit [^>]*>\n/', $m[0], $header);
+                $indent = $m[1];
+                $block = $header[0] ?? '';
+                if (! empty($notes[$key])) {
+                    $block .= "{$indent}  <notes>\n";
+                    foreach ($notes[$key] as $location) {
+                        $block .= "{$indent}    <note>{$location}</note>\n";
+                    }
+                    $block .= "{$indent}  </notes>\n";
+                }
+
+                return $block . $m[2];
+            },
+            $content
+        );
+        file_put_contents($path, $content);
+    }
+}
+
+foreach ($domains as $domain) {
+    $withNotes = count(array_filter($notesByDomain[$domain]));
+    $total = count($notesByDomain[$domain]);
+    echo "{$domain}: usage notes for {$withNotes}/{$total} keys, mirrored to all locale files\n";
+}
