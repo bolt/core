@@ -1,12 +1,84 @@
 <template>
     <div>
-        <trumbowyg :id="id" v-model="val" :name="name" :config="config"></trumbowyg>
+        <trumbowyg v-if="ready" :id="id" v-model="val" :name="name" :config="config"></trumbowyg>
     </div>
 </template>
 
 <script>
+import jQuery from 'jquery';
 import trumbowyg from 'vue-trumbowyg';
 import 'trumbowyg/dist/ui/trumbowyg.css';
+
+// Trumbowyg's UI translations, one langs/<code>.min.js per language. In lazy mode each
+// file is its own chunk (trumbowyg-lang-<code>.js), fetched only when requested.
+// Loading a file registers it on jQuery.trumbowyg.langs. English is built in.
+const langFiles = import.meta.webpackContext('trumbowyg/dist/langs', {
+    recursive: false,
+    regExp: /\.min\.js$/,
+    mode: 'lazy',
+    chunkName: 'trumbowyg-lang-[request]',
+});
+
+// Trumbowyg names some languages differently from the ISO codes Bolt uses. Its `my`
+// is Malay, while ISO `my` is Burmese, so that one must not match as-is.
+const langAliases = new Map([
+    ['be', 'by'],
+    ['fil', 'ph'],
+    ['ms', 'my'],
+    ['my', null],
+    ['nn', 'nb'],
+    ['no', 'nb'],
+    ['sr', 'rs'],
+    ['sr_latn', 'rs_latin'],
+    ['tl', 'ph'],
+    ['uk', 'ua'],
+    ['zh', 'zh_cn'],
+    ['zh_hans', 'zh_cn'],
+    ['zh_hant', 'zh_tw'],
+    ['zh_hk', 'zh_tw'],
+    ['zh_mo', 'zh_tw'],
+]);
+
+// Returns the Trumbowyg language matching a Bolt locale, or null when Trumbowyg has no
+// translation for it. Tries the whole locale first, then drops one part at a time:
+// `sr_Latn_RS` -> `sr_latn` -> `sr`, `de_AT` -> `de`.
+function findLang(locale) {
+    const parts = locale.toLowerCase().replace(/-/g, '_').split('_');
+
+    for (let length = parts.length; length > 0; length--) {
+        const candidate = parts.slice(0, length).join('_');
+        const lang = langAliases.has(candidate) ? langAliases.get(candidate) : candidate;
+
+        if (lang && langFiles.keys().includes(`./${lang}.min.js`)) {
+            return lang;
+        }
+    }
+
+    return null;
+}
+
+// Loads the Trumbowyg language matching a Bolt locale and resolves to its code, or to
+// 'en' when there is no translation or it fails to load.
+async function loadLang(locale) {
+    const lang = findLang(locale);
+
+    if (!lang) {
+        return 'en';
+    }
+
+    try {
+        await langFiles(`./${lang}.min.js`);
+    } catch {
+        return 'en';
+    }
+
+    // Arabic, Hebrew and Persian also set `_dir: 'rtl'`, which Trumbowyg applies to the
+    // editable area. The text direction belongs to the content being edited, not to the
+    // backend language, so only the labels are used.
+    delete jQuery.trumbowyg.langs[lang]._dir;
+
+    return lang;
+}
 
 export default {
     name: 'EditorHtml',
@@ -18,9 +90,14 @@ export default {
         label: String,
         name: String,
         id: String,
+        locale: {
+            type: String,
+            default: 'en',
+        },
     },
     data: () => {
         return {
+            ready: false,
             val: null,
             config: {
                 btns: [
@@ -38,6 +115,12 @@ export default {
                 ],
             },
         };
+    },
+    async created() {
+        // Trumbowyg reads its language when it initialises, so it is only rendered once
+        // the language is set.
+        this.config.lang = await loadLang(this.locale);
+        this.ready = true;
     },
     mounted() {
         this.val = this.$options.filters.strip(this.value);
