@@ -1,3 +1,4 @@
+const path = require('path');
 const WebpackBar = require('webpackbar');
 const Encore = require('@symfony/webpack-encore');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -57,5 +58,16 @@ Encore.addPlugin(
     .enablePostCssLoader()
     .enableVueLoader(() => {}, { runtimeCompilerBuild: true })
     .enableTypeScriptLoader();
+
+// Vue 2 only: Pinia 2 reaches Vue through vue-demi, whose default build is the
+// Vue 3 one until its postinstall switches it. An install that skips scripts
+// (--ignore-scripts, pnpm 10) would keep the Vue 3 build and fail to compile
+// against Vue 2.7, so point at the 2.7 build directly. Remove this together
+// with the move to Vue 3 and Pinia 3, which no longer uses vue-demi.
+Encore.addAliases({
+    'vue-demi$': require.resolve('vue-demi/lib/v2.7/index.mjs', {
+        paths: [path.dirname(require.resolve('pinia/package.json'))],
+    }),
+});
 
 module.exports = Encore.getWebpackConfig();

@@ -1,8 +1,8 @@
 import Vue from 'vue';
 /**
- * VueX Store
+ * Pinia
  */
-import store from './store';
+import { createPinia, PiniaVuePlugin } from 'pinia';
 /**
  * Components
  */
@@ -25,6 +25,8 @@ import File from './Components/File';
 import Filelist from './Components/Filelist';
 import Collection from './Components/Collection';
 import Checkbox from './Components/Checkbox';
+
+Vue.use(PiniaVuePlugin);
 
 Vue.component('EditorCheckbox', Checkbox);
 Vue.component('EditorDate', Date);
@@ -52,7 +54,7 @@ const editorSelector = '#' + id;
 
 if (document.getElementById(id)) {
     new Vue({
-        store,
+        pinia: createPinia(),
         el: editorSelector,
         name: 'BoltEditor',
     });

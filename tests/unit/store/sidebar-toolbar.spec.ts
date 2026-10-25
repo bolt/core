@@ -3,46 +3,32 @@ import { createEditorStore, createSidebarStore, createToolbarStore } from '../he
 
 describe('sidebar store', () => {
     it('starts with a full-width sidebar', () => {
-        expect(createSidebarStore().store.getters['general/slimSidebar']).toBe(false);
-    });
-
-    it('records the slim flag', async () => {
-        const { store } = createSidebarStore();
-
-        await store.dispatch('general/slimSidebar', true);
-
-        expect(store.getters['general/slimSidebar']).toBe(true);
+        expect(createSidebarStore().stores.general.slimSidebar).toBe(false);
     });
 
     it('can be seeded as slim', () => {
-        expect(createSidebarStore({ general: { slimSidebar: true } }).store.getters['general/slimSidebar']).toBe(true);
+        expect(createSidebarStore({ general: { slimSidebar: true } }).stores.general.slimSidebar).toBe(true);
     });
 });
 
 describe('toolbar store', () => {
     it('starts with no colour', () => {
-        expect(createToolbarStore().store.getters['general/toolbarColor']).toBeNull();
+        expect(createToolbarStore().stores.general.toolbarColor).toBe('');
     });
 
-    it('records the toolbar colour', async () => {
-        const { store } = createToolbarStore();
-
-        await store.dispatch('general/toolbarColor', '#112233');
-
-        expect(store.getters['general/toolbarColor']).toBe('#112233');
+    it('can be seeded with a colour', () => {
+        expect(createToolbarStore({ general: { toolbarColor: '#112233' } }).stores.general.toolbarColor).toBe(
+            '#112233',
+        );
     });
 });
 
 describe('editor store', () => {
     it('starts with a full-width sidebar', () => {
-        expect(createEditorStore().store.getters['general/slimSidebar']).toBe(false);
+        expect(createEditorStore().stores.general.slimSidebar).toBe(false);
     });
 
-    it('records the slim flag', async () => {
-        const { store } = createEditorStore();
-
-        await store.dispatch('general/slimSidebar', true);
-
-        expect(store.getters['general/slimSidebar']).toBe(true);
+    it('can be seeded as slim', () => {
+        expect(createEditorStore({ general: { slimSidebar: true } }).stores.general.slimSidebar).toBe(true);
     });
 });

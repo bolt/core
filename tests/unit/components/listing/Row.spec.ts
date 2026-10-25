@@ -31,7 +31,7 @@ const mountRow = (seed: ListingSeed = {}, overrides: Record<string, unknown> = {
     const testStore = createListingStore({ general: { type: 'pages' }, ...seed });
     return mount(Row, {
         localVue: testStore.localVue,
-        store: testStore.store,
+        pinia: testStore.pinia,
         propsData: { record: { ...record, ...overrides }, labels },
     });
 };
@@ -100,13 +100,13 @@ describe('Listing Row', () => {
         const testStore = createListingStore({ general: { type: 'pages', rowSize: 'small' } });
         const wrapper = mount(Row, {
             localVue: testStore.localVue,
-            store: testStore.store,
+            pinia: testStore.pinia,
             propsData: { record, labels },
         });
 
         expect(wrapper.find('.listing__row').classes()).toContain('is-small');
 
-        await testStore.store.dispatch('general/setRowSize', 'normal');
+        testStore.stores.general.rowSize = 'normal';
         await nextTick();
 
         expect(wrapper.find('.listing__row').classes()).toContain('is-normal');
@@ -148,12 +148,12 @@ describe('Listing Row', () => {
         const testStore = createListingStore({ general: { type: 'pages' } });
         const wrapper = mount(Row, {
             localVue: testStore.localVue,
-            store: testStore.store,
+            pinia: testStore.pinia,
             propsData: { record, labels },
         });
         expect((wrapper.vm as unknown as { sorting: boolean }).sorting).toBe(false);
 
-        await testStore.store.dispatch('general/setSorting', true);
+        testStore.stores.general.sorting = true;
         await nextTick();
 
         expect((wrapper.vm as unknown as { sorting: boolean }).sorting).toBe(true);

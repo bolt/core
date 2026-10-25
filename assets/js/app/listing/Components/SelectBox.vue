@@ -47,7 +47,9 @@
 </template>
 
 <script>
+import { mapState } from 'pinia';
 import Multiselect from 'vue-multiselect';
+import { useListingStore, useSelectingStore } from '../store';
 
 export default {
     name: 'ListingSelectedBox',
@@ -98,15 +100,10 @@ export default {
 
             return '';
         },
-        selectedCount() {
-            return this.$store.getters['selecting/selectedCount'];
-        },
-        selected() {
-            return this.$store.getters['selecting/selected'];
-        },
-        order() {
-            return this.$store.getters['listing/getOrder'];
-        },
+        ...mapState(useSelectingStore, ['selectedCount', 'selected']),
+        ...mapState(useListingStore, {
+            order: store => store.records.map(record => record.id),
+        }),
     },
 };
 </script>

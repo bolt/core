@@ -26,7 +26,7 @@ const mountSelectBox = (seed: ListingSeed, props: Record<string, unknown> = {}) 
     const testStore = createListingStore(seed);
     return mount(SelectBox, {
         localVue: testStore.localVue,
-        store: testStore.store,
+        pinia: testStore.pinia,
         propsData: { ...propsData, ...props },
         stubs: { multiselect: multiselectStub },
     });
@@ -128,7 +128,7 @@ describe('Listing SelectBox', () => {
         });
         const wrapper = mount(SelectBox, {
             localVue: testStore.localVue,
-            store: testStore.store,
+            pinia: testStore.pinia,
             propsData,
             stubs: { multiselect: multiselectStub },
         });

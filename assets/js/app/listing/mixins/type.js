@@ -1,7 +1,8 @@
+import { mapState } from 'pinia';
+import { useGeneralStore } from '../store';
+
 export default {
     computed: {
-        type() {
-            return this.$store.getters['general/getType'];
-        },
+        ...mapState(useGeneralStore, ['type']),
     },
 };

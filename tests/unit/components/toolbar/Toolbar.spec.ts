@@ -42,11 +42,13 @@ const mountToolbar = (props: Record<string, unknown> = {}, toolbarColor?: string
         document.body.style.setProperty('--admin-toolbar', toolbarColor);
     }
     const testStore = createToolbarStore();
+    const written = testStore.writes('general', 'toolbarColor');
     return {
         ...testStore,
+        written,
         wrapper: mount(Toolbar, {
             localVue: testStore.localVue,
-            store: testStore.store,
+            pinia: testStore.pinia,
             propsData: { ...propsData, ...props },
         }),
     };
@@ -113,10 +115,10 @@ describe('Toolbar', () => {
     });
 
     it('reads the toolbar colour off the page on creation', () => {
-        const { store, dispatched } = mountToolbar({}, '#ffffff');
+        const { stores, written } = mountToolbar({}, '#ffffff');
 
-        expect(dispatched('general/toolbarColor')).toEqual(['#ffffff']);
-        expect(store.getters['general/toolbarColor']).toBe('#ffffff');
+        expect(written).toEqual(['#ffffff']);
+        expect(stores.general.toolbarColor).toBe('#ffffff');
     });
 
     it('uses dark text on a light toolbar', () => {

@@ -6,6 +6,8 @@
 </template>
 
 <script>
+import { useGeneralStore } from '../store';
+
 export default {
     name: 'SidebarFooter',
     props: {
@@ -15,7 +17,8 @@ export default {
     },
     computed: {
         slim() {
-            return this.$store.getters['general/slimSidebar'] ? this.$store.getters['general/slimSidebar'] : false;
+            const store = useGeneralStore(this.$pinia);
+            return store.slimSidebar ? store.slimSidebar : false;
         },
     },
     watch: {
@@ -27,7 +30,7 @@ export default {
     },
     methods: {
         slimSidebar(arg) {
-            this.$store.dispatch('general/slimSidebar', arg);
+            useGeneralStore(this.$pinia).slimSidebar = arg;
         },
     },
 };

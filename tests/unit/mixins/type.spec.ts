@@ -13,26 +13,26 @@ const host = {
 
 describe('listing type mixin', () => {
     it('exposes the content type from the store', () => {
-        const { store, localVue } = createListingStore({ general: { type: 'pages' } });
+        const { pinia, localVue } = createListingStore({ general: { type: 'pages' } });
 
-        const wrapper = mount(host, { localVue, store });
+        const wrapper = mount(host, { localVue, pinia });
 
         expect(wrapper.find('.type').text()).toBe('pages');
     });
 
     it('renders nothing before a type is set', () => {
-        const { store, localVue } = createListingStore();
+        const { pinia, localVue } = createListingStore();
 
-        const wrapper = mount(host, { localVue, store });
+        const wrapper = mount(host, { localVue, pinia });
 
         expect(wrapper.find('.type').text()).toBe('');
     });
 
     it('follows a change of type', async () => {
-        const { store, localVue } = createListingStore({ general: { type: 'pages' } });
-        const wrapper = mount(host, { localVue, store });
+        const { pinia, localVue, stores } = createListingStore({ general: { type: 'pages' } });
+        const wrapper = mount(host, { localVue, pinia });
 
-        await store.dispatch('general/setType', 'dashboard');
+        stores.general.type = 'dashboard';
         await nextTick();
 
         expect(wrapper.find('.type').text()).toBe('dashboard');

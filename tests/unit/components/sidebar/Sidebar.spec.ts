@@ -13,9 +13,11 @@ const propsData = {
 
 const mountSidebar = () => {
     const testStore = createSidebarStore();
+    const written = testStore.writes('general', 'slimSidebar');
     return {
         ...testStore,
-        wrapper: mount(Sidebar, { localVue: testStore.localVue, store: testStore.store, propsData }),
+        written,
+        wrapper: mount(Sidebar, { localVue: testStore.localVue, pinia: testStore.pinia, propsData }),
     };
 };
 
@@ -34,25 +36,25 @@ describe('Sidebar', () => {
     it('restores a remembered slim sidebar on creation', () => {
         localStorage.setItem('slim-sidebar', 'true');
 
-        const { store, dispatched } = mountSidebar();
+        const { stores, written } = mountSidebar();
 
-        expect(dispatched('general/slimSidebar')).toEqual([true]);
-        expect(store.getters['general/slimSidebar']).toBe(true);
+        expect(written).toEqual([true]);
+        expect(stores.general.slimSidebar).toBe(true);
     });
 
     it('leaves the sidebar wide when the stored value is false', () => {
         localStorage.setItem('slim-sidebar', 'false');
 
-        const { store, dispatched } = mountSidebar();
+        const { stores, written } = mountSidebar();
 
-        expect(dispatched('general/slimSidebar')).toEqual([]);
-        expect(store.getters['general/slimSidebar']).toBe(false);
+        expect(written).toEqual([]);
+        expect(stores.general.slimSidebar).toBe(false);
     });
 
     it('leaves the sidebar wide when nothing is stored', () => {
-        const { dispatched } = mountSidebar();
+        const { written } = mountSidebar();
 
-        expect(dispatched('general/slimSidebar')).toEqual([]);
+        expect(written).toEqual([]);
     });
 
     it('fails to restore the sidebar when the stored value is not valid JSON', async () => {
@@ -61,16 +63,16 @@ describe('Sidebar', () => {
         // SyntaxError, so the sidebar still renders but silently loses the
         // remembered state instead of falling back to the default.
         localStorage.setItem('slim-sidebar', 'not json');
-        const { store, localVue } = createSidebarStore();
+        const { pinia, localVue, stores } = createSidebarStore();
         let wrapper!: ReturnType<typeof mount>;
 
         const errors = await captureVueErrors(() => {
-            wrapper = mount(Sidebar, { localVue, store, propsData });
+            wrapper = mount(Sidebar, { localVue, pinia, propsData });
         });
 
         expect(errors).toHaveLength(1);
         expect(errors[0]).toBeInstanceOf(SyntaxError);
         expect(wrapper.find('nav.admin__sidebar--nav').exists()).toBe(true);
-        expect(store.getters['general/slimSidebar']).toBe(false);
+        expect(stores.general.slimSidebar).toBe(false);
     });
 });

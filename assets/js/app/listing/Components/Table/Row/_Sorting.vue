@@ -5,12 +5,13 @@
 </template>
 
 <script>
+import { mapState } from 'pinia';
+import { useGeneralStore } from '../../../store';
+
 export default {
     name: 'Sorting',
     computed: {
-        sorting() {
-            return this.$store.getters['general/getSorting'];
-        },
+        ...mapState(useGeneralStore, ['sorting']),
     },
 };
 </script>
