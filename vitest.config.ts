@@ -1,12 +1,44 @@
 import { defineConfig } from 'vitest/config';
 import vue2 from '@vitejs/plugin-vue2';
+import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
-    plugins: [vue2()],
+    plugins: [
+        vue2(),
+        // Html.vue builds its Trumbowyg language context with webpack's
+        // `import.meta.webpackContext()`, which Vite does not implement. Route
+        // the call to the stand-in in tests/unit/helpers/webpack-context.ts,
+        // which setup.ts installs, and replace the node_modules path it was
+        // given with a lazy import of every file in that directory.
+        {
+            name: 'webpack-context',
+            transform(code) {
+                if (!code.includes('import.meta.webpackContext(')) {
+                    return null;
+                }
+
+                const rewritten = code.replace(
+                    /import\.meta\.webpackContext\(\s*(['"])(.+?)\1/g,
+                    (_match, _quote, request: string) => {
+                        const directory = path.resolve(root, 'node_modules', request);
+                        const files = fs
+                            .readdirSync(directory)
+                            .map(file => `'./${file}': () => import(${JSON.stringify(path.join(directory, file))})`);
+
+                        return `globalThis.__webpackContext({ ${files.join(', ')} }`;
+                    },
+                );
+
+                // The call is rewritten in place on a single line, so line
+                // numbers, and with them coverage, are unaffected.
+                return { code: rewritten, map: null };
+            },
+        },
+    ],
     resolve: {
         // Components import each other without the extension (`from './_SubMenu'`),
         // which webpack resolves via its own `resolve.extensions`. Vite does not
