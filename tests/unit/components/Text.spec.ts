@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 import { describe, expect, it } from 'vitest';
 import Text from '@/editor/Components/Text.vue';
-import { emitOnBus, recordBus } from '../helpers/bus';
+import { busListeners, emitOnBus, recordBus } from '../helpers/bus';
 
 const defaultProps = {
     value: 'Initial text',
@@ -18,10 +18,10 @@ const defaultProps = {
     autofocus: false,
 };
 
-// Slug and Text talk to each other over the root instance's event bus, which a
-// Slug field elsewhere on the page would normally drive.
-const startGenerating = async (wrapper: ReturnType<typeof mount>) => {
-    emitOnBus(wrapper, 'generate-from-title', true);
+// Slug and Text talk to each other over the event bus, which a Slug field
+// elsewhere on the page would normally drive.
+const startGenerating = async () => {
+    emitOnBus('generate-from-title', true);
     await nextTick();
 };
 
@@ -88,7 +88,7 @@ describe('EditorText', () => {
 
     it('stays quiet on the bus until slug generation is switched on', async () => {
         const wrapper = mount(Text, { propsData: defaultProps });
-        const asked = recordBus(wrapper, 'slugify-from-title');
+        const asked = recordBus('slugify-from-title');
         await nextTick();
 
         await wrapper.find('input').setValue('New title');
@@ -98,9 +98,9 @@ describe('EditorText', () => {
 
     it('asks for a new slug on every keystroke once generation is on', async () => {
         const wrapper = mount(Text, { propsData: defaultProps });
-        const asked = recordBus(wrapper, 'slugify-from-title');
+        const asked = recordBus('slugify-from-title');
         await nextTick();
-        await startGenerating(wrapper);
+        await startGenerating();
 
         await wrapper.find('input').setValue('New title');
         await wrapper.find('input').setValue('New title 2');
@@ -110,16 +110,25 @@ describe('EditorText', () => {
 
     it('stops asking when generation is switched off again', async () => {
         const wrapper = mount(Text, { propsData: defaultProps });
-        const asked = recordBus(wrapper, 'slugify-from-title');
+        const asked = recordBus('slugify-from-title');
         await nextTick();
-        await startGenerating(wrapper);
+        await startGenerating();
 
         await wrapper.find('input').setValue('New title');
-        emitOnBus(wrapper, 'generate-from-title', false);
+        emitOnBus('generate-from-title', false);
         await nextTick();
         await wrapper.find('input').setValue('New title 2');
 
         expect(asked).toHaveLength(1);
+    });
+
+    it('stops listening on the bus once destroyed', () => {
+        const wrapper = mount(Text, { propsData: defaultProps });
+        expect(busListeners('generate-from-title')).toBe(1);
+
+        wrapper.destroy();
+
+        expect(busListeners('generate-from-title')).toBe(0);
     });
 
     it.skip('accepts a numeric value and renders it as text', () => {
@@ -131,9 +140,8 @@ describe('EditorText', () => {
         expect((wrapper.find('input').element as HTMLInputElement).value).toBe('50');
     });
 
-    // Only passes on refactor/vue3-composition-api, where the mitt event bus
-    // carries `{ sources, active }` / `{ source }` payloads. The Vue 2.7
-    // $root bus broadcasts a bare boolean, so every Text field on the page
-    // drives every Slug field.
+    // Only passes once the bus carries `{ sources, active }` / `{ source }`
+    // payloads, as on refactor/vue3-composition-api. Today it broadcasts a
+    // bare boolean, so every Text field on the page drives every Slug field.
     it.todo('only regenerates the slug it is scoped to');
 });

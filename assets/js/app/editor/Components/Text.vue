@@ -21,6 +21,7 @@
 
 <script>
 import field from '../mixins/value';
+import { eventBus } from '../../eventBus';
 
 export default {
     name: 'EditorText',
@@ -55,12 +56,20 @@ export default {
     watch: {
         rawVal() {
             if (this.generate) {
-                this.$root.$emit('slugify-from-title');
+                eventBus.emit('slugify-from-title');
             }
         },
     },
     mounted() {
-        this.$root.$on('generate-from-title', data => (this.generate = data));
+        eventBus.on('generate-from-title', this.setGenerate);
+    },
+    beforeDestroy() {
+        eventBus.off('generate-from-title', this.setGenerate);
+    },
+    methods: {
+        setGenerate(active) {
+            this.generate = active;
+        },
     },
 };
 </script>

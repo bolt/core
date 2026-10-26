@@ -53,6 +53,7 @@
 <script>
 import field from '../mixins/value';
 import { slugify } from '../../../filters/string';
+import { eventBus } from '../../eventBus';
 
 export default {
     name: 'EditorSlug',
@@ -88,25 +89,28 @@ export default {
             if (this.shouldGenerateFromTitle(title)) {
                 this.icon = 'unlock';
                 this.buttonText = this.$props.labels.button_unlocked;
-                this.$root.$emit('generate-from-title', true);
+                eventBus.emit('generate-from-title', true);
                 this.generateSlug();
             }
         }, 0);
-        this.$root.$on('slugify-from-title', () => this.generateSlug());
+        eventBus.on('slugify-from-title', this.generateSlug);
+    },
+    beforeDestroy() {
+        eventBus.off('slugify-from-title', this.generateSlug);
     },
     methods: {
         shouldGenerateFromTitle(title) {
             return this.isNew ? true : title.length <= 0 && this.localize;
         },
         editSlug() {
-            this.$root.$emit('generate-from-title', false);
+            eventBus.emit('generate-from-title', false);
             this.edit = true;
             this.locked = false;
             this.buttonText = this.$props.labels.button_edit;
             this.icon = 'pencil-alt';
         },
         lockSlug() {
-            this.$root.$emit('generate-from-title', false);
+            eventBus.emit('generate-from-title', false);
             const slug = slugify(this.val);
             this.val = slug;
             this.edit = false;
@@ -122,7 +126,7 @@ export default {
 
             const slug = slugify(title);
             this.val = slug;
-            this.$root.$emit('generate-from-title', true);
+            eventBus.emit('generate-from-title', true);
 
             this.edit = false;
             this.locked = false;

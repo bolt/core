@@ -1,31 +1,29 @@
-import type Vue from 'vue';
+import type { Emitter } from 'mitt';
+import { eventBus, type Events } from '@/eventBus';
 
 /**
  * The Slug ⇄ Text event bus.
  *
- * Vue 2.7 has no dedicated bus: Slug.vue and Text.vue talk over `this.$root`,
- * which every component on the page shares. Note that test-utils mounts the
- * component under test inside a parent, so `$root` is that parent rather than
- * the component — which means `wrapper.emitted()` does *not* see bus traffic
- * and it has to be observed here instead.
- *
- * `$root.$emit`/`$on` is removed in Vue 3; the upgrade replaces it with a mitt
- * instance, at which point only this file changes.
+ * Slug.vue and Text.vue talk over the mitt bus in assets/js/app/eventBus.ts.
+ * It is a module singleton shared by every component, so `wrapper.emitted()`
+ * does *not* see its traffic and it has to be observed here instead. The
+ * global teardown in setup.ts clears its handlers after each test.
  */
-
-type Wrapper = { vm: Vue };
 
 /** Emits on the shared bus, as another field on the page would. */
-export function emitOnBus(wrapper: Wrapper, event: string, ...payload: unknown[]): void {
-    wrapper.vm.$root.$emit(event, ...payload);
-}
+export const emitOnBus: Emitter<Events>['emit'] = eventBus.emit;
 
 /**
- * Starts recording one bus event. The returned array collects the arguments of
- * each emission, in order — the same shape as `wrapper.emitted(event)`.
+ * Starts recording one bus event. The returned array collects the payload of
+ * each emission, in order.
  */
-export function recordBus(wrapper: Wrapper, event: string): unknown[][] {
-    const emissions: unknown[][] = [];
-    wrapper.vm.$root.$on(event, (...args: unknown[]) => emissions.push(args));
+export function recordBus<Key extends keyof Events>(event: Key): Events[Key][] {
+    const emissions: Events[Key][] = [];
+    eventBus.on(event, payload => emissions.push(payload));
     return emissions;
+}
+
+/** How many handlers are listening for one bus event. */
+export function busListeners(event: keyof Events): number {
+    return eventBus.all.get(event)?.length ?? 0;
 }
