@@ -16,8 +16,8 @@
                                 type="url"
                                 :required="required"
                                 :readonly="readonly"
-                                :data-errormessage="errormessage"
-                                :pattern="pattern"
+                                :data-errormessage="optionalAttribute(errormessage)"
+                                :pattern="optionalAttribute(pattern)"
                             />
                             <span class="input-group-append">
                                 <button
@@ -112,6 +112,7 @@
 import _ from 'lodash';
 import baguetteBox from 'baguettebox.js';
 import field from '../mixins/value';
+import { optionalAttribute } from '../utils/attributes';
 
 export default {
     name: 'EditorEmbed',
@@ -172,6 +173,7 @@ export default {
         });
     },
     methods: {
+        optionalAttribute,
         updateEmbed: function () {
             this.loading = true;
             this.debouncedFetchEmbed();

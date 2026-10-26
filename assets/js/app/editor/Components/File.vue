@@ -18,7 +18,7 @@
                         :value="filenameData"
                         data-readonly="readonly"
                         :required="required"
-                        :data-errormessage="errormessage"
+                        :data-errormessage="optionalAttribute(errormessage)"
                     />
                 </div>
                 <div class="input-group mb-3">
@@ -30,7 +30,7 @@
                         type="text"
                         :required="required"
                         :readonly="readonly"
-                        :pattern="pattern"
+                        :pattern="optionalAttribute(pattern)"
                         :placeholder="getPlaceholder"
                     />
                 </div>
@@ -149,6 +149,7 @@ import Axios from 'axios';
 import { renable } from '../../patience-is-a-virtue';
 import { resetModalContent } from '../../modal';
 import { Modal } from 'bootstrap';
+import { optionalAttribute } from '../utils/attributes';
 
 export default {
     name: 'EditorFile',
@@ -202,6 +203,7 @@ export default {
         },
     },
     methods: {
+        optionalAttribute,
         onMoveFileDown() {
             this.$emit('move-file-down', this);
         },

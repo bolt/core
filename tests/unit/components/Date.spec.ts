@@ -164,4 +164,13 @@ describe('EditorDate', () => {
     // from updated(), so an empty required field can flash the browser's
     // "please fill in this field" popup before the user has touched it.
     it.todo('does not surface the native validation popup on mount');
+
+    it('hands the error message to the picker only when there is one', async () => {
+        const withMessage = mountDate();
+        const without = mountDate({ errormessage: false });
+        await nextTick();
+
+        expect(submitted(withMessage).attributes('data-errormessage')).toBe('Pick a date');
+        expect(submitted(without).attributes('data-errormessage')).toBeUndefined();
+    });
 });

@@ -10,8 +10,8 @@
                 type="email"
                 :required="required"
                 :readonly="readonly"
-                :data-errormessage="errormessage"
-                :pattern="pattern"
+                :data-errormessage="optionalAttribute(errormessage)"
+                :pattern="optionalAttribute(pattern)"
                 :placeholder="placeholder"
             />
         </div>
@@ -19,6 +19,8 @@
 </template>
 
 <script>
+import { optionalAttribute } from '../utils/attributes';
+
 export default {
     name: 'EditorEmail',
     props: {
@@ -44,6 +46,9 @@ export default {
             type: String | Boolean,
         },
         placeholder: String | Boolean,
+    },
+    methods: {
+        optionalAttribute,
     },
 };
 </script>

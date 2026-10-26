@@ -136,4 +136,12 @@ describe('EditorText', () => {
     // $root bus broadcasts a bare boolean, so every Text field on the page
     // drives every Slug field.
     it.todo('only regenerates the slug it is scoped to');
+
+    it('omits the error message and pattern when they are false', () => {
+        const wrapper = mount(Text, { propsData: { ...defaultProps, errormessage: false, pattern: false } });
+
+        const input = wrapper.find('input');
+        expect(input.attributes('data-errormessage')).toBeUndefined();
+        expect(input.attributes('pattern')).toBeUndefined();
+    });
 });

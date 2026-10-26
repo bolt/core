@@ -420,9 +420,27 @@ describe('EditorFile', () => {
         });
     });
 
-    // Only passes after 2f840c0d, which declares the props Twig passes.
-    // Until then `placeholder`, `pattern` and friends arrive as undeclared
-    // attributes and fall through onto the root element instead of being
-    // bound where the template expects them.
-    it.todo('omits optional attributes when they are unset or false');
+    it('omits optional attributes when they are unset or false', () => {
+        // Twig passes `false` for an unset pattern, placeholder or error message.
+        const wrapper = mountFile({ pattern: false, placeholder: false, errormessage: false });
+
+        const filename = wrapper.find('input[name="fields[document][filename]"]');
+        const title = wrapper.find('input[name="fields[document][title]"]');
+        expect(filename.attributes('data-errormessage')).toBeUndefined();
+        expect(title.attributes('pattern')).toBeUndefined();
+        expect(title.attributes('placeholder')).toBe(labels.placeholder_title);
+        // Declared as props, so none of them falls through onto the root.
+        expect(wrapper.attributes('pattern')).toBeUndefined();
+        expect(wrapper.attributes('placeholder')).toBeUndefined();
+    });
+
+    it('binds the optional attributes where they apply when set', () => {
+        const wrapper = mountFile({ pattern: '[a-z]+', placeholder: 'Describe it', errormessage: 'Pick a file' });
+
+        const filename = wrapper.find('input[name="fields[document][filename]"]');
+        const title = wrapper.find('input[name="fields[document][title]"]');
+        expect(filename.attributes('data-errormessage')).toBe('Pick a file');
+        expect(title.attributes('pattern')).toBe('[a-z]+');
+        expect(title.attributes('placeholder')).toBe('Describe it');
+    });
 });

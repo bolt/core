@@ -8,7 +8,7 @@
             :rows="rows"
             :required="required"
             :readonly="readonly"
-            :data-errormessage="errormessage"
+            :data-errormessage="optionalAttribute(errormessage)"
             :placeholder="placeholder"
             :style="{ height: styleHeight }"
             :maxlength="maxlength"
@@ -19,6 +19,7 @@
 
 <script>
 import field from '../mixins/value';
+import { optionalAttribute } from '../utils/attributes';
 
 export default {
     name: 'EditorTextarea',
@@ -41,6 +42,9 @@ export default {
             rows: isNaN(this.height) ? false : this.height,
             styleHeight: isNaN(this.height) ? this.height : false,
         };
+    },
+    methods: {
+        optionalAttribute,
     },
 };
 </script>

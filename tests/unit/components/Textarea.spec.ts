@@ -75,4 +75,11 @@ describe('EditorTextarea', () => {
 
         expect((wrapper.find('textarea').element as HTMLTextAreaElement).value).toBe('Edited');
     });
+
+    it('omits the error message when it is false', () => {
+        const wrapper = mount(Textarea, { propsData: { ...defaultProps, errormessage: false } });
+
+        const textarea = wrapper.find('textarea');
+        expect(textarea.attributes('data-errormessage')).toBeUndefined();
+    });
 });

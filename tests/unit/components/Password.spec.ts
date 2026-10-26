@@ -126,4 +126,11 @@ describe('EditorPassword', () => {
 
         expect(zxcvbn).not.toHaveBeenCalled();
     });
+
+    it('omits the error message and pattern when they are false', () => {
+        const wrapper = mountPassword({ errormessage: false, pattern: false });
+
+        expect(input(wrapper).attributes('data-errormessage')).toBeUndefined();
+        expect(input(wrapper).attributes('pattern')).toBeUndefined();
+    });
 });

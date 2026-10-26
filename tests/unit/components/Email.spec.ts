@@ -51,4 +51,14 @@ describe('EditorEmail', () => {
 
         expect(wrapper.find('input').attributes('readonly')).toBeDefined();
     });
+
+    it('omits the error message and pattern when they are false', () => {
+        const wrapper = mount(Email, {
+            propsData: { value: '', name: 'fields[email]', errormessage: false, pattern: false },
+        });
+
+        const input = wrapper.find('input');
+        expect(input.attributes('data-errormessage')).toBeUndefined();
+        expect(input.attributes('pattern')).toBeUndefined();
+    });
 });
