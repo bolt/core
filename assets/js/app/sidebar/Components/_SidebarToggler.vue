@@ -6,6 +6,7 @@
 </template>
 
 <script>
+import { mapState } from 'pinia';
 import { useGeneralStore } from '../store';
 
 export default {
@@ -16,10 +17,7 @@ export default {
         labels: Object,
     },
     computed: {
-        slim() {
-            const store = useGeneralStore(this.$pinia);
-            return store.slimSidebar ? store.slimSidebar : false;
-        },
+        ...mapState(useGeneralStore, { slim: 'slimSidebar' }),
     },
     watch: {
         slim() {
