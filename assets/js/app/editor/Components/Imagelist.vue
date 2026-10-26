@@ -119,7 +119,7 @@ export default {
             let fieldNumber = this.getFieldNumberFromElement(elem);
             let updatedImage = this.containerImages[fieldNumber];
             updatedImage.hidden = true;
-            this.$set(this.containerImages, fieldNumber, updatedImage);
+            this.containerImages.splice(fieldNumber, 1, updatedImage);
         },
         fieldName(index) {
             return this.name + '[' + index + ']';

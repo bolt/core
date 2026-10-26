@@ -180,6 +180,23 @@ describe('EditorSelect', () => {
         expect(wrapper.find('.multiselect__tag__edit a').attributes('href')).toBe('/bolt/edit/1');
     });
 
+    it('offers an edit link on the selected record when only one can be picked', async () => {
+        const linked = [{ key: 'a', value: 'A record', link_to_record_url: '/bolt/edit/1' }];
+        const wrapper = mountSelect({ options: linked, value: 'a', multiple: false });
+        await nextTick();
+
+        expect(wrapper.find('.stub-single-label .multiselect__tag__edit a').attributes('href')).toBe('/bolt/edit/1');
+    });
+
+    it('leaves the label of a selected option without a link to the picker', async () => {
+        // Rendering nothing makes vue-multiselect fall back to its own label.
+        const wrapper = mountSelect({ value: 'published', multiple: false });
+        await nextTick();
+
+        expect(wrapper.find('.stub-single-label').exists()).toBe(true);
+        expect(wrapper.find('.stub-single-label').text()).toBe('');
+    });
+
     it('does not offer dragging when tags are freely editable', async () => {
         const wrapper = mountSelect({ value: ['draft'], taggable: true });
         await nextTick();
