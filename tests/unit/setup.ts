@@ -2,6 +2,7 @@ import Vue from 'vue';
 import { enableAutoDestroy } from '@vue/test-utils';
 import $ from 'jquery';
 import { afterEach, beforeEach, expect, vi } from 'vitest';
+import { eventBus } from '@/eventBus';
 import { resetDom } from './helpers/dom';
 import { installWarningHandler, resetWarnings, reviewWarnings } from './helpers/warnings';
 
@@ -63,6 +64,10 @@ afterEach(() => {
     // leak between tests and a cached response answers the wrong assertion.
     delete (window as unknown as Record<string, unknown>).selectCache;
     delete (window as unknown as Record<string, unknown>).requestCache;
+
+    // The event bus is a module singleton, so recordBus() listeners would
+    // otherwise outlive their test.
+    eventBus.all.clear();
 
     expect(unexpected, `Unexpected Vue warning(s):\n${unexpected.join('\n')}`).toEqual([]);
     expect(missing, `Expected Vue warning(s) that never happened:\n${missing.join('\n')}`).toEqual([]);

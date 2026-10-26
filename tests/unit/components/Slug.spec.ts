@@ -4,7 +4,7 @@ import { describe, expect, it, vi } from 'vitest';
 import Slug from '@/editor/Components/Slug.vue';
 import { withTitleFields } from '../helpers/dom';
 import { flushPromises } from '../helpers/async';
-import { emitOnBus, recordBus } from '../helpers/bus';
+import { busListeners, emitOnBus, recordBus } from '../helpers/bus';
 
 const labels = {
     button_locked: 'Locked',
@@ -174,7 +174,7 @@ describe('EditorSlug', () => {
         const wrapper = mountSlug();
         await settle();
 
-        emitOnBus(wrapper, 'slugify-from-title');
+        emitOnBus('slugify-from-title');
         await nextTick();
 
         expect(input(wrapper).value).toBe('a-fresh-title');
@@ -183,23 +183,34 @@ describe('EditorSlug', () => {
     it('tells the title fields to start driving the slug once it generates', async () => {
         withTitleFields({ title: 'A Fresh Title' });
         const wrapper = mountSlug();
-        const generating = recordBus(wrapper, 'generate-from-title');
+        const generating = recordBus('generate-from-title');
         await settle();
 
         await clickItem(wrapper, 'Generate from title');
 
-        expect(generating).toEqual([[true]]);
+        expect(generating).toEqual([true]);
     });
 
     it('tells the title fields to stop driving the slug once it is edited by hand', async () => {
         withTitleFields({ title: 'A page' });
         const wrapper = mountSlug();
-        const generating = recordBus(wrapper, 'generate-from-title');
+        const generating = recordBus('generate-from-title');
         await settle();
 
         await clickItem(wrapper, 'Edit');
 
-        expect(generating).toEqual([[false]]);
+        expect(generating).toEqual([false]);
+    });
+
+    it('stops listening on the bus once destroyed', async () => {
+        withTitleFields({ title: 'A page' });
+        const wrapper = mountSlug();
+        await settle();
+        expect(busListeners('slugify-from-title')).toBe(1);
+
+        wrapper.destroy();
+
+        expect(busListeners('slugify-from-title')).toBe(0);
     });
 
     it('disables the dropdown when the field is read-only', async () => {
@@ -223,9 +234,8 @@ describe('EditorSlug', () => {
         expect(() => vi.runAllTimers()).toThrow(TypeError);
     });
 
-    // Only passes on refactor/vue3-composition-api, where the mitt event bus
-    // carries a `{ source }` payload. The Vue 2.7 $root bus broadcasts
-    // 'slugify-from-title' with no payload, so every Slug on the page
-    // regenerates whenever any Text field changes — see 3778f430.
+    // Only passes once 'slugify-from-title' carries a `{ source }` payload, as
+    // on refactor/vue3-composition-api. Today it has none, so every Slug on the
+    // page regenerates whenever any Text field changes.
     it.todo('only responds to the title fields it is scoped to');
 });

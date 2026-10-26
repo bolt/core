@@ -72,7 +72,6 @@ layer, so the upgrade edits them. Most of it is mechanical:
 | `stubs:` / `localVue` / `store:` → `global: { stubs, plugins }` | every mount that has them |
 | `wrapper.destroy()` → `unmount()`, `findAll(...).at(i)` → `[i]` | mechanical |
 | Vuex → Pinia | `helpers/store.ts` and the specs that seed state |
-| `$root.$emit`/`$on` → the mitt bus | `helpers/bus.ts`, plus Text and Slug |
 | vue-multiselect 2→3, vuedraggable 2→4, trumbowyg 3→4, easymde | `helpers/stubs.ts` |
 | `flushPromises` | delete `helpers/async.ts`, import from test-utils |
 
