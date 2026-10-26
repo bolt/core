@@ -52,7 +52,7 @@ services:
       - --watch
 
   padm:
-    image: phpmyadmin/phpmyadmin
+    image: phpmyadmin
     ports:
       - 8099:80
     links:
