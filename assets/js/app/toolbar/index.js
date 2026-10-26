@@ -1,12 +1,14 @@
 import Vue from 'vue';
 /**
- * VueX Store
+ * Pinia
  */
-import store from './store';
+import { createPinia, PiniaVuePlugin } from 'pinia';
 /**
  * Components
  */
 import Toolbar from './Components/Toolbar.vue';
+
+Vue.use(PiniaVuePlugin);
 
 /**
  * Register Components
@@ -15,7 +17,7 @@ const id = 'toolbar';
 
 if (document.getElementById(id)) {
     new Vue({
-        store,
+        pinia: createPinia(),
         el: '#' + id,
         name: 'BoltToolbar',
         components: {

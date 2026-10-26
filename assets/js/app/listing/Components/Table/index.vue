@@ -9,8 +9,10 @@
 </template>
 
 <script>
+import { mapWritableState } from 'pinia';
 import draggable from 'vuedraggable';
 import Row from './Row';
+import { useListingStore } from '../../store';
 
 export default {
     name: 'ListingTable',
@@ -22,14 +24,7 @@ export default {
         labels: Object,
     },
     computed: {
-        records: {
-            get() {
-                return this.$store.getters['listing/getRecords'];
-            },
-            set(val) {
-                this.$store.dispatch('listing/setRecords', val);
-            },
-        },
+        ...mapWritableState(useListingStore, ['records']),
     },
 };
 </script>

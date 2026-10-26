@@ -3,6 +3,8 @@
 </template>
 
 <script>
+import { useGeneralStore, useListingStore } from '../store';
+
 export default {
     name: 'ListingRecords',
     props: {
@@ -11,8 +13,8 @@ export default {
         labels: Object,
     },
     created() {
-        this.$store.dispatch('general/setType', this.type);
-        this.$store.dispatch('listing/setRecords', this.data);
+        useGeneralStore(this.$pinia).type = this.type;
+        useListingStore(this.$pinia).records = this.data;
     },
 };
 </script>

@@ -47,7 +47,9 @@
 </template>
 
 <script>
+import { mapState } from 'pinia';
 import Multiselect from 'vue-multiselect';
+import { useListingStore, useSelectingStore } from '../store';
 
 export default {
     name: 'ListingSelectedBox',
@@ -98,15 +100,13 @@ export default {
 
             return '';
         },
-        selectedCount() {
-            return this.$store.getters['selecting/selectedCount'];
-        },
-        selected() {
-            return this.$store.getters['selecting/selected'];
-        },
-        order() {
-            return this.$store.getters['listing/getOrder'];
-        },
+        ...mapState(useSelectingStore, ['selectedCount', 'selected']),
+        // Dead code: nothing reads or submits `order`. It belongs to the
+        // unfinished drag-and-drop sorting of records, like the commented-out
+        // toggle in Filter.vue and the unused _Sorting.vue handle.
+        ...mapState(useListingStore, {
+            order: store => store.records.map(record => record.id),
+        }),
     },
 };
 </script>

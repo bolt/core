@@ -60,7 +60,9 @@
 </template>
 
 <script>
+import { mapState } from 'pinia';
 import type from '../mixins/type';
+import { useGeneralStore, useSelectingStore } from '../store';
 
 export default {
     name: 'ListingFilter',
@@ -69,34 +71,27 @@ export default {
         labels: Object,
     },
     computed: {
-        size() {
-            return this.$store.getters['general/getRowSize'];
-        },
-        sorting() {
-            return this.$store.getters['general/getSorting'];
-        },
-        selectAll() {
-            return this.$store.getters['selecting/selectAll'];
-        },
+        ...mapState(useGeneralStore, { size: 'rowSize', sorting: 'sorting' }),
+        ...mapState(useSelectingStore, ['selectAll']),
     },
     watch: {
         sorting() {
-            if (this.sorting) this.$store.dispatch('selecting/selectAll', false);
+            if (this.sorting) useSelectingStore(this.$pinia).selectAll = false;
         },
     },
     created() {
         const size = localStorage.getItem('listing-row-size');
-        if (size !== null) this.$store.dispatch('general/setRowSize', size);
+        if (size !== null) useGeneralStore(this.$pinia).rowSize = size;
     },
     methods: {
         enableSorting(arg) {
-            this.$store.dispatch('general/setSorting', arg);
+            useGeneralStore(this.$pinia).sorting = arg;
         },
         enableSelectAll(arg) {
-            this.$store.dispatch('selecting/selectAll', arg);
+            useSelectingStore(this.$pinia).selectAll = arg;
         },
         changeSize(size) {
-            this.$store.dispatch('general/setRowSize', size);
+            useGeneralStore(this.$pinia).rowSize = size;
             localStorage.setItem('listing-row-size', size);
         },
     },

@@ -26,7 +26,7 @@ const mountSelectBox = (seed: ListingSeed, props: Record<string, unknown> = {}) 
     const testStore = createListingStore(seed);
     return mount(SelectBox, {
         localVue: testStore.localVue,
-        store: testStore.store,
+        pinia: testStore.pinia,
         propsData: { ...propsData, ...props },
         stubs: { multiselect: multiselectStub },
     });
@@ -41,13 +41,13 @@ const chooseAction = async (wrapper: ReturnType<typeof mount>, key: string) => {
 
 describe('Listing SelectBox', () => {
     it('stays hidden while nothing is selected', () => {
-        const wrapper = mountSelectBox({ selecting: { selectedCount: 0 } });
+        const wrapper = mountSelectBox({ selecting: { selected: [] } });
 
         expect(wrapper.find('.card').exists()).toBe(false);
     });
 
     it('uses the singular noun for a single selected record', () => {
-        const wrapper = mountSelectBox({ selecting: { selectedCount: 1, selected: [1] } });
+        const wrapper = mountSelectBox({ selecting: { selected: [1] } });
 
         // The count and the noun are separated visually by a css margin, not
         // by whitespace, so the text nodes run together.
@@ -57,14 +57,14 @@ describe('Listing SelectBox', () => {
     });
 
     it('uses the plural noun for several selected records', () => {
-        const wrapper = mountSelectBox({ selecting: { selectedCount: 3, selected: [1, 2, 3] } });
+        const wrapper = mountSelectBox({ selecting: { selected: [1, 2, 3] } });
 
         expect(wrapper.find('.card-header .is-primary').text()).toBe('3');
         expect(wrapper.find('.card-header').text()).toContain('records selected');
     });
 
     it('offers the three status changes and delete', () => {
-        const wrapper = mountSelectBox({ selecting: { selectedCount: 1, selected: [1] } });
+        const wrapper = mountSelectBox({ selecting: { selected: [1] } });
 
         const options = wrapper.findComponent(multiselectStub).props('options') as { key: string; value: string }[];
         expect(options.map(option => option.key)).toEqual([
@@ -77,7 +77,7 @@ describe('Listing SelectBox', () => {
     });
 
     it('renders an icon and a label for each option', () => {
-        const wrapper = mountSelectBox({ selecting: { selectedCount: 1, selected: [1] } });
+        const wrapper = mountSelectBox({ selecting: { selected: [1] } });
 
         const first = wrapper.findAll('.stub-option').at(0);
         expect(first.find('span').classes()).toContain('is-published');
@@ -85,7 +85,7 @@ describe('Listing SelectBox', () => {
     });
 
     it('disables the submit button until an action is chosen', async () => {
-        const wrapper = mountSelectBox({ selecting: { selectedCount: 1, selected: [1] } });
+        const wrapper = mountSelectBox({ selecting: { selected: [1] } });
 
         expect(wrapper.find('button[type="submit"]').attributes('disabled')).toBeDefined();
 
@@ -95,7 +95,7 @@ describe('Listing SelectBox', () => {
     });
 
     it('posts to the bulk endpoint for the chosen action', async () => {
-        const wrapper = mountSelectBox({ selecting: { selectedCount: 2, selected: [1, 2] } });
+        const wrapper = mountSelectBox({ selecting: { selected: [1, 2] } });
 
         expect(wrapper.find('form').attributes('action')).toBe('');
 
@@ -105,7 +105,7 @@ describe('Listing SelectBox', () => {
     });
 
     it('builds a relative post url when there is no backend prefix', async () => {
-        const wrapper = mountSelectBox({ selecting: { selectedCount: 1, selected: [1] } }, { backendPrefix: '' });
+        const wrapper = mountSelectBox({ selecting: { selected: [1] } }, { backendPrefix: '' });
 
         await chooseAction(wrapper, 'status/held');
 
@@ -113,7 +113,7 @@ describe('Listing SelectBox', () => {
     });
 
     it('submits the selected ids and the csrf token', () => {
-        const wrapper = mountSelectBox({ selecting: { selectedCount: 2, selected: [4, 9] } });
+        const wrapper = mountSelectBox({ selecting: { selected: [4, 9] } });
 
         expect(wrapper.find('input[name="records"]').attributes('value')).toBe('4,9');
         expect(wrapper.find('input[name="_csrf_token"]').attributes('value')).toBe('token-123');
@@ -123,12 +123,12 @@ describe('Listing SelectBox', () => {
         // The `order` computed is dead code — no template or form field reads
         // it. Pinned through the instance so the Vue 3 migration can see it.
         const testStore = createListingStore({
-            selecting: { selectedCount: 1, selected: [1] },
+            selecting: { selected: [1] },
             listing: { records: [{ id: 3 }, { id: 1 }] },
         });
         const wrapper = mount(SelectBox, {
             localVue: testStore.localVue,
-            store: testStore.store,
+            pinia: testStore.pinia,
             propsData,
             stubs: { multiselect: multiselectStub },
         });
@@ -138,7 +138,7 @@ describe('Listing SelectBox', () => {
     });
 
     it('labels the submit button', () => {
-        const wrapper = mountSelectBox({ selecting: { selectedCount: 1, selected: [1] } });
+        const wrapper = mountSelectBox({ selecting: { selected: [1] } });
 
         expect(wrapper.find('button[type="submit"]').text()).toBe('Update all');
     });

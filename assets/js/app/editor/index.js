@@ -1,9 +1,5 @@
 import Vue from 'vue';
 /**
- * VueX Store
- */
-import store from './store';
-/**
  * Components
  */
 import Text from './Components/Text';
@@ -52,7 +48,6 @@ const editorSelector = '#' + id;
 
 if (document.getElementById(id)) {
     new Vue({
-        store,
         el: editorSelector,
         name: 'BoltEditor',
     });

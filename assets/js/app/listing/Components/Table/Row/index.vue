@@ -45,7 +45,9 @@
 </template>
 
 <script>
+import { mapState } from 'pinia';
 import type from '../../../mixins/type';
+import { useGeneralStore } from '../../../store';
 import { raw, trim } from '../../../../../filters/string';
 import Checkbox from './_Checkbox';
 import Meta from './_Meta';
@@ -74,12 +76,7 @@ export default {
             // if slug has different locales, return the 0st one
             return this.record.fieldValues.slug[Object.keys(this.record.fieldValues.slug)[0]];
         },
-        size() {
-            return this.$store.getters['general/getRowSize'];
-        },
-        sorting() {
-            return this.$store.getters['general/getSorting'];
-        },
+        ...mapState(useGeneralStore, { size: 'rowSize', sorting: 'sorting' }),
     },
     methods: {
         raw,

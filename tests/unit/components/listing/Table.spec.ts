@@ -28,11 +28,13 @@ const renderedIds = (wrapper: ReturnType<typeof mount>) =>
 
 const mountTable = (seedRecords: unknown[]) => {
     const testStore = createListingStore({ listing: { records: seedRecords } });
+    const written = testStore.writes('listing', 'records');
     return {
         ...testStore,
+        written,
         wrapper: mount(Table, {
             localVue: testStore.localVue,
-            store: testStore.store,
+            pinia: testStore.pinia,
             propsData: { labels },
             stubs: { draggable: draggableStub, 'table-row': rowStub },
         }),
@@ -60,7 +62,7 @@ describe('Listing Table', () => {
     });
 
     it('writes a reordering back to the store', async () => {
-        const { wrapper, store, dispatched } = mountTable(records);
+        const { wrapper, stores, written } = mountTable(records);
         const reordered = [records[1], records[0]];
 
         (wrapper.findComponent(draggableStub).vm as unknown as { reorder: (list: unknown[]) => void }).reorder(
@@ -68,14 +70,14 @@ describe('Listing Table', () => {
         );
         await nextTick();
 
-        expect(dispatched('listing/setRecords')).toEqual([reordered]);
-        expect(store.getters['listing/getOrder']).toEqual([2, 1]);
+        expect(written).toEqual([reordered]);
+        expect(stores.listing.records.map(record => record.id)).toEqual([2, 1]);
     });
 
     it('re-renders in the new order after a reordering', async () => {
-        const { wrapper, store } = mountTable(records);
+        const { wrapper, stores } = mountTable(records);
 
-        await store.dispatch('listing/setRecords', [records[1], records[0]]);
+        stores.listing.records = [records[1], records[0]];
         await nextTick();
 
         expect(renderedIds(wrapper)).toEqual([2, 1]);

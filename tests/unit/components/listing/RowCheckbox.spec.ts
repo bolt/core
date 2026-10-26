@@ -8,7 +8,9 @@ const mountCheckbox = (seed: ListingSeed = {}) => {
     const testStore = createListingStore(seed);
     return {
         ...testStore,
-        wrapper: mount(Checkbox, { localVue: testStore.localVue, store: testStore.store, propsData: { id: 7 } }),
+        selects: testStore.calls('selecting', 'select'),
+        deSelects: testStore.calls('selecting', 'deSelect'),
+        wrapper: mount(Checkbox, { localVue: testStore.localVue, pinia: testStore.pinia, propsData: { id: 7 } }),
     };
 };
 
@@ -21,64 +23,64 @@ describe('Listing row Checkbox', () => {
     });
 
     it('is hidden while sorting is on', async () => {
-        const { wrapper, store } = mountCheckbox();
+        const { wrapper, stores } = mountCheckbox();
         expect(wrapper.find('.listing--checkbox').isVisible()).toBe(true);
 
-        await store.dispatch('general/setSorting', true);
+        stores.general.sorting = true;
         await nextTick();
 
         expect(wrapper.find('.listing--checkbox').isVisible()).toBe(false);
     });
 
     it('selects the record in the store when ticked', async () => {
-        const { wrapper, store, dispatched } = mountCheckbox();
+        const { wrapper, stores, selects } = mountCheckbox();
         await wrapper.find('input').setChecked(true);
 
-        expect(dispatched('selecting/select')).toEqual([7]);
-        expect(store.getters['selecting/selected']).toEqual([7]);
+        expect(selects).toEqual([[7]]);
+        expect(stores.selecting.selected).toEqual([7]);
     });
 
     it('deselects the record when unticked', async () => {
-        const { wrapper, store, dispatched } = mountCheckbox();
+        const { wrapper, stores, deSelects } = mountCheckbox();
         await wrapper.find('input').setChecked(true);
         await wrapper.find('input').setChecked(false);
 
-        expect(dispatched('selecting/deSelect')).toEqual([7]);
-        expect(store.getters['selecting/selected']).toEqual([]);
+        expect(deSelects).toEqual([[7]]);
+        expect(stores.selecting.selected).toEqual([]);
     });
 
     it('follows the select-all flag', async () => {
-        const { wrapper, store, dispatched } = mountCheckbox();
+        const { wrapper, stores, selects, deSelects } = mountCheckbox();
 
-        await store.dispatch('selecting/selectAll', true);
+        stores.selecting.selectAll = true;
         await nextTick();
         expect((wrapper.find('input').element as HTMLInputElement).checked).toBe(true);
-        expect(dispatched('selecting/select')).toEqual([7]);
+        expect(selects).toEqual([[7]]);
 
-        await store.dispatch('selecting/selectAll', false);
+        stores.selecting.selectAll = false;
         await nextTick();
         expect((wrapper.find('input').element as HTMLInputElement).checked).toBe(false);
-        expect(dispatched('selecting/deSelect')).toEqual([7]);
+        expect(deSelects).toEqual([[7]]);
     });
 
     it('keeps its selection when sorting is turned off again', async () => {
-        const { wrapper, store } = mountCheckbox({ general: { sorting: true } });
+        const { wrapper, stores } = mountCheckbox({ general: { sorting: true } });
         await wrapper.find('input').setChecked(true);
 
-        await store.dispatch('general/setSorting', false);
+        stores.general.sorting = false;
         await nextTick();
 
         expect((wrapper.find('input').element as HTMLInputElement).checked).toBe(true);
     });
 
     it('clears its selection when sorting starts', async () => {
-        const { wrapper, store, dispatched } = mountCheckbox();
+        const { wrapper, stores, deSelects } = mountCheckbox();
         await wrapper.find('input').setChecked(true);
 
-        await store.dispatch('general/setSorting', true);
+        stores.general.sorting = true;
         await nextTick();
 
         expect((wrapper.find('input').element as HTMLInputElement).checked).toBe(false);
-        expect(dispatched('selecting/deSelect')).toEqual([7]);
+        expect(deSelects).toEqual([[7]]);
     });
 });

@@ -26,10 +26,7 @@
         "sourceMap": true,
 
         "paths": {
-            "@/*": ["./assets/js/app/*"],
-            // Vuex 3 predates package "exports", so under bundler resolution
-            // tsc cannot find its typings. Point at them directly.
-            "vuex": ["./node_modules/vuex/types/index.d.ts"]
+            "@/*": ["./assets/js/app/*"]
         },
         "types": ["vitest/globals"]
     },

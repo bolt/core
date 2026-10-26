@@ -1,6 +1,6 @@
 # Frontend unit tests
 
-Vitest + `@vue/test-utils` over the Vue 2.7 admin components, the Vuex stores,
+Vitest + `@vue/test-utils` over the Vue 2.7 admin components, the Pinia stores,
 the filters and the app-level scripts. `npm run test:unit` to run,
 `npm run test:unit:watch` while working, `npm run test:unit:coverage` for the
 gate CI enforces.
@@ -31,8 +31,8 @@ regression baseline rather than a round of manual clicking.
    mount against Twig-rendered markup. The specs under `app/` are the exception:
    those scripts expect a whole page, so each lays out the markup it needs.
 4. **Seed store state through `helpers/store.ts`**, then assert through the
-   rendered DOM or the spied `dispatch`. The factories build a real store from
-   the app's own modules, so real getters and mutations run.
+   rendered DOM or the recorded `writes()` and `calls()`. The factories build a
+   real Pinia from the app's own stores, so real getters and actions run.
 5. **Vue warnings fail the test.** Two known defects are allowed for in
    `helpers/warnings.ts`; a spec that deliberately provokes another declares it
    with `expectVueWarning()`, which also asserts the warning happened.
@@ -50,7 +50,7 @@ regression baseline rather than a round of manual clicking.
 
     setup.ts        global setup: jQuery globals, jsdom gaps, per-test teardown
     helpers/
-      store.ts      Vuex store factories over the real modules
+      store.ts      Pinia factories over the real stores
       stubs.ts      third-party component stubs, keyed by template tag
       dom.ts        the Twig-rendered surroundings components query
       warnings.ts   Vue warning policy
@@ -69,9 +69,9 @@ layer, so the upgrade edits them. Most of it is mechanical:
 | change | scope |
 |---|---|
 | `propsData:` → `props:` | every mount |
-| `stubs:` / `localVue` / `store:` → `global: { stubs, plugins }` | every mount that has them |
+| `stubs:` / `localVue` / `pinia:` → `global: { stubs, plugins }` | every mount that has them |
 | `wrapper.destroy()` → `unmount()`, `findAll(...).at(i)` → `[i]` | mechanical |
-| Vuex → Pinia | `helpers/store.ts` and the specs that seed state |
+| pinia 2 → 3, `PiniaVuePlugin` → `app.use(pinia)` | `helpers/store.ts` and the boot files |
 | `$root.$emit`/`$on` → the mitt bus | `helpers/bus.ts`, plus Text and Slug |
 | vue-multiselect 2→3, vuedraggable 2→4, trumbowyg 3→4, easymde | `helpers/stubs.ts` |
 | `flushPromises` | delete `helpers/async.ts`, import from test-utils |
@@ -81,6 +81,5 @@ is why rule 1 matters. Keeping assertions at the DOM means the specs survive
 components becoming `<script setup>`, where internals stop being exposed on the
 instance.
 
-`tests/unit/shims-vue.d.ts` and `shims-vuex.d.ts` both go away: the first once
-SFCs are `<script setup lang="ts">` and the checker becomes `vue-tsc`, the
-second with Vuex.
+`tests/unit/shims-vue.d.ts` goes away once SFCs are `<script setup lang="ts">`
+and the checker becomes `vue-tsc`.

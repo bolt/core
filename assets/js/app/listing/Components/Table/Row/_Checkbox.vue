@@ -8,6 +8,9 @@
 </template>
 
 <script>
+import { mapState } from 'pinia';
+import { useGeneralStore, useSelectingStore } from '../../../store';
+
 export default {
     name: 'Checkbox',
     props: {
@@ -19,12 +22,8 @@ export default {
         };
     },
     computed: {
-        selectAll() {
-            return this.$store.getters['selecting/selectAll'];
-        },
-        sorting() {
-            return this.$store.getters['general/getSorting'];
-        },
+        ...mapState(useSelectingStore, ['selectAll']),
+        ...mapState(useGeneralStore, ['sorting']),
     },
     watch: {
         selectAll() {
@@ -32,8 +31,8 @@ export default {
         },
         selected() {
             this.selected
-                ? this.$store.dispatch('selecting/select', this.id)
-                : this.$store.dispatch('selecting/deSelect', this.id);
+                ? useSelectingStore(this.$pinia).select(this.id)
+                : useSelectingStore(this.$pinia).deSelect(this.id);
         },
         sorting() {
             if (this.sorting) this.selected = false;

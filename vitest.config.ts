@@ -1,9 +1,11 @@
 import { defineConfig } from 'vitest/config';
 import vue2 from '@vitejs/plugin-vue2';
 import path from 'node:path';
+import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 
 const root = path.dirname(fileURLToPath(import.meta.url));
+const require = createRequire(import.meta.url);
 
 export default defineConfig({
     plugins: [vue2()],
@@ -17,6 +19,15 @@ export default defineConfig({
             { find: '@', replacement: path.resolve(root, 'assets/js/app') },
             // Collection.vue calls Vue.compile(), which only the full build ships.
             { find: /^vue$/, replacement: 'vue/dist/vue.esm.js' },
+            // Vue 2 only, as in webpack.config.js: pin vue-demi to its 2.7
+            // build rather than relying on its postinstall having switched it.
+            // Goes away with Pinia 3, which no longer uses vue-demi.
+            {
+                find: /^vue-demi$/,
+                replacement: require.resolve('vue-demi/lib/v2.7/index.mjs', {
+                    paths: [path.dirname(require.resolve('pinia/package.json'))],
+                }),
+            },
             // Markdown.vue's `@import '~easymde/dist/easymde.min.css'` — the webpack
             // `~` prefix means "resolve from node_modules", which Vite does natively.
             { find: /^~/, replacement: '' },
@@ -34,7 +45,11 @@ export default defineConfig({
         include: ['tests/unit/**/*.spec.ts'],
         exclude: ['**/node_modules/**', '**/tests/cypress/**'],
         // @vue/test-utils v1 is CJS and reaches for vue-template-compiler.
-        server: { deps: { inline: ['@vue/test-utils'] } },
+        // Pinia and vue-demi import `vue` themselves: inlined, so that the
+        // aliases above apply and they share the components' copy of Vue.
+        // Externalised, they would get a second copy whose reactivity the
+        // components never see. Pinia 3 drops vue-demi, and with it that entry.
+        server: { deps: { inline: ['@vue/test-utils', 'pinia', 'vue-demi'] } },
         coverage: {
             provider: 'v8',
             reporter: ['text', 'html'],
@@ -52,13 +67,6 @@ export default defineConfig({
                 'assets/js/app/sidebar/index.js',
                 'assets/js/app/toolbar/index.js',
                 'assets/js/app/login/index.js',
-                // The store singletons, for the same reason: each is a single
-                // `new Vuex.Store(...)` wired at boot. The modules they compose
-                // are covered in tests/unit/store.
-                'assets/js/app/*/store/index.js',
-                // Registered nowhere — listing/store/index.js builds itself from
-                // the general, listing and selecting modules only. Dead code.
-                'assets/js/app/listing/store/modules/type/**',
             ],
             // The gate is 90% across the board.
             //

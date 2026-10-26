@@ -89,6 +89,8 @@
 </template>
 
 <script>
+import { mapState } from 'pinia';
+import { useGeneralStore } from '../store';
 const tinycolor = require('tinycolor2');
 
 export default {
@@ -116,13 +118,11 @@ export default {
                 );
             });
         },
-        toolbarColor() {
-            return this.$store.getters['general/toolbarColor'];
-        },
+        ...mapState(useGeneralStore, ['toolbarColor']),
     },
     created() {
         const color = getComputedStyle(document.body).getPropertyValue('--admin-toolbar');
-        this.$store.dispatch('general/toolbarColor', color);
+        useGeneralStore(this.$pinia).toolbarColor = color;
     },
 };
 </script>
