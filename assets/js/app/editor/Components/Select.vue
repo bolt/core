@@ -19,24 +19,22 @@
             :loading="isLoading"
             @tag="addTag"
         >
-            <template v-if="name === 'status'" slot="singleLabel" slot-scope="props">
-                <span class="status me-2" :class="`is-${props.option.key}`"></span>
-                {{ raw(props.option.value) }}
-            </template>
             <template v-if="name === 'status'" #option="props">
                 <span class="status me-2" :class="`is-${props.option.key}`"></span>
                 {{ raw(props.option.value) }}
             </template>
 
-            <template v-if="props.option.link_to_record_url" slot="singleLabel" slot-scope="props">
-                <!-- eslint-disable vue/no-v-html -->
-                <span v-html="props.option.value"></span>
-                <!--eslint-enable-->
-                <div class="multiselect__tag__edit">
-                    <a :href="props.option.link_to_record_url" target="_blank" rel="noopener noreferrer">
-                        <i class="far fa-edit me-0"></i>
-                    </a>
-                </div>
+            <template #singleLabel="props">
+                <template v-if="props.option.link_to_record_url">
+                    <!-- eslint-disable vue/no-v-html -->
+                    <span v-html="props.option.value"></span>
+                    <!--eslint-enable-->
+                    <div class="multiselect__tag__edit">
+                        <a :href="props.option.link_to_record_url" target="_blank" rel="noopener noreferrer">
+                            <i class="far fa-edit me-0"></i>
+                        </a>
+                    </div>
+                </template>
             </template>
 
             <template v-if="name !== 'status'" #tag="props">

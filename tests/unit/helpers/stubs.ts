@@ -30,6 +30,10 @@ export const multiselectStub = {
         tagOptions(this: { value: unknown }) {
             return Array.isArray(this.value) ? this.value : [];
         },
+        /** Like vue-multiselect, which labels the first item of an array value. */
+        singleValue(this: { value: unknown }) {
+            return Array.isArray(this.value) ? this.value[0] : this.value;
+        },
     },
     methods: {
         /** Pick an option, as clicking one in the real dropdown would. */
@@ -43,8 +47,8 @@ export const multiselectStub = {
     },
     template: `
         <div class="multiselect-stub">
-            <div v-if="!multiple && value" class="stub-single-label">
-                <slot name="singleLabel" :option="value"></slot>
+            <div v-if="!multiple && singleValue" class="stub-single-label">
+                <slot name="singleLabel" :option="singleValue"></slot>
             </div>
             <div v-for="(option, index) in options" :key="'option-' + index" class="stub-option">
                 <slot name="option" :option="option"></slot>
