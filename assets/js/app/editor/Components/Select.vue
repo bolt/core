@@ -11,7 +11,7 @@
             :show-labels="false"
             :taggable="taggable"
             :disabled="readonly"
-            :data-errormessage="errormessage"
+            :data-errormessage="optionalAttribute(errormessage)"
             label="value"
             tag-placeholder="Add this as new tag"
             tag-position="bottom"
@@ -81,6 +81,7 @@
 import Multiselect from 'vue-multiselect';
 import $ from 'jquery';
 import { raw } from '../../../filters/string';
+import { optionalAttribute } from '../utils/attributes';
 
 export default {
     name: 'EditorSelect',
@@ -182,6 +183,7 @@ export default {
         }
     },
     methods: {
+        optionalAttribute,
         raw,
         addTag(newTag) {
             const tag = {

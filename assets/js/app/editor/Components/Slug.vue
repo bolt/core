@@ -13,8 +13,8 @@
                 :class="fieldClass"
                 :readonly="readonly || !edit"
                 :required="required"
-                :data-errormessage="errormessage"
-                :pattern="pattern"
+                :data-errormessage="optionalAttribute(errormessage)"
+                :pattern="optionalAttribute(pattern)"
                 :title="name"
             />
             <div class="input-group-append">
@@ -53,6 +53,7 @@
 <script>
 import field from '../mixins/value';
 import { slugify } from '../../../filters/string';
+import { optionalAttribute } from '../utils/attributes';
 
 export default {
     name: 'EditorSlug',
@@ -95,6 +96,7 @@ export default {
         this.$root.$on('slugify-from-title', () => this.generateSlug());
     },
     methods: {
+        optionalAttribute,
         shouldGenerateFromTitle(title) {
             return this.isNew ? true : title.length <= 0 && this.localize;
         },

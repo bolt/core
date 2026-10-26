@@ -11,8 +11,8 @@
             :disabled="disabled"
             :required="required"
             :readonly="readonly"
-            :data-errormessage="errormessage"
-            :pattern="pattern"
+            :data-errormessage="optionalAttribute(errormessage)"
+            :pattern="optionalAttribute(pattern)"
             :placeholder="placeholder"
             :autofocus="autofocus == true"
         />
@@ -21,6 +21,7 @@
 
 <script>
 import field from '../mixins/value';
+import { optionalAttribute } from '../utils/attributes';
 
 export default {
     name: 'EditorText',
@@ -61,6 +62,9 @@ export default {
     },
     mounted() {
         this.$root.$on('generate-from-title', data => (this.generate = data));
+    },
+    methods: {
+        optionalAttribute,
     },
 };
 </script>

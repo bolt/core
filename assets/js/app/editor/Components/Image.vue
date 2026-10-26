@@ -30,7 +30,7 @@
                         :value="filenameData"
                         data-readonly="readonly"
                         :required="required"
-                        :data-errormessage="errormessage"
+                        :data-errormessage="optionalAttribute(errormessage)"
                     />
                 </div>
                 <div v-if="includeAlt" class="input-group mb-3">
@@ -45,7 +45,7 @@
                             :name="name + '[alt]'"
                             type="text"
                             :readonly="readonly"
-                            :pattern="pattern"
+                            :pattern="optionalAttribute(pattern)"
                             :placeholder="getPlaceholder"
                         />
                     </div>
@@ -198,6 +198,7 @@ import Axios from 'axios';
 import { Modal } from 'bootstrap';
 import { renable } from '../../patience-is-a-virtue';
 import { resetModalContent } from '../../modal';
+import { optionalAttribute } from '../utils/attributes';
 
 export default {
     name: 'EditorImage',
@@ -276,6 +277,7 @@ export default {
         });
     },
     methods: {
+        optionalAttribute,
         resetImage() {
             if (!this.filenameData) {
                 this.previewImage = null;

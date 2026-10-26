@@ -476,4 +476,20 @@ describe('EditorImage', () => {
     // editor/utils/serverFileBrowser.ts and reads the server's message.
     // That module does not exist on this branch.
     it.todo('surfaces the server message when a browse failure is a real AxiosError');
+
+    it('omits optional attributes when they are unset or false', () => {
+        // Twig passes `false` for an unset pattern, placeholder or error message.
+        const wrapper = mountImage({ pattern: false, placeholder: false, errormessage: false });
+
+        expect(wrapper.find(filenameInput).attributes('data-errormessage')).toBeUndefined();
+        expect(wrapper.find(altInput).attributes('pattern')).toBeUndefined();
+        expect(wrapper.find(altInput).attributes('placeholder')).toBe(labels.placeholder_alt_text);
+    });
+
+    it('binds the optional attributes where they apply when set', () => {
+        const wrapper = mountImage({ pattern: '[a-z ]+', errormessage: 'Pick an image' });
+
+        expect(wrapper.find(filenameInput).attributes('data-errormessage')).toBe('Pick an image');
+        expect(wrapper.find(altInput).attributes('pattern')).toBe('[a-z ]+');
+    });
 });

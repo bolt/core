@@ -9,7 +9,7 @@
                 :form="form"
                 :name="name"
                 placeholder="Select date"
-                :data-errormessage="errormessage"
+                :data-errormessage="optionalAttribute(errormessage)"
             >
             </flat-pickr>
             <button
@@ -46,6 +46,7 @@
 import $ from 'jquery';
 import value from '../mixins/value';
 import flatPickr from 'vue-flatpickr-component';
+import { optionalAttribute } from '../utils/attributes';
 
 export default {
     name: 'EditorDate',
@@ -124,6 +125,7 @@ export default {
     },
 
     methods: {
+        optionalAttribute,
         fixRequired() {
             if (!this.required) {
                 return;

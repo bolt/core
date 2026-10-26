@@ -16,6 +16,7 @@ describe('EditorNumber', () => {
                 required: true,
                 readonly: false,
                 errormessage: 'Out of range',
+                pattern: '[0-9]+',
                 placeholder: 'Weight',
             },
         });
@@ -33,6 +34,7 @@ describe('EditorNumber', () => {
         expect(input.attributes('max')).toBe('100');
         expect(input.attributes('required')).toBeDefined();
         expect(input.attributes('data-errormessage')).toBe('Out of range');
+        expect(input.attributes('pattern')).toBe('[0-9]+');
         expect(input.attributes('placeholder')).toBe('Weight');
     });
 
@@ -62,5 +64,15 @@ describe('EditorNumber', () => {
         await wrapper.setProps({ placeholder: 'Changed' });
 
         expect((wrapper.find('input').element as HTMLInputElement).value).toBe('99');
+    });
+
+    it('omits the error message and pattern when they are false', () => {
+        const wrapper = mount(NumberField, {
+            propsData: { value: '1', name: 'fields[weight]', errormessage: false, pattern: false },
+        });
+
+        const input = wrapper.find('input');
+        expect(input.attributes('data-errormessage')).toBeUndefined();
+        expect(input.attributes('pattern')).toBeUndefined();
     });
 });

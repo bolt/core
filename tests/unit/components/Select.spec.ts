@@ -285,4 +285,13 @@ describe('EditorSelect', () => {
     // Only passes after 8d54e750. addTag pushes unconditionally, so tagging
     // a single-select field ends up with two selected items.
     it.todo('replaces the selection when tagging in single-select mode');
+
+    it('hands the error message to the picker only when there is one', async () => {
+        const withMessage = mountSelect();
+        const without = mountSelect({ errormessage: false });
+        await nextTick();
+
+        expect(picker(withMessage).attributes('data-errormessage')).toBe('Pick one');
+        expect(picker(without).attributes('data-errormessage')).toBeUndefined();
+    });
 });

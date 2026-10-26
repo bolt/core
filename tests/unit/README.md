@@ -59,7 +59,7 @@ regression baseline rather than a round of manual clicking.
     app/            the non-component scripts (common, ajax-save, modal,
                     notifications, patience-is-a-virtue, save-on-ctrl-s)
     components/     the SFCs, mirroring assets/js/app/
-    filters/  services/  store/  mixins/
+    filters/  services/  store/  mixins/  utils/
 
 ## Notes for the Vue 3 upgrade
 

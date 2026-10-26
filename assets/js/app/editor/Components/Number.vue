@@ -11,8 +11,8 @@
             :max="max"
             :required="required"
             :readonly="readonly"
-            :data-errormessage="errormessage"
-            :pattern="pattern"
+            :data-errormessage="optionalAttribute(errormessage)"
+            :pattern="optionalAttribute(pattern)"
             :placeholder="placeholder"
         />
     </div>
@@ -20,6 +20,7 @@
 
 <script>
 import val from '../mixins/value';
+import { optionalAttribute } from '../utils/attributes';
 
 export default {
     name: 'EditorNumber',
@@ -38,6 +39,9 @@ export default {
         errormessage: String | Boolean, //string if errormessage is set, and false otherwise
         pattern: String | Boolean,
         placeholder: String | Boolean,
+    },
+    methods: {
+        optionalAttribute,
     },
 };
 </script>

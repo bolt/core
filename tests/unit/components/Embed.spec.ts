@@ -294,4 +294,11 @@ describe('EditorEmbed', () => {
         expect(wrapper.find('input[name="fields[video][width]"]').attributes('readonly')).toBeDefined();
         expect(wrapper.find('button.remove').attributes('disabled')).toBeUndefined();
     });
+
+    it('omits the error message and pattern when they are false', () => {
+        const wrapper = mountEmbed({ errormessage: false, pattern: false });
+
+        expect(urlInput(wrapper).attributes('data-errormessage')).toBeUndefined();
+        expect(urlInput(wrapper).attributes('pattern')).toBeUndefined();
+    });
 });

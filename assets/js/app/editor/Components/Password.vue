@@ -10,8 +10,8 @@
                 :value="value"
                 :required="required"
                 :readonly="readonly"
-                :data-errormessage="errormessage"
-                :pattern="pattern"
+                :data-errormessage="optionalAttribute(errormessage)"
+                :pattern="optionalAttribute(pattern)"
                 :placeholder="placeholder"
                 autocomplete="new-password"
                 @input="measureStrength"
@@ -28,6 +28,7 @@
 <script>
 import ProgressBar from './ProgressBar';
 import $ from 'jquery';
+import { optionalAttribute } from '../utils/attributes';
 
 export default {
     name: 'EditorPassword',
@@ -60,6 +61,7 @@ export default {
     },
 
     methods: {
+        optionalAttribute,
         togglePassword(event) {
             const iconElement = event.target;
             const inputElement = $('#' + this.id)[0];

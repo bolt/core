@@ -228,4 +228,13 @@ describe('EditorSlug', () => {
     // 'slugify-from-title' with no payload, so every Slug on the page
     // regenerates whenever any Text field changes — see 3778f430.
     it.todo('only responds to the title fields it is scoped to');
+
+    it('omits the error message and pattern when they are false', async () => {
+        withTitleFields({ title: 'A page' });
+        const wrapper = mountSlug({ errormessage: false, pattern: false });
+        await settle();
+
+        expect(wrapper.find('input').attributes('data-errormessage')).toBeUndefined();
+        expect(wrapper.find('input').attributes('pattern')).toBeUndefined();
+    });
 });
