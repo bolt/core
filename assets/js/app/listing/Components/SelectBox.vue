@@ -101,6 +101,9 @@ export default {
             return '';
         },
         ...mapState(useSelectingStore, ['selectedCount', 'selected']),
+        // Dead code: nothing reads or submits `order`. It belongs to the
+        // unfinished drag-and-drop sorting of records, like the commented-out
+        // toggle in Filter.vue and the unused _Sorting.vue handle.
         ...mapState(useListingStore, {
             order: store => store.records.map(record => record.id),
         }),
