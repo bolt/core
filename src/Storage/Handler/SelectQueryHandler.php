@@ -80,7 +80,7 @@ class SelectQueryHandler
         if ($page === null) {
             // If we don't have $request, we're likely not in a web context.
             if ($request) {
-                $page = (int) $request->get('page', 1);
+                $page = (int) $request->query->get('page', 1);
             } else {
                 $page = 1;
             }
