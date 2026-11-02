@@ -278,6 +278,16 @@
         <target>E-Mail-Adresse</target>
       </segment>
     </unit>
+    <unit id="D2N7_cP" name="label.about">
+      <notes>
+        <note>src/Form/UserType.php:38</note>
+        <note>new</note>
+      </notes>
+      <segment>
+        <source>label.about</source>
+        <target>Über den Benutzer</target>
+      </segment>
+    </unit>
     <unit id="OBmPOoB" name="user.updated_successfully">
       <notes>
         <note category="file-source" priority="1">bolt-core/src/Controller/Backend/UserEditController.php:157</note>
