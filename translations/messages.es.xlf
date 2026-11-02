@@ -190,6 +190,16 @@
         <target>Correo electrónico</target>
       </segment>
     </unit>
+    <unit id="D2N7_cP" name="label.about">
+      <notes>
+        <note>src/Form/UserType.php:38</note>
+        <note>new</note>
+      </notes>
+      <segment>
+        <source>label.about</source>
+        <target>Acerca del usuario</target>
+      </segment>
+    </unit>
     <unit id="IB0mNQh" name="content.created_successfully">
       <segment>
         <source>content.created_successfully</source>
