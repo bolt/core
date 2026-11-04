@@ -67,7 +67,7 @@
         "@babel/preset-env": "^7.23.2",
         "@eslint/js": "^10.0.1",
         "@fortawesome/fontawesome-free": "^5.15.4",
-        "@symfony/webpack-encore": "^1.8.2",
+        "@symfony/webpack-encore": "^7.2.0",
         "@testing-library/cypress": "^10.1.3",
         "ajv-keywords": "^3.5.2",
         "autoprefixer": "^10.4.16",
