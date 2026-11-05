@@ -7,6 +7,7 @@ Axios.defaults.headers.common = {
     accept: 'application/vnd.api+json',
 };
 
+import './locale';
 import './jquery';
 import './codemirror';
 import './filters';
