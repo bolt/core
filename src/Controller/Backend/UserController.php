@@ -31,12 +31,12 @@ class UserController extends TwigAwareController implements BackendZoneInterface
     public function users(Request $request, Query $query): Response
     {
         $order = 'username';
-        if ($request->get('sortBy')) {
+        if ($request->query->get('sortBy')) {
             $order = $this->getFromRequest($request, 'sortBy');
         }
 
         $like = '';
-        if ($request->get('filter')) {
+        if ($request->query->get('filter')) {
             $like = '%' . $this->getFromRequest($request, 'filter') . '%';
         }
 

@@ -28,13 +28,13 @@ class SelectOptionsController extends AbstractController implements AsyncZoneInt
     #[Route(path: '/select-options', name: 'bolt_async_select_options', methods: [Request::METHOD_GET])]
     public function handleSelectOptions(Request $request): JsonResponse
     {
-        [$contentTypeSlug, $format] = explode('/', (string) $request->get('values'));
+        [$contentTypeSlug, $format] = explode('/', (string) $request->query->get('values'));
 
-        if (empty($maxAmount = $request->get('limit'))) {
+        if (empty($maxAmount = $request->query->get('limit'))) {
             $maxAmount = $this->config->get('general/maximum_listing_select', 200);
         }
 
-        $order = $request->get('order');
+        $order = $request->query->get('order');
 
         $options = [];
 
@@ -56,7 +56,7 @@ class SelectOptionsController extends AbstractController implements AsyncZoneInt
             'order' => $order,
         ];
 
-        $field = $this->fieldExtension->fieldFactory($request->get('name'));
+        $field = $this->fieldExtension->fieldFactory($request->query->get('name'));
 
         $options = array_merge($options, $this->fieldExtension->selectOptionsHelper($contentTypeSlug, $params, $field, $format));
 

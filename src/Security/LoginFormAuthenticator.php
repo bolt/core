@@ -63,8 +63,12 @@ class LoginFormAuthenticator extends AbstractAuthenticator implements Authentica
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
         // @todo: Allow different roles to redirect to different pages on success.
-        if ($request->get('_target_path', false)) {
-            $fallback = $request->get('_target_path');
+        $targetPath = $request->attributes->get(
+            '_target_path',
+            $request->query->get('_target_path', $request->request->get('_target_path', false))
+        );
+        if ($targetPath) {
+            $fallback = $targetPath;
         } elseif ($this->security->isGranted('dashboard')) {
             $fallback = $this->router->generate('bolt_dashboard');
         } else {

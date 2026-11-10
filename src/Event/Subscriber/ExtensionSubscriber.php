@@ -46,6 +46,7 @@ class ExtensionSubscriber implements EventSubscriberInterface
         if ($controller instanceof ExtensionController) {
             $controller->injectObjects([
                 'manager' => $this->objectManager,
+                'container' => $this->container,
                 'query' => $this->query,
             ]);
         }
