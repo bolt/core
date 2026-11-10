@@ -64,6 +64,9 @@ jobs:
           - name: Check XLIFF translation files
             run: bin/console lint:xliff translations --ansi
 
+          - name: Validate translation catalogues
+            run: php bin/validate-translations
+
           - name: Check Doctrine Mapping
             run: bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction --ansi
 
