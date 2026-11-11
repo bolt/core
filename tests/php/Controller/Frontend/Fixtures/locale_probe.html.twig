@@ -1,0 +1,3 @@
+{# Probe for ErrorControllerTest: `http_error.name` is "Error %status_code%" (en),
+   "Fout %status_code%" (nl), "Errore %status_code%" (it). #}
+LOCALE_PROBE:{{ __('http_error.name', {'%status_code%': 404}) }}

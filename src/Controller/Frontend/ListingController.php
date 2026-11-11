@@ -45,8 +45,9 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
         }
 
         // If the locale is the wrong locale
-        if (! $this->validLocaleForContentType($request, $contentType)) {
-            return $this->redirectToDefaultLocale($request);
+        if (! $this->validLocaleForContentType($request, $contentType)
+            && ($redirect = $this->redirectToDefaultLocaleOrFallback($request)) instanceof Response) {
+            return $redirect;
         }
 
         $page = (int) $this->getFromRequest($request, 'page', '1');
