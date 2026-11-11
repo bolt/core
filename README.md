@@ -53,8 +53,8 @@ For **development** of Bolt CMS itself, check out the [setup guide](./SETUP.md)
 There are multiple ways to help the Bolt project going forward:
 
 * Star this repository
-* Learn how to [spread the word](https://docs.bolt.cm/other/contributing)
-* Help by writing and [contributing code or documentation](https://docs.bolt.cm/other/contributing)
+* Learn how to [spread the word](https://docs.boltcms.io/other/contributing)
+* Help by writing and [contributing code or documentation](https://docs.boltcms.io/other/contributing)
 
 
 ## Credits
