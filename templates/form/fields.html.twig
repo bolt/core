@@ -28,6 +28,7 @@
 {% block password_with_preview_row %}
     {% set name = full_name %}
     {% set label = label|trans %}
+    {% set placeholder = attr.placeholder|default('')|trans %}
 
     {% include '@bolt/_partials/fields/password.html.twig' %}
 {% endblock %}
