@@ -83,7 +83,7 @@
         "genversion": "^2.3.1",
         "globals": "^17.9.0",
         "html-webpack-plugin": "^5.6.8",
-        "pa11y-ci": "^4.1",
+        "pa11y-ci": "^5.0",
         "postcss-loader": "^4.3.0",
         "postcss-preset-env": "^7.8.3",
         "postcss-scss": "^4.0.9",
