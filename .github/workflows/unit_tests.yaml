@@ -10,7 +10,7 @@ jobs:
   unittests:
     strategy:
       matrix:
-        php-version: [ '8.2', '8.3', '8.4' ]
+        php-version: [ '8.2', '8.3', '8.4', '8.5' ]
       fail-fast: false
     name: PHPUnit
     runs-on: ubuntu-latest

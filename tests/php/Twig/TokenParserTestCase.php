@@ -29,7 +29,6 @@ abstract class TokenParserTestCase extends TestCase
         $parser->setParent(new Node());
 
         $p = new ReflectionProperty($parser, 'stream');
-        $p->setAccessible(true);
         $p->setValue($parser, $tokenStream);
 
         return $parser;
